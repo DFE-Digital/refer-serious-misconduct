@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Staff::InvitationsController < Devise::InvitationsController
+  protect_from_forgery prepend: true
+
   # GET /resource/invitation/new
   # def new
   #   super
