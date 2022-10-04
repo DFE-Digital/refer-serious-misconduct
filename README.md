@@ -16,7 +16,7 @@ A service that allows people to report a teacher for serious misconduct.
 
 ## How the application works
 
-Refer Serious Misconduct is a monolithic Rails app built with the GOVUK Design System.
+Refer serious misconduct is a monolithic Rails app built with the GOVUK Design System.
 
 We keep track of architecture decisions in [Architecture Decision Records
 (ADRs)](/adr/).
