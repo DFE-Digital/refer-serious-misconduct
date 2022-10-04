@@ -1,6 +1,6 @@
 # Refer Serious Misconduct
 
-A step-by-step guide to reporting a teacher for serious misconduct.
+A service that allows people to report a teacher for serious misconduct.
 
 ## Dependencies
 
