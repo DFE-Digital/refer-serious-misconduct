@@ -5,6 +5,7 @@ ruby "3.1.2"
 
 gem "bootsnap", require: false
 gem "cssbundling-rails"
+gem "feature_flags", path: "lib/feature_flags"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "jsbundling-rails"
@@ -35,9 +36,6 @@ end
 group :test do
   gem "capybara"
   gem "cuprite"
-end
-
-group :test do
   gem "rspec"
   gem "rspec-rails"
   gem "shoulda-matchers"
