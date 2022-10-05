@@ -1,3 +1,4 @@
 #!/bin/sh
 
 bundle exec rspec --format documentation
+cd lib/feature_flags && bin/rails spec
