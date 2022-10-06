@@ -29,9 +29,5 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir["spec/**/*"]
 
   spec.add_dependency "rails", ">= 7.0.4"
-  spec.add_development_dependency "capybara"
-  spec.add_development_dependency "factory_bot_rails"
-  spec.add_development_dependency "rspec-rails", "~> 5.1.2"
   spec.add_development_dependency "rubocop-govuk"
-  spec.add_development_dependency "shoulda-matchers", "~> 5.0"
 end

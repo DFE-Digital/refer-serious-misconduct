@@ -1,1 +1,3 @@
-Rails.application.routes.draw { mount FeatureFlags::Engine => "/feature_flags" }
+Rails.application.routes.draw do
+  mount FeatureFlags::Engine, at: "/feature_flags", as: "feature_flags"
+end

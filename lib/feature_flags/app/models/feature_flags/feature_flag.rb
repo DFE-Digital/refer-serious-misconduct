@@ -10,13 +10,26 @@ module FeatureFlags
       Feature.find_or_initialize_by(name:)
     end
 
-    FEATURES = FeatureFlags.config.fetch("feature_flags", {}).to_h { |name, values|
-      [name, FeatureFlag.new(author: values['author'], description: values['description'], name:)]
-    }
-    .with_indifferent_access
-    .freeze
+    FEATURES =
+      FeatureFlags
+        .config
+        .fetch("feature_flags", {})
+        .to_h { |name, values|
+          [
+            name,
+            FeatureFlag.new(
+              author: values["author"],
+              description: values["description"],
+              name:,
+            ),
+          ]
+        }
+        .with_indifferent_access
+        .freeze
 
     def self.activate(feature_name)
+      Rails.logger.debug "Activating feature #{feature_name}"
+      Rails.logger.debug FEATURES
       raise unless FEATURES.key?(feature_name)
 
       sync_with_database(feature_name, true)
