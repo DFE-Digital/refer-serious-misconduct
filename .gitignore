@@ -19,3 +19,8 @@ node_modules
 public/assets
 tmp/*
 tmp/pids/*
+
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
