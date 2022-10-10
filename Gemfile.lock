@@ -342,11 +342,8 @@ DEPENDENCIES
   cssbundling-rails
   cuprite
   debug
-<<<<<<< HEAD
   dotenv-rails (~> 2.8)
-=======
   feature_flags!
->>>>>>> 17370ac (Initialise a Rails engine for the feature flags)
   govuk-components
   govuk_design_system_formbuilder
   jsbundling-rails

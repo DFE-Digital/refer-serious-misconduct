@@ -18,7 +18,7 @@ module FeatureFlags
       redirect_to feature_flags_path
     end
 
-  private
+    private
 
     def feature_name
       params[:id].humanize

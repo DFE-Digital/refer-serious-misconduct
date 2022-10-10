@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get "/", to: "support_interface#index"
   end
 
+  mount FeatureFlags::Engine => "/feature_flags" if Rails.env.development?
+
   scope via: :all do
     get "/404", to: "errors#not_found"
     get "/422", to: "errors#unprocessable_entity"
