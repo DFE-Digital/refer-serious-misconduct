@@ -8,14 +8,14 @@ module FeatureFlags
       FeatureFlags::FeatureFlag.activate(params[:id])
 
       flash[:success] = "Feature “#{feature_name}” activated"
-      redirect_to feature_flags_path
+      redirect_to root_path
     end
 
     def deactivate
       FeatureFlags::FeatureFlag.deactivate(params[:id])
 
       flash[:success] = "Feature “#{feature_name}” deactivated"
-      redirect_to feature_flags_path
+      redirect_to root_path
     end
 
     private

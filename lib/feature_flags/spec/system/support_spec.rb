@@ -22,7 +22,7 @@ private
   end
 
   def when_i_visit_the_feature_flags_page
-    visit feature_flags.feature_flags_root_path
+    visit feature_flags.root_path
   end
 
   def when_i_activate_the_service_open_feature_flag
@@ -39,11 +39,11 @@ private
 
   def then_the_service_open_flag_is_on
     expect(page).to have_content("Feature “Service open” activated")
-    expect(page).to have_content("Service open - Active")
+    expect(page).to have_content("Service open\n- Active")
   end
 
   def then_the_service_open_flag_is_off
     expect(page).to have_content("Feature “Service open” deactivated")
-    expect(page).to have_content("Service open - Inactive")
+    expect(page).to have_content("Service open\n- Inactive")
   end
 end

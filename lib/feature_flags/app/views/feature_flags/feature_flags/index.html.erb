@@ -28,9 +28,7 @@
   <%= govuk_summary_list(rows: rows) %>
   <% if FeatureFlags::FeatureFlag.active?(feature_name) then %>
     <%= form_with(url: deactivate_feature_flag_path(feature_name), method: :patch) do |f| %>
-      <%= form_with(url: deactivate_feature_flag_path(feature_name)) do |f| %>
-        <%= f.govuk_submit 'Deactivate ' + feature_name.humanize, prevent_double_click: false %>
-      <% end %>
+      <%= f.govuk_submit 'Deactivate ' + feature_name.humanize, prevent_double_click: false %>
     <% end %>
   <% else %>
     <%= form_with(url: activate_feature_flag_path(feature_name), method: :patch) do |f| %>

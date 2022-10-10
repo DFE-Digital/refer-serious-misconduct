@@ -4,7 +4,7 @@ FeatureFlags::Engine.routes.draw do
       patch :activate
       patch :deactivate
     end
-
-    root to: "feature_flags#index"
   end
+
+  root to: "feature_flags#index"
 end

@@ -29,5 +29,6 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir["spec/**/*"]
 
   spec.add_dependency "rails", ">= 7.0.4"
+  spec.add_development_dependency "cssbundling-rails"
   spec.add_development_dependency "rubocop-govuk"
 end
