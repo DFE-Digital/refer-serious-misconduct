@@ -1,34 +1,25 @@
 # FeatureFlags
 
-Short description and motivation.
-
-## Usage
-
-How to use my plugin.
+A simple implementation of feature flags that are persisted in the database and controlled via
+a basic admin UI.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1. Add `feature_flags` gem to your `Gemfile`
+1. Run `rails feature_flags:install:migrations`
+1. Run `rails db:migrate`
+1. Mount the engine in the appropriate place in your routes file: eg. `mount FeatureFlags::Engine => "/features"`
 
-```ruby
-gem "feature_flags"
+## Usage
+
+Define your feature flags in `config/feature_flags.yml`
+
+```yaml
+feature_flags:
+  service_open:
+    author: Your name
+    description: Allow users to access the service
 ```
-
-And then execute:
-
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-
-```bash
-$ gem install feature_flags
-```
-
-## Contributing
-
-Contribution directions go here.
 
 ## License
 

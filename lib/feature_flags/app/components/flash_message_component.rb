@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FlashMessageComponent < ViewComponent::Base
   ALLOWED_PRIMARY_KEYS = %i[info warning success].freeze
   DEVISE_PRIMARY_KEYS = { alert: :warning, notice: :info }.freeze

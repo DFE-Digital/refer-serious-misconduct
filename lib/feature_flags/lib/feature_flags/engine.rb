@@ -9,7 +9,7 @@ module FeatureFlags
 
     if defined?(FactoryBotRails)
       config.factory_bot.definition_file_paths += [
-        File.expand_path("../../spec/factories", __dir__),
+        File.expand_path("../../spec/factories", __dir__)
       ]
     end
   end

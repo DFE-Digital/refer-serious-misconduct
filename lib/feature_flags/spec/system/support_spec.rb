@@ -15,7 +15,7 @@ RSpec.describe "Feature Flags", type: :system do
     then_the_service_open_flag_is_off
   end
 
-private
+  private
 
   def given_there_is_a_feature
     create(:feature)

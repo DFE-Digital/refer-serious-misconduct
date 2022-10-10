@@ -1,1 +1,4 @@
+!app/assets/builds/.keep
+app/assets/builds/*
 spec/dummy/tmp/
+node_modules

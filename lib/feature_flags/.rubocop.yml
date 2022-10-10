@@ -3,14 +3,29 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
+
 inherit_mode:
   merge:
     - Exclude
 
-Style/NumericLiterals:
+Lint/SuppressedException:
   Exclude:
-    - db/schema.rb
+    - lib/feature_flags/engine.rb
 
 Rails/Exit:
   Exclude:
     - spec/rails_helper.rb
+
+Style/BlockDelimiters:
+  Exclude:
+    - app/models/feature_flags/feature_flag.rb
+
+Style/MethodCalledOnDoEndBlock:
+  Exclude:
+    - app/models/feature_flags/feature_flag.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - db/schema.rb

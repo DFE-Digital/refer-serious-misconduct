@@ -14,22 +14,20 @@ module FeatureFlags
       FeatureFlags
         .config
         .fetch("feature_flags", {})
-        .to_h { |name, values|
+        .to_h do |name, values|
           [
             name,
             FeatureFlag.new(
               author: values["author"],
               description: values["description"],
-              name:,
-            ),
+              name:
+            )
           ]
-        }
+        end
         .with_indifferent_access
         .freeze
 
     def self.activate(feature_name)
-      Rails.logger.debug "Activating feature #{feature_name}"
-      Rails.logger.debug FEATURES
       raise unless FEATURES.key?(feature_name)
 
       sync_with_database(feature_name, true)

@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name = "feature_flags"
   spec.version = FeatureFlags::VERSION
   spec.authors = ["Felix Clack"]
-  spec.email = ["felixclack@gmail.com"]
+  spec.email = ["felix.clack@digital.education.gov.uk"]
   spec.homepage = "https://github.com/DFEDigital/refer-serious-misconduct"
   spec.summary = "Summary of FeatureFlags."
   spec.description = "Description of FeatureFlags."

@@ -13,11 +13,3 @@ inherit_mode:
 Style/NumericLiterals:
   Exclude:
     - db/schema.rb
-
-Style/BlockDelimiters:
-  Exclude:
-    - app/services/feature_flag.rb
-
-Style/MethodCalledOnDoEndBlock:
-  Exclude:
-    - app/services/feature_flag.rb
