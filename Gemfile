@@ -7,6 +7,9 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "govuk_feature_flags",
+    git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
+    branch: "main"
 gem "jsbundling-rails"
 gem "pg", "~> 1.4"
 gem "propshaft"
