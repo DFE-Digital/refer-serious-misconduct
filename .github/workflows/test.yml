@@ -36,9 +36,6 @@ jobs:
       - name: Prepare application environment
         uses: ./.github/actions/prepare-app-env
 
-      - name: Build frontend
-        run: bin/rails assets:precompile
-
       - name: Setup DB
         run: bin/rails db:prepare
 
