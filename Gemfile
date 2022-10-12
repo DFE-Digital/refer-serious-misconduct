@@ -17,6 +17,7 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails", "~> 2.8"
+  gem "rspec-rails"
 end
 
 group :development do
@@ -39,6 +40,5 @@ end
 
 group :test do
   gem "rspec"
-  gem "rspec-rails"
   gem "shoulda-matchers"
 end
