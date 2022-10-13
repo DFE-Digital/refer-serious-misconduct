@@ -20,7 +20,7 @@ RSpec.describe "Service wizard", type: :system do
   def then_i_see_the_confirmation_page
     expect(page).to have_current_path("/confirmation")
     expect(page).to have_title(
-      "We have received your report of serious misconduct - Report serious misconduct by a teacher"
+      "We have received your report of serious misconduct - Refer serious misconduct by a teacher"
     )
     expect(page).to have_content(
       "We have received your report of serious misconduct"
@@ -29,8 +29,8 @@ RSpec.describe "Service wizard", type: :system do
 
   def then_i_see_the_start_page
     expect(page).to have_current_path("/start")
-    expect(page).to have_title("Report serious misconduct by a teacher")
-    expect(page).to have_content("Report serious misconduct by a teacher")
+    expect(page).to have_title("Refer serious misconduct by a teacher")
+    expect(page).to have_content("Refer serious misconduct by a teacher")
   end
 
   def when_i_press_start
