@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: redirect("/start")
 
-  get "/confirmation", to: "pages#confirmation"
+  get "/complete", to: "pages#complete"
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
