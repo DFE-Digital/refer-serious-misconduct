@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
+  get "/you-should-know", to: "pages#you_should_know"
 
   namespace :support_interface, path: "/support" do
     get "/", to: "support_interface#index"

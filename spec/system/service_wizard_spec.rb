@@ -13,6 +13,9 @@ RSpec.describe "Service wizard", type: :system do
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
 
+    then_i_see_the_you_should_know_page
+    when_i_press_continue
+
     then_i_see_the_completion_page
   end
 
@@ -53,6 +56,14 @@ RSpec.describe "Service wizard", type: :system do
     expect(page).to have_content(
       "Are you reporting as an employer or member of the public?"
     )
+  end
+
+  def then_i_see_the_you_should_know_page
+    expect(page).to have_current_path("/you-should-know")
+    expect(page).to have_title(
+      "What completing this report means for you - Refer serious misconduct by a teacher"
+    )
+    expect(page).to have_content("What completing this report means for you")
   end
 
   def then_i_see_the_start_page
