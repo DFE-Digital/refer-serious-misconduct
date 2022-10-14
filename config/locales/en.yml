@@ -3,3 +3,11 @@ en:
     name: Refer serious misconduct by a teacher
     email: misconduct.teacher@education.gov.uk
     phone: 020 7593 5393
+
+  activemodel:
+    errors:
+      models:
+        reporting_as_form:
+          attributes:
+            reporting_as:
+              blank: Tell us if you are reporting as an employer or a member of the public

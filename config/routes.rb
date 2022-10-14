@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "/confirmation", to: "pages#confirmation"
   get "/start", to: "pages#start"
+  get "/who", to: "reporting_as#new"
+  post "/who", to: "reporting_as#create"
 
   namespace :support_interface, path: "/support" do
     get "/", to: "support_interface#index"
