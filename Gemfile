@@ -11,6 +11,7 @@ gem "govuk_feature_flags",
     git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
     branch: "main"
 gem "jsbundling-rails"
+gem "okcomputer", "~> 1.18"
 gem "pg", "~> 1.4"
 gem "propshaft"
 gem "puma", "~> 5.0"
