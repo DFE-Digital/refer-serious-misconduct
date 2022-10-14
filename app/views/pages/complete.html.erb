@@ -1,0 +1,31 @@
+<% content_for :page_title, 'You need to complete a referral form' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">You need to complete a referral form</h1>
+
+    <p class="govuk_body">
+      Based on what you've told us, you need to fill out the teacher misconduct
+      referral form for use by <%= @eligibility_check.reporting_as_employer? ? "employers" : "members of the public" %>.
+    </p>
+
+    <h2 class="govuk-heading-m">What you need to do next</h2>
+
+    <p class="govuk_body">Download the referral form:</p>
+
+    <p class="govuk_body">
+      <%= link_to_referral_form_for(@eligibility_check.reporting_as) %>
+    </p>
+    <p class="govuk_body">
+      Fill out the form, and email it to:<br><%= mail_to t('service.email') %>
+    </p>
+
+    <h2 class="govuk-heading-m">Contacting TRA about this report</h2>
+
+    <p class="govuk_body">
+      Call <%= t('service.phone') %> or email:<br>
+      <%= mail_to t('service.email') %>
+    </p>
+    <p class="govuk_body">Monday to Friday, 9am to 5pm (except public holidays)</p>
+  </div>
+</div>

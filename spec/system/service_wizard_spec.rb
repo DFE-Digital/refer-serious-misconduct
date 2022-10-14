@@ -13,7 +13,7 @@ RSpec.describe "Service wizard", type: :system do
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
 
-    then_i_see_the_confirmation_page
+    then_i_see_the_completion_page
   end
 
   it "form errors" do
@@ -37,14 +37,12 @@ RSpec.describe "Service wizard", type: :system do
     expect(page).to have_content("There is a problem")
   end
 
-  def then_i_see_the_confirmation_page
-    expect(page).to have_current_path("/confirmation")
+  def then_i_see_the_completion_page
+    expect(page).to have_current_path("/complete")
     expect(page).to have_title(
-      "We have received your report of serious misconduct - Refer serious misconduct by a teacher"
+      "You need to complete a referral form - Refer serious misconduct by a teacher"
     )
-    expect(page).to have_content(
-      "We have received your report of serious misconduct"
-    )
+    expect(page).to have_content("You need to complete a referral form")
   end
 
   def then_i_see_the_employer_or_public_question

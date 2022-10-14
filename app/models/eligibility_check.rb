@@ -9,4 +9,8 @@
 #
 class EligibilityCheck < ApplicationRecord
   validates :reporting_as, presence: true
+
+  def reporting_as_employer?
+    reporting_as&.to_sym == :employer
+  end
 end
