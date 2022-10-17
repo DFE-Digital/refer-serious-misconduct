@@ -1,0 +1,63 @@
+<% content_for :page_title, "#{'Error: ' if @serious_misconduct_form.errors.any?}Does the allegation involve serious misconduct?" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @serious_misconduct_form, url: serious_url, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <h1 class="govuk-heading-xl">Does the allegation involve serious misconduct?</h1>
+      <p class="govuk_body">Serious misconduct is unacceptable behaviour that:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>falls significantly short of the standards expected of a teacher </li>
+        <li>brings the teaching profession into disrepute</li>
+        <li>affects the way someone performs their teaching role</li>
+      </ul>
+      <p class="govuk_body">
+        If the person is convicted of a relevant offence at any time, this is also serious misconduct.
+      </p>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Show examples of serious misconduct and relevant offences
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          
+          <p class="govuk_body">Examples might include:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>committing a criminal offence that results in imprisonment (including a suspended sentence)</li>
+            <li>violence</li>
+            <li>terrorism</li>
+            <li>inappropriate sexual activity</li>
+            <li>voyeurism (including upskirting)</li>
+            <li>revenge pornography (sharing private, sexual materials, either photos or videos, of another person without their consent)</li>
+            <li>sexual communication with a child</li>
+            <li>viewing, taking, making, possessing, distributing or publishing any indecent photograph or image of a child (or permitting any such activity)</li>
+            <li>child cruelty and/or neglect</li>
+            <li>controlling or coercive behaviour</li>
+            <li>harassing and/or stalking</li>
+            <li>intolerance and/or hatred on the grounds of race, religion, sexual orientation or any of the other protected characteristics</li>
+            <li>possessing, supplying or producing class A, B or C drugs</li>
+            <li>fraud or serious dishonesty</li>
+            <li>theft from a person or other serious theft</li>
+            <li>arson and other major criminal damage</li>
+            <li>possession of prohibited firearms, knives or other weapons</li>
+            <li>serious offences where alcohol or drugs are involved</li>
+          </ul>
+        </div>
+      </details>
+
+      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { size: 'm', text: 'Is the allegation about serious misconduct?' } do %>
+        <%= f.hidden_field :serious_misconduct %>
+        <%= f.govuk_radio_button :serious_misconduct, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :serious_misconduct, "no", label: { text: "No" } %>
+        <%= f.govuk_radio_button :serious_misconduct, "not_sure", label: { text: "I’m not sure" } do %>
+          <p class="govuk_body">
+            If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it.
+          </p>
+        <% end %>
+      <% end %>
+      <%= f.govuk_submit prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

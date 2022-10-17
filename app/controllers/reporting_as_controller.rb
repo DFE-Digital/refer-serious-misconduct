@@ -9,7 +9,7 @@ class ReportingAsController < ApplicationController
       ReportingAsForm.new(reporting_as_params.merge(eligibility_check:))
     if @reporting_as_form.save
       session[:eligibility_check_id] = eligibility_check.id
-      redirect_to you_should_know_path
+      redirect_to serious_path
     else
       render :new
     end

@@ -11,3 +11,7 @@ en:
           attributes:
             reporting_as:
               blank: Tell us if you are reporting as an employer or a member of the public
+        serious_misconduct_form:
+          attributes:
+            serious_misconduct:
+              inclusion: Tell us if you are reporting serious misconduct
