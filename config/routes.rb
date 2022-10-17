@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   root to: redirect("/start")
 
-  get "/complete", to: "pages#complete"
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
   get "/you-should-know", to: "pages#you_should_know"
+  get "/serious", to: "serious_misconduct#new"
+  post "/serious", to: "serious_misconduct#create"
+  get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
+  get "/complete", to: "pages#complete"
 
   namespace :support_interface, path: "/support" do
     get "/", to: "support_interface#index"
