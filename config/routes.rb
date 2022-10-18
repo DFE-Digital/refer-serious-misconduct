@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   get "/complete", to: "pages#complete"
 
   namespace :support_interface, path: "/support" do
-    get "/", to: "support_interface#index"
+    resources :eligibility_checks, only: [:index]
     mount FeatureFlags::Engine => "/features"
+
+    root to: redirect("/support/eligibility_checks")
   end
 
   scope via: :all do
