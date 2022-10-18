@@ -1,0 +1,86 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - labeled
+      - synchronize
+      - reopened
+      - opened
+      - converted_to_draft
+
+jobs:
+  build_image:
+    name: Image build and push
+    if: contains(github.event.pull_request.labels.*.name, 'deploy') || github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/build-image
+        id: build_image
+        with:
+          github_username: ${{ github.actor }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+  deploy_nonprod:
+    name: Deploy to ${{ matrix.environment }} environment
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    concurrency: deploy_${{ matrix.environment }}
+    needs: [build_image]
+    strategy:
+      max-parallel: 1
+      matrix:
+        environment: [dev, test, preprod]
+    environment:
+      name: ${{ matrix.environment }}
+      url: ${{ steps.deploy.outputs.environment_url }}
+    outputs:
+      environment_url: ${{ steps.deploy.outputs.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/deploy-environment
+        id: deploy
+        with:
+          environment_name: ${{ matrix.environment }}
+          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
+          image_tag: ${{ github.sha }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: ./.github/actions/smoke-test
+        id: smoke-test
+        with:
+          environment: ${{ matrix.environment }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+  deploy_production:
+    name: Deploy to production environment
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.environment_url }}
+    concurrency: deploy_production
+    needs: [deploy_nonprod]
+
+    outputs:
+      environment_url: ${{ steps.deploy.outputs.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/deploy-environment
+        id: deploy
+        with:
+          environment_name: production
+          image_tag: ${{ github.sha }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}

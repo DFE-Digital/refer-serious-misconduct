@@ -17,39 +17,35 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set up Ruby
+    - uses: ruby/setup-ruby@v1
       if: ${{ inputs.skip-ruby == 'false' }}
-      uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
 
-    - name: Set up Node
+    - uses: actions/setup-node@v3
       if: ${{ inputs.skip-node == 'false' }}
-      uses: actions/setup-node@v2.5.0
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Install yarn
+    - run: npm install yarn -g
       if: ${{ inputs.skip-node == 'false' }}
-      run: npm install yarn -g
       shell: bash
 
-    - name: Yarn cache
+    - id: yarn-cache
       if: ${{ inputs.skip-node == 'false' }}
-      id: yarn-cache
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       shell: bash
 
-    - name: Set up yarn cache
+    # Set up yarn cache
+    - uses: actions/cache@v3
       if: ${{ inputs.skip-node == 'false' }}
-      uses: actions/cache@v2.1.7
       with:
         path: ${{ steps.yarn-cache.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: Install node.js dependencies
+    # Install node.js dependencies
+    - run: yarn install
       if: ${{ inputs.skip-node == 'false' }}
-      run: yarn install
       shell: bash
