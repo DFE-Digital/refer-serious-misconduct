@@ -12,16 +12,4 @@ class SeriousMisconductForm
     eligibility_check.serious_misconduct = serious_misconduct
     eligibility_check.save
   end
-
-  def eligible?
-    eligibility_check.serious_misconduct?
-  end
-
-  def success_url
-    unless eligible?
-      return Rails.application.routes.url_helpers.not_serious_misconduct_path
-    end
-
-    Rails.application.routes.url_helpers.you_should_know_path
-  end
 end

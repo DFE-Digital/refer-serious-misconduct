@@ -39,28 +39,4 @@ RSpec.describe TeachingInEnglandForm, type: :model do
       expect(eligibility_check.teaching_in_england).to be_truthy
     end
   end
-
-  describe "#eligible?" do
-    subject { described_class.new(eligibility_check:).eligible? }
-
-    let(:eligibility_check) { EligibilityCheck.new(teaching_in_england:) }
-
-    context "when they were teaching in England" do
-      let(:teaching_in_england) { "yes" }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when they were not teaching in England" do
-      let(:teaching_in_england) { "no" }
-
-      it { is_expected.to be_falsey }
-    end
-
-    context "when they are not sure if they were teaching in England" do
-      let(:teaching_in_england) { "not_sure" }
-
-      it { is_expected.to be_truthy }
-    end
-  end
 end

@@ -39,22 +39,4 @@ RSpec.describe SeriousMisconductForm, type: :model do
       expect(eligibility_check.serious_misconduct).to be_truthy
     end
   end
-
-  describe "#eligible?" do
-    subject { described_class.new(eligibility_check:).eligible? }
-
-    let(:eligibility_check) { EligibilityCheck.new(serious_misconduct:) }
-
-    context "when there is serious misconduct" do
-      let(:serious_misconduct) { "yes" }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when there is not serious misconduct" do
-      let(:serious_misconduct) { "no" }
-
-      it { is_expected.to be_falsey }
-    end
-  end
 end

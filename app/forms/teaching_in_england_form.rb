@@ -12,16 +12,4 @@ class TeachingInEnglandForm
     eligibility_check.teaching_in_england = teaching_in_england
     eligibility_check.save
   end
-
-  def eligible?
-    eligibility_check.teaching_in_england?
-  end
-
-  def success_url
-    unless eligible?
-      return Rails.application.routes.url_helpers.no_jurisdiction_path
-    end
-
-    Rails.application.routes.url_helpers.serious_path
-  end
 end

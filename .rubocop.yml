@@ -10,6 +10,10 @@ inherit_mode:
   merge:
     - Exclude
 
+Rails/ApplicationController:
+  Exclude:
+    - app/controllers/support_interface/support_interface_controller.rb
+
 Rails/SaveBang:
   Enabled: false
 
