@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
-  get "/you-should-know", to: "pages#you_should_know"
+  get "/teaching-in-england", to: "teaching_in_england#new"
+  post "/teaching-in-england", to: "teaching_in_england#create"
   get "/serious", to: "serious_misconduct#new"
   post "/serious", to: "serious_misconduct#create"
   get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
+  get "/no-jurisdiction", to: "pages#no_jurisdiction"
+  get "/you-should-know", to: "pages#you_should_know"
   get "/complete", to: "pages#complete"
 
   namespace :support_interface, path: "/support" do

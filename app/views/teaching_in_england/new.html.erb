@@ -1,0 +1,20 @@
+<% content_for :page_title, "#{'Error: ' if @teaching_in_england_form.errors.any?}Were they carrying out teaching work in England at the time the alleged misconduct took place?" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @teaching_in_england_form, url: teaching_in_england_url, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset :teaching_in_england, legend: { size: 'l', text: 'Were they carrying out teaching work in England at the time the alleged misconduct took place?' } do %>
+        <%= f.hidden_field :teaching_in_england %>
+        <%= f.govuk_radio_button :teaching_in_england, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :teaching_in_england, "no", label: { text: "No" } %>
+        <%= f.govuk_radio_button :teaching_in_england, "not_sure", label: { text: "I’m not sure" } do %>
+          <p class="govuk_body">
+            If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it.
+          </p>
+        <% end %>
+      <% end %>
+      <%= f.govuk_submit prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

@@ -22,12 +22,17 @@
 
     summary_list.row do |row|
       row.key(text: 'Reporting as')
-      row.value(text: eligibility_check.reporting_as)
+      row.value(text: eligibility_check.reporting_as&.titleize)
+    end
+
+    summary_list.row do |row|
+      row.key(text: 'Teaching in England')
+      row.value(text: eligibility_check.teaching_in_england&.titleize)
     end
 
     summary_list.row do |row|
       row.key(text: 'Serious misconduct')
-      row.value(text: eligibility_check.serious_misconduct)
+      row.value(text: eligibility_check.serious_misconduct&.titleize)
     end
   end %>
 <% end %>
