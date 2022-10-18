@@ -14,8 +14,20 @@ RSpec.describe "Eligibility screener", type: :system do
     then_i_see_a_validation_error
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
-    then_i_see_the_serious_misconduct_question
 
+    then_i_see_the_teaching_in_england_page
+    when_i_press_continue
+    then_i_see_a_validation_error
+    when_i_choose_not_sure
+    then_i_see_the_not_sure_hint
+    when_i_choose_no
+    when_i_press_continue
+    then_i_see_the_no_jurisdiction_page
+    when_i_go_back
+    when_i_choose_yes
+    when_i_press_continue
+
+    then_i_see_the_serious_misconduct_question
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
@@ -61,6 +73,16 @@ RSpec.describe "Eligibility screener", type: :system do
     )
   end
 
+  def then_i_see_the_no_jurisdiction_page
+    expect(page).to have_current_path("/no-jurisdiction")
+    expect(page).to have_title(
+      "You need to make your referral somewhere else - Refer serious misconduct by a teacher"
+    )
+    expect(page).to have_content(
+      "You need to make your referral somewhere else"
+    )
+  end
+
   def then_i_see_the_not_sure_hint
     expect(page).to have_content(
       "If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it."
@@ -74,6 +96,19 @@ RSpec.describe "Eligibility screener", type: :system do
     )
     expect(page).to have_content(
       "You need to report this misconduct somewhere else"
+    )
+  end
+
+  def then_i_see_the_teaching_in_england_page
+    expect(page).to have_current_path("/teaching-in-england")
+    expect(page).to have_title(
+      [
+        "Were they carrying out teaching work in England at the time the alleged misconduct took place?",
+        "Refer serious misconduct by a teacher"
+      ].join(" - ")
+    )
+    expect(page).to have_content(
+      "Were they carrying out teaching work in England at the time the alleged misconduct took place?"
     )
   end
 

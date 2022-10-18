@@ -22,18 +22,19 @@ module ApplicationHelper
   end
 
   def navigation
-    govuk_header(service_name: t('service.name')) do |header|
+    govuk_header(service_name: t("service.name")) do |header|
       case current_namespace
       when "support"
         header.navigation_item(
-        active: current_page?(main_app.support_interface_eligibility_checks_path),
-        href: main_app.support_interface_eligibility_checks_path,
-        text: "Eligibility Checks",
-        ) 
+          active:
+            current_page?(main_app.support_interface_eligibility_checks_path),
+          href: main_app.support_interface_eligibility_checks_path,
+          text: "Eligibility Checks"
+        )
         header.navigation_item(
           active: current_page?(main_app.support_interface_feature_flags_path),
           href: main_app.support_interface_feature_flags_path,
-          text: "Features",
+          text: "Features"
         )
       end
     end
