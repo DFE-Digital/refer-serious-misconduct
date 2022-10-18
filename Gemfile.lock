@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DFE-Digital/govuk_feature_flags.git
-  revision: 4c6aa865094b769d9c3ac39bfccd6e8a07bcdd47
+  revision: 2d300b185543863c9b7d161863ed92ab85cac430
   branch: main
   specs:
     govuk_feature_flags (0.1.0)

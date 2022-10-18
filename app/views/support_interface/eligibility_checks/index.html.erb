@@ -1,0 +1,33 @@
+<% content_for :page_title, 'Eligibility Checks' %>
+
+<h1 class="govuk-heading-l">
+  Eligibility Checks
+  <span class="govuk-caption-l">
+    Ordered by last updated, showing <%= "#{[100, EligibilityCheck.count].min} of #{EligibilityCheck.count}" %> total
+  </span>
+</h1>
+
+<% @eligibility_checks.each do |eligibility_check| %>
+  <h2 class="govuk-heading-m">Eligibility Check #<%= eligibility_check.id %></h2>
+  <%= govuk_summary_list do |summary_list|
+    summary_list.row do |row|
+      row.key(text: 'Created at')
+      row.value(text: eligibility_check.created_at)
+    end
+
+    summary_list.row do |row|
+      row.key(text: 'Updated at')
+      row.value(text: eligibility_check.updated_at)
+    end
+
+    summary_list.row do |row|
+      row.key(text: 'Reporting as')
+      row.value(text: eligibility_check.reporting_as)
+    end
+
+    summary_list.row do |row|
+      row.key(text: 'Serious misconduct')
+      row.value(text: eligibility_check.serious_misconduct)
+    end
+  end %>
+<% end %>
