@@ -9,7 +9,7 @@ class TeachingInEnglandController < ApplicationController
         teaching_in_england_form_params.merge(eligibility_check:)
       )
     if @teaching_in_england_form.save
-      redirect_to @teaching_in_england_form.success_url
+      next_question
     else
       render :new
     end

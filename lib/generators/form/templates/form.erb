@@ -8,7 +8,7 @@ attr_reader <%= attributes.map { |attribute| ":#{attribute.name}" }.join(', ') %
 
   validates :eligibility_check, presence: true
   <% attributes.map do |attribute| -%>
-  validates :<%= attribute.name %>, <%= attribute.type == :boolean ? "inclusion: { in: [true, false] }" : "presence: true" %>
+validates :<%= attribute.name %>, <%= attribute.type == :boolean ? "inclusion: { in: [true, false] }" : "presence: true" %>
   <% end -%>
 
   <% attributes.map do |attribute| -%>
@@ -24,19 +24,5 @@ def <%= attribute.name %>=(value)
 eligibility_check.<%= attribute.name %> = <%= attribute.name %>
     <% end -%>
 eligibility_check.save
-  end
-
-  def eligible?
-    <%= attributes.map { |attribute| "eligibility_check.#{attribute.name}" }.join(' && ') %>
-  end
-
-  def success_url
-    return Rails.application.routes.url_helpers.ineligible_path unless eligible?
-
-    Rails
-      .application
-      .routes
-      .url_helpers
-      .<%= plural_name %>_path
   end
 end

@@ -4,12 +4,11 @@ class ReportingAsController < ApplicationController
   end
 
   def create
-    eligibility_check = EligibilityCheck.new
     @reporting_as_form =
       ReportingAsForm.new(reporting_as_params.merge(eligibility_check:))
     if @reporting_as_form.save
       session[:eligibility_check_id] = eligibility_check.id
-      redirect_to teaching_in_england_path
+      next_question
     else
       render :new
     end
