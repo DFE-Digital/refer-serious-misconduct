@@ -5,7 +5,7 @@ inputs:
     description: The name of the environment
     required: true
   image_tag:
-    description: github SHA of the image
+    description: GitHub SHA of the image
     required: true
   azure_credentials:
     description: JSON object containing a service principal that can read from Azure Key Vault
@@ -23,8 +23,8 @@ runs:
   using: composite
 
   steps:
-    - name: Extract configuration from tfvars
-      id: config
+    # Extract configuration from tfvars
+    - id: config
       run: |
         KEY_VAULT_NAME=$(jq -r '.key_vault_name' $TFVARS)
         RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
@@ -65,8 +65,8 @@ runs:
       with:
         creds: ${{ inputs.azure_credentials }}
 
-    - name: Get TFSTATE-CONTAINER-ACCESS-KEY
-      run: |
+    # get TFSTATE-CONTAINER-ACCESS-KEY
+    - run: |
         TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.resource_group_name }} -n ${{ env.storage_account_name }} | jq -r '.[0].value')"
         echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
         echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
@@ -77,8 +77,7 @@ runs:
         terraform_version: 1.3.1
         terraform_wrapper: false
 
-    - name: Terraform
-      id: terraform
+    - id: terraform
       run: |
         make ci ${{ inputs.environment_name }} terraform-apply
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)/" >> $GITHUB_ENV
@@ -109,8 +108,8 @@ runs:
         inlineScript: |
           az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ steps.terraform.outputs.slot_name}} --target-slot production
 
-    - name: Check new site is up
-      run: |
+    # Check new site is up
+    - run: |
         echo "Checking new site is up"
         attempt_counter=0
         max_attempts=60
