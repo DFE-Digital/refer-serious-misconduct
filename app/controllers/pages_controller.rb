@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :redirect_to_next_question, only: %i[start complete]
+  skip_before_action :redirect_to_next_question
 
   def complete
     @eligibility_check =

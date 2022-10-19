@@ -32,26 +32,17 @@ module EnforceQuestionOrder
 
   def questions
     [
-      { path: who_path, needs_answer: ask_for_reporting_as? },
+      { path: who_path, needs_answer: reporting_as_needs_answer? },
+      { path: is_a_teacher_path, needs_answer: is_a_teacher_needs_answer? },
       {
         path: unsupervised_teaching_path,
-        needs_answer: ask_for_unsupervised_teaching?
-      },
-      {
-        path: no_jurisdiction_unsupervised_path,
-        needs_answer: ask_for_no_jurisdiction_unsupervised?
+        needs_answer: unsupervised_teaching_needs_answer?
       },
       {
         path: teaching_in_england_path,
-        needs_answer: ask_for_teaching_in_england?
+        needs_answer: teaching_in_england_needs_answer?
       },
-      { path: no_jurisdiction_path, needs_answer: ask_for_no_jurisdiction? },
-      { path: serious_path, needs_answer: ask_for_serious_misconduct? },
-      { path: you_should_know_path, needs_answer: false },
-      {
-        path: not_serious_misconduct_path,
-        needs_answer: ask_for_not_serious_misconduct?
-      }
+      { path: serious_path, needs_answer: serious_misconduct_needs_answer? }
     ]
   end
 
@@ -77,42 +68,28 @@ module EnforceQuestionOrder
 
     previous_question = questions[requested_question_index - 1]
 
-    previous_question[:needs_answer] == false
+    !previous_question[:needs_answer]
   end
 
-  def ask_for_reporting_as?
+  def reporting_as_needs_answer?
     eligibility_check.reporting_as.nil?
   end
 
-  def ask_for_unsupervised_teaching?
+  def unsupervised_teaching_needs_answer?
+    return false if eligibility_check.is_teacher?
+
     eligibility_check.unsupervised_teaching.nil?
   end
 
-  def ask_for_no_jurisdiction_unsupervised?
-    !eligibility_check.unsupervised_teaching?
+  def is_a_teacher_needs_answer?
+    eligibility_check.is_teacher.nil?
   end
 
-  def ask_for_teaching_in_england?
-    return false unless eligibility_check.unsupervised_teaching?
-
+  def teaching_in_england_needs_answer?
     eligibility_check.teaching_in_england.nil?
   end
 
-  def ask_for_no_jurisdiction?
-    !eligibility_check.teaching_in_england?
-  end
-
-  def ask_for_serious_misconduct?
-    return false unless eligibility_check.teaching_in_england?
-
+  def serious_misconduct_needs_answer?
     eligibility_check.serious_misconduct.nil?
-  end
-
-  def ask_for_not_serious_misconduct?
-    !eligibility_check.serious_misconduct?
-  end
-
-  def ask_for_you_should_know?
-    eligibility_check.serious_misconduct?
   end
 end

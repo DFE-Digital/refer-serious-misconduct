@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
+  get "/is-a-teacher", to: "is_teacher#new"
+  post "/is-a-teacher", to: "is_teacher#create"
   get "/unsupervised-teaching", to: "unsupervised_teaching#new"
   post "/unsupervised-teaching", to: "unsupervised_teaching#create"
   get "/no-jurisdiction-unsupervised", to: "pages#no_jurisdiction_unsupervised"

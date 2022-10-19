@@ -17,13 +17,16 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
 
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
-    then_i_see_the_unsupervised_teaching_page
+    then_i_see_the_is_a_teacher_page
 
     when_i_choose_yes
     when_i_press_continue
     then_i_see_the_teaching_in_england_page
 
     when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_you_should_know_page
+
     when_i_press_continue
     then_i_see_the_completion_page
   end
@@ -70,8 +73,12 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     expect(page).to have_current_path("/teaching-in-england")
   end
 
-  def then_i_see_the_unsupervised_teaching_page
-    expect(page).to have_current_path("/unsupervised-teaching")
+  def then_i_see_the_is_a_teacher_page
+    expect(page).to have_current_path("/is-a-teacher")
+  end
+
+  def then_i_see_the_you_should_know_page
+    expect(page).to have_current_path("/you-should-know")
   end
 
   def when_i_choose_reporting_as_an_employer

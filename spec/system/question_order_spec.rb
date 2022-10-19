@@ -16,19 +16,19 @@ RSpec.describe "Question order", type: :system do
     when_i_visit_the_serious_misconduct_page
     then_i_see_the_start_page
 
-    when_i_visit_you_should_know_page
-    then_i_see_the_start_page
-
     when_i_visit_the_complete_page
     then_i_see_the_start_page
 
     when_i_press_start
     when_i_choose_employer
     when_i_press_continue
-    then_i_see_the_unsupervised_teaching_page
+    then_i_see_the_is_a_teacher_page
+
+    when_i_visit_unsupervised_teaching_page
+    then_i_see_the_is_a_teacher_page
 
     when_i_visit_the_serious_misconduct_page
-    then_i_see_the_unsupervised_teaching_page
+    then_i_see_the_is_a_teacher_page
 
     when_i_choose_yes
     when_i_press_continue
@@ -42,6 +42,10 @@ RSpec.describe "Question order", type: :system do
 
   def given_the_service_is_open
     FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def then_i_see_the_is_a_teacher_page
+    expect(page).to have_current_path("/is-a-teacher")
   end
 
   def then_i_see_the_reporting_as_page
@@ -65,7 +69,7 @@ RSpec.describe "Question order", type: :system do
   end
 
   def when_i_choose_yes
-    choose "Yes, they do unsupervised teaching work", visible: false
+    choose "Yes", visible: false
   end
 
   def when_i_press_continue
@@ -86,6 +90,10 @@ RSpec.describe "Question order", type: :system do
 
   def when_i_visit_the_service
     visit root_path
+  end
+
+  def when_i_visit_unsupervised_teaching_page
+    visit unsupervised_teaching_path
   end
 
   def when_i_visit_you_should_know_page
