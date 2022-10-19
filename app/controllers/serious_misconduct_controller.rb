@@ -1,6 +1,6 @@
 class SeriousMisconductController < ApplicationController
   def new
-    @serious_misconduct_form = SeriousMisconductForm.new
+    @serious_misconduct_form = SeriousMisconductForm.new(eligibility_check:)
   end
 
   def create

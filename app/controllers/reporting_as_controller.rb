@@ -1,6 +1,6 @@
 class ReportingAsController < ApplicationController
   def new
-    @reporting_as_form = ReportingAsForm.new
+    @reporting_as_form = ReportingAsForm.new(eligibility_check:)
   end
 
   def create
