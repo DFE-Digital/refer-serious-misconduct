@@ -1,11 +1,12 @@
 <% content_for :page_title, 'Are you reporting as an employer or member of the public?' %>
+<% content_for :back_link_url, start_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: @reporting_as_form, url: who_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_collection_radio_buttons(:reporting_as,
-        [OpenStruct.new(label: "I’m reporting as an employer", value: :employer), OpenStruct.new(label: "I’m reporting as a member of the public", value: :public)],
+        [OpenStruct.new(label: "I’m reporting as an employer", value: 'employer'), OpenStruct.new(label: "I’m reporting as a member of the public", value: 'public')],
         :value,
         :label,
         legend: { size: 'xl', text: 'Are you reporting as an employer or member of the public?' }

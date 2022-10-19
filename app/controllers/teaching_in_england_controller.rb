@@ -1,6 +1,6 @@
 class TeachingInEnglandController < ApplicationController
   def new
-    @teaching_in_england_form = TeachingInEnglandForm.new
+    @teaching_in_england_form = TeachingInEnglandForm.new(eligibility_check:)
   end
 
   def create
