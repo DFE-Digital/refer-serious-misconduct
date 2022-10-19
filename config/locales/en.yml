@@ -15,3 +15,6 @@ en:
           attributes:
             serious_misconduct:
               inclusion: Tell us if you are reporting serious misconduct
+
+  validation_errors:
+    email_address_format: Enter an email address in the correct format, like name@example.com
