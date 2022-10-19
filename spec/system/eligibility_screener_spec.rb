@@ -15,6 +15,18 @@ RSpec.describe "Eligibility screener", type: :system do
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
 
+    then_i_see_the_unsupervised_teaching_page
+    when_i_press_continue
+    then_i_see_a_validation_error
+    when_i_choose_not_sure
+    then_i_see_the_not_sure_hint
+    when_i_choose_no
+    when_i_press_continue
+    then_i_see_the_no_jurisdiction_unsupervised_page
+    when_i_go_back
+    when_i_choose_yes
+    when_i_press_continue
+
     then_i_see_the_teaching_in_england_page
     when_i_press_continue
     then_i_see_a_validation_error
@@ -83,6 +95,16 @@ RSpec.describe "Eligibility screener", type: :system do
     )
   end
 
+  def then_i_see_the_no_jurisdiction_unsupervised_page
+    expect(page).to have_current_path("/no-jurisdiction-unsupervised")
+    expect(page).to have_title(
+      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher"
+    )
+    expect(page).to have_content(
+      "You need to report this misconduct somewhere else"
+    )
+  end
+
   def then_i_see_the_not_sure_hint
     expect(page).to have_content(
       "If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it."
@@ -134,6 +156,16 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_current_path("/start")
     expect(page).to have_title("Refer serious misconduct by a teacher")
     expect(page).to have_content("Refer serious misconduct by a teacher")
+  end
+
+  def then_i_see_the_unsupervised_teaching_page
+    expect(page).to have_current_path("/unsupervised-teaching")
+    expect(page).to have_title(
+      [
+        "You can refer someone who does unsupervised teaching work",
+        "Refer serious misconduct by a teacher"
+      ].join(" - ")
+    )
   end
 
   def when_i_choose_no
