@@ -114,13 +114,13 @@ variable "domain" {}
 
 locals {
   hosting_environment          = var.environment_name
-  aytp_app_name                = "${var.resource_prefix}aytp-${var.environment_name}${var.app_suffix}-app"
-  postgres_server_name         = "${var.resource_prefix}aytp-${var.environment_name}${var.app_suffix}-psql"
+  rsm_app_name                = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-app"
+  postgres_server_name         = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-psql"
   postgres_database_name       = "access_your_teaching_profile_production"
-  redis_database_name          = "${var.resource_prefix}aytp-${var.environment_name}${var.app_suffix}-redis"
-  app_insights_name            = "${var.resource_prefix}aytp-${var.environment_name}${var.app_suffix}-appi"
-  log_analytics_workspace_name = "${var.resource_prefix}aytp-${var.environment_name}-log"
-  app_service_plan_name        = "${var.resource_prefix}aytp-${var.environment_name}-plan"
+  redis_database_name          = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-redis"
+  app_insights_name            = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-appi"
+  log_analytics_workspace_name = "${var.resource_prefix}rsm-${var.environment_name}-log"
+  app_service_plan_name        = "${var.resource_prefix}rsm-${var.environment_name}-plan"
 
   keyvault_logging_enabled            = var.keyvault_logging_enabled
   storage_diagnostics_logging_enabled = length(var.storage_log_categories) > 0

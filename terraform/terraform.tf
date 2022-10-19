@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.3.1"
 
   backend "azurerm" {
-    container_name = "aytp-tfstate"
+    container_name = "rsm-tfstate"
   }
 
   required_providers {

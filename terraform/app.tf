@@ -1,5 +1,5 @@
 locals {
-  aytp_env_vars = merge(try(local.infrastructure_secrets, null),
+  rsm_env_vars = merge(try(local.infrastructure_secrets, null),
     {
       DOCKER_REGISTRY_SERVER_URL            = "https://ghcr.io",
       ApplicationInsights__ConnectionString = azurerm_application_insights.insights.connection_string
@@ -111,8 +111,8 @@ resource "azurerm_service_plan" "service-plan" {
   }
 }
 
-resource "azurerm_linux_web_app" "aytp-app" {
-  name                = local.aytp_app_name
+resource "azurerm_linux_web_app" "rsm-app" {
+  name                = local.rsm_app_name
   location            = data.azurerm_resource_group.group.location
   resource_group_name = data.azurerm_resource_group.group.name
   service_plan_id     = azurerm_service_plan.service-plan.id
@@ -142,7 +142,7 @@ resource "azurerm_linux_web_app" "aytp-app" {
     }]
   }
 
-  app_settings = local.aytp_env_vars
+  app_settings = local.rsm_env_vars
 
   lifecycle {
     ignore_changes = [
@@ -151,20 +151,19 @@ resource "azurerm_linux_web_app" "aytp-app" {
   }
 }
 
-resource "azurerm_linux_web_app_slot" "aytp-stage" {
+resource "azurerm_linux_web_app_slot" "rsm-stage" {
   count          = var.enable_blue_green ? 1 : 0
   name           = local.web_app_slot_name
-  app_service_id = azurerm_linux_web_app.aytp-app.id
+  app_service_id = azurerm_linux_web_app.rsm-app.id
   site_config {
     http2_enabled       = true
     minimum_tls_version = "1.2"
     health_check_path   = "/health"
   }
-  app_settings = local.aytp_env_vars
+  app_settings = local.rsm_env_vars
   lifecycle {
     ignore_changes = [
       tags
     ]
   }
 }
-
