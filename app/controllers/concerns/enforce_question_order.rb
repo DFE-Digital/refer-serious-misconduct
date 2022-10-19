@@ -34,6 +34,14 @@ module EnforceQuestionOrder
     [
       { path: who_path, needs_answer: ask_for_reporting_as? },
       {
+        path: unsupervised_teaching_path,
+        needs_answer: ask_for_unsupervised_teaching?
+      },
+      {
+        path: no_jurisdiction_unsupervised_path,
+        needs_answer: ask_for_no_jurisdiction_unsupervised?
+      },
+      {
         path: teaching_in_england_path,
         needs_answer: ask_for_teaching_in_england?
       },
@@ -76,7 +84,17 @@ module EnforceQuestionOrder
     eligibility_check.reporting_as.nil?
   end
 
+  def ask_for_unsupervised_teaching?
+    eligibility_check.unsupervised_teaching.nil?
+  end
+
+  def ask_for_no_jurisdiction_unsupervised?
+    !eligibility_check.unsupervised_teaching?
+  end
+
   def ask_for_teaching_in_england?
+    return false unless eligibility_check.unsupervised_teaching?
+
     eligibility_check.teaching_in_england.nil?
   end
 
