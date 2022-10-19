@@ -9,7 +9,11 @@ class UnsupervisedTeachingController < ApplicationController
         unsupervised_teaching_form_params.merge(eligibility_check:)
       )
     if @unsupervised_teaching_form.save
-      next_question
+      if eligibility_check.unsupervised_teaching?
+        next_question
+      else
+        redirect_to(no_jurisdiction_unsupervised_path)
+      end
     else
       render :new
     end

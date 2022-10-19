@@ -3,6 +3,7 @@
 # Table name: eligibility_checks
 #
 #  id                    :bigint           not null, primary key
+#  is_teacher            :string
 #  reporting_as          :string           not null
 #  serious_misconduct    :string
 #  teaching_in_england   :string
@@ -12,6 +13,10 @@
 #
 class EligibilityCheck < ApplicationRecord
   validates :reporting_as, presence: true
+
+  def is_teacher?
+    %w[yes not_sure].include?(is_teacher)
+  end
 
   def reporting_as_employer?
     reporting_as&.to_sym == :employer

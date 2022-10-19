@@ -14,8 +14,14 @@ RSpec.describe "Eligibility screener", type: :system do
     then_i_see_a_validation_error
     when_i_choose_reporting_as_an_employer
     when_i_press_continue
+    then_i_see_the_is_a_teacher_page
 
+    when_i_press_continue
+    then_i_see_a_validation_error
+    when_i_choose_no
+    when_i_press_continue
     then_i_see_the_unsupervised_teaching_page
+
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
@@ -26,8 +32,8 @@ RSpec.describe "Eligibility screener", type: :system do
     when_i_go_back
     when_i_choose_yes
     when_i_press_continue
-
     then_i_see_the_teaching_in_england_page
+
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
@@ -38,8 +44,8 @@ RSpec.describe "Eligibility screener", type: :system do
     when_i_go_back
     when_i_choose_yes
     when_i_press_continue
-
     then_i_see_the_serious_misconduct_question
+
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
@@ -50,10 +56,9 @@ RSpec.describe "Eligibility screener", type: :system do
     when_i_go_back
     when_i_choose_yes
     when_i_press_continue
-
     then_i_see_the_you_should_know_page
-    when_i_press_continue
 
+    when_i_press_continue
     then_i_see_the_completion_page
   end
 
@@ -83,6 +88,14 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_content(
       "Are you reporting as an employer or member of the public?"
     )
+  end
+
+  def then_i_see_the_is_a_teacher_page
+    expect(page).to have_current_path("/is-a-teacher")
+    expect(page).to have_title(
+      "Is the allegation about a teacher? - Refer serious misconduct by a teacher"
+    )
+    expect(page).to have_content("Is the allegation about a teacher?")
   end
 
   def then_i_see_the_no_jurisdiction_page
@@ -180,12 +193,16 @@ RSpec.describe "Eligibility screener", type: :system do
     choose "I’m reporting as an employer", visible: false
   end
 
+  def when_i_choose_reporting_as_public
+    choose "I’m reporting as a member of the public", visible: false
+  end
+
   def when_i_choose_yes
     choose "Yes", visible: false
   end
 
   def when_i_go_back
-    page.go_back
+    click_link "Back"
   end
 
   def when_i_press_continue

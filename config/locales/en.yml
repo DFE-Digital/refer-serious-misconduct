@@ -7,22 +7,26 @@ en:
   activemodel:
     errors:
       models:
+        is_teacher_form:
+          attributes:
+            is_teacher:
+              inclusion: Tell us if the allegation is about a teacher
         reporting_as_form:
           attributes:
             reporting_as:
               blank: Tell us if you are reporting as an employer or a member of the public
-        teaching_unsupervised_form:
-          attributes:
-            teaching_unsupervised:
-              blank: Tell us if the teacher was teaching unsupervised
-        teaching_in_england_form:
-          attributes:
-            teaching_in_england:
-              inclusion: Tell us if you are reporting a teacher who is teaching in England
         serious_misconduct_form:
           attributes:
             serious_misconduct:
               inclusion: Tell us if you are reporting serious misconduct
+        teaching_in_england_form:
+          attributes:
+            teaching_in_england:
+              inclusion: Tell us if you are reporting a teacher who is teaching in England
+        unsupervised_teaching_form:
+          attributes:
+            unsupervised_teaching:
+              blank: Tell us if they were teaching unsupervised
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com

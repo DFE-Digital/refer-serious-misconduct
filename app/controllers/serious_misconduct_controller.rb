@@ -9,7 +9,11 @@ class SeriousMisconductController < ApplicationController
         serious_misconduct_form_params.merge(eligibility_check:)
       )
     if @serious_misconduct_form.save
-      next_question
+      if eligibility_check.serious_misconduct?
+        next_question
+      else
+        redirect_to(not_serious_misconduct_path)
+      end
     else
       render :new
     end
