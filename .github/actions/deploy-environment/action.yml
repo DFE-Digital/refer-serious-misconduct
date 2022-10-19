@@ -65,6 +65,11 @@ runs:
       with:
         creds: ${{ inputs.azure_credentials }}
 
+    - id: deploy-arm-resources
+      run: |
+        make ci ${{ inputs.environment_name }} deploy-azure-resources
+      shell: bash
+
     # get TFSTATE-CONTAINER-ACCESS-KEY
     - run: |
         TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.resource_group_name }} -n ${{ env.storage_account_name }} | jq -r '.[0].value')"

@@ -106,8 +106,8 @@ terraform-apply: terraform-init
 terraform-destroy: terraform-init
 	terraform -chdir=terraform destroy -var-file workspace_variables/${DEPLOY_ENV}.tfvars.json ${AUTO_APPROVE}
 
-deploy-azure-resources: set-azure-account tags # make dev deploy-azure-resources CONFIRM_DEPLOY=1
-	$(if $(CONFIRM_DEPLOY), , $(error can only run with CONFIRM_DEPLOY))
+deploy-azure-resources: set-azure-account tags # make dev deploy-azure-resources AUTO_APPROVE=1
+	$(if $(AUTO_APPROVE), , $(error can only run with AUTO_APPROVE))
 	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" \
 		--parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" \
 			"tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmtfstate${ENV_SHORT}" "tfStorageContainerName=rsm-tfstate" \
@@ -122,8 +122,8 @@ validate-azure-resources: set-azure-account  tags# make dev validate-azure-resou
 			"keyVaultName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-kv" \
 		--what-if
 
-domain-azure-resources: set-azure-account tags # make domain domain-azure-resources CONFIRM_DEPLOY=1
-	$(if $(CONFIRM_DEPLOY), , $(error can only run with CONFIRM_DEPLOY))
+domain-azure-resources: set-azure-account tags # make domain domain-azure-resources AUTO_APPROVE=1
+	$(if $(AUTO_APPROVE), , $(error can only run with AUTO_APPROVE))
 	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" \
 		--parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsmdomains-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" \
 			"tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmdomainstf" "tfStorageContainerName=rsmdomains-tf"  "keyVaultName=${RESOURCE_NAME_PREFIX}-rsmdomains-kv"
