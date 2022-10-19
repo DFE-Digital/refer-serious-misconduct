@@ -2,12 +2,13 @@
 #
 # Table name: eligibility_checks
 #
-#  id                  :bigint           not null, primary key
-#  reporting_as        :string           not null
-#  serious_misconduct  :string
-#  teaching_in_england :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                    :bigint           not null, primary key
+#  reporting_as          :string           not null
+#  serious_misconduct    :string
+#  teaching_in_england   :string
+#  unsupervised_teaching :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 require "rails_helper"
 
@@ -73,6 +74,30 @@ RSpec.describe EligibilityCheck, type: :model do
 
     context "when the value is not_sure" do
       let(:teaching_in_england) { "not_sure" }
+
+      it { is_expected.to be_truthy }
+    end
+  end
+
+  describe "#unsupervised_teaching" do
+    subject do
+      described_class.new(unsupervised_teaching:).unsupervised_teaching?
+    end
+
+    context "when the value is no" do
+      let(:unsupervised_teaching) { "no" }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when the value is yes" do
+      let(:unsupervised_teaching) { "yes" }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when the value is not_sure" do
+      let(:unsupervised_teaching) { "not_sure" }
 
       it { is_expected.to be_truthy }
     end
