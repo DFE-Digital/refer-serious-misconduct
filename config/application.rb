@@ -7,7 +7,7 @@ require "active_job/railtie"
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
-# require "action_mailer/railtie"
+require "action_mailer/railtie"
 # require "action_mailbox/engine"
 # require "action_text/engine"
 require "action_view/railtie"
@@ -36,5 +36,14 @@ module ReferSeriousMisconduct
     )
 
     config.exceptions_app = routes
+
+    config.action_mailer.notify_settings = {
+      api_key:
+        ENV.fetch("GOVUK_NOTIFY_API_KEY") do
+          raise "'GOVUK_NOTIFY_API_KEY' should be configured in " \
+                  ".env.*environment* file. Please refer to " \
+                  "https://github.com/DFE-Digital/refer-serious-misconduct/#notify"
+        end
+    }
   end
 end
