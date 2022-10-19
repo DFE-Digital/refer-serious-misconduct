@@ -30,6 +30,7 @@ runs:
         RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
         RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
         STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
+        TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
 
         if [ -z "$KEY_VAULT_NAME" ]; then
           echo "::error ::Failed to extract key_vault_name from $TFVARS"
@@ -51,10 +52,16 @@ runs:
           exit 1
         fi
 
+        if [ -z "$TERRAFORM_VERSION" ]; then
+          echo "::error ::Failed to extract terraform_version from $TFVARS"
+          exit 1
+        fi
+
         echo "resource_group_name=$RESOURCE_GROUP_NAME" >> $GITHUB_ENV
         echo "key_vault_name=$KEY_VAULT_NAME" >> $GITHUB_ENV
         echo "resource_prefix=$RESOURCE_PREFIX" >> $GITHUB_ENV
         echo "storage_account_name=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
+        echo "terraform_version=$TERRAFORM_VERSION" >> $GITHUB_ENV
 
       shell: bash
       env:
@@ -79,7 +86,7 @@ runs:
 
     - uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.3.1
+        terraform_version: ${{ ENV.terraform_version }}
         terraform_wrapper: false
 
     - id: terraform
