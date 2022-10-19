@@ -11,6 +11,14 @@ en:
           attributes:
             reporting_as:
               blank: Tell us if you are reporting as an employer or a member of the public
+        teaching_unsupervised_form:
+          attributes:
+            teaching_unsupervised:
+              blank: Tell us if the teacher was teaching unsupervised
+        teaching_in_england_form:
+          attributes:
+            teaching_in_england:
+              inclusion: Tell us if you are reporting a teacher who is teaching in England
         serious_misconduct_form:
           attributes:
             serious_misconduct:

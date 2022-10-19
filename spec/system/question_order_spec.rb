@@ -7,6 +7,9 @@ RSpec.describe "Question order", type: :system do
     when_i_visit_the_service
     then_i_see_the_start_page
 
+    when_i_visit_the_unsupervised_teaching_page
+    then_i_see_the_start_page
+
     when_i_visit_the_teaching_in_england_page
     then_i_see_the_start_page
 
@@ -21,6 +24,13 @@ RSpec.describe "Question order", type: :system do
 
     when_i_press_start
     when_i_choose_employer
+    when_i_press_continue
+    then_i_see_the_unsupervised_teaching_page
+
+    when_i_visit_the_serious_misconduct_page
+    then_i_see_the_unsupervised_teaching_page
+
+    when_i_choose_yes
     when_i_press_continue
     then_i_see_the_teaching_in_england_page
 
@@ -46,8 +56,16 @@ RSpec.describe "Question order", type: :system do
     expect(page).to have_current_path("/teaching-in-england")
   end
 
+  def then_i_see_the_unsupervised_teaching_page
+    expect(page).to have_current_path("/unsupervised-teaching")
+  end
+
   def when_i_choose_employer
     choose "I’m reporting as an employer", visible: false
+  end
+
+  def when_i_choose_yes
+    choose "Yes, they do unsupervised teaching work", visible: false
   end
 
   def when_i_press_continue
@@ -76,5 +94,9 @@ RSpec.describe "Question order", type: :system do
 
   def when_i_visit_the_teaching_in_england_page
     visit teaching_in_england_path
+  end
+
+  def when_i_visit_the_unsupervised_teaching_page
+    visit unsupervised_teaching_path
   end
 end
