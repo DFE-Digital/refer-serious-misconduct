@@ -37,17 +37,8 @@ production:
 	$(eval RESOURCE_NAME_PREFIX=s165p01)
 	$(eval ENV_SHORT=pd)
 	$(eval ENV_TAG=prod)
-	$(eval AZURE_BACKUP_STORAGE_ACCOUNT_NAME=s165p01aytpdbbackuppd)
-	$(eval AZURE_BACKUP_STORAGE_CONTAINER_NAME=aytp)
-
-.PHONY: review
-review:
-	$(if $(pr_id), , $(error Missing environment variable "pr_id"))
-	$(eval DEPLOY_ENV=review)
-	$(eval AZURE_SUBSCRIPTION=s165-teachingqualificationsservice-development)
-	$(eval env=-pr-$(pr_id))
-	$(eval backend_config=-backend-config="key=review/review$(env).tfstate")
-	$(eval export TF_VAR_app_suffix=$(env))
+	$(eval AZURE_BACKUP_STORAGE_ACCOUNT_NAME=s165p01rsmdbbackuppd)
+	$(eval AZURE_BACKUP_STORAGE_CONTAINER_NAME=rsm)
 
 .PHONY: domain
 domain:
@@ -57,14 +48,13 @@ domain:
 	$(eval ENV_SHORT=pd)
 	$(eval ENV_TAG=prod)
 
-
 ci:	## Run in automation environment
 	$(eval DISABLE_PASSCODE=true)
 	$(eval AUTO_APPROVE=-auto-approve)
 	$(eval SP_AUTH=true)
 
 tags: ##Tags that will be added to resource group on it's creation in ARM template
-	$(eval RG_TAGS=$(shell echo '{"Portfolio": "Early years and Schools Group", "Parent Business":"Teaching Regulation Agency", "Product" : "Access Your Teaching Profile", "Service Line": "Teaching Workforce", "Service": "Teacher Services", "Service Offering": "Access Your Teaching Profile", "Environment" : "$(ENV_TAG)"}' | jq . ))
+	$(eval RG_TAGS=$(shell echo '{"Portfolio": "Early Years and Schools Group", "Parent Business":"Teaching Regulation Agency", "Product" : "Refer Serious Misconduct", "Service Line": "Teaching Workforce", "Service": "Teacher Services", "Service Offering": "Refer Serious Misconduct", "Environment" : "$(ENV_TAG)"}' | jq . ))
 
 .PHONY: read-keyvault-config
 read-keyvault-config:
@@ -72,8 +62,8 @@ read-keyvault-config:
 	$(eval KEY_VAULT_SECRET_NAME=INFRASTRUCTURE)
 
 read-deployment-config:
-	$(eval POSTGRES_DATABASE_NAME="$(RESOURCE_NAME_PREFIX)-aytp-$(DEPLOY_ENV)${var.app_suffix}-psql-db")
-	$(eval POSTGRES_SERVER_NAME="$(RESOURCE_NAME_PREFIX)-aytp-$(DEPLOY_ENV)${var.app_suffix}-psql.postgres.database.azure.com")
+	$(eval POSTGRES_DATABASE_NAME="$(RESOURCE_NAME_PREFIX)-rsm-$(DEPLOY_ENV)${var.app_suffix}-psql-db")
+	$(eval POSTGRES_SERVER_NAME="$(RESOURCE_NAME_PREFIX)-rsm-$(DEPLOY_ENV)${var.app_suffix}-psql.postgres.database.azure.com")
 
 ##@ Query parameter store to display environment variables. Requires Azure credentials
 set-azure-account: ${environment}
@@ -118,11 +108,11 @@ terraform-destroy: terraform-init
 
 deploy-azure-resources: set-azure-account tags # make dev deploy-azure-resources CONFIRM_DEPLOY=1
 	$(if $(CONFIRM_DEPLOY), , $(error can only run with CONFIRM_DEPLOY))
-	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-aytp-${ENV_SHORT}-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}aytptfstate${ENV_SHORT}" "tfStorageContainerName=aytp-tfstate" "dbBackupStorageAccountName=${AZURE_BACKUP_STORAGE_ACCOUNT_NAME}" "dbBackupStorageContainerName=${AZURE_BACKUP_STORAGE_CONTAINER_NAME}" "keyVaultName=${RESOURCE_NAME_PREFIX}-aytp-${ENV_SHORT}-kv"
+	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmtfstate${ENV_SHORT}" "tfStorageContainerName=rsm-tfstate" "dbBackupStorageAccountName=${AZURE_BACKUP_STORAGE_ACCOUNT_NAME}" "dbBackupStorageContainerName=${AZURE_BACKUP_STORAGE_CONTAINER_NAME}" "keyVaultName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-kv"
 
 validate-azure-resources: set-azure-account  tags# make dev validate-azure-resources
-	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-aytp-${ENV_SHORT}-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}aytptfstate${ENV_SHORT}" "tfStorageContainerName=aytp-tfstate" "dbBackupStorageAccountName=${AZURE_BACKUP_STORAGE_ACCOUNT_NAME}" "dbBackupStorageContainerName=${AZURE_BACKUP_STORAGE_CONTAINER_NAME}" "keyVaultName=${RESOURCE_NAME_PREFIX}-aytp-${ENV_SHORT}-kv" --what-if
+	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmtfstate${ENV_SHORT}" "tfStorageContainerName=rsm-tfstate" "dbBackupStorageAccountName=${AZURE_BACKUP_STORAGE_ACCOUNT_NAME}" "dbBackupStorageContainerName=${AZURE_BACKUP_STORAGE_CONTAINER_NAME}" "keyVaultName=${RESOURCE_NAME_PREFIX}-rsm-${ENV_SHORT}-kv" --what-if
 
 domain-azure-resources: set-azure-account tags # make domain domain-azure-resources CONFIRM_DEPLOY=1
 	$(if $(CONFIRM_DEPLOY), , $(error can only run with CONFIRM_DEPLOY))
-	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-aytpdomains-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}aytpdomainstf" "tfStorageContainerName=aytpdomains-tf"  "keyVaultName=${RESOURCE_NAME_PREFIX}-aytpdomains-kv"
+	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/main/azure/resourcedeploy.json" --parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsmdomains-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" "tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmdomainstf" "tfStorageContainerName=rsmdomains-tf"  "keyVaultName=${RESOURCE_NAME_PREFIX}-rsmdomains-kv"
