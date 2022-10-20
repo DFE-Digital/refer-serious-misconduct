@@ -116,7 +116,7 @@ locals {
   hosting_environment          = var.environment_name
   rsm_app_name                = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-app"
   postgres_server_name         = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-psql"
-  postgres_database_name       = "access_your_teaching_profile_production"
+  postgres_database_name       = "refer_serious_misconduct_production"
   redis_database_name          = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-redis"
   app_insights_name            = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-appi"
   log_analytics_workspace_name = "${var.resource_prefix}rsm-${var.environment_name}-log"
