@@ -25,7 +25,7 @@ runs:
     # Docker image tag
     - id: image
       run: |
-        echo ::set-output name=tag::$CONTAINER_REGISTRY/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]'):$GITHUB_SHA
+        echo "tag=$CONTAINER_REGISTRY/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]'):$GITHUB_SHA" >> $GITHUB_OUTPUT
       env:
         CONTAINER_REGISTRY: ${{ inputs.registry }}
       shell: bash

@@ -33,7 +33,7 @@ runs:
 
     - id: yarn-cache
       if: ${{ inputs.skip-node == 'false' }}
-      run: echo "::set-output name=dir::$(yarn cache dir)"
+      run: echo "dir=$(yarn cache dir)"
       shell: bash
 
     # Set up yarn cache
