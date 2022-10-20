@@ -22,7 +22,7 @@ runs:
       with:
         bundler-cache: true
 
-    - uses: actions/setup-node@v2.5.0
+    - uses: actions/setup-node@v2
       if: ${{ inputs.skip-node == 'false' }}
       with:
         node-version: ${{ inputs.node-version }}
@@ -37,7 +37,7 @@ runs:
       shell: bash
 
     # Set up yarn cache
-    - uses: actions/cache@v2.1.7
+    - uses: actions/cache@v2
       if: ${{ inputs.skip-node == 'false' }}
       with:
         path: ${{ steps.yarn-cache.outputs.dir }}
