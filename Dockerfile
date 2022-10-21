@@ -36,8 +36,10 @@ RUN yarn install --frozen-lockfile --check-files
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
+# Set Rails environment to production
+ENV RAILS_ENV=production
 # Precompile assets
-RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
+RUN SECRET_KEY_BASE=required-to-run-but-not-used \
     bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
