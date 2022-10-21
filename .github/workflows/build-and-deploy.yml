@@ -40,7 +40,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev] ##TO DO: reinstate remaining envs [dev, test, preprod]
+        environment: [test] ##TO DO: reinstate remaining envs [dev, test, preprod]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
