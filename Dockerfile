@@ -5,10 +5,6 @@
 # Build builder image
 FROM ruby:3.1.2-alpine as builder
 
-# RUN apk -U upgrade && \
-#     apk add --update --no-cache gcc git libc6-compat libc-dev make nodejs \
-#     postgresql13-dev yarn
-
 WORKDIR /app
 
 # Add the timezone (builder image) as it's not configured by default in Alpine
@@ -19,7 +15,8 @@ RUN apk add --update --no-cache tzdata && \
 # build-base: dependencies for bundle
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
-RUN apk add --no-cache build-base yarn postgresql13-dev
+# git: dependencies for bundle
+RUN apk add --no-cache build-base yarn postgresql13-dev git
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
