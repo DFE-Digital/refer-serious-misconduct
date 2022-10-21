@@ -33,13 +33,14 @@ jobs:
   deploy_nonprod:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    ##TO DO: reinstate condition with option to deploy dev to branch
+    #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_${{ matrix.environment }}
     needs: [docker]
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev, test, preprod]
+        environment: [dev] ##TO DO: reinstate remaining envs [dev, test, preprod]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
