@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :staff
+  devise_for(
+    :staff,
+    controllers: {
+      confirmations: "staff/confirmations",
+      invitations: "staff/invitations",
+      passwords: "staff/passwords",
+      sessions: "staff/sessions",
+      unlocks: "staff/unlocks"
+    }
+  )
+
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
