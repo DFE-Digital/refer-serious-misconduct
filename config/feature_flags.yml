@@ -7,3 +7,6 @@ feature_flags:
   employer_form:
     author: Steve Laing
     description: Allow users to access the employer-specific form
+  staff_http_basic_auth:
+    author: Malcolm Baig
+    description: Allow signing in as a staff user using HTTP Basic authentication. This is useful before staff users have been created, but should otherwise be inactive.
