@@ -17,3 +17,4 @@ test:
 production:
   <<: *default
   database: refer_serious_misconduct_production
+  password: <%= ENV["DATABASE_PASSWORD"] %>
