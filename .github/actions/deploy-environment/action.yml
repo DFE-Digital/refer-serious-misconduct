@@ -99,15 +99,15 @@ runs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.resource_prefix }}aytp-${{ inputs.environment_name}}-app
-        images: ghcr.io/dfe-digital/access-your-teaching-profile:${{ github.sha }}
+        app-name: ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app
+        images: ghcr.io/dfe-digital/refer-serious-misconduct:${{ github.sha }}
         slot-name: ${{ steps.terraform.outputs.slot_name }}
 
     - uses: azure/CLI@v1
       if: ${{ steps.terraform.outputs.blue_green == 'true' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}aytp-${{ inputs.environment_name}}-app --slot ${{ steps.terraform.outputs.slot_name}} --target-slot production
+          az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ steps.terraform.outputs.slot_name}} --target-slot production
 
     - name: Check new site is up
       run: |
