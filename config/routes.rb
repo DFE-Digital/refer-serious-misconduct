@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get "/staff/sign_out", to: "staff/sessions#destroy"
   end
 
+  get "_sha", to: ->(_) { [200, {}, [ENV.fetch("GIT_SHA", "")]] }
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
