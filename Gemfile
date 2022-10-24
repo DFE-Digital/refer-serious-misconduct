@@ -6,6 +6,7 @@ ruby "3.1.2"
 gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
+gem "devise_invitable"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
