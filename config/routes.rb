@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :staff
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
