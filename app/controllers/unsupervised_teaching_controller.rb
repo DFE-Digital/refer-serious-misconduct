@@ -1,4 +1,6 @@
 class UnsupervisedTeachingController < ApplicationController
+  include EnforceQuestionOrder
+
   def new
     @unsupervised_teaching_form = UnsupervisedTeachingForm.new
   end

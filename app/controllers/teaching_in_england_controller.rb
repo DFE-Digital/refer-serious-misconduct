@@ -1,4 +1,6 @@
 class TeachingInEnglandController < ApplicationController
+  include EnforceQuestionOrder
+
   def new
     @teaching_in_england_form = TeachingInEnglandForm.new(eligibility_check:)
   end
