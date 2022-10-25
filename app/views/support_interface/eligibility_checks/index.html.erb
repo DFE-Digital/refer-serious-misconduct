@@ -25,6 +25,13 @@
       row.value(text: eligibility_check.reporting_as&.titleize)
     end
 
+    unless eligibility_check.reporting_as_employer?
+      summary_list.row do |row|
+        row.key(text: 'Made an Informal Complaint')
+        row.value(text: eligibility_check.complained? ? 'Yes' : 'No')
+      end
+    end
+
     summary_list.row do |row|
       row.key(text: 'Teaching in England')
       row.value(text: eligibility_check.teaching_in_england&.titleize)

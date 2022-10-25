@@ -12,7 +12,21 @@ RSpec.describe "Eligibility screener", type: :system do
 
     when_i_press_continue
     then_i_see_a_validation_error
-    when_i_choose_reporting_as_an_employer
+    when_i_choose_reporting_as_public
+    when_i_press_continue
+    then_i_see_the_have_you_complained_page
+
+    when_i_press_continue
+    then_i_see_a_validation_error
+    when_i_choose_no
+    when_i_press_continue
+    then_i_see_the_you_should_complain_page
+    when_i_press_continue_without_complaint
+    then_i_see_the_is_a_teacher_page
+
+    when_i_go_back
+    when_i_go_back
+    when_i_choose_yes_i_have_complained
     when_i_press_continue
     then_i_see_the_is_a_teacher_page
 
@@ -90,6 +104,19 @@ RSpec.describe "Eligibility screener", type: :system do
     )
   end
 
+  def then_i_see_the_have_you_complained_page
+    expect(page).to have_current_path("/have-you-complained")
+    expect(page).to have_title(
+      [
+        "Have you already made a complaint to the school, school governors or your local council?",
+        "Refer serious misconduct by a teacher"
+      ].join(" - ")
+    )
+    expect(page).to have_content(
+      "Have you already made a complaint to the school, school governors or your local council?"
+    )
+  end
+
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
     expect(page).to have_title(
@@ -147,6 +174,19 @@ RSpec.describe "Eligibility screener", type: :system do
     )
   end
 
+  def then_i_see_the_you_should_complain_page
+    expect(page).to have_current_path("/no-complaint")
+    expect(page).to have_title(
+      [
+        "You should complain to the school, school governors or your local council first",
+        "Refer serious misconduct by a teacher"
+      ].join(" - ")
+    )
+    expect(page).to have_content(
+      "You should complain to the school, school governors or your local council first"
+    )
+  end
+
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
@@ -201,12 +241,20 @@ RSpec.describe "Eligibility screener", type: :system do
     choose "Yes", visible: false
   end
 
+  def when_i_choose_yes_i_have_complained
+    choose "Yes, I’ve already made a complaint", visible: false
+  end
+
   def when_i_go_back
     click_link "Back"
   end
 
   def when_i_press_continue
     click_on "Continue"
+  end
+
+  def when_i_press_continue_without_complaint
+    click_on "Continue without an informal complaint"
   end
 
   def when_i_press_start

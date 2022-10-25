@@ -33,6 +33,10 @@ module EnforceQuestionOrder
   def questions
     [
       { path: who_path, needs_answer: reporting_as_needs_answer? },
+      {
+        path: have_you_complained_path,
+        needs_answer: complained_needs_answer?
+      },
       { path: is_a_teacher_path, needs_answer: is_a_teacher_needs_answer? },
       {
         path: unsupervised_teaching_path,
@@ -73,6 +77,12 @@ module EnforceQuestionOrder
 
   def reporting_as_needs_answer?
     eligibility_check.reporting_as.nil?
+  end
+
+  def complained_needs_answer?
+    return false if eligibility_check.reporting_as_employer?
+
+    eligibility_check.complained.nil?
   end
 
   def unsupervised_teaching_needs_answer?
