@@ -1,0 +1,18 @@
+<li class="app-task-list__section app-task-list__section--numbered">
+  <h2 class="app-task-list__section-heading">
+    <span class="app-task-list__section-number"><%= number %>.</span>
+    <%= label %>
+  </h2>
+  <ul class="app-task-list__items">
+    <% items.each do |item| %>
+      <li class="app-task-list__item">
+        <span class="app-task-list__task-name">
+          <a href="<%= item.path %>" aria-describedby="<%= item.label.parameterize %>"><%= item.label %></a>
+        </span>
+        <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="<%= item.label.parameterize %>">
+          <%= item.status.to_s.humanize %>
+        </strong>
+      </li>
+    <% end %>
+  </ul>
+</li>

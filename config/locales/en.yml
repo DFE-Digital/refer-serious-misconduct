@@ -9,6 +9,23 @@ en:
     info: Information
     warning: Warning
     success: Success
+  referral_form:
+    heading: Your allegation of serious misconduct
+    about_you: About you
+    your_details: Your details
+    your_organisation: Your organisation
+    about_the_person_you_are_referring: About the person you are referring
+    personal_details: Personal details
+    contact_details: Contact details
+    about_their_role: About their role
+    the_allegation: The allegation
+    details_of_the_allegation: Details of the allegation
+    previous_allegations: Previous allegations
+    evidence_and_supporting_information: Evidence and supporting information
+    statuses:
+      not_started_yet: Not started yet
+      incomplete: Incomplete
+      completed: Completed
 
   activemodel:
     errors:
