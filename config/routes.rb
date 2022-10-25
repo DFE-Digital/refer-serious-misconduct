@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     root to: redirect("/support/eligibility_checks")
   end
 
+  get "/accessibility", to: "static#accessibility"
+  get "/cookies", to: "static#cookies"
+  get "/privacy", to: "static#privacy"
+
   scope via: :all do
     get "/404", to: "errors#not_found"
     get "/422", to: "errors#unprocessable_entity"

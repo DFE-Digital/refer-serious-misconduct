@@ -10,6 +10,7 @@ gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
     git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
     branch: "main"
+gem "govuk_markdown", "~> 1.0"
 gem "jsbundling-rails"
 gem "mail-notify"
 gem "okcomputer", "~> 1.18"
