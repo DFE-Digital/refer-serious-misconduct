@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_19_094346) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_24_141101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_094346) do
     t.string "teaching_in_england"
     t.string "unsupervised_teaching"
     t.string "is_teacher"
+    t.boolean "complained"
   end
 
   create_table "feature_flags_features", force: :cascade do |t|

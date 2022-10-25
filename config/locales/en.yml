@@ -8,6 +8,10 @@ en:
   activemodel:
     errors:
       models:
+        have_complained_form:
+          attributes:
+            complained:
+              inclusion: Tell us if you have already made a complaint
         is_teacher_form:
           attributes:
             is_teacher:
