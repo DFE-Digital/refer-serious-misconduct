@@ -1,4 +1,6 @@
 class ReportingAsController < ApplicationController
+  include EnforceQuestionOrder
+
   def new
     @reporting_as_form = ReportingAsForm.new(eligibility_check:)
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SupportInterface
-  class SupportInterfaceController < ActionController::Base
+  class SupportInterfaceController < ApplicationController
     layout "support_layout"
 
     http_basic_authenticate_with name: ENV["SUPPORT_USERNAME"],

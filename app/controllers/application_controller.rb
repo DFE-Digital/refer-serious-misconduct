@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  include EnforceQuestionOrder
-
   default_form_builder(GOVUKDesignSystemFormBuilder::FormBuilder)
 
   http_basic_authenticate_with name: ENV.fetch("SUPPORT_USERNAME", nil),

@@ -1,4 +1,6 @@
 class IsTeacherController < ApplicationController
+  include EnforceQuestionOrder
+
   def new
     @is_teacher_form = IsTeacherForm.new
   end
