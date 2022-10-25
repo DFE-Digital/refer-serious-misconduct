@@ -1,0 +1,5 @@
+<ol class="app-task-list">
+  <% sections.each_with_index do |section, idx| %>
+    <%= render TaskListSectionComponent.new(section: section, number: idx + 1) %>
+  <% end %>
+</ol>

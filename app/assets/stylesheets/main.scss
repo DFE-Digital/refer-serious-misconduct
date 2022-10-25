@@ -3,6 +3,7 @@ $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
 @import "govuk-frontend/govuk/all";
+@import "_task-list.scss";
 
 .app-govuk-related-navigation {
   @include govuk-text-colour;

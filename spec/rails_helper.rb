@@ -78,6 +78,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) { driven_by(:cuprite) }
 
   config.include FactoryBot::Syntax::Methods
+  config.include ViewComponent::TestHelpers, type: :component
 end
 
 Shoulda::Matchers.configure do |config|
