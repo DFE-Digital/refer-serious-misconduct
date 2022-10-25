@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       unlocks: "staff/unlocks"
     }
   )
+  devise_scope :staff do
+    authenticate :staff do
+      # Mount engines that require staff authentication here
+    end
+  end
 
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
