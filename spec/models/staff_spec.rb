@@ -41,8 +41,7 @@
 #  index_staff_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_staff_on_unlock_token          (unlock_token) UNIQUE
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Staff, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

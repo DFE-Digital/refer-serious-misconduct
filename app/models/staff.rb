@@ -52,7 +52,7 @@ class Staff < ApplicationRecord
     :rememberable,
     :timeoutable,
     :trackable,
-    :validatable,
+    :validatable
   )
 
   def send_devise_notification(notification, *args)
