@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
+  resources :referrals, except: %i[show]
+
   namespace :support_interface, path: "/support" do
     resources :eligibility_checks, only: [:index]
     mount FeatureFlags::Engine => "/features"
