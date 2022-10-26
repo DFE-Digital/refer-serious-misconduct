@@ -59,6 +59,7 @@ ENV GOVUK_NOTIFY_API_KEY=TestKey
 # The application runs from /app
 WORKDIR /app
 
+
 # Set Rails environment to production
 ENV RAILS_ENV=production
 
