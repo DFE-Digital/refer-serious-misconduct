@@ -1,0 +1,16 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Are you sure you want to delete your draft?</h1>
+    <% if @referral %>
+      <%= govuk_button_to "Yes I’m sure – delete it", referral_path(@referral), method: :delete, class: "govuk-button--warning" %>
+      <p>
+        <%= govuk_link_to "Cancel", edit_referral_path(@referral) %>
+      </p>
+    <% else %>
+      <%= govuk_link_to "Yes I’m sure – delete it", deleted_referral_path, class: "govuk-button govuk-button--warning" %>
+      <p>
+        <%= govuk_link_to "Cancel", new_referral_path %>
+      </p>
+    <% end %>
+  </div>
+</div>
