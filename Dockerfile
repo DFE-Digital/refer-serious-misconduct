@@ -65,3 +65,18 @@ ENV RAILS_ENV=production
 # Add the commit sha to the env
 ARG GIT_SHA
 ENV GIT_SHA=$GIT_SHA
+
+# Add the timezone (prod image) as it's not configured by default in Alpine
+RUN apk add --update --no-cache tzdata && \
+    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+    echo "Europe/London" > /etc/timezone
+
+# libpq: required to run postgres
+RUN apk add --no-cache libpq
+
+# Copy files generated in the builder image
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+
+CMD bundle exec rails db:migrate && \
+    bundle exec rails server -b 0.0.0.0
