@@ -21,7 +21,13 @@ class ReferralsController < ApplicationController
 
   def destroy
     referral.destroy!
-    redirect_to start_path
+    redirect_to deleted_referral_path
+  end
+
+  def delete
+    referral if params[:id]
+
+    render :delete
   end
 
   private
