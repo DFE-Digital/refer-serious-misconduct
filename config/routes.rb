@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       unlocks: "staff/unlocks"
     }
   )
+  devise_scope :staff do
+    get "/staff/sign_out", to: "staff/sessions#destroy"
+  end
 
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
