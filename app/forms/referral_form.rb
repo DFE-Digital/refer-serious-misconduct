@@ -24,7 +24,9 @@ class ReferralForm
   private
 
   def sections_valid
-    sections.map(&:items).flatten.map(&:status).uniq == [:complete]
+    unless sections.map(&:items).flatten.map(&:status).uniq == [:complete]
+      errors.add(:base, "Please complete all sections of the referral")
+    end
   end
 
   def about_you_section
