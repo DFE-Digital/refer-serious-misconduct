@@ -1,30 +1,38 @@
+# frozen_string_literal: true
 require "rails_helper"
 
 RSpec.feature "Staff invitations", type: :system do
   scenario "Staff user sends account invitation" do
     given_the_service_is_open
+    and_staff_http_basic_is_active
 
     when_i_am_authorized_as_a_support_user
     when_i_visit_the_staff_invitation_page
+    then_i_see_the_staff_index
+    when_i_click_on_invite
     then_i_see_the_staff_invitation_form
-
     when_i_fill_email_address
     and_i_send_invitation
     then_i_see_an_invitation_email
+    then_i_see_the_invited_staff_user
 
     when_i_am_not_authorized_as_a_support_user
     when_i_visit_the_invitation_email
     when_i_fill_password
     and_i_set_password
 
-    then_i_am_taken_to_support_interface
-    and_a_new_account_is_created
+    then_i_see_the_staff_index
+    and_i_see_the_accepted_staff_user
   end
 
   private
 
   def given_the_service_is_open
     FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_staff_http_basic_is_active
+    FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
   end
 
   def when_i_am_authorized_as_a_support_user
@@ -35,7 +43,16 @@ RSpec.feature "Staff invitations", type: :system do
   end
 
   def when_i_visit_the_staff_invitation_page
-    visit new_staff_invitation_path
+    visit support_interface_staff_index_path
+  end
+
+  def then_i_see_the_staff_index
+    expect(page).to have_current_path("/support/staff")
+    expect(page).to have_title("Staff")
+  end
+
+  def when_i_click_on_invite
+    click_link "Invite"
   end
 
   def then_i_see_the_staff_invitation_form
@@ -61,7 +78,13 @@ RSpec.feature "Staff invitations", type: :system do
     expect(message.to).to include("test@example.com")
   end
 
+  def then_i_see_the_invited_staff_user
+    expect(page).to have_content("test@example.com")
+    expect(page).to have_content("NOT ACCEPTED")
+  end
+
   def when_i_am_not_authorized_as_a_support_user
+    FeatureFlags::FeatureFlag.deactivate(:staff_http_basic_auth)
     page.driver.open_new_window
   end
 
@@ -86,8 +109,8 @@ RSpec.feature "Staff invitations", type: :system do
     expect(page).to have_current_path("/support/eligibility_checks")
   end
 
-  def and_a_new_account_is_created
-    staff_user = Staff.find_by(email: "test@example.com")
-    expect(staff_user).to be_present
+  def and_i_see_the_accepted_staff_user
+    expect(page).to have_content("test@example.com")
+    expect(page).to have_content("ACCEPTED")
   end
 end
