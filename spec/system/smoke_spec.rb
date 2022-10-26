@@ -12,23 +12,23 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     when_i_visit_the_service
     then_i_see_the_start_page
 
-    when_i_press_start
-    then_i_see_the_employer_or_public_question
+    # when_i_press_start
+    # then_i_see_the_employer_or_public_question
 
-    when_i_choose_reporting_as_an_employer
-    when_i_press_continue
-    then_i_see_the_is_a_teacher_page
+    # when_i_choose_reporting_as_an_employer
+    # when_i_press_continue
+    # then_i_see_the_is_a_teacher_page
 
-    when_i_choose_yes
-    when_i_press_continue
-    then_i_see_the_teaching_in_england_page
+    # when_i_choose_yes
+    # when_i_press_continue
+    # then_i_see_the_teaching_in_england_page
 
-    when_i_choose_yes
-    when_i_press_continue
-    then_i_see_the_you_should_know_page
+    # when_i_choose_yes
+    # when_i_press_continue
+    # then_i_see_the_you_should_know_page
 
-    when_i_press_continue
-    then_i_see_the_completion_page
+    # when_i_press_continue
+    # then_i_see_the_completion_page
   end
 
   it "/health/all returns 200" do
