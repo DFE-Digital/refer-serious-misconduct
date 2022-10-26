@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   devise_for(
     :staff,
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   devise_scope :staff do
     authenticate :staff do
       # Mount engines that require staff authentication here
+      mount Sidekiq::Web, at: "sidekiq"
     end
   end
 
