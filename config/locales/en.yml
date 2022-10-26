@@ -5,6 +5,11 @@ en:
     phone: 020 7593 5393
     url: https://refer-serious-misconduct.education.gov.uk
 
+  notification_banner:
+    info: Information
+    warning: Warning
+    success: Success
+
   activemodel:
     errors:
       models:
