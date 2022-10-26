@@ -9,6 +9,7 @@ end
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 require "capybara/cuprite"
+require "sidekiq/testing"
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
@@ -76,6 +77,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.before(:each, type: :system) { driven_by(:cuprite) }
+  config.before { Sidekiq::Worker.clear_all }
 
   config.include FactoryBot::Syntax::Methods
 end
