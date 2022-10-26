@@ -11,12 +11,6 @@ Rails.application.routes.draw do
       unlocks: "staff/unlocks"
     }
   )
-  devise_scope :staff do
-    authenticate :staff do
-      # Mount engines that require staff authentication here
-      mount Sidekiq::Web, at: "sidekiq"
-    end
-  end
 
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
@@ -49,6 +43,15 @@ Rails.application.routes.draw do
     mount FeatureFlags::Engine => "/features"
 
     root to: redirect("/support/eligibility_checks")
+
+    resources :staff, only: %i[index]
+
+    devise_scope :staff do
+      authenticate :staff do
+        # Mount engines that require staff authentication here
+        mount Sidekiq::Web, at: "sidekiq"
+      end
+    end
   end
 
   get "/accessibility", to: "static#accessibility"

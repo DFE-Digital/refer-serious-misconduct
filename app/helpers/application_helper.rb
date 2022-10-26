@@ -36,6 +36,11 @@ module ApplicationHelper
           href: main_app.support_interface_feature_flags_path,
           text: "Features"
         )
+        header.navigation_item(
+          active: request.path.start_with?("/support/staff"),
+          text: "Staff",
+          href: support_interface_staff_index_path,
+        )
       end
     end
   end
