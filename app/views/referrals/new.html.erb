@@ -16,7 +16,7 @@
       <div class="govuk-details__text">
         <p>
           You can delete your draft:<br>
-          <%= govuk_button_to "Delete your draft referral", start_path %>
+          <%= govuk_link_to "Delete your draft referral", delete_referral_path, class: "govuk-button" %>
         </p>
         <p>
           Drafts are automatically deleted after 6 months of no activity. We’ll send you an email before deleting it.
