@@ -54,8 +54,6 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
 # Build runtime image
 FROM ruby:3.1.2-alpine as production
 
-ENV GOVUK_NOTIFY_API_KEY=TestKey
-
 # The application runs from /app
 WORKDIR /app
 
