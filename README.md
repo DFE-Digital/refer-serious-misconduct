@@ -1,6 +1,6 @@
 # Refer serious misconduct by a teacher
 
-A service that allows people to report a teacher for serious misconduct.
+A service that allows people to refer a teacher for serious misconduct.
 
 ## Dependencies
 

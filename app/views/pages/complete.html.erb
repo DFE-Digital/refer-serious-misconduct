@@ -1,31 +1,25 @@
-<% content_for :page_title, 'You need to complete a referral form' %>
+<% content_for :page_title, 'You can also refer serious misconduct offline' %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">You need to complete a referral form</h1>
+    <h1 class="govuk-heading-xl">You can also refer serious misconduct offline</h1>
 
     <p class="govuk_body">
-      Based on what you've told us, you need to fill out the teacher misconduct
-      referral form for use by <%= @eligibility_check.reporting_as_employer? ? "employers" : "members of the public" %>.
+      You can <%= link_to_referral_form_for(@eligibility_check.reporting_as) %>.
     </p>
 
-    <h2 class="govuk-heading-m">What you need to do next</h2>
+    <p class="govuk_body">You should use the guidance within the form to help you fill it out.</p>
 
-    <p class="govuk_body">Download the referral form:</p>
+    <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p class="govuk_body">
-      <%= link_to_referral_form_for(@eligibility_check.reporting_as) %>
-    </p>
-    <p class="govuk_body">
-      Fill out the form, and email it to:<br><%= mail_to t('service.email') %>
-    </p>
+    <p class="govuk_body">If you need more information about making a referral, you can contact TRA.</p>
 
-    <h2 class="govuk-heading-m">Contacting TRA about this report</h2>
+    <h4 class="govuk-heading-s">Telephone</h4>
+    <p class="govuk_body">Call 020 7593 5393<br>Monday to Friday, 9am to 5pm (except Mondays and Fridays)</p>
+    <p class="govuk_body"><a href="https://www.gov.uk/call-charges">Find out about call charges</a>.</p>
 
-    <p class="govuk_body">
-      Call <%= t('service.phone') %> or email:<br>
-      <%= mail_to t('service.email') %>
-    </p>
-    <p class="govuk_body">Monday to Friday, 9am to 5pm (except public holidays)</p>
+    <h4 class="govuk-heading-s">Email</h4>
+    <p class="govuk_body"><%= mail_to t('service.email') %></p>
+    <p class="govuk_body">We aim to respond within 3 working days.</p>
   </div>
 </div>

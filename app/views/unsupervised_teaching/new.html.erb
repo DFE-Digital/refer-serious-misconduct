@@ -1,4 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @unsupervised_teaching_form.errors.any?}You can refer someone who does unsupervised teaching work" %>
+<% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
