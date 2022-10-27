@@ -16,7 +16,7 @@ class EligibilityCheck < ApplicationRecord
   validates :reporting_as, presence: true
 
   def is_teacher?
-    %w[yes not_sure].include?(is_teacher)
+    %w[yes].include?(is_teacher)
   end
 
   def reporting_as_employer?

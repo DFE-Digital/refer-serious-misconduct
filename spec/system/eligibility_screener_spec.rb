@@ -36,6 +36,11 @@ RSpec.describe "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_the_unsupervised_teaching_page
 
+    when_i_go_back
+    when_i_choose_not_sure
+    when_i_press_continue
+    then_i_see_the_unsupervised_teaching_page
+
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
@@ -89,9 +94,11 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_completion_page
     expect(page).to have_current_path("/complete")
     expect(page).to have_title(
-      "You need to complete a referral form - Refer serious misconduct by a teacher"
+      "You can also refer serious misconduct offline - Refer serious misconduct by a teacher"
     )
-    expect(page).to have_content("You need to complete a referral form")
+    expect(page).to have_content(
+      "You can also refer serious misconduct offline"
+    )
   end
 
   def then_i_see_the_employer_or_public_question

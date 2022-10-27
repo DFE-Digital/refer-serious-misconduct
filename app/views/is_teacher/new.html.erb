@@ -9,11 +9,7 @@
         <%= f.hidden_field :is_teacher %>
         <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" } %>
         <%= f.govuk_radio_button :is_teacher, "no", label: { text: "No" } %>
-        <%= f.govuk_radio_button :is_teacher, "not_sure", label: { text: "I’m not sure" } do %>
-          <p class="govuk_body">
-            If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it.
-          </p>
-        <% end %>
+        <%= f.govuk_radio_button :is_teacher, "not_sure", label: { text: "I’m not sure" } %>
       <% end %>
       <%= f.govuk_submit prevent_double_click: false %>
     <% end %>
