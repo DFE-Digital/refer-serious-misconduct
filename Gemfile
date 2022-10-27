@@ -28,6 +28,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails", "~> 2.8"
   gem "factory_bot_rails"
+  gem "launchy"
   gem "rspec-rails"
 end
 
