@@ -56,6 +56,12 @@ FROM ruby:3.1.2-alpine as production
 
 ENV GOVUK_NOTIFY_API_KEY=TestKey
 
+# The application runs from /app
+WORKDIR /app
+
+# Set Rails environment to production
+ENV RAILS_ENV=production
+
 # Add the commit sha to the env
 ARG GIT_SHA
 ENV GIT_SHA=$GIT_SHA
