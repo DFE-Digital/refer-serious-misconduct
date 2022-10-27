@@ -96,14 +96,7 @@ runs:
         make ci ${{ inputs.environment_name }} terraform-apply
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
         echo "postgres_server_name=$(terraform output -raw postgres_server_name)" >> $GITHUB_ENV
-        blue_green=$(terraform output -raw blue_green)
-        echo "blue_green=$blue_green" >> $GITHUB_ENV
-
-        if [ "$blue_green" = "true" ]; then
-          echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
-        else
-          echo "slot_name=production" >> $GITHUB_ENV
-        fi
+        echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
         TF_VAR_azure_sp_credentials_json: ${{ inputs.azure_credentials }}
@@ -114,13 +107,13 @@ runs:
       with:
         app-name: ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app
         images: ${{ inputs.image_name_tag }}
-        slot-name: ${{ steps.terraform.outputs.slot_name }}
+        slot-name: ${{ env.slot_name }}
 
     - uses: azure/CLI@v1
-      if: ${{ steps.terraform.outputs.blue_green == 'true' }}
+      if: ${{ env.slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ steps.terraform.outputs.slot_name}} --target-slot production
+          az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
 
     # Check new site is up
     - run: |

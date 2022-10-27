@@ -10,5 +10,5 @@ output "blue_green" {
 }
 
 output "web_app_slot_name" {
-  value = local.web_app_slot_name
+  value = var.enable_blue_green ? local.web_app_slot_name : "production"
 }
