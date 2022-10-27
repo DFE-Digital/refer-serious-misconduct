@@ -56,7 +56,7 @@ Rails.application.routes.draw do
       end
     end
 
-    get '/eligibility-checks', to: 'eligibility_checks#index'
+    get "/eligibility-checks", to: "eligibility_checks#index"
   end
 
   get "/accessibility", to: "static#accessibility"

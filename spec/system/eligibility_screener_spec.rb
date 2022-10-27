@@ -94,7 +94,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_completion_page
     expect(page).to have_current_path("/complete")
     expect(page).to have_title(
-      "You can also refer serious misconduct offline - Refer serious misconduct by a teacher"
+      "You can also refer serious misconduct offline - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "You can also refer serious misconduct offline"
@@ -104,7 +104,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_employer_or_public_question
     expect(page).to have_current_path("/who")
     expect(page).to have_title(
-      "Are you reporting as an employer or member of the public? - Refer serious misconduct by a teacher"
+      "Are you reporting as an employer or member of the public? - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "Are you reporting as an employer or member of the public?"
@@ -116,7 +116,7 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_title(
       [
         "Have you already made a complaint to the school, school governors or your local council?",
-        "Refer serious misconduct by a teacher"
+        "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
     expect(page).to have_content(
@@ -127,7 +127,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
     expect(page).to have_title(
-      "Is the allegation about a teacher? - Refer serious misconduct by a teacher"
+      "Is the allegation about a teacher? - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Is the allegation about a teacher?")
   end
@@ -135,7 +135,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_no_jurisdiction_page
     expect(page).to have_current_path("/no-jurisdiction")
     expect(page).to have_title(
-      "You need to make your referral somewhere else - Refer serious misconduct by a teacher"
+      "You need to make your referral somewhere else - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "You need to make your referral somewhere else"
@@ -145,7 +145,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_no_jurisdiction_unsupervised_page
     expect(page).to have_current_path("/no-jurisdiction-unsupervised")
     expect(page).to have_title(
-      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher"
+      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "You need to report this misconduct somewhere else"
@@ -161,7 +161,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_not_serious_misconduct_page
     expect(page).to have_current_path("/not-serious-misconduct")
     expect(page).to have_title(
-      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher"
+      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "You need to report this misconduct somewhere else"
@@ -173,7 +173,7 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_title(
       [
         "Were they carrying out teaching work in England at the time the alleged misconduct took place?",
-        "Refer serious misconduct by a teacher"
+        "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
     expect(page).to have_content(
@@ -186,7 +186,7 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_title(
       [
         "You should complain to the school, school governors or your local council first",
-        "Refer serious misconduct by a teacher"
+        "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
     expect(page).to have_content(
@@ -197,7 +197,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
-      "What completing this report means for you - Refer serious misconduct by a teacher"
+      "What completing this report means for you - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("What completing this report means for you")
   end
@@ -205,7 +205,7 @@ RSpec.describe "Eligibility screener", type: :system do
   def then_i_see_the_serious_misconduct_question
     expect(page).to have_current_path("/serious")
     expect(page).to have_title(
-      "Does the allegation involve serious misconduct? - Refer serious misconduct by a teacher"
+      "Does the allegation involve serious misconduct? - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
       "Does the allegation involve serious misconduct?"
@@ -214,8 +214,12 @@ RSpec.describe "Eligibility screener", type: :system do
 
   def then_i_see_the_start_page
     expect(page).to have_current_path("/start")
-    expect(page).to have_title("Refer serious misconduct by a teacher")
-    expect(page).to have_content("Refer serious misconduct by a teacher")
+    expect(page).to have_title(
+      "Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content(
+      "Refer serious misconduct by a teacher in England"
+    )
   end
 
   def then_i_see_the_unsupervised_teaching_page
@@ -223,7 +227,7 @@ RSpec.describe "Eligibility screener", type: :system do
     expect(page).to have_title(
       [
         "You can refer someone who does unsupervised teaching work",
-        "Refer serious misconduct by a teacher"
+        "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
   end
