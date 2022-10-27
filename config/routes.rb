@@ -43,10 +43,9 @@ Rails.application.routes.draw do
   get "/referrals/deleted", to: "referrals#deleted", as: "deleted_referral"
 
   namespace :support_interface, path: "/support" do
-    resources :eligibility_checks, only: [:index]
     mount FeatureFlags::Engine => "/features"
 
-    root to: redirect("/support/eligibility_checks")
+    root to: redirect("/support/eligibility-checks")
 
     resources :staff, only: %i[index]
 
@@ -56,6 +55,8 @@ Rails.application.routes.draw do
         mount Sidekiq::Web, at: "sidekiq"
       end
     end
+
+    get '/eligibility-checks', to: 'eligibility_checks#index'
   end
 
   get "/accessibility", to: "static#accessibility"
