@@ -38,9 +38,19 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
-  resources :referrals, except: %i[show]
-  get "/referrals/(:id)/delete", to: "referrals#delete", as: "delete_referral"
-  get "/referrals/deleted", to: "referrals#deleted", as: "deleted_referral"
+  resources :referrals, except: %i[index show] do
+    get "/delete", to: "referrals#delete", on: :member
+    get "/deleted", to: "referrals#deleted", on: :collection
+  end
+
+  namespace :referrals do
+    get "/:id/personal-details/name",
+        to: "personal_details/name#edit",
+        as: "edit_personal_details_name"
+    put "/:id/personal-details/name",
+        to: "personal_details/name#update",
+        as: "update_personal_details_name"
+  end
 
   namespace :support_interface, path: "/support" do
     resources :eligibility_checks, only: [:index]
