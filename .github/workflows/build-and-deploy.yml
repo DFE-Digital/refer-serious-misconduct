@@ -23,6 +23,7 @@ jobs:
       image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
     steps:
       - uses: actions/checkout@v3
+
       - uses: ./.github/actions/build-image
         id: build_image
         with:
@@ -30,7 +31,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
 
-  deploy_nonprod:
+  deploy:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -39,7 +40,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev, test, preprod]
+        environment: [dev, test, preprod, production]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
@@ -56,31 +57,10 @@ jobs:
           image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
       - uses: ./.github/actions/smoke-test
+        if: ${{ matrix.environment }} != 'production'
         id: smoke-test
         with:
           environment: ${{ matrix.environment }}
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
-  deploy_production:
-    name: Deploy to production environment
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.environment_url }}
-    concurrency: deploy_production
-    needs: [deploy_nonprod]
-
-    outputs:
-      environment_url: ${{ steps.deploy.outputs.environment_url }}
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: ./.github/actions/deploy-environment
-        id: deploy
-        with:
-          environment_name: production
-          image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
