@@ -1,1 +1,4 @@
 * @DFE-Digital/refer-serious-misconduct
+/.github/ @DFE-Digital/teacher-services-infrastructure @DFE-Digital/refer-serious-misconduct
+/terraform/ @DFE-Digital/teacher-services-infrastructure @DFE-Digital/refer-serious-misconduct
+Makefile @DFE-Digital/teacher-services-infrastructure @DFE-Digital/refer-serious-misconduct
