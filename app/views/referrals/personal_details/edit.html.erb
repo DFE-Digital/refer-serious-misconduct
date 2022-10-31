@@ -1,0 +1,25 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @personal_details_name_form, url: referrals_update_personal_details_name_path(@referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <h1 class="govuk-heading-xl">What is the name of the person you’re referring?</h1>
+      <div class="govuk-form-group">
+        <%= f.govuk_text_field :first_name, label: { text: "First name", class: "govuk-label--m" } %>
+      </div>
+      <div class="govuk-form-group">
+        <%= f.govuk_text_field :last_name, label: { text: "Last name", class: "govuk-label--m" } %>
+      </div>
+
+      <div class="govuk-form-group">
+        <%= f.govuk_radio_buttons_fieldset(:name_has_changed, legend: { size: 'm', text: "Have they changed their name?" }) do %>
+          <%= f.govuk_radio_button :name_has_changed, "yes", label: { text: "Yes" } do %>
+            <%= f.govuk_text_field :previous_name, label: { text: "Previous name" } %>
+          <% end %>
+          <%= f.govuk_radio_button :name_has_changed, "no", label: { text: "No" } %>
+          <%= f.govuk_radio_button :name_has_changed, "i_dont_know", label: { text: "I don’t know" } %>
+        <% end %>
+      </div>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

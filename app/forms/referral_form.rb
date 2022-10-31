@@ -1,4 +1,5 @@
 class ReferralForm
+  include Rails.application.routes.url_helpers
   include ActiveModel::Model
 
   attr_accessor :referral
@@ -55,7 +56,7 @@ class ReferralForm
       [
         ReferralSectionItem.new(
           I18n.t("referral_form.personal_details"),
-          "#",
+          referrals_edit_personal_details_name_path(referral),
           :not_started_yet
         ),
         ReferralSectionItem.new(
