@@ -16,7 +16,7 @@
             <%= f.govuk_text_field :previous_name, label: { text: "Previous name" } %>
           <% end %>
           <%= f.govuk_radio_button :name_has_changed, "no", label: { text: "No" } %>
-          <%= f.govuk_radio_button :name_has_changed, "i_dont_know", label: { text: "I don’t know" } %>
+          <%= f.govuk_radio_button :name_has_changed, "dont_know", label: { text: "I don’t know" } %>
         <% end %>
       </div>
       <%= f.govuk_submit "Save and continue" %>

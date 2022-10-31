@@ -10,8 +10,6 @@ module Referrals
             name_has_changed: referral.previous_name.present?,
             previous_name: referral.previous_name
           )
-
-        render "referrals/personal_details/name"
       end
 
       def update
@@ -20,7 +18,7 @@ module Referrals
         if @personal_details_name_form.save
           # TODO: Redirect to personal details DOB
         else
-          render "referrals/personal_details/name"
+          render :edit
         end
       end
 
