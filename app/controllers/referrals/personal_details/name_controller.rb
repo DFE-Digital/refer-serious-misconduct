@@ -16,7 +16,7 @@ module Referrals
         @personal_details_name_form = NameForm.new(name_params.merge(referral:))
 
         if @personal_details_name_form.save
-          # TODO: Redirect to personal details DOB
+          redirect_to referrals_edit_personal_details_age_path(referral)
         else
           render :edit
         end
