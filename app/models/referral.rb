@@ -3,7 +3,7 @@
 # Table name: referrals
 #
 #  id               :bigint           not null, primary key
-#  age_known        :integer
+#  age_known        :string
 #  approximate_age  :string
 #  date_of_birth    :date
 #  email_address    :string(256)
