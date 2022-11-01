@@ -50,6 +50,13 @@ Rails.application.routes.draw do
     put "/:id/personal-details/name",
         to: "personal_details/name#update",
         as: "update_personal_details_name"
+
+    get "/:id/contact-details/email",
+        to: "contact_details/email#edit",
+        as: "edit_contact_details_email"
+    put "/:id/contact-details/email",
+        to: "contact_details/email#update",
+        as: "update_contact_details_email"
   end
 
   get "/performance", to: "performance#index"
