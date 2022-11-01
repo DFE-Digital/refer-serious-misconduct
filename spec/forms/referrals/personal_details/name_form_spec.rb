@@ -32,7 +32,7 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
     context "with invalid values" do
       let(:first_name) { "" }
       let(:last_name) { "" }
-      let(:name_has_changed) { "yes" }
+      let(:name_has_changed) { "" }
       let(:previous_name) { "" }
 
       it "fails form validation" do
@@ -40,6 +40,14 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
 
         expect(form.errors[:first_name]).to include "First name can't be blank"
         expect(form.errors[:last_name]).to include "Last name can't be blank"
+        expect(form.errors[:name_has_changed]).to include(
+          "Please indicate whether their name has changed"
+        )
+      end
+
+      it "validates previous name conditionally" do
+        form.name_has_changed = "yes"
+        form.save
         expect(
           form.errors[:previous_name]
         ).to include "Previous name can't be blank"

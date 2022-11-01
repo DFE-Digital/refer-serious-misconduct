@@ -60,6 +60,8 @@ en:
               blank: First name can't be blank
             last_name:
               blank: Last name can't be blank
+            name_has_changed:
+              inclusion: Please indicate whether their name has changed
             previous_name:
               blank: Previous name can't be blank
 
