@@ -64,6 +64,11 @@ en:
               inclusion: Please indicate whether their name has changed
             previous_name:
               blank: Previous name can't be blank
+        "referrals/contact_details/email_form":
+          attributes:
+            email_address:
+              blank: The email address can't be blank
+              invalid: Enter an email address in the correct format, like name@example.com
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com

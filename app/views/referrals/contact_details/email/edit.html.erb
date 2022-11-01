@@ -1,0 +1,18 @@
+<% content_for :page_title, "#{"Error: " if @contact_details_email_form.errors.any?}Do you know the personal email address of the person you are referring?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @contact_details_email_form, url: referrals_update_contact_details_email_url, method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset :email_known, legend: { size: "l", text: "Do you know the personal email address of the person you are referring?" }  do %>
+        <%= f.hidden_field :email_known %>
+        <%= f.govuk_radio_button :email_known, true, label: { text: "Yes" } do %>
+          <%= f.govuk_text_field :email_address, label: { text: "Email address" } %>
+        <% end %>
+        <%= f.govuk_radio_button :email_known, false, label: { text: "No" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue", prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>
