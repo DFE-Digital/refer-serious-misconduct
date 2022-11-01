@@ -42,6 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_131509) do
     t.string "last_name"
     t.string "previous_name"
     t.string "name_has_changed"
+    t.date "date_of_birth"
+    t.string "age_known"
+    t.string "approximate_age"
   end
 
   create_table "staff", force: :cascade do |t|
