@@ -52,6 +52,8 @@ Rails.application.routes.draw do
         as: "update_personal_details_name"
   end
 
+  get "/performance", to: "performance#index"
+
   namespace :support_interface, path: "/support" do
     mount FeatureFlags::Engine => "/features"
 

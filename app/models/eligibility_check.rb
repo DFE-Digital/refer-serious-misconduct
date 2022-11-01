@@ -15,6 +15,24 @@
 class EligibilityCheck < ApplicationRecord
   validates :reporting_as, presence: true
 
+  scope :complete, -> { where(serious_misconduct: "yes") }
+  scope :group_by_day, -> { group("date_trunc('day', created_at)") }
+  scope :incomplete,
+        -> {
+          where(is_teacher: nil)
+            .or(where.not(teaching_in_england: "no"))
+            .or(where.not(unsupervised_teaching: "no"))
+            .or(where.not(serious_misconduct: "no"))
+        }
+  scope :ineligible,
+        -> {
+          where(unsupervised_teaching: "no").or(
+            where(serious_misconduct: "no")
+          ).or(where(teaching_in_england: "no"))
+        }
+  scope :previous_7_days,
+        -> { where(created_at: 1.week.ago.beginning_of_day..) }
+
   def is_teacher?
     %w[yes].include?(is_teacher)
   end

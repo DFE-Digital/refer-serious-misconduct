@@ -3,7 +3,9 @@ $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
 @import "govuk-frontend/govuk/all";
-@import "_task-list.scss";
+@import "_task-list";
+@import "_performance-table";
+@import "card";
 
 .app-govuk-related-navigation {
   @include govuk-text-colour;
