@@ -6,6 +6,8 @@
 #  age_known        :integer
 #  approximate_age  :string
 #  date_of_birth    :date
+#  email_address    :string(256)
+#  email_known      :boolean
 #  first_name       :string
 #  last_name        :string
 #  name_has_changed :string
