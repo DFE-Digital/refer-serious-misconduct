@@ -1,0 +1,115 @@
+<% content_for :page_title, 'Performance dashboard' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">
+        <%= t('service.name') %>
+      </span>
+      Performance dashboard
+    </h1>
+  </div>
+</div>
+
+<h2 class="govuk-heading-m">Today and the previous 7 days</h2>
+
+<div class="govuk-!-margin-bottom-4">
+  <%= render TileComponent.new(
+    colour: :blue,
+    count: @total_requests_by_day[:total],
+    label: "checks today and the previous 7 days",
+  ) %>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+  <div class="govuk-grid-column-one-third">
+    <%= render TileComponent.new(
+      colour: :green,
+      count: number_to_percentage(
+        100 * @total_requests_by_day[:complete_count].fdiv(@total_requests_by_day[:total]),
+        precision: 0
+      ), 
+      label: [
+         "completed their checks",
+         "straight away",
+         "(#{number_with_delimiter(@total_requests_by_day[:complete_count])} out of #{number_with_delimiter(@total_requests_by_day[:total])})"
+      ].join("<br />").html_safe,
+    ) %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render TileComponent.new(
+                 count: number_to_percentage(100 * @total_requests_by_day[:incomplete_count].fdiv(@total_requests_by_day[:total]), precision: 0),
+                 label: [
+                    "did not complete their journey",
+                    "",
+                    "(#{number_with_delimiter(@total_requests_by_day[:incomplete_count])} out of #{number_with_delimiter(@total_requests_by_day[:total])})"
+                  ].join("<br />").html_safe,
+                 colour: :grey) %>
+  </div>
+</div>
+
+<h2 class="govuk-heading-m govuk-!-margin-top-7">Eligibility checks by day</h2>
+
+<%= render EligibilityPerformanceTableComponent.new(grouped_request_counts: @request_counts_by_day, total_grouped_requests: @total_requests_by_day, since: "today and the previous 7 days") %>
+
+<h2 class="govuk-heading-m govuk-!-margin-top-7">Eligibility checks by month</h2>
+
+<%= render EligibilityPerformanceTableComponent.new(grouped_request_counts: @request_counts_by_month, total_grouped_requests: @total_requests_by_month, since: "this month and the last 12 months") %>
+
+<div class="govuk-!-margin-top-7">
+  <%= govuk_table(classes: 'app-performance-table') do |table|
+      table.caption(size: 'm', text: "How quickly did users get their eligibility status (today and the previous 7 days)")
+
+      table.head do |head|
+        head.row do |row|
+          row.cell(header: true, text: 'Date')
+          row.cell(header: true) { '90% of users<br>got their eligibility status within'.html_safe }
+          row.cell(header: true) { '75% of users<br>got their eligibility status within'.html_safe }
+          row.cell(header: true) { '50% of users<br>got their eligibility status within'.html_safe }
+        end
+      end
+
+      table.body do |body|
+        @daily_percentiles.each do |data_row|
+          body.row do |row|
+            row.cell { data_row[0] }
+            row.cell { data_row[1] }
+            row.cell { data_row[2] }
+            row.cell { data_row[3] }
+          end
+        end
+
+        body.row(classes: 'app-performance-table-total-row') do |row|
+          row.cell(header: true) { 'Average (today and the last 7 days)' }
+          row.cell { @total_percentiles[0] }
+          row.cell { @total_percentiles[1] }
+          row.cell { @total_percentiles[2] }
+        end
+     end; end %>
+</div>
+
+<h2 class="govuk-heading-m govuk-!-margin-top-7">About this service</h2>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-body govuk-!-margin-0">Visit this service</h2>
+    <p class="govuk-heading-m">
+      <%= govuk_link_to t('service.name'), start_path %>
+    </p>
+
+    <h2 class="govuk-body govuk-!-margin-0">Ministerial department:</h2>
+    <p class="govuk-heading-m">
+      Department for Education
+    </p>
+
+    <h2 class="govuk-body govuk-!-margin-0">User:</h2>
+    <p class="govuk-heading-m">
+      Individuals
+    </p>
+
+    <h2 class="govuk-body govuk-!-margin-0">Service costs paid by:</h2>
+    <p class="govuk-heading-m">
+      Department budget
+    </p>
+  </div>
+</div>
