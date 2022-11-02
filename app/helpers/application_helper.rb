@@ -52,6 +52,18 @@ module ApplicationHelper
           )
         end
       end
+
+      if current_user
+        header.navigation_item(
+          href: main_app.users_sign_out_path,
+          text: "Sign out"
+        )
+      else
+        header.navigation_item(
+          href: main_app.new_user_session_path,
+          text: "Sign in"
+        )
+      end
     end
   end
 end
