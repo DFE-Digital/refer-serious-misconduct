@@ -1,0 +1,15 @@
+<h1 class="govuk-heading-l">Log in</h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= "Debug - expected OTP: #{@derived_otp}" %>
+    <%= form_for(resource, as: resource_name, url: user_otp_path, method: :post) do |f| %>
+      <%= f.hidden_field :email, value: resource.email %>
+      <p><%= resource.email %></p>
+
+      <%= f.govuk_text_field :otp %>
+
+      <%= f.govuk_submit "Sign in" %>
+    <% end %>
+  </div>
+</div>
