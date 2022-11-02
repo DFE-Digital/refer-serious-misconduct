@@ -45,6 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 20_221_103_120_049) do
     t.string "age_known"
     t.string "approximate_age"
     t.boolean "email_known"
+    t.string "trn"
+    t.boolean "trn_known"
   end
 
   create_table "referrers", force: :cascade do |t|
