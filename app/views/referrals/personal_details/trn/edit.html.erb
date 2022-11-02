@@ -1,0 +1,21 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @personal_details_trn_form, url: referrals_update_personal_details_trn_path(@referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <div class="govuk-form-group">
+        <%= f.govuk_radio_buttons_fieldset(
+          :trn_known,
+          legend: { size: "xl", text: "Do you know their teacher reference number (TRN)?" },
+          hint: { text: "A TRN is 7 digits long, for example 4567814."},
+        ) do %>
+          <%= f.govuk_radio_button :trn_known, true, label: { text: "Yes" } do %>
+            <%= f.govuk_text_field :trn,
+                label: { text: "Teacher reference number", class: "govuk-label--s" } %>
+          <% end %>
+          <%= f.govuk_radio_button :trn_known, false, label: { text: "No" } %>
+        <% end %>
+      </div>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

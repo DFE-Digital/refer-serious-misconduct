@@ -20,6 +20,13 @@ RSpec.feature "Personal details" do
 
     when_i_fill_out_their_date_of_birth
     and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_their_trn
+
+    and_i_click_save_and_continue
+    then_i_see_trn_field_validation_errors
+
+    when_i_fill_out_their_trn
+    and_i_click_save_and_continue
 
     then_the_section_summary_displays_the_saved_personal_details
   end
@@ -78,6 +85,22 @@ RSpec.feature "Personal details" do
     fill_in "Year", with: "1990"
   end
 
+  def then_i_am_asked_if_i_know_their_trn
+    expect(page).to have_content(
+      "Do you know their teacher reference number (TRN)?"
+    )
+    expect(page).to have_content("A TRN is 7 digits long, for example 4567814.")
+  end
+
+  def then_i_see_trn_field_validation_errors
+    expect(page).to have_content("Tell us if you know their TRN number")
+  end
+
+  def when_i_fill_out_their_trn
+    choose "Yes", visible: false
+    fill_in "Teacher reference number", with: "RP99/12345"
+  end
+
   def then_the_section_summary_displays_the_saved_personal_details
     # TODO: This will assert the section summary page contents, not built yet
     @referral.reload
@@ -85,5 +108,6 @@ RSpec.feature "Personal details" do
     expect(@referral.last_name).to eq("Smith")
     expect(@referral.previous_name).to eq("Jane Jones")
     expect(@referral.date_of_birth).to eq(Date.new(1990, 1, 17))
+    expect(@referral.trn).to eq("9912345")
   end
 end
