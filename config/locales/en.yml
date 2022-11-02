@@ -79,6 +79,13 @@ en:
               inclusion: Please indicate whether their name has changed
             previous_name:
               blank: Previous name can't be blank
+        "referrals/personal_details/trn_form":
+          attributes:
+            trn_known:
+              inclusion: Tell us if you know their TRN number
+            trn:
+              blank: Enter their TRN number
+              wrong_length: Their TRN number should contain 7 digits
         "referrals/contact_details/email_form":
           attributes:
             email_address:
