@@ -330,6 +330,9 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.strategies.add(:staff_http_basic_auth, StaffHttpBasicAuthStrategy)
     manager.default_strategies(scope: :staff).unshift :staff_http_basic_auth
+
+    manager.strategies.add(:otp_authenticatable, OtpAuthenticatable)
+    manager.default_strategies(scope: :user).unshift(:otp_authenticatable)
   end
 
   # ==> Mountable engine configurations
