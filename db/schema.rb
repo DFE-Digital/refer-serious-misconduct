@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_124121) do
     t.string "town_or_city"
     t.string "postcode", limit: 11
     t.string "country"
+    t.string "has_qts"
   end
 
   create_table "referrers", force: :cascade do |t|

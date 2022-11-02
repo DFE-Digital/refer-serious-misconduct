@@ -12,6 +12,12 @@
 #  last_name        :string
 #  name_has_changed :string
 #  previous_name    :string
+#  has_qts          :string
+#  last_name        :string
+#  name_has_changed :string
+#  previous_name    :string
+#  trn              :string
+#  trn_known        :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
