@@ -3,6 +3,7 @@
     <h1 class="govuk-heading-xl">
       <%= t('service.name') %>
     </h1>
+    <h2>Signed in as: <%= current_user.present? ? current_user.email : 'no one' %></h2>
   </div>
 </div>
 

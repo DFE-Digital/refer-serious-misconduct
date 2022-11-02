@@ -1,6 +1,9 @@
 class ReportingAsController < ApplicationController
   include EnforceQuestionOrder
 
+  # TODO: remove this, for demo only
+  before_action :authenticate_user!, only: [:new]
+
   def new
     @reporting_as_form = ReportingAsForm.new(eligibility_check:)
   end
