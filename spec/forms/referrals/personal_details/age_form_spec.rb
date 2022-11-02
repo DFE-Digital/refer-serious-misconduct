@@ -69,6 +69,13 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         save
         expect(referral.date_of_birth).to be_nil
       end
+
+      it "adds an error" do
+        save
+        expect(age_form.errors[:date_of_birth]).to eq(
+          ["Enter their date of birth in the correct format"]
+        )
+      end
     end
 
     context "with a blank date" do

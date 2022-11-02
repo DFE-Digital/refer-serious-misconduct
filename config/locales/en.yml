@@ -60,10 +60,11 @@ en:
               blank: Enter their date of birth
               born_after_1900: Enter a year of birth later than 1900
               inclusion: You must be 16 or over to use this service
+              in_the_future: Their date of birth must be in the past
+              invalid: Enter their date of birth in the correct format
               missing_day: Enter a day for their date of birth, formatted as a number
               missing_month: Enter a month for their date of birth, formatted as a number
               missing_year: Enter a year with 4 digits
-              in_the_future: Their date of birth must be in the past
             approximate_age:
               blank: Enter their approximate age
             age_known:

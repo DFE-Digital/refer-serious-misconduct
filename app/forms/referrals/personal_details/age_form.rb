@@ -92,7 +92,7 @@ module Referrals
         begin
           self.date_of_birth = Date.new(year, month, day)
         rescue Date::Error
-          errors.add(:date_of_birth, :blank)
+          errors.add(:date_of_birth, :invalid)
           return false
         end
 
