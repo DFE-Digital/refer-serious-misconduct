@@ -5,15 +5,16 @@
 #  id               :bigint           not null, primary key
 #  age_known        :string
 #  approximate_age  :string
-#  boolean          :string
 #  date_of_birth    :date
 #  email_address    :string(256)
-#  email_known      :string
+#  email_known      :boolean
 #  first_name       :string
+#  has_qts          :string
 #  last_name        :string
 #  name_has_changed :string
 #  previous_name    :string
-#  string           :string(256)
+#  trn              :string
+#  trn_known        :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
