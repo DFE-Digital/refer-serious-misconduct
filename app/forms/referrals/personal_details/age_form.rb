@@ -47,7 +47,7 @@ module Referrals
           params["date_of_birth(3i)"]
         ]
 
-        date_fields.map! { |f| f.is_a?(String) ? f.strip : f }
+        date_fields.map! { |f| f&.to_s&.strip }
 
         # Use a struct instead of a date object to maintain what the user typed in,
         # and not transform the fields into other data types like integers that
@@ -100,8 +100,6 @@ module Referrals
           errors.add(:date_of_birth, :inclusion)
           return false
         end
-
-        return false if invalid?
 
         referral.update!(age_known:, date_of_birth:, approximate_age: nil)
       end
