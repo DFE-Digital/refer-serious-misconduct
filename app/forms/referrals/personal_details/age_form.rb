@@ -34,7 +34,7 @@ module Referrals
       def save_age
         return false if invalid?
 
-        age_attrs = { age_known: }
+        age_attrs = { age_known:, approximate_age: nil, date_of_birth: nil }
         age_attrs.merge!(approximate_age:) if age_known == "approximate"
 
         referral.update!(age_attrs)
@@ -103,7 +103,7 @@ module Referrals
 
         return false if invalid?
 
-        referral.update!(age_known:, date_of_birth:)
+        referral.update!(age_known:, date_of_birth:, approximate_age: nil)
       end
 
       private
