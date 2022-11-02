@@ -15,7 +15,16 @@ Rails.application.routes.draw do
     get "/staff/sign_out", to: "staff/sessions#destroy"
   end
 
-  get "_sha", to: ->(_) { [200, {}, [ENV.fetch("GIT_SHA", "")]] }
+  devise_for(:user)
+  devise_scope :user do
+    get '/users/session/new', to: "users/sessions#new", as: "new_user_session"
+    post '/users/session', to: "users/sessions#create", as: "user_session"
+    get '/users/otp/new', to: "users/otp#new", as: "new_user_otp"
+    post '/users/otp', to: "users/otp#create", as: "user_otp"
+
+    get "/users/sign_out", to: "users/sessions#destroy"
+  end
+
   get "/start", to: "pages#start"
   get "/who", to: "reporting_as#new"
   post "/who", to: "reporting_as#create"
@@ -133,4 +142,6 @@ Rails.application.routes.draw do
     get "/429", to: "errors#too_many_requests"
     get "/500", to: "errors#internal_server_error"
   end
+
+  get "_sha", to: ->(_) { [200, {}, [ENV.fetch("GIT_SHA", "")]] }
 end
