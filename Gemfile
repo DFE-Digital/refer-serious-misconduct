@@ -20,6 +20,7 @@ gem "pg", "~> 1.4"
 gem "propshaft"
 gem "puma", "~> 5.0"
 gem "rails", "~> 7.0.3"
+gem "rotp"
 gem "sidekiq"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "view_component"
