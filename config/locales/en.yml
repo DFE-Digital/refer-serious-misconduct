@@ -68,7 +68,7 @@ en:
             approximate_age:
               blank: Enter their approximate age
             age_known:
-              inclusion: Please indicate whether you know their date of birth or age
+              inclusion: Tell us if you know their date of birth or age
         "referrals/personal_details/name_form":
           attributes:
             first_name:
@@ -76,7 +76,7 @@ en:
             last_name:
               blank: Last name can't be blank
             name_has_changed:
-              inclusion: Please indicate whether their name has changed
+              inclusion: Tell us if you know their name has changed
             previous_name:
               blank: Previous name can't be blank
         "referrals/personal_details/trn_form":
@@ -86,6 +86,10 @@ en:
             trn:
               blank: Enter their TRN number
               wrong_length: Their TRN number should contain 7 digits
+        "referrals/personal_details/qts_form":
+          attributes:
+            has_qts:
+              inclusion: Tell us if you know whether they have QTS
         "referrals/contact_details/email_form":
           attributes:
             email_known:

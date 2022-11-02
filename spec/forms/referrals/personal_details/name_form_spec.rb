@@ -41,7 +41,7 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
         expect(form.errors[:first_name]).to include "First name can't be blank"
         expect(form.errors[:last_name]).to include "Last name can't be blank"
         expect(form.errors[:name_has_changed]).to include(
-          "Please indicate whether their name has changed"
+          "Tell us if you know their name has changed"
         )
       end
 
