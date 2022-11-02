@@ -57,12 +57,12 @@ module Referrals
         year, month, day = date_fields.map { |f| word_to_number(f) }.map(&:to_i)
 
         if day.zero? && month.zero? && year.zero?
-          errors.add(:date_of_birth, t("blank"))
+          errors.add(:date_of_birth, :blank)
           return false
         end
 
         if day.zero?
-          errors.add(:date_of_birth, t("missing_day"))
+          errors.add(:date_of_birth, :missing_day)
           return false
         end
 
@@ -70,34 +70,34 @@ module Referrals
         month = word_to_month(date_fields[1]) if month_is_a_word
 
         if month.zero?
-          errors.add(:date_of_birth, t("missing_month"))
+          errors.add(:date_of_birth, :missing_month)
           return false
         end
 
         if year < 1000
-          errors.add(:date_of_birth, t("missing_year"))
+          errors.add(:date_of_birth, :missing_year)
           return false
         end
 
         if year < 1900
-          errors.add(:date_of_birth, t("born_after_1900"))
+          errors.add(:date_of_birth, :born_after_1900)
           return false
         end
 
         if year > Time.zone.today.year
-          errors.add(:date_of_birth, t("in_the_future"))
+          errors.add(:date_of_birth, :in_the_future)
           return false
         end
 
         begin
           self.date_of_birth = Date.new(year, month, day)
         rescue Date::Error
-          errors.add(:date_of_birth, t("blank"))
+          errors.add(:date_of_birth, :blank)
           return false
         end
 
         if date_of_birth > 16.years.ago
-          errors.add(:date_of_birth, t("inclusion"))
+          errors.add(:date_of_birth, :inclusion)
           return false
         end
 
@@ -107,12 +107,6 @@ module Referrals
       end
 
       private
-
-      def t(str)
-        I18n.t(
-          %(activemodel.errors.models.referrals/personal_details/age_form.attributes.date_of_birth.#{str})
-        )
-      end
 
       def word_to_number(field)
         return field if field.is_a? Integer
