@@ -65,6 +65,12 @@ Rails.application.routes.draw do
     put "/:id/personal-details/age",
         to: "personal_details/age#update",
         as: "update_personal_details_age"
+    get "/:id/personal-details/trn",
+        to: "personal_details/trn#edit",
+        as: "edit_personal_details_trn"
+    put "/:id/personal-details/trn",
+        to: "personal_details/trn#update",
+        as: "update_personal_details_trn"
 
     get "/:id/contact-details/email",
         to: "contact_details/email#edit",

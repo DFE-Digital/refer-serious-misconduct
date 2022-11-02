@@ -10,7 +10,7 @@ module Referrals
           AgeForm.new(approximate_age_params.merge(referral:))
 
         if @personal_details_age_form.save(date_of_birth_params)
-          # TODO: Redirect to personal details TRN
+          redirect_to referrals_edit_personal_details_trn_path(referral)
         else
           render :edit
         end
