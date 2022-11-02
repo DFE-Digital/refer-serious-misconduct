@@ -12,23 +12,27 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     when_i_visit_the_service
     then_i_see_the_start_page
 
-    # when_i_press_start
-    # then_i_see_the_employer_or_public_question
+    when_i_press_start
+    then_i_see_the_employer_or_public_question
 
-    # when_i_choose_reporting_as_an_employer
-    # when_i_press_continue
-    # then_i_see_the_is_a_teacher_page
+    when_i_choose_reporting_as_an_employer
+    when_i_press_continue
+    then_i_see_the_is_a_teacher_page
 
-    # when_i_choose_yes
-    # when_i_press_continue
-    # then_i_see_the_teaching_in_england_page
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_teaching_in_england_page
 
-    # when_i_choose_yes
-    # when_i_press_continue
-    # then_i_see_the_you_should_know_page
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_serious_misconduct_page
 
-    # when_i_press_continue
-    # then_i_see_the_completion_page
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_you_should_know_page
+
+    when_i_press_continue
+    then_i_see_the_completion_page
   end
 
   it "/health/all returns 200" do
@@ -47,26 +51,18 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
 
   def then_i_see_the_completion_page
     expect(page).to have_current_path("/complete")
-    expect(page).to have_title(
-      "You need to complete a referral form - Refer serious misconduct by a teacher"
-    )
-    expect(page).to have_content("You need to complete a referral form")
   end
 
   def then_i_see_the_employer_or_public_question
     expect(page).to have_current_path("/who")
-    expect(page).to have_title(
-      "Are you reporting as an employer or member of the public? - Refer serious misconduct by a teacher"
-    )
-    expect(page).to have_content(
-      "Are you reporting as an employer or member of the public?"
-    )
+  end
+
+  def then_i_see_the_serious_misconduct_page
+    expect(page).to have_current_path("/serious")
   end
 
   def then_i_see_the_start_page
     expect(page).to have_current_path("/start")
-    expect(page).to have_title("Refer serious misconduct by a teacher")
-    expect(page).to have_content("Refer serious misconduct by a teacher")
   end
 
   def then_i_see_the_teaching_in_england_page
