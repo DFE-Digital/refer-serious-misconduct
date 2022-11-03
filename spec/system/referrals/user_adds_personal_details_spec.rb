@@ -5,15 +5,27 @@ RSpec.feature "Personal details" do
   scenario "User adds personal details to a referral" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
-    and_i_am_making_a_referral
+    and_i_visit_a_referral
+    then_i_see_the_referral_summary
 
     when_i_edit_personal_details
+    and_i_am_asked_their_name
+    and_i_click_back
+    then_i_see_the_referral_summary
+
+    when_i_edit_personal_details
+    and_i_am_asked_their_name
     and_i_click_save_and_continue
     then_i_see_name_field_validation_errors
 
     when_i_fill_out_the_name_fields_and_save
     and_i_click_save_and_continue
-    then_i_am_asked_if_i_know_their_date_of_birth
+    then_i_am_asked_their_date_of_birth
+
+    when_i_click_back
+    and_i_am_asked_their_name
+    and_i_click_save_and_continue
+    then_i_am_asked_their_date_of_birth
 
     and_i_click_save_and_continue
     then_i_see_age_field_validation_errors
@@ -22,10 +34,21 @@ RSpec.feature "Personal details" do
     and_i_click_save_and_continue
     then_i_am_asked_if_i_know_their_trn
 
+    when_i_click_back
+    then_i_am_asked_their_date_of_birth
+
+    and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_their_trn
+
     and_i_click_save_and_continue
     then_i_see_trn_field_validation_errors
 
     when_i_fill_out_their_trn
+    and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_whether_they_have_qts
+
+    when_i_click_back
+    then_i_am_asked_if_i_know_their_trn
     and_i_click_save_and_continue
     then_i_am_asked_if_i_know_whether_they_have_qts
 
@@ -48,15 +71,28 @@ RSpec.feature "Personal details" do
     FeatureFlags::FeatureFlag.activate(:employer_form)
   end
 
-  def and_i_am_making_a_referral
+  def and_i_visit_a_referral
     @referral = Referral.create!
     visit edit_referral_path(@referral)
-
-    expect(page).to have_content("Your allegation of serious misconduct")
   end
 
   def when_i_edit_personal_details
     within(all(".app-task-list__section")[1]) { click_on "Personal details" }
+  end
+
+  def and_i_am_asked_their_name
+    expect(page).to have_content(
+      "What is the name of the person you’re referring?"
+    )
+  end
+
+  def when_i_click_back
+    click_on "Back"
+  end
+  alias_method :and_i_click_back, :when_i_click_back
+
+  def then_i_see_the_referral_summary
+    expect(page).to have_content("Your allegation of serious misconduct")
   end
 
   def then_i_see_name_field_validation_errors
@@ -75,7 +111,7 @@ RSpec.feature "Personal details" do
     click_on "Save and continue"
   end
 
-  def then_i_am_asked_if_i_know_their_date_of_birth
+  def then_i_am_asked_their_date_of_birth
     expect(page).to have_content("Do you know their age or date of birth?")
   end
 
@@ -113,9 +149,7 @@ RSpec.feature "Personal details" do
   end
 
   def then_i_see_qts_field_validation_errors
-    expect(page).to have_content(
-      "Tell us if you know whether they have QTS"
-    )
+    expect(page).to have_content("Tell us if you know whether they have QTS")
   end
 
   def when_i_fill_out_their_qts
