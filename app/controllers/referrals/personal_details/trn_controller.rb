@@ -14,7 +14,7 @@ module Referrals
         @personal_details_trn_form = TrnForm.new(trn_params.merge(referral:))
 
         if @personal_details_trn_form.save
-          # TODO: Redirect to personal details confirm
+          redirect_to referrals_edit_personal_details_qts_path(referral)
         else
           render :edit
         end

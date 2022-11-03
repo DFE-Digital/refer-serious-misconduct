@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
   it do
-    is_expected.to validate_inclusion_of(:trn_known).in_array(%w[true false])
+    is_expected.to validate_inclusion_of(:trn_known).in_array([true, false])
   end
 
   describe "#save" do
