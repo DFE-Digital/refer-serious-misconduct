@@ -10,7 +10,7 @@ RSpec.feature "Contact details" do
     and_i_click_on_contact_details
     then_i_see_the_personal_email_address_page
 
-    when_i_select_yes_without_email
+    when_i_select_yes
     and_i_press_continue
     then_i_see_a_missing_email_error
 
@@ -20,9 +20,27 @@ RSpec.feature "Contact details" do
 
     when_i_select_yes_with_a_valid_email
     and_i_press_continue
+    then_i_see_the_home_address_page
+
+    when_i_go_back
+    when_i_select_no
+    and_i_press_continue
+    then_i_see_the_home_address_page
+
+    when_i_select_yes
+    and_i_press_continue
+    then_i_see_a_missing_address_fields_error
+
+    when_i_fill_in_an_incorrect_postcode
+    and_i_press_continue
+    then_i_see_a_invalid_postcode_error
+
+    when_i_fill_in_the_address_details
+    and_i_press_continue
     then_i_get_redirected_to_the_referral_summary
 
     and_i_click_on_contact_details
+    and_i_press_continue # skip the email page
     when_i_select_no
     and_i_press_continue
     then_i_get_redirected_to_the_referral_summary
@@ -50,6 +68,10 @@ RSpec.feature "Contact details" do
     click_link "Contact details"
   end
 
+  def when_i_go_back
+    click_link "Back"
+  end
+
   def then_i_see_the_personal_email_address_page
     expect(page).to have_current_path(
       "/referrals/#{@referral.id}/contact-details/email"
@@ -62,7 +84,15 @@ RSpec.feature "Contact details" do
     )
   end
 
-  def when_i_select_yes_without_email
+  def then_i_see_the_home_address_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/contact-details/address"
+    )
+    expect(page).to have_title("Do you know their home address?")
+    expect(page).to have_content("Do you know their home address?")
+  end
+
+  def when_i_select_yes
     choose "Yes", visible: false
   end
 
@@ -71,11 +101,11 @@ RSpec.feature "Contact details" do
   end
 
   def then_i_see_a_missing_email_error
-    expect(page).to have_content("The email address can't be blank")
+    expect(page).to have_content("Enter their email address")
   end
 
   def when_i_select_yes_with_an_invalid_email
-    choose "Yes", visible: false
+    when_i_select_yes
     fill_in "Email address", with: "name"
   end
 
@@ -86,7 +116,7 @@ RSpec.feature "Contact details" do
   end
 
   def when_i_select_yes_with_a_valid_email
-    choose "Yes", visible: false
+    when_i_select_yes
     fill_in "Email address", with: "name@example.com"
   end
 
@@ -97,5 +127,25 @@ RSpec.feature "Contact details" do
 
   def when_i_select_no
     choose "No", visible: false
+  end
+
+  def then_i_see_a_missing_address_fields_error
+    expect(page).to have_content("Enter the first line of their address")
+    expect(page).to have_content("Enter their town or city")
+    expect(page).to have_content("Enter their postcode")
+  end
+
+  def when_i_fill_in_an_incorrect_postcode
+    fill_in "Postcode", with: "postcode"
+  end
+
+  def then_i_see_a_invalid_postcode_error
+    expect(page).to have_content("Enter a real postcode")
+  end
+
+  def when_i_fill_in_the_address_details
+    fill_in "Address line 1", with: "1428 Elm Street"
+    fill_in "Town or city", with: "London"
+    fill_in "Postcode", with: "NW1 4NP"
   end
 end

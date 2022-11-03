@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
+  let(:referral) { Referral.new }
+  let(:form) { described_class.new(referral:, email_known:, email_address:) }
+  let(:email_known) { true }
+  let(:email_address) { "name@example.com" }
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
   end
@@ -8,29 +13,44 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    let(:referral) { Referral.new }
-    let(:form) { described_class.new(referral:, email_known:, email_address:) }
-    let(:email_known) { true }
-    let(:email_address) { "name@example.com" }
-
     it { is_expected.to be_truthy }
+
+    before { form.save }
 
     context "when email_known is blank" do
       let(:email_known) { "" }
 
       it { is_expected.to be_falsy }
+
+      it "adds an error" do
+        expect(form.errors[:email_known]).to eq(
+          ["Tell us if you know their email address"]
+        )
+      end
     end
 
     context "when email_address is blank" do
       let(:email_address) { "" }
 
       it { is_expected.to be_falsy }
+
+      it "adds an error" do
+        expect(form.errors[:email_address]).to eq(["Enter their email address"])
+      end
     end
 
     context "when email_address is invalid" do
       let(:email_address) { "name" }
 
       it { is_expected.to be_falsy }
+
+      it "adds an error" do
+        expect(form.errors[:email_address]).to eq(
+          [
+            "Enter an email address in the correct format, like name@example.com"
+          ]
+        )
+      end
     end
 
     context "when email_known is false and email_address is blank" do
@@ -44,19 +64,20 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
   describe "#save" do
     subject(:save) { form.save }
 
-    let(:referral) { Referral.new }
-    let(:form) do
-      described_class.new(
-        referral:,
-        email_known: true,
-        email_address: "name@example.com"
-      )
-    end
-
     it "saves the referral" do
       save
       expect(referral.email_known).to be_truthy
       expect(referral.email_address).to eq("name@example.com")
+    end
+
+    context "when the email is not known" do
+      let(:email_known) { false }
+
+      it "saves the email_known and sets the email as nil" do
+        save
+        expect(referral.email_known).to be_falsy
+        expect(referral.email_address).to be_nil
+      end
     end
   end
 end

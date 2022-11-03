@@ -8,10 +8,10 @@ module Referrals
 
       validates :referral, presence: true
       validates :email_known, inclusion: { in: [true, false] }
+      validates :email_address, presence: true, if: -> { email_known }
       validates :email_address,
-                presence: true,
                 valid_for_notify: true,
-                if: -> { email_known }
+                if: -> { email_known && email_address.present? }
 
       def email_known=(value)
         @email_known = ActiveModel::Type::Boolean.new.cast(value)

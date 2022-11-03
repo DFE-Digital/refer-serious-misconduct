@@ -22,6 +22,7 @@ gem "puma", "~> 5.0"
 gem "rails", "~> 7.0.3"
 gem "sidekiq"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem "uk_postcode"
 
 group :development, :test do
   gem "dotenv-rails", "~> 2.8"
