@@ -88,9 +88,22 @@ en:
               wrong_length: Their TRN number should contain 7 digits
         "referrals/contact_details/email_form":
           attributes:
+            email_known:
+              inclusion: Tell us if you know their email address
             email_address:
-              blank: The email address can't be blank
+              blank: Enter their email address
               invalid: Enter an email address in the correct format, like name@example.com
+        "referrals/contact_details/address_form":
+          attributes:
+            address_known:
+              inclusion: Tell us if you know their home address
+            address_line_1:
+              blank: Enter the first line of their address
+            town_or_city:
+              blank: Enter their town or city
+            postcode:
+              blank: Enter their postcode
+              invalid: Enter a real postcode
         "referrals/referrer_name_form":
           attributes:
             name:
