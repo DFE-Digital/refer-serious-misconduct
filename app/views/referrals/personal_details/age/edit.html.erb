@@ -1,3 +1,6 @@
+<% content_for :page_title, "#{'Error: ' if @personal_details_age_form.errors.any?}Do you know their age or date of birth?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @personal_details_age_form, url: referrals_update_personal_details_age_path(@referral), method: :put do |f| %>
