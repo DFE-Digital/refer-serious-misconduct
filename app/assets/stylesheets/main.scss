@@ -6,6 +6,7 @@ $govuk-assets-path: "/";
 @import "_task-list";
 @import "_performance-table";
 @import "card";
+@import "_app-govuk-summary-card";
 
 .app-govuk-related-navigation {
   @include govuk-text-colour;
