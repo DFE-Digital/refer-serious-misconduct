@@ -27,6 +27,13 @@ RSpec.feature "Personal details" do
 
     when_i_fill_out_their_trn
     and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_whether_they_have_qts
+
+    and_i_click_save_and_continue
+    then_i_see_qts_field_validation_errors
+
+    when_i_fill_out_their_qts
+    and_i_click_save_and_continue
 
     then_the_section_summary_displays_the_saved_personal_details
   end
@@ -74,7 +81,7 @@ RSpec.feature "Personal details" do
 
   def then_i_see_age_field_validation_errors
     expect(page).to have_content(
-      "Please indicate whether you know their date of birth or age"
+      "Tell us if you know their date of birth or age"
     )
   end
 
@@ -101,6 +108,20 @@ RSpec.feature "Personal details" do
     fill_in "Teacher reference number", with: "RP99/12345"
   end
 
+  def then_i_am_asked_if_i_know_whether_they_have_qts
+    expect(page).to have_content("Do they have qualified teacher status (QTS)?")
+  end
+
+  def then_i_see_qts_field_validation_errors
+    expect(page).to have_content(
+      "Tell us if you know whether they have QTS"
+    )
+  end
+
+  def when_i_fill_out_their_qts
+    choose "Yes", visible: false
+  end
+
   def then_the_section_summary_displays_the_saved_personal_details
     # TODO: This will assert the section summary page contents, not built yet
     @referral.reload
@@ -109,5 +130,7 @@ RSpec.feature "Personal details" do
     expect(@referral.previous_name).to eq("Jane Jones")
     expect(@referral.date_of_birth).to eq(Date.new(1990, 1, 17))
     expect(@referral.trn).to eq("9912345")
+    expect(@referral.trn_known).to eq(true)
+    expect(@referral.has_qts).to eq("yes")
   end
 end
