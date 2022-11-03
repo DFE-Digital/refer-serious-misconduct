@@ -18,4 +18,8 @@
 #
 class Referrer < ApplicationRecord
   belongs_to :referral
+
+  def status
+    :incomplete
+  end
 end

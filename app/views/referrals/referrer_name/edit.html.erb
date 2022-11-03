@@ -1,0 +1,12 @@
+<% content_for :page_title, "#{'Error: ' if @referrer_name_form.errors.any?}What is your name?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @referrer_name_form, url: referral_referrer_name_path(current_referral), method: :patch do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_text_field :name, label: { size: 'xl', text: "What is your name?" } %>
+      <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

@@ -3,24 +3,18 @@
 # Table name: referrals
 #
 #  id               :bigint           not null, primary key
-#  age_known        :string
-#  approximate_age  :string
-#  date_of_birth    :date
+#  boolean          :string
 #  email_address    :string(256)
-#  email_known      :boolean
+#  email_known      :string
 #  first_name       :string
 #  last_name        :string
 #  name_has_changed :string
 #  previous_name    :string
+#  string           :string(256)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class Referral < ApplicationRecord
-  has_one :referrer, dependent: :destroy
-
-  def referrer_status
-    return :not_started_yet if referrer.blank?
-
-    referrer.status
+FactoryBot.define do
+  factory :referral do
   end
 end
