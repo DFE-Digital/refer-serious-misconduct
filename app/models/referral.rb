@@ -16,4 +16,5 @@
 #  updated_at       :datetime         not null
 #
 class Referral < ApplicationRecord
+  has_one :referrer, dependent: :destroy
 end
