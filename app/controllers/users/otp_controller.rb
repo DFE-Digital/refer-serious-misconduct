@@ -5,6 +5,14 @@ class Users::OtpController < DeviseController
 
   def new
     self.resource = resource_class.find(params[:id])
+
+    # TODO: Remove this block once emailed OTPs are implemented
+    # For now this makes manual testing in test environments simpler
+    if HostingEnvironment.test_environment?
+      otp_generator = ROTP::HOTP.new(resource.secret_key)
+      @derived_otp = otp_generator.at(0)
+    end
+    ###
   end
 
   def create
