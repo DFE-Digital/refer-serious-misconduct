@@ -20,7 +20,7 @@ module Referrals
       end
 
       def save
-        referral.update!(trn_known:, trn:) if valid?
+        referral.update(trn_known:, trn:) if valid?
       end
     end
   end
