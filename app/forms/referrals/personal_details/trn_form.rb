@@ -4,19 +4,18 @@ module Referrals
     class TrnForm
       include ActiveModel::Model
 
-      attr_accessor :trn_known, :referral
-      attr_reader :trn
+      attr_accessor :referral
+      attr_reader :trn, :trn_known
 
-      validates :trn_known, inclusion: { in: %w[true false] }
-      validates :trn,
-                presence: true,
-                length: {
-                  is: 7
-                },
-                if: -> { trn_known == "true" }
+      validates :trn_known, inclusion: { in: [true, false] }
+      validates :trn, presence: true, length: { is: 7 }, if: -> { trn_known }
 
       def trn=(value)
         @trn = value&.delete("^0-9")
+      end
+
+      def trn_known=(value)
+        @trn_known = ActiveModel::Type::Boolean.new.cast(value)
       end
 
       def save
