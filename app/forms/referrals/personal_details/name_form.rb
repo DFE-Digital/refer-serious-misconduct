@@ -17,7 +17,7 @@ module Referrals
 
       def save
         if valid?
-          referral.update!(
+          referral.update(
             first_name:,
             last_name:,
             name_has_changed:,
