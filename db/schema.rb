@@ -47,6 +47,12 @@ ActiveRecord::Schema[7.0].define(version: 20_221_103_120_049) do
     t.boolean "email_known"
     t.string "trn"
     t.boolean "trn_known"
+    t.boolean "address_known"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "town_or_city"
+    t.string "postcode", limit: 11
+    t.string "country"
   end
 
   create_table "referrers", force: :cascade do |t|
