@@ -1,0 +1,25 @@
+<% content_for :page_title, "Your details" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">About you</span>
+      Your details
+    </h1>
+    <% rows = [
+      {
+        actions: [
+          { text: "Change", href: edit_referral_referrer_name_path(current_referral), visually_hidden_text: "name" },
+          
+        ],
+        key: { text: "Your name" },
+        value: { text: @referrer.name },
+      },
+    ] %>
+    <%= render(SummaryCardComponent.new(rows:)) do %>
+      <%= render SummaryCardHeaderComponent.new(title: 'Your details') %>
+    <% end %>
+
+    <%= govuk_button_to "Save and continue", edit_referral_path(current_referral), method: :get  %>
+  </div>
+</div>
