@@ -3,7 +3,7 @@
 require "devise"
 require "devise/strategies/authenticatable"
 
-class OtpAuthenticatable < Devise::Strategies::Authenticatable
+class Devise::Strategies::OtpAuthenticatable < Devise::Strategies::Authenticatable
   #undef :password
   #undef :password=
 
@@ -26,10 +26,7 @@ class OtpAuthenticatable < Devise::Strategies::Authenticatable
 
     # TODO: handle expired OTPs
 
-    otp_generator = ROTP::HOTP.new(resource.secret_key)
-    derived_otp = otp_generator.at(0)
-
-    unless derived_otp == otp
+    unless Devise::OtpComparison.success?(resource, otp)
       fail!(:otp_invalid)
       return
     end
