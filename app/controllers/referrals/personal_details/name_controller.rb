@@ -7,7 +7,7 @@ module Referrals
             referral:,
             first_name: referral.first_name,
             last_name: referral.last_name,
-            name_has_changed: referral.previous_name.present?,
+            name_has_changed: referral.name_has_changed,
             previous_name: referral.previous_name
           )
       end
