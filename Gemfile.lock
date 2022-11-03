@@ -409,13 +409,11 @@ DEPENDENCIES
   rubocop-govuk
   shoulda-matchers
   sidekiq
-  solargraph
   solargraph-rails
   syntax_tree
   syntax_tree-haml
   syntax_tree-rbs
   tzinfo-data
-  view_component
   web-console
 
 RUBY VERSION
