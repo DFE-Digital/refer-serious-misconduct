@@ -1,9 +1,11 @@
-<h1 class="govuk-heading-l">Sign in</h1>
+<h1 class="govuk-heading-l">Your email address</h1>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for(resource, as: resource_name, url: user_session_path, method: :post) do |f| %>
-      <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email", label: { text: "Email" } %>
+      <p>You’ll receive a code by email to confirm your email address.</p>
+
+      <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email", label: { text: "Enter your email address" } %>
 
       <%= f.govuk_submit "Send code" %>
     <% end %>

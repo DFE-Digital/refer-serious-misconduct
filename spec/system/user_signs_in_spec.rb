@@ -27,13 +27,13 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_submit_my_email
-    fill_in "Email", with: "test@example.com"
+    fill_in "Enter your email address", with: "test@example.com"
     click_on "Send code"
   end
   alias_method :when_i_submit_my_email, :and_i_submit_my_email
 
   def when_i_provide_the_wrong_otp
-    fill_in "Otp", with: "wrong_value"
+    fill_in "Enter your code", with: "wrong_value"
     within("main") do
       click_on "Sign in"
     end
@@ -48,7 +48,7 @@ RSpec.feature "User accounts" do
     user = User.find_by(email: "test@example.com")
     expected_otp = Devise::OtpComparison.derive_otp(user.secret_key)
 
-    fill_in "Otp", with: expected_otp
+    fill_in "Enter your code", with: expected_otp
     within("main") do
       click_on "Sign in"
     end
