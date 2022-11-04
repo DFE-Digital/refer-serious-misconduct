@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_124121) do
+ActiveRecord::Schema[7.0].define(version: 20_221_104_124_508) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_124121) do
     t.string "postcode", limit: 11
     t.string "country"
     t.string "has_qts"
+    t.boolean "phone_known"
+    t.string "phone_number"
   end
 
   create_table "referrers", force: :cascade do |t|
