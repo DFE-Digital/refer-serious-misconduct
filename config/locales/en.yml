@@ -104,6 +104,10 @@ en:
             postcode:
               blank: Enter their postcode
               invalid: Enter a real postcode
+        referrer_phone_form:
+          attributes:
+            phone:
+              blank: Enter your telephone number
         "referrals/referrer_name_form":
           attributes:
             name:

@@ -11,8 +11,7 @@ module Referrals
           name_params.merge(referral: current_referral)
         )
       if @referrer_name_form.save
-        current_referral.referrer.update!(name: @referrer_name_form.name)
-        redirect_to referral_referrer_details_path(current_referral)
+        redirect_to edit_referral_referrer_phone_path(current_referral)
       else
         render :edit
       end
