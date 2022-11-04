@@ -15,6 +15,13 @@
         key: { text: "Your name" },
         value: { text: @referrer.name },
       },
+      {
+        actions: [
+          { text: "Change", href: edit_referral_referrer_phone_path(current_referral), visually_hidden_text: "phone" },
+        ],
+        key: { text: "Telephone number" },
+        value: { text: @referrer.phone },
+      },
     ] %>
     <%= render(SummaryCardComponent.new(rows:)) do %>
       <%= render SummaryCardHeaderComponent.new(title: 'Your details') %>

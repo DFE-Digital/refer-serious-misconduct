@@ -14,8 +14,15 @@ RSpec.describe "About you" do
 
     when_i_enter_my_name
     and_i_click_save_and_continue
+    then_i_see_the_what_is_your_telephone_number_page
+
+    when_i_click_save_and_continue
+    then_i_see_the_telephone_error_message
+
+    when_i_enter_my_telephone_number
+    when_i_click_save_and_continue
     then_i_see_the_referrer_check_your_answers_page
-    and_i_see_my_name_on_the_referrer_check_your_answers_page
+    and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_on_change_name
     then_i_am_on_the_your_details_page
@@ -41,9 +48,9 @@ RSpec.describe "About you" do
     expect(page).to have_field("What is your name?", with: "Test Name")
   end
 
-  def and_i_see_my_name_on_the_referrer_check_your_answers_page
-    expect(page).to have_content("Your name")
-    expect(page).to have_content("Test Name")
+  def and_i_see_my_answers_on_the_referrer_check_your_answers_page
+    expect(page).to have_content("Your name\tTest Name")
+    expect(page).to have_content("Telephone number\t01234567890")
   end
 
   def and_i_see_your_details_flagged_as_incomplete
@@ -86,6 +93,20 @@ RSpec.describe "About you" do
     expect(page).to have_content("Your details")
   end
 
+  def then_i_see_the_telephone_error_message
+    expect(page).to have_content("Enter your telephone number")
+  end
+
+  def then_i_see_the_what_is_your_telephone_number_page
+    expect(page).to have_current_path(
+      "/referrals/#{Referral.last.id}/referrer-phone/edit"
+    )
+    expect(page).to have_title(
+      "What is your telephone number? - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("What is your telephone number?")
+  end
+
   def when_i_click_back
     click_on "Back"
   end
@@ -105,5 +126,9 @@ RSpec.describe "About you" do
 
   def when_i_enter_my_name
     fill_in "What is your name?", with: "Test Name"
+  end
+
+  def when_i_enter_my_telephone_number
+    fill_in "What is your telephone number?", with: "01234567890"
   end
 end
