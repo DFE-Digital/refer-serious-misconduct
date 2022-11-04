@@ -90,6 +90,12 @@ Rails.application.routes.draw do
     put "/:id/contact-details/email",
         to: "contact_details/email#update",
         as: "update_contact_details_email"
+    get "/:id/contact-details/telephone",
+        to: "contact_details/telephone#edit",
+        as: "edit_contact_details_telephone"
+    put "/:id/contact-details/telephone",
+        to: "contact_details/telephone#update",
+        as: "update_contact_details_telephone"
     get "/:id/contact-details/address",
         to: "contact_details/address#edit",
         as: "edit_contact_details_address"

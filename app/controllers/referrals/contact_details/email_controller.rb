@@ -13,8 +13,7 @@ module Referrals
         @contact_details_email_form =
           EmailForm.new(contact_details_email_form_params.merge(referral:))
         if @contact_details_email_form.save
-          # TODO: Redirect to personal details telephone
-          redirect_to referrals_update_contact_details_address_path(referral)
+          redirect_to referrals_update_contact_details_telephone_path(referral)
         else
           render :edit
         end
