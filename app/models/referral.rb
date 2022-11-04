@@ -16,6 +16,8 @@
 #  has_qts          :string
 #  last_name        :string
 #  name_has_changed :string
+#  phone_known      :boolean
+#  phone_number     :string
 #  postcode         :string(11)
 #  previous_name    :string
 #  town_or_city     :string
