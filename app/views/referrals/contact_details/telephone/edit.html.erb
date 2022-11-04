@@ -1,0 +1,18 @@
+<% content_for :page_title, "#{"Error: " if @contact_details_telephone_form.errors.any?}Do you know their main contact number?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @contact_details_telephone_form, url: referrals_update_contact_details_telephone_url, method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset :phone_known, legend: { size: "xl", text: "Do you know their main contact number?" }  do %>
+        <%= f.hidden_field :phone_known %>
+        <%= f.govuk_radio_button :phone_known, true, label: { text: "Yes" } do %>
+          <%= f.govuk_text_field :phone_number, label: { text: "Contact number" } %>
+        <% end %>
+        <%= f.govuk_radio_button :phone_known, false, label: { text: "No" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue", prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

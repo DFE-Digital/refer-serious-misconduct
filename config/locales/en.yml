@@ -97,6 +97,13 @@ en:
             email_address:
               blank: Enter their email address
               invalid: Enter an email address in the correct format, like name@example.com
+        "referrals/contact_details/telephone_form":
+          attributes:
+            phone_known:
+              inclusion: Tell us if you know their main contact number
+            phone_number:
+              blank: Enter their contact number
+              invalid: Enter a valid mobile number, like 07700 900 982 or +44 7700 900 982
         "referrals/contact_details/address_form":
           attributes:
             address_known:
