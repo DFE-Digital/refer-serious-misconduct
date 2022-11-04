@@ -19,18 +19,14 @@ RSpec.describe Devise::Strategies::OtpAuthenticatable do
     end
 
     it "is false when otp param is missing" do
-      params = {
-        params: { user: { email: "test@example.com"} }
-      }
+      params = { params: { user: { email: "test@example.com" } } }
       env = build_rack_env(params)
       strategy = described_class.new(env, :user)
       expect(strategy.valid?).to eq false
     end
 
     it "is false when email param is missing" do
-      params = {
-        params: { user: { email: "test@example.com" } }
-      }
+      params = { params: { user: { email: "test@example.com" } } }
       env = build_rack_env(params)
       strategy = described_class.new(env, :user)
       expect(strategy.valid?).to eq false

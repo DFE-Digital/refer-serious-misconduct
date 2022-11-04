@@ -1,7 +1,9 @@
 class Users::OtpController < DeviseController
-  prepend_before_action :require_no_authentication, only: [:new, :create]
+  prepend_before_action :require_no_authentication, only: %i[new create]
   prepend_before_action :allow_params_authentication!, only: :create
-  prepend_before_action(only: [:create]) { request.env["devise.skip_timeout"] = true }
+  prepend_before_action(only: [:create]) do
+    request.env["devise.skip_timeout"] = true
+  end
 
   def new
     self.resource = resource_class.find(params[:id])
