@@ -17,10 +17,10 @@ Rails.application.routes.draw do
 
   devise_for(:user)
   devise_scope :user do
-    get '/users/session/new', to: "users/sessions#new", as: "new_user_session"
-    post '/users/session', to: "users/sessions#create", as: "user_session"
-    get '/users/otp/new', to: "users/otp#new", as: "new_user_otp"
-    post '/users/otp', to: "users/otp#create", as: "user_otp"
+    get "/users/session/new", to: "users/sessions#new", as: "new_user_session"
+    post "/users/session", to: "users/sessions#create", as: "user_session"
+    get "/users/otp/new", to: "users/otp#new", as: "new_user_otp"
+    post "/users/otp", to: "users/otp#create", as: "user_otp"
 
     get "/users/sign_out", to: "users/sessions#destroy"
   end

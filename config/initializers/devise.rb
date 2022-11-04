@@ -331,7 +331,10 @@ Devise.setup do |config|
     manager.strategies.add(:staff_http_basic_auth, StaffHttpBasicAuthStrategy)
     manager.default_strategies(scope: :staff).unshift :staff_http_basic_auth
 
-    manager.strategies.add(:otp_authenticatable, Devise::Strategies::OtpAuthenticatable)
+    manager.strategies.add(
+      :otp_authenticatable,
+      Devise::Strategies::OtpAuthenticatable
+    )
     manager.default_strategies(scope: :user).unshift(:otp_authenticatable)
   end
 

@@ -3,9 +3,7 @@
 module Devise::Models::OtpAuthenticatable
   extend ActiveSupport::Concern
 
-  included do
-    attr_reader :otp
-  end
+  included { attr_reader :otp }
 
   def password_required?
     false
@@ -19,4 +17,3 @@ module Devise::Models::OtpAuthenticatable
     update(secret_key: nil)
   end
 end
-

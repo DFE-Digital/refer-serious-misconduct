@@ -21,9 +21,7 @@ RSpec.feature "User accounts" do
 
   def when_i_visit_the_sign_in_page
     visit root_path
-    within(".govuk-header") do
-      click_link "Sign in"
-    end
+    within(".govuk-header") { click_link "Sign in" }
   end
 
   def and_i_submit_my_email
@@ -34,9 +32,7 @@ RSpec.feature "User accounts" do
 
   def when_i_provide_the_wrong_otp
     fill_in "Enter your code", with: "wrong_value"
-    within("main") do
-      click_on "Sign in"
-    end
+    within("main") { click_on "Sign in" }
   end
 
   def then_i_see_an_error
@@ -49,15 +45,10 @@ RSpec.feature "User accounts" do
     expected_otp = Devise::OtpComparison.derive_otp(user.secret_key)
 
     fill_in "Enter your code", with: expected_otp
-    within("main") do
-      click_on "Sign in"
-    end
+    within("main") { click_on "Sign in" }
   end
 
   def then_i_am_signed_in
-    within(".govuk-header") do
-      expect(page).to have_content "Sign out"
-    end
+    within(".govuk-header") { expect(page).to have_content "Sign out" }
   end
 end
-
