@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_124121) do
   create_table "referrals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "email_known"
     t.string "email_address", limit: 256
     t.string "first_name"
     t.string "last_name"
@@ -44,7 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_124121) do
     t.date "date_of_birth"
     t.string "age_known"
     t.string "approximate_age"
-    t.boolean "email_known"
     t.string "trn"
     t.boolean "trn_known"
     t.boolean "address_known"
