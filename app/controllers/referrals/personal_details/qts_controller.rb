@@ -10,7 +10,7 @@ module Referrals
         @personal_details_qts_form = QtsForm.new(qts_params.merge(referral:))
 
         if @personal_details_qts_form.save
-          # TODO: Redirect to personal details summary
+          redirect_to referrals_edit_personal_details_confirm_path(referral)
         else
           render :edit
         end

@@ -57,8 +57,19 @@ RSpec.feature "Personal details" do
 
     when_i_fill_out_their_qts
     and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_their_personal_details
 
-    then_the_section_summary_displays_the_saved_personal_details
+    when_i_click_back
+    then_i_am_asked_if_i_know_whether_they_have_qts
+    and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_their_personal_details
+
+    and_i_click_save_and_continue
+    then_i_see_confirmation_validation_errors
+
+    when_i_confirm_their_personal_details
+    and_i_click_save_and_continue
+    then_i_see_the_completed_section_in_the_referral_summary
   end
 
   private
@@ -156,15 +167,69 @@ RSpec.feature "Personal details" do
     choose "Yes", visible: false
   end
 
-  def then_the_section_summary_displays_the_saved_personal_details
-    # TODO: This will assert the section summary page contents, not built yet
-    @referral.reload
-    expect(@referral.first_name).to eq("Jane")
-    expect(@referral.last_name).to eq("Smith")
-    expect(@referral.previous_name).to eq("Jane Jones")
-    expect(@referral.date_of_birth).to eq(Date.new(1990, 1, 17))
-    expect(@referral.trn).to eq("9912345")
-    expect(@referral.trn_known).to eq(true)
-    expect(@referral.has_qts).to eq("yes")
+  def then_i_am_asked_to_confirm_their_personal_details
+    expect(page).to have_content("About the person you are referring")
+    expect(page).to have_content("Personal details")
+
+    summary_rows = all(".govuk-summary-list__row")
+
+    within(summary_rows[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Name")
+      expect(find(".govuk-summary-list__value").text).to eq("Jane Smith")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_personal_details_name_path(@referral)
+      )
+    end
+
+    within(summary_rows[1]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Date of birth")
+      expect(find(".govuk-summary-list__value").text).to eq("17 January 1990")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_personal_details_age_path(@referral)
+      )
+    end
+
+    within(summary_rows[2]) do
+      expect(find(".govuk-summary-list__key").text).to eq(
+        "Teacher reference number (TRN)"
+      )
+      expect(find(".govuk-summary-list__value").text).to eq("9912345")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_personal_details_trn_path(@referral)
+      )
+    end
+
+    within(summary_rows[3]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Do they have QTS?")
+      expect(find(".govuk-summary-list__value").text).to eq("Yes")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_personal_details_qts_path(@referral)
+      )
+    end
+
+    expect(page).to have_content("Have you completed this section?")
+  end
+
+  def then_i_see_confirmation_validation_errors
+    expect(page).to have_content("Tell us if you have completed this section")
+  end
+
+  def when_i_confirm_their_personal_details
+    choose "Yes, I’ve completed this section", visible: false
+  end
+
+  def then_i_see_the_completed_section_in_the_referral_summary
+    within(all(".app-task-list__section")[1]) do
+      within(all(".app-task-list__item")[0]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Personal details"
+        )
+        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+      end
+    end
   end
 end
