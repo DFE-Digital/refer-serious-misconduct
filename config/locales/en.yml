@@ -90,6 +90,10 @@ en:
           attributes:
             has_qts:
               inclusion: Tell us if you know whether they have QTS
+        "referrals/personal_details/confirm_form":
+          attributes:
+            personal_details_complete:
+              inclusion: Tell us if you have completed this section
         "referrals/contact_details/email_form":
           attributes:
             email_known:

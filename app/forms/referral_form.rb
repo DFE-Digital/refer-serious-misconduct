@@ -57,7 +57,7 @@ class ReferralForm
         ReferralSectionItem.new(
           I18n.t("referral_form.personal_details"),
           referrals_edit_personal_details_name_path(referral),
-          :not_started_yet
+          section_status(:personal_details_complete)
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.contact_details"),
@@ -95,5 +95,12 @@ class ReferralForm
         )
       ]
     )
+  end
+
+  def section_status(section_complete_method)
+    status = referral.send(section_complete_method)
+    return :not_started_yet if status.nil?
+
+    status ? :completed : :incomplete
   end
 end
