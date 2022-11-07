@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 require "rails_helper"
+require_relative "../support/devise"
 
-RSpec.describe "Question order", type: :system do
-  it "is enforced correctly" do
+RSpec.feature "Question order", type: :system do
+  scenario "is enforced correctly" do
     given_the_service_is_open
+    and_i_am_signed_in
     when_i_visit_the_service
     then_i_see_the_start_page
 
@@ -42,6 +44,11 @@ RSpec.describe "Question order", type: :system do
 
   def given_the_service_is_open
     FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_i_am_signed_in
+    @user = create(:user)
+    sign_in(@user)
   end
 
   def then_i_see_the_is_a_teacher_page

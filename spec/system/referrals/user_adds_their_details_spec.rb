@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Employer Referral: About You" do
-  scenario "Referrer provides their details" do
+RSpec.feature "Employer Referral: About You" do
+  scenario "User provides their details" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
     and_i_have_an_existing_referral
@@ -61,7 +61,7 @@ RSpec.describe "Employer Referral: About You" do
   end
 
   def and_i_see_your_details_flagged_as_incomplete
-    expect(page).to have_content("Your details\nINCOMPLETE")
+    expect(page).to have_content("Your details INCOMPLETE")
   end
 
   def and_the_employer_form_feature_is_active
