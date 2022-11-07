@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "About you" do
-  it "collecting the details of the referrer" do
+RSpec.describe "Employer Referral: About You" do
+  scenario "Referrer provides their details" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
     and_i_have_an_existing_referral
