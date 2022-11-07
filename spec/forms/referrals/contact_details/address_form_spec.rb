@@ -30,7 +30,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
     it { is_expected.to be_truthy }
 
-    before { form.save }
+    before { valid }
 
     context "when address_known is blank" do
       let(:address_known) { "" }
@@ -92,29 +92,55 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
     before { save }
 
-    it "saves address_known and the address field values" do
-      aggregate_failures "testing referral address fields" do
-        expect(referral.address_known).to be_truthy
-        expect(referral.address_line_1).to eq("1428 Elm Street")
-        expect(referral.address_line_2).to eq("Sunset Boulevard")
-        expect(referral.town_or_city).to eq("London")
-        expect(referral.postcode).to eq("NW1 4NP")
-        expect(referral.country).to eq("United Kingdom")
-      end
+    it "saves address_known" do
+      expect(referral.address_known).to be_truthy
+    end
+
+    it "saves address_line_1" do
+      expect(referral.address_line_1).to eq("1428 Elm Street")
+    end
+
+    it "saves address_line_2" do
+      expect(referral.address_line_2).to eq("Sunset Boulevard")
+    end
+
+    it "saves town_or_city" do
+      expect(referral.town_or_city).to eq("London")
+    end
+
+    it "saves postcode" do
+      expect(referral.postcode).to eq("NW1 4NP")
+    end
+
+    it "saves country" do
+      expect(referral.country).to eq("United Kingdom")
     end
 
     context "when the address is not known" do
       let(:address_known) { false }
 
-      it "saves address_known and sets the address fields as nil" do
-        aggregate_failures "testing referral address fields" do
-          expect(referral.address_known).to be_falsy
-          expect(referral.address_line_1).to be_nil
-          expect(referral.address_line_2).to be_nil
-          expect(referral.town_or_city).to be_nil
-          expect(referral.postcode).to be_nil
-          expect(referral.country).to be_nil
-        end
+      it "sets the address_known to false" do
+        expect(referral.address_known).to be_falsy
+      end
+
+      it "sets the address_line_1 to nil" do
+        expect(referral.address_line_1).to be_nil
+      end
+
+      it "sets the address_line_2 to nil" do
+        expect(referral.address_line_2).to be_nil
+      end
+
+      it "sets the town_or_city to nil" do
+        expect(referral.town_or_city).to be_nil
+      end
+
+      it "sets the postcode to nil" do
+        expect(referral.postcode).to be_nil
+      end
+
+      it "sets the country to nil" do
+        expect(referral.country).to be_nil
       end
     end
   end

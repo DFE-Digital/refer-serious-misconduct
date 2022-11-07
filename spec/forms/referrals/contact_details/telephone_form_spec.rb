@@ -15,7 +15,7 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
 
     it { is_expected.to be_truthy }
 
-    before { form.save }
+    before { valid }
 
     context "when phone_known is blank" do
       let(:phone_known) { "" }

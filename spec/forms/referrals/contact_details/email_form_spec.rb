@@ -15,7 +15,7 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
 
     it { is_expected.to be_truthy }
 
-    before { form.save }
+    before { valid }
 
     context "when email_known is blank" do
       let(:email_known) { "" }
