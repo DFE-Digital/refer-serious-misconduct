@@ -16,6 +16,7 @@
 #  has_qts          :string
 #  last_name        :string
 #  name_has_changed :string
+#  personal_details_complete :boolean
 #  phone_known      :boolean
 #  phone_number     :string
 #  postcode         :string(11)
