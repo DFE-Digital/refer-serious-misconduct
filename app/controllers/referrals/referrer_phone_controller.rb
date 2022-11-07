@@ -1,5 +1,5 @@
 module Referrals
-  class ReferrerPhoneController < ApplicationController
+  class ReferrerPhoneController < Referrals::BaseController
     def edit
       @referrer_phone_form = ReferrerPhoneForm.new(referral: current_referral)
     end
@@ -17,11 +17,6 @@ module Referrals
     end
 
     private
-
-    def current_referral
-      @current_referral ||= Referral.find(params[:referral_id])
-    end
-    helper_method :current_referral
 
     def referrer_phone_form_params
       params.require(:referrer_phone_form).permit(:phone)
