@@ -7,5 +7,6 @@ class PagesController < ApplicationController
   end
 
   def start
+    @start_now_path = (current_user ? who_path : new_user_session_path)
   end
 end
