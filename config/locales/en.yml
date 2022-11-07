@@ -115,6 +115,10 @@ en:
             postcode:
               blank: Enter their postcode
               invalid: Enter a real postcode
+        referrer_job_title_form:
+          attributes:
+            job_title:
+              blank: Enter your job title
         referrer_phone_form:
           attributes:
             phone:

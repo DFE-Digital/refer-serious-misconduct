@@ -3,6 +3,7 @@
 # Table name: referrers
 #
 #  id          :bigint           not null, primary key
+#  job_title   :string
 #  name        :string
 #  phone       :string
 #  created_at  :datetime         not null

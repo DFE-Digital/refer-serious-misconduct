@@ -14,6 +14,13 @@ RSpec.describe "Employer Referral: About You" do
 
     when_i_enter_my_name
     and_i_click_save_and_continue
+    then_i_see_the_job_title_page
+
+    when_i_click_save_and_continue
+    then_i_see_the_job_title_error_message
+
+    when_i_enter_my_job_title
+    and_i_click_save_and_continue
     then_i_see_the_what_is_your_telephone_number_page
 
     when_i_click_save_and_continue
@@ -79,6 +86,20 @@ RSpec.describe "Employer Referral: About You" do
     expect(page).to have_content("What is your name?")
   end
 
+  def then_i_see_the_job_title_page
+    expect(page).to have_current_path(
+      "/referrals/#{Referral.last.id}/referrer-job-title/edit"
+    )
+    expect(page).to have_title(
+      "What is your job title? - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("What is your job title?")
+  end
+
+  def then_i_see_the_job_title_error_message
+    expect(page).to have_content("Enter your job title")
+  end
+
   def then_i_see_the_name_error_message
     expect(page).to have_content("Enter your name")
   end
@@ -123,6 +144,10 @@ RSpec.describe "Employer Referral: About You" do
     click_button "Save and continue"
   end
   alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
+
+  def when_i_enter_my_job_title
+    fill_in "What is your job title?", with: "Teacher"
+  end
 
   def when_i_enter_my_name
     fill_in "What is your name?", with: "Test Name"

@@ -17,6 +17,13 @@
       },
       {
         actions: [
+          { text: "Change", href: edit_referral_referrer_job_title_path(current_referral), visually_hidden_text: "job title" },
+        ],
+        key: { text: "Your job title" },
+        value: { text: @referrer.job_title },
+      },
+      {
+        actions: [
           { text: "Change", href: edit_referral_referrer_phone_path(current_referral), visually_hidden_text: "phone" },
         ],
         key: { text: "Telephone number" },
