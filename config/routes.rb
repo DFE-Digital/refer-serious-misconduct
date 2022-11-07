@@ -97,6 +97,12 @@ Rails.application.routes.draw do
     put "/:id/personal-details/qts",
         to: "personal_details/qts#update",
         as: "update_personal_details_qts"
+    get "/:id/personal-details/confirm",
+        to: "personal_details/confirm#edit",
+        as: "edit_personal_details_confirm"
+    put "/:id/personal-details/confirm",
+        to: "personal_details/confirm#update",
+        as: "update_personal_details_confirm"
 
     get "/:id/contact-details/email",
         to: "contact_details/email#edit",
