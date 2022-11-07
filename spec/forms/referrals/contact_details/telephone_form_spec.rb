@@ -64,18 +64,24 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
   describe "#save" do
     subject(:save) { form.save }
 
-    it "saves the referral" do
-      save
+    before { save }
+
+    it "saves phone_known" do
       expect(referral.phone_known).to be_truthy
+    end
+
+    it "saves phone_number" do
       expect(referral.phone_number).to eq("07700 900 982")
     end
 
     context "when the phone number is not known" do
       let(:phone_known) { false }
 
-      it "saves the phone_known and sets the phone number as nil" do
-        save
+      it "saves phone_known" do
         expect(referral.phone_known).to be_falsy
+      end
+
+      it "sets phone_number as nil" do
         expect(referral.phone_number).to be_nil
       end
     end

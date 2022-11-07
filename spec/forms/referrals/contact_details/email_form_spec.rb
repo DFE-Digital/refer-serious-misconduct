@@ -64,18 +64,24 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
   describe "#save" do
     subject(:save) { form.save }
 
-    it "saves the referral" do
-      save
+    before { save }
+
+    it "saves email_known" do
       expect(referral.email_known).to be_truthy
+    end
+
+    it "saves email_address" do
       expect(referral.email_address).to eq("name@example.com")
     end
 
     context "when the email is not known" do
       let(:email_known) { false }
 
-      it "saves the email_known and sets the email as nil" do
-        save
+      it "saves email_known" do
         expect(referral.email_known).to be_falsy
+      end
+
+      it "sets email_address as nil" do
         expect(referral.email_address).to be_nil
       end
     end

@@ -90,27 +90,31 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
   describe "#save" do
     subject(:save) { form.save }
 
-    it "saves the referral" do
-      save
-      expect(referral.address_known).to be_truthy
-      expect(referral.address_line_1).to eq("1428 Elm Street")
-      expect(referral.address_line_2).to eq("Sunset Boulevard")
-      expect(referral.town_or_city).to eq("London")
-      expect(referral.postcode).to eq("NW1 4NP")
-      expect(referral.country).to eq("United Kingdom")
+    before { save }
+
+    it "saves address_known and the address field values" do
+      aggregate_failures "testing referral address fields" do
+        expect(referral.address_known).to be_truthy
+        expect(referral.address_line_1).to eq("1428 Elm Street")
+        expect(referral.address_line_2).to eq("Sunset Boulevard")
+        expect(referral.town_or_city).to eq("London")
+        expect(referral.postcode).to eq("NW1 4NP")
+        expect(referral.country).to eq("United Kingdom")
+      end
     end
 
     context "when the address is not known" do
       let(:address_known) { false }
 
-      it "saves the address_known and sets the address fields as nil" do
-        save
-        expect(referral.address_known).to be_falsy
-        expect(referral.address_line_1).to be_nil
-        expect(referral.address_line_2).to be_nil
-        expect(referral.town_or_city).to be_nil
-        expect(referral.postcode).to be_nil
-        expect(referral.country).to be_nil
+      it "saves address_known and sets the address fields as nil" do
+        aggregate_failures "testing referral address fields" do
+          expect(referral.address_known).to be_falsy
+          expect(referral.address_line_1).to be_nil
+          expect(referral.address_line_2).to be_nil
+          expect(referral.town_or_city).to be_nil
+          expect(referral.postcode).to be_nil
+          expect(referral.country).to be_nil
+        end
       end
     end
   end
