@@ -56,6 +56,11 @@ Rails.application.routes.draw do
              path: "referrer-details",
              controller: "referrals/referrer_details"
 
+    resource :referrer_job_title,
+             only: %i[edit update],
+             path: "referrer-job-title",
+             controller: "referrals/referrer_job_title"
+
     resource :referrer_phone,
              controller: "referrals/referrer_phone",
              only: %i[edit update],
