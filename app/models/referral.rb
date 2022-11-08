@@ -8,6 +8,7 @@
 #  address_line_2            :string
 #  age_known                 :string
 #  approximate_age           :string
+#  contact_details_complete  :boolean
 #  country                   :string
 #  date_of_birth             :date
 #  email_address             :string(256)
