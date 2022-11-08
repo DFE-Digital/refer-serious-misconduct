@@ -1,5 +1,6 @@
 module Referrals
   class BaseController < ApplicationController
+    before_action :authenticate_user!
     before_action :redirect_if_feature_flag_disabled
 
     private

@@ -1,4 +1,4 @@
-class ReferralsController < ApplicationController
+class ReferralsController < Referrals::BaseController
   before_action :check_employer_form_feature_flag_enabled
 
   def new
