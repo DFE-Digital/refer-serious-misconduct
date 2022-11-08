@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @personal_details_age_form.errors.any?}Do you know their age or date of birth?" %>
+<% content_for :page_title, "#{'Error: ' if @personal_details_age_form.errors.any?}What is their date of birth?" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
@@ -6,19 +6,9 @@
     <%= form_with model: @personal_details_age_form, url: referrals_update_personal_details_age_path(@referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:age_known, legend: { size: "xl", text: "Do you know their age or date of birth?" }) do %>
-          <%= f.govuk_radio_button :age_known, "yes", label: { text: "I know their date of birth" } do %>
-            <%= f.govuk_date_field :date_of_birth,
-                legend: { text: "Date of birth", size: "m" },
-                hint: { text: "For example, 27 3 1987" } %>
-          <% end %>
-          <%= f.govuk_radio_button :age_known, "approximate", label: { text: "I know their approximate age" } do %>
-            <%= f.govuk_text_field :approximate_age,
-                label: { text: "Approximate age", class: "govuk-label--s" },
-                hint: { text: "For example, ‘They’re in their 20s’" } %>
-          <% end %>
-          <%= f.govuk_radio_button :age_known, "no", label: { text: "No, I don’t know their age or date of birth" } %>
-        <% end %>
+        <%= f.govuk_date_field :date_of_birth,
+            legend: { text: "What is their date of birth?", size: "xl" },
+            hint: { text: "For example, 27 3 1987" } %>
       </div>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
