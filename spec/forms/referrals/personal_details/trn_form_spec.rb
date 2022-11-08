@@ -2,15 +2,12 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
-  it do
-    is_expected.to validate_inclusion_of(:trn_known).in_array([true, false])
-  end
+  let(:referral) { Referral.new }
 
   describe "#save" do
     subject(:save) { trn_form.save }
 
     let(:trn_form) { described_class.new(referral:, trn_known:, trn:) }
-    let(:referral) { Referral.new }
     let(:trn_known) { "true" }
     let(:trn) { "RP99/12345" }
 
