@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     @eligibility_check =
       EligibilityCheck.find_by(id: session[:eligibility_check_id])
     return redirect_to(start_path) if @eligibility_check.nil?
-    reset_session
+    session[:eligibility_check_id] = nil
   end
 
   def start
