@@ -2,6 +2,14 @@ class ReferralsController < Referrals::BaseController
   before_action :check_employer_form_feature_flag_enabled
 
   def new
+  end
+
+  def create
+    referral = current_user.referrals.create
+    redirect_to referral_path(referral)
+  end
+
+  def show
     @referral_form = ReferralForm.new(referral:)
   end
 
@@ -33,8 +41,7 @@ class ReferralsController < Referrals::BaseController
   private
 
   def referral
-    # TODO: This needs integration with current_user check
-    @referral ||= Referral.find_or_create_by(id: params[:id])
+    @referral ||= current_user.referrals.find(params[:id])
   end
 
   def check_employer_form_feature_flag_enabled
