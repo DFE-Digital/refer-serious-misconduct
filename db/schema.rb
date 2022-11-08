@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_112834) do
     t.string "phone_number"
     t.boolean "age_known"
     t.boolean "contact_details_complete"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
