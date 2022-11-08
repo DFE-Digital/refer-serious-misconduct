@@ -1,16 +1,16 @@
 module Referrals
   module PersonalDetails
-    class AgeController < ReferralsController
+    class AgeController < Referrals::BaseController
       def edit
-        @personal_details_age_form = AgeForm.new(referral:)
+        @personal_details_age_form = AgeForm.new(referral: current_referral)
       end
 
       def update
         @personal_details_age_form =
-          AgeForm.new(approximate_age_params.merge(referral:))
+          AgeForm.new(approximate_age_params.merge(referral: current_referral))
 
         if @personal_details_age_form.save(date_of_birth_params)
-          redirect_to referrals_edit_personal_details_trn_path(referral)
+          redirect_to referrals_edit_personal_details_trn_path(current_referral)
         else
           render :edit
         end
