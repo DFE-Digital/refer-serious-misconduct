@@ -73,34 +73,34 @@ Rails.application.routes.draw do
   end
 
   namespace :referrals do
-    get "/:id/personal-details/name",
+    get "/:referral_id/personal-details/name",
         to: "personal_details/name#edit",
         as: "edit_personal_details_name"
-    put "/:id/personal-details/name",
+    put "/:referral_id/personal-details/name",
         to: "personal_details/name#update",
         as: "update_personal_details_name"
-    get "/:id/personal-details/age",
+    get "/:referral_id/personal-details/age",
         to: "personal_details/age#edit",
         as: "edit_personal_details_age"
-    put "/:id/personal-details/age",
+    put "/:referral_id/personal-details/age",
         to: "personal_details/age#update",
         as: "update_personal_details_age"
-    get "/:id/personal-details/trn",
+    get "/:referral_id/personal-details/trn",
         to: "personal_details/trn#edit",
         as: "edit_personal_details_trn"
-    put "/:id/personal-details/trn",
+    put "/:referral_id/personal-details/trn",
         to: "personal_details/trn#update",
         as: "update_personal_details_trn"
-    get "/:id/personal-details/qts",
+    get "/:referral_id/personal-details/qts",
         to: "personal_details/qts#edit",
         as: "edit_personal_details_qts"
-    put "/:id/personal-details/qts",
+    put "/:referral_id/personal-details/qts",
         to: "personal_details/qts#update",
         as: "update_personal_details_qts"
-    get "/:id/personal-details/confirm",
+    get "/:referral_id/personal-details/confirm",
         to: "personal_details/confirm#edit",
         as: "edit_personal_details_confirm"
-    put "/:id/personal-details/confirm",
+    put "/:referral_id/personal-details/confirm",
         to: "personal_details/confirm#update",
         as: "update_personal_details_confirm"
 
