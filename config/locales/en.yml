@@ -119,6 +119,10 @@ en:
             postcode:
               blank: Enter their postcode
               invalid: Enter a real postcode
+        "referrals/contact_details/check_answers_form":
+          attributes:
+            contact_details_complete:
+              inclusion: Tell us if you have completed this section
         referrer_job_title_form:
           attributes:
             job_title:

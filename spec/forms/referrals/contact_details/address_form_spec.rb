@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
-  let(:referral) { Referral.new }
+  let(:referral) { create(:referral) }
   let(:form) do
     described_class.new(
       referral:,
@@ -88,9 +88,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
   end
 
   describe "#save" do
-    subject(:save) { form.save }
-
-    before { save }
+    before { form.save }
 
     it "saves address_known" do
       expect(referral.address_known).to be_truthy

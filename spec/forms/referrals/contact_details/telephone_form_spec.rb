@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
-  let(:referral) { Referral.new }
+  let(:referral) { create(:referral) }
   let(:form) { described_class.new(referral:, phone_known:, phone_number:) }
   let(:phone_known) { true }
   let(:phone_number) { "07700 900 982" }
@@ -62,9 +62,7 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
   end
 
   describe "#save" do
-    subject(:save) { form.save }
-
-    before { save }
+    before { form.save }
 
     it "saves phone_known" do
       expect(referral.phone_known).to be_truthy

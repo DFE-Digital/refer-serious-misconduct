@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
-  let(:referral) { Referral.new }
+  let(:referral) { create(:referral) }
   let(:form) { described_class.new(referral:, email_known:, email_address:) }
   let(:email_known) { true }
   let(:email_address) { "name@example.com" }
@@ -62,9 +62,7 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
   end
 
   describe "#save" do
-    subject(:save) { form.save }
-
-    before { save }
+    before { form.save }
 
     it "saves email_known" do
       expect(referral.email_known).to be_truthy
