@@ -37,9 +37,24 @@ RSpec.feature "Employer Referral: About You", type: :system do
     and_i_see_my_name_in_the_form_field
 
     when_i_click_back
-    when_i_click_save_and_continue
+    and_i_choose_no_come_back_later
+    and_i_click_save_and_continue
     then_i_am_on_the_referral_summary_page
     and_i_see_your_details_flagged_as_incomplete
+
+    when_i_click_on_your_details
+    then_i_see_the_name_prefilled
+
+    when_i_click_save_and_continue
+    then_i_see_the_job_title_prefilled
+
+    when_i_click_save_and_continue
+    then_i_see_the_phone_number_prefilled
+
+    when_i_click_save_and_continue
+    and_i_choose_complete
+    and_i_click_save_and_continue
+    then_i_see_your_details_flagged_as_complete
   end
 
   private
@@ -55,6 +70,14 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def and_i_am_on_the_referral_summary_page
     visit edit_referral_path(@referral)
+  end
+
+  def and_i_choose_complete
+    choose "Yes, I’ve completed this section", visible: false
+  end
+
+  def and_i_choose_no_come_back_later
+    choose "No, I’ll come back to it later", visible: false
   end
 
   def and_i_have_an_existing_referral
@@ -85,7 +108,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_am_on_the_your_details_page
     expect(page).to have_current_path(
-      "/referrals/#{Referral.last.id}/referrer-name/edit"
+      "/referrals/#{@referral.id}/referrer-name/edit"
     )
     expect(page).to have_title(
       "What is your name? - Refer serious misconduct by a teacher in England"
@@ -107,14 +130,27 @@ RSpec.feature "Employer Referral: About You", type: :system do
     expect(page).to have_content("Enter your job title")
   end
 
+  def then_i_see_the_job_title_prefilled
+    expect(page).to have_field("What is your job title?", with: "Teacher")
+  end
+
+  def then_i_see_the_phone_number_prefilled
+    expect(page).to have_field(
+      "What is your telephone number?",
+      with: "01234567890"
+    )
+  end
+
   def then_i_see_the_name_error_message
     expect(page).to have_content("Enter your name")
   end
 
+  def then_i_see_the_name_prefilled
+    expect(page).to have_field("What is your name?", with: "Test Name")
+  end
+
   def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path(
-      "/referrals/#{Referral.last.id}/referrer-details"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer")
     expect(page).to have_title(
       "Your details - Refer serious misconduct by a teacher in England"
     )
@@ -127,12 +163,16 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_see_the_what_is_your_telephone_number_page
     expect(page).to have_current_path(
-      "/referrals/#{Referral.last.id}/referrer-phone/edit"
+      "/referrals/#{@referral.id}/referrer-phone/edit"
     )
     expect(page).to have_title(
       "What is your telephone number? - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("What is your telephone number?")
+  end
+
+  def then_i_see_your_details_flagged_as_complete
+    expect(page).to have_content("Your details\nCOMPLETE")
   end
 
   def when_i_click_back
