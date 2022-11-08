@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_221_107_114_023) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_084542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,27 +36,25 @@ ActiveRecord::Schema[7.0].define(version: 20_221_107_114_023) do
   create_table "referrals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "email_known"
-    t.string "email_address", limit: 256
     t.string "first_name"
     t.string "last_name"
     t.string "previous_name"
     t.string "name_has_changed"
     t.date "date_of_birth"
-    t.string "age_known"
-    t.string "approximate_age"
+    t.string "has_qts"
+    t.string "email_address", limit: 256
     t.string "trn"
     t.boolean "trn_known"
+    t.boolean "email_known"
     t.boolean "address_known"
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "town_or_city"
     t.string "postcode", limit: 11
     t.string "country"
-    t.string "has_qts"
+    t.boolean "personal_details_complete"
     t.boolean "phone_known"
     t.string "phone_number"
-    t.boolean "personal_details_complete"
   end
 
   create_table "referrers", force: :cascade do |t|
