@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_112653) do
     t.string "phone_number"
     t.boolean "age_known"
     t.boolean "contact_details_complete"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
   create_table "referrers", force: :cascade do |t|
@@ -121,5 +123,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_09_112653) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
 end
