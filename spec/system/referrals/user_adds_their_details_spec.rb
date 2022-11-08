@@ -1,8 +1,9 @@
 require "rails_helper"
 
-RSpec.feature "Employer Referral: About You" do
+RSpec.feature "Employer Referral: About You", type: :system do
   scenario "User provides their details" do
     given_the_service_is_open
+    and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_i_have_an_existing_referral
     and_i_am_on_the_referral_summary_page
@@ -43,6 +44,15 @@ RSpec.feature "Employer Referral: About You" do
 
   private
 
+  def given_the_service_is_open
+    FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_i_am_signed_in
+    @user = create(:user)
+    sign_in(@user)
+  end
+
   def and_i_am_on_the_referral_summary_page
     visit edit_referral_path(@referral)
   end
@@ -66,10 +76,6 @@ RSpec.feature "Employer Referral: About You" do
 
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
   end
 
   def then_i_am_on_the_referral_summary_page

@@ -1,4 +1,4 @@
-class SeriousMisconductController < ApplicationController
+class SeriousMisconductController < Referrals::BaseController
   include EnforceQuestionOrder
 
   def new

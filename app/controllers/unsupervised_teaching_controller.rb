@@ -1,4 +1,4 @@
-class UnsupervisedTeachingController < ApplicationController
+class UnsupervisedTeachingController < Referrals::BaseController
   include EnforceQuestionOrder
 
   def new

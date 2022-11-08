@@ -1,4 +1,4 @@
-class ReportingAsController < ApplicationController
+class ReportingAsController < Referrals::BaseController
   include EnforceQuestionOrder
 
   def new

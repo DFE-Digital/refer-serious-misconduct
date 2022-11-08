@@ -1,4 +1,4 @@
-class TeachingInEnglandController < ApplicationController
+class TeachingInEnglandController < Referrals::BaseController
   include EnforceQuestionOrder
 
   def new

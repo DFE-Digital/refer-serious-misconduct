@@ -7,9 +7,11 @@ if Rails.env.production?
   abort("The Rails environment is running in production mode!")
 end
 require "rspec/rails"
+#
 # Add additional requires below this line. Rails is not loaded until this point!
 require "capybara/cuprite"
 require "sidekiq/testing"
+require "support/devise"
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
