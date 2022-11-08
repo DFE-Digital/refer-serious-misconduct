@@ -1,16 +1,17 @@
 module Referrals
   module PersonalDetails
-    class ConfirmController < ReferralsController
+    class ConfirmController < Referrals::BaseController
       def edit
-        @personal_details_confirm_form = ConfirmForm.new(referral:)
+        @personal_details_confirm_form =
+          ConfirmForm.new(referral: current_referral)
       end
 
       def update
         @personal_details_confirm_form =
-          ConfirmForm.new(confirm_params.merge(referral:))
+          ConfirmForm.new(confirm_params.merge(referral: current_referral))
 
         if @personal_details_confirm_form.save
-          redirect_to edit_referral_path(referral)
+          redirect_to edit_referral_path(current_referral)
         else
           render :edit
         end

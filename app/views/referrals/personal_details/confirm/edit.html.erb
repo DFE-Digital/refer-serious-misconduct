@@ -4,31 +4,31 @@
 <% rows = [
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_name_path(@referral), visually_hidden_text: "name" },
+      { text: "Change", href: referrals_edit_personal_details_name_path(current_referral), visually_hidden_text: "name" },
     ],
     key: { text: "Name" },
-    value: { text: "#{@referral.first_name} #{@referral.last_name}" },
+    value: { text: "#{current_referral.first_name} #{current_referral.last_name}" },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_age_path(@referral), visually_hidden_text: "date of birth" },
+      { text: "Change", href: referrals_edit_personal_details_age_path(current_referral), visually_hidden_text: "date of birth" },
     ],
     key: { text: "Date of birth" },
-    value: { text: @referral.date_of_birth&.to_fs(:long_ordinal_uk) },
+    value: { text: current_referral.date_of_birth&.to_fs(:long_ordinal_uk) },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_trn_path(@referral), visually_hidden_text: "teacher reference number (TRN)" },
+      { text: "Change", href: referrals_edit_personal_details_trn_path(current_referral), visually_hidden_text: "teacher reference number (TRN)" },
     ],
     key: { text: "Teacher reference number (TRN)" },
-    value: { text: @referral.trn },
+    value: { text: current_referral.trn },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_qts_path(@referral), visually_hidden_text: "do they have QTS?" },
+      { text: "Change", href: referrals_edit_personal_details_qts_path(current_referral), visually_hidden_text: "do they have QTS?" },
     ],
     key: { text: "Do they have QTS?" },
-    value: { text: @referral.has_qts&.humanize },
+    value: { text: current_referral.has_qts&.humanize },
   },
 ] %>
 
@@ -47,7 +47,7 @@
       <%= render SummaryCardHeaderComponent.new(title: "Personal details") %>
     <% end %>
 
-    <%= form_with model: @personal_details_confirm_form, url: referrals_update_personal_details_confirm_path(@referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_confirm_form, url: referrals_update_personal_details_confirm_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(
