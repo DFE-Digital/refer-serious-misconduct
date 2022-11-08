@@ -1,20 +1,21 @@
 module Referrals
   module PersonalDetails
-    class TrnController < ReferralsController
+    class TrnController < Referrals::BaseController
       def edit
         @personal_details_trn_form =
           TrnForm.new(
-            referral:,
-            trn: referral.trn,
-            trn_known: referral.trn_known
+            referral: current_referral,
+            trn: current_referral.trn,
+            trn_known: current_referral.trn_known
           )
       end
 
       def update
-        @personal_details_trn_form = TrnForm.new(trn_params.merge(referral:))
+        @personal_details_trn_form =
+          TrnForm.new(trn_params.merge(referral: current_referral))
 
         if @personal_details_trn_form.save
-          redirect_to referrals_edit_personal_details_qts_path(referral)
+          redirect_to referrals_edit_personal_details_qts_path(current_referral)
         else
           render :edit
         end
