@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @personal_details_age_form, url: referrals_update_personal_details_age_path(@referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_age_form, url: referrals_update_personal_details_age_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:age_known, legend: { size: "xl", text: "Do you know their age or date of birth?" }) do %>
