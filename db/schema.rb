@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_130734) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_07_155435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_130734) do
     t.boolean "phone_known"
     t.string "phone_number"
     t.boolean "personal_details_complete"
+    t.boolean "contact_details_complete"
   end
 
   create_table "referrers", force: :cascade do |t|
