@@ -5,42 +5,13 @@ module Referrals
       include ActiveModel::Model
 
       attr_accessor :referral
-      attr_writer :age_known, :approximate_age, :date_of_birth
-
-      validates :age_known, inclusion: { in: %w[yes approximate no] }
-      validates :approximate_age,
-                presence: true,
-                if: -> { age_known == "approximate" }
-      validates :date_of_birth, presence: true, if: -> { age_known == "yes" }
-
-      def age_known
-        @age_known ||= referral.age_known
-      end
-
-      def approximate_age
-        @approximate_age ||= referral.approximate_age
-      end
+      attr_writer :date_of_birth
 
       def date_of_birth
         @date_of_birth ||= referral.date_of_birth
       end
 
       def save(params = {})
-        return save_date_of_birth(params) if age_known == "yes"
-
-        save_age
-      end
-
-      def save_age
-        return false if invalid?
-
-        age_attrs = { age_known:, approximate_age: nil, date_of_birth: nil }
-        age_attrs.merge!(approximate_age:) if age_known == "approximate"
-
-        referral.update(age_attrs)
-      end
-
-      def save_date_of_birth(params = {})
         date_fields = [
           params["date_of_birth(1i)"],
           params["date_of_birth(2i)"],
@@ -101,7 +72,8 @@ module Referrals
           return false
         end
 
-        referral.update(age_known:, date_of_birth:, approximate_age: nil)
+        referral.update(date_of_birth:)
+        true
       end
 
       private

@@ -2,14 +2,10 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
-  describe "#save (date)" do
-    subject(:save) { age_form.save(params) }
+  let(:referral) { Referral.new }
+  subject(:age_form) { described_class.new(referral:) }
 
-    let(:age_known) { "yes" }
-    let(:approximate_age) { "" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
+  describe "#save" do
     let(:params) do
       {
         "date_of_birth(1i)" => "2000",
@@ -17,10 +13,9 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         "date_of_birth(3i)" => "01"
       }
     end
-    let(:referral) { Referral.new }
 
     it "updates the date of birth" do
-      save
+      age_form.save(params)
       expect(referral.date_of_birth).to eq(Date.new(2000, 1, 1))
     end
 
@@ -34,7 +29,7 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
       end
 
       it "updates the date of birth" do
-        save
+        expect(age_form.save(params)).to be true
         expect(referral.date_of_birth).to eq(Date.new(2000, 1, 1))
       end
     end
@@ -49,7 +44,7 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
       end
 
       it "updates the date of birth" do
-        save
+        expect(age_form.save(params)).to be true
         expect(referral.date_of_birth).to eq(Date.new(2000, 12, 1))
       end
     end
@@ -63,15 +58,13 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "does not update the date of birth" do
-        save
+        expect(age_form.save(params)).to be_falsy
         expect(referral.date_of_birth).to be_nil
       end
 
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter their date of birth in the correct format"]
         )
@@ -87,10 +80,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter their date of birth"]
         )
@@ -106,10 +97,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Their date of birth must be in the past"]
         )
@@ -125,10 +114,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["You must be 16 or over to use this service"]
         )
@@ -144,10 +131,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a year of birth later than 1900"]
         )
@@ -163,10 +148,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a year with 4 digits"]
         )
@@ -182,10 +165,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a day for their date of birth, formatted as a number"]
         )
@@ -201,10 +182,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a month for their date of birth, formatted as a number"]
         )
@@ -220,10 +199,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a month for their date of birth, formatted as a number"]
         )
@@ -239,50 +216,12 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         }
       end
 
-      it { is_expected.to be_falsy }
-
       it "adds an error" do
-        save
+        age_form.save(params)
         expect(age_form.errors[:date_of_birth]).to eq(
           ["Enter a month for their date of birth, formatted as a number"]
         )
       end
-    end
-  end
-
-  describe "#save (approximate age)" do
-    subject(:save) { age_form.save }
-
-    let(:age_known) { "approximate" }
-    let(:approximate_age) { "They’re in their 20s" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
-    let(:referral) { Referral.new }
-
-    it "saves the approximate age" do
-      save
-      expect(referral.date_of_birth).to be nil
-      expect(referral.age_known).to eq("approximate")
-      expect(referral.approximate_age).to eq("They’re in their 20s")
-    end
-  end
-
-  describe "#save (age unknown)" do
-    subject(:save) { age_form.save }
-
-    let(:age_known) { "no" }
-    let(:approximate_age) { "" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
-    let(:referral) { Referral.new }
-
-    it "saves the age_known value" do
-      save
-      expect(referral.date_of_birth).to be nil
-      expect(referral.approximate_age).to be nil
-      expect(referral.age_known).to eq("no")
     end
   end
 end

@@ -65,10 +65,6 @@ en:
               missing_day: Enter a day for their date of birth, formatted as a number
               missing_month: Enter a month for their date of birth, formatted as a number
               missing_year: Enter a year with 4 digits
-            approximate_age:
-              blank: Enter their approximate age
-            age_known:
-              inclusion: Tell us if you know their date of birth or age
         "referrals/personal_details/name_form":
           attributes:
             first_name:
