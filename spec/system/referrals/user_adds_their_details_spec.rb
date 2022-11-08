@@ -71,7 +71,8 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def and_i_see_your_details_flagged_as_incomplete
-    expect(page).to have_content("Your details INCOMPLETE")
+    your_details_row = find(".app-task-list__item", text: "Your details")
+    expect(your_details_row).to have_content("INCOMPLETE")
   end
 
   def and_the_employer_form_feature_is_active
