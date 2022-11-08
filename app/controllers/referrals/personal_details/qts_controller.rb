@@ -1,16 +1,22 @@
 module Referrals
   module PersonalDetails
-    class QtsController < ReferralsController
+    class QtsController < Referrals::BaseController
       def edit
         @personal_details_qts_form =
-          QtsForm.new(referral:, has_qts: referral.has_qts)
+          QtsForm.new(
+            referral: current_referral,
+            has_qts: current_referral.has_qts
+          )
       end
 
       def update
-        @personal_details_qts_form = QtsForm.new(qts_params.merge(referral:))
+        @personal_details_qts_form =
+          QtsForm.new(qts_params.merge(referral: current_referral))
 
         if @personal_details_qts_form.save
-          redirect_to referrals_edit_personal_details_confirm_path(referral)
+          redirect_to referrals_edit_personal_details_confirm_path(
+                        current_referral
+                      )
         else
           render :edit
         end
