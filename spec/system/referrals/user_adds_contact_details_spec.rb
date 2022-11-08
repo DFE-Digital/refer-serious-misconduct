@@ -8,12 +8,15 @@ RSpec.feature "Contact details", type: :system do
     and_the_employer_form_feature_is_active
     and_i_have_an_existing_referral
     when_i_visit_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary(
+      status: "NOT STARTED YET"
+    )
     and_i_click_on_contact_details
 
     # Do you know the personal email address
     then_i_see_the_personal_email_address_page
 
-    # Email address known
+    # Email address invalid
     when_i_select_yes
     and_i_press_continue
     then_i_see_a_missing_email_error
@@ -22,19 +25,20 @@ RSpec.feature "Contact details", type: :system do
     and_i_press_continue
     then_i_see_an_invalid_email_error
 
+    # Email address unknown
+    when_i_select_no
+    and_i_press_continue
+
+    # Email address known
+    when_i_go_back
     when_i_select_yes_with_a_valid_email
     and_i_press_continue
     then_i_see_the_contact_number_page
 
-    # Email address unknown
-    when_i_go_back
-    when_i_select_no
-    and_i_press_continue
-
     # Do you know their main contact number
     then_i_see_the_contact_number_page
 
-    # Phone number known
+    # Phone number errors
     when_i_select_yes
     and_i_press_continue
     then_i_see_a_missing_phone_number_error
@@ -43,19 +47,20 @@ RSpec.feature "Contact details", type: :system do
     and_i_press_continue
     then_i_see_an_invalid_phone_number_error
 
-    when_i_select_yes_with_a_valid_phone_number
+    # Phone number known
+    when_i_select_no
     and_i_press_continue
     then_i_see_the_home_address_page
 
     # Phone number unknown
     when_i_go_back
-    when_i_select_no
+    when_i_select_yes_with_a_valid_phone_number
     and_i_press_continue
 
     # Do you know their home address?
     then_i_see_the_home_address_page
 
-    # Address known
+    # Address errors
     when_i_select_yes
     and_i_press_continue
     then_i_see_a_missing_address_fields_error
@@ -64,18 +69,34 @@ RSpec.feature "Contact details", type: :system do
     and_i_press_continue
     then_i_see_a_invalid_postcode_error
 
-    when_i_fill_in_the_address_details
-    and_i_press_continue
-    then_i_get_redirected_to_the_referral_summary
-
-    and_i_click_on_contact_details
-    and_i_press_continue # skip the email page
-    and_i_press_continue # skip the telephone page
-
     # Address unknown
     when_i_select_no
     and_i_press_continue
+    then_i_see_the_check_answers_page
+
+    # Address known
+    when_i_go_back
+    when_i_select_yes
+    when_i_fill_in_the_address_details
+    and_i_press_continue
+    then_i_see_the_check_answers_page
+    and_i_see_a_summary_list
+
+    # Have you completed this section?
+    and_i_press_continue
+    then_i_see_a_completed_error
+
+    when_i_select_yes
+    and_i_press_continue
     then_i_get_redirected_to_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary
+
+    # Not completed
+    when_i_visit_the_check_answers_page
+    when_i_select_no
+    and_i_press_continue
+    then_i_get_redirected_to_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
   end
 
   private
@@ -99,6 +120,10 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_visit_the_referral_summary
     visit edit_referral_path(@referral)
+  end
+
+  def when_i_visit_the_check_answers_page
+    visit referrals_update_contact_details_check_answers_path(@referral)
   end
 
   def and_i_click_on_contact_details
@@ -171,7 +196,7 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_select_yes_with_an_invalid_phone_number
     when_i_select_yes
-    fill_in "Contact number", with: "1234"
+    fill_in "Main contact number", with: "1234"
   end
 
   def then_i_see_an_invalid_phone_number_error
@@ -182,7 +207,7 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_select_yes_with_a_valid_phone_number
     when_i_select_yes
-    fill_in "Contact number", with: "07700 900 982"
+    fill_in "Main contact number", with: "07700 900 982"
   end
 
   def then_i_get_redirected_to_the_referral_summary
@@ -212,5 +237,62 @@ RSpec.feature "Contact details", type: :system do
     fill_in "Address line 1", with: "1428 Elm Street"
     fill_in "Town or city", with: "London"
     fill_in "Postcode", with: "NW1 4NP"
+  end
+
+  def then_i_see_the_check_answers_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/contact-details/check-answers"
+    )
+    expect(page).to have_title("Have you completed this section?")
+    expect(page).to have_content("Contact details")
+    expect(page).to have_content("About the person you are referring")
+  end
+
+  def and_i_see_a_summary_list
+    summary_rows = all(".govuk-summary-list__row")
+
+    within(summary_rows[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Email address")
+      expect(find(".govuk-summary-list__value").text).to eq("name@example.com")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_contact_details_email_path(@referral)
+      )
+    end
+
+    within(summary_rows[1]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Phone number")
+      expect(find(".govuk-summary-list__value").text).to eq("07700 900 982")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_contact_details_telephone_path(@referral)
+      )
+    end
+
+    within(summary_rows[2]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Address")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "1428 Elm Street\nLondon\nNW1 4NP"
+      )
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_contact_details_address_path(@referral)
+      )
+    end
+  end
+
+  def then_i_see_a_completed_error
+    expect(page).to have_content("Tell us if you have completed this section")
+  end
+
+  def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
+    within(all(".app-task-list__section")[1]) do
+      within(all(".app-task-list__item")[1]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Contact details"
+        )
+        expect(find(".app-task-list__tag").text).to eq(status)
+      end
+    end
   end
 end

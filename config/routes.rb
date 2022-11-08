@@ -105,24 +105,30 @@ Rails.application.routes.draw do
         to: "personal_details/confirm#update",
         as: "update_personal_details_confirm"
 
-    get "/:id/contact-details/email",
+    get "/:referral_id/contact-details/email",
         to: "contact_details/email#edit",
         as: "edit_contact_details_email"
-    put "/:id/contact-details/email",
+    put "/:referral_id/contact-details/email",
         to: "contact_details/email#update",
         as: "update_contact_details_email"
-    get "/:id/contact-details/telephone",
+    get "/:referral_id/contact-details/telephone",
         to: "contact_details/telephone#edit",
         as: "edit_contact_details_telephone"
-    put "/:id/contact-details/telephone",
+    put "/:referral_id/contact-details/telephone",
         to: "contact_details/telephone#update",
         as: "update_contact_details_telephone"
-    get "/:id/contact-details/address",
+    get "/:referral_id/contact-details/address",
         to: "contact_details/address#edit",
         as: "edit_contact_details_address"
-    put "/:id/contact-details/address",
+    put "/:referral_id/contact-details/address",
         to: "contact_details/address#update",
         as: "update_contact_details_address"
+    get "/:referral_id/contact-details/check-answers",
+        to: "contact_details/check_answers#edit",
+        as: "edit_contact_details_check_answers"
+    put "/:referral_id/contact-details/check-answers",
+        to: "contact_details/check_answers#update",
+        as: "update_contact_details_check_answers"
   end
 
   get "/performance", to: "performance#index"
