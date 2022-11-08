@@ -21,4 +21,6 @@
 class User < ApplicationRecord
   devise :validatable, :trackable
   include Devise::Models::OtpAuthenticatable
+
+  has_many :referrals
 end
