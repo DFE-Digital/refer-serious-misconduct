@@ -2,13 +2,14 @@
 #
 # Table name: referrers
 #
-#  id          :bigint           not null, primary key
-#  job_title   :string
-#  name        :string
-#  phone       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  referral_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  completed_at :datetime
+#  job_title    :string
+#  name         :string
+#  phone        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  referral_id  :bigint           not null
 #
 # Indexes
 #
@@ -29,5 +30,27 @@ RSpec.describe Referrer, type: :model do
     let(:referrer) { build(:referrer) }
 
     it { is_expected.to eq(:incomplete) }
+
+    context "when completed_at is present" do
+      let(:referrer) { build(:referrer, completed_at: Time.current) }
+
+      it { is_expected.to eq(:complete) }
+    end
+  end
+
+  describe "#completed?" do
+    subject { referrer.completed? }
+
+    let(:referrer) { build(:referrer) }
+
+    context "when completed_at is nil" do
+      it { is_expected.to be_falsey }
+    end
+
+    context "when completed_at is present" do
+      let(:referrer) { build(:referrer, completed_at: Time.current) }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end

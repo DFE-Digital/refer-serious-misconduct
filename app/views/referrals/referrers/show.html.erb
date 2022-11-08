@@ -34,6 +34,13 @@
       <%= render SummaryCardHeaderComponent.new(title: 'Your details') %>
     <% end %>
 
-    <%= govuk_button_to "Save and continue", edit_referral_path(current_referral), method: :get  %>
+    <%= form_with model: @referrer_form, url: referral_referrer_path(current_referral), method: :patch do |f| %>
+      <%= f.govuk_radio_buttons_fieldset :complete, legend: { size: 'm', text: 'Have you completed this section?' } do %>
+        <%= f.hidden_field :complete %>
+        <%= f.govuk_radio_button :complete, 'true', label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :complete, 'false', label: { text: "No, I’ll come back to it later" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
   </div>
 </div>

@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     get "/delete", to: "referrals#delete", on: :member
     get "/deleted", to: "referrals#deleted", on: :collection
 
+    resource :referrer, only: %i[show update], controller: "referrals/referrers"
     resource :referrer_details,
              only: %i[show],
              path: "referrer-details",

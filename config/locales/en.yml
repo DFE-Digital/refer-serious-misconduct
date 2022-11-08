@@ -131,6 +131,10 @@ en:
           attributes:
             name:
               blank: Enter your name
+        referrer_form:
+          attributes:
+            complete:
+              inclusion: Tell us if you have completed this section
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com

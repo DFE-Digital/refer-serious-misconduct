@@ -2,13 +2,14 @@
 #
 # Table name: referrers
 #
-#  id          :bigint           not null, primary key
-#  job_title   :string
-#  name        :string
-#  phone       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  referral_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  completed_at :datetime
+#  job_title    :string
+#  name         :string
+#  phone        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  referral_id  :bigint           not null
 #
 # Indexes
 #
