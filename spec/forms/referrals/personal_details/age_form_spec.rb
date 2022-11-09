@@ -7,7 +7,7 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
 
   subject(:age_form) { described_class.new(referral:, age_known:) }
 
-  describe "invalid age_known" do
+  context "with invalid age_known" do
     let(:age_known) { "" }
 
     it "adds an error message" do
