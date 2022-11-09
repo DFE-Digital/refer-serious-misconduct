@@ -94,8 +94,10 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def and_i_see_your_details_flagged_as_incomplete
-    your_details_row = find(".app-task-list__item", text: "Your details")
-    expect(your_details_row).to have_content("INCOMPLETE")
+    within(".app-task-list__item", text: "Your details") do
+      status_tag = find(".app-task-list__tag")
+      expect(status_tag.text).to have_content("INCOMPLETE")
+    end
   end
 
   def and_the_employer_form_feature_is_active
@@ -172,7 +174,10 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_your_details_flagged_as_complete
-    expect(page).to have_content("Your details\nCOMPLETE")
+    within(".app-task-list__item", text: "Your details") do
+      status_tag = find(".app-task-list__tag")
+      expect(status_tag.text).to match(/^COMPLETE/)
+    end
   end
 
   def when_i_click_back
