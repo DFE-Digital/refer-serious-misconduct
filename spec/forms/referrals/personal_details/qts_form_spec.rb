@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
   describe "#save" do
-    let(:referral) { Referral.new }
+    let(:referral) { build(:referral) }
     let(:has_qts) { "yes" }
     subject(:save) { qts_form.save }
 

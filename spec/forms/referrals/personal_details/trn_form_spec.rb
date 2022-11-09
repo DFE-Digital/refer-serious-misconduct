@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
-  let(:referral) { Referral.new }
+  let(:referral) { build(:referral) }
 
   describe "#save" do
     subject(:save) { trn_form.save }
