@@ -130,7 +130,7 @@ en:
         referrer_phone_form:
           attributes:
             phone:
-              blank: Enter your telephone number
+              blank: Enter your phone number
         "referrals/referrer_name_form":
           attributes:
             name:

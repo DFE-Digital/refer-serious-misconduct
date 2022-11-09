@@ -22,12 +22,12 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
     when_i_enter_my_job_title
     and_i_click_save_and_continue
-    then_i_see_the_what_is_your_telephone_number_page
+    then_i_see_the_what_is_your_phone_number_page
 
     when_i_click_save_and_continue
-    then_i_see_the_telephone_error_message
+    then_i_see_the_phone_error_message
 
-    when_i_enter_my_telephone_number
+    when_i_enter_my_phone_number
     when_i_click_save_and_continue
     then_i_see_the_referrer_check_your_answers_page
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
@@ -90,7 +90,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def and_i_see_my_answers_on_the_referrer_check_your_answers_page
     expect(page).to have_content("Your name\tTest Name")
-    expect(page).to have_content("Telephone number\t01234567890")
+    expect(page).to have_content("Phone number\t01234567890")
   end
 
   def and_i_see_your_details_flagged_as_incomplete
@@ -136,7 +136,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_see_the_phone_number_prefilled
     expect(page).to have_field(
-      "What is your telephone number?",
+      "What is your phone number?",
       with: "01234567890"
     )
   end
@@ -157,18 +157,18 @@ RSpec.feature "Employer Referral: About You", type: :system do
     expect(page).to have_content("Your details")
   end
 
-  def then_i_see_the_telephone_error_message
-    expect(page).to have_content("Enter your telephone number")
+  def then_i_see_the_phone_error_message
+    expect(page).to have_content("Enter your phone number")
   end
 
-  def then_i_see_the_what_is_your_telephone_number_page
+  def then_i_see_the_what_is_your_phone_number_page
     expect(page).to have_current_path(
       "/referrals/#{@referral.id}/referrer-phone/edit"
     )
     expect(page).to have_title(
-      "What is your telephone number? - Refer serious misconduct by a teacher in England"
+      "What is your phone number? - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What is your telephone number?")
+    expect(page).to have_content("What is your phone number?")
   end
 
   def then_i_see_your_details_flagged_as_complete
@@ -200,7 +200,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     fill_in "What is your name?", with: "Test Name"
   end
 
-  def when_i_enter_my_telephone_number
-    fill_in "What is your telephone number?", with: "01234567890"
+  def when_i_enter_my_phone_number
+    fill_in "What is your phone number?", with: "01234567890"
   end
 end
