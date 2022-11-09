@@ -6,8 +6,7 @@
 #  address_known             :boolean
 #  address_line_1            :string
 #  address_line_2            :string
-#  age_known                 :string
-#  approximate_age           :string
+#  age_known                 :boolean
 #  contact_details_complete  :boolean
 #  country                   :string
 #  date_of_birth             :date
