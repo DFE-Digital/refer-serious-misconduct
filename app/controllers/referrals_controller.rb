@@ -1,5 +1,6 @@
 class ReferralsController < Referrals::BaseController
   before_action :check_employer_form_feature_flag_enabled
+  before_action :redirect_to_referral_if_exists, only: %i[new create]
 
   def new
   end
@@ -39,6 +40,12 @@ class ReferralsController < Referrals::BaseController
   end
 
   private
+
+  def redirect_to_referral_if_exists
+    latest_referral = current_user.latest_referral
+
+    redirect_to referral_path(latest_referral) if latest_referral
+  end
 
   def referral
     @referral ||= current_user.referrals.find(params[:id])
