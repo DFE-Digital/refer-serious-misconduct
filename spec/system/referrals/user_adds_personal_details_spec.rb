@@ -89,7 +89,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def and_i_visit_a_referral
-    @referral = create(:referral)
+    @referral = create(:referral, user: @user)
     visit edit_referral_path(@referral)
   end
 

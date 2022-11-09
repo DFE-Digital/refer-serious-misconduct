@@ -81,7 +81,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def and_i_have_an_existing_referral
-    @referral = Referral.create!
+    @referral = create(:referral, user: @user)
   end
 
   def and_i_see_my_name_in_the_form_field

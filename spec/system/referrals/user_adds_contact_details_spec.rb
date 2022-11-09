@@ -115,7 +115,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def and_i_have_an_existing_referral
-    @referral = Referral.create!
+    @referral = create(:referral, user: @user)
   end
 
   def when_i_visit_the_referral_summary
