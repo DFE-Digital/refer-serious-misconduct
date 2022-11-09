@@ -2,14 +2,27 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
+  let(:referral) { Referral.new }
+  let(:age_known) { "false" }
+
+  subject(:age_form) { described_class.new(referral:, age_known:) }
+
+  describe "invalid age_known" do
+    let(:age_known) { "" }
+
+    it "adds an error message" do
+      expect(age_form.valid?).to be false
+      expect(age_form.errors[:age_known]).to eq(
+        ["Tell us if you know their date of birth"]
+      )
+    end
+  end
+
   describe "#save (date)" do
     subject(:save) { age_form.save(params) }
 
-    let(:age_known) { "yes" }
-    let(:approximate_age) { "" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
+    let(:age_known) { "true" }
+    let(:age_form) { described_class.new(referral:, age_known:) }
     let(:params) do
       {
         "date_of_birth(1i)" => "2000",
@@ -17,7 +30,6 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
         "date_of_birth(3i)" => "01"
       }
     end
-    let(:referral) { Referral.new }
 
     it "updates the date of birth" do
       save
@@ -250,39 +262,16 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
     end
   end
 
-  describe "#save (approximate age)" do
-    subject(:save) { age_form.save }
-
-    let(:age_known) { "approximate" }
-    let(:approximate_age) { "They’re in their 20s" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
-    let(:referral) { Referral.new }
-
-    it "saves the approximate age" do
-      save
-      expect(referral.date_of_birth).to be nil
-      expect(referral.age_known).to eq("approximate")
-      expect(referral.approximate_age).to eq("They’re in their 20s")
-    end
-  end
-
   describe "#save (age unknown)" do
     subject(:save) { age_form.save }
 
-    let(:age_known) { "no" }
-    let(:approximate_age) { "" }
-    let(:age_form) do
-      described_class.new(referral:, age_known:, approximate_age:)
-    end
-    let(:referral) { Referral.new }
+    let(:age_known) { "false" }
+    let(:age_form) { described_class.new(referral:, age_known:) }
 
-    it "saves the age_known value" do
+    it "saves the age_known value without a date of birth" do
       save
       expect(referral.date_of_birth).to be nil
-      expect(referral.approximate_age).to be nil
-      expect(referral.age_known).to eq("no")
+      expect(referral.age_known).to eq(false)
     end
   end
 end
