@@ -4,6 +4,7 @@ require "rails_helper"
 RSpec.feature "User accounts" do
   scenario "User signs in" do
     given_the_service_is_open
+    and_the_employer_form_feature_is_active
     when_i_visit_the_root_page
     and_click_start_now
     and_i_submit_my_email
@@ -13,12 +14,21 @@ RSpec.feature "User accounts" do
     and_i_provide_the_expected_otp
     then_i_am_signed_in
     and_i_am_not_prompted_to_sign_in_again
+
+    when_i_have_a_referral_in_progress
+    and_i_sign_out
+    when_i_sign_back_in
+    then_i_see_my_referral
   end
 
   private
 
   def given_the_service_is_open
     FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_the_employer_form_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:employer_form)
   end
 
   def when_i_visit_the_root_page
@@ -60,5 +70,23 @@ RSpec.feature "User accounts" do
   def and_i_am_not_prompted_to_sign_in_again
     click_on "Start now"
     expect(page).to have_current_path who_path
+  end
+
+  def when_i_have_a_referral_in_progress
+    @referral = create(:referral, user: User.last)
+  end
+
+  def and_i_sign_out
+    within(".govuk-header") { click_on "Sign out" }
+  end
+
+  def when_i_sign_back_in
+    within(".govuk-header") { click_on "Sign in" }
+    and_i_submit_my_email
+    and_i_provide_the_expected_otp
+  end
+
+  def then_i_see_my_referral
+    expect(page).to have_current_path(referral_path(@referral))
   end
 end
