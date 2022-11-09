@@ -6,7 +6,7 @@ module Referrals
     private
 
     def current_referral
-      @current_referral ||= Referral.find(params[:referral_id])
+      @current_referral ||= current_user.referrals.find(params[:referral_id])
     end
     helper_method :current_referral
 
