@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_155435) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_09_112653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,23 +40,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_155435) do
     t.string "last_name"
     t.string "previous_name"
     t.string "name_has_changed"
-    t.boolean "email_known"
-    t.string "email_address", limit: 256
     t.date "date_of_birth"
-    t.string "age_known"
-    t.string "approximate_age"
+    t.string "has_qts"
+    t.string "email_address", limit: 256
     t.string "trn"
     t.boolean "trn_known"
-    t.string "has_qts"
+    t.boolean "email_known"
     t.boolean "address_known"
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "town_or_city"
     t.string "postcode", limit: 11
     t.string "country"
+    t.boolean "personal_details_complete"
     t.boolean "phone_known"
     t.string "phone_number"
-    t.boolean "personal_details_complete"
+    t.boolean "age_known"
     t.boolean "contact_details_complete"
   end
 
