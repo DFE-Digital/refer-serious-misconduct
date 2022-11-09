@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::ConfirmForm, type: :model do
   describe "#save" do
-    let(:referral) { Referral.new }
+    let(:referral) { build(:referral) }
     let(:personal_details_complete) { false }
     subject(:save) { confirm_form.save }
 

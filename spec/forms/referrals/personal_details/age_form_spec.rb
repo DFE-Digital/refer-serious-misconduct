@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
-  let(:referral) { Referral.new }
+  let(:referral) { build(:referral) }
   let(:age_known) { "false" }
 
   subject(:age_form) { described_class.new(referral:, age_known:) }

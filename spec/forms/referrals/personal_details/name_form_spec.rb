@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::NameForm do
   describe "#save (names)" do
-    let(:referral) { Referral.new }
+    let(:referral) { build(:referral) }
     let(:first_name) { "Jane" }
     let(:last_name) { "Smith" }
     let(:name_has_changed) { "yes" }
