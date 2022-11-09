@@ -129,13 +129,11 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_am_asked_their_date_of_birth
-    expect(page).to have_content("Do you know their age or date of birth?")
+    expect(page).to have_content("Do you know their date of birth?")
   end
 
   def then_i_see_age_field_validation_errors
-    expect(page).to have_content(
-      "Tell us if you know their date of birth or age"
-    )
+    expect(page).to have_content("Tell us if you know their date of birth")
   end
 
   def when_i_fill_out_their_date_of_birth
