@@ -42,8 +42,8 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.your_organisation"),
-          "#",
-          :not_started_yet
+          referral_organisation_path(referral),
+          referral.organisation_status
         )
       ]
     )
