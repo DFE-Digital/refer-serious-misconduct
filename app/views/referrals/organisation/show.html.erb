@@ -1,0 +1,23 @@
+<% content_for :page_title, "Your organisation" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">About you</span>
+      Your organisation
+    </h1>
+    <% rows = [] %>
+    <%= render(SummaryCardComponent.new(rows:)) do %>
+      <%= render SummaryCardHeaderComponent.new(title: 'Your organisation') %>
+    <% end %>
+
+    <%= form_with model: @organisation_form, url: referral_organisation_path(current_referral), method: :patch do |f| %>
+      <%= f.govuk_radio_buttons_fieldset :complete, legend: { size: 'm', text: 'Have you completed this section?' } do %>
+        <%= f.hidden_field :complete %>
+        <%= f.govuk_radio_button :complete, 'true', label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :complete, 'false', label: { text: "No, I’ll come back to it later" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

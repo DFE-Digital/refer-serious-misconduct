@@ -133,6 +133,10 @@ en:
           attributes:
             name:
               blank: Enter your name
+        organisation_form:
+          attributes:
+            complete:
+              inclusion: Tell us if you have completed this section
         referrer_form:
           attributes:
             complete:
