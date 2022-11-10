@@ -21,6 +21,7 @@ gem "propshaft"
 gem "puma", "~> 5.0"
 gem "rails", "~> 7.0.3"
 gem "rotp"
+gem "sentry-rails"
 gem "sidekiq"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "uk_postcode"
