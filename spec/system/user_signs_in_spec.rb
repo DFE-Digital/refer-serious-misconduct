@@ -5,6 +5,7 @@ RSpec.feature "User accounts" do
   scenario "User signs in" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
+    and_the_user_accounts_feature_is_active
     when_i_visit_the_root_page
     and_click_start_now
     and_i_submit_my_email
@@ -29,6 +30,10 @@ RSpec.feature "User accounts" do
 
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
+  end
+
+  def and_the_user_accounts_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
   def when_i_visit_the_root_page
