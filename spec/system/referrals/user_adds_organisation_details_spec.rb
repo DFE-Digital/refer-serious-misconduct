@@ -42,8 +42,8 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_am_signed_in
-    user = create(:user)
-    sign_in(user)
+    @user = create(:user)
+    sign_in(@user)
   end
 
   def and_i_am_on_the_referral_summary_page
@@ -51,11 +51,14 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_have_an_existing_referral
-    @referral = create(:referral)
+    @referral = create(:referral, user: @user)
   end
 
   def and_i_see_your_organisation_flagged_as_complete
-    expect(page).to have_content("Your organisation\nCOMPLETE")
+    within(".app-task-list__item", text: "Your organisation") do
+      status_tag = find(".app-task-list__tag")
+      expect(status_tag.text).to match(/^COMPLETE/)
+    end
   end
 
   def and_the_employer_form_feature_is_active
