@@ -4,7 +4,7 @@ class <%= plural_name.camelize %>Controller < BaseController
   end
 
   def create
-    @<%= model_resource_name %>_form = <%= class_name %>Form.new(<%= model_resource_name %>_form_params.merge(eligibility_check:))
+    @<%= model_resource_name %>_form = <%= class_name %>Form.new(<%= model_resource_name %>_form_params.merge(<%= model.downcase %>: current_<%= model.downcase %>))
     if @<%= model_resource_name %>_form.save
       next_question
     else
