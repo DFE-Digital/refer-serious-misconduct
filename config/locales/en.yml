@@ -137,6 +137,10 @@ en:
           attributes:
             complete:
               inclusion: Tell us if you have completed this section
+        organisation_name_form:
+          attributes:
+            name:
+              blank: Tell us the name of your organisation
         referrer_form:
           attributes:
             complete:

@@ -8,6 +8,20 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     and_i_have_an_existing_referral
     and_i_am_on_the_referral_summary_page
     when_i_click_on_your_organisation
+
+    then_i_am_on_the_organisation_name_page
+    when_i_click_save_and_continue
+    then_i_see_the_missing_name_error
+
+    when_i_fill_in_the_organisation_name
+    and_i_click_save_and_continue
+    then_i_am_on_the_organisation_details_page
+
+    when_i_click_change_organisation_name
+    then_i_am_on_the_organisation_name_page
+    and_i_see_the_name_prefilled
+
+    when_i_click_save_and_continue
     then_i_am_on_the_organisation_details_page
 
     when_i_click_save_and_continue
@@ -18,7 +32,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     then_i_am_on_the_referral_summary_page
     and_i_see_your_organisation_flagged_as_incomplete
 
-    when_i_click_on_your_organisation
+    when_i_go_back
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_am_on_the_referral_summary_page
@@ -29,6 +43,13 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def and_i_choose_complete
     choose "Yes, I’ve completed this section", visible: false
+  end
+
+  def and_i_see_the_name_prefilled
+    expect(page).to have_field(
+      "What’s the name of your organisation?",
+      with: "My organisation"
+    )
   end
 
   def and_i_see_your_organisation_flagged_as_incomplete
@@ -77,12 +98,30 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     expect(page).to have_content("Your organisation")
   end
 
+  def then_i_am_on_the_organisation_name_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/organisation_name/edit"
+    )
+    expect(page).to have_title(
+      "What’s the name of your organisation? - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("What’s the name of your organisation?")
+  end
+
   def then_i_am_on_the_referral_summary_page
     expect(page).to have_current_path(edit_referral_path(@referral))
   end
 
+  def then_i_see_the_missing_name_error
+    expect(page).to have_content("Tell us the name of your organisation")
+  end
+
   def when_i_choose_no_come_back_later
     choose "No, I’ll come back to it later", visible: false
+  end
+
+  def when_i_click_change_organisation_name
+    click_on "Change name"
   end
 
   def when_i_click_on_your_organisation
@@ -93,4 +132,12 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     click_on "Save and continue"
   end
   alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
+
+  def when_i_fill_in_the_organisation_name
+    fill_in "What’s the name of your organisation?", with: "My organisation"
+  end
+
+  def when_i_go_back
+    page.go_back
+  end
 end

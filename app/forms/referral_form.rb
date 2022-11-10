@@ -42,7 +42,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.your_organisation"),
-          referral_organisation_path(referral),
+          edit_referral_organisation_name_path(referral),
           referral.organisation_status
         )
       ]
