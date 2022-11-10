@@ -14,7 +14,15 @@
         ],
         key: { text: "Organisation" },
         value: { text: @organisation.name },
-      }
+      },
+      {
+        actions: [
+          { text: "Change", href: edit_referral_organisation_address_path(current_referral), visually_hidden_text: "address" },
+
+        ],
+        key: { text: "Address" },
+        value: { text: organisation_address(@organisation) },
+      },
     ] %>
     <%= render(SummaryCardComponent.new(rows:)) do %>
       <%= render SummaryCardHeaderComponent.new(title: 'Your organisation') %>

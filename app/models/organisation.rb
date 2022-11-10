@@ -3,8 +3,12 @@
 # Table name: organisations
 #
 #  id           :bigint           not null, primary key
+#  city         :string
 #  completed_at :datetime
 #  name         :string
+#  postcode     :string
+#  street_1     :string
+#  street_2     :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  referral_id  :bigint           not null
@@ -19,6 +23,10 @@
 #
 class Organisation < ApplicationRecord
   belongs_to :referral
+
+  def address?
+    street_1.present? && city.present? && postcode.present?
+  end
 
   def completed?
     completed_at.present?
