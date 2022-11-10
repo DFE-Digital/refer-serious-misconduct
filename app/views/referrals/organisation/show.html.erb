@@ -6,7 +6,16 @@
       <span class="govuk-caption-xl">About you</span>
       Your organisation
     </h1>
-    <% rows = [] %>
+    <% rows = [
+      {
+        actions: [
+          { text: "Change", href: edit_referral_organisation_name_path(current_referral), visually_hidden_text: "name" },
+
+        ],
+        key: { text: "Organisation" },
+        value: { text: @organisation.name },
+      }
+    ] %>
     <%= render(SummaryCardComponent.new(rows:)) do %>
       <%= render SummaryCardHeaderComponent.new(title: 'Your organisation') %>
     <% end %>
