@@ -80,5 +80,14 @@ RUN apk add --no-cache libpq
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
-CMD bundle exec rails db:migrate && \
+# SSH access specific to Azure
+# Install OpenSSH and set the password for root to "Docker!".
+RUN apk add --no-cache openssh && echo "root:Docker!" | chpasswd
+
+# Copy the Azure specific sshd_config file to the /etc/ssh/ directory
+RUN ssh-keygen -A && mkdir -p /var/run/sshd
+COPY azure/.sshd_config /etc/ssh/sshd_config
+
+CMD /usr/sbin/sshd && \
+    bundle exec rails db:migrate && \
     bundle exec rails server -b 0.0.0.0
