@@ -88,6 +88,9 @@ RUN apk add --no-cache openssh && echo "root:Docker!" | chpasswd
 RUN ssh-keygen -A && mkdir -p /var/run/sshd
 COPY azure/.sshd_config /etc/ssh/sshd_config
 
+# Open port 2222 for Azure SSH access
+EXPOSE 2222
+
 CMD /usr/sbin/sshd && \
     bundle exec rails db:migrate && \
     bundle exec rails server -b 0.0.0.0
