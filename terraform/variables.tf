@@ -114,6 +114,20 @@ variable "domain" {
   default = null
 }
 
+variable "allegations_container_delete_retention_days" {
+  default = 7
+  type    = number
+}
+
+variable "allegations_storage_account_name" {
+  default = null
+}
+
+variable "region_name" {
+  default = "west europe"
+  type    = string
+}
+
 locals {
   hosting_environment          = var.environment_name
   rsm_app_name                = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-app"

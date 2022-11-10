@@ -11,6 +11,9 @@ locals {
       ConnectionStrings__Redis              = azurerm_redis_cache.redis.primary_connection_string
       WEBSITE_SWAP_WARMUP_PING_PATH         = "/health"
       WEBSITE_SWAP_WARMUP_PING_STATUSES     = "200"
+      AZURE_STORAGE_ACCOUNT_NAME            = azurerm_storage_account.allegations.name,
+      AZURE_STORAGE_ACCESS_KEY              = azurerm_storage_account.allegations.primary_access_key,
+      AZURE_STORAGE_CONTAINER               = azurerm_storage_container.uploads.name
     }
   )
 }
