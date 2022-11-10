@@ -59,6 +59,10 @@ Rails.application.routes.draw do
              only: %i[edit update],
              controller: "referrals/organisation_name"
 
+    resource :organisation_address,
+             only: %i[edit update],
+             controller: "referrals/organisation_address"
+
     resource :referrer, only: %i[show update], controller: "referrals/referrers"
     resource :referrer_details,
              only: %i[show],
