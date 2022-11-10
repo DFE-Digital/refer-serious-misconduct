@@ -1,12 +1,12 @@
 class <%= class_name %>Form
   include ActiveModel::Model
 
-  attr_accessor :eligibility_check
+  attr_accessor :<%= model.downcase %>
   <% if attributes.any? -%>
 attr_reader <%= attributes.map { |attribute| ":#{attribute.name}" }.join(', ') %>
   <% end -%>
 
-  validates :eligibility_check, presence: true
+  validates :<%= model.downcase %>, presence: true
   <% attributes.map do |attribute| -%>
 validates :<%= attribute.name %>, <%= attribute.type == :boolean ? "inclusion: { in: [true, false] }" : "presence: true" %>
   <% end -%>
@@ -21,8 +21,8 @@ def <%= attribute.name %>=(value)
     return false unless valid?
 
     <% attributes.map do |attribute| -%>
-eligibility_check.<%= attribute.name %> = <%= attribute.name %>
+<%= model.downcase %>.<%= attribute.name %> = <%= attribute.name %>
     <% end -%>
-eligibility_check.save
+<%= model.downcase %>.save
   end
 end

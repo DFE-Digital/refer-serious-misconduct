@@ -1,6 +1,7 @@
 class FormGenerator < Rails::Generators::NamedBase
   source_root File.expand_path("templates", __dir__)
 
+  argument :model, type: :string, default: "EligibilityCheck"
   argument :attributes,
            type: :array,
            default: [],
@@ -13,14 +14,8 @@ class FormGenerator < Rails::Generators::NamedBase
              "app/controllers/#{plural_name}_controller.rb"
     template "new_form.html.erb", "app/views/#{plural_name}/new.html.erb"
 
-    insert_into_file "config/routes.rb",
-                     before:
-                       "namespace :support_interface, path: \"/support\" do\n" do
-      "  get \"#{plural_name}\", to: \"#{plural_name}#new\"\n" \
-        "  post \"#{plural_name}\", to: \"#{plural_name}#create\"\n"
-    end
     generate :migration,
-             "Add#{class_name}ToEligibilityCheck #{
+             "Add#{class_name}To#{model} #{
                attributes
                  .map { |attribute| [attribute.name, attribute.type].join(":") }
                  .join(" ")
