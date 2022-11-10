@@ -7,7 +7,12 @@ module Referrals
     private
 
     def current_referral
-      @current_referral ||= current_user.referrals.find(params[:referral_id])
+      @current_referral ||=
+        if FeatureFlags::FeatureFlag.active?(:user_accounts)
+          current_user.referrals.find(params[:referral_id])
+        else
+          Referral.find(params[:referral_id])
+        end
     end
     helper_method :current_referral
 
