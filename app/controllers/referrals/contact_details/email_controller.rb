@@ -15,9 +15,7 @@ module Referrals
             contact_details_email_form_params.merge(referral: current_referral)
           )
         if @contact_details_email_form.save
-          redirect_to referrals_update_contact_details_telephone_path(
-                        current_referral
-                      )
+          redirect_to save_redirect_path
         else
           render :edit
         end
@@ -30,6 +28,18 @@ module Referrals
           :email_known,
           :email_address
         )
+      end
+
+      def save_redirect_path
+        if go_to_check_answers?
+          return(
+            referrals_update_contact_details_check_answers_path(
+              current_referral
+            )
+          )
+        end
+
+        referrals_update_contact_details_telephone_path(current_referral)
       end
     end
   end

@@ -5,6 +5,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @contact_details_telephone_form, url: referrals_update_contact_details_telephone_url, method: :put do |f| %>
       <%= f.govuk_error_summary %>
+      <%= hidden_field_tag :go_to_check_answers, request.referrer == referrals_update_contact_details_check_answers_url(current_referral) %>
       <%= f.govuk_radio_buttons_fieldset :phone_known, legend: { size: "xl", text: "Do you know their main contact number?" }  do %>
         <%= f.hidden_field :phone_known %>
         <%= f.govuk_radio_button :phone_known, true, label: { text: "Yes" } do %>

@@ -26,5 +26,9 @@ module Referrals
     def store_user_location!
       store_location_for(:user, request.fullpath)
     end
+
+    def go_to_check_answers?
+      params["go_to_check_answers"] == "true"
+    end
   end
 end
