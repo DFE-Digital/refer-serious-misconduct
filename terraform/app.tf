@@ -5,6 +5,8 @@ locals {
       ApplicationInsights__ConnectionString = azurerm_application_insights.insights.connection_string
       DATABASE_URL                          = "postgres://postgres@${local.postgres_server_name}.postgres.database.azure.com:5432"
       DATABASE_PASSWORD                     = local.infrastructure_secrets.POSTGRES_ADMIN_PASSWORD
+      HOSTING_DOMAIN                        = "https://${var.domain}"
+      HOSTING_ENVIRONMENT_NAME              = local.hosting_environment
       RAILS_SERVE_STATIC_FILES              = "true"
       ConnectionStrings__Redis              = azurerm_redis_cache.redis.primary_connection_string
       WEBSITE_SWAP_WARMUP_PING_PATH         = "/health"
