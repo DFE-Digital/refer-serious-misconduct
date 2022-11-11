@@ -68,7 +68,7 @@ RSpec.feature "User accounts" do
   def and_i_provide_the_expected_otp
     # TODO: inspect sent email once mailer code is implemented
     user = User.find_by(email: "test@example.com")
-    expected_otp = Devise::OtpComparison.derive_otp(user.secret_key)
+    expected_otp = Devise::Otp.derive_otp(user.secret_key)
 
     fill_in "Enter your code", with: expected_otp
     within("main") { click_on "Sign in" }

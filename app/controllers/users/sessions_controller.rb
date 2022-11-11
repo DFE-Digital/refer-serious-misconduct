@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = resource_class.find_or_initialize_by(sign_in_params)
 
     if resource.save
-      secret_key = ROTP::Base32.random
+      secret_key = Devise::Otp.generate_key
       resource.update(secret_key:)
       # TODO: send otp via email
       redirect_to new_user_otp_path(id: resource.id)
