@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module HostingEnvironment
-  TEST_ENVIRONMENTS = %w[local test development review].freeze
+  TEST_ENVIRONMENTS = %w[local dev test].freeze
   PRODUCTION_URL = I18n.t("service.url")
 
   def self.host
