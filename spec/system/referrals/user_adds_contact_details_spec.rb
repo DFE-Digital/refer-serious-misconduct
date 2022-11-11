@@ -97,6 +97,22 @@ RSpec.feature "Contact details", type: :system do
     and_i_press_continue
     then_i_get_redirected_to_the_referral_summary
     then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+
+    # Editing single answers
+    when_i_visit_the_check_answers_page
+    and_i_click_the_change_email_link
+    and_i_press_continue
+    then_i_see_the_check_answers_page
+
+    when_i_visit_the_check_answers_page
+    and_i_click_the_change_phone_link
+    and_i_press_continue
+    then_i_see_the_check_answers_page
+
+    when_i_visit_the_check_answers_page
+    and_i_click_the_change_address_link
+    and_i_press_continue
+    then_i_see_the_check_answers_page
   end
 
   private
@@ -294,5 +310,17 @@ RSpec.feature "Contact details", type: :system do
         expect(find(".app-task-list__tag").text).to eq(status)
       end
     end
+  end
+
+  def and_i_click_the_change_email_link
+    within(all(".govuk-summary-list__row")[0]) { click_link "Change" }
+  end
+
+  def and_i_click_the_change_phone_link
+    within(all(".govuk-summary-list__row")[1]) { click_link "Change" }
+  end
+
+  def and_i_click_the_change_address_link
+    within(all(".govuk-summary-list__row")[2]) { click_link "Change" }
   end
 end

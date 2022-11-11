@@ -17,9 +17,7 @@ module Referrals
             )
           )
         if @contact_details_telephone_form.save
-          redirect_to referrals_update_contact_details_address_path(
-                        current_referral
-                      )
+          redirect_to save_redirect_path
         else
           render :edit
         end
@@ -32,6 +30,18 @@ module Referrals
           :phone_known,
           :phone_number
         )
+      end
+
+      def save_redirect_path
+        if go_to_check_answers?
+          return(
+            referrals_update_contact_details_check_answers_path(
+              current_referral
+            )
+          )
+        end
+
+        referrals_update_contact_details_address_path(current_referral)
       end
     end
   end

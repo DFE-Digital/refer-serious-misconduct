@@ -11,13 +11,7 @@ module Referrals
           organisation_name_form_params.merge(referral: current_referral)
         )
       if @organisation_name_form.save
-        redirect_to(
-          if go_to_check_answers?
-            referral_organisation_path(current_referral)
-          else
-            edit_referral_organisation_address_path(current_referral)
-          end
-        )
+        redirect_to save_redirect_path
       else
         render :edit
       end
@@ -25,8 +19,12 @@ module Referrals
 
     private
 
-    def go_to_check_answers?
-      params["check_answers"] == "true"
+    def save_redirect_path
+      if go_to_check_answers?
+        return referral_organisation_path(current_referral)
+      end
+
+      edit_referral_organisation_address_path(current_referral)
     end
 
     def organisation_name_form_params
