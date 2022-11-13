@@ -39,6 +39,10 @@ class Users::OtpController < DeviseController
   private
 
   def after_sign_in_path_for(resource)
+    stored_location_for(resource) || latest_referral_path(resource)
+  end
+
+  def latest_referral_path(resource)
     latest_referral = resource.latest_referral
 
     latest_referral ? referral_path(latest_referral) : root_path

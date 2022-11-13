@@ -20,6 +20,12 @@ RSpec.feature "User accounts" do
     and_i_sign_out
     when_i_sign_back_in
     then_i_see_my_referral
+
+    when_i_am_signed_out
+    and_i_visit_a_page
+    and_i_submit_my_email
+    and_i_provide_the_expected_otp
+    then_i_see_my_current_page_before_logging_in
   end
 
   private
@@ -84,6 +90,7 @@ RSpec.feature "User accounts" do
   def and_i_sign_out
     within(".govuk-header") { click_on "Sign out" }
   end
+  alias_method :when_i_am_signed_out, :and_i_sign_out
 
   def when_i_sign_back_in
     within(".govuk-header") { click_on "Sign in" }
@@ -93,5 +100,15 @@ RSpec.feature "User accounts" do
 
   def then_i_see_my_referral
     expect(page).to have_current_path(referral_path(@referral))
+  end
+
+  def and_i_visit_a_page
+    visit referrals_edit_contact_details_email_path(@referral)
+  end
+
+  def then_i_see_my_current_page_before_logging_in
+    expect(page).to have_current_path(
+      referrals_edit_contact_details_email_path(@referral)
+    )
   end
 end
