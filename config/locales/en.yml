@@ -161,6 +161,10 @@ en:
           attributes:
             name:
               blank: Tell us the name of your organisation
+        previous_misconduct_form:
+          attributes:
+            complete:
+              inclusion: Tell us if you have completed this section
         referrer_form:
           attributes:
             complete:
