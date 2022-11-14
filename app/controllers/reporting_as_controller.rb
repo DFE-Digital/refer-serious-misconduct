@@ -1,6 +1,8 @@
 class ReportingAsController < Referrals::BaseController
   include EnforceQuestionOrder
 
+  skip_before_action :authenticate_user!
+
   def new
     @reporting_as_form = ReportingAsForm.new(eligibility_check:)
   end
