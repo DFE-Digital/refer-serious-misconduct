@@ -165,6 +165,10 @@ en:
           attributes:
             complete:
               inclusion: Tell us if you have completed this section
+        previous_misconduct_summary_form:
+          attributes:
+            summary:
+              blank: Enter a summary of the previous allegations
         referrer_form:
           attributes:
             complete:
