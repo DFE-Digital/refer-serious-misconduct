@@ -85,8 +85,8 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.previous_allegations"),
-          "#",
-          :not_started_yet
+          referral_previous_misconduct_path(referral),
+          referral.previous_misconduct_status
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.evidence_and_supporting_information"),
