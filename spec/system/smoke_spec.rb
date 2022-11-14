@@ -11,28 +11,8 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     given_i_am_authorized_as_a_support_user
     when_i_visit_the_service
     then_i_see_the_start_page
-
-    when_i_press_start
-    then_i_see_the_employer_or_public_question
-
-    when_i_choose_reporting_as_an_employer
-    when_i_press_continue
-    then_i_see_the_is_a_teacher_page
-
-    when_i_choose_yes
-    when_i_press_continue
-    then_i_see_the_teaching_in_england_page
-
-    when_i_choose_yes
-    when_i_press_continue
-    then_i_see_the_serious_misconduct_page
-
-    when_i_choose_yes
-    when_i_press_continue
-    then_i_see_the_you_should_know_page
-
-    when_i_press_continue
-    then_i_see_the_completion_page
+    when_i_visit_the_first_page_of_the_screener
+    then_it_loads_successfully
   end
 
   it "/health/all returns 200" do
@@ -49,51 +29,21 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     )
   end
 
-  def then_i_see_the_completion_page
-    expect(page).to have_current_path("/complete")
-  end
-
-  def then_i_see_the_employer_or_public_question
-    expect(page).to have_current_path("/who")
-  end
-
-  def then_i_see_the_serious_misconduct_page
-    expect(page).to have_current_path("/serious")
+  def when_i_visit_the_service
+    page.visit("#{ENV["HOSTING_DOMAIN"]}/start")
   end
 
   def then_i_see_the_start_page
-    expect(page).to have_current_path("/start")
+    expect(page).to have_link("Start now")
   end
 
-  def then_i_see_the_teaching_in_england_page
-    expect(page).to have_current_path("/teaching-in-england")
+  def when_i_visit_the_first_page_of_the_screener
+    page.visit("#{ENV["HOSTING_DOMAIN"]}/who")
   end
 
-  def then_i_see_the_is_a_teacher_page
-    expect(page).to have_current_path("/is-a-teacher")
-  end
-
-  def then_i_see_the_you_should_know_page
-    expect(page).to have_current_path("/you-should-know")
-  end
-
-  def when_i_choose_reporting_as_an_employer
-    choose "I’m reporting as an employer", visible: false
-  end
-
-  def when_i_choose_yes
-    choose "Yes", visible: false
-  end
-
-  def when_i_press_continue
-    click_on "Continue"
-  end
-
-  def when_i_press_start
-    click_link "Start now"
-  end
-
-  def when_i_visit_the_service
-    page.visit("#{ENV["HOSTING_DOMAIN"]}/start")
+  def then_it_loads_successfully
+    expect(
+      page
+    ).to have_content "Are you reporting as an employer or member of the public?"
   end
 end
