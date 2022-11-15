@@ -10,6 +10,8 @@ config/master.key
 db/*.sqlite3
 node_modules
 public/assets
+storage/
+tags
 
 .env.local
 .env.development.local
