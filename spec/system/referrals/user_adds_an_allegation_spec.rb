@@ -25,6 +25,14 @@ RSpec.feature "Allegation", type: :system do
     when_i_choose_i_have_notified_dbs
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_allegation_details
+
+    when_i_click_save_and_continue
+    then_i_see_confirm_form_validation_errors
+
+    when_i_choose_to_confirm
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+    and_the_allegation_section_is_complete
   end
 
   private
@@ -52,11 +60,15 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_edit_the_allegation
-    within(all(".app-task-list__section")[2]) { click_on "Details of the allegation" }
+    within(all(".app-task-list__section")[2]) do
+      click_on "Details of the allegation"
+    end
   end
 
   def then_i_am_asked_how_i_want_to_make_the_allegation
-    expect(page).to have_content("How do you want to tell us about your allegation?")
+    expect(page).to have_content(
+      "How do you want to tell us about your allegation?"
+    )
   end
 
   def when_i_click_save_and_continue
@@ -65,7 +77,9 @@ RSpec.feature "Allegation", type: :system do
   alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
 
   def then_i_see_allegation_form_validation_errors
-    expect(page).to have_content("Choose how you want to tell us about your allegation")
+    expect(page).to have_content(
+      "Choose how you want to tell us about your allegation"
+    )
   end
 
   def when_i_fill_out_allegation_details
@@ -78,7 +92,9 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def then_i_see_dbs_form_validation_errors
-    expect(page).to have_content("Tell us if you have notified DBS about the case")
+    expect(page).to have_content(
+      "Tell us if you have notified DBS about the case"
+    )
   end
 
   def when_i_choose_i_have_notified_dbs
@@ -86,5 +102,25 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def then_i_am_asked_to_confirm_the_allegation_details
+    expect(page).to have_content("Check and confirm your answers")
+  end
+
+  def then_i_see_confirm_form_validation_errors
+    expect(page).to have_content("Tell us if you have completed this section")
+  end
+
+  def when_i_choose_to_confirm
+    choose "Yes, I’ve completed this section", visible: false
+  end
+
+  def and_the_allegation_section_is_complete
+    within(all(".app-task-list__section")[2]) do
+      within(all(".app-task-list__item")[0]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Details of the allegation"
+        )
+        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+      end
+    end
   end
 end

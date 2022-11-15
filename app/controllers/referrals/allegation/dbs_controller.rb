@@ -14,7 +14,7 @@ module Referrals
           DbsForm.new(allegation_dbs_params.merge(referral: current_referral))
 
         if @allegation_dbs_form.save
-          # Redirect to next step
+          redirect_to referrals_edit_allegation_confirm_path(current_referral)
         else
           render :edit
         end
