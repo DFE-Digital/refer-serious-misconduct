@@ -141,6 +141,13 @@ Rails.application.routes.draw do
     put "/:referral_id/contact-details/check-answers",
         to: "contact_details/check_answers#update",
         as: "update_contact_details_check_answers"
+
+    get "/:referral_id/allegation/details",
+        to: "allegation/details#edit",
+        as: "edit_allegation_details"
+    put "/:referral_id/allegation/details",
+        to: "allegation/details#update",
+        as: "update_allegation_details"
   end
 
   get "/performance", to: "performance#index"

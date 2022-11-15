@@ -1,0 +1,25 @@
+<% content_for :page_title, "#{'Error: ' if @allegation_details_form.errors.any?}How do you want to tell us about your allegation?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @allegation_details_form, url: referrals_update_allegation_details_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <div class="govuk-form-group">
+        <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "xl", text: "How do you want to tell us about your allegation?" }) do %>
+          <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "I’ll upload the allegation details" } do %>
+            <%= f.govuk_file_field :allegation_upload, label: { text: "Upload allegation details", size: "s" } %>
+          <% end %>
+          <%= f.govuk_radio_button :allegation_format, "details", label: { text: "I’ll give details of the allegation" } do %>
+            <%= f.govuk_text_area :allegation_details,
+                                  label: { text: "Details of the allegation", size: "m" },
+                                  hint: { text: "Include dates and locations" },
+                                  rows: 20 %>
+          <% end %>
+          <%= f.govuk_radio_button :allegation_format, "incomplete", label: { text: "I’ll do this later" } %>
+        <% end %>
+      </div>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
