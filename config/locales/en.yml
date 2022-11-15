@@ -166,6 +166,10 @@ en:
           attributes:
             dbs_notified:
               inclusion: Tell us if you have notified DBS about the case
+        "referrals/allegation/confirm_form":
+          attributes:
+            allegation_details_complete:
+              inclusion: Tell us if you have completed this section
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
