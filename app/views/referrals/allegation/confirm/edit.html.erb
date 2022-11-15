@@ -7,7 +7,7 @@
       { text: "Change", href: referrals_edit_allegation_details_path(current_referral), visually_hidden_text: "detailed account" },
     ],
     key: { text: "Detailed account" },
-    value: { text: "#{current_referral.first_name} #{current_referral.last_name}" },
+    value: { text: @allegation_confirm_form.allegation_details },
   },
   {
     actions: [

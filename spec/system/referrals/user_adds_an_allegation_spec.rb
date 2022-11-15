@@ -103,6 +103,28 @@ RSpec.feature "Allegation", type: :system do
 
   def then_i_am_asked_to_confirm_the_allegation_details
     expect(page).to have_content("Check and confirm your answers")
+
+    summary_rows = all(".govuk-summary-list__row")
+
+    within(summary_rows[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Detailed account")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "Something something something"
+      )
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_allegation_details_path(@referral)
+      )
+    end
+
+    within(summary_rows[1]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Have you told DBS?")
+      expect(find(".govuk-summary-list__value").text).to eq("Yes")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_allegation_dbs_path(@referral)
+      )
+    end
   end
 
   def then_i_see_confirm_form_validation_errors
