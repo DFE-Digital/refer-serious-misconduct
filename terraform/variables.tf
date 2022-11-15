@@ -40,6 +40,12 @@ variable "key_vault_name" {
   type = string
 }
 
+variable "key_vault_resource_group" {
+  description = "Only required for review apps which use the dev KeyVault"
+  type = string
+  default = ""
+}
+
 variable "resource_group_name" {
   type = string
 }
@@ -126,6 +132,11 @@ variable "allegations_storage_account_name" {
 variable "region_name" {
   default = "west europe"
   type    = string
+}
+
+variable "create_env_resource_group" {
+  default = false
+  type = bool
 }
 
 locals {
