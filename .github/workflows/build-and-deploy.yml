@@ -34,13 +34,13 @@ jobs:
   deploy:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_${{ matrix.environment }}
     needs: [build_image]
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev, test, preprod, production]
+        environment: [dev] #[dev, test, preprod, production]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
