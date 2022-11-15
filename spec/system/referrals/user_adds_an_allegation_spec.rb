@@ -17,7 +17,14 @@ RSpec.feature "Allegation", type: :system do
 
     when_i_fill_out_allegation_details
     and_i_click_save_and_continue
-    then_i_am_asked_to_summarise_what_happened
+    then_i_am_asked_if_i_have_notified_dbs
+
+    when_i_click_save_and_continue
+    then_i_see_dbs_form_validation_errors
+
+    when_i_choose_i_have_notified_dbs
+    and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_the_allegation_details
   end
 
   private
@@ -66,6 +73,18 @@ RSpec.feature "Allegation", type: :system do
     fill_in "Details of the allegation", with: "Something something something"
   end
 
-  def then_i_am_asked_to_summarise_what_happened
+  def then_i_am_asked_if_i_have_notified_dbs
+    expect(page).to have_content("Telling DBS about this case")
+  end
+
+  def then_i_see_dbs_form_validation_errors
+    expect(page).to have_content("Tell us if you have notified DBS about the case")
+  end
+
+  def when_i_choose_i_have_notified_dbs
+    choose "Yes, I’ve told DBS", visible: false
+  end
+
+  def then_i_am_asked_to_confirm_the_allegation_details
   end
 end

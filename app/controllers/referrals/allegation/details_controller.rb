@@ -12,7 +12,7 @@ module Referrals
           )
 
         if @allegation_details_form.save
-          # Redirect to next step
+          redirect_to referrals_edit_allegation_dbs_path(current_referral)
         else
           render :edit
         end

@@ -148,6 +148,12 @@ Rails.application.routes.draw do
     put "/:referral_id/allegation/details",
         to: "allegation/details#update",
         as: "update_allegation_details"
+    get "/:referral_id/allegation/dbs",
+        to: "allegation/dbs#edit",
+        as: "edit_allegation_dbs"
+    put "/:referral_id/allegation/dbs",
+        to: "allegation/dbs#update",
+        as: "update_allegation_dbs"
   end
 
   get "/performance", to: "performance#index"
