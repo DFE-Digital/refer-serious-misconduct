@@ -12,6 +12,9 @@ inputs:
   azure_credentials:
     description: JSON object containing a service principal that can read from Azure Key Vault
     required: true
+  site_up_retries:
+    description: The number of times that the site up test will be retried
+    default: 60
 
 outputs:
   environment_url:
@@ -28,19 +31,28 @@ runs:
     # Extract configuration from tfvars
     - id: config
       run: |
-        KEY_VAULT_NAME=$(jq -r '.key_vault_name' $TFVARS)
-        RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
+        APP_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
         RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
         STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
         TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
 
-        if [ -z "$KEY_VAULT_NAME" ]; then
-          echo "::error ::Failed to extract key_vault_name from $TFVARS"
+        if [ ${{ inputs.environment_name }} == "review" ]; then
+          DEV_TFVARS=workspace_variables/dev.tfvars.json
+          KEY_VAULT_NAME=$(jq -r '.key_vault_name' $DEV_TFVARS)
+          REVIEW_APP_SUFFIX=-pr-${{ github.event.pull_request.number }}
+          TF_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $DEV_TFVARS)
+        else
+          KEY_VAULT_NAME=$(jq -r '.key_vault_name' $TFVARS)
+          TF_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
+        fi
+
+        if [ -z "$APP_RESOURCE_GROUP_NAME" ]; then
+          echo "::error ::Failed to extract resource_group_name from $TFVARS"
           exit 1
         fi
 
-        if [ -z "$RESOURCE_GROUP_NAME" ]; then
-          echo "::error ::Failed to extract resource_group_name from $TFVARS"
+        if [ -z "$KEY_VAULT_NAME" ]; then
+          echo "::error ::Failed to extract key_vault_name from $TFVARS"
           exit 1
         fi
 
@@ -59,11 +71,18 @@ runs:
           exit 1
         fi
 
-        echo "resource_group_name=$RESOURCE_GROUP_NAME" >> $GITHUB_ENV
+        if [ -z "$TF_RESOURCE_GROUP_NAME" ]; then
+          echo "::error ::Failed to extract resource_group_name from $TFVARS"
+          exit 1
+        fi
+
+        echo "app_resource_group_name=$APP_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
         echo "key_vault_name=$KEY_VAULT_NAME" >> $GITHUB_ENV
         echo "resource_prefix=$RESOURCE_PREFIX" >> $GITHUB_ENV
+        echo "review_app_suffix=$REVIEW_APP_SUFFIX" >> $GITHUB_ENV
         echo "storage_account_name=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
         echo "terraform_version=$TERRAFORM_VERSION" >> $GITHUB_ENV
+        echo "tf_resource_group_name=$TF_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
 
       shell: bash
       env:
@@ -75,13 +94,14 @@ runs:
         creds: ${{ inputs.azure_credentials }}
 
     - id: deploy-arm-resources
+      if: ${{ inputs.environment_name != 'review' }}
       run: |
         make ci ${{ inputs.environment_name }} deploy-azure-resources
       shell: bash
 
     # get TFSTATE-CONTAINER-ACCESS-KEY
     - run: |
-        TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.resource_group_name }} -n ${{ env.storage_account_name }} | jq -r '.[0].value')"
+        TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.tf_resource_group_name }} -n ${{ env.storage_account_name }} | jq -r '.[0].value')"
         echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
         echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
       shell: bash
@@ -93,7 +113,11 @@ runs:
 
     - id: terraform
       run: |
-        make ci ${{ inputs.environment_name }} terraform-apply
+        if [ ${{ inputs.environment_name }} == "review" ]; then
+          make ci ${{ inputs.environment_name }} terraform-apply pr_id=${{ github.event.pull_request.number }}
+        else
+          make ci ${{ inputs.environment_name }} terraform-apply
+        fi
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
         echo "postgres_server_name=$(terraform output -raw postgres_server_name)" >> $GITHUB_ENV
         echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
@@ -105,7 +129,7 @@ runs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app
+        app-name: ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
         images: ${{ inputs.image_name_tag }}
         slot-name: ${{ env.slot_name }}
 
@@ -113,13 +137,13 @@ runs:
       if: ${{ env.slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
+          az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
 
     # Check new site is up
     - run: |
         echo "Checking new site is up"
         attempt_counter=0
-        max_attempts=60
+        max_attempts=$RETRIES
 
         SHA_URL="${{ env.url }}/_sha"
         APP_SHA=$(curl $SHA_URL --silent)
@@ -136,3 +160,4 @@ runs:
       shell: bash
       env:
         EXPECTED_SHA: ${{ inputs.image_tag }}
+        RETRIES: ${{ inputs.site_up_retries }}

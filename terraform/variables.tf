@@ -50,6 +50,12 @@ variable "resource_group_name" {
   type = string
 }
 
+variable "resource_group_tags" {
+  description = "Only required for review apps which are deployed into their own, tempoarary, resource group"
+  type = string
+  default = ""
+}
+
 variable "redis_service_sku" {
   type    = string
   default = "Basic"

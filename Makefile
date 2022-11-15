@@ -40,16 +40,22 @@ production:
 	$(eval AZURE_BACKUP_STORAGE_ACCOUNT_NAME=s165p01rsmdbbackuppd)
 	$(eval AZURE_BACKUP_STORAGE_CONTAINER_NAME=rsm)
 
-.PHONY: review
-review:
+.PHONY: review-init
+review-init:
 	$(if $(pr_id), , $(error Missing environment variable "pr_id"))
+	$(eval ENV_TAG=dev)
+
+.PHONY: review
+review: review-init set-azure-resource-group-tags
 	$(eval DEPLOY_ENV=review)
 	$(eval AZURE_SUBSCRIPTION=s165-teachingqualificationsservice-development)
+	$(eval RESOURCE_NAME_PREFIX=s165d01)
+	$(eval ENV_SHORT=rv)
 	$(eval env=-pr-$(pr_id))
 	$(eval backend_config=-backend-config="key=review/review$(env).tfstate")
+	$(eval export TF_VAR_resource_group_tags=$(RG_TAGS))
 	$(eval export TF_VAR_app_suffix=$(env))
 	$(eval export TF_VAR_resource_group_name=s165d01-rsm-review$(env)-rg)
-	$(eval export TF_VAR_domain=review$(env).refer-serious-misconduct.education.gov.uk)
 	$(eval export TF_VAR_allegations_storage_account_name=s165d01rsmallegr$(pr_id))
 
 .PHONY: domain
