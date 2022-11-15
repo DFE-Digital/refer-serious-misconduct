@@ -162,6 +162,10 @@ en:
               blank: Enter details of the allegation
             allegation_upload:
               blank: Select a file containing details of your allegation
+        "referrals/allegation/dbs_form":
+          attributes:
+            dbs_notified:
+              inclusion: Tell us if you have notified DBS about the case
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
