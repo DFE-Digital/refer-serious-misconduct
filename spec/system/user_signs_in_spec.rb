@@ -6,6 +6,8 @@ RSpec.feature "User accounts" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
+    and_the_otp_emails_feature_is_active
+
     when_i_visit_the_root_page
     and_click_start_now
     and_i_submit_my_email
@@ -42,6 +44,10 @@ RSpec.feature "User accounts" do
     FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
+  def and_the_otp_emails_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:otp_emails)
+  end
+
   def when_i_visit_the_root_page
     visit root_path
   end
@@ -66,9 +72,13 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_provide_the_expected_otp
-    # TODO: inspect sent email once mailer code is implemented
+    perform_enqueued_jobs
+
     user = User.find_by(email: "test@example.com")
     expected_otp = Devise::Otp.derive_otp(user.secret_key)
+
+    email = ActionMailer::Base.deliveries.last
+    expect(email.body).to include expected_otp
 
     fill_in "Enter your code", with: expected_otp
     within("main") { click_on "Sign in" }
