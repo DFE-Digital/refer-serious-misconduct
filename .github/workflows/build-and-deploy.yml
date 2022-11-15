@@ -31,6 +31,36 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
 
+  deploy_review_app:
+    name: Deploy to review environment
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy')
+    concurrency: deploy_review_${{ github.event.pull_request.number }}
+    needs: [build_image]
+    environment:
+      name: review
+      url: ${{ steps.deploy.outputs.environment_url }}
+    outputs:
+      environment_url: ${{ steps.deploy.outputs.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/deploy-environment
+        id: deploy
+        with:
+          environment_name: review
+          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
+          image_tag: ${{ github.sha }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          site_up_retries: 150
+
+      - uses: ./.github/actions/smoke-test
+        id: smoke-test
+        with:
+          environment: review
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
   deploy:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
