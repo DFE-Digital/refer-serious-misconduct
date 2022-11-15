@@ -5,7 +5,9 @@ class Users::SessionsController < Devise::SessionsController
     if resource.save
       secret_key = Devise::Otp.generate_key
       resource.update(secret_key:)
-      # TODO: send otp via email
+      if FeatureFlags::FeatureFlag.active?(:otp_emails)
+        UserMailer.send_otp(resource).deliver_later
+      end
       redirect_to new_user_otp_path(id: resource.id)
     else
       render :new
