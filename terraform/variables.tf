@@ -40,6 +40,12 @@ variable "key_vault_name" {
   type = string
 }
 
+variable "key_vault_resource_group" {
+  description = "Only required for review apps which use the dev KeyVault"
+  type = string
+  default = ""
+}
+
 variable "resource_group_name" {
   type = string
 }
