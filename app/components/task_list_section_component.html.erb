@@ -9,7 +9,8 @@
         <span class="app-task-list__task-name">
           <a href="<%= item.path %>" aria-describedby="<%= item.label.parameterize %>"><%= item.label %></a>
         </span>
-        <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="<%= item.label.parameterize %>">
+        <% tag_css = item.status != :completed ? " govuk-tag--grey" : "" -%>
+        <strong class="govuk-tag app-task-list__tag<%= tag_css %>" id="<%= item.label.parameterize %>">
           <%= item.status.to_s.humanize %>
         </strong>
       </li>

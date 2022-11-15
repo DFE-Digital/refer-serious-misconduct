@@ -80,12 +80,14 @@ RSpec.describe TaskListComponent, type: :component do
 
   it "renders section item status" do
     expect(rendered.css(".app-task-list__tag")[0].text).to include("Completed")
-    expect(rendered.css(".app-task-list__tag")[1].text).to include(
-      "Not started yet"
-    )
-    expect(rendered.css(".app-task-list__tag")[2].text).to include("Incomplete")
-    expect(rendered.css(".app-task-list__tag")[3].text).to include(
-      "Not started yet"
-    )
+    expect(
+      rendered.css(".app-task-list__tag.govuk-tag--grey")[0].text
+    ).to include("Not started yet")
+    expect(
+      rendered.css(".app-task-list__tag.govuk-tag--grey")[1].text
+    ).to include("Incomplete")
+    expect(
+      rendered.css(".app-task-list__tag.govuk-tag--grey")[2].text
+    ).to include("Not started yet")
   end
 end
