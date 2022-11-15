@@ -5,6 +5,7 @@ module Referrals
       include ActiveModel::Model
 
       validates :allegation_details_complete, inclusion: { in: [true, false] }
+      validate :allegation_not_incomplete
 
       attr_accessor :referral
       attr_reader :allegation_details_complete
@@ -16,6 +17,12 @@ module Referrals
 
       def save
         referral.update(allegation_details_complete:) if valid?
+      end
+
+      def allegation_not_incomplete
+        if referral.allegation_format == "incomplete"
+          errors.add(:base, :allegation_incomplete)
+        end
       end
     end
   end

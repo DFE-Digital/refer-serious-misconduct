@@ -27,5 +27,15 @@ RSpec.describe Referrals::Allegation::ConfirmForm, type: :model do
         )
       end
     end
+
+    context "when the allegation details are not complete" do
+      it "adds an error" do
+        referral.allegation_format = "incomplete"
+        save
+        expect(confirm_form.errors[:base]).to eq(
+          ["Please give details of the allegation"]
+        )
+      end
+    end
   end
 end
