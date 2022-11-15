@@ -6,6 +6,8 @@
     <%= form_with model: @personal_details_name_form, url: referrals_update_personal_details_name_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl">What is the name of the person you’re referring?</h1>
+      <h2 class="govuk-heading-m">Why do we ask for personal information?</h2>
+      <p class="govuk-!-padding-bottom-6">We’ll use the details you provide to help us identify the correct person. This information is required by law. It will help us decide whether we need to investigate the case further, or if we need more information first.</p>
       <div class="govuk-form-group">
         <%= f.govuk_text_field :first_name, label: { text: "First name", class: "govuk-label--m" } %>
       </div>
@@ -14,7 +16,11 @@
       </div>
 
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:name_has_changed, legend: { size: 'm', text: "Have they changed their name?" }) do %>
+        <%= f.govuk_radio_buttons_fieldset(
+            :name_has_changed,
+            legend: { size: 'm', text: "Do you know them by any other name?" },
+            hint: { text: "For example, a nickname or professional name." },
+        ) do %>
           <%= f.govuk_radio_button :name_has_changed, "yes", label: { text: "Yes" } do %>
             <%= f.govuk_text_field :previous_name, label: { text: "Previous name" } %>
           <% end %>
