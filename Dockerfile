@@ -92,5 +92,5 @@ COPY azure/.sshd_config /etc/ssh/sshd_config
 EXPOSE 2222
 
 CMD /usr/sbin/sshd && \
-    bundle exec rails db:migrate && \
+    bundle exec rails db:migrate:ignore_concurrent_migration_exceptions && \
     bundle exec rails server -b 0.0.0.0
