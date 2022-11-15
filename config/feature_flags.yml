@@ -10,6 +10,9 @@ feature_flags:
   user_accounts:
     author: Malcolm Baig
     description: Enable OTP-based user authentication. This will prompt the user for sign in after the start page and join up the eligibility screener with the referral forms.
+  otp_emails:
+    author: Malcolm Baig
+    description: Send emails containing the OTP when a user attempts to sign in.
   staff_http_basic_auth:
     author: Malcolm Baig
     description: Allow signing in as a staff user using HTTP Basic authentication. This is useful before staff users have been created, but should otherwise be inactive.
