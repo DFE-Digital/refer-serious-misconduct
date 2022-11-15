@@ -154,6 +154,14 @@ en:
           attributes:
             complete:
               inclusion: Tell us if you have completed this section
+        "referrals/allegation/details_form":
+          attributes:
+            allegation_format:
+              inclusion: Choose how you want to tell us about your allegation
+            allegation_details:
+              blank: Enter details of the allegation
+            allegation_upload:
+              blank: Select a file containing details of your allegation
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
