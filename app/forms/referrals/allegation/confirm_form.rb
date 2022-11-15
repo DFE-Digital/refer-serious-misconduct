@@ -10,7 +10,8 @@ module Referrals
       attr_reader :allegation_details_complete
 
       def allegation_details_complete=(value)
-        @allegation_details_complete = ActiveModel::Type::Boolean.new.cast(value)
+        @allegation_details_complete =
+          ActiveModel::Type::Boolean.new.cast(value)
       end
 
       def save

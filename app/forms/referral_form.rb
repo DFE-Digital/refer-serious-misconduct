@@ -81,7 +81,7 @@ class ReferralForm
         ReferralSectionItem.new(
           I18n.t("referral_form.details_of_the_allegation"),
           referrals_edit_allegation_details_path(referral),
-          :not_started_yet
+          section_status(:allegation_details_complete)
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.previous_allegations"),
