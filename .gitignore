@@ -1,8 +1,3 @@
-!app/assets/builds/.keep
-!log/.keep
-!tmp/.keep
-!tmp/pids/
-!tmp/pids/.keep
 *.log
 .DS_Store
 .bundle
@@ -11,14 +6,10 @@
 .envrc
 .idea
 .vscode
-app/assets/builds/*
 config/master.key
 db/*.sqlite3
-log/*
 node_modules
 public/assets
-tmp/*
-tmp/pids/*
 
 .env.local
 .env.development.local
@@ -28,3 +19,15 @@ tmp/pids/*
 .terraform/
 .terraform.lock.hcl
 fetch_config.rb
+
+app/assets/builds/*
+!app/assets/builds/.keep
+
+log/*
+!log/.keep
+
+tmp/*
+tmp/pids/*
+!tmp/.keep
+!tmp/pids/
+!tmp/pids/.keep
