@@ -1,0 +1,23 @@
+<% content_for :page_title, "#{'Error: ' if @role_start_date_form.errors.any?}Do you know when they started their job?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @role_start_date_form, url: referrals_update_teacher_role_start_date_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_radio_buttons_fieldset :role_start_date_known,
+        legend: { size: "l", text: "Do you know when they started their job?" },
+        hint: { size: "m", text: "This is the job the person had when the allegation of serious misconduct was made against them." } do %>
+        <%= f.hidden_field :role_start_date_known %>
+        <%= f.govuk_radio_button :role_start_date_known, true, label: { text: "Yes" } do %>
+          <%= f.govuk_date_field :role_start_date,
+            legend: { text: "Start date", size: "m" },
+            hint: { text: "For example, 27 3 2021" } %>
+        <% end %>
+        <%= f.govuk_radio_button :role_start_date_known, false, label: { text: "No" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

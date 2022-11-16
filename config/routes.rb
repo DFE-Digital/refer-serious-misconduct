@@ -160,6 +160,13 @@ Rails.application.routes.draw do
     put "/:referral_id/allegation/confirm",
         to: "allegation/confirm#update",
         as: "update_allegation_confirm"
+
+    get "/:referral_id/teacher-role/start-date",
+        to: "teacher_role/start_date#edit",
+        as: "edit_teacher_role_start_date"
+    put "/:referral_id/teacher-role/start-date",
+        to: "teacher_role/start_date#update",
+        as: "update_teacher_role_start_date"
   end
 
   get "/performance", to: "performance#index"

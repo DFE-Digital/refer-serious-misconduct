@@ -121,6 +121,17 @@ en:
           attributes:
             contact_details_complete:
               inclusion: Tell us if you have completed this section
+        "referrals/teacher_role/start_date_form":
+          attributes:
+            role_start_date_known:
+              inclusion: Tell us if you know their role start date
+            role_start_date:
+              blank: Enter their role start date
+              in_the_future: Their role start date must be in the past
+              invalid: Enter their role start date in the correct format
+              missing_day: Enter a day for their role start date, formatted as a number
+              missing_month: Enter a month for their role start date, formatted as a number
+              missing_year: Enter a year with 4 digits
         referrer_job_title_form:
           attributes:
             job_title:

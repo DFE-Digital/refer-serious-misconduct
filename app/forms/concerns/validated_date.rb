@@ -3,7 +3,12 @@ module ValidatedDate
   extend ActiveSupport::Concern
 
   included do
-    def validated_date(date_params:, attribute:, date_of_birth: false)
+    def validated_date(
+      date_params:,
+      attribute:,
+      date_of_birth: false,
+      in_the_future: false
+    )
       date_fields = [
         date_params["#{attribute}(1i)"],
         date_params["#{attribute}(2i)"],
@@ -49,15 +54,17 @@ module ValidatedDate
         return false
       end
 
+      return true unless date_of_birth || !in_the_future
+
+      if year > Time.zone.today.year
+        errors.add(attribute, :in_the_future)
+        return false
+      end
+
       return true unless date_of_birth
 
       if year < 1900
         errors.add(attribute, :born_after_1900)
-        return false
-      end
-
-      if year > Time.zone.today.year
-        errors.add(attribute, :in_the_future)
         return false
       end
 
