@@ -1,8 +1,25 @@
-<% content_for :page_title, 'You can also refer serious misconduct offline' %>
+<% content_for :page_title, 'You need to complete a teacher misconduct form' %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">You can also refer serious misconduct offline</h1>
+    <h1 class="govuk-heading-xl">
+      You need to complete a teacher misconduct form
+    </h1>
+
+    <%= govuk_details(summary_text: 'What happens when you refer a teacher') do %>
+      <p>There’s a legal process for referring serious misconduct by a teacher in England.</p>
+      <p>You’ll need to follow these steps:</p>
+      <ul class="govuk-list govuk-list--number">
+        <li>Report your concerns locally</li>
+        <li>Check if TRA will deal with the allegation</li>
+        <li>Report the teacher to TRA using this service (online or using the paper form)</li>
+        <li>Wait to hear back from TRA</li>
+        <li>If TRA decide to investigate, they’ll send a copy of the allegations to the teacher</li>
+        <li>TRA will decide whether there is a case to answer</li>
+        <li>A professional conduct panel meeting or hearing takes place</li>
+        <li>TRA confirm the outcome of the meeting or hearing</li>
+      </ul>
+    <% end %>
 
     <p class="govuk_body">
       You can <%= link_to_referral_form_for(@eligibility_check.reporting_as) %>.
@@ -27,14 +44,9 @@
     </p>
 
     <h3 class="govuk-heading-m">Get help with your referral</h3>
-    <p class="govuk_body">If you need more information about making a referral, you can contact TRA.</p>
-
-    <h4 class="govuk-heading-s">Telephone</h4>
-    <p class="govuk_body">Call 020 7593 5393<br>Monday to Friday, 9am to 5pm (except Mondays and Fridays)</p>
-    <p class="govuk_body"><a href="https://www.gov.uk/call-charges">Find out about call charges</a>.</p>
-
-    <h4 class="govuk-heading-s">Email</h4>
-    <p class="govuk_body"><%= mail_to t('service.email') %></p>
-    <p class="govuk_body">We aim to respond within 3 working days.</p>
+    <p>If you need more information about making a referral, you can contact TRA.</p>
+    <p>Email: <%= mail_to t('service.email') %><br>We aim to respond within 3 working days.</p>
+    <p>Phone: 020 7593 5393<br>Monday to Friday, 9am to 5pm (except Mondays and Fridays)</p>
+    <p><a href="https://www.gov.uk/call-charges">Find out about call charges</a>.</p>
   </div>
 </div>
