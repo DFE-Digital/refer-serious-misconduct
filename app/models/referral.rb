@@ -1,7 +1,7 @@
 class Referral < ApplicationRecord
   has_one :organisation, dependent: :destroy
   has_one :referrer, dependent: :destroy
-  has_one_attached :allegation_upload
+  has_one_attached :allegation_upload, dependent: :destroy
   belongs_to :user
 
   def organisation_status
