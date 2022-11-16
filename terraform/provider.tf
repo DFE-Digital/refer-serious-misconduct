@@ -11,10 +11,13 @@ provider "azurerm" {
   tenant_id                  = try(local.azure_credentials.tenantId, null)
   skip_provider_registration = true
 
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = var.create_env_resource_group ? false : true
+    }
+  }
 }
 
 provider "statuscake" {
   api_token = local.monitoring_secrets.STATUSCAKE_PASSWORD
 }
-
