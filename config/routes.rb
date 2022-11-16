@@ -211,6 +211,12 @@ Rails.application.routes.draw do
     put "/:referral_id/evidence/start",
         to: "evidence/start#update",
         as: "update_evidence_start"
+    get "/:referral_id/evidence/confirm",
+        to: "evidence/confirm#edit",
+        as: "edit_evidence_confirm"
+    put "/:referral_id/evidence/confirm",
+        to: "evidence/confirm#update",
+        as: "update_evidence_confirm"
   end
 
   get "/performance", to: "performance#index"
