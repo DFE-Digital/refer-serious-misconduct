@@ -100,10 +100,10 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_completion_page
     expect(page).to have_current_path("/complete")
     expect(page).to have_title(
-      "You can also refer serious misconduct offline - Refer serious misconduct by a teacher in England"
+      "You need to complete a teacher misconduct form - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
-      "You can also refer serious misconduct offline"
+      "You need to complete a teacher misconduct form"
     )
   end
 
@@ -178,12 +178,12 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_current_path("/teaching-in-england")
     expect(page).to have_title(
       [
-        "Were they carrying out teaching work in England at the time the alleged misconduct took place?",
+        "Were they employed in England at the time the alleged misconduct took place?",
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
     expect(page).to have_content(
-      "Were they carrying out teaching work in England at the time the alleged misconduct took place?"
+      "Were they employed in England at the time the alleged misconduct took place?"
     )
   end
 
