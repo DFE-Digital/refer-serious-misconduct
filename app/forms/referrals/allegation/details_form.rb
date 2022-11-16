@@ -34,10 +34,13 @@ module Referrals
         return false if invalid?
 
         attrs = { allegation_format: }
-        attrs[:allegation_details] = allegation_details if allegation_format ==
-          "details"
-        attrs[:allegation_upload] = allegation_upload if allegation_format ==
-          "upload"
+        case allegation_format
+        when "details"
+          referral.allegation_upload.purge
+          attrs.merge!(allegation_details:)
+        when "upload"
+          attrs.merge!(allegation_details: nil, allegation_upload:)
+        end
 
         referral.update(attrs)
         true

@@ -49,6 +49,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
       it "associates the upload with the referral" do
         save
         expect(referral.allegation_upload).to be_attached
+        expect(referral.allegation_details).to be nil
       end
     end
 
@@ -72,7 +73,19 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
       it "updates details on the referral" do
         save
-        expect(referral.allegation_details).to eq("Something something")
+        expect(referral.reload.allegation_details).to eq("Something something")
+        expect(referral.allegation_upload).not_to be_attached
+      end
+
+      it "purges the allegation upload on the referral" do
+        referral.allegation_upload.attach(
+          Rack::Test::UploadedFile.new(Tempfile.new)
+        )
+        expect(referral.allegation_upload).to be_attached
+
+        save
+        expect(referral.reload.allegation_details).to eq("Something something")
+        expect(referral.allegation_upload).not_to be_attached
       end
     end
 
