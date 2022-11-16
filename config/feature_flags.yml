@@ -3,16 +3,25 @@ parent_controller: "SupportInterface::SupportInterfaceController"
 feature_flags:
   service_open:
     author: Felix Clack
-    description: Allow users to access the service.
+    description: Remove the basic authentication when accessing the main
+      website. Keeps it in place for the support interface. This flag should
+      always be inactive on non-production deployments, to prevent accidental
+      access by members of the public. Once the service goes live, this flag
+      should always be active on production.
   employer_form:
     author: Steve Laing
     description: Allow users to access the employer-specific form.
   user_accounts:
     author: Malcolm Baig
-    description: Enable OTP-based user authentication. This will prompt the user for sign in after the start page and join up the eligibility screener with the referral forms.
+    description: Enable OTP-based user authentication. This will prompt the
+      user for sign in after the start page and join up the eligibility
+      screener with the referral forms.
   otp_emails:
     author: Malcolm Baig
-    description: Send emails containing the OTP when a user attempts to sign in.
+    description: Send emails containing the OTP when a user attempts to sign
+      in.
   staff_http_basic_auth:
     author: Malcolm Baig
-    description: Allow signing in as a staff user using HTTP Basic authentication. This is useful before staff users have been created, but should otherwise be inactive.
+    description: Allow signing in as a staff user using HTTP Basic
+      authentication. This is useful before staff users have been created, but
+      should otherwise be inactive.
