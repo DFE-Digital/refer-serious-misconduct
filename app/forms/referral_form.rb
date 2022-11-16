@@ -90,7 +90,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.evidence_and_supporting_information"),
-          "#",
+          referrals_edit_evidence_start_path(referral),
           :not_started_yet
         )
       ]

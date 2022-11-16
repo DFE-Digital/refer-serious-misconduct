@@ -175,6 +175,13 @@ Rails.application.routes.draw do
     put "/:referral_id/teacher-role/start-date",
         to: "teacher_role/start_date#update",
         as: "update_teacher_role_start_date"
+
+    get "/:referral_id/evidence/start",
+        to: "evidence/start#edit",
+        as: "edit_evidence_start"
+    put "/:referral_id/evidence/start",
+        to: "evidence/start#update",
+        as: "update_evidence_start"
   end
 
   get "/performance", to: "performance#index"
