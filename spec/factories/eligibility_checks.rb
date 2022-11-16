@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: eligibility_checks
-#
-#  id                    :bigint           not null, primary key
-#  complained            :boolean
-#  is_teacher            :string
-#  reporting_as          :string           not null
-#  serious_misconduct    :string
-#  teaching_in_england   :string
-#  unsupervised_teaching :string
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#
 FactoryBot.define do
   factory :eligibility_check do
     reporting_as { "employer" }
