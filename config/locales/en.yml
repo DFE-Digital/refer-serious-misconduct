@@ -216,6 +216,10 @@ en:
           attributes:
             has_evidence:
               inclusion: Tell us if you have evidence to upload
+        "referrals/evidence/confirm_form":
+          attributes:
+            evidence_details_complete:
+              inclusion: Tell us if you have completed this section
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
