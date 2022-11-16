@@ -1,0 +1,42 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_confirm_form.errors.any?}Check and confirm your answers" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<% rows = [
+  {
+    actions: [
+      { text: "Change", href: "#", visually_hidden_text: "evidence" },
+    ],
+    key: { text: "Documents" },
+    value: { text: "No evidence uploaded" },
+  },
+] %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+          Check and confirm your answers
+        </h1>
+      </div>
+    </div>
+
+    <%= render(SummaryCardComponent.new(rows:)) do %>
+      <%= render SummaryCardHeaderComponent.new(title: "Evidence") %>
+    <% end %>
+
+    <%= form_with model: @evidence_confirm_form, url: referrals_update_evidence_confirm_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_radio_buttons_fieldset(
+        :evidence_details_complete,
+        legend: { text: "Have you completed this section?", size: "m" },
+        hint: { text: "You can still make changes to a completed section" },
+      ) do %>
+        <%= f.govuk_radio_button :evidence_details_complete, "true", label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :evidence_details_complete, "false", label: { text: "No, I’ll come back to it later" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

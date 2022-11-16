@@ -17,6 +17,15 @@ RSpec.feature "Evidence", type: :system do
 
     when_i_choose_no_to_uploading_evidence
     and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_the_evidence_details
+
+    when_i_click_save_and_continue
+    then_i_see_confirm_form_validation_errors
+
+    when_i_choose_to_confirm
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+    and_the_evidence_section_is_complete
   end
 
   private
@@ -64,5 +73,28 @@ RSpec.feature "Evidence", type: :system do
 
   def when_i_choose_no_to_uploading_evidence
     choose "No, I do not have anything to upload", visible: false
+  end
+
+  def then_i_am_asked_to_confirm_the_evidence_details
+    expect(page).to have_content("Check and confirm your answers")
+  end
+
+  def then_i_see_confirm_form_validation_errors
+    expect(page).to have_content("Tell us if you have completed this section")
+  end
+
+  def when_i_choose_to_confirm
+    choose "Yes, I’ve completed this section", visible: false
+  end
+
+  def and_the_evidence_section_is_complete
+    within(all(".app-task-list__section")[2]) do
+      within(all(".app-task-list__item")[2]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Evidence and supporting information"
+        )
+        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+      end
+    end
   end
 end

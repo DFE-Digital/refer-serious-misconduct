@@ -17,7 +17,7 @@ module Referrals
           if @evidence_start_form.has_evidence
             # TODO: redirect_to referrals_edit_evidence_documents_path(current_referral)
           else
-            # TODO: redirect_to referrals_edit_evidence_confirm_path(current_referral)
+            redirect_to referrals_edit_evidence_confirm_path(current_referral)
           end
         else
           render :edit
