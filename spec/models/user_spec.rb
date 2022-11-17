@@ -23,4 +23,15 @@ RSpec.describe User, type: :model do
       expect(user.otp_guesses).to be_nil
     end
   end
+
+  describe "#after_successful_otp_authentication" do
+    it "clears OTP-related fields" do
+      user = create(:user, secret_key: "some_key", otp_guesses: 3)
+
+      user.after_successful_otp_authentication
+
+      expect(user.secret_key).to be_nil
+      expect(user.otp_guesses).to be_nil
+    end
+  end
 end

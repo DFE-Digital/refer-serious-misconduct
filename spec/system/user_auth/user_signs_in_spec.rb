@@ -19,6 +19,7 @@ RSpec.feature "User accounts" do
     when_i_provide_the_expected_otp
     then_i_am_signed_in
     and_i_am_not_prompted_to_sign_in_again
+    and_my_otp_state_is_reset
 
     when_i_have_a_referral_in_progress
     and_i_sign_out
@@ -137,5 +138,11 @@ RSpec.feature "User accounts" do
     expect(page).to have_current_path(
       referrals_edit_contact_details_email_path(@referral)
     )
+  end
+
+  def and_my_otp_state_is_reset
+    user = User.last
+    expect(user.secret_key).to be_nil
+    expect(user.otp_guesses).to be_nil
   end
 end
