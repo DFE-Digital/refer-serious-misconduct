@@ -13,13 +13,22 @@
     <% rows = [
       {
         actions: [
+          { text: "Change", href: edit_referral_previous_misconduct_reported_path(current_referral), visually_hidden_text: "reported" },
+
+        ],
+        key: { text: "Has there been any previous misconduct?" },
+        value: { text: humanize_three_way_choice(current_referral.previous_misconduct_reported) },
+      }
+    ] %>
+    <% rows << {
+        actions: [
           { text: "Change", href: edit_referral_previous_misconduct_summary_path(current_referral), visually_hidden_text: "summary" },
 
         ],
         key: { text: "Summary" },
         value: { text: current_referral.previous_misconduct_summary },
-      },
-    ] %>
+      } if current_referral.previous_misconduct_reported?
+    %>
     <%= render(SummaryCardComponent.new(rows:)) do %>
       <%= render SummaryCardHeaderComponent.new(title: 'Previous allegations') %>
     <% end %>

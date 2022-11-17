@@ -1,0 +1,32 @@
+<% content_for :page_title, "#{'Error: ' if @previous_misconduct_reported_form.errors.any?}Has there been any previous misconduct, disciplinary action or complaints?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @previous_misconduct_reported_form, url: referral_previous_misconduct_reported_url(current_referral), method: :patch do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <div class="govuk-form-group">
+        <%= f.govuk_collection_radio_buttons(
+          :previous_misconduct_reported, 
+          [
+            OpenStruct.new(label: 'Yes', value: 'true'), 
+            OpenStruct.new(label: 'No', value: 'false'), 
+            OpenStruct.new(label: 'I don’t know', value: 'i_dont_know')
+          ],
+          :value, :label,
+          legend: { text: "Has there been any previous misconduct, disciplinary action or complaints?", size: "xl" }, 
+          hint: -> do %>
+            <p class="govuk-body">This includes:</p>
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+              <li>internal investigations</li>
+              <li>disciplinary action by your organisation</li>
+              <li>reports to the Teaching Regulation Agency, National College for Teaching and Leadership, Teaching Agency or General Teaching Council for England</li>
+            </ul>
+          <% end
+        ) %>
+      </div>
+      <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

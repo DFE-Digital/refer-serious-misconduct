@@ -69,4 +69,32 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to eq(:complete) }
     end
   end
+
+  describe "#previous_misconduct_reported?" do
+    subject { referral.previous_misconduct_reported? }
+
+    let(:referral) { build(:referral) }
+
+    it { is_expected.to be_falsey }
+
+    context "when previous_misconduct_reported is true" do
+      let(:referral) { build(:referral, previous_misconduct_reported: "true") }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when previous_misconduct_reported is false" do
+      let(:referral) { build(:referral, previous_misconduct_reported: "false") }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when previous_misconduct_reported is i_dont_know" do
+      let(:referral) do
+        build(:referral, previous_misconduct_reported: "i_dont_know")
+      end
+
+      it { is_expected.to be_falsey }
+    end
+  end
 end

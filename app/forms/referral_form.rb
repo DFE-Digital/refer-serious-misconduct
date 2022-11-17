@@ -85,7 +85,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.previous_allegations"),
-          edit_referral_previous_misconduct_summary_path(referral),
+          edit_referral_previous_misconduct_reported_path(referral),
           referral.previous_misconduct_status
         ),
         ReferralSectionItem.new(
