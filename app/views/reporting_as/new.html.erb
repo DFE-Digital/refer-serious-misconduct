@@ -1,4 +1,4 @@
-<% content_for :page_title, 'Are you reporting as an employer or member of the public?' %>
+<% content_for :page_title, 'Are you making a referral as an employer or member of the public?' %>
 <% content_for :back_link_url, start_path %>
 
 <div class="govuk-grid-row">
@@ -6,10 +6,10 @@
     <%= form_with model: @reporting_as_form, url: who_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_collection_radio_buttons(:reporting_as,
-        [OpenStruct.new(label: "I’m reporting as an employer", value: 'employer'), OpenStruct.new(label: "I’m reporting as a member of the public", value: 'public')],
+        [OpenStruct.new(label: "I’m referring as an employer", value: 'employer'), OpenStruct.new(label: "I’m referring as a member of the public", value: 'public')],
         :value,
         :label,
-        legend: { size: 'xl', text: 'Are you reporting as an employer or member of the public?' }
+        legend: { size: 'xl', text: 'Are you making a referral as an employer or member of the public?' }
       ) %>
       <%= f.govuk_submit prevent_double_click: false %>
     <% end %>
