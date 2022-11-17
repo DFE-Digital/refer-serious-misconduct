@@ -24,8 +24,6 @@ class Devise::Strategies::OtpAuthenticatable < Devise::Strategies::Authenticatab
       return
     end
 
-    # TODO: handle expired OTPs
-
     unless Devise::Otp.valid?(resource.secret_key, otp)
       fail!(:otp_invalid)
       return
