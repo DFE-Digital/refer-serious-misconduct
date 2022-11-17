@@ -12,10 +12,11 @@ RSpec.feature "User accounts" do
     when_i_visit_the_root_page
     and_click_start_now
     and_i_submit_my_email
+    when_i_provide_a_short_otp
+    then_i_see_an_error_about_otp_length
     when_i_provide_the_wrong_otp
-    then_i_see_an_error
-    when_i_submit_my_email
-    and_i_provide_the_expected_otp
+    then_i_see_an_error_about_a_wrong_code
+    when_i_provide_the_expected_otp
     then_i_am_signed_in
     and_i_am_not_prompted_to_sign_in_again
 
@@ -27,7 +28,7 @@ RSpec.feature "User accounts" do
     when_i_am_signed_out
     and_i_visit_a_page
     and_i_submit_my_email
-    and_i_provide_the_expected_otp
+    when_i_provide_the_expected_otp
     then_i_see_my_current_page_before_logging_in
   end
 
@@ -67,16 +68,27 @@ RSpec.feature "User accounts" do
   end
   alias_method :when_i_submit_my_email, :and_i_submit_my_email
 
-  def when_i_provide_the_wrong_otp
-    fill_in "Enter your code", with: "wrong_value"
+  def when_i_provide_a_short_otp
+    fill_in "Enter your code", with: "123"
     within("main") { click_on "Sign in" }
   end
 
-  def then_i_see_an_error
-    expect(page).to have_content "Invalid code"
+  def when_i_provide_the_wrong_otp
+    fill_in "Enter your code", with: "123456"
+    within("main") { click_on "Sign in" }
   end
 
-  def and_i_provide_the_expected_otp
+  def then_i_see_an_error_about_otp_length
+    expect(
+      page,
+    ).to have_content "You’ve not entered enough numbers, the code must be 6 numbers"
+  end
+
+  def then_i_see_an_error_about_a_wrong_code
+    expect(page).to have_content "Enter a correct security code"
+  end
+
+  def when_i_provide_the_expected_otp
     perform_enqueued_jobs
 
     user = User.find_by(email: "test@example.com")
@@ -110,7 +122,7 @@ RSpec.feature "User accounts" do
   def when_i_sign_back_in
     within(".govuk-header") { click_on "Sign in" }
     and_i_submit_my_email
-    and_i_provide_the_expected_otp
+    when_i_provide_the_expected_otp
   end
 
   def then_i_see_my_referral
@@ -123,7 +135,7 @@ RSpec.feature "User accounts" do
 
   def then_i_see_my_current_page_before_logging_in
     expect(page).to have_current_path(
-      referrals_edit_contact_details_email_path(@referral)
+      referrals_edit_contact_details_email_path(@referral),
     )
   end
 end
