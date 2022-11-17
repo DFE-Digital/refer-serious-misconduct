@@ -58,7 +58,7 @@ en:
           attributes:
             date_of_birth:
               blank: Enter their date of birth
-              born_after_1900: Enter a year of birth later than 1900
+              born_after_1900: Enter a year later than 1900
               inclusion: You must be 16 or over to use this service
               in_the_future: Their date of birth must be in the past
               invalid: Enter their date of birth in the correct format

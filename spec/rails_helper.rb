@@ -84,6 +84,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ViewComponent::TestHelpers, type: :component
   config.include ActiveJob::TestHelper
+
+  Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 end
 
 Shoulda::Matchers.configure do |config|
