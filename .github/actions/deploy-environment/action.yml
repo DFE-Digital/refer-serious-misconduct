@@ -19,10 +19,7 @@ inputs:
 outputs:
   environment_url:
     description: The base URL for the deployed environment
-    value: ${{ steps.terraform.outputs.url }}
-  postgres_server_name:
-    description: The name of the postgres server deployed
-    value: ${{ steps.terraform.outputs.postgres_server_name }}
+    value: ${{ steps.terraform.outputs.app_fqdn }}
 
 runs:
   using: composite
@@ -117,9 +114,13 @@ runs:
         else
           make ci ${{ inputs.environment_name }} terraform-apply
         fi
-        cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
-        echo "postgres_server_name=$(terraform output -raw postgres_server_name)" >> $GITHUB_ENV
-        echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
+        cd terraform
+        OUTPUTS=($(terraform output --json | jq -r 'keys | @sh' | tr -d \'))
+        for o in "${OUTPUTS[@]}"
+        do
+          echo "${o}=$(terraform output -raw ${o})" >> $GITHUB_ENV
+        done
+        echo "app_fqdn=$(terraform output -raw app_fqdn)" >>$GITHUB_OUTPUT
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
         TF_VAR_azure_sp_credentials_json: ${{ inputs.azure_credentials }}
@@ -129,13 +130,13 @@ runs:
       with:
         app-name: ${{ env.resource_prefix }}-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
         images: ${{ inputs.image_name_tag }}
-        slot-name: ${{ env.slot_name }}
+        slot-name: ${{ env.web_app_slot_name }}
 
     - uses: azure/CLI@v1
-      if: ${{ env.slot_name != 'production' }}
+      if: ${{ env.web_app_slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
+          az webapp deployment slot swap -g ${{ env.app_resource_group_name }} -n ${{ env.web_app_name }} --slot ${{ env.web_app_slot_name }} --target-slot production
 
     # Check new site is up
     - run: |
@@ -143,7 +144,7 @@ runs:
         attempt_counter=0
         max_attempts=$RETRIES
 
-        SHA_URL="${{ env.url }}/_sha"
+        SHA_URL="${{ env.app_fqdn }}/_sha"
         APP_SHA=$(curl $SHA_URL --silent)
         until [[ "$EXPECTED_SHA" == "$APP_SHA" ]]; do
             if [ ${attempt_counter} -eq ${max_attempts} ];then
