@@ -54,6 +54,11 @@ en:
           attributes:
             unsupervised_teaching:
               blank: Tell us if they were teaching unsupervised
+        "users/otp_form":
+          attributes:
+            otp:
+              too_short: "You’ve not entered enough numbers, the code must be 6 numbers"
+              too_long: "You’ve entered too many numbers, the code must be 6 numbers"
         "referrals/personal_details/age_form":
           attributes:
             date_of_birth:

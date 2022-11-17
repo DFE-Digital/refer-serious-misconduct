@@ -6,9 +6,10 @@
       <%= "Expected OTP: #{@derived_otp}" %>
     <% end %>
 
-    <%= form_for(resource, as: resource_name, url: user_otp_path, method: :post) do |f| %>
-      <%= f.hidden_field :email, value: resource.email %>
-      <h3><%= resource.email %></h3>
+    <%= form_with(model: @otp_form, scope: resource_name, url: user_otp_path, method: :post) do |f| %>
+      <%= f.hidden_field :id, value: @otp_form.id %>
+      <%= f.hidden_field :email, value: @otp_form.email %>
+      <h3><%= @otp_form.email %></h3>
 
       <%= f.govuk_text_field :otp, size: 'm', label: { text: "Enter your code" }, class: 'govuk-!-width-one-quarter' %>
 

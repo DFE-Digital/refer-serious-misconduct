@@ -6,23 +6,28 @@ class Users::OtpController < DeviseController
   end
 
   def new
-    self.resource = resource_class.find(params[:id])
+    @otp_form = Users::OtpForm.new(id: params[:id])
 
     # TODO: Remove this block once emailed OTPs are implemented
     # For now this makes manual testing in test environments simpler
     if HostingEnvironment.test_environment?
-      otp_generator = ROTP::HOTP.new(resource.secret_key)
+      otp_generator = ROTP::HOTP.new(@otp_form.user.secret_key)
       @derived_otp = otp_generator.at(0)
     end
-    ###
   end
 
   def create
-    self.resource = warden.authenticate!(auth_options)
-    set_flash_message!(:success, :signed_in)
-    sign_in(resource_name, resource)
-    yield resource if block_given?
-    redirect_to after_sign_in_path_for(resource)
+    @otp_form = Users::OtpForm.new(user_params)
+
+    if @otp_form.valid?
+      self.resource = warden.authenticate!(auth_options)
+      set_flash_message!(:success, :signed_in)
+      sign_in(resource_name, resource)
+      yield resource if block_given?
+      redirect_to after_sign_in_path_for(resource)
+    else
+      render :new
+    end
   end
 
   protected
@@ -46,5 +51,9 @@ class Users::OtpController < DeviseController
     latest_referral = resource.latest_referral
 
     latest_referral ? referral_path(latest_referral) : root_path
+  end
+
+  def user_params
+    params.require(:user).permit(:id, :otp, :email)
   end
 end
