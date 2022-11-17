@@ -146,8 +146,9 @@ variable "create_env_resource_group" {
 
 locals {
   hosting_environment          = var.environment_name
-  rsm_app_name                = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-app"
-  postgres_server_name         = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-psql"
+  rsm_web_app_name             = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-app"
+  rsm_worker_app_name          = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-wkr-app"
+  postgres_server_name         = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-psql"
   postgres_database_name       = "refer_serious_misconduct_production"
   redis_database_name          = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-redis"
   app_insights_name            = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-appi"

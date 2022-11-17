@@ -119,7 +119,7 @@ resource "azurerm_service_plan" "service-plan" {
 }
 
 resource "azurerm_linux_web_app" "rsm-app" {
-  name                = local.rsm_app_name
+  name                = local.rsm_web_app_name
   location            = data.azurerm_resource_group.group.location
   resource_group_name = data.azurerm_resource_group.group.name
   service_plan_id     = azurerm_service_plan.service-plan.id
@@ -168,6 +168,46 @@ resource "azurerm_linux_web_app_slot" "rsm-stage" {
     health_check_path   = "/health"
   }
   app_settings = local.rsm_env_vars
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
+}
+
+resource "azurerm_linux_web_app" "rsm-worker-app" {
+  name                = local.rsm_worker_app_name
+  location            = data.azurerm_resource_group.group.location
+  resource_group_name = data.azurerm_resource_group.group.name
+  service_plan_id     = azurerm_service_plan.service-plan.id
+  https_only          = true
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  site_config {
+    http2_enabled       = true
+    minimum_tls_version = "1.2"
+    health_check_path   = "/health"
+    ip_restriction = var.domain != null ? [{
+      name     = "DenyAll"
+      action   = "Deny"
+      priority = 1
+      headers = [{
+        x_azure_fdid      = []
+        x_fd_health_probe = []
+        x_forwarded_for   = []
+        x_forwarded_host  = []
+      }]
+      service_tag               = null
+      ip_address                = null
+      virtual_network_subnet_id = null
+    }] : []
+  }
+
+  app_settings = local.rsm_env_vars
+
   lifecycle {
     ignore_changes = [
       tags
