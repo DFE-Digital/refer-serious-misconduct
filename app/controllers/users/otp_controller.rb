@@ -25,6 +25,7 @@ class Users::OtpController < DeviseController
       sign_in(resource_name, resource)
       yield resource if block_given?
       redirect_to after_sign_in_path_for(resource)
+      resource.after_successful_otp_authentication
     elsif @otp_form.maximum_guesses?
       @otp_form.user.after_failed_otp_authentication
       flash[:warning] = "Please try signing in again"

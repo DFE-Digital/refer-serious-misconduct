@@ -9,6 +9,14 @@ class User < ApplicationRecord
   end
 
   def after_failed_otp_authentication
+    clear_otp_state
+  end
+
+  def after_successful_otp_authentication
+    clear_otp_state
+  end
+
+  def clear_otp_state
     update(secret_key: nil, otp_guesses: nil)
   end
 end
