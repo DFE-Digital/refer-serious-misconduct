@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_104316) do
 
   create_table "referral_evidences", force: :cascade do |t|
     t.jsonb "categories"
+    t.string "categories_other"
     t.bigint "referral_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
