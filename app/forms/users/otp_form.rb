@@ -1,4 +1,5 @@
 class Users::OtpForm
+  MAX_GUESSES = 5
   include ActiveModel::Model
 
   attr_accessor :otp, :id
@@ -9,7 +10,15 @@ class Users::OtpForm
 
   def expected_otp_submitted
     expected_otp = Devise::Otp.derive_otp(user.secret_key)
-    errors.add(:otp, "Enter a correct security code") unless otp == expected_otp
+
+    if otp != expected_otp
+      errors.add(:otp, "Enter a correct security code")
+      user.increment!(:otp_guesses)
+    end
+  end
+
+  def maximum_guesses?
+    user.otp_guesses >= MAX_GUESSES
   end
 
   def user
