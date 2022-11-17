@@ -44,6 +44,6 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
   def then_it_loads_successfully
     expect(
       page
-    ).to have_content "Are you reporting as an employer or member of the public?"
+    ).to have_content "Are you making a referral as an employer or member of the public?"
   end
 end
