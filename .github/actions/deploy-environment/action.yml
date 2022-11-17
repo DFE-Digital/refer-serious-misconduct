@@ -120,6 +120,8 @@ runs:
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
         echo "postgres_server_name=$(terraform output -raw postgres_server_name)" >> $GITHUB_ENV
         echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
+        echo "web_app_name=$(terraform output -raw web_app_name)" >> $GITHUB_ENV
+        echo "worker_app_name=$(terraform output -raw worker_app_name)" >> $GITHUB_ENV
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
         TF_VAR_azure_sp_credentials_json: ${{ inputs.azure_credentials }}
@@ -127,7 +129,7 @@ runs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.resource_prefix }}-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
+        app-name: ${{ env.web_app_name }}
         images: ${{ inputs.image_name_tag }}
         slot-name: ${{ env.slot_name }}
 
@@ -136,6 +138,13 @@ runs:
       with:
         inlineScript: |
           az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
+
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.worker_app_name }}
+        images: ${{ inputs.image_name_tag }}
+        slot-name: ${{ env.slot_name }}
+        startup-command: bundle exec sidekiq ##TO DO: check with MB what options are required
 
     # Check new site is up
     - run: |
