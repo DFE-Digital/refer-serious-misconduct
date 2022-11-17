@@ -118,10 +118,11 @@ runs:
           make ci ${{ inputs.environment_name }} terraform-apply
         fi
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
-        echo "postgres_server_name=$(terraform output -raw postgres_server_name)" >> $GITHUB_ENV
-        echo "slot_name=$(terraform output -raw web_app_slot_name)" >> $GITHUB_ENV
-        echo "web_app_name=$(terraform output -raw web_app_name)" >> $GITHUB_ENV
-        echo "worker_app_name=$(terraform output -raw worker_app_name)" >> $GITHUB_ENV
+        OUTPUTS=($(terraform -chdir=terraform output --json | jq -r 'keys | @sh' | tr -d \'))
+        for o in "${OUTPUTS[@]"
+        do
+          echo "${o}=$(terraform output -raw ${0})" >> $GITHUB_ENV
+        done
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
         TF_VAR_azure_sp_credentials_json: ${{ inputs.azure_credentials }}
