@@ -16,9 +16,7 @@ resource "azurerm_storage_account" "allegations" {
     }
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  depends_on = [data.azurerm_resource_group.group]
 }
 
 
@@ -33,8 +31,4 @@ resource "azurerm_storage_container" "uploads" {
   name                  = "uploads"
   storage_account_name  = azurerm_storage_account.allegations.name
   container_access_type = "private"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
