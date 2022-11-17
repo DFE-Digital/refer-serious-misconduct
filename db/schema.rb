@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_104316) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_125457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,6 +109,7 @@ unique: true
     t.datetime "previous_misconduct_completed_at", precision: nil
     t.datetime "previous_misconduct_deferred_at", precision: nil
     t.text "previous_misconduct_summary"
+    t.string "previous_misconduct_reported"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 

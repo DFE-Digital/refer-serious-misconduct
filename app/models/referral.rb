@@ -10,6 +10,12 @@ class Referral < ApplicationRecord
     organisation.status
   end
 
+  def previous_misconduct_reported?
+    return true if previous_misconduct_reported == "true"
+
+    false
+  end
+
   def previous_misconduct_status
     return :complete if previous_misconduct_completed_at.present?
     return :incomplete if previous_misconduct_deferred_at.present?

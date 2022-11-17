@@ -8,6 +8,22 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     and_i_have_an_existing_referral
     and_i_am_on_the_referral_summary_page
     when_i_click_on_previous_misconduct
+    then_i_see_the_previous_misconduct_reported_page
+
+    when_i_click_save_and_continue
+    then_i_see_the_missing_reported_error
+
+    when_i_choose_no
+    and_i_click_save_and_continue
+    then_i_see_the_previous_misconduct_page
+    and_i_see_no_previous_misconduct_reported
+
+    when_i_click_change_previous_misconduct_reported
+    then_i_see_the_previous_misconduct_reported_page
+    and_i_see_no_previous_misconduct_is_prefilled
+
+    when_i_choose_yes
+    and_i_click_save_and_continue
     then_i_see_the_previous_misconduct_summary_page
 
     when_i_click_save_and_continue
@@ -52,6 +68,14 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     @referral = create(:referral, user: @user)
   end
 
+  def and_i_see_no_previous_misconduct_is_prefilled
+    expect(page).to have_checked_field("No", visible: false)
+  end
+
+  def and_i_see_no_previous_misconduct_reported
+    expect(page).to have_content("No")
+  end
+
   def and_i_see_previous_misconduct_flagged_as_complete
     within(".app-task-list__item", text: "Previous allegations") do
       status_tag = find(".app-task-list__tag")
@@ -86,9 +110,28 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     expect(page).to have_current_path(edit_referral_path(@referral))
   end
 
+  def then_i_see_the_previous_misconduct_reported_page
+    expect(page).to have_current_path(
+      edit_referral_previous_misconduct_reported_path(@referral)
+    )
+    expect(page).to have_title(
+      "Has there been any previous misconduct, disciplinary action or complaints? - Refer " \
+        "serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content(
+      "Has there been any previous misconduct, disciplinary action or complaints?"
+    )
+  end
+
   def then_i_see_the_previous_misconduct_summary_page
     expect(page).to have_current_path(
       edit_referral_previous_misconduct_summary_path(@referral)
+    )
+  end
+
+  def then_i_see_the_missing_reported_error
+    expect(page).to have_content(
+      "Let us know if there has been any previous misconduct, disciplinary action or complaints"
     )
   end
 
@@ -101,8 +144,20 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     expect(page).to have_content("Previous allegations")
   end
 
+  def when_i_choose_no
+    choose "No", visible: false
+  end
+
   def when_i_choose_no_come_back_later
     choose "No, I’ll come back to it later", visible: false
+  end
+
+  def when_i_choose_yes
+    choose "Yes", visible: false
+  end
+
+  def when_i_click_change_previous_misconduct_reported
+    click_on "Change reported"
   end
 
   def when_i_click_on_previous_misconduct

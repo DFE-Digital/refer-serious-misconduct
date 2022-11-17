@@ -68,4 +68,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def humanize_three_way_choice(choice)
+    { "true" => "Yes", "false" => "No", "i_dont_know" => "I don’t know" }[
+      choice
+    ]
+  end
 end
