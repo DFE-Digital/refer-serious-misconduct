@@ -1,0 +1,61 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_upload_form.errors.any?}Upload evidence and supporting information" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <h1 class="govuk-heading-xl">Upload evidence and supporting information</h1>
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Examples of evidence and supporting information
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <h2 class="govuk-heading-m">Commonly uploaded documents</h2>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>CV</li>
+          <li>References</li>
+          <li>Job application</li>
+          <li>Job offer</li>
+          <li>Job description, role requirement or person specification</li>
+          <li>File notes concerning conduct, behaviour, attitude</li>
+          <li>Statements made by the person you’re referring</li>
+          <li>Documents of internal investigations and outcomes</li>
+          <li>Documentation of any past disciplinary action and complaints</li>
+          <li>Police investigation and reports</li>
+          <li>Local authority investigation reports or documents</li>
+          <li>Reports from other bodies or agencies</li>
+          <li>Signed witness statements</li>
+          <li>Dismissal, resignation or redeployment letters</li>
+          <li>Interview reports relating to the allegation</li>
+          <li>Minutes of strategy meetings</li>
+        </ul>
+        <h2 class="govuk-heading-m">Preparing your documents</h2>
+        <p>Signed and dated documents are better than unsigned ones. If they were not signed at the time of being written,
+        ask the parties involved to sign and date a statement confirming their accuracy.</p>
+        <p>Do not redact any of the documents. This will make it difficult to consider the evidence. All
+        information given is treated in strict confidence.</p>
+      </div>
+    </details>
+
+    <%= form_with model: @evidence_upload_form, url: referrals_update_evidence_upload_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_file_field :evidence_uploads,
+          multiple: true,
+          label: { text: "Upload files", size: "m" },
+          hint: -> do %>
+            <p>You should make sure the file names describe the content, for example ‘signed witness statement</p>
+            <p>You can upload all file types. Each file must not exceed 25mb.</p>
+          <% end %>
+
+      <h2 class="govuk-heading-s">Upload multiple files</h2>
+      <p>You can upload multiple files at once.</p>
+
+      <h2 class="govuk-heading-s">Do not upload explicit content</h2>
+      <p class="govuk-!-margin-bottom-6">Do not upload explicit files, for example indecent images. If your allegation mentions explicit files, we’ll ask for them when they’re needed.</p>
+
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
