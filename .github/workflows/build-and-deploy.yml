@@ -60,6 +60,7 @@ jobs:
         with:
           environment: review
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          url: ${{ steps.deploy.outputs.environment_url }}
 
   deploy:
     name: Deploy to ${{ matrix.environment }} environment
@@ -94,3 +95,4 @@ jobs:
         with:
           environment: ${{ matrix.environment }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          url: ${{ steps.deploy.outputs.environment_url }}

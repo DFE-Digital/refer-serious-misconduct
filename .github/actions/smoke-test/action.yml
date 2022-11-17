@@ -7,6 +7,9 @@ inputs:
   azure_credentials:
     description: JSON object containing a service principal that can read from Azure Key Vault
     required: true
+  url:
+    description: Sets the HOSTING_DOMAIN environment variable
+    required: true
 
 runs:
   using: composite
@@ -35,7 +38,7 @@ runs:
     # Run deployment smoke test
     - run: bin/smoke
       env:
-        HOSTING_DOMAIN: ${{ env.url }}
+        HOSTING_DOMAIN: ${{ inputs.url }}
         GOVUK_NOTIFY_API_KEY: ${{ steps.keyvault-yaml-secret.outputs.GOVUK_NOTIFY_API_KEY }}
         SUPPORT_USERNAME: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_USERNAME }}
         SUPPORT_PASSWORD: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_PASSWORD }}
