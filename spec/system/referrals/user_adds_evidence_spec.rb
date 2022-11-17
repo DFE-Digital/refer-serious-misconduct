@@ -15,8 +15,18 @@ RSpec.feature "Evidence", type: :system do
     when_i_click_save_and_continue
     then_i_see_evidence_start_form_validation_errors
 
-    when_i_choose_no_to_uploading_evidence
+    when_i_choose_yes_to_uploading_evidence
     and_i_click_save_and_continue
+    then_i_am_asked_to_upload_evidence_files
+
+    when_i_click_save_and_continue
+    then_i_see_evidence_upload_form_validation_errors
+
+    when_i_upload_evidence_files
+    and_i_click_save_and_continue
+    then_i_see_a_list_of_the_uploaded_files
+
+    when_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_evidence_details
 
     when_i_click_save_and_continue
@@ -71,8 +81,34 @@ RSpec.feature "Evidence", type: :system do
     expect(page).to have_content("Tell us if you have evidence to upload")
   end
 
-  def when_i_choose_no_to_uploading_evidence
-    choose "No, I do not have anything to upload", visible: false
+  def when_i_choose_yes_to_uploading_evidence
+    choose "Yes, I need to upload files", visible: false
+  end
+
+  def then_i_am_asked_to_upload_evidence_files
+    expect(page).to have_content("Upload evidence and supporting information")
+  end
+
+  def then_i_see_evidence_upload_form_validation_errors
+    expect(page).to have_content("Select evidence to upload")
+  end
+
+  def when_i_upload_evidence_files
+    attach_file(
+      "Upload files",
+      [
+        Rails.root.join("test/fixtures/files/doc1.pdf"),
+        Rails.root.join("test/fixtures/files/doc2.pdf")
+      ]
+    )
+  end
+
+  def then_i_see_a_list_of_the_uploaded_files
+    expect(page).to have_content("You uploaded 2 files")
+    within(".govuk-list") do
+      expect(page).to have_link("doc1.pdf")
+      expect(page).to have_link("doc2.pdf")
+    end
   end
 
   def then_i_am_asked_to_confirm_the_evidence_details

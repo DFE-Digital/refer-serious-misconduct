@@ -1,0 +1,20 @@
+<% content_for :page_title, "You uploaded #{current_referral.evidences.size} files" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <h1 class="govuk-heading-xl">
+      You uploaded <%= current_referral.evidences.size %> files
+    </h1>
+
+    <p>Your files:</p>
+
+    <ul class="govuk-list govuk-!-margin-bottom-6">
+      <% current_referral.evidences.each do |evidence| %>
+        <li><a href="#"><%= evidence.document.filename %></a></li>
+      <% end %>
+    </ul>
+    <%# TODO: This will link to the evidence categories path %>
+    <%= govuk_link_to "Save and continue", referrals_edit_evidence_confirm_path(current_referral), class: "govuk-button" %>
+  </div>
+</div>
