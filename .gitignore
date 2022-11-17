@@ -8,6 +8,7 @@
 .vscode
 config/master.key
 db/*.sqlite3
+dump.rdb
 node_modules
 public/assets
 storage/
