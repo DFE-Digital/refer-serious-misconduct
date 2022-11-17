@@ -72,7 +72,7 @@ RSpec.feature "Question order", type: :system do
   end
 
   def when_i_choose_employer
-    choose "I’m reporting as an employer", visible: false
+    choose "I’m referring as an employer", visible: false
   end
 
   def when_i_choose_yes

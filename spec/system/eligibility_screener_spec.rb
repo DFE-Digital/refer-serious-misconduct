@@ -13,7 +13,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
     when_i_press_continue
     then_i_see_a_validation_error
-    when_i_choose_reporting_as_public
+    when_i_choose_referring_as_public
     when_i_press_continue
     then_i_see_the_have_you_complained_page
 
@@ -110,10 +110,10 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_employer_or_public_question
     expect(page).to have_current_path("/who")
     expect(page).to have_title(
-      "Are you reporting as an employer or member of the public? - Refer serious misconduct by a teacher in England"
+      "Are you making a referral as an employer or member of the public?"
     )
     expect(page).to have_content(
-      "Are you reporting as an employer or member of the public?"
+      "Are you making a referral as an employer or member of the public?"
     )
   end
 
@@ -160,7 +160,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def then_i_see_the_not_sure_hint
     expect(page).to have_content(
-      "If you’re not sure, please continue to report your allegation and the Teaching Regulation Agency will assess it."
+      "If you’re not sure, you should continue to make a referral and TRA will assess it."
     )
   end
 
@@ -203,9 +203,9 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
-      "What completing this report means for you - Refer serious misconduct by a teacher in England"
+      "What completing this referral means for you - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What completing this report means for you")
+    expect(page).to have_content("What completing this referral means for you")
   end
 
   def then_i_see_the_serious_misconduct_question
@@ -246,12 +246,12 @@ RSpec.feature "Eligibility screener", type: :system do
     choose "I’m not sure", visible: false
   end
 
-  def when_i_choose_reporting_as_an_employer
-    choose "I’m reporting as an employer", visible: false
+  def when_i_choose_referring_as_an_employer
+    choose "I’m referring as an employer", visible: false
   end
 
-  def when_i_choose_reporting_as_public
-    choose "I’m reporting as a member of the public", visible: false
+  def when_i_choose_referring_as_public
+    choose "I’m referring as a member of the public", visible: false
   end
 
   def when_i_choose_yes
