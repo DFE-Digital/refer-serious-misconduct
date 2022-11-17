@@ -74,6 +74,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_104316) do
     t.index ["referral_id"], name: "index_organisations_on_referral_id"
   end
 
+  create_table "referral_evidences", force: :cascade do |t|
+    t.jsonb "categories"
+    t.bigint "referral_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referral_id"], name: "index_referral_evidences_on_referral_id"
+  end
+
   create_table "referrals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -178,6 +186,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_104316) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "organisations", "referrals"
+  add_foreign_key "referral_evidences", "referrals"
   add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
 end
