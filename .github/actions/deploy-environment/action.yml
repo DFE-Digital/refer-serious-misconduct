@@ -47,7 +47,7 @@ runs:
         fi
 
         if [ -z "$APP_RESOURCE_GROUP_NAME" ]; then
-          echo "::error ::Failed to extract resource_group_name from $TFVARS"
+          echo "::error ::Failed to extract app_resource_group_name from $TFVARS"
           exit 1
         fi
 
@@ -67,12 +67,12 @@ runs:
         fi
 
         if [ -z "$TERRAFORM_VERSION" ]; then
-          echo "::error ::Failed to extract terraform_version from $TFVARS"
+          echo "::error ::Failed to extract terraform_version from terraform.tf"
           exit 1
         fi
 
         if [ -z "$TF_RESOURCE_GROUP_NAME" ]; then
-          echo "::error ::Failed to extract resource_group_name from $TFVARS"
+          echo "::error ::Failed to extract tf_resource_group_name from TFVARS"
           exit 1
         fi
 
