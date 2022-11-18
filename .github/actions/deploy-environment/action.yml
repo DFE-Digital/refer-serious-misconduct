@@ -127,7 +127,7 @@ runs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
+        app-name: ${{ env.resource_prefix }}-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
         images: ${{ inputs.image_name_tag }}
         slot-name: ${{ env.slot_name }}
 
@@ -135,7 +135,7 @@ runs:
       if: ${{ env.slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}rsm-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
+          az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
 
     # Check new site is up
     - run: |
