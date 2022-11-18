@@ -14,7 +14,6 @@ jobs:
   delete-review-app:
     name: Delete Review App ${{ github.event.pull_request.number }}
     concurrency: deploy_review_${{ github.event.pull_request.number }}
-    #if: ${{ contains(github.event.pull_request.labels.*.name, 'deploy') }} ##TO DO: is this the best way, alts either labels or run every close and test for review app
     runs-on: ubuntu-latest
     environment: review
     steps:
@@ -22,11 +21,17 @@ jobs:
       - name: Extract configuration from tfvars
         id: config
         run: |
+          APP_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
           STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
           TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
           DEV_TFVARS=workspace_variables/dev.tfvars.json
           TF_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $DEV_TFVARS)
           TF_STATE_CONTAINER=$(awk '/{/{f=/backend/;next}f' terraform.tf | grep -o "\"[a-z\-]*\"" | tr -d \")
+
+          if [ -z "$APP_RESOURCE_GROUP_NAME" ]; then
+            echo "::error ::Failed to extract resource_group_name from $TFVARS"
+            exit 1
+          fi
 
           if [ -z "$STORAGE_ACCOUNT_NAME" ]; then
             echo "::error ::Failed to extract storage_account_name from $TFVARS"
@@ -48,6 +53,7 @@ jobs:
             exit 1
           fi
 
+          echo "app_resource_group_name=$APP_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
           echo "storage_account_name=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
           echo "terraform_version=$TERRAFORM_VERSION" >> $GITHUB_ENV
           echo "tf_resource_group_name=$TF_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
@@ -72,7 +78,15 @@ jobs:
           terraform_version: ${{ ENV.terraform_version }}
           terraform_wrapper: false
 
+      - name: Check resource group exists
+        run: |
+          GROUP=$(az group show --name ${{ env.app_resource_group_name }} --query name)
+          if [[ $GROUP ]]; then
+            echo "REVIEW_APP_EXISTS=true" >> $GITHUB_ENV
+          fi
+
       - name: Set Environment variables
+        if: env.REVIEW_APP_EXISTS == 'true'
         run: |
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             PR_NUMBER=${{ github.event.inputs.pr_number }}
