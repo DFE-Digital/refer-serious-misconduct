@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_125457) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", 
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness",
 unique: true
   end
 
@@ -110,6 +110,9 @@ unique: true
     t.datetime "previous_misconduct_deferred_at", precision: nil
     t.text "previous_misconduct_summary"
     t.string "previous_misconduct_reported"
+    t.string "employment_status"
+    t.date "role_end_date"
+    t.string "reason_leaving_role"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
