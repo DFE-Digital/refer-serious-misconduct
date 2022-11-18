@@ -21,7 +21,8 @@ jobs:
       - name: Extract configuration from tfvars
         id: config
         run: |
-          APP_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $TFVARS)
+          RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
+          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-${{ github.event.pull_request.number }}-app
           STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
           TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
           DEV_TFVARS=workspace_variables/dev.tfvars.json
