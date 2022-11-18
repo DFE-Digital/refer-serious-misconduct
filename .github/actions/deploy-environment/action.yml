@@ -119,9 +119,9 @@ runs:
         fi
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
         OUTPUTS=($(terraform output --json | jq -r 'keys | @sh' | tr -d \'))
-        for o in "${OUTPUTS[@]"
+        for o in "${OUTPUTS[@]}"
         do
-          echo "${o}=$(terraform output -raw ${0})" >> $GITHUB_ENV
+          echo "${o}=$(terraform output -raw ${o})" >> $GITHUB_ENV
         done
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
