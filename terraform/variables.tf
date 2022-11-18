@@ -140,6 +140,11 @@ variable "region_name" {
   type    = string
 }
 
+variable "create_env_resource_group" {
+  default = false
+  type = bool
+}
+
 locals {
   hosting_environment          = var.environment_name
   rsm_app_name                = "${var.resource_prefix}rsm-${var.environment_name}${var.app_suffix}-app"
