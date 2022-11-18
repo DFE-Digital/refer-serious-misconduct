@@ -118,7 +118,7 @@ runs:
           make ci ${{ inputs.environment_name }} terraform-apply
         fi
         cd terraform && echo "url=https://$(terraform output -raw app_fqdn)" >> $GITHUB_ENV
-        OUTPUTS=($(terraform -chdir=terraform output --json | jq -r 'keys | @sh' | tr -d \'))
+        OUTPUTS=($(terraform output --json | jq -r 'keys | @sh' | tr -d \'))
         for o in "${OUTPUTS[@]"
         do
           echo "${o}=$(terraform output -raw ${0})" >> $GITHUB_ENV
