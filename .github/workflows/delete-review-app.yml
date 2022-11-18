@@ -80,8 +80,8 @@ jobs:
 
       - name: Check resource group exists
         run: |
-          GROUP=$(az group show --name ${{ env.app_resource_group_name }} --query name)
-          if [[ $GROUP ]]; then
+          GROUP=$(az group exists --name ${{ env.app_resource_group_name }})
+          if [[ "$GROUP" =~ "true" ]]; then
             echo "REVIEW_APP_EXISTS=true" >> $GITHUB_ENV
           fi
 
