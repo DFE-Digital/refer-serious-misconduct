@@ -21,8 +21,19 @@ jobs:
       - name: Extract configuration from tfvars
         id: config
         run: |
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+            PR_NUMBER=${{ github.event.inputs.pr_number }}
+          else
+            PR_NUMBER=${{ github.event.pull_request.number }}
+          fi
+
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::error ::Failed to extract PR_NUMBER"
+            exit 1
+          fi
+
           RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
-          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-${{ github.event.pull_request.number }}-app
+          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-$PR_NUMBER-app
           STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
           TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
           DEV_TFVARS=workspace_variables/dev.tfvars.json
@@ -55,6 +66,7 @@ jobs:
           fi
 
           echo "app_resource_group_name=$APP_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
           echo "storage_account_name=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
           echo "terraform_version=$TERRAFORM_VERSION" >> $GITHUB_ENV
           echo "tf_resource_group_name=$TF_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
@@ -89,14 +101,7 @@ jobs:
       - name: Set Environment variables
         if: env.REVIEW_APP_EXISTS == 'true'
         run: |
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            PR_NUMBER=${{ github.event.inputs.pr_number }}
-          else
-            PR_NUMBER=${{ github.event.pull_request.number }}
-          fi
-          echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
-
-          TF_STATE_FILE=review/review-pr-$PR_NUMBER.tfstate
+          TF_STATE_FILE=review/review-pr-${{ env.pr_number }}.tfstate
           echo "TF_STATE_FILE=$TF_STATE_FILE" >> $GITHUB_ENV
 
           pr_state_file=$(az storage blob list -c ${{ env.tf_state_container }} \
