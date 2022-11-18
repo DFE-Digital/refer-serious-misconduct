@@ -5,16 +5,11 @@ module Referrals
       include ActiveModel::Model
       include ValidatedDate
 
-      attr_accessor :referral
-      attr_writer :role_start_date
+      attr_accessor :referral, :role_start_date
       attr_reader :role_start_date_known
 
       validates :referral, presence: true
       validates :role_start_date_known, inclusion: { in: [true, false] }
-
-      def role_start_date
-        @role_start_date ||= referral.role_start_date
-      end
 
       def role_start_date_known=(value)
         @role_start_date_known = ActiveModel::Type::Boolean.new.cast(value)

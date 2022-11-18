@@ -7,7 +7,8 @@ module ValidatedDate
       date_params:,
       attribute:,
       date_of_birth: false,
-      in_the_future: false
+      in_the_future: false,
+      required: true
     )
       date_fields = [
         date_params["#{attribute}(1i)"],
@@ -24,7 +25,7 @@ module ValidatedDate
 
       year, month, day = date_fields.map { |f| word_to_number(f) }.map(&:to_i)
 
-      if day.zero? && month.zero? && year.zero?
+      if day.zero? && month.zero? && year.zero? && required
         errors.add(attribute, :blank)
         return false
       end

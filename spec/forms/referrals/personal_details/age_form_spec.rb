@@ -5,14 +5,14 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
   let(:referral) { build(:referral) }
   let(:age_known) { "false" }
 
-  let(:date_form) { described_class.new(referral:, age_known:) }
+  let(:form) { described_class.new(referral:, age_known:) }
 
   context "with invalid age_known" do
     let(:age_known) { "" }
 
     it "adds an error message" do
-      expect(date_form.valid?).to be false
-      expect(date_form.errors[:age_known]).to eq(
+      expect(form.valid?).to be false
+      expect(form.errors[:age_known]).to eq(
         ["Tell us if you know their date of birth"]
       )
     end
@@ -26,10 +26,10 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
   end
 
   describe "#save (age unknown)" do
-    subject(:save) { date_form.save }
+    subject(:save) { form.save }
 
     let(:age_known) { "false" }
-    let(:date_form) { described_class.new(referral:, age_known:) }
+    let(:form) { described_class.new(referral:, age_known:) }
 
     it "saves the age_known value without a date of birth" do
       save
