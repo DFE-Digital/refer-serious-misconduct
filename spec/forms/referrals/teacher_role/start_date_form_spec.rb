@@ -4,10 +4,10 @@ require "rails_helper"
 RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
   let(:referral) { build(:referral) }
   let(:role_start_date_known) { true }
-  subject(:date_form) { described_class.new(referral:, role_start_date_known:) }
+  subject(:form) { described_class.new(referral:, role_start_date_known:) }
 
   describe "#valid?" do
-    subject(:valid) { date_form.valid? }
+    subject(:valid) { form.valid? }
 
     it { is_expected.to be_truthy }
 
@@ -19,7 +19,7 @@ RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(date_form.errors[:role_start_date_known]).to eq(
+        expect(form.errors[:role_start_date_known]).to eq(
           ["Tell us if you know their role start date"]
         )
       end
@@ -37,10 +37,9 @@ RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
       let(:role_start_date_known) { false }
 
       it "updates the start_date_known to false" do
-        expect { date_form.save }.to change(
-          referral,
-          :role_start_date_known
-        ).from(nil).to(false)
+        expect { form.save }.to change(referral, :role_start_date_known).from(
+          nil
+        ).to(false)
       end
     end
   end

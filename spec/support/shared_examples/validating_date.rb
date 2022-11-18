@@ -1,10 +1,11 @@
 # Required values:
 # field (via argument) - database date field name, e.g. date_of_birth
-# date_form - the form that has the date field, e.g. let(:date_form) { described_class.new(referral:, age_known:) }
+# form - the form that has the date field, e.g. let(:form) { described_class.new(referral:, age_known:) }
 # referral - a Referral object
+# optional - for date fields that are not required
 
-RSpec.shared_examples "form with a date validator" do |field|
-  subject(:save) { date_form.save(params) }
+RSpec.shared_examples "form with a date validator" do |field, optional = true|
+  subject(:save) { form.save(params) }
 
   let(:date_field) { referral.send(field) }
 
@@ -68,7 +69,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     end
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Enter their #{field_name(field)} in the correct format"]
       )
     end
@@ -79,10 +80,9 @@ RSpec.shared_examples "form with a date validator" do |field|
       { "#{field}(1i)" => "", "#{field}(2i)" => "", "#{field}(3i)" => "" }
     end
 
-    it { is_expected.to be_falsy }
-
-    it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+    it "adds an error", if: !optional do
+      expect(save).to be_false
+      expect(form.errors[field.to_s]).to eq(
         ["Enter their #{field_name(field)}"]
       )
     end
@@ -96,7 +96,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(["Enter a year with 4 digits"])
+      expect(form.errors[field.to_s]).to eq(["Enter a year with 4 digits"])
     end
   end
 
@@ -108,7 +108,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Enter a day for their #{field_name(field)}, formatted as a number"]
       )
     end
@@ -122,7 +122,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Enter a month for their #{field_name(field)}, formatted as a number"]
       )
     end
@@ -136,7 +136,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Enter a month for their #{field_name(field)}, formatted as a number"]
       )
     end
@@ -154,7 +154,7 @@ RSpec.shared_examples "form with a date validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Enter a month for their #{field_name(field)}, formatted as a number"]
       )
     end
@@ -162,7 +162,7 @@ RSpec.shared_examples "form with a date validator" do |field|
 end
 
 RSpec.shared_examples "form with a date of birth validator" do |field|
-  subject(:save) { date_form.save(params) }
+  subject(:save) { form.save(params) }
 
   let(:date_field) { referral.send(field) }
 
@@ -180,7 +180,7 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["Their #{field_name(field)} must be in the past"]
       )
     end
@@ -198,7 +198,7 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
+      expect(form.errors[field.to_s]).to eq(
         ["You must be 16 or over to use this service"]
       )
     end
@@ -212,9 +212,7 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(date_form.errors[field.to_s]).to eq(
-        ["Enter a year later than 1900"]
-      )
+      expect(form.errors[field.to_s]).to eq(["Enter a year later than 1900"])
     end
   end
 end
