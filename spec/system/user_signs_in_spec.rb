@@ -4,6 +4,7 @@ require "rails_helper"
 RSpec.feature "User accounts" do
   scenario "User signs in" do
     given_the_service_is_open
+    and_the_eligibility_screener_is_enabled
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
     and_the_otp_emails_feature_is_active
@@ -34,6 +35,10 @@ RSpec.feature "User accounts" do
 
   def given_the_service_is_open
     FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_the_eligibility_screener_is_enabled
+    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
   end
 
   def and_the_employer_form_feature_is_active

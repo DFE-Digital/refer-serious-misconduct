@@ -4,6 +4,7 @@ require "rails_helper"
 RSpec.feature "Eligibility screener", type: :system do
   scenario "happy path" do
     given_the_service_is_open
+    and_the_eligibility_screener_is_enabled
     and_i_am_signed_in
     when_i_visit_the_service
     then_i_see_the_start_page
@@ -91,6 +92,10 @@ RSpec.feature "Eligibility screener", type: :system do
   def and_i_am_signed_in
     @user = create(:user)
     sign_in(@user)
+  end
+
+  def and_the_eligibility_screener_is_enabled
+    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
   end
 
   def then_i_see_a_validation_error

@@ -8,6 +8,11 @@ feature_flags:
       always be inactive on non-production deployments, to prevent accidental
       access by members of the public. Once the service goes live, this flag
       should always be active on production.
+  eligibility_screener:
+    author: Felix Clack
+    description: When enabled, the eligibility screener will be shown to
+      candidates. When disabled, redirect the visitor to the existing eligibility
+      information page on GOV.UK.
   employer_form:
     author: Steve Laing
     description: Allow users to access the employer-specific form.
