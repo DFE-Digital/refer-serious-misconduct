@@ -36,7 +36,7 @@
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <main class="govuk-main-wrapper" id="main-content" role="main">
         <%= render(FlashMessageComponent.new(flash: flash)) %>
-        <%= yield %>
+        <%= yield :content %>
       </main>
     </div>
 

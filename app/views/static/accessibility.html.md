@@ -82,9 +82,12 @@ this service.
 This accessibility statement will be updated based on any issues we identify or
 any changes we make to address any issues raised.
 
+We're also planning a full accessibility audit on the service by the Digital
+Accessibility Centre (DAC) before March 2023.
+
 ## Preparation of this accessibility statement
 
-This statement was prepared on Tuesday 25 October 2022. It was last reviewed on
-Wednesday 26 October 2022.
+This statement was prepared on Monday 21 November 2022. It was last reviewed on
+Monday 21 November 2022.
 
-Last updated: Wednesday 26 October 2022
+Last updated: Monday 21 November 2022
