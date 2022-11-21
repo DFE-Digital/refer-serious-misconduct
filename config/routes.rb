@@ -55,7 +55,10 @@ Rails.application.routes.draw do
   ) do
     get "/start",
         to:
-          redirect("https://www.gov.uk/report-teacher-misconduct", status: 307)
+          redirect(
+            "https://www.gov.uk/government/publications/teacher-misconduct-referral-form",
+            status: 307
+          )
   end
 
   root to: redirect("/start")

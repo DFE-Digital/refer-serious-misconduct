@@ -20,7 +20,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def then_i_see_the_govuk_page
     expect(page).to have_current_path(
-      "https://www.gov.uk/report-teacher-misconduct"
+      "https://www.gov.uk/government/publications/teacher-misconduct-referral-form"
     )
   end
 
