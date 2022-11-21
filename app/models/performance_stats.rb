@@ -2,7 +2,7 @@
 class PerformanceStats
   include ActionView::Helpers::NumberHelper
 
-  LAUNCH_DATE = Date.new(2022, 10, 1).beginning_of_day.freeze
+  LAUNCH_DATE = Date.new(2022, 11, 22).beginning_of_day.freeze
 
   def daily_percentiles
     @daily_percentiles ||=
