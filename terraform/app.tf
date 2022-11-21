@@ -190,7 +190,6 @@ resource "azurerm_linux_web_app" "rsm-worker-app" {
   site_config {
     http2_enabled       = true
     minimum_tls_version = "1.2"
-    health_check_path   = "/health"
     ip_restriction = var.domain != null ? [{
       name     = "DenyAll"
       action   = "Deny"
