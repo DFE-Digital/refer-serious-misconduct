@@ -10,7 +10,7 @@
           [OpenStruct.new(label: 'Yes, I’ve already made a complaint', value: true), OpenStruct.new(label: 'No', value: false)],
           :value,
           :label,
-          legend: { size: 'l', text: 'Have you already made a complaint to the school, school governors or your local council?' },
+          legend: { tag: 'h1', size: 'l', text: 'Have you already made a complaint to the school, school governors or your local council?' },
         ) %>
       <%= f.govuk_submit prevent_double_click: false %>
     <% end %>
