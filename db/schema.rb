@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_142815) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_125850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,6 +113,7 @@ unique: true
     t.string "employment_status"
     t.date "role_end_date"
     t.string "reason_leaving_role"
+    t.string "job_title"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
