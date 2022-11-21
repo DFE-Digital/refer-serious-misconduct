@@ -226,6 +226,12 @@ Rails.application.routes.draw do
     put "/:referral_id/evidence/upload",
         to: "evidence/upload#update",
         as: "update_evidence_upload"
+    get "/:referral_id/evidence/:evidence_id/categories",
+        to: "evidence/categories#edit",
+        as: "edit_evidence_categories"
+    put "/:referral_id/evidence/:evidence_id/categories",
+        to: "evidence/categories#update",
+        as: "update_evidence_categories"
     get "/:referral_id/evidence/confirm",
         to: "evidence/confirm#edit",
         as: "edit_evidence_confirm"

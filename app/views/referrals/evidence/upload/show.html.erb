@@ -14,7 +14,6 @@
         <li><a href="#"><%= evidence.document.filename %></a></li>
       <% end %>
     </ul>
-    <%# TODO: This will link to the evidence categories path %>
-    <%= govuk_link_to "Save and continue", referrals_edit_evidence_confirm_path(current_referral), class: "govuk-button" %>
+    <%= govuk_link_to "Save and continue", referrals_edit_evidence_categories_path(current_referral, current_referral.evidences.first), class: "govuk-button" %>
   </div>
 </div>

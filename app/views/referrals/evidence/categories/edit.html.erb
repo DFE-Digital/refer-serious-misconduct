@@ -1,0 +1,28 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_categories_form.errors.any?}#{evidence.document.filename}" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-m">Your uploaded file</span>
+      <%= evidence.document.filename %>
+    </h1>
+
+    <%= form_with model: @evidence_categories_form, url: referrals_update_evidence_categories_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_check_boxes_fieldset(
+        :categories,
+        legend: { text: "Select all the categories that describe this file", size: "m" },
+      ) do %>
+        <% @evidence_categories_form.class::CATEGORIES.each do |category| %>
+          <%= f.govuk_check_box :categories, category, label: { text: I18n.t("referral_evidence.categories.#{category}") } %>
+        <% end %>
+        <%= f.govuk_check_box :categories, "other", label: { text: "Other" } do %>
+          <%= f.govuk_text_field :categories_other, label: { text: "Explain what this document is", size: "s" } %>
+        <% end %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
