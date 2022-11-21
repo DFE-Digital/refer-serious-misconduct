@@ -132,6 +132,19 @@ en:
               missing_day: Enter a day for their role start date, formatted as a number
               missing_month: Enter a month for their role start date, formatted as a number
               missing_year: Enter a year with 4 digits
+        "referrals/teacher_role/employment_status_form":
+          attributes:
+            employment_status:
+              inclusion: Tell us if you know if they are still employed in that job
+            reason_leaving_role:
+              inclusion: Tell us how they left this job
+            role_end_date:
+              blank: Enter their role end date
+              in_the_future: Their role end date must be in the past
+              invalid: Enter their role end date in the correct format
+              missing_day: Enter a day for their role end date, formatted as a number
+              missing_month: Enter a month for their role end date, formatted as a number
+              missing_year: Enter a year with 4 digits
         referrer_job_title_form:
           attributes:
             job_title:

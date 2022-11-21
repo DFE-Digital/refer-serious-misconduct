@@ -21,15 +21,45 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_choose_no
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_employed_status_page
 
-    when_i_edit_teacher_role_details
+    when_i_click_back
     when_i_choose_yes
     and_i_click_save_and_continue
     then_i_see_role_start_date_field_validation_errors
 
     when_i_choose_yes
     when_i_fill_out_the_role_start_date_fields
+    and_i_click_save_and_continue
+    then_i_see_the_employed_status_page
+
+    when_i_click_save_and_continue
+    then_i_see_employment_status_field_validation_errors
+
+    when_i_choose_yes
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_employment_status_page
+    when_i_choose_employed
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_employment_status_page
+    when_i_choose_left
+    and_i_click_save_and_continue
+    then_i_see_reason_leaving_role_field_validation_errors
+
+    when_i_visit_the_employment_status_page
+    when_i_choose_left
+    when_i_choose_resigned
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_employment_status_page
+    when_i_choose_left
+    when_i_fill_out_the_role_end_date_fields
+    when_i_choose_resigned
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
   end
@@ -54,6 +84,10 @@ RSpec.feature "Teacher role", type: :system do
     visit edit_referral_path(@referral)
   end
 
+  def when_i_visit_the_employment_status_page
+    visit referrals_edit_teacher_employment_status_path(@referral)
+  end
+
   def when_i_edit_teacher_role_details
     within(all(".app-task-list__section")[1]) { click_on "About their role" }
   end
@@ -64,12 +98,25 @@ RSpec.feature "Teacher role", type: :system do
   alias_method :and_i_click_back, :when_i_click_back
 
   def then_i_see_the_referral_summary
+    expect(page).to have_current_path("/referrals/#{@referral.id}/edit")
+    expect(page).to have_title(
+      "Refer serious misconduct by a teacher in England"
+    )
     expect(page).to have_content("Your allegation of serious misconduct")
+  end
+
+  def then_i_see_the_employed_status_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/employment-status"
+    )
+    expect(page).to have_title("Are they still employed in that job?")
+    expect(page).to have_content("Are they still employed in that job?")
   end
 
   def and_i_click_save_and_continue
     click_on "Save and continue"
   end
+  alias_method :when_i_click_save_and_continue, :and_i_click_save_and_continue
 
   def then_i_am_asked_their_role_start_date
     expect(page).to have_content("Do you know when they started their job?")
@@ -91,9 +138,39 @@ RSpec.feature "Teacher role", type: :system do
     choose "No", visible: false
   end
 
+  def when_i_choose_employed
+    choose "They are still employed but they’ve been suspended", visible: false
+  end
+
+  def when_i_choose_left
+    choose "No, they have left the organisation", visible: false
+  end
+
+  def when_i_choose_resigned
+    choose "Resigned", visible: false
+  end
+
   def when_i_fill_out_the_role_start_date_fields
     fill_in "Day", with: "17"
     fill_in "Month", with: "1"
     fill_in "Year", with: "1990"
+  end
+  alias_method :when_i_fill_out_the_role_end_date_fields,
+               :when_i_fill_out_the_role_start_date_fields
+
+  def then_i_see_employment_status_field_validation_errors
+    expect(page).to have_content(
+      "Tell us if you know if they are still employed in that job"
+    )
+  end
+
+  def then_i_see_reason_leaving_role_field_validation_errors
+    expect(page).to have_content("Tell us how they left this job")
+  end
+
+  def then_i_see_role_end_date_field_validation_errors
+    expect(page).to have_content(
+      "Enter their role end date in the correct format"
+    )
   end
 end
