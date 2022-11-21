@@ -132,19 +132,18 @@ runs:
       with:
         app-name: ${{ env.web_app_name }}
         images: ${{ inputs.image_name_tag }}
-        slot-name: ${{ env.slot_name }}
+        slot-name: ${{ env.web_app_slot_name }}
 
     - uses: azure/CLI@v1
-      if: ${{ env.slot_name != 'production' }}
+      if: ${{ env.web_app_slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap -g ${{ env.app_resource_group_name }} -n ${{ env.web_app_name }} --slot ${{ env.slot_name}} --target-slot production
+          az webapp deployment slot swap -g ${{ env.app_resource_group_name }} -n ${{ env.web_app_name }} --slot ${{ env.web_app_slot_name }} --target-slot production
 
     - uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.worker_app_name }}
         images: ${{ inputs.image_name_tag }}
-        slot-name: ${{ env.slot_name }}
         startup-command: bundle exec sidekiq ##TO DO: check with MB what options are required
 
     # Check new site is up
