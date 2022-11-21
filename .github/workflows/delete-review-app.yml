@@ -33,7 +33,7 @@ jobs:
           fi
 
           RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
-          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-$PR_NUMBER-app
+          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-$PR_NUMBER-rg
           STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
           TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
           DEV_TFVARS=workspace_variables/dev.tfvars.json
