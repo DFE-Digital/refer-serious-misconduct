@@ -25,25 +25,38 @@ Rails.application.routes.draw do
     get "/users/sign_out", to: "users/sessions#destroy"
   end
 
-  get "/start", to: "pages#start"
-  get "/who", to: "reporting_as#new"
-  post "/who", to: "reporting_as#create"
-  get "/have-you-complained", to: "have_complained#new"
-  post "/have-you-complained", to: "have_complained#create"
-  get "/no-complaint", to: "pages#no_complaint"
-  get "/is-a-teacher", to: "is_teacher#new"
-  post "/is-a-teacher", to: "is_teacher#create"
-  get "/unsupervised-teaching", to: "unsupervised_teaching#new"
-  post "/unsupervised-teaching", to: "unsupervised_teaching#create"
-  get "/no-jurisdiction-unsupervised", to: "pages#no_jurisdiction_unsupervised"
-  get "/teaching-in-england", to: "teaching_in_england#new"
-  post "/teaching-in-england", to: "teaching_in_england#create"
-  get "/no-jurisdiction", to: "pages#no_jurisdiction"
-  get "/serious", to: "serious_misconduct#new"
-  post "/serious", to: "serious_misconduct#create"
-  get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
-  get "/you-should-know", to: "pages#you_should_know"
-  get "/complete", to: "pages#complete"
+  constraints(
+    -> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
+  ) do
+    get "/start", to: "pages#start"
+    get "/who", to: "reporting_as#new"
+    post "/who", to: "reporting_as#create"
+    get "/have-you-complained", to: "have_complained#new"
+    post "/have-you-complained", to: "have_complained#create"
+    get "/no-complaint", to: "pages#no_complaint"
+    get "/is-a-teacher", to: "is_teacher#new"
+    post "/is-a-teacher", to: "is_teacher#create"
+    get "/unsupervised-teaching", to: "unsupervised_teaching#new"
+    post "/unsupervised-teaching", to: "unsupervised_teaching#create"
+    get "/no-jurisdiction-unsupervised",
+        to: "pages#no_jurisdiction_unsupervised"
+    get "/teaching-in-england", to: "teaching_in_england#new"
+    post "/teaching-in-england", to: "teaching_in_england#create"
+    get "/no-jurisdiction", to: "pages#no_jurisdiction"
+    get "/serious", to: "serious_misconduct#new"
+    post "/serious", to: "serious_misconduct#create"
+    get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
+    get "/you-should-know", to: "pages#you_should_know"
+    get "/complete", to: "pages#complete"
+  end
+
+  constraints(
+    -> { !FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
+  ) do
+    get "/start",
+        to:
+          redirect("https://www.gov.uk/report-teacher-misconduct", status: 307)
+  end
 
   root to: redirect("/start")
 
