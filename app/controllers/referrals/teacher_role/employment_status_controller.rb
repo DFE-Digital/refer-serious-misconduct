@@ -18,8 +18,7 @@ module Referrals
           )
 
         if @employment_status_form.save(end_date_params)
-          # TODO: redirect to job title page
-          redirect_to edit_referral_path(current_referral)
+          redirect_to referrals_edit_teacher_job_title_path(current_referral)
         else
           render :edit
         end

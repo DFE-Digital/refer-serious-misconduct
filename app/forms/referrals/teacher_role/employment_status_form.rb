@@ -38,7 +38,6 @@ module Referrals
           role_end_date:,
           reason_leaving_role:
         )
-        true
       end
 
       private

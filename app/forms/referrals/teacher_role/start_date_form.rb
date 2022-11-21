@@ -24,7 +24,6 @@ module Referrals
         end
 
         referral.update(role_start_date:, role_start_date_known:)
-        true
       end
     end
   end

@@ -202,6 +202,12 @@ Rails.application.routes.draw do
     put "/:referral_id/teacher-role/employment-status",
         to: "teacher_role/employment_status#update",
         as: "update_teacher_employment_status"
+    get "/:referral_id/teacher-role/job-title",
+        to: "teacher_role/job_title#edit",
+        as: "edit_teacher_job_title"
+    put "/:referral_id/teacher-role/job-title",
+        to: "teacher_role/job_title#update",
+        as: "update_teacher_job_title"
   end
 
   get "/performance", to: "performance#index"
