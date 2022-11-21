@@ -27,6 +27,17 @@ RSpec.feature "Evidence", type: :system do
     then_i_see_a_list_of_the_uploaded_files
 
     when_i_click_save_and_continue
+    then_i_am_asked_to_choose_categories_for_the_first_item
+
+    when_i_click_save_and_continue
+    then_i_see_categories_form_validation_errors
+
+    when_i_choose_categories_for_the_first_item
+    and_i_click_save_and_continue
+    then_i_am_asked_to_choose_categories_for_the_second_item
+
+    when_i_choose_categories_for_the_second_item
+    and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_evidence_details
 
     when_i_click_save_and_continue
@@ -55,6 +66,7 @@ RSpec.feature "Evidence", type: :system do
 
   def and_i_visit_a_referral
     @referral = create(:referral, user: @user)
+
     visit edit_referral_path(@referral)
   end
 
@@ -111,8 +123,54 @@ RSpec.feature "Evidence", type: :system do
     end
   end
 
+  def then_i_am_asked_to_choose_categories_for_the_first_item
+    expect(page).to have_content("Your uploaded file")
+    expect(page).to have_content("doc1.pdf")
+    expect(page).to have_content(
+      "Select all the categories that describe this file"
+    )
+  end
+
+  def then_i_see_categories_form_validation_errors
+    expect(page).to have_content("Select categories that describe this file")
+  end
+
+  def when_i_choose_categories_for_the_first_item
+    check "CV", visible: false
+    check "Job offer", visible: false
+    check "Signed witness statements", visible: false
+  end
+
+  def then_i_am_asked_to_choose_categories_for_the_second_item
+    expect(page).to have_content("Your uploaded file")
+    expect(page).to have_content("doc2.pdf")
+    expect(page).to have_content(
+      "Select all the categories that describe this file"
+    )
+  end
+
+  def when_i_choose_categories_for_the_second_item
+    check "Police investigation and reports", visible: false
+    check "Other", visible: false
+    fill_in "Explain what this document is", with: "Some other details"
+  end
+
   def then_i_am_asked_to_confirm_the_evidence_details
     expect(page).to have_content("Check and confirm your answers")
+
+    within(all(".govuk-summary-list__row")[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("doc1.pdf")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "CV, Job offer, Signed witness statements"
+      )
+    end
+
+    within(all(".govuk-summary-list__row")[1]) do
+      expect(find(".govuk-summary-list__key").text).to eq("doc2.pdf")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "Police investigation and reports, Other: Some other details"
+      )
+    end
   end
 
   def then_i_see_confirm_form_validation_errors
