@@ -5,7 +5,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @is_teacher_form, url: is_a_teacher_url, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { size: 'xl', text: 'Is the allegation about a teacher?' } do %>
+      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { tag: 'h1', size: 'xl', text: 'Is the allegation about a teacher?' } do %>
 
         <%= govuk_details(summary_text: 'Who is considered to be a teacher?') do %>
           <p>You can only refer a teacher if they’ve been engaged in unsupervised teaching work, such as:</p>

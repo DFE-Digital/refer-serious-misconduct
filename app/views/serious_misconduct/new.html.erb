@@ -48,7 +48,7 @@
         </div>
       </details>
 
-      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { size: 'm', text: 'Is the allegation about serious misconduct?' } do %>
+      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { tag: 'h2', size: 'm', text: 'Is the allegation about serious misconduct?' } do %>
         <%= f.hidden_field :serious_misconduct %>
         <%= f.govuk_radio_button :serious_misconduct, "yes", label: { text: "Yes" } %>
         <%= f.govuk_radio_button :serious_misconduct, "no", label: { text: "No" } %>
