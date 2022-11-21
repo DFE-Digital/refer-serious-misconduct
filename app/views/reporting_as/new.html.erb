@@ -1,4 +1,4 @@
-<% content_for :page_title, 'Are you making a referral as an employer or member of the public?' %>
+<% content_for :page_title, (@reporting_as_form.errors.any? ? 'Error: ' : '') + 'Are you making a referral as an employer or member of the public?' %>
 <% content_for :back_link_url, start_path %>
 
 <div class="govuk-grid-row">
