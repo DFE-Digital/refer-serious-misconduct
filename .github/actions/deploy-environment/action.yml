@@ -138,7 +138,7 @@ runs:
       if: ${{ env.slot_name != 'production' }}
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g ${{ env.app_resource_group_name }} -n ${{ env.resource_prefix }}-${{ inputs.environment_name}}-app --slot ${{ env.slot_name}} --target-slot production
+          az webapp deployment slot swap -g ${{ env.app_resource_group_name }} -n ${{ env.web_app_name }} --slot ${{ env.slot_name}} --target-slot production
 
     - uses: azure/webapps-deploy@v2
       with:
