@@ -7,7 +7,7 @@ Capybara.javascript_driver = :cuprite
 Capybara.always_include_port = false
 
 RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
-  it "works as expected" do
+  xit "works as expected" do
     given_i_am_authorized_as_a_support_user
     when_i_visit_the_service
     then_i_see_the_start_page
