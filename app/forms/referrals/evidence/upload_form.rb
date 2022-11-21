@@ -24,7 +24,7 @@ module Referrals
               filename: upload.original_filename,
               document: upload,
               referral:,
-              categories: [],
+              categories: []
             )
           end
 

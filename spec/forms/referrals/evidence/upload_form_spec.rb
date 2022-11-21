@@ -7,8 +7,12 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
     let(:evidence_uploads) do
       [
         "",
-        Rack::Test::UploadedFile.new(Rails.root.join("test/fixtures/files/doc2.pdf")),
-        Rack::Test::UploadedFile.new(Rails.root.join("test/fixtures/files/doc1.pdf")),
+        Rack::Test::UploadedFile.new(
+          Rails.root.join("test/fixtures/files/doc2.pdf")
+        ),
+        Rack::Test::UploadedFile.new(
+          Rails.root.join("test/fixtures/files/doc1.pdf")
+        )
       ]
     end
 
