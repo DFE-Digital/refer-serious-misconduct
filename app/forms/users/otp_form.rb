@@ -5,7 +5,13 @@ class Users::OtpForm
   attr_accessor :otp, :id
   attr_writer :email
 
-  validates :otp, length: { minimum: 6, maximum: 6, allow_blank: true }
+  validates :otp,
+            presence: true,
+            length: {
+              minimum: 6,
+              maximum: 6,
+              allow_blank: true,
+            }
   validate :must_be_expected_otp
 
   def must_be_expected_otp
