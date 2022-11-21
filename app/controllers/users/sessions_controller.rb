@@ -3,8 +3,7 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = resource_class.find_or_initialize_by(sign_in_params)
 
     if resource.save
-      secret_key = Devise::Otp.generate_key
-      resource.update(secret_key:)
+      resource.create_otp
       if FeatureFlags::FeatureFlag.active?(:otp_emails)
         UserMailer.send_otp(resource).deliver_later
       end

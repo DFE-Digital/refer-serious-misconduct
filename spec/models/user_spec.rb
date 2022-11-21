@@ -34,4 +34,16 @@ RSpec.describe User, type: :model do
       expect(user.otp_guesses).to be_nil
     end
   end
+
+  describe "#create_otp" do
+    it "sets a key and timestamp" do
+      user = create(:user, secret_key: nil, last_otp_created_at: nil)
+      allow(Devise::Otp).to receive(:generate_key).and_return("123456")
+
+      user.create_otp
+
+      expect(user.secret_key).to eq "123456"
+      expect(user.last_otp_created_at).to_not be_blank
+    end
+  end
 end
