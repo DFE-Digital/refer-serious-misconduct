@@ -1,5 +1,7 @@
 class Users::OtpForm
   MAX_GUESSES = 5
+  EXPIRY_IN_MINUTES = 30.minutes
+
   include ActiveModel::Model
 
   attr_accessor :otp, :id
@@ -21,6 +23,12 @@ class Users::OtpForm
       errors.add(:otp, "Enter a correct security code")
       user.increment!(:otp_guesses)
     end
+  end
+
+  def otp_expired?
+    return false unless user.last_otp_created_at
+
+    (EXPIRY_IN_MINUTES.ago >= user.last_otp_created_at)
   end
 
   def maximum_guesses?
