@@ -150,6 +150,10 @@ en:
               missing_day: Enter a day for their role end date, formatted as a number
               missing_month: Enter a month for their role end date, formatted as a number
               missing_year: Enter a year with 4 digits
+        "referrals/teacher_role/job_title_form":
+          attributes:
+            job_title:
+              blank: Enter their job title
         referrer_job_title_form:
           attributes:
             job_title:

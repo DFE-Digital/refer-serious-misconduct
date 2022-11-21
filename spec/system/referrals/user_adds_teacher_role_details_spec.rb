@@ -38,12 +38,12 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_choose_yes
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_job_title_page
 
     when_i_visit_the_employment_status_page
     when_i_choose_employed
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_job_title_page
 
     when_i_visit_the_employment_status_page
     when_i_choose_left
@@ -54,13 +54,20 @@ RSpec.feature "Teacher role", type: :system do
     when_i_choose_left
     when_i_choose_resigned
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_job_title_page
 
     when_i_visit_the_employment_status_page
     when_i_choose_left
     when_i_fill_out_the_role_end_date_fields
     when_i_choose_resigned
     and_i_click_save_and_continue
+    then_i_see_the_job_title_page
+
+    when_i_click_save_and_continue
+    then_i_see_job_title_field_validation_errors
+
+    when_i_fill_in_the_job_title_field
+    when_i_click_save_and_continue
     then_i_see_the_referral_summary
   end
 
@@ -88,6 +95,10 @@ RSpec.feature "Teacher role", type: :system do
     visit referrals_edit_teacher_employment_status_path(@referral)
   end
 
+  def when_i_visit_the_job_title_page
+    visit referrals_edit_teacher_job_title_path(@referral)
+  end
+
   def when_i_edit_teacher_role_details
     within(all(".app-task-list__section")[1]) { click_on "About their role" }
   end
@@ -111,6 +122,14 @@ RSpec.feature "Teacher role", type: :system do
     )
     expect(page).to have_title("Are they still employed in that job?")
     expect(page).to have_content("Are they still employed in that job?")
+  end
+
+  def then_i_see_the_job_title_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/job-title"
+    )
+    expect(page).to have_title("What’s their job title?")
+    expect(page).to have_content("What’s their job title?")
   end
 
   def and_i_click_save_and_continue
@@ -172,5 +191,13 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content(
       "Enter their role end date in the correct format"
     )
+  end
+
+  def then_i_see_job_title_field_validation_errors
+    expect(page).to have_content("Enter their job title")
+  end
+
+  def when_i_fill_in_the_job_title_field
+    fill_in "What’s their job title?", with: "Teacher"
   end
 end
