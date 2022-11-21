@@ -6,9 +6,9 @@ class Users::OtpForm
   attr_writer :email
 
   validates :otp, length: { minimum: 6, maximum: 6, allow_blank: true }
-  validate :expected_otp_submitted
+  validate :must_be_expected_otp
 
-  def expected_otp_submitted
+  def must_be_expected_otp
     expected_otp = Devise::Otp.derive_otp(user.secret_key)
 
     if otp != expected_otp
