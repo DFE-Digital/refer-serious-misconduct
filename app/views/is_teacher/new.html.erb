@@ -19,7 +19,7 @@
         <% end %>
 
         <%= f.hidden_field :is_teacher %>
-        <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :is_teacher, "no", label: { text: "No" } %>
         <%= f.govuk_radio_button :is_teacher, "not_sure", label: { text: "I’m not sure" } %>
       <% end %>
