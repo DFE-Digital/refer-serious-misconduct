@@ -24,15 +24,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
     when_i_choose_yes
     and_i_click_save_and_continue
-    then_i_see_the_previous_misconduct_summary_page
-
-    when_i_click_save_and_continue
-    then_i_see_the_missing_summary_error
-
-    when_i_enter_a_summary
-    and_i_click_save_and_continue
     then_i_see_the_previous_misconduct_page
-    and_i_see_the_summary_i_entered
 
     when_i_click_save_and_continue
     then_i_am_asked_to_make_a_choice
@@ -90,10 +82,6 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     end
   end
 
-  def and_i_see_the_summary_i_entered
-    expect(page).to have_content("Summary of the previous misconduct")
-  end
-
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
   end
@@ -123,20 +111,10 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     )
   end
 
-  def then_i_see_the_previous_misconduct_summary_page
-    expect(page).to have_current_path(
-      edit_referral_previous_misconduct_summary_path(@referral)
-    )
-  end
-
   def then_i_see_the_missing_reported_error
     expect(page).to have_content(
       "Let us know if there has been any previous misconduct, disciplinary action or complaints"
     )
-  end
-
-  def then_i_see_the_missing_summary_error
-    expect(page).to have_content("Enter a summary of the previous allegations")
   end
 
   def then_i_see_the_previous_misconduct_page
@@ -168,12 +146,6 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     click_on "Save and continue"
   end
   alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
-
-  def when_i_enter_a_summary
-    fill_in "Summary of previous allegations",
-            with: "Summary of the previous misconduct",
-            visible: false
-  end
 
   def when_i_go_back
     page.go_back
