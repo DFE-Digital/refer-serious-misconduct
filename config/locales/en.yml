@@ -191,11 +191,6 @@ en:
           attributes:
             previous_misconduct_reported:
               inclusion: Let us know if there has been any previous misconduct, disciplinary action or complaints
-
-        previous_misconduct_summary_form:
-          attributes:
-            summary:
-              blank: Enter a summary of the previous allegations
         referrer_form:
           attributes:
             complete:
