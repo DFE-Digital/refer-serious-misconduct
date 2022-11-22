@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def clear_otp_state
-    update(secret_key: nil, otp_guesses: nil)
+    update(secret_key: nil, otp_guesses: 0)
   end
 
   def create_otp

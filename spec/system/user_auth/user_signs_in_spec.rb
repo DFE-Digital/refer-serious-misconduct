@@ -81,7 +81,7 @@ RSpec.feature "User accounts" do
 
   def then_i_see_an_error_about_otp_length
     expect(
-      page
+      page,
     ).to have_content "You’ve not entered enough numbers, the code must be 6 numbers"
   end
 
@@ -136,13 +136,13 @@ RSpec.feature "User accounts" do
 
   def then_i_see_my_current_page_before_logging_in
     expect(page).to have_current_path(
-      referrals_edit_contact_details_email_path(@referral)
+      referrals_edit_contact_details_email_path(@referral),
     )
   end
 
   def and_my_otp_state_is_reset
     user = User.last
     expect(user.secret_key).to be_nil
-    expect(user.otp_guesses).to be_nil
+    expect(user.otp_guesses).to eq 0
   end
 end

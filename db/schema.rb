@@ -178,7 +178,7 @@ unique: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "secret_key"
-    t.integer "otp_guesses"
+    t.integer "otp_guesses", default: 0
     t.datetime "last_otp_created_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true
   end

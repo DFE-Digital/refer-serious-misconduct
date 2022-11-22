@@ -10,7 +10,7 @@ class Users::OtpController < DeviseController
 
     # TODO: Remove this block once emailed OTPs are implemented
     # For now this makes manual testing in test environments simpler
-    if HostingEnvironment.test_environment?
+    if HostingEnvironment.test_environment? && @otp_form.user.secret_key
       otp_generator = ROTP::HOTP.new(@otp_form.user.secret_key)
       @derived_otp = otp_generator.at(0)
     end
