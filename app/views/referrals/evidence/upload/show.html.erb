@@ -11,7 +11,7 @@
 
     <ul class="govuk-list govuk-!-margin-bottom-6">
       <% current_referral.evidences.each do |evidence| %>
-        <li><a href="#"><%= evidence.document.filename %></a></li>
+        <li><a href="#"><%= evidence.filename %></a></li>
       <% end %>
     </ul>
     <%= govuk_link_to "Save and continue", referrals_edit_evidence_categories_path(current_referral, current_referral.evidences.first), class: "govuk-button" %>
