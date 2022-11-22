@@ -47,6 +47,13 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
     and_the_evidence_section_is_complete
+
+    # Additional scenario of changing to 'No evidence' state
+    when_i_edit_the_evidence
+    then_i_am_asked_if_i_have_evidence_to_upload
+    when_i_choose_no_to_uploading_evidence
+    and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_evidence_details_without_uploads
   end
 
   private
@@ -95,6 +102,10 @@ RSpec.feature "Evidence", type: :system do
 
   def when_i_choose_yes_to_uploading_evidence
     choose "Yes, I need to upload files", visible: false
+  end
+
+  def when_i_choose_no_to_uploading_evidence
+    choose "No, I do not have anything to upload", visible: false
   end
 
   def then_i_am_asked_to_upload_evidence_files
@@ -169,6 +180,17 @@ RSpec.feature "Evidence", type: :system do
       expect(find(".govuk-summary-list__key").text).to eq("doc2.pdf")
       expect(find(".govuk-summary-list__value").text).to eq(
         "Police investigation and reports, Other: Some other details"
+      )
+    end
+  end
+
+  def then_i_am_asked_to_confirm_evidence_details_without_uploads
+    expect(page).to have_content("Check and confirm your answers")
+
+    within(all(".govuk-summary-list__row")[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Documents")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "No evidence uploaded"
       )
     end
   end
