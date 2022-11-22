@@ -1,11 +1,11 @@
-<% content_for :page_title, "#{'Error: ' if @evidence_categories_form.errors.any?}#{evidence.document.filename}" %>
+<% content_for :page_title, "#{'Error: ' if @evidence_categories_form.errors.any?}#{evidence.filename}" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
       <span class="govuk-caption-m">Your uploaded file</span>
-      <%= evidence.document.filename %>
+      <%= evidence.filename %>
     </h1>
 
     <%= form_with model: @evidence_categories_form, url: referrals_update_evidence_categories_path(current_referral), method: :put do |f| %>

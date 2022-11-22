@@ -9,7 +9,7 @@
           { text: "Change", href: referrals_edit_evidence_categories_path(current_referral, evidence), visually_hidden_text: "categories" },
           { text: "Delete", href: referrals_delete_evidence_path(current_referral, evidence), visually_hidden_text: "evidence upload" },
         ],
-        key: { text: evidence.document.filename },
+        key: { text: evidence.filename },
         value: { text: Referrals::Evidence::CategoriesForm.selected_categories(evidence).join(", ") },
       }
     end
