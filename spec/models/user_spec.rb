@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
       user.after_failed_otp_authentication
 
       expect(user.secret_key).to be_nil
-      expect(user.otp_guesses).to be_nil
+      expect(user.otp_guesses).to eq 0
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe User, type: :model do
       user.after_successful_otp_authentication
 
       expect(user.secret_key).to be_nil
-      expect(user.otp_guesses).to be_nil
+      expect(user.otp_guesses).to eq 0
     end
   end
 

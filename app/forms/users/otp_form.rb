@@ -17,6 +17,8 @@ class Users::OtpForm
   validate :must_be_expected_otp
 
   def must_be_expected_otp
+    return unless user.secret_key
+
     expected_otp = Devise::Otp.derive_otp(user.secret_key)
 
     if otp != expected_otp
