@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule: # 01:00 UTC
     - cron: "0 1 * * *"
+
 jobs:
   backup:
     name: Backup Azure Database ( Production )
@@ -32,8 +33,8 @@ jobs:
       - name: Set postgres environment variables
         shell: bash
         run: |
-          echo "POSTGRES_SERVER_NAME=${{ env.RESOURCE_PREFIX }}rsm-${{ env.ENV }}-psql" >> $GITHUB_ENV
-          echo "POSTGRES_SERVER_HOST_NAME=${{ env.RESOURCE_PREFIX }}rsm-${{ env.ENV }}-psql.postgres.database.azure.com" >> $GITHUB_ENV
+          echo "POSTGRES_SERVER_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql" >> $GITHUB_ENV
+          echo "POSTGRES_SERVER_HOST_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql.postgres.database.azure.com" >> $GITHUB_ENV
           echo "POSTGRES_DATABASE_NAME=refer_serious_misconduct_production" >> $GITHUB_ENV
 
       - name: Get BACKUP_STORAGE_CONNECTION_STRING
