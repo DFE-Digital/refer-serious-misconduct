@@ -9,7 +9,7 @@ RSpec.describe Users::OtpForm do
         user =
           create(
             :user,
-            last_otp_created_at: Users::OtpForm::EXPIRY_IN_MINUTES.ago,
+            last_otp_created_at: Users::OtpForm::EXPIRY_IN_MINUTES.ago
           )
         form = described_class.new(id: user.id)
 
