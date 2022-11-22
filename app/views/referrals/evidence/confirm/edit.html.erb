@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @evidence_confirm_form.errors.any?}Check and confirm your answers" %>
-<% content_for :back_link_url, referrals_edit_evidence_categories_path(current_referral, current_referral.evidences.last) %>
+<% content_for :back_link_url, back_link %>
 
 <% 
   if current_referral.evidences.any?
