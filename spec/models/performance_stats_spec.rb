@@ -7,19 +7,23 @@ RSpec.describe PerformanceStats, type: :model do
     let(:performance_stats) { described_class.new }
 
     before do
+      travel_to Time.zone.local(2022, 11, 22, 12, 0, 0)
       create(:eligibility_check, :complete)
       create(:eligibility_check, :not_unsupervised)
       create(:eligibility_check)
+      travel_to Time.zone.local(2022, 11, 29, 12, 0, 0)
     end
+
+    after { travel_back }
 
     it "returns the request counts for the last 8 days" do
       expect(request_counts_by_day.size).to eq(8)
     end
 
     it "returns the correct number of requests for today" do
-      expect(request_counts_by_day.first).to eq(
+      expect(request_counts_by_day.last).to eq(
         [
-          Time.current.to_fs(:weekday_day_and_month),
+          7.days.ago.to_fs(:weekday_day_and_month),
           {
             complete_count: 1,
             screened_out_count: 1,
@@ -66,6 +70,7 @@ RSpec.describe PerformanceStats, type: :model do
         create(:eligibility_check, :complete)
         create(:eligibility_check, :not_unsupervised)
         create(:eligibility_check)
+        create(:eligibility_check, is_teacher: "yes")
       end
 
       it "returns the totals for the period" do
@@ -73,8 +78,8 @@ RSpec.describe PerformanceStats, type: :model do
           {
             complete_count: 1,
             screened_out_count: 1,
-            incomplete_count: 1,
-            total: 3
+            incomplete_count: 2,
+            total: 4
           }
         )
       end
