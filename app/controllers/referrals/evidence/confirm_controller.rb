@@ -35,18 +35,6 @@ module Referrals
       end
       helper_method :evidence
 
-      def back_link
-        if current_referral.evidences.any?
-          referrals_edit_evidence_categories_path(
-            current_referral,
-            current_referral.evidences.last
-          )
-        else
-          referrals_edit_evidence_start_path(current_referral)
-        end
-      end
-      helper_method :back_link
-
       private
 
       def confirm_params
