@@ -17,7 +17,6 @@ module Referrals
         return false if invalid?
 
         referral.update(evidence_details_complete:)
-        true
       end
     end
   end

@@ -58,7 +58,6 @@ module Referrals
         return false if invalid?
 
         evidence.update(categories:, categories_other:)
-        true
       end
 
       def self.selected_categories(evidence)
