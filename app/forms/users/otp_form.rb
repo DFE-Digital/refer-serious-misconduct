@@ -12,7 +12,7 @@ class Users::OtpForm
             length: {
               minimum: 6,
               maximum: 6,
-              allow_blank: true,
+              allow_blank: true
             }
   validate :must_be_expected_otp
 
