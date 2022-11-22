@@ -15,7 +15,7 @@ output "blue_green" {
 }
 
 output "web_app_name" {
-  value = local.rsm_app_name
+  value = local.rsm_web_app_name
 }
 
 output "web_app_slot_name" {

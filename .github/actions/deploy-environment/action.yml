@@ -124,6 +124,7 @@ runs:
       env:
         ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
         TF_VAR_azure_sp_credentials_json: ${{ inputs.azure_credentials }}
+        TF_VAR_rsm_docker_image: ${{ inputs.image_name_tag }}
       shell: bash
 
     - uses: azure/webapps-deploy@v2
