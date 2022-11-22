@@ -238,6 +238,12 @@ Rails.application.routes.draw do
     put "/:referral_id/evidence/confirm",
         to: "evidence/confirm#update",
         as: "update_evidence_confirm"
+    get "/:referral_id/evidence/:evidence_id/delete",
+        to: "evidence/confirm#delete",
+        as: "delete_evidence"
+    delete "/:referral_id/evidence/:evidence_id",
+           to: "evidence/confirm#destroy",
+           as: "destroy_evidence"
   end
 
   get "/performance", to: "performance#index"
