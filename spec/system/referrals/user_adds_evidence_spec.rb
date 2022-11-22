@@ -36,6 +36,12 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_choose_categories_for_the_second_item
 
+    when_i_click_back
+    then_i_am_asked_to_choose_categories_for_the_first_item
+
+    when_i_click_save_and_continue
+    then_i_am_asked_to_choose_categories_for_the_second_item
+
     when_i_choose_categories_for_the_second_item
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_evidence_details
@@ -164,6 +170,10 @@ RSpec.feature "Evidence", type: :system do
     expect(page).to have_content(
       "Select all the categories that describe this file"
     )
+  end
+
+  def when_i_click_back
+    click_on "Back"
   end
 
   def when_i_choose_categories_for_the_second_item

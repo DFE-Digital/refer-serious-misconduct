@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @evidence_categories_form.errors.any?}#{evidence.filename}" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, evidence_categories_back_link(@evidence_categories_form) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

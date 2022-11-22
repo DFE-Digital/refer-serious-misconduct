@@ -67,4 +67,28 @@ RSpec.describe Referrals::Evidence::CategoriesForm, type: :model do
       end
     end
   end
+
+  describe "previous_evidence" do
+    let(:evidence) { build(:referral_evidence, referral:) }
+    let(:evidences) { [evidence] }
+    let(:referral) { create(:referral) }
+    let(:categories_form) { described_class.new(referral:, evidence:) }
+
+    before { referral.evidences = evidences }
+
+    context "with no previous evidence" do
+      it "returns nil" do
+        expect(categories_form.previous_evidence).to be_nil
+      end
+    end
+
+    context "with previous evidence" do
+      let(:previous_evidence) { build(:referral_evidence, referral:) }
+      let(:evidences) { [previous_evidence, evidence] }
+
+      it "returns previous evidence" do
+        expect(categories_form.previous_evidence).to eq(previous_evidence)
+      end
+    end
+  end
 end

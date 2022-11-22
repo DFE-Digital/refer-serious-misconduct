@@ -47,11 +47,20 @@ module Referrals
         @evidences ||= referral.evidences
       end
 
-      def next_evidence
+      def adjacent_evidence(next_item: true)
         index = evidences.index(evidence)
         return if index.nil?
 
-        evidences[index + 1]
+        modifier = next_item ? :+ : :-
+        index = index.send(modifier, 1)
+        return if index.negative?
+
+        evidences[index]
+      end
+      alias_method :next_evidence, :adjacent_evidence
+
+      def previous_evidence
+        adjacent_evidence(next_item: false)
       end
 
       def save
