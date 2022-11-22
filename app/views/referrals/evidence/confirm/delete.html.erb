@@ -1,0 +1,20 @@
+<% content_for :page_title, "Are you sure you want to delete #{evidence.document.filename}" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Are you sure you want to delete <%= evidence.document.filename %>?
+    </h1>
+
+    <%= govuk_button_to(
+      "Yes I’m sure – delete it",
+      referrals_destroy_evidence_path(current_referral, evidence),
+      method: :delete,
+      class: "govuk-button--warning"
+    ) %>
+    <p>
+      <%= govuk_link_to "Cancel", referrals_edit_evidence_confirm_path(current_referral) %>
+    </p>
+  </div>
+</div>

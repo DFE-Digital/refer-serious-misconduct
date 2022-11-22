@@ -43,6 +43,12 @@ RSpec.feature "Evidence", type: :system do
     when_i_click_save_and_continue
     then_i_see_confirm_form_validation_errors
 
+    when_i_click_delete_on_the_first_evidence_item
+    then_i_am_asked_to_confirm_deletion
+
+    when_i_confirm_i_want_to_delete
+    then_i_can_no_longer_see_the_upload_in_the_referral_summary
+
     when_i_choose_to_confirm
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
@@ -120,8 +126,8 @@ RSpec.feature "Evidence", type: :system do
     attach_file(
       "Upload files",
       [
-        Rails.root.join("test/fixtures/files/doc1.pdf"),
-        Rails.root.join("test/fixtures/files/doc2.pdf")
+        Rails.root.join("test/fixtures/files/doc2.pdf"),
+        Rails.root.join("test/fixtures/files/doc1.pdf")
       ]
     )
   end
@@ -197,6 +203,28 @@ RSpec.feature "Evidence", type: :system do
 
   def then_i_see_confirm_form_validation_errors
     expect(page).to have_content("Tell us if you have completed this section")
+  end
+
+  def when_i_click_delete_on_the_first_evidence_item
+    within(all(".govuk-summary-list__row")[0]) { click_on "Delete" }
+  end
+
+  def then_i_am_asked_to_confirm_deletion
+    expect(page).to have_content("Are you sure you want to delete doc1.pdf?")
+  end
+
+  def when_i_confirm_i_want_to_delete
+    click_on "Yes I’m sure – delete it"
+  end
+
+  def then_i_can_no_longer_see_the_upload_in_the_referral_summary
+    within(all(".govuk-summary-list__row")[0]) do
+      expect(find(".govuk-summary-list__key").text).not_to eq("doc1.pdf")
+      expect(find(".govuk-summary-list__key").text).to eq("doc2.pdf")
+      expect(find(".govuk-summary-list__value").text).to eq(
+        "Police investigation and reports, Other: Some other details"
+      )
+    end
   end
 
   def when_i_choose_to_confirm

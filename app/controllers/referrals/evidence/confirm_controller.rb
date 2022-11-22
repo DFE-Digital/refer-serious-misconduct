@@ -16,9 +16,31 @@ module Referrals
         end
       end
 
+      def delete
+      end
+
+      def destroy
+        filename = evidence.filename
+        evidence.document.purge
+        evidence.destroy
+
+        redirect_to(
+          referrals_edit_evidence_confirm_path(current_referral),
+          notice: "#{filename} deleted"
+        )
+      end
+
+      def evidence
+        @evidence ||= current_referral.evidences.find(params[:evidence_id])
+      end
+      helper_method :evidence
+
       def back_link
         if current_referral.evidences.any?
-          referrals_edit_evidence_categories_path(current_referral, current_referral.evidences.last)
+          referrals_edit_evidence_categories_path(
+            current_referral,
+            current_referral.evidences.last
+          )
         else
           referrals_edit_evidence_start_path(current_referral)
         end
