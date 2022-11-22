@@ -3,7 +3,7 @@ variable "environment_name" {
 }
 
 variable "resource_prefix" {
-  type    = string
+  type = string
 }
 
 variable "app_suffix" {
@@ -41,8 +41,8 @@ variable "key_vault_name" {
 
 variable "key_vault_resource_group" {
   description = "Only required for review apps which use the dev KeyVault"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "resource_group_name" {
@@ -51,8 +51,8 @@ variable "resource_group_name" {
 
 variable "resource_group_tags" {
   description = "Only required for review apps which are deployed into their own, tempoarary, resource group"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "redis_service_sku" {
@@ -141,12 +141,18 @@ variable "region_name" {
 
 variable "create_env_resource_group" {
   default = false
-  type = bool
+  type    = bool
+}
+
+variable "rsm_docker_image" {
+  type = string
 }
 
 locals {
   hosting_environment          = var.environment_name
-  rsm_app_name                = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-app"
+  rsm_web_app_name             = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-app"
+  rsm_worker_app_name          = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-wkr-aci"
+  rsm_worker_group_name        = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-wkr-cg"
   postgres_server_name         = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-psql"
   postgres_database_name       = "refer_serious_misconduct_production"
   redis_database_name          = "${var.resource_prefix}-${var.environment_name}${var.app_suffix}-redis"

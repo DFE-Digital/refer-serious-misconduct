@@ -5,7 +5,7 @@ locals {
       ApplicationInsights__ConnectionString = azurerm_application_insights.insights.connection_string
       DATABASE_URL                          = "postgres://postgres@${local.postgres_server_name}.postgres.database.azure.com:5432"
       DATABASE_PASSWORD                     = local.infrastructure_secrets.POSTGRES_ADMIN_PASSWORD
-      HOSTING_DOMAIN                        = var.domain != null ? "https://${var.domain}" : "https://${local.rsm_app_name}.azurewebsites.net"
+      HOSTING_DOMAIN                        = var.domain != null ? "https://${var.domain}" : "https://${local.rsm_web_app_name}.azurewebsites.net"
       HOSTING_ENVIRONMENT_NAME              = local.hosting_environment
       RAILS_SERVE_STATIC_FILES              = "true"
       ConnectionStrings__Redis              = azurerm_redis_cache.redis.primary_connection_string
@@ -68,6 +68,9 @@ resource "azurerm_redis_cache" "redis" {
   enable_non_ssl_port = false
   minimum_tls_version = "1.2"
   redis_version       = var.redis_service_version
+  redis_configuration {
+    maxmemory_policy    = "noeviction"
+  }
 
   lifecycle {
     ignore_changes = [
@@ -120,7 +123,7 @@ resource "azurerm_service_plan" "service-plan" {
 }
 
 resource "azurerm_linux_web_app" "rsm-app" {
-  name                = local.rsm_app_name
+  name                = local.rsm_web_app_name
   location            = data.azurerm_resource_group.group.location
   resource_group_name = data.azurerm_resource_group.group.name
   service_plan_id     = azurerm_service_plan.service-plan.id
@@ -139,7 +142,7 @@ resource "azurerm_linux_web_app" "rsm-app" {
       action   = "Allow"
       priority = 1
       headers = [{
-        x_azure_fdid      = try([local.infrastructure_secrets.FRONTDOOR_ID],[])
+        x_azure_fdid      = try([local.infrastructure_secrets.FRONTDOOR_ID], [])
         x_fd_health_probe = []
         x_forwarded_for   = []
         x_forwarded_host  = []
@@ -169,6 +172,32 @@ resource "azurerm_linux_web_app_slot" "rsm-stage" {
     health_check_path   = "/health"
   }
   app_settings = local.rsm_env_vars
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
+}
+
+resource "azurerm_container_group" "rsm-worker" {
+  name                = local.rsm_worker_group_name
+  location            = data.azurerm_resource_group.group.location
+  resource_group_name = data.azurerm_resource_group.group.name
+  os_type             = "Linux"
+  ip_address_type     = "None"
+
+  container {
+    name  = local.rsm_worker_app_name
+    image = var.rsm_docker_image
+
+    cpu    = "1"
+    memory = "1.5"
+
+    environment_variables = local.rsm_env_vars
+
+    commands = ["bundle", "exec", "sidekiq", "-C", "./config/sidekiq.yml"]
+  }
+
   lifecycle {
     ignore_changes = [
       tags
