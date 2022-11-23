@@ -43,7 +43,6 @@ module Referrals
         end
 
         referral.update(attrs)
-        true
       end
     end
   end

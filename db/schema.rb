@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_134453) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_122258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_134453) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", 
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness",
 unique: true
   end
 
@@ -188,7 +188,8 @@ unique: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "secret_key"
-    t.integer "otp_guesses"
+    t.integer "otp_guesses", default: 0
+    t.datetime "otp_created_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

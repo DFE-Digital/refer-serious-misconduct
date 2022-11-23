@@ -17,6 +17,11 @@ class User < ApplicationRecord
   end
 
   def clear_otp_state
-    update(secret_key: nil, otp_guesses: nil)
+    update(secret_key: nil, otp_guesses: 0)
+  end
+
+  def create_otp
+    secret_key = Devise::Otp.generate_key
+    update(secret_key:, otp_created_at: Time.zone.now)
   end
 end

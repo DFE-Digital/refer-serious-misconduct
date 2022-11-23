@@ -143,6 +143,6 @@ RSpec.feature "User accounts" do
   def and_my_otp_state_is_reset
     user = User.last
     expect(user.secret_key).to be_nil
-    expect(user.otp_guesses).to be_nil
+    expect(user.otp_guesses).to eq 0
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe User, type: :model do
       user.after_failed_otp_authentication
 
       expect(user.secret_key).to be_nil
-      expect(user.otp_guesses).to be_nil
+      expect(user.otp_guesses).to eq 0
     end
   end
 
@@ -31,7 +31,19 @@ RSpec.describe User, type: :model do
       user.after_successful_otp_authentication
 
       expect(user.secret_key).to be_nil
-      expect(user.otp_guesses).to be_nil
+      expect(user.otp_guesses).to eq 0
+    end
+  end
+
+  describe "#create_otp" do
+    it "sets a key and timestamp" do
+      user = create(:user, secret_key: nil, otp_created_at: nil)
+      allow(Devise::Otp).to receive(:generate_key).and_return("123456")
+
+      user.create_otp
+
+      expect(user.secret_key).to eq "123456"
+      expect(user.otp_created_at).to_not be_blank
     end
   end
 end

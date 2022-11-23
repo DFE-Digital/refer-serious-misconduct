@@ -10,7 +10,7 @@ class Users::OtpController < DeviseController
 
     # TODO: Remove this block once emailed OTPs are implemented
     # For now this makes manual testing in test environments simpler
-    if HostingEnvironment.test_environment?
+    if HostingEnvironment.test_environment? && @otp_form.user.secret_key
       otp_generator = ROTP::HOTP.new(@otp_form.user.secret_key)
       @derived_otp = otp_generator.at(0)
     end
@@ -19,7 +19,13 @@ class Users::OtpController < DeviseController
   def create
     @otp_form = Users::OtpForm.new(user_params)
 
-    if @otp_form.valid?
+    if @otp_form.otp_expired?
+      @otp_form.user.after_failed_otp_authentication
+      flash[
+        :warning
+      ] = "Your security code has expired, please try signing in again"
+      redirect_to new_user_session_path
+    elsif @otp_form.valid?
       self.resource = warden.authenticate!(auth_options)
       set_flash_message!(:success, :signed_in)
       sign_in(resource_name, resource)
