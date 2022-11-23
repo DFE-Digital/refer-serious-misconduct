@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_134453) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_122258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -179,7 +179,7 @@ unique: true
     t.datetime "updated_at", null: false
     t.string "secret_key"
     t.integer "otp_guesses", default: 0
-    t.datetime "last_otp_created_at", precision: nil
+    t.datetime "otp_created_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
