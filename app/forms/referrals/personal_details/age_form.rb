@@ -36,7 +36,6 @@ module Referrals
         end
 
         referral.update(age_known:, date_of_birth:)
-        true
       end
     end
   end
