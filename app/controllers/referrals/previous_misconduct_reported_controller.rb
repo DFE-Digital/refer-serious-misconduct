@@ -13,7 +13,13 @@ module Referrals
           )
         )
       if @previous_misconduct_reported_form.save
-        redirect_to referral_previous_misconduct_path(current_referral)
+        if current_referral.previous_misconduct_reported?
+          redirect_to edit_referral_previous_misconduct_detailed_account_path(
+                        current_referral
+                      )
+        else
+          redirect_to referral_previous_misconduct_path(current_referral)
+        end
       else
         render :edit
       end

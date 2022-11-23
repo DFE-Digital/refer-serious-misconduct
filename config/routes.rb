@@ -83,6 +83,10 @@ Rails.application.routes.draw do
              only: %i[show update],
              controller: "referrals/previous_misconduct"
 
+    resource :previous_misconduct_detailed_account,
+             only: %i[edit update],
+             controller: "referrals/previous_misconduct_detailed_account"
+
     resource :previous_misconduct_reported,
              only: %i[edit update],
              controller: "referrals/previous_misconduct_reported"
