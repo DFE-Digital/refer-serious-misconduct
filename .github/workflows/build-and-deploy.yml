@@ -39,9 +39,6 @@ jobs:
     needs: [build_image]
     environment:
       name: review
-      url: ${{ steps.deploy.outputs.environment_url }}
-    outputs:
-      environment_url: ${{ steps.deploy.outputs.environment_url }}
 
     steps:
       - uses: actions/checkout@v3
@@ -54,6 +51,12 @@ jobs:
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           site_up_retries: 150
+
+      - name: Post URL to Pull Request comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            Review app deployed to <${{ steps.deploy.outputs.environment_url }}>
 
       - uses: ./.github/actions/smoke-test
         id: smoke-test
@@ -75,8 +78,6 @@ jobs:
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
-    outputs:
-      environment_url: ${{ steps.deploy.outputs.environment_url }}
 
     steps:
       - uses: actions/checkout@v3
