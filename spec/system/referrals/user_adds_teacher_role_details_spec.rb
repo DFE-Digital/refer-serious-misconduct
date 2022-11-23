@@ -68,6 +68,18 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_fill_in_the_job_title_field
     when_i_click_save_and_continue
+    then_i_see_the_same_organisation_page
+
+    when_i_click_save_and_continue
+    then_i_see_same_organisation_field_validation_errors
+
+    when_i_choose_no
+    when_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_same_organisation_page
+    and_i_choose_yes
+    when_i_click_save_and_continue
     then_i_see_the_referral_summary
   end
 
@@ -97,6 +109,10 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_visit_the_job_title_page
     visit referrals_edit_teacher_job_title_path(@referral)
+  end
+
+  def when_i_visit_the_same_organisation_page
+    visit referrals_edit_teacher_same_organisation_path(@referral)
   end
 
   def when_i_edit_teacher_role_details
@@ -132,6 +148,16 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("What’s their job title?")
   end
 
+  def then_i_see_the_same_organisation_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/same-organisation"
+    )
+    expect(page).to have_title("Do they work in the same organisation as you?")
+    expect(page).to have_content(
+      "Do they work in the same organisation as you?"
+    )
+  end
+
   def and_i_click_save_and_continue
     click_on "Save and continue"
   end
@@ -152,6 +178,7 @@ RSpec.feature "Teacher role", type: :system do
   def when_i_choose_yes
     choose "Yes", visible: false
   end
+  alias_method :and_i_choose_yes, :when_i_choose_yes
 
   def when_i_choose_no
     choose "No", visible: false
@@ -195,6 +222,12 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_job_title_field_validation_errors
     expect(page).to have_content("Enter their job title")
+  end
+
+  def then_i_see_same_organisation_field_validation_errors
+    expect(page).to have_content(
+      "Tell us if they work in the same organisation as you"
+    )
   end
 
   def when_i_fill_in_the_job_title_field
