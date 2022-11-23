@@ -210,6 +210,12 @@ en:
           attributes:
             complete:
               inclusion: Tell us if you have completed this section
+        previous_misconduct_detailed_account_form:
+          attributes:
+            details:
+              blank: Let us know the details of previous allegations
+            format:
+              inclusion: Choose how you want to give us details of previous allegations
         previous_misconduct_reported_form:
           attributes:
             previous_misconduct_reported:

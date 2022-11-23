@@ -126,6 +126,8 @@ unique: true
     t.string "reason_leaving_role"
     t.string "job_title"
     t.boolean "same_organisation"
+    t.text "previous_misconduct_details"
+    t.datetime "previous_misconduct_details_incomplete_at", precision: nil
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 

@@ -1,0 +1,39 @@
+<% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Give a detailed account of previous allegations</h1>
+    <p class="govuk-body">This includes previous:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>misconduct</li>
+      <li>disciplinary actions</li>
+      <li>complaints</li>
+      <li>referrals to TRA, National College for Teaching and Leadership, Teaching Agency or the General Teaching Council for England</li>
+    </ul>
+    <p class="govuk-body">Tell us:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>locations and dates</li>
+      <li>what happened</li>
+      <li>what action was taken</li>
+      <li>reference numbers from previous referrals</li>
+    </ul>
+    <%= form_with model: @detailed_account_form, url: referral_previous_misconduct_detailed_account_url(current_referral), method: :patch do |f| %>
+      <%= f.govuk_error_summary %>
+      <div class="govuk-form-group">
+        <%= f.govuk_radio_buttons_fieldset(:format, legend: { size: "m", text: "How do you want to tell us about previous allegations?" }) do %>
+          <%= f.govuk_radio_button :format, "upload", label: { text: "I’ll upload the previous allegation details" } do %>
+            <%= f.govuk_file_field :upload, label: { text: "Upload details of previous allegations", size: "s" } %>
+          <% end %>
+          <%= f.govuk_radio_button :format, "details", label: { text: "I’ll give details of the previous allegations" } do %>
+            <%= f.govuk_text_area :details,
+                                  label: { text: "Details of previous allegations", size: "m" },
+                                  rows: 20 %>
+          <% end %>
+          <%= f.govuk_radio_button :format, "incomplete", label: { text: "I’ll do this later" } %>
+        <% end %>
+      </div>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
