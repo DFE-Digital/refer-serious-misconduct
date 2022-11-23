@@ -52,8 +52,6 @@ RSpec.feature "User accounts" do
 
   def then_i_am_sent_back_to_the_email_screen_with_an_error
     expect(page).to have_content "Enter your email address"
-    expect(
-      page
-    ).to have_content "Your security code has expired, please try signing in again"
+    expect(page).to have_content("Security code has expired. Try again.")
   end
 end

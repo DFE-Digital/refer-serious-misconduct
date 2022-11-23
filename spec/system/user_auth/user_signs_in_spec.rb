@@ -80,9 +80,11 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_an_error_about_otp_length
-    expect(
-      page
-    ).to have_content "You’ve not entered enough numbers, the code must be 6 numbers"
+    expect(page).to have_content(
+      I18n.t(
+        "activemodel.errors.models.users/otp_form.attributes.otp.too_short"
+      )
+    )
   end
 
   def then_i_see_an_error_about_a_wrong_code
