@@ -154,6 +154,10 @@ en:
           attributes:
             job_title:
               blank: Enter their job title
+        "referrals/teacher_role/same_organisation_form":
+          attributes:
+            same_organisation:
+              inclusion: Tell us if they work in the same organisation as you
         referrer_job_title_form:
           attributes:
             job_title:

@@ -1,0 +1,18 @@
+<% content_for :page_title, "#{'Error: ' if @same_organisation_form.errors.any?}Do they work in the same organisation as you?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @same_organisation_form, url: referrals_update_teacher_same_organisation_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_radio_buttons_fieldset :same_organisation,
+        legend: { size: "l", text: "Do they work in the same organisation as you?" } do %>
+        <%= f.hidden_field :same_organisation %>
+        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes, in the same organisation as me" } %>
+        <%= f.govuk_radio_button :same_organisation, false, label: { text: "No, in a different organisation" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
