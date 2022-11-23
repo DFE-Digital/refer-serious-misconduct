@@ -21,9 +21,7 @@ class Users::OtpController < DeviseController
 
     if @otp_form.otp_expired?
       @otp_form.user.after_failed_otp_authentication
-      flash[
-        :warning
-      ] = "Your security code has expired, please try signing in again"
+      flash[:warning] = "Security code has expired. Try again."
       redirect_to new_user_session_path
     elsif @otp_form.valid?
       self.resource = warden.authenticate!(auth_options)
@@ -34,7 +32,7 @@ class Users::OtpController < DeviseController
       resource.after_successful_otp_authentication
     elsif @otp_form.maximum_guesses?
       @otp_form.user.after_failed_otp_authentication
-      flash[:warning] = "Please try signing in again"
+      flash[:warning] = "Too many incorrect login attempts. Try again."
       redirect_to new_user_session_path
     else
       render :new
