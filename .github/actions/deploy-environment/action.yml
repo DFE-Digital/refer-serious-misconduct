@@ -15,6 +15,8 @@ inputs:
   site_up_retries:
     description: The number of times that the site up test will be retried
     default: 60
+  startup_command:
+    required: false
 
 outputs:
   environment_url:
@@ -128,10 +130,19 @@ runs:
       shell: bash
 
     - uses: azure/webapps-deploy@v2
+      if: ${{ inputs.environment_name }} != "review"
       with:
         app-name: ${{ env.resource_prefix }}-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
         images: ${{ inputs.image_name_tag }}
         slot-name: ${{ env.web_app_slot_name }}
+
+    - uses: azure/webapps-deploy@v2
+      if: ${{ inputs.environment_name }} == "review"
+      with:
+        app-name: ${{ env.resource_prefix }}-${{ inputs.environment_name}}${{ env.review_app_suffix }}-app
+        images: ${{ inputs.image_name_tag }}
+        slot-name: ${{ env.web_app_slot_name }}
+        startup-command: ${{ inputs.startup_command }}
 
     - uses: azure/CLI@v1
       if: ${{ env.web_app_slot_name != 'production' }}
