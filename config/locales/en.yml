@@ -75,9 +75,9 @@ en:
         "users/otp_form":
           attributes:
             otp:
-              too_short: "You’ve not entered enough numbers, the code must be 6 numbers"
-              too_long: "You’ve entered too many numbers, the code must be 6 numbers"
-              blank: "Please enter a security code"
+              too_short: "Security code must have 6 numbers"
+              too_long: "Security code must have 6 numbers"
+              blank: "Enter a security code in the correct format"
         "referrals/personal_details/age_form":
           attributes:
             date_of_birth:
