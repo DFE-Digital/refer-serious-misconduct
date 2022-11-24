@@ -128,6 +128,8 @@ unique: true
     t.boolean "same_organisation"
     t.text "previous_misconduct_details"
     t.datetime "previous_misconduct_details_incomplete_at", precision: nil
+    t.string "duties_format"
+    t.string "duties_details"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
