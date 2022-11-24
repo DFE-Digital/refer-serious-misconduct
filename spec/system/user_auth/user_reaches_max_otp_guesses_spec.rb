@@ -10,7 +10,9 @@ RSpec.feature "User accounts" do
 
     when_i_start_the_signin_flow
     and_max_out_my_otp_guesses
-    then_i_am_sent_back_to_the_email_screen_with_an_error
+    then_i_see_an_error_screen
+    and_can_return_to_the_email_screen
+    and_my_otp_state_is_reset
   end
 
   def given_the_service_is_open
@@ -43,14 +45,21 @@ RSpec.feature "User accounts" do
     end
   end
 
-  def then_i_am_sent_back_to_the_email_screen_with_an_error
+  def then_i_see_an_error_screen
+    expect(page).to have_content "There was a problem signing in"
+    expect(
+      page
+    ).to have_content "You've had too many incorrect login attempts. Try signing in again."
+  end
+
+  def and_can_return_to_the_email_screen
+    click_link "Continue"
     expect(page).to have_content "Enter your email address"
-    expect(page).to have_content "Too many incorrect login attempts. Try again."
   end
 
   def and_my_otp_state_is_reset
     user = User.last
     expect(user.secret_key).to be_nil
-    expect(user.otp_guesses).to be_nil
+    expect(user.otp_guesses).to eq 0
   end
 end

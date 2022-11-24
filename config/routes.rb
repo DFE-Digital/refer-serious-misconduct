@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     post "/users/session", to: "users/sessions#create", as: "user_session"
     get "/users/otp/new", to: "users/otp#new", as: "new_user_otp"
     post "/users/otp", to: "users/otp#create", as: "user_otp"
+    get "/users/otp/retry/:error",
+        to: "users/otp#retry",
+        as: "retry_user_sign_in",
+        constraints: {
+          error: /(expired)|(exhausted)/
+        }
 
     get "/users/sign_out", to: "users/sessions#destroy"
   end
