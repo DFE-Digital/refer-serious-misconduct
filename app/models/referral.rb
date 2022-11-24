@@ -2,10 +2,12 @@ class Referral < ApplicationRecord
   has_one :organisation, dependent: :destroy
   has_one :referrer, dependent: :destroy
   has_one_attached :allegation_upload, dependent: :destroy
+  has_one_attached :previous_misconduct_upload, dependent: :destroy
   has_many :evidences,
            -> { order(:filename) },
            class_name: "ReferralEvidence",
            dependent: :destroy
+
   belongs_to :user
 
   def organisation_status

@@ -24,7 +24,8 @@ module Referrals
     def previous_misconduct_detailed_account_form_params
       params.require(:previous_misconduct_detailed_account_form).permit(
         :details,
-        :format
+        :format,
+        :upload
       )
     end
   end
