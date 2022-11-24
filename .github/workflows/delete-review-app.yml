@@ -120,6 +120,7 @@ jobs:
         env:
           ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
           TF_VAR_azure_sp_credentials_json: ${{ secrets.AZURE_CREDENTIALS }}
+          TF_VAR_rsm_docker_image: ${{ github.sha }}
         shell: bash
 
       - name: Delete tf state file
