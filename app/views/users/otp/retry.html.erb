@@ -1,0 +1,18 @@
+<h1 class="govuk-heading-l">There was a problem signing in</h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <% case @error %>
+    <% when 'expired' %>
+      <p>
+        Your security code has expired. Try signing in again.
+      </p>
+    <% when 'exhausted' %>
+      <p>
+        You've had too many incorrect login attempts. Try signing in again.
+      </p>
+    <% end %>
+
+    <%= govuk_button_link_to('Continue', new_user_session_path, method: :get) %>
+  </div>
+</div>

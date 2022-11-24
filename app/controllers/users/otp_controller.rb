@@ -20,9 +20,7 @@ class Users::OtpController < DeviseController
     @otp_form = Users::OtpForm.new(user_params)
 
     if @otp_form.otp_expired?
-      @otp_form.user.after_failed_otp_authentication
-      flash[:warning] = "Security code has expired. Try again."
-      redirect_to new_user_session_path
+      fail_and_retry(reason: :expired)
     elsif @otp_form.valid?
       self.resource = warden.authenticate!(auth_options)
       set_flash_message!(:success, :signed_in)
@@ -31,15 +29,22 @@ class Users::OtpController < DeviseController
       redirect_to after_sign_in_path_for(resource)
       resource.after_successful_otp_authentication
     elsif @otp_form.maximum_guesses?
-      @otp_form.user.after_failed_otp_authentication
-      flash[:warning] = "Too many incorrect login attempts. Try again."
-      redirect_to new_user_session_path
+      fail_and_retry(reason: :exhausted)
     else
       render :new
     end
   end
 
+  def retry
+    @error = params[:error]
+  end
+
   protected
+
+  def fail_and_retry(reason:)
+    @otp_form.user.after_failed_otp_authentication
+    redirect_to retry_user_sign_in_path(error: reason)
+  end
 
   def auth_options
     mapping = Devise.mappings[resource_name]
