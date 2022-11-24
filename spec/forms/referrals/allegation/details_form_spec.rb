@@ -40,7 +40,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
     context "with upload format and file" do
       let(:allegation_format) { "upload" }
-      let(:allegation_upload) { Rack::Test::UploadedFile.new(Tempfile.new) }
+      let(:allegation_upload) { fixture_file_upload("upload.pdf") }
 
       it "returns true" do
         expect(save).to be true
@@ -50,6 +50,19 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
         save
         expect(referral.allegation_upload).to be_attached
         expect(referral.allegation_details).to be nil
+      end
+    end
+
+    context "with upload format and invalid file" do
+      let(:allegation_format) { "upload" }
+      let(:allegation_upload) { fixture_file_upload("upload.pl") }
+
+      it "returns false" do
+        expect(save).to be false
+
+        expect(form.errors[:allegation_upload]).to eq(
+          ["Please upload a valid file type (.doc, .docx, .pdf, .txt)"]
+        )
       end
     end
 

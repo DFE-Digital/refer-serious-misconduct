@@ -45,5 +45,22 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
         )
       end
     end
+
+    context "with an invalid file" do
+      let(:evidence_uploads) do
+        [
+          "",
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pl")
+        ]
+      end
+
+      it "adds an error" do
+        save
+        expect(upload_form.errors[:evidence_uploads]).to eq(
+          ["Please upload files of valid type (.doc, .docx, .pdf, .txt)"]
+        )
+      end
+    end
   end
 end
