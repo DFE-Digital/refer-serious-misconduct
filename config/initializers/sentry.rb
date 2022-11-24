@@ -5,7 +5,7 @@ require "active_support/parameter_filter"
 Sentry.init do |config|
   config.breadcrumbs_logger = %i[active_support_logger http_logger]
 
-  config.environment = HostingEnvironment.name
+  config.environment = HostingEnvironment.environment_name
 
   filter =
     ActiveSupport::ParameterFilter.new(
