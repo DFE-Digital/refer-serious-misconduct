@@ -26,7 +26,7 @@
         { text: "Change", href: edit_referral_previous_misconduct_detailed_account_path(current_referral), visually_hidden_text: "details" },
       ],
       key: { text: "Detailed report" },
-      value: { text: simple_format(current_referral.previous_misconduct_details) },
+      value: { text: current_referral.previous_misconduct_upload.attached? ? current_referral.previous_misconduct_upload.filename : simple_format(current_referral.previous_misconduct_details) },
     } if current_referral.previous_misconduct_reported? %>
 
     <%= render(SummaryCardComponent.new(rows:)) do %>

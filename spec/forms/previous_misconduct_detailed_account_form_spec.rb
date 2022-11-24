@@ -64,6 +64,19 @@ RSpec.describe PreviousMisconductDetailedAccountForm, type: :model do
 
       it { is_expected.to eq("incomplete") }
     end
+
+    context "when format is not provided and the referral has an upload" do
+      let(:format) { nil }
+      let(:referral) do
+        build(:referral).tap do |r|
+          r.previous_misconduct_upload.attach io: Tempfile.new("test"),
+                                              filename: "test",
+                                              content_type: "text/plain"
+        end
+      end
+
+      it { is_expected.to eq("upload") }
+    end
   end
 
   describe "#save" do
