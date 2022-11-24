@@ -10,12 +10,12 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_referral_summary
 
     when_i_edit_teacher_role_details
-    then_i_am_asked_their_role_start_date
+    then_i_see_the_job_start_date_page
     and_i_click_back
     then_i_see_the_referral_summary
 
     when_i_edit_teacher_role_details
-    then_i_am_asked_their_role_start_date
+    then_i_see_the_job_start_date_page
     and_i_click_save_and_continue
     then_i_see_role_start_date_known_field_validation_errors
 
@@ -75,11 +75,41 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_choose_no
     when_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_duties_page
 
     when_i_visit_the_same_organisation_page
     and_i_choose_yes
     when_i_click_save_and_continue
+    then_i_see_the_duties_page
+
+    when_i_click_save_and_continue
+    then_i_see_duties_format_field_validation_errors
+
+    when_i_choose_upload
+    and_i_click_save_and_continue
+    then_i_see_duties_upload_field_validation_errors
+
+    when_i_choose_details
+    and_i_click_save_and_continue
+    then_i_see_duties_details_field_validation_errors
+
+    and_i_choose_upload
+    and_i_attach_a_job_description_file
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_duties_page
+    and_i_see_the_uploaded_filename
+    and_i_choose_upload
+    and_i_attach_a_second_job_description_file
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    when_i_visit_the_duties_page
+    and_i_see_the_second_uploaded_filename
+    and_i_choose_details
+    when_i_fill_in_the_duties_field
+    and_i_click_save_and_continue
     then_i_see_the_referral_summary
   end
 
@@ -98,6 +128,8 @@ RSpec.feature "Teacher role", type: :system do
     FeatureFlags::FeatureFlag.activate(:employer_form)
   end
 
+  # Visit URLs
+
   def and_i_visit_a_referral
     @referral = create(:referral, user: @user)
     visit edit_referral_path(@referral)
@@ -115,14 +147,11 @@ RSpec.feature "Teacher role", type: :system do
     visit referrals_edit_teacher_same_organisation_path(@referral)
   end
 
-  def when_i_edit_teacher_role_details
-    within(all(".app-task-list__section")[1]) { click_on "About their role" }
+  def when_i_visit_the_duties_page
+    visit referrals_edit_teacher_duties_path(@referral)
   end
 
-  def when_i_click_back
-    click_on "Back"
-  end
-  alias_method :and_i_click_back, :when_i_click_back
+  # Page URL/Title
 
   def then_i_see_the_referral_summary
     expect(page).to have_current_path("/referrals/#{@referral.id}/edit")
@@ -158,22 +187,43 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
+  def then_i_see_the_duties_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/duties"
+    )
+    expect(page).to have_title(
+      "How do you want to tell us about their main duties?"
+    )
+    expect(page).to have_content(
+      "How do you want to tell us about their main duties?"
+    )
+  end
+
+  def then_i_see_the_job_start_date_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/start-date"
+    )
+    expect(page).to have_title("Do you know when they started their job?")
+    expect(page).to have_content("Do you know when they started their job?")
+  end
+
+  # Clicks
+
+  def when_i_edit_teacher_role_details
+    within(all(".app-task-list__section")[1]) { click_on "About their role" }
+  end
+
   def and_i_click_save_and_continue
     click_on "Save and continue"
   end
   alias_method :when_i_click_save_and_continue, :and_i_click_save_and_continue
 
-  def then_i_am_asked_their_role_start_date
-    expect(page).to have_content("Do you know when they started their job?")
+  def when_i_click_back
+    click_on "Back"
   end
+  alias_method :and_i_click_back, :when_i_click_back
 
-  def then_i_see_role_start_date_known_field_validation_errors
-    expect(page).to have_content("Tell us if you know their role start date")
-  end
-
-  def then_i_see_role_start_date_field_validation_errors
-    expect(page).to have_content("Enter their role start date")
-  end
+  # Radios
 
   def when_i_choose_yes
     choose "Yes", visible: false
@@ -196,6 +246,18 @@ RSpec.feature "Teacher role", type: :system do
     choose "Resigned", visible: false
   end
 
+  def when_i_choose_upload
+    choose "I’ll upload a job description", visible: false
+  end
+  alias_method :and_i_choose_upload, :when_i_choose_upload
+
+  def when_i_choose_details
+    choose "I’ll describe their main duties", visible: false
+  end
+  alias_method :and_i_choose_details, :when_i_choose_details
+
+  # Text inputs
+
   def when_i_fill_out_the_role_start_date_fields
     fill_in "Day", with: "17"
     fill_in "Month", with: "1"
@@ -203,6 +265,32 @@ RSpec.feature "Teacher role", type: :system do
   end
   alias_method :when_i_fill_out_the_role_end_date_fields,
                :when_i_fill_out_the_role_start_date_fields
+
+  def when_i_fill_in_the_job_title_field
+    fill_in "What’s their job title?", with: "Teacher"
+  end
+
+  def when_i_fill_in_the_duties_field
+    fill_in "Describe their main duties", with: "Main duties"
+  end
+
+  # File uploads
+
+  def and_i_attach_a_job_description_file
+    attach_file(
+      "Upload job description",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/file.pdf"))
+    )
+  end
+
+  def and_i_attach_a_second_job_description_file
+    attach_file(
+      "Upload job description",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/file2.pdf"))
+    )
+  end
+
+  # Validation errors
 
   def then_i_see_employment_status_field_validation_errors
     expect(page).to have_content(
@@ -212,6 +300,14 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_reason_leaving_role_field_validation_errors
     expect(page).to have_content("Tell us how they left this job")
+  end
+
+  def then_i_see_role_start_date_known_field_validation_errors
+    expect(page).to have_content("Tell us if you know their role start date")
+  end
+
+  def then_i_see_role_start_date_field_validation_errors
+    expect(page).to have_content("Enter their role start date")
   end
 
   def then_i_see_role_end_date_field_validation_errors
@@ -230,7 +326,29 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
-  def when_i_fill_in_the_job_title_field
-    fill_in "What’s their job title?", with: "Teacher"
+  def then_i_see_duties_format_field_validation_errors
+    expect(page).to have_content(
+      "Choose how you want to tell us about their main duties"
+    )
+  end
+
+  def then_i_see_duties_upload_field_validation_errors
+    expect(page).to have_content(
+      "Select a file containing their job description"
+    )
+  end
+
+  def then_i_see_duties_details_field_validation_errors
+    expect(page).to have_content("Enter details of their main duties")
+  end
+
+  # Page content
+
+  def and_i_see_the_uploaded_filename
+    expect(page).to have_content("Uploaded file: file.pdf")
+  end
+
+  def and_i_see_the_second_uploaded_filename
+    expect(page).to have_content("Uploaded file: file2.pdf")
   end
 end

@@ -201,7 +201,6 @@ Rails.application.routes.draw do
     put "/:referral_id/teacher-role/start-date",
         to: "teacher_role/start_date#update",
         as: "update_teacher_role_start_date"
-
     get "/:referral_id/teacher-role/employment-status",
         to: "teacher_role/employment_status#edit",
         as: "edit_teacher_employment_status"
@@ -220,6 +219,12 @@ Rails.application.routes.draw do
     put "/:referral_id/teacher-role/same-organisation",
         to: "teacher_role/same_organisation#update",
         as: "update_teacher_same_organisation"
+    get "/:referral_id/teacher-role/duties",
+        to: "teacher_role/duties#edit",
+        as: "edit_teacher_duties"
+    put "/:referral_id/teacher-role/duties",
+        to: "teacher_role/duties#update",
+        as: "update_teacher_duties"
 
     get "/:referral_id/evidence/start",
         to: "evidence/start#edit",

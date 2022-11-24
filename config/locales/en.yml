@@ -181,6 +181,18 @@ en:
           attributes:
             same_organisation:
               inclusion: Tell us if they work in the same organisation as you
+        "referrals/teacher_role/duties_form":
+          attributes:
+            duties_format:
+              inclusion: Choose how you want to tell us about their main duties
+            duties_details:
+              blank: Enter details of their main duties
+            duties_upload:
+              blank: Select a file containing their job description
+              invalid_content_type: Please upload files of valid type (%{valid_types})
+              mismatch_content_type: File type does not match file contents
+              file_size_too_big: Maximum file size is 25MB
+
         referrer_job_title_form:
           attributes:
             job_title:

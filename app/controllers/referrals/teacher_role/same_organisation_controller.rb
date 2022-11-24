@@ -16,7 +16,7 @@ module Referrals
           )
 
         if @same_organisation_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to referrals_edit_teacher_duties_path(current_referral)
         else
           render :edit
         end
