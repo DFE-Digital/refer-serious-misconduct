@@ -20,8 +20,12 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
     subject(:save) { form.save }
 
     context "with no allegation format" do
-      it "returns false and adds an error" do
+      it "returns false" do
         expect(save).to be false
+      end
+
+      it "adds an error" do
+        save
         expect(form.errors[:allegation_format]).to eq(
           ["Choose how you want to tell us about your allegation"]
         )
@@ -30,8 +34,12 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
     context "with upload format but no file" do
       let(:allegation_format) { "upload" }
-      it "returns false and adds an error" do
+      it "returns false" do
         expect(save).to be false
+      end
+
+      it "adds an error" do
+        save
         expect(form.errors[:allegation_upload]).to eq(
           ["Select a file containing details of your allegation"]
         )
@@ -40,7 +48,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
     context "with upload format and file" do
       let(:allegation_format) { "upload" }
-      let(:allegation_upload) { Rack::Test::UploadedFile.new(Tempfile.new) }
+      let(:allegation_upload) { fixture_file_upload("upload.pdf") }
 
       it "returns true" do
         expect(save).to be true
@@ -53,10 +61,31 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
       end
     end
 
+    context "with upload format and invalid file" do
+      let(:allegation_format) { "upload" }
+      let(:allegation_upload) { fixture_file_upload("upload.pl") }
+
+      it "returns false" do
+        expect(save).to be false
+      end
+
+      it "adds an error" do
+        save
+        expect(form.errors[:allegation_upload]).to eq(
+          ["Please upload a valid file type (.doc, .docx, .pdf, .txt)"]
+        )
+      end
+    end
+
     context "with details format and no details" do
       let(:allegation_format) { "details" }
-      it "returns false and adds an error" do
+
+      it "returns false" do
         expect(save).to be false
+      end
+
+      it "adds an error" do
+        save
         expect(form.errors[:allegation_details]).to eq(
           ["Enter details of the allegation"]
         )
