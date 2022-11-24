@@ -5,6 +5,7 @@ module Referrals
       include ActiveModel::Model
 
       validate :evidence_selected
+      validates :evidence_uploads, file_upload: true
 
       attr_accessor :referral, :evidence_uploads
       attr_reader :evidences
