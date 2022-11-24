@@ -232,6 +232,9 @@ en:
               blank: Enter details of the allegation
             allegation_upload:
               blank: Select a file containing details of your allegation
+              invalid_content_type: Please upload a valid file type (%{valid_types})
+              mismatch_content_type: File type does not match file contents
+              file_size_too_big: Maximum file size is 25MB
         "referrals/allegation/dbs_form":
           attributes:
             dbs_notified:
@@ -249,6 +252,9 @@ en:
           attributes:
             evidence_uploads:
               blank: Select evidence to upload
+              invalid_content_type: Please upload files of valid type (%{valid_types})
+              mismatch_content_type: File type does not match file contents
+              file_size_too_big: Maximum file size is 25MB
         "referrals/evidence/categories_form":
           attributes:
             categories:
