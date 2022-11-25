@@ -46,7 +46,7 @@ RSpec.describe Organisation, type: :model do
     context "when completed_at is not nil" do
       let(:organisation) { build(:organisation, completed_at: Time.current) }
 
-      it { is_expected.to eq(:complete) }
+      it { is_expected.to eq(:completed) }
     end
 
     context "when completed_at is nil" do

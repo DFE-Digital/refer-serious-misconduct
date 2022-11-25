@@ -7,13 +7,13 @@ RSpec.describe ReferralForm do
         OpenStruct.new(
           items: [
             OpenStruct.new(status: :incomplete),
-            OpenStruct.new(status: :complete)
+            OpenStruct.new(status: :completed)
           ]
         ),
         OpenStruct.new(
           items: [
-            OpenStruct.new(status: :complete),
-            OpenStruct.new(status: :complete)
+            OpenStruct.new(status: :completed),
+            OpenStruct.new(status: :completed)
           ]
         )
       ]
@@ -32,14 +32,14 @@ RSpec.describe ReferralForm do
         [
           OpenStruct.new(
             items: [
-              OpenStruct.new(status: :complete),
-              OpenStruct.new(status: :complete)
+              OpenStruct.new(status: :completed),
+              OpenStruct.new(status: :completed)
             ]
           ),
           OpenStruct.new(
             items: [
-              OpenStruct.new(status: :complete),
-              OpenStruct.new(status: :complete)
+              OpenStruct.new(status: :completed),
+              OpenStruct.new(status: :completed)
             ]
           )
         ]

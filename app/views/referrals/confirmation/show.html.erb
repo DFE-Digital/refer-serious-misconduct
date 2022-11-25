@@ -1,0 +1,44 @@
+<% content_for :page_title, 'We have received your referral' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <%= govuk_panel(
+      title_text: 'We have received your referral',
+      classes: %w[govuk-!-margin-bottom-6]
+    ) %>
+    <p class="govuk_body">
+      We’ve sent you a confirmation by email. Your confirmation includes a link to view your referral.
+    </p>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+    <p class="govuk_body">
+      We’ll review your referral within 3 working days.
+    </p>
+    <p class="govuk_body">
+      It can take up to 20 weeks from the date of your referral for us to investigate and make a decision whether there is a case to answer.
+    </p>
+
+    <p class="govuk_body">
+      If we’ve not made a decision whether to investigate your referral within 14 days of receiving it, we’ll send you an email to let you know.
+    </p>
+    <p class="govuk_body">We could tell you that we:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>need more information to decide whether to investigate the case</li>
+      <li>will not investigate the case because it’s outside their remit</li>
+      <li>will not investigate the case because it does not have the potential to result in a prohibition order</li>
+      <li>will launch a formal investigation</li>
+    </ul>
+
+    <h2 class="govuk-heading-m">Contacting TRA about this referral</h2>
+    <p class="govuk_body">If you need more information about making a referral, you can contact TRA.</p>
+    <p class="govuk_body">
+      Email: <%= mail_to t('service.email') %><br />
+      We aim to respond within 3 working days.
+    </p>
+    <p class="govuk_body">
+      Phone: <%= t('service.phone') %><br />
+      Monday to Friday, 9am to 5pm (except Mondays and Fridays)
+    </p>
+    <p class="govuk_body"><a href="https://www.gov.uk/call-charges">Find out about call charges.</a></p>
+  </div>
+</div>
