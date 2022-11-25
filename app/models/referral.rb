@@ -23,7 +23,7 @@ class Referral < ApplicationRecord
   end
 
   def previous_misconduct_status
-    return :complete if previous_misconduct_completed_at.present?
+    return :completed if previous_misconduct_completed_at.present?
     return :incomplete if previous_misconduct_deferred_at.present?
 
     :not_started_yet

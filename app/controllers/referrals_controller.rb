@@ -7,7 +7,7 @@ class ReferralsController < Referrals::BaseController
 
   def create
     referral = current_user.referrals.create
-    redirect_to referral_path(referral)
+    redirect_to edit_referral_path(referral)
   end
 
   def show
@@ -22,7 +22,7 @@ class ReferralsController < Referrals::BaseController
     @referral_form = ReferralForm.new(referral:)
 
     if @referral_form.save
-      # TODO: TBC
+      redirect_to referral_confirmation_path(referral)
     else
       render :edit
     end
@@ -44,12 +44,13 @@ class ReferralsController < Referrals::BaseController
   def redirect_to_referral_if_exists
     latest_referral = current_user.latest_referral
 
-    redirect_to referral_path(latest_referral) if latest_referral
+    redirect_to edit_referral_path(latest_referral) if latest_referral
   end
 
   def referral
     @referral ||= current_user.referrals.find(params[:id])
   end
+  helper_method :referral
 
   def check_employer_form_feature_flag_enabled
     unless FeatureFlags::FeatureFlag.active?(:employer_form)

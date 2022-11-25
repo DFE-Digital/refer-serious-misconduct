@@ -47,7 +47,7 @@ RSpec.describe Referral, type: :model do
         build(:referral, previous_misconduct_completed_at: Time.current)
       end
 
-      it { is_expected.to eq(:complete) }
+      it { is_expected.to eq(:completed) }
     end
 
     context "when previous_misconduct_deferred_at is present" do
@@ -67,7 +67,7 @@ RSpec.describe Referral, type: :model do
         )
       end
 
-      it { is_expected.to eq(:complete) }
+      it { is_expected.to eq(:completed) }
     end
   end
 

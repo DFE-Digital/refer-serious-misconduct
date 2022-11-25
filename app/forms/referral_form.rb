@@ -25,7 +25,7 @@ class ReferralForm
   private
 
   def sections_valid
-    unless sections.map(&:items).flatten.map(&:status).uniq == [:complete]
+    unless sections.map(&:items).flatten.map(&:status).uniq == [:completed]
       errors.add(:base, "Please complete all sections of the referral")
     end
   end
@@ -67,7 +67,7 @@ class ReferralForm
         ReferralSectionItem.new(
           I18n.t("referral_form.about_their_role"),
           referrals_edit_teacher_role_start_date_path(referral),
-          :not_started_yet
+          :completed
         )
       ]
     )

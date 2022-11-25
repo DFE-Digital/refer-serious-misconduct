@@ -6,7 +6,7 @@ class Referrer < ApplicationRecord
   end
 
   def status
-    return :complete if completed?
+    return :completed if completed?
 
     :incomplete
   end

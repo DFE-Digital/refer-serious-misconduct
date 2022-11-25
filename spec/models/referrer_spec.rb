@@ -13,7 +13,7 @@ RSpec.describe Referrer, type: :model do
     context "when completed_at is present" do
       let(:referrer) { build(:referrer, completed_at: Time.current) }
 
-      it { is_expected.to eq(:complete) }
+      it { is_expected.to eq(:completed) }
     end
   end
 
