@@ -21,6 +21,7 @@ module Referrals
                   in: %w[resigned dismissed retired unknown]
                 },
                 if: -> { left_role? }
+      validates :date_params, presence: true, if: :left_role?
 
       def save
         return false if invalid?

@@ -12,9 +12,9 @@ RSpec.describe Referrals::ContactDetails::CheckAnswersForm, type: :model do
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when contact_details_complete is blank" do
       let(:contact_details_complete) { "" }

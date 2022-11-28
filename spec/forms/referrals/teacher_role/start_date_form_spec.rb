@@ -2,19 +2,20 @@
 require "rails_helper"
 
 RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
-  let(:date_params) { {} }
-  let(:referral) { build(:referral) }
-  let(:role_start_date_known) { true }
   subject(:form) do
     described_class.new(date_params:, referral:, role_start_date_known:)
   end
 
+  let(:date_params) { nil }
+  let(:referral) { build(:referral) }
+  let(:role_start_date_known) { true }
+
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when role_start_date_known is blank" do
       let(:role_start_date_known) { "" }

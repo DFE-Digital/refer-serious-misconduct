@@ -2,6 +2,7 @@ inherit_gem:
   rubocop-govuk:
     - config/default.yml
     - config/rails.yml
+    - config/rspec.yml
 
 inherit_from:
   - node_modules/@prettier/plugin-ruby/rubocop.yml
@@ -16,6 +17,14 @@ Rails/ApplicationController:
 
 Rails/SaveBang:
   Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  Exclude:
+    - spec/system/**/*
+
+RSpec/InstanceVariable:
+  Exclude:
+    - spec/system/**/*
 
 Style/NumericLiterals:
   Exclude:

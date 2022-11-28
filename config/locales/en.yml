@@ -108,7 +108,7 @@ en:
             name_has_changed:
               inclusion: Tell us if you know their name has changed
             previous_name:
-              blank: Previous name can't be blank
+              blank: Tell us their previous name
         "referrals/personal_details/trn_form":
           attributes:
             trn_known:

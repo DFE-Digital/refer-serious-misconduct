@@ -12,9 +12,9 @@ RSpec.describe Referrals::TeacherRole::CheckAnswersForm, type: :model do
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when teacher_role_complete is blank" do
       let(:teacher_role_complete) { "" }

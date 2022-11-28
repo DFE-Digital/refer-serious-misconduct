@@ -73,7 +73,7 @@ RSpec.feature "Staff invitations", type: :system do
 
   def then_i_see_an_invitation_email
     message = ActionMailer::Base.deliveries.last
-    expect(message).to_not be_nil
+    expect(message).not_to be_nil
     expect(message.subject).to eq("Invitation instructions")
     expect(message.to).to include("test@example.com")
   end

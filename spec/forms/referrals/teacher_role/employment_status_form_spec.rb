@@ -2,34 +2,28 @@
 require "rails_helper"
 
 RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
-  let(:date_params) { {} }
-  let(:employment_status) { "employed" }
-  let(:reason_leaving_role) { nil }
+  let(:form) { described_class.new(params) }
   let(:referral) { build(:referral) }
-  let(:role_end_date) { nil }
-  let(:form) do
-    described_class.new(
-      date_params:,
-      referral:,
-      employment_status:,
-      reason_leaving_role:,
-      role_end_date:
-    )
+  let(:params) { {} }
+
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:referral) }
+
+    specify do
+      expect(form).to validate_inclusion_of(:employment_status).in_array(
+        %w[employed suspended left_role]
+      )
+    end
   end
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
-    before { valid }
-
     context "when employment_status is blank" do
-      let(:employment_status) { "" }
-
-      it { is_expected.to be_falsy }
+      let(:params) { { employment_status: "" } }
 
       it "adds an error" do
+        valid
         expect(form.errors[:employment_status]).to eq(
           ["Tell us if you know if they are still employed in that job"]
         )
@@ -38,32 +32,37 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
   end
 
   describe "#save" do
-    context "when employment_status is left_role" do
-      subject(:save) { form.save }
+    subject(:save) { form.save }
 
-      let(:employment_status) { "left_role" }
-      let(:reason_leaving_role) { "resigned" }
+    context "when employment_status is left_role" do
+      let(:params) do
+        {
+          date_params:,
+          employment_status: "left_role",
+          reason_leaving_role: "resigned",
+          referral:
+        }
+      end
       let(:optional) { true }
 
       it_behaves_like "form with a date validator", "role_end_date"
+    end
 
-      context "without a reason_leaving_role" do
-        let(:reason_leaving_role) { nil }
+    context "without a reason_leaving_role" do
+      let(:params) { { employment_status: "left_role", referral: } }
 
-        before { save }
+      it { is_expected.to be_falsy }
 
-        it { is_expected.to be_falsy }
-
-        it "adds an error" do
-          expect(form.errors[:reason_leaving_role]).to eq(
-            ["Tell us how they left this job"]
-          )
-        end
+      it "adds an error" do
+        save
+        expect(form.errors[:reason_leaving_role]).to eq(
+          ["Tell us how they left this job"]
+        )
       end
     end
 
     context "when employment_status is suspended" do
-      let(:employment_status) { "suspended" }
+      let(:params) { { employment_status: "suspended", referral: } }
 
       it "updates the employment_status to suspended" do
         expect { form.save }.to change(referral, :employment_status).from(

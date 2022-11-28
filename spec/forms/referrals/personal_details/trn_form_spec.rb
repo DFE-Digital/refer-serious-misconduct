@@ -11,9 +11,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
     let(:trn_known) { "true" }
     let(:trn) { "RP99/12345" }
 
-    it "passes validation" do
-      is_expected.to be_truthy
-    end
+    it { is_expected.to be_truthy }
 
     it "updates the trn attribute on the referral" do
       expect { save }.to change(referral, :trn).from(nil).to("9912345")
@@ -23,9 +21,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
       let(:trn) { nil }
       let(:trn_known) { nil }
 
-      it "fails validation" do
-        is_expected.to be_falsy
-      end
+      it { is_expected.to be_falsey }
 
       it "adds an error" do
         save
@@ -37,16 +33,15 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
     context "when TRN is not known" do
       let(:trn_known) { "false" }
-      it "passes validation" do
-        is_expected.to be_truthy
-      end
+
+      it { is_expected.to be_truthy }
     end
 
     context "when TRN is known but empty input submitted" do
       let(:trn) { "" }
-      it "fails validation" do
-        is_expected.to be_falsy
-      end
+
+      it { is_expected.to be_falsey }
+
       it "adds an error" do
         save
         expect(trn_form.errors[:trn]).to include("Enter their TRN number")
@@ -55,9 +50,9 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
     context "when a value too short for a TRN is submitted" do
       let(:trn) { "RP99/123" }
-      it "fails validation" do
-        is_expected.to be_falsy
-      end
+
+      it { is_expected.to be_falsey }
+
       it "adds an error" do
         save
         expect(trn_form.errors[:trn]).to eq(
@@ -68,9 +63,9 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
     context "when a value too long for a TRN is submitted" do
       let(:trn) { "RP99/123456" }
-      it "fails validation" do
-        is_expected.to be_falsy
-      end
+
+      it { is_expected.to be_falsey }
+
       it "adds an error" do
         save
         expect(trn_form.errors[:trn]).to eq(
@@ -81,9 +76,9 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
     context "when a TRN includes non numeric characters" do
       let(:trn) { "RP/99-123-67" }
-      it "passes validation" do
-        is_expected.to be_truthy
-      end
+
+      it { is_expected.to be_truthy }
+
       it "strips all non numeric characters from the TRN" do
         expect { save }.to change(referral, :trn).from(nil).to("9912367")
       end

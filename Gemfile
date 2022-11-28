@@ -34,7 +34,6 @@ group :development, :test do
   gem "pry"
   gem "pry-nav"
   gem "rspec-rails"
-  gem "timecop"
 end
 
 group :development do
@@ -51,9 +50,6 @@ end
 group :test do
   gem "capybara"
   gem "cuprite"
-end
-
-group :test do
   gem "rspec"
   gem "shoulda-matchers"
 end

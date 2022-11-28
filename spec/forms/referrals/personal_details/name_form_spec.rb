@@ -1,56 +1,70 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::NameForm do
-  describe "#save (names)" do
-    let(:referral) { build(:referral) }
-    let(:first_name) { "Jane" }
-    let(:last_name) { "Smith" }
-    let(:name_has_changed) { "yes" }
-    let(:previous_name) { "Janet Jones" }
+  describe "#save" do
+    subject(:save) { form.save }
 
-    subject(:form) do
-      described_class.new(
-        referral:,
-        first_name:,
-        last_name:,
-        name_has_changed:,
-        previous_name:
-      )
-    end
+    let(:form) { described_class.new(params) }
+    let(:params) { { referral: } }
+    let(:referral) { build(:referral) }
+
+    before { save }
 
     context "with valid values" do
-      it "updates the names on the referral record" do
-        form.save
+      let(:params) do
+        {
+          first_name: "Jane",
+          last_name: "Smith",
+          name_has_changed: "yes",
+          previous_name: "Janet Jones",
+          referral:
+        }
+      end
 
+      it "saves the first_name" do
         expect(referral.first_name).to eq("Jane")
+      end
+
+      it "saves the last_name" do
         expect(referral.last_name).to eq("Smith")
+      end
+
+      it "saves the name_has_changed" do
         expect(referral.name_has_changed).to eq("yes")
+      end
+
+      it "saves the previous_name" do
         expect(referral.previous_name).to eq("Janet Jones")
       end
     end
 
-    context "with invalid values" do
-      let(:first_name) { "" }
-      let(:last_name) { "" }
-      let(:name_has_changed) { "" }
-      let(:previous_name) { "" }
-
-      it "fails form validation" do
-        form.save
-
+    context "when first name is blank" do
+      it "raises an error on first name" do
         expect(form.errors[:first_name]).to include "First name can't be blank"
+      end
+    end
+
+    context "when last name is blank" do
+      it "raises an error on last name" do
         expect(form.errors[:last_name]).to include "Last name can't be blank"
+      end
+    end
+
+    context "when name_has_changed is blank" do
+      it "raises an error on name has changed" do
         expect(form.errors[:name_has_changed]).to include(
           "Tell us if you know their name has changed"
         )
       end
+    end
 
-      it "validates previous name conditionally" do
-        form.name_has_changed = "yes"
-        form.save
-        expect(
-          form.errors[:previous_name]
-        ).to include "Previous name can't be blank"
+    context "when name has changed is yes" do
+      let(:params) { { name_has_changed: "yes", referral: } }
+
+      it "raises an error on previous name" do
+        expect(form.errors[:previous_name]).to include(
+          "Tell us their previous name"
+        )
       end
     end
   end

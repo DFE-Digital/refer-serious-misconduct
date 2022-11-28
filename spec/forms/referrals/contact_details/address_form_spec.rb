@@ -2,38 +2,43 @@ require "rails_helper"
 
 RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
   let(:referral) { create(:referral) }
-  let(:form) do
-    described_class.new(
-      referral:,
-      address_known:,
-      address_line_1:,
-      address_line_2:,
-      town_or_city:,
-      postcode:,
-      country:
-    )
-  end
+  let(:form) { described_class.new(params) }
 
-  let(:address_known) { true }
-  let(:address_line_1) { "1428 Elm Street" }
-  let(:address_line_2) { "Sunset Boulevard" }
-  let(:town_or_city) { "London" }
-  let(:postcode) { "NW1 4NP" }
-  let(:country) { "United Kingdom" }
+  let(:params) do
+    {
+      address_known: true,
+      address_line_1: "1428 Elm Street",
+      address_line_2: "Sunset Boulevard",
+      country: "United Kingdom",
+      postcode: "NW1 4NP",
+      referral:,
+      town_or_city: "London"
+    }
+  end
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
+
+    context "when address is known" do
+      subject { form }
+
+      let(:params) { { address_known: true } }
+
+      it { is_expected.to validate_presence_of(:address_line_1) }
+      it { is_expected.to validate_presence_of(:town_or_city) }
+      it { is_expected.to validate_presence_of(:postcode) }
+    end
   end
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
 
+    it { is_expected.to be_truthy }
+
     context "when address_known is blank" do
-      let(:address_known) { "" }
+      let(:params) { super().merge(address_known: "") }
 
       it { is_expected.to be_falsy }
 
@@ -45,7 +50,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     end
 
     context "when address_line_1 is blank" do
-      let(:address_line_1) { "" }
+      let(:params) { super().merge(address_line_1: "") }
 
       it { is_expected.to be_falsy }
 
@@ -57,7 +62,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     end
 
     context "when town_or_city is blank" do
-      let(:town_or_city) { "" }
+      let(:params) { super().merge(town_or_city: "") }
 
       it { is_expected.to be_falsy }
 
@@ -67,7 +72,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     end
 
     context "when postcode is blank" do
-      let(:postcode) { "" }
+      let(:params) { super().merge(postcode: "") }
 
       it { is_expected.to be_falsy }
 
@@ -77,7 +82,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     end
 
     context "when postcode is invalid" do
-      let(:postcode) { "Postcode" }
+      let(:params) { super().merge(postcode: "Invalid") }
 
       it { is_expected.to be_falsy }
 
@@ -115,7 +120,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     end
 
     context "when the address is not known" do
-      let(:address_known) { false }
+      let(:params) { super().merge(address_known: false) }
 
       it "sets the address_known to false" do
         expect(referral.address_known).to be_falsy

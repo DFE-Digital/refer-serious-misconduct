@@ -13,9 +13,9 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when email_known is blank" do
       let(:email_known) { "" }

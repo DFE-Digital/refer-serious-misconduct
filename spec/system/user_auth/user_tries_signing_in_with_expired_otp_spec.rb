@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.feature "User accounts" do
-  around { |example| Timecop.freeze { example.run } }
+  around { |example| freeze_time { example.run } }
 
   scenario "User signs in" do
     given_the_service_is_open
@@ -42,7 +42,7 @@ RSpec.feature "User accounts" do
   end
 
   def and_my_otp_has_expired
-    Timecop.travel(Users::OtpForm::EXPIRY_IN_MINUTES.from_now)
+    travel_to(Users::OtpForm::EXPIRY_IN_MINUTES.from_now)
   end
 
   def when_i_try_to_sign_in

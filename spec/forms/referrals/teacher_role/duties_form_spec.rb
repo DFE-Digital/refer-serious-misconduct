@@ -5,6 +5,8 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
   let(:referral) { build(:referral) }
 
   describe "#save" do
+    subject(:save) { form.save }
+
     let(:duties_format) { nil }
     let(:duties_details) { nil }
     let(:duties_upload) { nil }
@@ -16,8 +18,6 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
         duties_upload:
       )
     end
-
-    subject(:save) { form.save }
 
     context "with no duties format" do
       it { is_expected.to be_falsey }
@@ -105,7 +105,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
       end
     end
 
-    context "not yet complete" do
+    context "when format is incomplete" do
       let(:duties_details) { "Something something" }
       let(:duties_upload) { fixture_file_upload("upload.pdf") }
       let(:duties_format) { "incomplete" }

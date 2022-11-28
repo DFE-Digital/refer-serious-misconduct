@@ -2,16 +2,17 @@
 require "rails_helper"
 
 RSpec.describe Referrals::TeacherRole::SameOrganisationForm, type: :model do
+  subject(:form) { described_class.new(referral:, same_organisation:) }
+
   let(:referral) { build(:referral) }
   let(:same_organisation) { true }
-  subject(:form) { described_class.new(referral:, same_organisation:) }
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when same_organisation is blank" do
       let(:same_organisation) { "" }

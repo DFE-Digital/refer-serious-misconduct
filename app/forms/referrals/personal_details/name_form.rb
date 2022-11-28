@@ -16,14 +16,14 @@ module Referrals
                 if: -> { name_has_changed == "yes" }
 
       def save
-        if valid?
-          referral.update(
-            first_name:,
-            last_name:,
-            name_has_changed:,
-            previous_name:
-          )
-        end
+        return false if invalid?
+
+        referral.update(
+          first_name:,
+          last_name:,
+          name_has_changed:,
+          previous_name:
+        )
       end
     end
   end
