@@ -276,16 +276,14 @@ Rails.application.routes.draw do
   get "/performance", to: "performance#index"
 
   namespace :support_interface, path: "/support" do
-    mount FeatureFlags::Engine => "/features"
-
     root to: redirect("/support/eligibility-checks")
-
     resources :staff, only: %i[index]
 
     devise_scope :staff do
       authenticate :staff do
         # Mount engines that require staff authentication here
         mount Sidekiq::Web, at: "sidekiq"
+        mount FeatureFlags::Engine => "/features"
       end
     end
 
