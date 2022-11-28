@@ -2,9 +2,12 @@ require "rails_helper"
 
 RSpec.describe SeriousMisconductForm, type: :model do
   describe "validations" do
+    subject(:form) { described_class.new }
+
     it { is_expected.to validate_presence_of(:eligibility_check) }
-    it do
-      is_expected.to validate_inclusion_of(:serious_misconduct).in_array(
+
+    specify do
+      expect(form).to validate_inclusion_of(:serious_misconduct).in_array(
         %w[yes no not_sure]
       )
     end

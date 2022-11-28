@@ -3,11 +3,11 @@ require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
   describe "#save" do
-    let(:referral) { build(:referral) }
-    let(:has_qts) { "yes" }
     subject(:save) { qts_form.save }
 
+    let(:referral) { build(:referral) }
     let(:qts_form) { described_class.new(referral:, has_qts:) }
+    let(:has_qts) { "yes" }
 
     context "with a valid value" do
       it "saves the value on the referral" do
@@ -18,6 +18,7 @@ RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
 
     context "with no values" do
       let(:has_qts) { nil }
+
       it "adds an error" do
         save
         expect(qts_form.errors[:has_qts]).to eq(
@@ -28,6 +29,7 @@ RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
 
     context "with an invalid value" do
       let(:has_qts) { "eh?" }
+
       it "adds an error" do
         save
         expect(qts_form.errors[:has_qts]).to eq(

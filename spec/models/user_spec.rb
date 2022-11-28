@@ -2,48 +2,74 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "#latest_referral" do
-    it "returns the most recently created referral" do
-      user = create(:user)
-      expected_referral =
-        create(:referral, user:, created_at: Time.zone.now + 1.hour)
-      create(:referral, user:, created_at: Time.zone.now)
-      create(:referral, user:, created_at: Time.zone.now - 1.hour)
+    subject { user.latest_referral }
 
-      expect(user.latest_referral).to eq expected_referral
+    let!(:expected_referral) do
+      create(:referral, user:, created_at: 1.hour.from_now)
     end
+    let(:user) { create(:user) }
+
+    before do
+      freeze_time
+      create(:referral, user:, created_at: Time.current)
+      create(:referral, user:, created_at: 1.hour.ago)
+    end
+
+    after { travel_back }
+
+    it { is_expected.to eq(expected_referral) }
   end
 
   describe "#after_failed_otp_authentication" do
-    it "clears OTP-related fields" do
-      user = create(:user, secret_key: "some_key", otp_guesses: 3)
-
+    subject(:after_failed_otp_authentication) do
       user.after_failed_otp_authentication
+    end
 
+    let(:user) { create(:user, secret_key: "some_key", otp_guesses: 3) }
+
+    before { after_failed_otp_authentication }
+
+    it "clears the secret key" do
       expect(user.secret_key).to be_nil
+    end
+
+    it "resets the number of OTP guesses" do
       expect(user.otp_guesses).to eq 0
     end
   end
 
   describe "#after_successful_otp_authentication" do
-    it "clears OTP-related fields" do
-      user = create(:user, secret_key: "some_key", otp_guesses: 3)
-
+    subject(:after_successful_otp_authentication) do
       user.after_successful_otp_authentication
+    end
 
+    let(:user) { create(:user, secret_key: "some_key", otp_guesses: 3) }
+
+    before { after_successful_otp_authentication }
+
+    it "clears the secret key" do
       expect(user.secret_key).to be_nil
+    end
+
+    it "resets the OTP guesses" do
       expect(user.otp_guesses).to eq 0
     end
   end
 
   describe "#create_otp" do
-    it "sets a key and timestamp" do
-      user = create(:user, secret_key: nil, otp_created_at: nil)
+    let(:user) { create(:user, secret_key: nil, otp_created_at: nil) }
+
+    before do
       allow(Devise::Otp).to receive(:generate_key).and_return("123456")
-
       user.create_otp
+    end
 
+    it "sets a key" do
       expect(user.secret_key).to eq "123456"
-      expect(user.otp_created_at).to_not be_blank
+    end
+
+    it "sets the created_at" do
+      expect(user.otp_created_at).not_to be_blank
     end
   end
 end

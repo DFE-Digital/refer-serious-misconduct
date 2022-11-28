@@ -1,35 +1,35 @@
 require "rails_helper"
 
 RSpec.describe Devise::Strategies::OtpAuthenticatable do
-  def build_rack_env(params)
+  let(:env) do
     env = Rack::MockRequest.env_for("/strategy-test", params)
     env["devise.allow_params_authentication"] = true
     env
   end
 
-  let(:valid_params) do
-    { params: { user: { email: "test@example.com", otp: "123456" } } }
-  end
-
   describe "#valid?" do
-    it "is true when given a rack env with the expected data" do
-      env = build_rack_env(valid_params)
-      strategy = described_class.new(env, :user)
-      expect(strategy.valid?).to eq true
+    subject { strategy.valid? }
+
+    let(:strategy) { described_class.new(env, :user) }
+
+    context "with valid params" do
+      let(:params) do
+        { params: { user: { email: "test@example.com", otp: "123456" } } }
+      end
+
+      it { is_expected.to be_truthy }
     end
 
-    it "is false when otp param is missing" do
-      params = { params: { user: { email: "test@example.com" } } }
-      env = build_rack_env(params)
-      strategy = described_class.new(env, :user)
-      expect(strategy.valid?).to eq false
+    context "when the otp param is missing" do
+      let(:params) { { params: { user: { email: "test@example.com" } } } }
+
+      it { is_expected.to be_falsey }
     end
 
-    it "is false when email param is missing" do
-      params = { params: { user: { email: "test@example.com" } } }
-      env = build_rack_env(params)
-      strategy = described_class.new(env, :user)
-      expect(strategy.valid?).to eq false
+    context "when the email param is missing" do
+      let(:params) { { params: { user: { otp: "123456" } } } }
+
+      it { is_expected.to be_falsey }
     end
   end
 end

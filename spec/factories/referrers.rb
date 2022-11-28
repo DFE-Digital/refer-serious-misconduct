@@ -6,5 +6,9 @@ FactoryBot.define do
     trait :incomplete do
       name { nil }
     end
+
+    trait :complete do
+      completed_at { Time.current }
+    end
   end
 end

@@ -2,9 +2,9 @@
 require "rails_helper"
 
 RSpec.describe Referrals::TeacherRole::JobTitleForm, type: :model do
-  let(:referral) { build(:referral) }
-
   subject(:form) { described_class.new(referral:, job_title:) }
+
+  let(:referral) { build(:referral) }
 
   describe "#valid?" do
     subject(:valid) { form.valid? }

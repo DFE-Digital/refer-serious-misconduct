@@ -20,32 +20,48 @@ RSpec.describe PerformanceStats, type: :model do
       expect(request_counts_by_day.size).to eq(8)
     end
 
-    it "returns the correct number of requests for today" do
-      expect(request_counts_by_day.last).to eq(
-        [
-          7.days.ago.to_fs(:weekday_day_and_month),
-          {
-            complete_count: 1,
-            screened_out_count: 1,
-            incomplete_count: 1,
-            total: 3
-          }
-        ]
-      )
+    context "when the day has requests" do
+      subject(:day) { request_counts_by_day.last }
+
+      it "returns the date" do
+        expect(day.first).to eq(7.days.ago.to_fs(:weekday_day_and_month))
+      end
+
+      it "returns the complete count" do
+        expect(day.second[:complete_count]).to eq(1)
+      end
+
+      it "returns the incomplete count" do
+        expect(day.second[:incomplete_count]).to eq(1)
+      end
+
+      it "returns the screened out count" do
+        expect(day.second[:screened_out_count]).to eq(1)
+      end
+
+      it "returns the total" do
+        expect(day.second[:total]).to eq(3)
+      end
     end
 
-    it "returns default values for days without a request" do
-      expect(request_counts_by_day.second).to eq(
-        [
-          1.day.ago.to_fs(:weekday_day_and_month),
-          {
-            complete_count: 0,
-            screened_out_count: 0,
-            incomplete_count: 0,
-            total: 0
-          }
-        ]
-      )
+    context "when the day has no requests" do
+      subject(:day) { request_counts_by_day.second }
+
+      it "returns the default complete value" do
+        expect(day.second[:complete_count]).to eq(0)
+      end
+
+      it "returns the default screened out value" do
+        expect(day.second[:screened_out_count]).to eq(0)
+      end
+
+      it "returns the default incomplete value" do
+        expect(day.second[:incomplete_count]).to eq(0)
+      end
+
+      it "returns the default total value" do
+        expect(day.second[:total]).to eq(0)
+      end
     end
   end
 
@@ -54,15 +70,20 @@ RSpec.describe PerformanceStats, type: :model do
 
     let(:performance_stats) { described_class.new }
 
-    it "returns zero values by default" do
-      expect(total_requests_by_day).to eq(
-        {
-          complete_count: 0,
-          screened_out_count: 0,
-          incomplete_count: 0,
-          total: 0
-        }
-      )
+    it "returns zero complete by default" do
+      expect(total_requests_by_day[:complete_count]).to eq(0)
+    end
+
+    it "returns zero screened out by default" do
+      expect(total_requests_by_day[:screened_out_count]).to eq(0)
+    end
+
+    it "returns zero incomplete by default" do
+      expect(total_requests_by_day[:incomplete_count]).to eq(0)
+    end
+
+    it "returns zero total by default" do
+      expect(total_requests_by_day[:total]).to eq(0)
     end
 
     context "when there have been checks" do
@@ -73,15 +94,20 @@ RSpec.describe PerformanceStats, type: :model do
         create(:eligibility_check, is_teacher: "yes")
       end
 
-      it "returns the totals for the period" do
-        expect(total_requests_by_day).to eq(
-          {
-            complete_count: 1,
-            screened_out_count: 1,
-            incomplete_count: 2,
-            total: 4
-          }
-        )
+      it "returns the complete total for the period" do
+        expect(total_requests_by_day).to include(complete_count: 1)
+      end
+
+      it "returns the screened out total for the period" do
+        expect(total_requests_by_day).to include(screened_out_count: 1)
+      end
+
+      it "returns the incomplete total for the period" do
+        expect(total_requests_by_day).to include(incomplete_count: 2)
+      end
+
+      it "returns the total for the period" do
+        expect(total_requests_by_day).to include(total: 4)
       end
     end
   end
@@ -93,15 +119,20 @@ RSpec.describe PerformanceStats, type: :model do
 
     let(:performance_stats) { described_class.new }
 
-    it "returns zero values by default" do
-      expect(total_requests_by_month).to eq(
-        {
-          complete_count: 0,
-          screened_out_count: 0,
-          incomplete_count: 0,
-          total: 0
-        }
-      )
+    it "returns zero complete for the month" do
+      expect(total_requests_by_month).to include(complete_count: 0)
+    end
+
+    it "returns zero incomplete for the month" do
+      expect(total_requests_by_month).to include(incomplete_count: 0)
+    end
+
+    it "returns zero screened out for the month" do
+      expect(total_requests_by_month).to include(screened_out_count: 0)
+    end
+
+    it "returns zero total for the month" do
+      expect(total_requests_by_month).to include(total: 0)
     end
 
     context "when there have been checks" do
@@ -111,15 +142,20 @@ RSpec.describe PerformanceStats, type: :model do
         create(:eligibility_check)
       end
 
-      it "returns the totals for the period" do
-        expect(total_requests_by_month).to eq(
-          {
-            complete_count: 1,
-            screened_out_count: 1,
-            incomplete_count: 1,
-            total: 3
-          }
-        )
+      it "returns the correct complete total for the period" do
+        expect(total_requests_by_month).to include(complete_count: 1)
+      end
+
+      it "returns the correct screened out total for the period" do
+        expect(total_requests_by_month).to include(screened_out_count: 1)
+      end
+
+      it "returns the correct incomplete total for the period" do
+        expect(total_requests_by_month).to include(incomplete_count: 1)
+      end
+
+      it "returns the correct total for the period" do
+        expect(total_requests_by_month).to include(total: 3)
       end
     end
   end

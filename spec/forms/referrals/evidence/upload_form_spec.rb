@@ -3,7 +3,10 @@ require "rails_helper"
 
 RSpec.describe Referrals::Evidence::UploadForm, type: :model do
   describe "#save" do
+    subject(:save) { upload_form.save }
+
     let(:referral) { create(:referral) }
+    let(:upload_form) { described_class.new(referral:, evidence_uploads:) }
     let(:evidence_uploads) do
       [
         "",
@@ -16,28 +19,31 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       ]
     end
 
-    subject(:save) { upload_form.save }
+    before { save }
 
-    let(:upload_form) { described_class.new(referral:, evidence_uploads:) }
+    it "saves all uploaded files" do
+      expect(referral.reload.evidences.count).to eq(2)
+    end
 
-    context "with a valid value" do
-      it "saves the value on the referral" do
-        expect { save }.to change(referral.reload.evidences, :count).by(2)
+    it "creates a ReferralEvidence" do
+      expect(referral.evidences.first).to be_a(ReferralEvidence)
+    end
 
-        expect(referral.evidences.first).to be_a(ReferralEvidence)
-        expect(referral.evidences.first.document).to be_attached
-        expect(referral.evidences.first.categories).to eq([])
-        expect(referral.evidences.first.filename).to eq("doc1.pdf")
+    it "attaches the evidence" do
+      expect(referral.evidences.first.document).to be_attached
+    end
 
-        expect(referral.evidences.last).to be_a(ReferralEvidence)
-        expect(referral.evidences.last.document).to be_attached
-        expect(referral.evidences.last.categories).to eq([])
-        expect(referral.evidences.last.filename).to eq("doc2.pdf")
-      end
+    it "doesn't set a default category" do
+      expect(referral.evidences.first.categories).to eq([])
+    end
+
+    it "sets the correct filename" do
+      expect(referral.evidences.first.filename).to eq("doc1.pdf")
     end
 
     context "with no values" do
       let(:evidence_uploads) { nil }
+
       it "adds an error" do
         save
         expect(upload_form.errors[:evidence_uploads]).to eq(

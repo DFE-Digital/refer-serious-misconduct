@@ -34,12 +34,15 @@ RSpec.describe StaffHttpBasicAuthStrategy do
   describe "#authenticate!" do
     before { staff_http_basic_auth_strategy.authenticate! }
 
-    it "should halt the strategy" do
-      expect(staff_http_basic_auth_strategy.halted?).to eq(true)
+    it "halts the strategy" do
+      expect(staff_http_basic_auth_strategy).to be_halted
     end
 
-    it "should not be successful" do
-      expect(staff_http_basic_auth_strategy.successful?).to eq(false)
+    it "is not successful" do
+      expect(staff_http_basic_auth_strategy).not_to be_successful
+    end
+
+    it "sets a custom response" do
       expect(staff_http_basic_auth_strategy.custom_response).to eq(
         [
           401,
@@ -52,14 +55,15 @@ RSpec.describe StaffHttpBasicAuthStrategy do
         ]
       )
     end
+    # rubocop:enable RSpec/ExampleLength
 
     context "with valid credentials" do
       let(:env) do
         { "HTTP_AUTHORIZATION" => "Basic #{Base64.encode64("test:test")}" }
       end
 
-      it "should be successful" do
-        expect(staff_http_basic_auth_strategy.successful?).to eq(true)
+      it "is successful" do
+        expect(staff_http_basic_auth_strategy).to be_successful
       end
     end
   end

@@ -387,7 +387,6 @@ GEM
     temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.11)
-    timecop (0.9.6)
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
@@ -454,7 +453,6 @@ DEPENDENCIES
   syntax_tree
   syntax_tree-haml
   syntax_tree-rbs
-  timecop
   tzinfo-data
   uk_postcode
   web-console

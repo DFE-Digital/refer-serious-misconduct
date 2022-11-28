@@ -2,12 +2,16 @@ require "rails_helper"
 
 RSpec.describe PreviousMisconductDetailedAccountForm, type: :model do
   describe "validations" do
+    subject(:form) { described_class.new }
+
     it { is_expected.to validate_presence_of(:referral) }
-    it do
-      is_expected.to validate_inclusion_of(:format).in_array(
+
+    specify do
+      expect(form).to validate_inclusion_of(:format).in_array(
         %w[details incomplete]
       )
     end
+
     it { is_expected.not_to validate_presence_of(:details) }
 
     context "when format is details" do

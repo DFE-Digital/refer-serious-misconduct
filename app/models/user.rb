@@ -3,10 +3,9 @@ class User < ApplicationRecord
   include Devise::Models::OtpAuthenticatable
 
   has_many :referrals
-
-  def latest_referral
-    referrals.order(created_at: :desc).first
-  end
+  has_one :latest_referral,
+          -> { order(created_at: :desc) },
+          class_name: "Referral"
 
   def after_failed_otp_authentication
     clear_otp_state

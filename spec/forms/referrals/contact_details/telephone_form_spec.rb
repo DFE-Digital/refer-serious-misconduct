@@ -13,9 +13,9 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    it { is_expected.to be_truthy }
-
     before { valid }
+
+    it { is_expected.to be_truthy }
 
     context "when phone_known is blank" do
       let(:phone_known) { "" }

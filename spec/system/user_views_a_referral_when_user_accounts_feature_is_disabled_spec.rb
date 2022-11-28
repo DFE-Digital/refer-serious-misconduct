@@ -26,6 +26,6 @@ RSpec.feature "User accounts disabled, user views a referral summary",
   end
 
   def then_i_am_redirected_to_the_start_page
-    expect(current_path).to eq(start_path)
+    expect(page).to have_current_path(start_path, ignore_query: true)
   end
 end

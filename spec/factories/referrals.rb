@@ -9,6 +9,11 @@ FactoryBot.define do
       personal_details_complete { true }
       teacher_role_complete { true }
       previous_misconduct_completed_at { Time.current }
+
+      after(:create) do |referral|
+        create(:organisation, :complete, referral:)
+        create(:referrer, :complete, referral:)
+      end
     end
   end
 end

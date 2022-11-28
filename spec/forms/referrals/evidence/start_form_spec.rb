@@ -3,11 +3,11 @@ require "rails_helper"
 
 RSpec.describe Referrals::Evidence::StartForm, type: :model do
   describe "#save" do
-    let(:referral) { build(:referral) }
-    let(:has_evidence) { "false" }
     subject(:save) { start_form.save }
 
+    let(:referral) { build(:referral) }
     let(:start_form) { described_class.new(referral:, has_evidence:) }
+    let(:has_evidence) { "false" }
 
     context "with a valid value" do
       it "saves the value on the referral" do
@@ -18,6 +18,7 @@ RSpec.describe Referrals::Evidence::StartForm, type: :model do
 
     context "with no values" do
       let(:has_evidence) { nil }
+
       it "adds an error" do
         save
         expect(start_form.errors[:has_evidence]).to eq(

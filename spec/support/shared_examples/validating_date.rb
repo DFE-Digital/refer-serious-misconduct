@@ -80,8 +80,9 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
       { "#{field}(1i)" => "", "#{field}(2i)" => "", "#{field}(3i)" => "" }
     end
 
+    it { is_expected.to be_falsey }
+
     it "adds an error" do
-      expect(save).to be_false
       expect(form.errors[field.to_s]).to eq(
         ["Enter their #{field_name(field)}"]
       )
