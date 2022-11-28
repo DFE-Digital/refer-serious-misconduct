@@ -5,11 +5,11 @@
     <% case @error %>
     <% when 'expired' %>
       <p>
-        Your security code has expired. Try again.
+        <%= t('users.retry.expired') %>
       </p>
     <% when 'exhausted' %>
       <p>
-        You've had too many incorrect sign in attempts. Try again.
+        <%= t('users.retry.exhausted') %>
       </p>
     <% end %>
 

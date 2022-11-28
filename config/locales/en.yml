@@ -44,6 +44,10 @@ en:
       dismissal_resignation_letters: Dismissal, resignation or redeployment letters
       interview_reports: Interview reports relating to the allegation
       minutes_strategy_meetings: Minutes of strategy meetings
+  users:
+    retry:
+      expired: Your security code has expired. Try again.
+      exhausted: You've had too many incorrect sign in attempts. Try again.
 
   activemodel:
     errors:
