@@ -26,7 +26,9 @@ module Referrals
 
         redirect_to(
           referrals_edit_evidence_confirm_path(current_referral),
-          notice: "#{filename} deleted"
+          flash: {
+            success: "#{filename} deleted"
+          }
         )
       end
 
