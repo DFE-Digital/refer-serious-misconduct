@@ -4,6 +4,7 @@ module Referrals
     before_action :authenticate_user!,
                   if: -> { FeatureFlags::FeatureFlag.active?(:user_accounts) }
     before_action :redirect_if_feature_flag_disabled
+    before_action :redirect_referrals_requests_if_user_accounts_disabled
 
     private
 
@@ -29,6 +30,13 @@ module Referrals
 
     def go_to_check_answers?
       params["go_to_check_answers"] == "true"
+    end
+
+    def redirect_referrals_requests_if_user_accounts_disabled
+      return if request.path !~ %r{^/referral}
+      return if FeatureFlags::FeatureFlag.active?(:user_accounts)
+
+      redirect_to root_path
     end
   end
 end
