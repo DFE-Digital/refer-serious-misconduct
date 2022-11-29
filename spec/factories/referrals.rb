@@ -7,6 +7,7 @@ FactoryBot.define do
       contact_details_complete { true }
       evidence_details_complete { true }
       personal_details_complete { true }
+      teacher_role_complete { true }
       previous_misconduct_completed_at { Time.current }
     end
   end

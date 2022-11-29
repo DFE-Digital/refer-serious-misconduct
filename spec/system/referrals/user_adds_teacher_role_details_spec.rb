@@ -8,8 +8,14 @@ RSpec.feature "Teacher role", type: :system do
     and_the_employer_form_feature_is_active
     and_i_visit_a_referral
     then_i_see_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary(
+      status: "NOT STARTED YET"
+    )
 
     when_i_edit_teacher_role_details
+
+    # Do you know when they started their job?
+
     then_i_see_the_job_start_date_page
     and_i_click_back
     then_i_see_the_referral_summary
@@ -21,8 +27,10 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_choose_no
     and_i_click_save_and_continue
-    then_i_see_the_employed_status_page
 
+    # Are they still employed in that job?
+
+    then_i_see_the_employed_status_page
     when_i_click_back
     when_i_choose_yes
     and_i_click_save_and_continue
@@ -61,6 +69,9 @@ RSpec.feature "Teacher role", type: :system do
     when_i_fill_out_the_role_end_date_fields
     when_i_choose_resigned
     and_i_click_save_and_continue
+
+    # What’s their job title?
+
     then_i_see_the_job_title_page
 
     when_i_click_save_and_continue
@@ -68,6 +79,9 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_fill_in_the_job_title_field
     when_i_click_save_and_continue
+
+    # Do they work in the same organisation as you?
+
     then_i_see_the_same_organisation_page
 
     when_i_click_save_and_continue
@@ -80,6 +94,9 @@ RSpec.feature "Teacher role", type: :system do
     when_i_visit_the_same_organisation_page
     and_i_choose_yes
     when_i_click_save_and_continue
+
+    # How do you want to tell us about their main duties?
+
     then_i_see_the_duties_page
 
     when_i_click_save_and_continue
@@ -96,21 +113,39 @@ RSpec.feature "Teacher role", type: :system do
     and_i_choose_upload
     and_i_attach_a_job_description_file
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_check_answers_page
 
     when_i_visit_the_duties_page
     and_i_see_the_uploaded_filename
     and_i_choose_upload
     and_i_attach_a_second_job_description_file
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_check_answers_page
 
     when_i_visit_the_duties_page
     and_i_see_the_second_uploaded_filename
     and_i_choose_details
     when_i_fill_in_the_duties_field
     and_i_click_save_and_continue
+
+    # Check and confirm your answers
+
+    then_i_see_the_check_answers_page
+
+    when_i_click_save_and_continue
+    then_i_see_a_completed_error
+
+    when_i_choose_yes
+    and_i_click_save_and_continue
     then_i_see_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary
+
+    # Not completed
+    when_i_visit_the_check_answers_page
+    when_i_choose_no
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
   end
 
   private
@@ -149,6 +184,10 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_visit_the_duties_page
     visit referrals_edit_teacher_duties_path(@referral)
+  end
+
+  def when_i_visit_the_check_answers_page
+    visit referrals_edit_teacher_role_check_answers_path(@referral)
   end
 
   # Page URL/Title
@@ -205,6 +244,14 @@ RSpec.feature "Teacher role", type: :system do
     )
     expect(page).to have_title("Do you know when they started their job?")
     expect(page).to have_content("Do you know when they started their job?")
+  end
+
+  def then_i_see_the_check_answers_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/check-answers"
+    )
+    expect(page).to have_title("Check and confirm your answers")
+    expect(page).to have_content("Check and confirm your answers")
   end
 
   # Clicks
@@ -342,6 +389,10 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Enter details of their main duties")
   end
 
+  def then_i_see_a_completed_error
+    expect(page).to have_content("Tell us if you have completed this section")
+  end
+
   # Page content
 
   def and_i_see_the_uploaded_filename
@@ -350,5 +401,29 @@ RSpec.feature "Teacher role", type: :system do
 
   def and_i_see_the_second_uploaded_filename
     expect(page).to have_content("Uploaded file: file2.pdf")
+  end
+
+  def and_i_see_a_summary_list
+    summary_rows = all(".govuk-summary-list__row")
+
+    within(summary_rows[0]) do
+      expect(find(".govuk-summary-list__key").text).to eq("Email address")
+      expect(find(".govuk-summary-list__value").text).to eq("name@example.com")
+      expect(find(".govuk-summary-list__actions")).to have_link(
+        "Change",
+        href: referrals_edit_contact_details_email_path(@referral)
+      )
+    end
+  end
+
+  def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
+    within(all(".app-task-list__section")[1]) do
+      within(all(".app-task-list__item")[2]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "About their role"
+        )
+        expect(find(".app-task-list__tag").text).to eq(status)
+      end
+    end
   end
 end

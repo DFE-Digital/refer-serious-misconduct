@@ -14,9 +14,7 @@ module Referrals
           JobTitleForm.new(job_title_params.merge(referral: current_referral))
 
         if @job_title_form.save
-          redirect_to referrals_edit_teacher_same_organisation_path(
-                        current_referral
-                      )
+          redirect_to save_redirect_path
         else
           render :edit
         end
@@ -28,6 +26,16 @@ module Referrals
         params.require(:referrals_teacher_role_job_title_form).permit(
           :job_title
         )
+      end
+
+      def save_redirect_path
+        if go_to_check_answers?
+          return(
+            referrals_edit_teacher_role_check_answers_path(current_referral)
+          )
+        end
+
+        referrals_edit_teacher_same_organisation_path(current_referral)
       end
     end
   end

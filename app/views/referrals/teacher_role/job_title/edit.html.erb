@@ -5,6 +5,8 @@
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @job_title_form, url: referrals_update_teacher_job_title_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+      <%= hidden_field_tag :go_to_check_answers, request.referrer == referrals_update_teacher_role_check_answers_url(current_referral) %>
+
       <%= f.govuk_text_field :job_title,
         label: { text: "What’s their job title?", size: "xl" },
         hint: { text: "For example, ‘Teacher’" }

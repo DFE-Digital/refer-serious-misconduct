@@ -1,0 +1,68 @@
+<% content_for :page_title, "#{"Error: " if @teacher_role_check_answers_form.errors.any?}Check and confirm your answers" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">About the person you are referring</span>
+      Check and confirm your answers
+    </h1>
+    <% rows = [
+      {
+        actions: [
+          { text: "Change", href: referrals_edit_teacher_role_start_date_path(current_referral), visually_hidden_text: "start date" },
+
+        ],
+        key: { text: "Job start date" },
+        value: { text: current_referral.role_start_date_known ? current_referral.role_start_date&.to_fs(:long_ordinal_uk) : "Not known" },
+      },
+      {
+        actions: [
+          { text: "Change", href: referrals_edit_teacher_employment_status_path(current_referral), visually_hidden_text: "employment status" },
+
+        ],
+        key: { text: "Are they still employed in that job?" },
+        value: { text: current_referral.employment_status ? current_referral.employment_status.humanize : "Not known" },
+      },
+      {
+        actions: [
+          { text: "Change", href: referrals_edit_teacher_job_title_path(current_referral), visually_hidden_text: "job title" },
+
+        ],
+        key: { text: "What’s their job title?" },
+        value: { text: current_referral.job_title ? current_referral.job_title : "Not known" },
+      },
+      {
+        actions: [
+          { text: "Change", href: referrals_edit_teacher_same_organisation_path(current_referral), visually_hidden_text: "working in the same organisation" },
+
+        ],
+        key: { text: "Do they work in the same organisation as you?" },
+        value: { text: current_referral.same_organisation ? "Yes" : "No" },
+      },
+      {
+        actions: [
+          { text: "Change", href: referrals_edit_teacher_duties_path(current_referral), visually_hidden_text: "working in the same organisation" },
+
+        ],
+        key: { text: "About their main duties" },
+        value: { text: @teacher_role_check_answers_form.duties_details },
+      }
+    ] %>
+    <%= render(SummaryCardComponent.new(rows:)) do %>
+      <%= render SummaryCardHeaderComponent.new(title: 'Contact details') %>
+    <% end %>
+
+    <%= form_with model: @teacher_role_check_answers_form, url: referrals_update_teacher_role_check_answers_url, method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_radio_buttons_fieldset :teacher_role_complete,
+        legend: { size: "m", text: "Have you completed this section?" },
+        hint: { text: "You can still make changes to a completed section" } do %>
+        <%= f.hidden_field :teacher_role_complete %>
+        <%= f.govuk_radio_button :teacher_role_complete, true, label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :teacher_role_complete, false, label: { text: "No, I’ll come back to it later" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue", prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>
