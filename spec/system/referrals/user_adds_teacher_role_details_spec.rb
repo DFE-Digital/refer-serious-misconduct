@@ -2,12 +2,15 @@
 require "rails_helper"
 
 RSpec.feature "Teacher role", type: :system do
+  include CommonSteps
+
   scenario "User adds teacher role details to a referral" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
-    and_i_visit_a_referral
+    and_i_have_an_existing_referral
+    and_i_visit_the_referral
     then_i_see_the_referral_summary
     then_i_see_the_status_section_in_the_referral_summary(
       status: "NOT STARTED YET"
@@ -151,30 +154,6 @@ RSpec.feature "Teacher role", type: :system do
 
   private
 
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  # Visit URLs
-
-  def and_i_visit_a_referral
-    @referral = create(:referral, user: @user)
-    visit edit_referral_path(@referral)
-  end
-
   def when_i_visit_the_employment_status_page
     visit referrals_edit_teacher_employment_status_path(@referral)
   end
@@ -196,14 +175,6 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   # Page URL/Title
-
-  def then_i_see_the_referral_summary
-    expect(page).to have_current_path("/referrals/#{@referral.id}/edit")
-    expect(page).to have_title(
-      "Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("Your allegation of serious misconduct")
-  end
 
   def then_i_see_the_employed_status_page
     expect(page).to have_current_path(
@@ -264,16 +235,6 @@ RSpec.feature "Teacher role", type: :system do
   def when_i_edit_teacher_role_details
     within(all(".app-task-list__section")[1]) { click_on "About their role" }
   end
-
-  def and_i_click_save_and_continue
-    click_on "Save and continue"
-  end
-  alias_method :when_i_click_save_and_continue, :and_i_click_save_and_continue
-
-  def when_i_click_back
-    click_on "Back"
-  end
-  alias_method :and_i_click_back, :when_i_click_back
 
   # Radios
 

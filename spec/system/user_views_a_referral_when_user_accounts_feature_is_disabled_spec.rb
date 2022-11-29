@@ -11,7 +11,7 @@ RSpec.feature "User accounts disabled, user views a referral summary",
     and_the_eligbility_screener_feature_is_active
     and_the_user_accounts_feature_is_inactive
     and_there_is_an_existing_referral
-    when_i_visit_the_referral_summary
+    when_i_visit_the_referral
     then_i_am_redirected_to_the_start_page
   end
 
@@ -21,24 +21,8 @@ RSpec.feature "User accounts disabled, user views a referral summary",
     @referral = create(:referral, user: create(:user))
   end
 
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_eligbility_screener_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
-  end
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
   def and_the_user_accounts_feature_is_inactive
     FeatureFlags::FeatureFlag.deactivate(:user_accounts)
-  end
-
-  def when_i_visit_the_referral_summary
-    visit edit_referral_path(@referral)
   end
 
   def then_i_am_redirected_to_the_start_page

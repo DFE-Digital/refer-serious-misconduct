@@ -2,13 +2,15 @@
 require "rails_helper"
 
 RSpec.feature "Contact details", type: :system do
+  include CommonSteps
+
   scenario "User submits contact details for the referred person" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
     and_i_have_an_existing_referral
-    when_i_visit_the_referral_summary
+    when_i_visit_the_referral
     then_i_see_the_status_section_in_the_referral_summary(
       status: "NOT STARTED YET"
     )
@@ -19,21 +21,21 @@ RSpec.feature "Contact details", type: :system do
 
     # Email address invalid
     when_i_select_yes
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_a_missing_email_error
 
     when_i_select_yes_with_an_invalid_email
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_an_invalid_email_error
 
     # Email address unknown
     when_i_select_no
-    and_i_press_continue
+    and_i_click_save_and_continue
 
     # Email address known
     when_i_go_back
     when_i_select_yes_with_a_valid_email
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_contact_number_page
 
     # Do you know their main contact number
@@ -41,107 +43,82 @@ RSpec.feature "Contact details", type: :system do
 
     # Phone number errors
     when_i_select_yes
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_a_missing_phone_number_error
 
     when_i_select_yes_with_an_invalid_phone_number
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_an_invalid_phone_number_error
 
     # Phone number known
     when_i_select_no
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_home_address_page
 
     # Phone number unknown
     when_i_go_back
     when_i_select_yes_with_a_valid_phone_number
-    and_i_press_continue
+    and_i_click_save_and_continue
 
     # Do you know their home address?
     then_i_see_the_home_address_page
 
     # Address errors
     when_i_select_yes
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_a_missing_address_fields_error
 
     when_i_fill_in_an_incorrect_postcode
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_a_invalid_postcode_error
 
     # Address unknown
     when_i_select_no
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
     # Address known
     when_i_go_back
     when_i_select_yes
     when_i_fill_in_the_address_details
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
     and_i_see_a_summary_list
 
     # Have you completed this section?
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_a_completed_error
 
     when_i_select_yes
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_get_redirected_to_the_referral_summary
     then_i_see_the_status_section_in_the_referral_summary
 
     # Not completed
     when_i_visit_the_check_answers_page
     when_i_select_no
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_get_redirected_to_the_referral_summary
     then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
 
     # Editing single answers
     when_i_visit_the_check_answers_page
     and_i_click_the_change_email_link
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
     when_i_visit_the_check_answers_page
     and_i_click_the_change_phone_link
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
     when_i_visit_the_check_answers_page
     and_i_click_the_change_address_link
-    and_i_press_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
   end
 
   private
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def and_i_have_an_existing_referral
-    @referral = create(:referral, user: @user)
-  end
-
-  def when_i_visit_the_referral_summary
-    visit edit_referral_path(@referral)
-  end
 
   def when_i_visit_the_check_answers_page
     visit referrals_update_contact_details_check_answers_path(@referral)
@@ -185,10 +162,6 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_select_yes
     choose "Yes", visible: false
-  end
-
-  def and_i_press_continue
-    click_on "Save and continue"
   end
 
   def then_i_see_a_missing_email_error
