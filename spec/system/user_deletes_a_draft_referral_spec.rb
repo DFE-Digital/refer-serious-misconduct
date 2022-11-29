@@ -6,6 +6,7 @@ RSpec.feature "User deletes a draft referral", type: :system do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
+    and_the_user_accounts_feature_is_active
 
     when_i_make_a_new_referral
     and_i_dont_want_to_continue
@@ -32,6 +33,10 @@ RSpec.feature "User deletes a draft referral", type: :system do
 
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
+  end
+
+  def and_the_user_accounts_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
   def when_i_have_an_existing_referral
