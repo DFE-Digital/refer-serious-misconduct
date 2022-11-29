@@ -1,0 +1,33 @@
+<% content_for :page_title, 'Test users' %>
+
+<h1 class="govuk-heading-l">Test users</h1>
+
+<%=
+  govuk_table do |table|
+    table.head do |head|
+      head.row do |row|
+        row.cell(header: true, width: 'one-quarter') do
+          tag.span("Email")
+        end
+        row.cell(header: true, width: 'one-third') do
+        end
+      end
+    end
+
+    table.body do |body|
+      @users.each do |user|
+        body.row do |row|
+          row.cell do
+            user.email
+          end
+          row.cell do
+            govuk_button_to "Sign in", authenticate_support_interface_test_user_path(user.id), method: :put
+          end
+        end
+      end
+    end
+  end
+%>
+
+<%= govuk_button_to "Create new user", support_interface_test_users_path, method: :post %>
+
