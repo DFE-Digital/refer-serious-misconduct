@@ -192,6 +192,10 @@ en:
               invalid_content_type: Please upload files of valid type (%{valid_types})
               mismatch_content_type: File type does not match file contents
               file_size_too_big: Maximum file size is 25MB
+        "referrals/teacher_role/check_answers_form":
+          attributes:
+            teacher_role_complete:
+              inclusion: Tell us if you have completed this section
 
         referrer_job_title_form:
           attributes:

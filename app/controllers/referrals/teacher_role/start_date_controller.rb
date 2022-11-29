@@ -15,9 +15,7 @@ module Referrals
           StartDateForm.new(role_params.merge(referral: current_referral))
 
         if @role_start_date_form.save(start_date_params)
-          redirect_to referrals_edit_teacher_employment_status_path(
-                        current_referral
-                      )
+          redirect_to save_redirect_path
         else
           render :edit
         end
@@ -37,6 +35,16 @@ module Referrals
           "role_start_date(2i)",
           "role_start_date(1i)"
         )
+      end
+
+      def save_redirect_path
+        if go_to_check_answers?
+          return(
+            referrals_edit_teacher_role_check_answers_path(current_referral)
+          )
+        end
+
+        referrals_edit_teacher_employment_status_path(current_referral)
       end
     end
   end
