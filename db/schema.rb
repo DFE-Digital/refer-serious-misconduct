@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_172606) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_112522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_172606) do
     t.string "duties_format"
     t.string "duties_details"
     t.boolean "teacher_role_complete"
+    t.datetime "submitted_at", precision: nil
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 

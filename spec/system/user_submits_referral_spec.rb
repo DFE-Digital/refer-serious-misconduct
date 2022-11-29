@@ -12,6 +12,13 @@ RSpec.feature "User submits a referral", type: :system do
 
     when_i_have_a_complete_referral
     and_i_click_review_and_send
+    then_i_see_the_declaration_page
+
+    when_i_click_send_referral
+    then_i_see_the_missing_declaration_error
+
+    when_i_complete_the_declaration
+    and_i_click_send_referral
     then_i_see_the_confirmation_page
   end
 
@@ -44,8 +51,27 @@ RSpec.feature "User submits a referral", type: :system do
     expect(page).to have_content("We have received your referral")
   end
 
+  def then_i_see_the_declaration_page
+    expect(page).to have_current_path("/referrals/#{@referral.id}/declaration")
+    expect(page).to have_title("Before you send your referral")
+    expect(page).to have_content("Before you send your referral")
+  end
+
+  def then_i_see_the_missing_declaration_error
+    expect(page).to have_content("You must agree to the declaration")
+  end
+
   def then_i_see_the_missing_sections_error
     expect(page).to have_content("Please complete all sections of the referral")
+  end
+
+  def when_i_click_send_referral
+    click_on "Send referral"
+  end
+  alias_method :and_i_click_send_referral, :when_i_click_send_referral
+
+  def when_i_complete_the_declaration
+    check "Yes, I agree", allow_label_click: true
   end
 
   def when_i_have_a_complete_referral
