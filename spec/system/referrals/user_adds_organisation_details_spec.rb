@@ -1,13 +1,15 @@
 require "rails_helper"
 
 RSpec.feature "Employer Referral: Organisation", type: :system do
+  include CommonSteps
+
   scenario "User provides the organisation details" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
     and_i_have_an_existing_referral
-    and_i_am_on_the_referral_summary_page
+    and_i_visit_the_referral
     when_i_click_on_your_organisation
 
     then_i_am_on_the_organisation_name_page
@@ -79,36 +81,11 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     expect(your_organisation_row).to have_content("INCOMPLETE")
   end
 
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_i_am_on_the_referral_summary_page
-    visit edit_referral_path(@referral)
-  end
-
-  def and_i_have_an_existing_referral
-    @referral = create(:referral, user: @user)
-  end
-
   def and_i_see_your_organisation_flagged_as_complete
     within(".app-task-list__item", text: "Your organisation") do
       status_tag = find(".app-task-list__tag")
       expect(status_tag.text).to match(/^COMPLETE/)
     end
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
   end
 
   def then_i_am_asked_to_make_a_choice
@@ -174,11 +151,6 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   def when_i_click_on_your_organisation
     click_on "Your organisation"
   end
-
-  def when_i_click_save_and_continue
-    click_on "Save and continue"
-  end
-  alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
 
   def when_i_complete_the_address
     fill_in "Address line 1", with: "1 Street"

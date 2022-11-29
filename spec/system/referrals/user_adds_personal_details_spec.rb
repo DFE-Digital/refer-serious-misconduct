@@ -2,12 +2,15 @@
 require "rails_helper"
 
 RSpec.feature "Personal details", type: :system do
+  include CommonSteps
+
   scenario "User adds personal details to a referral" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
-    and_i_visit_a_referral
+    and_i_have_an_existing_referral
+    and_i_visit_the_referral
     then_i_see_the_referral_summary
 
     when_i_edit_personal_details
@@ -76,28 +79,6 @@ RSpec.feature "Personal details", type: :system do
 
   private
 
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def and_i_visit_a_referral
-    @referral = create(:referral, user: @user)
-    visit edit_referral_path(@referral)
-  end
-
   def when_i_edit_personal_details
     within(all(".app-task-list__section")[1]) { click_on "Personal details" }
   end
@@ -106,15 +87,6 @@ RSpec.feature "Personal details", type: :system do
     expect(page).to have_content(
       "What is the name of the person you’re referring?"
     )
-  end
-
-  def when_i_click_back
-    click_on "Back"
-  end
-  alias_method :and_i_click_back, :when_i_click_back
-
-  def then_i_see_the_referral_summary
-    expect(page).to have_content("Your allegation of serious misconduct")
   end
 
   def then_i_see_name_field_validation_errors
@@ -127,10 +99,6 @@ RSpec.feature "Personal details", type: :system do
     fill_in "Last name", with: "Smith"
     choose "Yes", visible: false
     fill_in "Previous name", with: "Jane Jones"
-  end
-
-  def and_i_click_save_and_continue
-    click_on "Save and continue"
   end
 
   def then_i_am_asked_their_date_of_birth

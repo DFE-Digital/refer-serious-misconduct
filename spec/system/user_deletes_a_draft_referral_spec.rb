@@ -2,6 +2,8 @@
 require "rails_helper"
 
 RSpec.feature "User deletes a draft referral", type: :system do
+  include CommonSteps
+
   scenario "User deletes a draft referral" do
     given_the_service_is_open
     and_i_am_signed_in
@@ -14,38 +16,13 @@ RSpec.feature "User deletes a draft referral", type: :system do
     then_the_new_referral_is_discarded
 
     when_i_have_an_existing_referral
-    and_i_visit_the_referral_summary
+    and_i_visit_the_referral
     and_i_dont_want_to_continue
     and_i_confirm_deletion
     then_the_draft_referral_is_deleted
   end
 
   private
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def when_i_have_an_existing_referral
-    @referral = create(:referral, user: @user)
-  end
-
-  def and_i_visit_the_referral_summary
-    visit edit_referral_path(@referral)
-  end
 
   def when_i_make_a_new_referral
     visit new_referral_path

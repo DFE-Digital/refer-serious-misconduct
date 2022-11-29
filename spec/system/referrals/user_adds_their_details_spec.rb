@@ -1,13 +1,15 @@
 require "rails_helper"
 
 RSpec.feature "Employer Referral: About You", type: :system do
+  include CommonSteps
+
   scenario "User provides their details" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
     and_i_have_an_existing_referral
-    and_i_am_on_the_referral_summary_page
+    and_i_visit_the_referral
     when_i_click_on_your_details
     then_i_am_on_the_your_details_page
 
@@ -40,7 +42,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     when_i_click_back
     and_i_choose_no_come_back_later
     and_i_click_save_and_continue
-    then_i_am_on_the_referral_summary_page
+    then_i_see_the_referral_summary
     and_i_see_your_details_flagged_as_incomplete
 
     when_i_click_on_your_details
@@ -60,33 +62,12 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   private
 
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
-
-  def and_i_am_on_the_referral_summary_page
-    visit edit_referral_path(@referral)
-  end
-
   def and_i_choose_complete
     choose "Yes, I’ve completed this section", visible: false
   end
 
   def and_i_choose_no_come_back_later
     choose "No, I’ll come back to it later", visible: false
-  end
-
-  def and_i_have_an_existing_referral
-    @referral = create(:referral, user: @user)
   end
 
   def and_i_see_my_name_in_the_form_field
@@ -103,14 +84,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
       status_tag = find(".app-task-list__tag")
       expect(status_tag.text).to have_content("INCOMPLETE")
     end
-  end
-
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def then_i_am_on_the_referral_summary_page
-    expect(page).to have_current_path(edit_referral_path(@referral))
   end
 
   def then_i_am_on_the_your_details_page
@@ -185,10 +158,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
     end
   end
 
-  def when_i_click_back
-    click_on "Back"
-  end
-
   def when_i_click_on_change_name
     click_on "Change name"
   end
@@ -196,11 +165,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
   def when_i_click_on_your_details
     click_link "Your details"
   end
-
-  def when_i_click_save_and_continue
-    click_button "Save and continue"
-  end
-  alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
 
   def when_i_enter_my_job_title
     fill_in "What is your job title?", with: "Teacher"
