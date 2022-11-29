@@ -90,7 +90,11 @@ RSpec.feature "Allegation", type: :system do
       )
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_allegation_details_path(@referral)
+        href:
+          referrals_edit_allegation_details_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -99,7 +103,8 @@ RSpec.feature "Allegation", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("Yes")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_allegation_dbs_path(@referral)
+        href:
+          referrals_edit_allegation_dbs_path(@referral, return_to: current_url)
       )
     end
   end

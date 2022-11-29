@@ -5,6 +5,10 @@ module Referrals
                   if: -> { FeatureFlags::FeatureFlag.active?(:user_accounts) }
     before_action :redirect_if_feature_flag_disabled
     before_action :redirect_referrals_requests_if_user_accounts_disabled
+    before_action :set_return_to_url, only: :edit
+
+    def edit
+    end
 
     private
 
@@ -28,15 +32,24 @@ module Referrals
       store_location_for(:user, request.fullpath)
     end
 
-    def go_to_check_answers?
-      params["go_to_check_answers"] == "true"
-    end
-
     def redirect_referrals_requests_if_user_accounts_disabled
       return if request.path !~ %r{^/referral}
       return if FeatureFlags::FeatureFlag.active?(:user_accounts)
 
       redirect_to root_path
+    end
+
+    def set_return_to_url
+      session[:return_to] = params["return_to"]
+    end
+
+    def next_page
+      session.delete(:return_to) || next_path
+    end
+
+    # Overwrite this method with the path of the next page in the journey
+    def next_path
+      root_path
     end
   end
 end

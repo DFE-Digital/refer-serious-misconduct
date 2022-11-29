@@ -5,7 +5,6 @@
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @employment_status_form, url: referrals_update_teacher_employment_status_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
-      <%= hidden_field_tag :go_to_check_answers, request.referrer == referrals_update_teacher_role_check_answers_url(current_referral) %>
 
       <%= f.govuk_radio_buttons_fieldset :employment_status, legend: { size: "xl", text: "Are they still employed in that job?" }  do %>
         <%= f.hidden_field :employment_status %>

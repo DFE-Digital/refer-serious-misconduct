@@ -17,7 +17,7 @@ module Referrals
             )
           )
         if @contact_details_telephone_form.save
-          redirect_to save_redirect_path
+          redirect_to next_page
         else
           render :edit
         end
@@ -32,15 +32,7 @@ module Referrals
         )
       end
 
-      def save_redirect_path
-        if go_to_check_answers?
-          return(
-            referrals_update_contact_details_check_answers_path(
-              current_referral
-            )
-          )
-        end
-
+      def next_path
         referrals_update_contact_details_address_path(current_referral)
       end
     end

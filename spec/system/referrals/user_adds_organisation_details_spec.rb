@@ -94,7 +94,8 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def then_i_am_on_the_organisation_address_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/organisation_address/edit"
+      "/referrals/#{@referral.id}/organisation_address/edit",
+      ignore_query: true
     )
     expect(page).to have_title(
       "What is your organisation’s address? - Refer serious misconduct by a teacher in England"
@@ -112,7 +113,8 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def then_i_am_on_the_organisation_name_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/organisation_name/edit"
+      "/referrals/#{@referral.id}/organisation_name/edit",
+      ignore_query: true
     )
     expect(page).to have_title(
       "What’s the name of your organisation? - Refer serious misconduct by a teacher in England"

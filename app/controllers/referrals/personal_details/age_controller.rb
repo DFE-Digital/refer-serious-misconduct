@@ -19,7 +19,7 @@ module Referrals
           )
 
         if @personal_details_age_form.save
-          redirect_to referrals_edit_personal_details_trn_path(current_referral)
+          redirect_to next_page
         else
           render :edit
         end
@@ -37,6 +37,10 @@ module Referrals
           "date_of_birth(2i)",
           "date_of_birth(3i)"
         )
+      end
+
+      def next_path
+        referrals_edit_personal_details_trn_path(current_referral)
       end
     end
   end

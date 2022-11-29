@@ -13,7 +13,7 @@ module Referrals
           )
         )
       if @detailed_account_form.save
-        redirect_to referral_previous_misconduct_path(current_referral)
+        redirect_to next_page
       else
         render :edit
       end
@@ -27,6 +27,10 @@ module Referrals
         :format,
         :upload
       )
+    end
+
+    def next_path
+      referral_previous_misconduct_path(current_referral)
     end
   end
 end

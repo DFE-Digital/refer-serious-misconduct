@@ -17,7 +17,7 @@ module Referrals
           NameForm.new(name_params.merge(referral: current_referral))
 
         if @personal_details_name_form.save
-          redirect_to referrals_edit_personal_details_age_path(current_referral)
+          redirect_to next_page
         else
           render :edit
         end
@@ -32,6 +32,10 @@ module Referrals
           :name_has_changed,
           :previous_name
         )
+      end
+
+      def next_path
+        referrals_edit_personal_details_age_path(current_referral)
       end
     end
   end

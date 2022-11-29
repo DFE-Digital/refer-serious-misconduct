@@ -11,7 +11,7 @@ module Referrals
           organisation_address_form_params.merge(referral: current_referral)
         )
       if @organisation_address_form.save
-        redirect_to referral_organisation_path(current_referral)
+        redirect_to next_page
       else
         render :edit
       end
@@ -26,6 +26,10 @@ module Referrals
         :city,
         :postcode
       )
+    end
+
+    def next_path
+      referral_organisation_path(current_referral)
     end
   end
 end

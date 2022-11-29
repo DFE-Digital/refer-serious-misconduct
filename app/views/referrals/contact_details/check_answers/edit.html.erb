@@ -10,7 +10,7 @@
     <% rows = [
       {
         actions: [
-          { text: "Change", href: referrals_edit_contact_details_email_path(current_referral), visually_hidden_text: "email" },
+          { text: "Change", href: referrals_edit_contact_details_email_path(current_referral, return_to: request.url), visually_hidden_text: "email" },
 
         ],
         key: { text: "Email address" },
@@ -18,7 +18,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_contact_details_telephone_path(current_referral), visually_hidden_text: "telephone" },
+          { text: "Change", href: referrals_edit_contact_details_telephone_path(current_referral, return_to: request.url), visually_hidden_text: "telephone" },
 
         ],
         key: { text: "Phone number" },
@@ -26,7 +26,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_contact_details_address_path(current_referral), visually_hidden_text: "address" },
+          { text: "Change", href: referrals_edit_contact_details_address_path(current_referral, return_to: request.url), visually_hidden_text: "address" },
 
         ],
         key: { text: "Address" },
