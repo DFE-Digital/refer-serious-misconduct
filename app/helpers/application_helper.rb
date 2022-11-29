@@ -45,25 +45,36 @@ module ApplicationHelper
           text: "Staff",
           href: main_app.support_interface_staff_index_path
         )
+        if HostingEnvironment.test_environment?
+          header.navigation_item(
+            active:
+              request.path.start_with?(
+                main_app.support_interface_test_users_path
+              ),
+            text: "Test Users",
+            href: main_app.support_interface_test_users_path
+          )
+        end
+
         if current_staff
           header.navigation_item(
             href: main_app.staff_sign_out_path,
             text: "Sign out"
           )
         end
-      end
-
-      if FeatureFlags::FeatureFlag.active?(:user_accounts)
-        if current_user
-          header.navigation_item(
-            href: main_app.users_sign_out_path,
-            text: "Sign out"
-          )
-        else
-          header.navigation_item(
-            href: main_app.new_user_session_path,
-            text: "Sign in"
-          )
+      else
+        if FeatureFlags::FeatureFlag.active?(:user_accounts)
+          if current_user
+            header.navigation_item(
+              href: main_app.users_sign_out_path,
+              text: "Sign out"
+            )
+          else
+            header.navigation_item(
+              href: main_app.new_user_session_path,
+              text: "Sign in"
+            )
+          end
         end
       end
     end
