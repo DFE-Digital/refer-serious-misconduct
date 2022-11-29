@@ -75,6 +75,10 @@ Rails.application.routes.draw do
 
     resource :confirmation, only: %i[show], controller: "referrals/confirmation"
 
+    resource :declaration,
+             only: %i[show create],
+             controller: "referrals/declaration"
+
     resource :organisation,
              only: %i[show update],
              controller: "referrals/organisation"

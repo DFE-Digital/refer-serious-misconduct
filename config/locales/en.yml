@@ -52,6 +52,10 @@ en:
   activemodel:
     errors:
       models:
+        declaration_form:
+          attributes:
+            declaration_agreed:
+              accepted: You must agree to the declaration
         have_complained_form:
           attributes:
             complained:
