@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_122258) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_172606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,8 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_122258) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness",
-unique: true
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -130,6 +129,7 @@ unique: true
     t.datetime "previous_misconduct_details_incomplete_at", precision: nil
     t.string "duties_format"
     t.string "duties_details"
+    t.boolean "teacher_role_complete"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
