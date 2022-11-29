@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DFE-Digital/govuk_feature_flags.git
-  revision: 9054435a6bb526d1398efd0b5aee2538a57ee289
+  revision: 4a35c50117f78b315bf3db3cdb2ec73f01a6f5ba
   branch: main
   specs:
     govuk_feature_flags (0.1.0)
@@ -222,7 +222,7 @@ GEM
       net-protocol
     net-protocol (0.1.3)
       timeout
-    net-smtp (0.3.2)
+    net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.9)
