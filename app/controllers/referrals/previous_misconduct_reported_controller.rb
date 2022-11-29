@@ -14,9 +14,7 @@ module Referrals
         )
       if @previous_misconduct_reported_form.save
         if current_referral.previous_misconduct_reported?
-          redirect_to edit_referral_previous_misconduct_detailed_account_path(
-                        current_referral
-                      )
+          redirect_to next_page
         else
           redirect_to referral_previous_misconduct_path(current_referral)
         end
@@ -31,6 +29,18 @@ module Referrals
       params.require(:previous_misconduct_reported_form).permit(
         :previous_misconduct_reported
       )
+    end
+
+    def next_path
+      edit_referral_previous_misconduct_detailed_account_path(current_referral)
+    end
+
+    def next_page
+      if @previous_misconduct_reported_form.referral.saved_changes?
+        return next_path
+      end
+
+      super
     end
   end
 end

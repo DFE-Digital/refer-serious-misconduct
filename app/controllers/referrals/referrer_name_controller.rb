@@ -11,7 +11,7 @@ module Referrals
           name_params.merge(referral: current_referral)
         )
       if @referrer_name_form.save
-        redirect_to edit_referral_referrer_job_title_path(current_referral)
+        redirect_to next_page
       else
         render :edit
       end
@@ -21,6 +21,10 @@ module Referrals
 
     def name_params
       params.require(:referrals_referrer_name_form).permit(:name)
+    end
+
+    def next_path
+      edit_referral_referrer_job_title_path(current_referral)
     end
   end
 end

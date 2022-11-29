@@ -155,7 +155,11 @@ RSpec.feature "Personal details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("Jane Smith")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_personal_details_name_path(@referral)
+        href:
+          referrals_edit_personal_details_name_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -164,7 +168,11 @@ RSpec.feature "Personal details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("17 January 1990")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_personal_details_age_path(@referral)
+        href:
+          referrals_edit_personal_details_age_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -175,7 +183,11 @@ RSpec.feature "Personal details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("9912345")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_personal_details_trn_path(@referral)
+        href:
+          referrals_edit_personal_details_trn_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -184,7 +196,11 @@ RSpec.feature "Personal details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("Yes")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_personal_details_qts_path(@referral)
+        href:
+          referrals_edit_personal_details_qts_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 

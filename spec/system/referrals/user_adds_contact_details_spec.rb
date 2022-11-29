@@ -250,7 +250,11 @@ RSpec.feature "Contact details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("name@example.com")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_contact_details_email_path(@referral)
+        href:
+          referrals_edit_contact_details_email_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -259,7 +263,11 @@ RSpec.feature "Contact details", type: :system do
       expect(find(".govuk-summary-list__value").text).to eq("07700 900 982")
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_contact_details_telephone_path(@referral)
+        href:
+          referrals_edit_contact_details_telephone_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
 
@@ -270,7 +278,11 @@ RSpec.feature "Contact details", type: :system do
       )
       expect(find(".govuk-summary-list__actions")).to have_link(
         "Change",
-        href: referrals_edit_contact_details_address_path(@referral)
+        href:
+          referrals_edit_contact_details_address_path(
+            @referral,
+            return_to: current_url
+          )
       )
     end
   end

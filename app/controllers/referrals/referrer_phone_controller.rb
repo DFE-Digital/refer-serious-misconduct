@@ -10,7 +10,7 @@ module Referrals
           referrer_phone_form_params.merge(referral: current_referral)
         )
       if @referrer_phone_form.save
-        redirect_to referral_referrer_path(current_referral)
+        redirect_to next_page
       else
         render :edit
       end
@@ -20,6 +20,10 @@ module Referrals
 
     def referrer_phone_form_params
       params.require(:referrer_phone_form).permit(:phone)
+    end
+
+    def next_path
+      referral_referrer_path(current_referral)
     end
   end
 end

@@ -9,7 +9,7 @@
     <% rows = [
       {
         actions: [
-          { text: "Change", href: edit_referral_organisation_name_path(current_referral), visually_hidden_text: "name" },
+          { text: "Change", href: edit_referral_organisation_name_path(current_referral, return_to: request.url), visually_hidden_text: "name" },
 
         ],
         key: { text: "Organisation" },
@@ -17,7 +17,7 @@
       },
       {
         actions: [
-          { text: "Change", href: edit_referral_organisation_address_path(current_referral), visually_hidden_text: "address" },
+          { text: "Change", href: edit_referral_organisation_address_path(current_referral, return_to: request.url), visually_hidden_text: "address" },
 
         ],
         key: { text: "Address" },

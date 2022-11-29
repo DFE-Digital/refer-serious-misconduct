@@ -117,7 +117,8 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
   def then_i_see_the_previous_misconduct_reported_page
     expect(page).to have_current_path(
-      edit_referral_previous_misconduct_reported_path(@referral)
+      edit_referral_previous_misconduct_reported_path(@referral),
+      ignore_query: true
     )
     expect(page).to have_title(
       "Has there been any previous misconduct, disciplinary action or complaints? - Refer " \

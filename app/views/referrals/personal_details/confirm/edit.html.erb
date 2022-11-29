@@ -4,28 +4,28 @@
 <% rows = [
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_name_path(current_referral), visually_hidden_text: "name" },
+      { text: "Change", href: referrals_edit_personal_details_name_path(current_referral, return_to: request.url), visually_hidden_text: "name" },
     ],
     key: { text: "Name" },
     value: { text: "#{current_referral.first_name} #{current_referral.last_name}" },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_age_path(current_referral), visually_hidden_text: "date of birth" },
+      { text: "Change", href: referrals_edit_personal_details_age_path(current_referral, return_to: request.url), visually_hidden_text: "date of birth" },
     ],
     key: { text: "Date of birth" },
     value: { text: current_referral.date_of_birth&.to_fs(:long_ordinal_uk) },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_trn_path(current_referral), visually_hidden_text: "teacher reference number (TRN)" },
+      { text: "Change", href: referrals_edit_personal_details_trn_path(current_referral, return_to: request.url), visually_hidden_text: "teacher reference number (TRN)" },
     ],
     key: { text: "Teacher reference number (TRN)" },
     value: { text: current_referral.trn },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_personal_details_qts_path(current_referral), visually_hidden_text: "do they have QTS?" },
+      { text: "Change", href: referrals_edit_personal_details_qts_path(current_referral, return_to: request.url), visually_hidden_text: "do they have QTS?" },
     ],
     key: { text: "Do they have QTS?" },
     value: { text: current_referral.has_qts&.humanize },

@@ -88,7 +88,8 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_am_on_the_your_details_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer-name/edit"
+      "/referrals/#{@referral.id}/referrer-name/edit",
+      ignore_query: true
     )
     expect(page).to have_title(
       "What is your name? - Refer serious misconduct by a teacher in England"

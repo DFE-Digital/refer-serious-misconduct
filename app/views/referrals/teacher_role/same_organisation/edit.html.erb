@@ -5,7 +5,6 @@
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @same_organisation_form, url: referrals_update_teacher_same_organisation_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
-      <%= hidden_field_tag :go_to_check_answers, request.referrer == referrals_update_teacher_role_check_answers_url(current_referral) %>
 
       <%= f.govuk_radio_buttons_fieldset :same_organisation,
         legend: { size: "l", text: "Do they work in the same organisation as you?" } do %>

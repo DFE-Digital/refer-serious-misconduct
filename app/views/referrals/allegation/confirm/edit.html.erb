@@ -4,14 +4,14 @@
 <% rows = [
   {
     actions: [
-      { text: "Change", href: referrals_edit_allegation_details_path(current_referral), visually_hidden_text: "detailed account" },
+      { text: "Change", href: referrals_edit_allegation_details_path(current_referral, return_to: request.url), visually_hidden_text: "detailed account" },
     ],
     key: { text: "Detailed account" },
     value: { text: @allegation_confirm_form.allegation_details },
   },
   {
     actions: [
-      { text: "Change", href: referrals_edit_allegation_dbs_path(current_referral), visually_hidden_text: "DBS notified" },
+      { text: "Change", href: referrals_edit_allegation_dbs_path(current_referral, return_to: request.url), visually_hidden_text: "DBS notified" },
     ],
     key: { text: "Have you told DBS?" },
     value: { text: current_referral.dbs_notified ? "Yes" : "No" },

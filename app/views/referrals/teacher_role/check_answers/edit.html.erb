@@ -10,7 +10,7 @@
     <% rows = [
       {
         actions: [
-          { text: "Change", href: referrals_edit_teacher_role_start_date_path(current_referral), visually_hidden_text: "start date" },
+          { text: "Change", href: referrals_edit_teacher_role_start_date_path(current_referral, return_to: request.url ), visually_hidden_text: "start date" },
 
         ],
         key: { text: "Job start date" },
@@ -18,7 +18,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_teacher_employment_status_path(current_referral), visually_hidden_text: "employment status" },
+          { text: "Change", href: referrals_edit_teacher_employment_status_path(current_referral, return_to: request.url), visually_hidden_text: "employment status" },
 
         ],
         key: { text: "Are they still employed in that job?" },
@@ -26,7 +26,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_teacher_job_title_path(current_referral), visually_hidden_text: "job title" },
+          { text: "Change", href: referrals_edit_teacher_job_title_path(current_referral, return_to: request.url), visually_hidden_text: "job title" },
 
         ],
         key: { text: "What’s their job title?" },
@@ -34,7 +34,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_teacher_same_organisation_path(current_referral), visually_hidden_text: "working in the same organisation" },
+          { text: "Change", href: referrals_edit_teacher_same_organisation_path(current_referral, return_to: request.url), visually_hidden_text: "working in the same organisation" },
 
         ],
         key: { text: "Do they work in the same organisation as you?" },
@@ -42,7 +42,7 @@
       },
       {
         actions: [
-          { text: "Change", href: referrals_edit_teacher_duties_path(current_referral), visually_hidden_text: "working in the same organisation" },
+          { text: "Change", href: referrals_edit_teacher_duties_path(current_referral, return_to: request.url), visually_hidden_text: "working in the same organisation" },
 
         ],
         key: { text: "About their main duties" },

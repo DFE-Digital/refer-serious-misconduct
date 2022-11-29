@@ -5,7 +5,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @organisation_name_form, url: referral_organisation_name_url(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= hidden_field_tag :go_to_check_answers, request.referrer == referral_organisation_url(current_referral) %>
+
       <%= f.govuk_text_field :name, label: { size: 'xl', text: "What’s the name of your organisation?" } %>
 
       <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>

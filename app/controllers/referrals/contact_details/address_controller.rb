@@ -21,9 +21,7 @@ module Referrals
             )
           )
         if @contact_details_address_form.save
-          redirect_to referrals_update_contact_details_check_answers_path(
-                        current_referral
-                      )
+          redirect_to next_page
         else
           render :edit
         end
@@ -40,6 +38,10 @@ module Referrals
           :postcode,
           :country
         )
+      end
+
+      def next_path
+        referrals_update_contact_details_check_answers_path(current_referral)
       end
     end
   end

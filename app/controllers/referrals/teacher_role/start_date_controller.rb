@@ -20,7 +20,7 @@ module Referrals
           )
 
         if @role_start_date_form.save
-          redirect_to save_redirect_path
+          redirect_to next_page
         else
           render :edit
         end
@@ -42,13 +42,7 @@ module Referrals
         )
       end
 
-      def save_redirect_path
-        if go_to_check_answers?
-          return(
-            referrals_edit_teacher_role_check_answers_path(current_referral)
-          )
-        end
-
+      def next_path
         referrals_edit_teacher_employment_status_path(current_referral)
       end
     end
