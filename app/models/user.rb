@@ -7,6 +7,8 @@ class User < ApplicationRecord
           -> { order(created_at: :desc) },
           class_name: "Referral"
 
+  scope :newest_first, -> { order(created_at: :desc) }
+
   def after_failed_otp_authentication
     clear_otp_state
   end
