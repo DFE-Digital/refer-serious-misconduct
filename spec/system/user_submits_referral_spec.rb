@@ -5,6 +5,7 @@ RSpec.feature "User submits a referral", type: :system do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_employer_form_feature_is_active
+    and_the_user_accounts_feature_is_active
     and_i_have_an_incomplete_referral
     when_i_visit_the_referral_summary
     and_i_click_review_and_send
@@ -39,6 +40,10 @@ RSpec.feature "User submits a referral", type: :system do
 
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
+  end
+
+  def and_the_user_accounts_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
   def given_the_service_is_open
