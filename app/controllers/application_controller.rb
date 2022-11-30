@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   default_form_builder(GOVUKDesignSystemFormBuilder::FormBuilder)
 
   http_basic_authenticate_with(
