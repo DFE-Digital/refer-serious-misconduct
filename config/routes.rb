@@ -123,6 +123,8 @@ Rails.application.routes.draw do
              only: %i[edit update],
              path: "referrer-name",
              controller: "referrals/referrer_name"
+
+    resource :review, only: %i[show], controller: "referrals/review"
   end
 
   namespace :referrals do

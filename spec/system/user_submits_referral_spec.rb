@@ -15,6 +15,9 @@ RSpec.feature "User submits a referral", type: :system do
 
     when_i_have_a_complete_referral
     and_i_click_review_and_send
+    then_i_see_the_check_answers_page
+
+    when_i_click_continue
     then_i_see_the_declaration_page
 
     when_i_click_send_referral
@@ -35,6 +38,12 @@ RSpec.feature "User submits a referral", type: :system do
     @referral = create(:referral, user: @user)
   end
 
+  def then_i_see_the_check_answers_page
+    expect(page).to have_current_path("/referrals/#{@referral.id}/review")
+    expect(page).to have_title("Check your answers before continuing")
+    expect(page).to have_content("Check your answers before continuing")
+  end
+
   def then_i_see_the_confirmation_page
     expect(page).to have_current_path("/referrals/#{@referral.id}/confirmation")
     expect(page).to have_title("We have received your referral")
@@ -53,6 +62,10 @@ RSpec.feature "User submits a referral", type: :system do
 
   def then_i_see_the_missing_sections_error
     expect(page).to have_content("Please complete all sections of the referral")
+  end
+
+  def when_i_click_continue
+    click_on "Continue"
   end
 
   def when_i_click_send_referral

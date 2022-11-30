@@ -22,7 +22,7 @@ class ReferralsController < Referrals::BaseController
     @referral_form = ReferralForm.new(referral:)
 
     if @referral_form.save
-      redirect_to referral_declaration_path(referral)
+      redirect_to referral_review_path(referral)
     else
       render :edit
     end
