@@ -2,6 +2,8 @@
 
 <h1 class="govuk-heading-l">Test users</h1>
 
+<%= govuk_pagination(pagy: @pagy) %>
+
 <%=
   govuk_table do |table|
     table.head do |head|

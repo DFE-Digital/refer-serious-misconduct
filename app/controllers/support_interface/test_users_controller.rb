@@ -4,7 +4,7 @@ module SupportInterface
     before_action :redirect_unless_test_environment
 
     def index
-      @users = User.newest_first
+      @pagy, @users = pagy(User.newest_first)
     end
 
     def create
