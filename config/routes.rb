@@ -227,6 +227,12 @@ Rails.application.routes.draw do
     put "/:referral_id/teacher-role/duties",
         to: "teacher_role/duties#update",
         as: "update_teacher_duties"
+    get "/:referral_id/teacher-role/check-answers",
+        to: "teacher_role/check_answers#edit",
+        as: "edit_teacher_role_check_answers"
+    put "/:referral_id/teacher-role/check-answers",
+        to: "teacher_role/check_answers#update",
+        as: "update_teacher_role_check_answers"
 
     get "/:referral_id/evidence/start",
         to: "evidence/start#edit",

@@ -67,7 +67,7 @@ class ReferralForm
         ReferralSectionItem.new(
           I18n.t("referral_form.about_their_role"),
           referrals_edit_teacher_role_start_date_path(referral),
-          :completed
+          section_status(:teacher_role_complete)
         )
       ]
     )
