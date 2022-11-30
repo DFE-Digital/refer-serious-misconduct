@@ -434,6 +434,7 @@ DEPENDENCIES
   launchy
   mail-notify
   okcomputer (~> 1.18)
+  pagy
   pg (~> 1.4)
   prettier_print
   propshaft
