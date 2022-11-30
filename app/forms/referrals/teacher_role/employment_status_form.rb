@@ -5,7 +5,8 @@ module Referrals
       include ActiveModel::Model
       include ValidatedDate
 
-      attr_accessor :referral,
+      attr_accessor :date_params,
+                    :referral,
                     :role_end_date,
                     :employment_status,
                     :reason_leaving_role
@@ -21,7 +22,7 @@ module Referrals
                 },
                 if: -> { left_role? }
 
-      def save(date_params = {})
+      def save
         return false if invalid?
 
         if date_has_values?(date_params) &&

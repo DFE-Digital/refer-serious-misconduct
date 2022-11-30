@@ -5,14 +5,14 @@
 # optional - for date fields that are not required
 
 RSpec.shared_examples "form with a date validator" do |field, optional = true|
-  subject(:save) { form.save(params) }
+  subject(:save) { form.save }
 
   let(:date_field) { referral.send(field) }
 
   before { save }
 
   context "when valid date values" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => "2000",
         "#{field}(2i)" => "01",
@@ -26,7 +26,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a short month name" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => "2000",
         "#{field}(2i)" => "Jan",
@@ -40,7 +40,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a word for a number for the day and month" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => "2000",
         "#{field}(2i)" => "tWeLvE  ",
@@ -54,7 +54,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "without a valid date" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => "2000",
         "#{field}(2i)" => "02",
@@ -75,12 +75,12 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     end
   end
 
-  context "with a blank date" do
-    let(:params) do
+  context "with a blank date", if: !optional do
+    let(:date_params) do
       { "#{field}(1i)" => "", "#{field}(2i)" => "", "#{field}(3i)" => "" }
     end
 
-    it "adds an error", if: !optional do
+    it "adds an error" do
       expect(save).to be_false
       expect(form.errors[field.to_s]).to eq(
         ["Enter their #{field_name(field)}"]
@@ -89,7 +89,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a year that is less than 4 digits" do
-    let(:params) do
+    let(:date_params) do
       { "#{field}(1i)" => "99", "#{field}(2i)" => "1", "#{field}(3i)" => "1" }
     end
 
@@ -101,7 +101,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a missing day" do
-    let(:params) do
+    let(:date_params) do
       { "#{field}(1i)" => "1990", "#{field}(2i)" => "1", "#{field}(3i)" => "" }
     end
 
@@ -115,7 +115,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a missing month" do
-    let(:params) do
+    let(:date_params) do
       { "#{field}(1i)" => "1990", "#{field}(2i)" => "", "#{field}(3i)" => "1" }
     end
 
@@ -129,7 +129,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a whitespace month" do
-    let(:params) do
+    let(:date_params) do
       { "#{field}(1i)" => "1990", "#{field}(2i)" => " ", "#{field}(3i)" => "1" }
     end
 
@@ -143,7 +143,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a word as a month" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => "1990",
         "#{field}(2i)" => "Potatoes",
@@ -162,14 +162,14 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
 end
 
 RSpec.shared_examples "form with a date of birth validator" do |field|
-  subject(:save) { form.save(params) }
+  subject(:save) { form.save }
 
   let(:date_field) { referral.send(field) }
 
   before { save }
 
   context "when the date is in the future" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => 1.year.from_now.year,
         "#{field}(2i)" => "01",
@@ -187,7 +187,7 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
   end
 
   context "with a date less than 16 years ago" do
-    let(:params) do
+    let(:date_params) do
       {
         "#{field}(1i)" => 15.years.ago.year,
         "#{field}(2i)" => Time.zone.today.month,
@@ -205,7 +205,7 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
   end
 
   context "with a date before 1900" do
-    let(:params) do
+    let(:date_params) do
       { "#{field}(1i)" => "1899", "#{field}(2i)" => "1", "#{field}(3i)" => "1" }
     end
 

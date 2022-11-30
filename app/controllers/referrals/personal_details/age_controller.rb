@@ -4,16 +4,21 @@ module Referrals
       def edit
         @personal_details_age_form =
           AgeForm.new(
-            referral: current_referral,
-            age_known: current_referral.age_known
+            age_known: current_referral.age_known,
+            referral: current_referral
           )
       end
 
       def update
         @personal_details_age_form =
-          AgeForm.new(age_params.merge(referral: current_referral))
+          AgeForm.new(
+            age_params.merge(
+              date_params: date_of_birth_params,
+              referral: current_referral
+            )
+          )
 
-        if @personal_details_age_form.save(date_of_birth_params)
+        if @personal_details_age_form.save
           redirect_to referrals_edit_personal_details_trn_path(current_referral)
         else
           render :edit

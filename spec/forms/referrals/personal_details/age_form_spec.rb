@@ -2,10 +2,9 @@
 require "rails_helper"
 
 RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
+  let(:date_params) { {} }
+  let(:form) { described_class.new(referral:, age_known:, date_params:) }
   let(:referral) { build(:referral) }
-  let(:age_known) { "false" }
-
-  let(:form) { described_class.new(referral:, age_known:) }
 
   context "with invalid age_known" do
     let(:age_known) { "" }
@@ -29,7 +28,6 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
     subject(:save) { form.save }
 
     let(:age_known) { "false" }
-    let(:form) { described_class.new(referral:, age_known:) }
 
     it "saves the age_known value without a date of birth" do
       save

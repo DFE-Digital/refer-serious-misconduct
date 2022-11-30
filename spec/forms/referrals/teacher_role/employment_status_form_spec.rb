@@ -2,12 +2,14 @@
 require "rails_helper"
 
 RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
-  let(:referral) { build(:referral) }
+  let(:date_params) { {} }
   let(:employment_status) { "employed" }
   let(:reason_leaving_role) { nil }
+  let(:referral) { build(:referral) }
   let(:role_end_date) { nil }
   let(:form) do
     described_class.new(
+      date_params:,
       referral:,
       employment_status:,
       reason_leaving_role:,
