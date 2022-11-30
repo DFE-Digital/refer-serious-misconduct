@@ -5,7 +5,7 @@ module Referrals
       include ActiveModel::Model
       include ValidatedDate
 
-      attr_accessor :referral
+      attr_accessor :date_params, :referral
       attr_writer :date_of_birth
 
       attr_reader :age_known
@@ -20,7 +20,7 @@ module Referrals
         @date_of_birth ||= referral.date_of_birth
       end
 
-      def save(params = {})
+      def save
         return false if invalid?
 
         referral.update(age_known:)
@@ -28,9 +28,9 @@ module Referrals
         return true unless age_known
 
         unless validated_date(
-                 date_params: params,
                  attribute: :date_of_birth,
-                 date_of_birth: true
+                 date_of_birth: true,
+                 date_params:
                )
           return false
         end

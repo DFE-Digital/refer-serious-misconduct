@@ -5,7 +5,7 @@ module Referrals
       include ActiveModel::Model
       include ValidatedDate
 
-      attr_accessor :referral, :role_start_date
+      attr_accessor :date_params, :referral, :role_start_date
       attr_reader :role_start_date_known
 
       validates :referral, presence: true
@@ -15,11 +15,11 @@ module Referrals
         @role_start_date_known = ActiveModel::Type::Boolean.new.cast(value)
       end
 
-      def save(params = {})
+      def save
         return false if invalid?
 
         if role_start_date_known &&
-             !validated_date(date_params: params, attribute: :role_start_date)
+             !validated_date(date_params:, attribute: :role_start_date)
           return false
         end
 

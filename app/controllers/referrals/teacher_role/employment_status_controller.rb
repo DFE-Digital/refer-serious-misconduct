@@ -14,10 +14,13 @@ module Referrals
       def update
         @employment_status_form =
           EmploymentStatusForm.new(
-            employment_status_params.merge(referral: current_referral)
+            employment_status_params.merge(
+              date_params: end_date_params,
+              referral: current_referral
+            )
           )
 
-        if @employment_status_form.save(end_date_params)
+        if @employment_status_form.save
           redirect_to save_redirect_path
         else
           render :edit
