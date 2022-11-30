@@ -10,8 +10,8 @@
       <%= f.govuk_radio_buttons_fieldset :same_organisation,
         legend: { size: "l", text: "Do they work in the same organisation as you?" } do %>
         <%= f.hidden_field :same_organisation %>
-        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes, in the same organisation as me" } %>
-        <%= f.govuk_radio_button :same_organisation, false, label: { text: "No, in a different organisation" } %>
+        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes, the same organisation" } %>
+        <%= f.govuk_radio_button :same_organisation, false, label: { text: "No, a different organisation" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
