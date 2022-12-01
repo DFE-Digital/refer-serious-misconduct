@@ -1,6 +1,4 @@
-class ReportingAsController < Referrals::BaseController
-  include EnforceQuestionOrder
-
+class ReportingAsController < EligibilityScreenerController
   skip_before_action :authenticate_user!
 
   def new

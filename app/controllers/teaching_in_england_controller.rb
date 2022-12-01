@@ -1,6 +1,4 @@
-class TeachingInEnglandController < Referrals::BaseController
-  include EnforceQuestionOrder
-
+class TeachingInEnglandController < EligibilityScreenerController
   def new
     @teaching_in_england_form = TeachingInEnglandForm.new(eligibility_check:)
   end
