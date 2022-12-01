@@ -6,27 +6,8 @@
       <span class="govuk-caption-xl">About you</span>
       Your organisation
     </h1>
-    <% rows = [
-      {
-        actions: [
-          { text: "Change", href: edit_referral_organisation_name_path(current_referral, return_to: request.url), visually_hidden_text: "name" },
 
-        ],
-        key: { text: "Organisation" },
-        value: { text: @organisation.name },
-      },
-      {
-        actions: [
-          { text: "Change", href: edit_referral_organisation_address_path(current_referral, return_to: request.url), visually_hidden_text: "address" },
-
-        ],
-        key: { text: "Address" },
-        value: { text: organisation_address(@organisation) },
-      },
-    ] %>
-    <%= render(SummaryCardComponent.new(rows:)) do %>
-      <%= render SummaryCardHeaderComponent.new(title: 'Your organisation') %>
-    <% end %>
+    <%= render OrganisationComponent.new(referral: current_referral) %>
 
     <%= form_with model: @organisation_form, url: referral_organisation_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_radio_buttons_fieldset :complete, legend: { size: 'm', text: 'Have you completed this section?' } do %>

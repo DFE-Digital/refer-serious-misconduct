@@ -18,16 +18,6 @@ module Referrals
 
         referral.update(teacher_role_complete:)
       end
-
-      def duties_details
-        if referral.duties_upload.attached?
-          "File: #{referral.duties_upload.filename}"
-        elsif referral.duties_details.present?
-          referral.duties_details.truncate(150, " ")
-        else
-          "Incomplete"
-        end
-      end
     end
   end
 end

@@ -1,18 +1,10 @@
 class OrganisationComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferrerHelper
 
   attr_accessor :referral
 
   delegate :organisation, to: :referral
-
-  def organisation_address
-    [
-      organisation.street_1,
-      organisation.street_2,
-      organisation.city,
-      organisation.postcode
-    ].compact_blank.join("<br />").html_safe
-  end
 
   def rows
     [
@@ -20,7 +12,11 @@ class OrganisationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_organisation_name_path(referral),
+            href:
+              edit_referral_organisation_name_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "name"
           }
         ],
@@ -35,7 +31,11 @@ class OrganisationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_organisation_address_path(referral),
+            href:
+              edit_referral_organisation_address_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "address"
           }
         ],
@@ -43,7 +43,7 @@ class OrganisationComponent < ViewComponent::Base
           text: "Address"
         },
         value: {
-          text: organisation_address
+          text: organisation_address(organisation)
         }
       }
     ]

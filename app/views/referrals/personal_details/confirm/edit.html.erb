@@ -1,51 +1,14 @@
 <% content_for :page_title, "#{'Error: ' if @personal_details_confirm_form.errors.any?}Personal details" %>
 <% content_for :back_link_url, url_for(:back) %>
 
-<% rows = [
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_personal_details_name_path(current_referral, return_to: request.url), visually_hidden_text: "name" },
-    ],
-    key: { text: "Name" },
-    value: { text: "#{current_referral.first_name} #{current_referral.last_name}" },
-  },
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_personal_details_age_path(current_referral, return_to: request.url), visually_hidden_text: "date of birth" },
-    ],
-    key: { text: "Date of birth" },
-    value: { text: current_referral.date_of_birth&.to_fs(:long_ordinal_uk) },
-  },
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_personal_details_trn_path(current_referral, return_to: request.url), visually_hidden_text: "teacher reference number (TRN)" },
-    ],
-    key: { text: "Teacher reference number (TRN)" },
-    value: { text: current_referral.trn },
-  },
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_personal_details_qts_path(current_referral, return_to: request.url), visually_hidden_text: "do they have QTS?" },
-    ],
-    key: { text: "Do they have QTS?" },
-    value: { text: current_referral.has_qts&.humanize },
-  },
-] %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">
-          <span class="govuk-caption-xl">About the person you are referring</span>
-          Personal details
-        </h1>
-      </div>
-    </div>
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">About the person you are referring</span>
+      Personal details
+    </h1>
 
-    <%= render(SummaryCardComponent.new(rows:)) do %>
-      <%= render SummaryCardHeaderComponent.new(title: "Personal details") %>
-    <% end %>
+    <%= render PersonalDetailsComponent.new(referral: current_referral) %>
 
     <%= form_with model: @personal_details_confirm_form, url: referrals_update_personal_details_confirm_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>

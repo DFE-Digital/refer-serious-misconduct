@@ -10,7 +10,11 @@ class PreviousMisconductComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_previous_misconduct_reported_path(referral),
+            href:
+              edit_referral_previous_misconduct_reported_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "reported"
           }
         ],
@@ -28,7 +32,10 @@ class PreviousMisconductComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              edit_referral_previous_misconduct_detailed_account_path(referral),
+              edit_referral_previous_misconduct_detailed_account_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "details"
           }
         ],

@@ -84,7 +84,7 @@ RSpec.feature "Allegation", type: :system do
     summary_rows = all(".govuk-summary-list__row")
 
     within(summary_rows[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Detailed account")
+      expect(find(".govuk-summary-list__key").text).to eq("Summary")
       expect(find(".govuk-summary-list__value").text).to eq(
         "Something something something"
       )
