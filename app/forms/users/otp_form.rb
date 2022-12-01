@@ -28,9 +28,7 @@ class Users::OtpForm
   end
 
   def otp_expired?
-    return false unless user.otp_created_at
-
-    (EXPIRY_IN_MINUTES.ago >= user.otp_created_at)
+    user.otp_created_at.blank? || (EXPIRY_IN_MINUTES.ago >= user.otp_created_at)
   end
 
   def maximum_guesses?
