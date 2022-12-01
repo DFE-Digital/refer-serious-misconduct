@@ -17,7 +17,7 @@ class Users::OtpForm
   validate :must_be_expected_otp
 
   def must_be_expected_otp
-    return unless user.secret_key
+    return unless secret_key?
 
     expected_otp = Devise::Otp.derive_otp(user.secret_key)
 
@@ -29,6 +29,10 @@ class Users::OtpForm
 
   def otp_expired?
     user.otp_created_at.blank? || (EXPIRY_IN_MINUTES.ago >= user.otp_created_at)
+  end
+
+  def secret_key?
+    user.secret_key.present?
   end
 
   def maximum_guesses?
