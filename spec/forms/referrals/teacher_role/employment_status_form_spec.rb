@@ -5,6 +5,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
   let(:form) { described_class.new(params) }
   let(:referral) { build(:referral) }
   let(:params) { {} }
+  let(:date_params) { nil }
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
