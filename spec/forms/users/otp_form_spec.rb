@@ -24,10 +24,10 @@ RSpec.describe Users::OtpForm do
       it { is_expected.to be_falsey }
     end
 
-    context "when the OTP has not been created" do
+    context "when there is no OTP timestamp" do
       let(:otp_created_at) { nil }
 
-      it { is_expected.to be_falsey }
+      it { is_expected.to be_truthy }
     end
   end
 end
