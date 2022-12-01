@@ -33,9 +33,9 @@ module Referrals
 
       def date_of_birth_params
         params.require(:referrals_personal_details_age_form).permit(
-          "date_of_birth(3i)",
+          "date_of_birth(1i)",
           "date_of_birth(2i)",
-          "date_of_birth(1i)"
+          "date_of_birth(3i)"
         )
       end
     end

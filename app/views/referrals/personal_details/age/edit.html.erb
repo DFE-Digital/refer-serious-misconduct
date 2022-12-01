@@ -9,6 +9,7 @@
         <%= f.govuk_radio_buttons_fieldset(:age_known, legend: { size: "xl", text: "Do you know their date of birth?" }) do %>
           <%= f.govuk_radio_button :age_known, "true", label: { text: "I know their date of birth" } do %>
             <%= f.govuk_date_field :date_of_birth,
+                date_of_birth: true,
                 legend: { text: "Date of birth", size: "m" },
                 hint: { text: "For example, 27 3 1987" } %>
           <% end %>

@@ -8,6 +8,8 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
   let(:referral) { build(:referral) }
 
   context "with invalid age_known" do
+    subject { form }
+
     let(:age_known) { "" }
 
     it { is_expected.to be_invalid }
