@@ -11,7 +11,11 @@ class AboutYouComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_referrer_name_path(referral),
+            href:
+              edit_referral_referrer_name_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "name"
           }
         ],
@@ -35,7 +39,11 @@ class AboutYouComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_referrer_job_title_path(referral),
+            href:
+              edit_referral_referrer_job_title_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "job title"
           }
         ],
@@ -50,7 +58,11 @@ class AboutYouComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: edit_referral_referrer_phone_path(referral),
+            href:
+              edit_referral_referrer_phone_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "phone"
           }
         ],

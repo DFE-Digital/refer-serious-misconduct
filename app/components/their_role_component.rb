@@ -1,5 +1,6 @@
 class TheirRoleComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -14,7 +15,7 @@ class TheirRoleComponent < ViewComponent::Base
           }
         ],
         key: {
-          text: "Start date"
+          text: "Job start date"
         },
         value: {
           text:
@@ -62,6 +63,36 @@ class TheirRoleComponent < ViewComponent::Base
         },
         value: {
           text: referral.job_title || "Not known"
+        }
+      },
+      {
+        actions: [
+          {
+            text: "Change",
+            href: referrals_edit_teacher_same_organisation_path(referral),
+            visually_hidden_text: "working in the same organisation"
+          }
+        ],
+        key: {
+          text: "Do they work in the same organisation as you"
+        },
+        value: {
+          text: referral.same_organisation ? "Yes" : "No"
+        }
+      },
+      {
+        actions: [
+          {
+            text: "Change",
+            href: referrals_edit_teacher_duties_path(referral),
+            visually_hidden_text: "main duties"
+          }
+        ],
+        key: {
+          text: "About their main duties"
+        },
+        value: {
+          text: duties_details(referral)
         }
       }
     ]

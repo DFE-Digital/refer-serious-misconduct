@@ -15,4 +15,14 @@ module ReferralHelper
       referrals_edit_evidence_start_path(referral)
     end
   end
+
+  def duties_details(referral)
+    if referral.duties_upload.attached?
+      "File: #{referral.duties_upload.filename}"
+    elsif referral.duties_details.present?
+      referral.duties_details.truncate(150, " ")
+    else
+      "Incomplete"
+    end
+  end
 end

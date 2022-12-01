@@ -1,36 +1,13 @@
 <% content_for :page_title, "#{'Error: ' if @allegation_confirm_form.errors.any?}Check and confirm your answers" %>
 <% content_for :back_link_url, url_for(:back) %>
 
-<% rows = [
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_allegation_details_path(current_referral, return_to: request.url), visually_hidden_text: "detailed account" },
-    ],
-    key: { text: "Detailed account" },
-    value: { text: @allegation_confirm_form.allegation_details },
-  },
-  {
-    actions: [
-      { text: "Change", href: referrals_edit_allegation_dbs_path(current_referral, return_to: request.url), visually_hidden_text: "DBS notified" },
-    ],
-    key: { text: "Have you told DBS?" },
-    value: { text: current_referral.dbs_notified ? "Yes" : "No" },
-  },
-] %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">
-          Check and confirm your answers
-        </h1>
-      </div>
-    </div>
+    <h1 class="govuk-heading-xl">
+      Check and confirm your answers
+    </h1>
 
-    <%= render(SummaryCardComponent.new(rows:)) do %>
-      <%= render SummaryCardHeaderComponent.new(title: "What happened") %>
-    <% end %>
+    <%= render WhatHappenedComponent.new(referral: current_referral) %>
 
     <%= form_with model: @allegation_confirm_form, url: referrals_update_allegation_confirm_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>

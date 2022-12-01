@@ -76,7 +76,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def and_i_see_my_answers_on_the_referrer_check_your_answers_page
     expect(page).to have_content("Your name\tTest Name")
-    expect(page).to have_content("Phone number\t01234567890")
+    expect(page).to have_content("Main contact number\t01234567890")
   end
 
   def and_i_see_your_details_flagged_as_incomplete

@@ -9,7 +9,11 @@ class PersonalDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_personal_details_name_path(referral),
+            href:
+              referrals_edit_personal_details_name_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "name"
           }
         ],
@@ -24,7 +28,11 @@ class PersonalDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_personal_details_age_path(referral),
+            href:
+              referrals_edit_personal_details_age_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "date of birth"
           }
         ],
@@ -39,7 +47,11 @@ class PersonalDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_personal_details_trn_path(referral),
+            href:
+              referrals_edit_personal_details_trn_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "teacher reference number (TRN)"
           }
         ],
@@ -54,7 +66,11 @@ class PersonalDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_personal_details_qts_path(referral),
+            href:
+              referrals_edit_personal_details_qts_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "do they have QTS?"
           }
         ],

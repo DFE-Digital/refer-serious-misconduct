@@ -7,35 +7,8 @@
       <span class="govuk-caption-xl">About the person you are referring</span>
       Check and confirm your answers
     </h1>
-    <% rows = [
-      {
-        actions: [
-          { text: "Change", href: referrals_edit_contact_details_email_path(current_referral, return_to: request.url), visually_hidden_text: "email" },
 
-        ],
-        key: { text: "Email address" },
-        value: { text: current_referral.email_known ? current_referral.email_address : "Not known" },
-      },
-      {
-        actions: [
-          { text: "Change", href: referrals_edit_contact_details_telephone_path(current_referral, return_to: request.url), visually_hidden_text: "telephone" },
-
-        ],
-        key: { text: "Phone number" },
-        value: { text: current_referral.phone_known ? current_referral.phone_number : "Not known" },
-      },
-      {
-        actions: [
-          { text: "Change", href: referrals_edit_contact_details_address_path(current_referral, return_to: request.url), visually_hidden_text: "address" },
-
-        ],
-        key: { text: "Address" },
-        value: { text: current_referral.address_known ? address(current_referral) : "Not known" },
-      }
-    ] %>
-    <%= render(SummaryCardComponent.new(rows:)) do %>
-      <%= render SummaryCardHeaderComponent.new(title: 'Contact details') %>
-    <% end %>
+    <%= render ContactDetailsComponent.new(referral: current_referral) %>
 
     <%= form_with model: @contact_details_check_answers_form, url: referrals_update_contact_details_check_answers_url, method: :put do |f| %>
       <%= f.govuk_error_summary %>

@@ -1,5 +1,6 @@
 class ContactDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferrerHelper
 
   attr_accessor :referral
 
@@ -9,7 +10,11 @@ class ContactDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_contact_details_email_path(referral),
+            href:
+              referrals_edit_contact_details_email_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "email"
           }
         ],
@@ -24,7 +29,30 @@ class ContactDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_contact_details_address_path(referral),
+            href:
+              referrals_edit_contact_details_telephone_path(
+                referral,
+                return_to: request.url
+              ),
+            visually_hidden_text: "telephone"
+          }
+        ],
+        key: {
+          text: "Phone number"
+        },
+        value: {
+          text: referral.phone_known ? referral.phone_number : "Not known"
+        }
+      },
+      {
+        actions: [
+          {
+            text: "Change",
+            href:
+              referrals_edit_contact_details_address_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "address"
           }
         ],

@@ -14,7 +14,11 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_allegation_details_path(referral),
+            href:
+              referrals_edit_allegation_details_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "summary"
           }
         ],
@@ -29,7 +33,11 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_allegation_dbs_path(referral),
+            href:
+              referrals_edit_allegation_dbs_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "DBS notified"
           }
         ],
