@@ -8,7 +8,7 @@ RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
 
   let(:date_params) { nil }
   let(:referral) { build(:referral) }
-  let(:role_start_date_known) { true }
+  let(:role_start_date_known) { false }
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
