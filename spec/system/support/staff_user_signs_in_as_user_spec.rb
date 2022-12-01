@@ -14,6 +14,9 @@ RSpec.feature "Test users" do
 
     and_i_visit_the_test_users_section
     and_i_create_a_new_user
+    then_the_user_is_created
+
+    when_i_click_sign_in_for_that_user
     then_i_am_signed_in_as_that_user
   end
 
@@ -37,6 +40,15 @@ RSpec.feature "Test users" do
 
   def and_i_create_a_new_user
     click_button "Create new user"
+  end
+
+  def then_the_user_is_created
+    @user = User.last
+    expect(page).to have_content "User #{@user.email} created"
+  end
+
+  def when_i_click_sign_in_for_that_user
+    within(".govuk-table__row", text: @user.email) { click_button "Sign in" }
   end
 
   def then_i_am_signed_in_as_that_user
