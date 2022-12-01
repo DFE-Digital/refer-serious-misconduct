@@ -19,7 +19,7 @@ class Users::OtpController < DeviseController
   def create
     @otp_form = Users::OtpForm.new(user_params)
 
-    if @otp_form.otp_expired?
+    if @otp_form.otp_expired? || !@otp_form.secret_key?
       fail_and_retry(reason: :expired)
     elsif @otp_form.valid?
       self.resource = warden.authenticate!(auth_options)

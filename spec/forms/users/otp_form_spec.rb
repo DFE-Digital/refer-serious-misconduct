@@ -3,10 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Users::OtpForm do
+  let(:form) { described_class.new(id: user.id) }
+
   describe "#otp_expired?" do
     subject { form.otp_expired? }
 
-    let(:form) { described_class.new(id: user.id) }
     let(:user) { create(:user, otp_created_at:) }
 
     before { freeze_time }
@@ -28,6 +29,22 @@ RSpec.describe Users::OtpForm do
       let(:otp_created_at) { nil }
 
       it { is_expected.to be_truthy }
+    end
+  end
+
+  describe "#secret_key?" do
+    subject { form.secret_key? }
+
+    context "when user secret_key is present" do
+      let(:user) { create(:user, secret_key: "test_key") }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when user secret_key is blank" do
+      let(:user) { create(:user, secret_key: nil) }
+
+      it { is_expected.to be_falsey }
     end
   end
 end
