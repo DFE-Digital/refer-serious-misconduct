@@ -89,12 +89,12 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def and_i_see_the_details_are_displayed
-    expect(page).to have_content("Detailed report")
+    expect(page).to have_content("Detailed account")
     expect(page).to have_content("Some details")
   end
 
   def and_i_see_the_uploaded_file_name
-    expect(page).to have_content("Detailed report")
+    expect(page).to have_content("Detailed account")
     expect(page).to have_content("upload.txt")
   end
 
