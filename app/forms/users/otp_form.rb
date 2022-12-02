@@ -4,7 +4,7 @@ class Users::OtpForm
 
   include ActiveModel::Model
 
-  attr_accessor :otp, :id
+  attr_accessor :otp, :uuid
   attr_writer :email
 
   validates :otp,
@@ -40,7 +40,7 @@ class Users::OtpForm
   end
 
   def user
-    @user ||= User.find(id)
+    @user ||= User.find_by!(uuid:)
   end
 
   def email

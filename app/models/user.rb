@@ -9,6 +9,12 @@ class User < ApplicationRecord
 
   scope :newest_first, -> { order(created_at: :desc) }
 
+  after_commit :reload_uuid, on: :create
+
+  def reload_uuid
+    self[:uuid] = self.class.where(id:).pick(:uuid)
+  end
+
   def after_failed_otp_authentication
     clear_otp_state
   end

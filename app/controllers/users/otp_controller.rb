@@ -6,7 +6,7 @@ class Users::OtpController < DeviseController
   end
 
   def new
-    @otp_form = Users::OtpForm.new(id: params[:id])
+    @otp_form = Users::OtpForm.new(uuid: params[:uuid])
   end
 
   def create
@@ -61,6 +61,6 @@ class Users::OtpController < DeviseController
   end
 
   def user_params
-    params.require(:user).permit(:id, :otp, :email)
+    params.require(:user).permit(:uuid, :otp, :email)
   end
 end

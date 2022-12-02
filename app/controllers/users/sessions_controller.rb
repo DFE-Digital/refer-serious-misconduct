@@ -7,7 +7,8 @@ class Users::SessionsController < Devise::SessionsController
       if FeatureFlags::FeatureFlag.active?(:otp_emails)
         UserMailer.send_otp(resource).deliver_later
       end
-      redirect_to new_user_otp_path(id: resource.id)
+
+      redirect_to new_user_otp_path(uuid: resource.uuid)
     else
       render :new
     end
