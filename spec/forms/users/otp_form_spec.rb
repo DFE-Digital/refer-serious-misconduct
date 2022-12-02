@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Users::OtpForm do
-  let(:form) { described_class.new(id: user.id) }
+  let(:form) { described_class.new(uuid: user.uuid) }
 
   describe "#otp_expired?" do
     subject { form.otp_expired? }
