@@ -284,11 +284,12 @@ Rails.application.routes.draw do
       put "/authenticate", on: :member, to: "test_users#authenticate"
     end
 
+    mount FeatureFlags::Engine => "/features"
+
     devise_scope :staff do
       authenticate :staff do
         # Mount engines that require staff authentication here
         mount Sidekiq::Web, at: "sidekiq"
-        mount FeatureFlags::Engine => "/features"
       end
     end
 
