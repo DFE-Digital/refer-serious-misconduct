@@ -10,28 +10,7 @@
       </div>
     </div>
 
-    <% rows = [
-      {
-        actions: [
-          { text: "Change", href: edit_referral_previous_misconduct_reported_path(current_referral), visually_hidden_text: "reported" },
-
-        ],
-        key: { text: "Has there been any previous misconduct?" },
-        value: { text: humanize_three_way_choice(current_referral.previous_misconduct_reported) },
-      }
-    ] %>
-
-    <% rows << {
-      actions: [
-        { text: "Change", href: edit_referral_previous_misconduct_detailed_account_path(current_referral), visually_hidden_text: "details" },
-      ],
-      key: { text: "Detailed report" },
-      value: { text: current_referral.previous_misconduct_upload.attached? ? current_referral.previous_misconduct_upload.filename : simple_format(current_referral.previous_misconduct_details) },
-    } if current_referral.previous_misconduct_reported? %>
-
-    <%= render(SummaryCardComponent.new(rows:)) do %>
-      <%= render SummaryCardHeaderComponent.new(title: 'Previous allegations') %>
-    <% end %>
+    <%= render PreviousMisconductComponent.new(referral: current_referral) %>
 
     <%= form_with model: @previous_misconduct_form, url: referral_previous_misconduct_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_radio_buttons_fieldset :complete, legend: { size: 'm', text: 'Have you completed this section?' } do %>

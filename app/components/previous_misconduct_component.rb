@@ -33,7 +33,7 @@ class PreviousMisconductComponent < ViewComponent::Base
           }
         ],
         key: {
-          text: "Detailed report"
+          text: "Detailed account"
         },
         value: {
           text: report
@@ -49,6 +49,10 @@ class PreviousMisconductComponent < ViewComponent::Base
       return referral.previous_misconduct_upload.filename
     end
 
-    simple_format(referral.previous_misconduct_details)
+    if referral.previous_misconduct_details.present?
+      return simple_format(referral.previous_misconduct_details)
+    end
+
+    "Not answered yet"
   end
 end
