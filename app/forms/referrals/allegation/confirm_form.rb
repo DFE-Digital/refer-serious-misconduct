@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Allegation
-    class ConfirmForm
+    class CheckAnswersForm
       include ActiveModel::Model
 
       validates :allegation_details_complete, inclusion: { in: [true, false] }

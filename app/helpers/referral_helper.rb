@@ -8,7 +8,7 @@ module ReferralHelper
     end
   end
 
-  def evidence_confirm_back_link(referral)
+  def evidence_check_answers_link(referral)
     if referral.evidences.any?
       referrals_edit_evidence_categories_path(referral, referral.evidences.last)
     else

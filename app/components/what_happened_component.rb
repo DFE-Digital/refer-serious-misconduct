@@ -3,9 +3,9 @@ class WhatHappenedComponent < ViewComponent::Base
 
   attr_accessor :referral
 
-  def allegation_confirm_form
-    @allegation_confirm_form ||=
-      Referrals::Allegation::ConfirmForm.new(referral:)
+  def allegation_check_answers_form
+    @allegation_check_answers_form ||=
+      Referrals::Allegation::CheckAnswersForm.new(referral:)
   end
 
   def rows
@@ -26,7 +26,7 @@ class WhatHappenedComponent < ViewComponent::Base
           text: "Summary"
         },
         value: {
-          text: allegation_confirm_form.allegation_details
+          text: allegation_check_answers_form.allegation_details
         }
       },
       {

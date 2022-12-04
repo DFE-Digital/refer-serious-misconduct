@@ -29,8 +29,8 @@ RSpec.describe ReferralHelper, type: :helper do
     end
   end
 
-  describe "#evidence_confirm_back_link" do
-    subject(:link) { helper.evidence_confirm_back_link(referral) }
+  describe "#evidence_check_answers_link" do
+    subject(:link) { helper.evidence_check_answers_link(referral) }
 
     context "with evidence" do
       let(:evidences) { [evidence] }

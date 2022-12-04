@@ -120,7 +120,7 @@ en:
           attributes:
             has_qts:
               inclusion: Tell us if you know whether they have QTS
-        "referrals/personal_details/confirm_form":
+        "referrals/personal_details/check_answers_form":
           attributes:
             personal_details_complete:
               inclusion: Tell us if you have completed this section
@@ -263,7 +263,7 @@ en:
           attributes:
             dbs_notified:
               inclusion: Tell us if you have notified DBS about the case
-        "referrals/allegation/confirm_form":
+        "referrals/allegation/check_answers_form":
           attributes:
             allegation_details_complete:
               inclusion: Tell us if you have completed this section
@@ -285,7 +285,7 @@ en:
               blank: Select categories that describe this file
             categories_other:
               blank: Tell us what type of evidence this is
-        "referrals/evidence/confirm_form":
+        "referrals/evidence/check_answers_form":
           attributes:
             evidence_details_complete:
               inclusion: Tell us if you have completed this section

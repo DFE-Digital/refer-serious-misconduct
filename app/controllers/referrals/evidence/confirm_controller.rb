@@ -1,15 +1,18 @@
 module Referrals
   module Evidence
-    class ConfirmController < Referrals::BaseController
+    class CheckAnswersController < Referrals::BaseController
       def edit
-        @evidence_confirm_form = ConfirmForm.new(referral: current_referral)
+        @evidence_check_answers_form =
+          CheckAnswersForm.new(referral: current_referral)
       end
 
       def update
-        @evidence_confirm_form =
-          ConfirmForm.new(confirm_params.merge(referral: current_referral))
+        @evidence_check_answers_form =
+          CheckAnswersForm.new(
+            check_answers_params.merge(referral: current_referral)
+          )
 
-        if @evidence_confirm_form.save
+        if @evidence_check_answers_form.save
           redirect_to edit_referral_path(current_referral)
         else
           render :edit
@@ -25,7 +28,7 @@ module Referrals
         evidence.destroy
 
         redirect_to(
-          referrals_edit_evidence_confirm_path(current_referral),
+          referrals_edit_evidence_check_answers_path(current_referral),
           flash: {
             success: "#{filename} deleted"
           }
@@ -39,8 +42,8 @@ module Referrals
 
       private
 
-      def confirm_params
-        params.fetch(:referrals_evidence_confirm_form, {}).permit(
+      def check_answers_params
+        params.fetch(:referrals_evidence_check_answers_form, {}).permit(
           :evidence_details_complete
         )
       end

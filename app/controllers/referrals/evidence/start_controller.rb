@@ -18,7 +18,9 @@ module Referrals
             redirect_to referrals_edit_evidence_upload_path(current_referral)
           else
             current_referral.update(evidences: [])
-            redirect_to referrals_edit_evidence_confirm_path(current_referral)
+            redirect_to referrals_edit_evidence_check_answers_path(
+                          current_referral
+                        )
           end
         else
           render :edit
