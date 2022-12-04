@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @allegation_confirm_form.errors.any?}Check and confirm your answers" %>
+<% content_for :page_title, "#{'Error: ' if @allegation_check_answers_form.errors.any?}Check and confirm your answers" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
@@ -9,7 +9,7 @@
 
     <%= render WhatHappenedComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @allegation_confirm_form, url: referrals_update_allegation_confirm_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @allegation_check_answers_form, url: referrals_update_allegation_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

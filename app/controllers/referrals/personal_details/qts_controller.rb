@@ -27,7 +27,7 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_personal_details_confirm_path(current_referral)
+        referrals_edit_personal_details_check_answers_path(current_referral)
       end
     end
   end

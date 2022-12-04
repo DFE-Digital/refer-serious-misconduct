@@ -1,15 +1,18 @@
 module Referrals
   module Allegation
-    class ConfirmController < Referrals::BaseController
+    class CheckAnswersController < Referrals::BaseController
       def edit
-        @allegation_confirm_form = ConfirmForm.new(referral: current_referral)
+        @allegation_check_answers_form =
+          CheckAnswersForm.new(referral: current_referral)
       end
 
       def update
-        @allegation_confirm_form =
-          ConfirmForm.new(confirm_params.merge(referral: current_referral))
+        @allegation_check_answers_form =
+          CheckAnswersForm.new(
+            check_answers_params.merge(referral: current_referral)
+          )
 
-        if @allegation_confirm_form.save
+        if @allegation_check_answers_form.save
           redirect_to edit_referral_path(current_referral)
         else
           render :edit
@@ -18,8 +21,8 @@ module Referrals
 
       private
 
-      def confirm_params
-        params.fetch(:referrals_allegation_confirm_form, {}).permit(
+      def check_answers_params
+        params.fetch(:referrals_allegation_check_answers_form, {}).permit(
           :allegation_details_complete
         )
       end

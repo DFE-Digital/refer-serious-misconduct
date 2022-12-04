@@ -1,16 +1,18 @@
 module Referrals
   module PersonalDetails
-    class ConfirmController < Referrals::BaseController
+    class CheckAnswersController < Referrals::BaseController
       def edit
-        @personal_details_confirm_form =
-          ConfirmForm.new(referral: current_referral)
+        @personal_details_check_answers_form =
+          CheckAnswersForm.new(referral: current_referral)
       end
 
       def update
-        @personal_details_confirm_form =
-          ConfirmForm.new(confirm_params.merge(referral: current_referral))
+        @personal_details_check_answers_form =
+          CheckAnswersForm.new(
+            check_answers_params.merge(referral: current_referral)
+          )
 
-        if @personal_details_confirm_form.save
+        if @personal_details_check_answers_form.save
           redirect_to edit_referral_path(current_referral)
         else
           render :edit
@@ -19,8 +21,8 @@ module Referrals
 
       private
 
-      def confirm_params
-        params.fetch(:referrals_personal_details_confirm_form, {}).permit(
+      def check_answers_params
+        params.fetch(:referrals_personal_details_check_answers_form, {}).permit(
           :personal_details_complete
         )
       end

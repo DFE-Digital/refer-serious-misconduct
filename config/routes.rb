@@ -152,12 +152,12 @@ Rails.application.routes.draw do
     put "/:referral_id/personal-details/qts",
         to: "personal_details/qts#update",
         as: "update_personal_details_qts"
-    get "/:referral_id/personal-details/confirm",
-        to: "personal_details/confirm#edit",
-        as: "edit_personal_details_confirm"
-    put "/:referral_id/personal-details/confirm",
-        to: "personal_details/confirm#update",
-        as: "update_personal_details_confirm"
+    get "/:referral_id/personal-details/check-answers",
+        to: "personal_details/check_answers#edit",
+        as: "edit_personal_details_check_answers"
+    put "/:referral_id/personal-details/check-answers",
+        to: "personal_details/check_answers#update",
+        as: "update_personal_details_check_answers"
 
     get "/:referral_id/contact-details/email",
         to: "contact_details/email#edit",
@@ -196,12 +196,12 @@ Rails.application.routes.draw do
     put "/:referral_id/allegation/dbs",
         to: "allegation/dbs#update",
         as: "update_allegation_dbs"
-    get "/:referral_id/allegation/confirm",
-        to: "allegation/confirm#edit",
-        as: "edit_allegation_confirm"
-    put "/:referral_id/allegation/confirm",
-        to: "allegation/confirm#update",
-        as: "update_allegation_confirm"
+    get "/:referral_id/allegation/check-answers",
+        to: "allegation/check_answers#edit",
+        as: "edit_allegation_check_answers"
+    put "/:referral_id/allegation/check-answers",
+        to: "allegation/check_answers#update",
+        as: "update_allegation_check_answers"
 
     get "/:referral_id/teacher-role/start-date",
         to: "teacher_role/start_date#edit",
@@ -261,17 +261,17 @@ Rails.application.routes.draw do
     put "/:referral_id/evidence/:evidence_id/categories",
         to: "evidence/categories#update",
         as: "update_evidence_categories"
-    get "/:referral_id/evidence/confirm",
-        to: "evidence/confirm#edit",
-        as: "edit_evidence_confirm"
-    put "/:referral_id/evidence/confirm",
-        to: "evidence/confirm#update",
-        as: "update_evidence_confirm"
+    get "/:referral_id/evidence/check-answers",
+        to: "evidence/check_answers#edit",
+        as: "edit_evidence_check_answers"
+    put "/:referral_id/evidence/check-answers",
+        to: "evidence/check_answers#update",
+        as: "update_evidence_check_answers"
     get "/:referral_id/evidence/:evidence_id/delete",
-        to: "evidence/confirm#delete",
+        to: "evidence/check_answers#delete",
         as: "delete_evidence"
     delete "/:referral_id/evidence/:evidence_id",
-           to: "evidence/confirm#destroy",
+           to: "evidence/check_answers#destroy",
            as: "destroy_evidence"
   end
 

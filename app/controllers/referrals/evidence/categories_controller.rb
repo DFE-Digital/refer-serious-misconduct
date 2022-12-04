@@ -23,7 +23,9 @@ module Referrals
                           next_evidence
                         )
           else
-            redirect_to referrals_edit_evidence_confirm_path(current_referral)
+            redirect_to referrals_edit_evidence_check_answers_path(
+                          current_referral
+                        )
           end
         else
           render :edit

@@ -51,7 +51,7 @@ RSpec.feature "Evidence", type: :system do
     then_i_am_asked_to_confirm_the_evidence_details
 
     when_i_click_save_and_continue
-    then_i_see_confirm_form_validation_errors
+    then_i_see_check_answers_form_validation_errors
 
     when_i_click_delete_on_the_first_evidence_item
     then_i_am_asked_to_confirm_deletion
@@ -183,7 +183,7 @@ RSpec.feature "Evidence", type: :system do
     end
   end
 
-  def then_i_see_confirm_form_validation_errors
+  def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Tell us if you have completed this section")
   end
 
