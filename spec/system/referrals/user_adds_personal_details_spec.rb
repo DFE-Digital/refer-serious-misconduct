@@ -3,6 +3,7 @@ require "rails_helper"
 
 RSpec.feature "Personal details", type: :system do
   include CommonSteps
+  include SummaryListHelpers
 
   scenario "User adds personal details to a referral" do
     given_the_service_is_open
@@ -148,61 +149,45 @@ RSpec.feature "Personal details", type: :system do
     expect(page).to have_content("About the person you are referring")
     expect(page).to have_content("Personal details")
 
-    summary_rows = all(".govuk-summary-list__row")
+    expect_summary_row(
+      key: "Name",
+      value: "Jane Smith",
+      change_link:
+        referrals_edit_personal_details_name_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Name")
-      expect(find(".govuk-summary-list__value").text).to eq("Jane Smith")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_personal_details_name_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
+    expect_summary_row(
+      key: "Date of birth",
+      value: "17 January 1990",
+      change_link:
+        referrals_edit_personal_details_age_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[1]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Date of birth")
-      expect(find(".govuk-summary-list__value").text).to eq("17 January 1990")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_personal_details_age_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
+    expect_summary_row(
+      key: "Teacher reference number (TRN)",
+      value: "9912345",
+      change_link:
+        referrals_edit_personal_details_trn_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[2]) do
-      expect(find(".govuk-summary-list__key").text).to eq(
-        "Teacher reference number (TRN)"
-      )
-      expect(find(".govuk-summary-list__value").text).to eq("9912345")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_personal_details_trn_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
-
-    within(summary_rows[3]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Do they have QTS?")
-      expect(find(".govuk-summary-list__value").text).to eq("Yes")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_personal_details_qts_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
+    expect_summary_row(
+      key: "Do they have QTS?",
+      value: "Yes",
+      change_link:
+        referrals_edit_personal_details_qts_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
     expect(page).to have_content("Have you completed this section?")
   end

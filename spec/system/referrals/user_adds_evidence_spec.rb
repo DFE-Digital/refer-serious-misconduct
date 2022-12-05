@@ -3,6 +3,7 @@ require "rails_helper"
 
 RSpec.feature "Evidence", type: :system do
   include CommonSteps
+  include SummaryListHelpers
 
   scenario "User adds evidence to a referral" do
     given_the_service_is_open
@@ -157,30 +158,35 @@ RSpec.feature "Evidence", type: :system do
   def then_i_am_asked_to_confirm_the_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
-    within(all(".govuk-summary-list__row")[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("doc1.pdf")
-      expect(find(".govuk-summary-list__value").text).to eq(
-        "CV, Job offer, Signed witness statements"
-      )
-    end
+    expect_summary_row(
+      key: "doc1.pdf",
+      value: "CV, Job offer, Signed witness statements",
+      change_link:
+        referrals_edit_evidence_categories_path(
+          @referral,
+          @referral.evidences.first
+        )
+    )
 
-    within(all(".govuk-summary-list__row")[1]) do
-      expect(find(".govuk-summary-list__key").text).to eq("doc2.pdf")
-      expect(find(".govuk-summary-list__value").text).to eq(
-        "Police investigation and reports, Other: Some other details"
-      )
-    end
+    expect_summary_row(
+      key: "doc2.pdf",
+      value: "Police investigation and reports, Other: Some other details",
+      change_link:
+        referrals_edit_evidence_categories_path(
+          @referral,
+          @referral.evidences.second
+        )
+    )
   end
 
   def then_i_am_asked_to_confirm_evidence_details_without_uploads
     expect(page).to have_content("Check and confirm your answers")
 
-    within(all(".govuk-summary-list__row")[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Documents")
-      expect(find(".govuk-summary-list__value").text).to eq(
-        "No evidence uploaded"
-      )
-    end
+    expect_summary_row(
+      key: "Documents",
+      value: "No evidence uploaded",
+      change_link: referrals_edit_evidence_start_path(@referral)
+    )
   end
 
   def then_i_see_check_answers_form_validation_errors
@@ -188,7 +194,9 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_click_delete_on_the_first_evidence_item
-    within(all(".govuk-summary-list__row")[0]) { click_on "Delete" }
+    within(page.find(".govuk-summary-list__row", text: "doc1.pdf")) do
+      click_on "Delete"
+    end
   end
 
   def then_i_am_asked_to_confirm_deletion
@@ -200,13 +208,15 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_can_no_longer_see_the_upload_in_the_referral_summary
-    within(all(".govuk-summary-list__row")[0]) do
-      expect(find(".govuk-summary-list__key").text).not_to eq("doc1.pdf")
-      expect(find(".govuk-summary-list__key").text).to eq("doc2.pdf")
-      expect(find(".govuk-summary-list__value").text).to eq(
-        "Police investigation and reports, Other: Some other details"
-      )
-    end
+    expect_summary_row(
+      key: "doc2.pdf",
+      value: "Police investigation and reports, Other: Some other details",
+      change_link:
+        referrals_edit_evidence_categories_path(
+          @referral,
+          @referral.evidences.first
+        )
+    )
   end
 
   def when_i_choose_to_confirm
