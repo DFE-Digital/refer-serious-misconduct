@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe "Support", type: :system do
   it "visiting the support interface" do
     given_an_eligibility_check_exists
-    when_i_am_authorized_as_a_support_user
+    when_i_am_authorized_as_a_staff_user
     and_i_visit_the_support_page
     then_i_see_the_eligibility_checks_page
 
@@ -35,7 +35,7 @@ RSpec.describe "Support", type: :system do
     expect(page).to have_content("Features")
   end
 
-  def when_i_am_authorized_as_a_support_user
+  def when_i_am_authorized_as_a_staff_user
     page.driver.basic_authorize("test", "test")
   end
 

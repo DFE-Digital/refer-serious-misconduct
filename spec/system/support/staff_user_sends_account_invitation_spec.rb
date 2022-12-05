@@ -6,7 +6,7 @@ RSpec.feature "Staff invitations", type: :system do
     given_the_service_is_open
     and_staff_http_basic_is_active
 
-    when_i_am_authorized_as_a_support_user
+    when_i_am_authorized_as_a_staff_user
     when_i_visit_the_staff_invitation_page
     then_i_see_the_staff_index
     when_i_click_on_invite
@@ -16,7 +16,7 @@ RSpec.feature "Staff invitations", type: :system do
     then_i_see_an_invitation_email
     then_i_see_the_invited_staff_user
 
-    when_i_am_not_authorized_as_a_support_user
+    when_i_am_not_authorized_as_a_staff_user
     when_i_visit_the_invitation_email
     when_i_fill_password
     and_i_set_password
@@ -35,7 +35,7 @@ RSpec.feature "Staff invitations", type: :system do
     FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
   end
 
-  def when_i_am_authorized_as_a_support_user
+  def when_i_am_authorized_as_a_staff_user
     page.driver.basic_authorize(
       ENV.fetch("SUPPORT_USERNAME", "test"),
       ENV.fetch("SUPPORT_PASSWORD", "test")
@@ -83,7 +83,7 @@ RSpec.feature "Staff invitations", type: :system do
     expect(page).to have_content("NOT ACCEPTED")
   end
 
-  def when_i_am_not_authorized_as_a_support_user
+  def when_i_am_not_authorized_as_a_staff_user
     FeatureFlags::FeatureFlag.deactivate(:staff_http_basic_auth)
     page.driver.open_new_window
   end
