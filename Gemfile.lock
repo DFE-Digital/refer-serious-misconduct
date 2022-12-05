@@ -356,7 +356,7 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
-    solargraph (0.44.3)
+    solargraph (0.47.2)
       backport (~> 1.2)
       benchmark
       bundler (>= 1.17.2)
@@ -371,9 +371,9 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    solargraph-rails (1.0.1)
+    solargraph-rails (1.1.0)
       activesupport
-      solargraph (~> 0.44.2)
+      solargraph
     syntax_tree (5.0.1)
       prettier_print (>= 1.1.0)
     syntax_tree-haml (2.0.0)
