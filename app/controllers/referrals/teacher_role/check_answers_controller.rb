@@ -4,7 +4,6 @@ module Referrals
       def edit
         @teacher_role_check_answers_form =
           CheckAnswersForm.new(
-            referral: current_referral,
             teacher_role_complete: current_referral.teacher_role_complete
           )
       end
