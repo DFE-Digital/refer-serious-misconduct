@@ -10,7 +10,7 @@ RSpec.feature "Test users" do
     and_the_eligibility_screener_feature_is_active
     and_the_user_accounts_feature_is_active
     and_staff_http_basic_is_active
-    when_i_am_authorized_as_a_support_user
+    when_i_am_authorized_as_a_staff_user
 
     and_i_visit_the_test_users_section
     and_i_create_a_new_user
@@ -26,7 +26,7 @@ RSpec.feature "Test users" do
     FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
   end
 
-  def when_i_am_authorized_as_a_support_user
+  def when_i_am_authorized_as_a_staff_user
     page.driver.basic_authorize(
       ENV.fetch("SUPPORT_USERNAME", "test"),
       ENV.fetch("SUPPORT_PASSWORD", "test")
