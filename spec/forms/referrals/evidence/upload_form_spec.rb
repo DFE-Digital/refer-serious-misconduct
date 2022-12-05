@@ -58,7 +58,9 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       it "adds an error" do
         save
         expect(upload_form.errors[:evidence_uploads]).to eq(
-          ["Please upload files of valid type (.doc, .docx, .pdf, .txt)"]
+          [
+            "Please upload files of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
+          ]
         )
       end
     end
