@@ -2,11 +2,21 @@ class FileUploadValidator < ActiveModel::EachValidator
   MAX_FILE_SIZE = 25.megabytes
 
   CONTENT_TYPES = {
-    ".pdf" => "application/pdf",
+    ".apng" => "image/apng",
+    ".avif" => "image/avif",
     ".doc" => "application/msword",
     ".docx" =>
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ".txt" => "text/plain"
+    ".gif" => "image/gif",
+    ".heic" => "image/heic",
+    ".heif" => "image/heif",
+    ".jpg" => "image/jpeg",
+    ".jpeg" => "image/jpeg",
+    ".mp3" => "audio/mpeg",
+    ".pdf" => "application/pdf",
+    ".png" => "image/png",
+    ".txt" => "text/plain",
+    ".webp" => "image/webp"
   }.freeze
 
   def validate_each(record, attribute, uploaded_files)
