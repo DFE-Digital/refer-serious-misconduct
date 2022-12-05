@@ -3,6 +3,8 @@ require "rails_helper"
 
 RSpec.feature "Teacher role", type: :system do
   include CommonSteps
+  include SummaryListHelpers
+  include TaskListHelpers
 
   scenario "User adds teacher role details to a referral" do
     given_the_service_is_open
@@ -118,6 +120,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_attach_a_job_description_file
     and_i_click_save_and_continue
     then_i_see_the_check_answers_page
+    and_i_see_a_summary_list(duties_description: "File: file.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_uploaded_filename
@@ -125,6 +128,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_attach_a_second_job_description_file
     and_i_click_save_and_continue
     then_i_see_the_check_answers_page
+    and_i_see_a_summary_list(duties_description: "File: file2.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_second_uploaded_filename
@@ -135,6 +139,7 @@ RSpec.feature "Teacher role", type: :system do
     # Check and confirm your answers
 
     then_i_see_the_check_answers_page
+    and_i_see_a_summary_list(duties_description: "Main duties")
 
     when_i_click_save_and_continue
     then_i_see_a_completed_error
@@ -369,27 +374,51 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Uploaded file: file2.pdf")
   end
 
-  def and_i_see_a_summary_list
-    summary_rows = all(".govuk-summary-list__row")
+  def and_i_see_a_summary_list(duties_description:)
+    expect_summary_row(
+      key: "Job start date",
+      value: "17 January 1990",
+      change_link:
+        referrals_edit_teacher_role_start_date_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Email address")
-      expect(find(".govuk-summary-list__value").text).to eq("name@example.com")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href: referrals_edit_contact_details_email_path(@referral)
-      )
-    end
+    expect_summary_row(
+      key: "Are they still employed in that job?",
+      value: "Left role",
+      change_link:
+        referrals_edit_teacher_employment_status_path(
+          @referral,
+          return_to: current_url
+        )
+    )
+
+    expect_summary_row(
+      key: "Do they work in the same organisation as you?",
+      value: "Yes",
+      change_link:
+        referrals_edit_teacher_same_organisation_path(
+          @referral,
+          return_to: current_url
+        )
+    )
+
+    expect_summary_row(
+      key: "About their main duties",
+      value: duties_description,
+      change_link:
+        referrals_edit_teacher_duties_path(@referral, return_to: current_url)
+    )
   end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    within(all(".app-task-list__section")[1]) do
-      within(all(".app-task-list__item")[2]) do
-        expect(find(".app-task-list__task-name a").text).to eq(
-          "About their role"
-        )
-        expect(find(".app-task-list__tag").text).to eq(status)
-      end
-    end
+    expect_task_row(
+      section: "About the person you are referring",
+      item_position: 3,
+      name: "About their role",
+      tag: status
+    )
   end
 end

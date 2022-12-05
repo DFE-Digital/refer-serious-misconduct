@@ -3,6 +3,8 @@ require "rails_helper"
 
 RSpec.feature "Contact details", type: :system do
   include CommonSteps
+  include SummaryListHelpers
+  include TaskListHelpers
 
   scenario "User submits contact details for the referred person" do
     given_the_service_is_open
@@ -243,48 +245,35 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def and_i_see_a_summary_list
-    summary_rows = all(".govuk-summary-list__row")
+    expect_summary_row(
+      key: "Email address",
+      value: "name@example.com",
+      change_link:
+        referrals_edit_contact_details_email_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[0]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Email address")
-      expect(find(".govuk-summary-list__value").text).to eq("name@example.com")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_contact_details_email_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
+    expect_summary_row(
+      key: "Phone number",
+      value: "07700 900 982",
+      change_link:
+        referrals_edit_contact_details_telephone_path(
+          @referral,
+          return_to: current_url
+        )
+    )
 
-    within(summary_rows[1]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Phone number")
-      expect(find(".govuk-summary-list__value").text).to eq("07700 900 982")
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_contact_details_telephone_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
-
-    within(summary_rows[2]) do
-      expect(find(".govuk-summary-list__key").text).to eq("Address")
-      expect(find(".govuk-summary-list__value").text).to eq(
-        "1428 Elm Street\nLondon\nNW1 4NP"
-      )
-      expect(find(".govuk-summary-list__actions")).to have_link(
-        "Change",
-        href:
-          referrals_edit_contact_details_address_path(
-            @referral,
-            return_to: current_url
-          )
-      )
-    end
+    expect_summary_row(
+      key: "Address",
+      value: "1428 Elm Street\nLondon\nNW1 4NP",
+      change_link:
+        referrals_edit_contact_details_address_path(
+          @referral,
+          return_to: current_url
+        )
+    )
   end
 
   def then_i_see_a_completed_error
@@ -292,25 +281,29 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    within(all(".app-task-list__section")[1]) do
-      within(all(".app-task-list__item")[1]) do
-        expect(find(".app-task-list__task-name a").text).to eq(
-          "Contact details"
-        )
-        expect(find(".app-task-list__tag").text).to eq(status)
-      end
-    end
+    expect_task_row(
+      section: "About the person you are referring",
+      item_position: 2,
+      name: "Contact details",
+      tag: status
+    )
   end
 
   def and_i_click_the_change_email_link
-    within(all(".govuk-summary-list__row")[0]) { click_link "Change" }
+    within(page.find(".govuk-summary-list__row", text: "Email address")) do
+      click_link "Change"
+    end
   end
 
   def and_i_click_the_change_phone_link
-    within(all(".govuk-summary-list__row")[1]) { click_link "Change" }
+    within(page.find(".govuk-summary-list__row", text: "Phone number")) do
+      click_link "Change"
+    end
   end
 
   def and_i_click_the_change_address_link
-    within(all(".govuk-summary-list__row")[2]) { click_link "Change" }
+    within(page.find(".govuk-summary-list__row", text: "Address")) do
+      click_link "Change"
+    end
   end
 end

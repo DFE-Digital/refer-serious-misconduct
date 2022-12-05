@@ -10,7 +10,11 @@ class TheirRoleComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_teacher_role_start_date_path(referral),
+            href:
+              referrals_edit_teacher_role_start_date_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "start date"
           }
         ],
@@ -32,7 +36,11 @@ class TheirRoleComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_teacher_employment_status_path(referral),
+            href:
+              referrals_edit_teacher_employment_status_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "employment status"
           }
         ],
@@ -54,7 +62,11 @@ class TheirRoleComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_teacher_job_title_path(referral),
+            href:
+              referrals_edit_teacher_job_title_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "job title"
           }
         ],
@@ -69,12 +81,16 @@ class TheirRoleComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_teacher_same_organisation_path(referral),
+            href:
+              referrals_edit_teacher_same_organisation_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "working in the same organisation"
           }
         ],
         key: {
-          text: "Do they work in the same organisation as you"
+          text: "Do they work in the same organisation as you?"
         },
         value: {
           text: referral.same_organisation ? "Yes" : "No"
@@ -84,7 +100,11 @@ class TheirRoleComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_teacher_duties_path(referral),
+            href:
+              referrals_edit_teacher_duties_path(
+                referral,
+                return_to: request.url
+              ),
             visually_hidden_text: "main duties"
           }
         ],
