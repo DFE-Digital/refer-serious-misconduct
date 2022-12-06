@@ -64,19 +64,19 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_submit_my_email
-    fill_in "Enter your email address", with: "test@example.com"
-    click_on "Send code"
+    fill_in "user-email-field", with: "test@example.com"
+    click_on "Continue"
   end
   alias_method :when_i_submit_my_email, :and_i_submit_my_email
 
   def when_i_provide_a_short_otp
     fill_in "Enter your code", with: "123"
-    within("main") { click_on "Sign in" }
+    within("main") { click_on "Continue" }
   end
 
   def when_i_provide_the_wrong_otp
     fill_in "Enter your code", with: "123456"
-    within("main") { click_on "Sign in" }
+    within("main") { click_on "Continue" }
   end
 
   def then_i_see_an_error_about_otp_length
@@ -101,7 +101,7 @@ RSpec.feature "User accounts" do
     expect(email.body).to include expected_otp
 
     fill_in "Enter your code", with: expected_otp
-    within("main") { click_on "Sign in" }
+    within("main") { click_on "Continue" }
   end
 
   def then_i_am_signed_in
