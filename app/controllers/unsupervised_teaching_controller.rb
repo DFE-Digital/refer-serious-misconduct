@@ -1,6 +1,4 @@
-class UnsupervisedTeachingController < Referrals::BaseController
-  include EnforceQuestionOrder
-
+class UnsupervisedTeachingController < EligibilityScreenerController
   def new
     @unsupervised_teaching_form = UnsupervisedTeachingForm.new
   end

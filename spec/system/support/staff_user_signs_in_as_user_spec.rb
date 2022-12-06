@@ -7,7 +7,7 @@ RSpec.feature "Test users" do
   scenario "Staff user signs in as user" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
-    and_the_eligbility_screener_feature_is_active
+    and_the_eligibility_screener_feature_is_active
     and_the_user_accounts_feature_is_active
     and_staff_http_basic_is_active
     when_i_am_authorized_as_a_staff_user
