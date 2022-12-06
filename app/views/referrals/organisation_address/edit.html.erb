@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @organisation_address_form.errors.any?}What is your organisation’s address?" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_organisation_name_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

@@ -51,6 +51,11 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_evidence_details
 
+    when_i_click_change_categories_for_the_first_item
+    then_i_am_asked_to_choose_categories_for_the_first_item
+    when_i_click_back
+    then_i_am_asked_to_confirm_the_evidence_details
+
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
@@ -160,12 +165,7 @@ RSpec.feature "Evidence", type: :system do
 
     expect_summary_row(
       key: "doc1.pdf",
-      value: "CV, Job offer, Signed witness statements",
-      change_link:
-        referrals_edit_evidence_categories_path(
-          @referral,
-          @referral.evidences.first
-        )
+      value: "CV, Job offer, Signed witness statements"
     )
     expect(page).to have_link(
       "doc1.pdf",
@@ -178,12 +178,7 @@ RSpec.feature "Evidence", type: :system do
 
     expect_summary_row(
       key: "doc2.pdf",
-      value: "Police investigation and reports, Other: Some other details",
-      change_link:
-        referrals_edit_evidence_categories_path(
-          @referral,
-          @referral.evidences.second
-        )
+      value: "Police investigation and reports, Other: Some other details"
     )
     expect(page).to have_link(
       "doc2.pdf",
@@ -226,12 +221,7 @@ RSpec.feature "Evidence", type: :system do
   def then_i_can_no_longer_see_the_upload_in_the_referral_summary
     expect_summary_row(
       key: "doc2.pdf",
-      value: "Police investigation and reports, Other: Some other details",
-      change_link:
-        referrals_edit_evidence_categories_path(
-          @referral,
-          @referral.evidences.first
-        )
+      value: "Police investigation and reports, Other: Some other details"
     )
   end
 
@@ -248,5 +238,9 @@ RSpec.feature "Evidence", type: :system do
         expect(find(".app-task-list__tag").text).to eq("COMPLETED")
       end
     end
+  end
+
+  def when_i_click_change_categories_for_the_first_item
+    click_on "Change categories", match: :first
   end
 end

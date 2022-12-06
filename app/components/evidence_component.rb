@@ -33,12 +33,22 @@ class EvidenceComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_evidence_categories_path(referral, evidence),
+            href:
+              referrals_edit_evidence_categories_path(
+                referral,
+                evidence,
+                return_to: request.url
+              ),
             visually_hidden_text: "categories"
           },
           {
             text: "Delete",
-            href: referrals_delete_evidence_path(referral, evidence),
+            href:
+              referrals_delete_evidence_path(
+                referral,
+                evidence,
+                return_to: request.url
+              ),
             visually_hidden_text: "evidence upload"
           }
         ],

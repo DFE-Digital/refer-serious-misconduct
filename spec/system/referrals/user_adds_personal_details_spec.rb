@@ -65,7 +65,7 @@ RSpec.feature "Personal details", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_their_personal_details
 
-    when_i_click_back
+    when_i_click_change_qts
     then_i_am_asked_if_i_know_whether_they_have_qts
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_their_personal_details
@@ -209,5 +209,9 @@ RSpec.feature "Personal details", type: :system do
         expect(find(".app-task-list__tag").text).to eq("COMPLETED")
       end
     end
+  end
+
+  def when_i_click_change_qts
+    click_on "Change do they have QTS"
   end
 end

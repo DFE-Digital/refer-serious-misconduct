@@ -80,7 +80,7 @@ RSpec.feature "Contact details", type: :system do
     then_i_see_the_check_answers_page
 
     # Address known
-    when_i_go_back
+    when_i_click_change_address
     when_i_select_yes
     when_i_fill_in_the_address_details
     and_i_click_save_and_continue
@@ -305,5 +305,9 @@ RSpec.feature "Contact details", type: :system do
     within(page.find(".govuk-summary-list__row", text: "Address")) do
       click_link "Change"
     end
+  end
+
+  def when_i_click_change_address
+    click_link "Change address"
   end
 end
