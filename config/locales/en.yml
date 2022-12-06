@@ -295,5 +295,14 @@ en:
             evidence_details_complete:
               inclusion: Tell us if you have completed this section
 
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: Enter your email
+              invalid: Enter an email address in the correct format, like name@example.com
+
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
