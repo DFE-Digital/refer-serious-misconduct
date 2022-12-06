@@ -8,7 +8,7 @@ RSpec.feature "User accounts disabled, user views a referral summary",
   scenario "User views referral summary" do
     given_the_service_is_open
     and_the_employer_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
+    and_the_eligbility_screener_feature_is_active
     and_the_user_accounts_feature_is_inactive
     and_there_is_an_existing_referral
     when_i_visit_the_referral
