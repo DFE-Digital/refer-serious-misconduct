@@ -37,7 +37,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_employment_status_path(
+              referrals_edit_teacher_role_employment_status_path(
                 referral,
                 return_to: request.url
               ),
@@ -63,7 +63,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_job_title_path(
+              referrals_edit_teacher_role_job_title_path(
                 referral,
                 return_to: request.url
               ),
@@ -82,7 +82,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_same_organisation_path(
+              referrals_edit_teacher_role_same_organisation_path(
                 referral,
                 return_to: request.url
               ),
@@ -101,7 +101,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_duties_path(
+              referrals_edit_teacher_role_duties_path(
                 referral,
                 return_to: request.url
               ),

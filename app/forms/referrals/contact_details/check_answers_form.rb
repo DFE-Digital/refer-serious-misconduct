@@ -16,8 +16,7 @@ module Referrals
       def save
         return false unless valid?
 
-        referral.contact_details_complete = contact_details_complete
-        referral.save
+        referral.update(contact_details_complete:)
       end
     end
   end

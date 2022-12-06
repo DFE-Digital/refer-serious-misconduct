@@ -181,19 +181,19 @@ RSpec.feature "Teacher role", type: :system do
   private
 
   def when_i_visit_the_employment_status_page
-    visit referrals_edit_teacher_employment_status_path(@referral)
+    visit referrals_edit_teacher_role_employment_status_path(@referral)
   end
 
   def when_i_visit_the_job_title_page
-    visit referrals_edit_teacher_job_title_path(@referral)
+    visit referrals_edit_teacher_role_job_title_path(@referral)
   end
 
   def when_i_visit_the_same_organisation_page
-    visit referrals_edit_teacher_same_organisation_path(@referral)
+    visit referrals_edit_teacher_role_same_organisation_path(@referral)
   end
 
   def when_i_visit_the_duties_page
-    visit referrals_edit_teacher_duties_path(@referral)
+    visit referrals_edit_teacher_role_duties_path(@referral)
   end
 
   def when_i_visit_the_teaching_somewhere_else_page
@@ -432,7 +432,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Are they still employed in that job?",
       value: "Left role",
       change_link:
-        referrals_edit_teacher_employment_status_path(
+        referrals_edit_teacher_role_employment_status_path(
           @referral,
           return_to: current_url
         )
@@ -442,7 +442,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Do they work in the same organisation as you?",
       value: "Yes",
       change_link:
-        referrals_edit_teacher_same_organisation_path(
+        referrals_edit_teacher_role_same_organisation_path(
           @referral,
           return_to: current_url
         )
@@ -452,7 +452,10 @@ RSpec.feature "Teacher role", type: :system do
       key: "About their main duties",
       value: duties_description,
       change_link:
-        referrals_edit_teacher_duties_path(@referral, return_to: current_url)
+        referrals_edit_teacher_role_duties_path(
+          @referral,
+          return_to: current_url
+        )
     )
 
     expect_summary_row(

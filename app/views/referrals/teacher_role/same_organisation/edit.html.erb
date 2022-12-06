@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @same_organisation_form, url: referrals_update_teacher_same_organisation_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @same_organisation_form, url: referrals_update_teacher_role_same_organisation_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset :same_organisation,

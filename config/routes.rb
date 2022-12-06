@@ -211,28 +211,28 @@ Rails.application.routes.draw do
         as: "update_teacher_role_start_date"
     get "/:referral_id/teacher-role/employment-status",
         to: "teacher_role/employment_status#edit",
-        as: "edit_teacher_employment_status"
+        as: "edit_teacher_role_employment_status"
     put "/:referral_id/teacher-role/employment-status",
         to: "teacher_role/employment_status#update",
-        as: "update_teacher_employment_status"
+        as: "update_teacher_role_employment_status"
     get "/:referral_id/teacher-role/job-title",
         to: "teacher_role/job_title#edit",
-        as: "edit_teacher_job_title"
+        as: "edit_teacher_role_job_title"
     put "/:referral_id/teacher-role/job-title",
         to: "teacher_role/job_title#update",
-        as: "update_teacher_job_title"
+        as: "update_teacher_role_job_title"
     get "/:referral_id/teacher-role/same-organisation",
         to: "teacher_role/same_organisation#edit",
-        as: "edit_teacher_same_organisation"
+        as: "edit_teacher_role_same_organisation"
     put "/:referral_id/teacher-role/same-organisation",
         to: "teacher_role/same_organisation#update",
-        as: "update_teacher_same_organisation"
+        as: "update_teacher_role_same_organisation"
     get "/:referral_id/teacher-role/duties",
         to: "teacher_role/duties#edit",
-        as: "edit_teacher_duties"
+        as: "edit_teacher_role_duties"
     put "/:referral_id/teacher-role/duties",
         to: "teacher_role/duties#update",
-        as: "update_teacher_duties"
+        as: "update_teacher_role_duties"
     get "/:referral_id/teacher-role/teaching-somewhere-else",
         to: "teacher_role/teaching_somewhere_else#edit",
         as: "edit_teacher_role_teaching_somewhere_else"
