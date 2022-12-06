@@ -4,5 +4,5 @@ class EligibilityScreenerController < ApplicationController
   include EnforceQuestionOrder
   include RedirectIfFeatureFlagInactive
 
-  before_action { redirect_if_feature_flag_inactive(:employer_form) }
+  before_action { redirect_if_feature_flag_inactive(:eligibility_screener) }
 end
