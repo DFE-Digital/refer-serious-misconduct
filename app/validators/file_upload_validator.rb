@@ -1,4 +1,6 @@
 class FileUploadValidator < ActiveModel::EachValidator
+  include ActionView::Helpers::NumberHelper
+
   MAX_FILE_SIZE = 25.megabytes
   MAX_FILES = 10
 
@@ -35,6 +37,7 @@ class FileUploadValidator < ActiveModel::EachValidator
         record.errors.add(
           attribute,
           :file_size_too_big,
+          max_file_size: number_to_human_size(MAX_FILE_SIZE)
         )
         break
       end
