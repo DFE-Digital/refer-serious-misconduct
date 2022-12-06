@@ -5,7 +5,6 @@ module EnforceQuestionOrder
   included { before_action :redirect_to_next_question }
 
   def redirect_to_next_question
-    return if referrals_request?
     redirect_to(start_url) and return if start_page_is_required?
     return if all_questions_answered?
     return if previous_question_answered?
@@ -102,9 +101,5 @@ module EnforceQuestionOrder
 
   def serious_misconduct_needs_answer?
     eligibility_check.serious_misconduct.nil?
-  end
-
-  def referrals_request?
-    controller_name == "referrals"
   end
 end
