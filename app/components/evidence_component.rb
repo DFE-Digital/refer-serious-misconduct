@@ -43,7 +43,11 @@ class EvidenceComponent < ViewComponent::Base
           }
         ],
         key: {
-          text: evidence.filename
+          text:
+            govuk_link_to(
+              evidence.filename,
+              rails_blob_path(evidence.document, disposition: "attachment")
+            )
         },
         value: {
           text:
