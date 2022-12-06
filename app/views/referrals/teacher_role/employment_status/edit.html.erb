@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @employment_status_form, url: referrals_update_teacher_employment_status_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @employment_status_form, url: referrals_update_teacher_role_employment_status_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset :employment_status, legend: { size: "xl", text: "Are they still employed in that job?" }  do %>

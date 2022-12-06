@@ -17,7 +17,6 @@ class PreviousMisconductReportedForm
   def save
     return false unless valid?
 
-    referral.previous_misconduct_reported = previous_misconduct_reported
-    referral.save
+    referral.update(previous_misconduct_reported:)
   end
 end

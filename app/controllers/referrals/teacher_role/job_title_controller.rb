@@ -29,7 +29,7 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_teacher_same_organisation_path(current_referral)
+        referrals_edit_teacher_role_same_organisation_path(current_referral)
       end
     end
   end
