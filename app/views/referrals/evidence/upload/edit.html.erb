@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @evidence_upload_form.errors.any?}Upload evidence and supporting information" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, return_to_session_or(referrals_edit_evidence_start_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">

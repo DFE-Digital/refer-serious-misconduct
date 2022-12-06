@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_previous_misconduct_reported_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

@@ -85,4 +85,8 @@ module ApplicationHelper
       choice
     ]
   end
+
+  def return_to_session_or(url)
+    session[:return_to] || url
+  end
 end
