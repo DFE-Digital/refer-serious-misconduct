@@ -114,6 +114,25 @@ class TheirRoleComponent < ViewComponent::Base
         value: {
           text: duties_details(referral)
         }
+      },
+      {
+        actions: [
+          {
+            text: "Change",
+            href:
+              referrals_edit_teacher_role_teaching_somewhere_else_path(
+                referral,
+                return_to: request.url
+              ),
+            visually_hidden_text: "teaching somewhere else"
+          }
+        ],
+        key: {
+          text: "Do they teach somewhere else?"
+        },
+        value: {
+          text: referral.teaching_somewhere_else&.humanize
+        }
       }
     ]
   end
