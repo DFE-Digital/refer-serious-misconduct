@@ -33,7 +33,9 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_teacher_role_check_answers_path(current_referral)
+        referrals_edit_teacher_role_teaching_somewhere_else_path(
+          current_referral
+        )
       end
     end
   end

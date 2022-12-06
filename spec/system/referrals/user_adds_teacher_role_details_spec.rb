@@ -119,16 +119,20 @@ RSpec.feature "Teacher role", type: :system do
     and_i_choose_upload
     and_i_attach_a_job_description_file
     and_i_click_save_and_continue
-    then_i_see_the_check_answers_page
-    and_i_see_a_summary_list(duties_description: "File: file.pdf")
+    then_i_see_the_teaching_somewhere_else_page
+
+    when_i_visit_the_check_answers_page
+    then_i_see_a_summary_list(duties_description: "File: file.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_uploaded_filename
     and_i_choose_upload
     and_i_attach_a_second_job_description_file
     and_i_click_save_and_continue
-    then_i_see_the_check_answers_page
-    and_i_see_a_summary_list(duties_description: "File: file2.pdf")
+    then_i_see_the_teaching_somewhere_else_page
+
+    when_i_visit_the_check_answers_page
+    then_i_see_a_summary_list(duties_description: "File: file2.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_second_uploaded_filename
@@ -136,10 +140,27 @@ RSpec.feature "Teacher role", type: :system do
     when_i_fill_in_the_duties_field
     and_i_click_save_and_continue
 
+    # Do you know if they are teaching somewhere else
+
+    then_i_see_the_teaching_somewhere_else_page
+    when_i_click_save_and_continue
+    then_i_see_teaching_somewhere_else_field_validation_errors
+
+    when_i_choose_no
+    when_i_click_save_and_continue
+    then_i_see_the_check_answers_page
+
+    when_i_visit_the_teaching_somewhere_else_page
+    and_i_choose_yes
+    when_i_click_save_and_continue
+
     # Check and confirm your answers
 
     then_i_see_the_check_answers_page
-    and_i_see_a_summary_list(duties_description: "Main duties")
+    and_i_see_a_summary_list(
+      duties_description: "Main duties",
+      teaching_somewhere_else: "Yes"
+    )
 
     when_i_click_save_and_continue
     then_i_see_a_completed_error
@@ -173,6 +194,10 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_visit_the_duties_page
     visit referrals_edit_teacher_duties_path(@referral)
+  end
+
+  def when_i_visit_the_teaching_somewhere_else_page
+    visit referrals_edit_teacher_role_teaching_somewhere_else_path(@referral)
   end
 
   def when_i_visit_the_check_answers_page
@@ -225,6 +250,18 @@ RSpec.feature "Teacher role", type: :system do
     )
     expect(page).to have_title("Do you know when they started their job?")
     expect(page).to have_content("Do you know when they started their job?")
+  end
+
+  def then_i_see_the_teaching_somewhere_else_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/teaching-somewhere-else"
+    )
+    expect(page).to have_title(
+      "Do you know if they are teaching somewhere else?"
+    )
+    expect(page).to have_content(
+      "Do you know if they are teaching somewhere else?"
+    )
   end
 
   def then_i_see_the_check_answers_page
@@ -360,6 +397,12 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Enter details of their main duties")
   end
 
+  def then_i_see_teaching_somewhere_else_field_validation_errors
+    expect(page).to have_content(
+      "Tell us if you know if they are teaching somewhere else"
+    )
+  end
+
   def then_i_see_a_completed_error
     expect(page).to have_content("Tell us if you have completed this section")
   end
@@ -374,7 +417,7 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Uploaded file: file2.pdf")
   end
 
-  def and_i_see_a_summary_list(duties_description:)
+  def and_i_see_a_summary_list(duties_description:, teaching_somewhere_else: "")
     expect_summary_row(
       key: "Job start date",
       value: "17 January 1990",
@@ -411,7 +454,18 @@ RSpec.feature "Teacher role", type: :system do
       change_link:
         referrals_edit_teacher_duties_path(@referral, return_to: current_url)
     )
+
+    expect_summary_row(
+      key: "Do they teach somewhere else?",
+      value: teaching_somewhere_else,
+      change_link:
+        referrals_edit_teacher_role_teaching_somewhere_else_path(
+          @referral,
+          return_to: current_url
+        )
+    )
   end
+  alias_method :then_i_see_a_summary_list, :and_i_see_a_summary_list
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(

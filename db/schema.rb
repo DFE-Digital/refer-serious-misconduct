@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_155324) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_233038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_155324) do
     t.string "duties_details"
     t.boolean "teacher_role_complete"
     t.datetime "submitted_at", precision: nil
+    t.string "teaching_somewhere_else"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
