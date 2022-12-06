@@ -1,4 +1,6 @@
-class IsTeacherController < EligibilityScreenerController
+class IsTeacherController < Referrals::BaseController
+  include EnforceQuestionOrder
+
   def new
     @is_teacher_form = IsTeacherForm.new
   end

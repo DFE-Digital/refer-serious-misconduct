@@ -1,4 +1,6 @@
-class HaveComplainedController < EligibilityScreenerController
+class HaveComplainedController < Referrals::BaseController
+  include EnforceQuestionOrder
+
   def new
     @have_complained_form = HaveComplainedForm.new(eligibility_check:)
   end
