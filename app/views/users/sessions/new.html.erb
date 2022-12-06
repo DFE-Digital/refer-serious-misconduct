@@ -1,13 +1,16 @@
-<h1 class="govuk-heading-l">Your email address</h1>
+<% content_for :page_title, "What is your email address?" %>
+<% content_for :back_link_url, root_path %>
+
+<h1 class="govuk-heading-xl">What is your email address?</h1>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for(resource, as: resource_name, url: user_session_path, method: :post) do |f| %>
-      <p>You’ll receive a code by email to confirm your email address.</p>
+      <p>Use your email address to return at any time.</p>
 
-      <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email", label: { text: "Enter your email address" } %>
+      <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email", label: nil %>
 
-      <%= f.govuk_submit "Send code" %>
+      <%= f.govuk_submit "Continue" %>
     <% end %>
   </div>
 </div>
