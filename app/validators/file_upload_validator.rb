@@ -1,5 +1,6 @@
 class FileUploadValidator < ActiveModel::EachValidator
   MAX_FILE_SIZE = 25.megabytes
+  MAX_FILES = 10
 
   CONTENT_TYPES = {
     ".apng" => "image/apng",
@@ -21,12 +22,20 @@ class FileUploadValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, uploaded_files)
     uploaded_files = [uploaded_files] unless uploaded_files.is_a?(Array)
+    uploaded_files.compact_blank!
 
-    uploaded_files.compact_blank.each do |uploaded_file|
+    if uploaded_files.size > MAX_FILES
+      record.errors.add(attribute, :file_count, max_files: MAX_FILES)
+    end
+
+    uploaded_files.each do |uploaded_file|
       next if uploaded_file.nil?
 
       if uploaded_file.size >= MAX_FILE_SIZE
-        record.errors.add attribute, :file_size_too_big
+        record.errors.add(
+          attribute,
+          :file_size_too_big,
+        )
         break
       end
 
