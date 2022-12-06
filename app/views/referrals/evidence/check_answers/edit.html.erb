@@ -7,6 +7,27 @@
       Check and confirm your answers
     </h1>
 
+    <p>Upload all relevant evidence and supporting information.</p>
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          See examples of commonly uploaded documents
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <h2 class="govuk-heading-m">Commonly uploaded documents</h2>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Complaint made to the school</li>
+          <li>Correspondence to or from school</li>
+          <li>School complaint policy</li>
+          <li>Complaint made to the police</li>
+          <li>Complaint made to the local authority or any other agency or body</li>
+          <li>Signed witness statements</li>
+        </ul>
+      </div>
+    </details>
+
     <%= render EvidenceComponent.new(referral: current_referral) %>
 
     <%= form_with model: @evidence_check_answers_form, url: referrals_update_evidence_check_answers_path(current_referral), method: :put do |f| %>
