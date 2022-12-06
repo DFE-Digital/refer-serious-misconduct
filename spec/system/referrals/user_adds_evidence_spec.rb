@@ -167,6 +167,14 @@ RSpec.feature "Evidence", type: :system do
           @referral.evidences.first
         )
     )
+    expect(page).to have_link(
+      "doc1.pdf",
+      href:
+        rails_blob_path(
+          @referral.evidences.first.document,
+          disposition: "attachment"
+        )
+    )
 
     expect_summary_row(
       key: "doc2.pdf",
@@ -175,6 +183,14 @@ RSpec.feature "Evidence", type: :system do
         referrals_edit_evidence_categories_path(
           @referral,
           @referral.evidences.second
+        )
+    )
+    expect(page).to have_link(
+      "doc2.pdf",
+      href:
+        rails_blob_path(
+          @referral.evidences.second.document,
+          disposition: "attachment"
         )
     )
   end
