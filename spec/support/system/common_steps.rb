@@ -16,7 +16,7 @@ module CommonSteps
     FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
-  def and_the_eligibility_screener_feature_is_active
+  def and_the_eligbility_screener_feature_is_active
     FeatureFlags::FeatureFlag.activate(:eligibility_screener)
   end
 
