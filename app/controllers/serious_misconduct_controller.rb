@@ -1,4 +1,6 @@
-class SeriousMisconductController < EligibilityScreenerController
+class SeriousMisconductController < Referrals::BaseController
+  include EnforceQuestionOrder
+
   def new
     @serious_misconduct_form = SeriousMisconductForm.new(eligibility_check:)
   end
