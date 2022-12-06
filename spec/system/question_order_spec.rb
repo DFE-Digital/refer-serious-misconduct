@@ -3,12 +3,9 @@ require "rails_helper"
 require_relative "../support/devise"
 
 RSpec.feature "Question order", type: :system do
-  include CommonSteps
-
   scenario "is enforced correctly" do
     given_the_service_is_open
-    and_the_eligibility_screener_feature_is_active
-    and_the_employer_form_feature_is_active
+    and_the_eligibility_screener_is_enabled
     and_i_am_signed_in
     when_i_visit_the_service
     then_i_see_the_start_page
@@ -45,6 +42,19 @@ RSpec.feature "Question order", type: :system do
   end
 
   private
+
+  def given_the_service_is_open
+    FeatureFlags::FeatureFlag.activate(:service_open)
+  end
+
+  def and_i_am_signed_in
+    @user = create(:user)
+    sign_in(@user)
+  end
+
+  def and_the_eligibility_screener_is_enabled
+    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
+  end
 
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
