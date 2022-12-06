@@ -16,7 +16,7 @@ module SupportInterface
     def authenticate
       user = User.find(params.fetch(:id))
       sign_in(user)
-      redirect_to root_path
+      redirect_to after_sign_in_path
     end
 
     private
@@ -26,6 +26,12 @@ module SupportInterface
         flash[:warning] = "Test users can only be accessed on test environments"
         redirect_to support_interface_root_path
       end
+    end
+
+    def after_sign_in_path
+      latest_referral = current_user.latest_referral
+
+      latest_referral ? referral_path(latest_referral) : root_path
     end
   end
 end
