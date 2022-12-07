@@ -12,5 +12,9 @@ FactoryBot.define do
       is_teacher { "no" }
       unsupervised_teaching { "no" }
     end
+
+    trait :member_of_public do
+      reporting_as { "public" }
+    end
   end
 end

@@ -98,4 +98,50 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to be_falsey }
     end
   end
+
+  describe "#from_employer?" do
+    subject { referral.from_employer? }
+
+    context "when eligibility_check is reporting_as_employer" do
+      let(:referral) do
+        build(:referral, eligibility_check: build(:eligibility_check))
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when eligibility_check is reporting_as_member_of_public" do
+      let(:referral) do
+        build(
+          :referral,
+          eligibility_check: build(:eligibility_check, :member_of_public)
+        )
+      end
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#from_member_of_public?" do
+    subject { referral.from_member_of_public? }
+
+    context "when eligibility_check is reporting_as_employer" do
+      let(:referral) do
+        build(:referral, eligibility_check: build(:eligibility_check))
+      end
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when eligibility_check is reporting_as_member_of_public" do
+      let(:referral) do
+        build(
+          :referral,
+          eligibility_check: build(:eligibility_check, :member_of_public)
+        )
+      end
+
+      it { is_expected.to be_truthy }
+    end
+  end
 end
