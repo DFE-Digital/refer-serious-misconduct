@@ -139,6 +139,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_112937) do
     t.string "teaching_address_line_2"
     t.string "teaching_town_or_city"
     t.string "teaching_postcode"
+    t.bigint "eligibility_check_id"
+    t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
@@ -212,6 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_112937) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "organisations", "referrals"
   add_foreign_key "referral_evidences", "referrals"
+  add_foreign_key "referrals", "eligibility_checks"
   add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
 end
