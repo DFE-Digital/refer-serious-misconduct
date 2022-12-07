@@ -12,6 +12,14 @@ class Referral < ApplicationRecord
            class_name: "ReferralEvidence",
            dependent: :destroy
 
+  def from_employer?
+    eligibility_check.reporting_as_employer?
+  end
+
+  def from_member_of_public?
+    eligibility_check.reporting_as_member_of_public?
+  end
+
   def organisation_status
     return :not_started_yet if organisation.blank?
 
