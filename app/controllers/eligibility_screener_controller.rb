@@ -1,6 +1,6 @@
 class EligibilityScreenerController < ApplicationController
-  include AuthenticateUser
   include StoreUserLocation
+  include AuthenticateUser
   include EnforceQuestionOrder
   include RedirectIfFeatureFlagInactive
 
