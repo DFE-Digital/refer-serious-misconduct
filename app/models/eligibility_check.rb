@@ -29,6 +29,10 @@ class EligibilityCheck < ApplicationRecord
     reporting_as&.to_sym == :employer
   end
 
+  def reporting_as_member_of_public?
+    reporting_as&.to_sym == :public
+  end
+
   def serious_misconduct?
     %w[yes not_sure].include?(serious_misconduct)
   end

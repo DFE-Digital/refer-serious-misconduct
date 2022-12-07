@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :referral do
     user
+    eligibility_check
 
     trait :complete do
       allegation_details_complete { true }
