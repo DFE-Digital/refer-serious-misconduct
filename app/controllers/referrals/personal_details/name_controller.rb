@@ -4,7 +4,6 @@ module Referrals
       def edit
         @personal_details_name_form =
           NameForm.new(
-            referral: current_referral,
             first_name: current_referral.first_name,
             last_name: current_referral.last_name,
             name_has_changed: current_referral.name_has_changed,

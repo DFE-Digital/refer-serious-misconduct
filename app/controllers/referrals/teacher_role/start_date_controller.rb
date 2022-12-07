@@ -4,7 +4,6 @@ module Referrals
       def edit
         @role_start_date_form =
           StartDateForm.new(
-            referral: current_referral,
             role_start_date_known: current_referral.role_start_date_known,
             role_start_date: current_referral.role_start_date
           )

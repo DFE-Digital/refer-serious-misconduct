@@ -4,7 +4,6 @@ module Referrals
       def edit
         @duties_form =
           DutiesForm.new(
-            referral: current_referral,
             duties_details: current_referral.duties_details,
             duties_format: current_referral.duties_format,
             duties_upload: current_referral.duties_upload

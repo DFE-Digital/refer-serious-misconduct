@@ -3,10 +3,7 @@ module Referrals
     class JobTitleController < Referrals::BaseController
       def edit
         @job_title_form =
-          JobTitleForm.new(
-            referral: current_referral,
-            job_title: current_referral.job_title
-          )
+          JobTitleForm.new(job_title: current_referral.job_title)
       end
 
       def update

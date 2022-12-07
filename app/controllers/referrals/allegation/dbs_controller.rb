@@ -3,10 +3,7 @@ module Referrals
     class DbsController < Referrals::BaseController
       def edit
         @allegation_dbs_form =
-          DbsForm.new(
-            referral: current_referral,
-            dbs_notified: current_referral.dbs_notified
-          )
+          DbsForm.new(dbs_notified: current_referral.dbs_notified)
       end
 
       def update

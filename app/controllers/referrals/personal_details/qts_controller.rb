@@ -3,10 +3,7 @@ module Referrals
     class QtsController < Referrals::BaseController
       def edit
         @personal_details_qts_form =
-          QtsForm.new(
-            referral: current_referral,
-            has_qts: current_referral.has_qts
-          )
+          QtsForm.new(has_qts: current_referral.has_qts)
       end
 
       def update

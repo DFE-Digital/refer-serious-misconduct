@@ -4,7 +4,6 @@ module Referrals
       def edit
         @same_organisation_form =
           SameOrganisationForm.new(
-            referral: current_referral,
             same_organisation: current_referral.same_organisation
           )
       end
