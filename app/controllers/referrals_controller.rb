@@ -1,12 +1,17 @@
 class ReferralsController < Referrals::BaseController
   before_action :check_employer_form_feature_flag_enabled
   before_action :redirect_to_referral_if_exists, only: %i[new create]
+  before_action :redirect_to_screener_if_no_id_in_session, only: %i[new create]
 
   def new
   end
 
   def create
-    referral = current_user.referrals.create
+    eligibility_check =
+      EligibilityCheck.find_by!(id: session.delete(:eligibility_check_id))
+    referral =
+      current_user.referrals.create!(eligibility_check_id: eligibility_check.id)
+
     redirect_to edit_referral_path(referral)
   end
 
@@ -56,5 +61,9 @@ class ReferralsController < Referrals::BaseController
     unless FeatureFlags::FeatureFlag.active?(:employer_form)
       redirect_to start_path
     end
+  end
+
+  def redirect_to_screener_if_no_id_in_session
+    redirect_to who_path if session[:eligibility_check_id].blank?
   end
 end

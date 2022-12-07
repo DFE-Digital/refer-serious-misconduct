@@ -1,4 +1,7 @@
 class Referral < ApplicationRecord
+  belongs_to :eligibility_check, dependent: :destroy
+  belongs_to :user
+
   has_one :organisation, dependent: :destroy
   has_one :referrer, dependent: :destroy
   has_one_attached :allegation_upload, dependent: :destroy
@@ -8,8 +11,6 @@ class Referral < ApplicationRecord
            -> { order(:filename) },
            class_name: "ReferralEvidence",
            dependent: :destroy
-
-  belongs_to :user
 
   def organisation_status
     return :not_started_yet if organisation.blank?
