@@ -1,4 +1,6 @@
 class EligibilityCheck < ApplicationRecord
+  has_one :referral
+
   validates :reporting_as, presence: true
 
   scope :complete, -> { where(serious_misconduct: "yes") }
