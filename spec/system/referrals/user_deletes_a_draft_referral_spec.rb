@@ -25,8 +25,8 @@ RSpec.feature "User deletes a draft referral", type: :system do
   private
 
   def when_i_make_a_new_referral
-    visit new_referral_path
-    click_on "Continue"
+    and_i_have_an_existing_referral
+    and_i_visit_the_referral
   end
 
   def and_i_dont_want_to_continue
