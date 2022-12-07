@@ -111,8 +111,8 @@ RSpec.feature "Evidence", type: :system do
     attach_file(
       "Upload files",
       [
-        Rails.root.join("test/fixtures/files/doc2.pdf"),
-        Rails.root.join("test/fixtures/files/doc1.pdf")
+        Rails.root.join("spec/fixtures/files/doc2.pdf"),
+        Rails.root.join("spec/fixtures/files/doc1.pdf")
       ]
     )
   end
