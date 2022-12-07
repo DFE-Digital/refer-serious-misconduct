@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_233038) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_144938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -133,6 +133,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_233038) do
     t.boolean "teacher_role_complete"
     t.datetime "submitted_at", precision: nil
     t.string "teaching_somewhere_else"
+    t.bigint "eligibility_check_id"
+    t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
@@ -206,6 +208,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_233038) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "organisations", "referrals"
   add_foreign_key "referral_evidences", "referrals"
+  add_foreign_key "referrals", "eligibility_checks"
   add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
 end
