@@ -3,10 +3,7 @@ module Referrals
     class StartController < Referrals::BaseController
       def edit
         @evidence_start_form =
-          StartForm.new(
-            referral: current_referral,
-            has_evidence: current_referral.has_evidence
-          )
+          StartForm.new(has_evidence: current_referral.has_evidence)
       end
 
       def update

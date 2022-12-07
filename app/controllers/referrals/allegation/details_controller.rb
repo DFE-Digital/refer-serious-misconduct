@@ -2,7 +2,12 @@ module Referrals
   module Allegation
     class DetailsController < Referrals::BaseController
       def edit
-        @allegation_details_form = DetailsForm.new(referral: current_referral)
+        @allegation_details_form =
+          DetailsForm.new(
+            allegation_details: current_referral.allegation_details,
+            allegation_format: current_referral.allegation_format,
+            allegation_upload: current_referral.allegation_upload
+          )
       end
 
       def update

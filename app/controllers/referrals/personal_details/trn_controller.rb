@@ -4,7 +4,6 @@ module Referrals
       def edit
         @personal_details_trn_form =
           TrnForm.new(
-            referral: current_referral,
             trn: current_referral.trn,
             trn_known: current_referral.trn_known
           )

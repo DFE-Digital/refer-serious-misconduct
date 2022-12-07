@@ -16,20 +16,10 @@ module Referrals
                 file_upload: true,
                 if: -> { allegation_format == "upload" }
 
-      attr_accessor :referral
-      attr_writer :allegation_details, :allegation_format, :allegation_upload
-
-      def allegation_details
-        @allegation_details ||= referral.allegation_details
-      end
-
-      def allegation_format
-        @allegation_format ||= referral.allegation_format
-      end
-
-      def allegation_upload
-        @allegation_upload ||= referral.allegation_upload
-      end
+      attr_accessor :referral,
+                    :allegation_details,
+                    :allegation_format,
+                    :allegation_upload
 
       def save
         return false if invalid?

@@ -4,7 +4,6 @@ module Referrals
       def edit
         @employment_status_form =
           EmploymentStatusForm.new(
-            referral: current_referral,
             employment_status: current_referral.employment_status,
             role_end_date: current_referral.role_end_date,
             reason_leaving_role: current_referral.reason_leaving_role

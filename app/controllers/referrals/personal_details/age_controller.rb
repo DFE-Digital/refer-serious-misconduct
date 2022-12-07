@@ -5,7 +5,7 @@ module Referrals
         @personal_details_age_form =
           AgeForm.new(
             age_known: current_referral.age_known,
-            referral: current_referral
+            date_of_birth: current_referral.date_of_birth
           )
       end
 
