@@ -12,10 +12,19 @@ RSpec.describe ReferralHelper, type: :helper do
     let(:form) { Referrals::Evidence::CategoriesForm.new(referral:, evidence:) }
 
     context "with previous evidence" do
+      let(:mock_session) do
+        {
+          evidence_back_link:
+            "/referrals/#{referral.id}/evidence/#{previous_evidence.id}/categories"
+        }
+      end
+
       let(:evidences) { [previous_evidence, evidence] }
       let(:previous_evidence) { create(:referral_evidence, referral:) }
 
-      it do
+      before { allow(helper).to receive(:session).and_return(mock_session) }
+
+      it "returns a link from the session" do
         expect(link).to eq(
           "/referrals/#{referral.id}/evidence/#{previous_evidence.id}/categories"
         )

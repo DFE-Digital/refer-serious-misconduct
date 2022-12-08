@@ -206,7 +206,8 @@ RSpec.feature "Evidence", type: :system do
       change_link:
         referrals_edit_evidence_categories_path(
           @referral,
-          @referral.evidences.first
+          @referral.evidences.first,
+          return_to: current_url
         )
     )
 
@@ -217,17 +218,15 @@ RSpec.feature "Evidence", type: :system do
       change_link:
         referrals_edit_evidence_categories_path(
           @referral,
-          @referral.evidences.second
+          @referral.evidences.second,
+          return_to: current_url
         )
     )
   end
 
   def then_i_see_a_list_of_the_updated_files
-    expect(page).to have_content("You uploaded 2 files")
-    within(".govuk-list") do
-      expect(page).to have_link("doc2.pdf")
-      expect(page).to have_link("upload.pdf")
-    end
+    expect(page).to have_content("You uploaded 1 file")
+    within(".govuk-list") { expect(page).to have_link("upload.pdf") }
   end
 
   def then_i_see_check_answers_form_validation_errors
@@ -278,7 +277,7 @@ RSpec.feature "Evidence", type: :system do
     fill_in "Explain what this document is", with: "Some more details"
   end
 
-  def when_i_choose_to_confirm
+  def and_i_choose_to_confirm
     choose "Yes, I’ve completed this section", visible: false
   end
 
