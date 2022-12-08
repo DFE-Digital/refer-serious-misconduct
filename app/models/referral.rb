@@ -17,7 +17,7 @@ class Referral < ApplicationRecord
   end
 
   def from_member_of_public?
-    eligibility_check.reporting_as_member_of_public?
+    eligibility_check.reporting_as_public?
   end
 
   def organisation_status
