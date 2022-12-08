@@ -110,12 +110,9 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to be_truthy }
     end
 
-    context "when eligibility_check is reporting_as_member_of_public" do
+    context "when eligibility_check is reporting_as_public" do
       let(:referral) do
-        build(
-          :referral,
-          eligibility_check: build(:eligibility_check, :member_of_public)
-        )
+        build(:referral, eligibility_check: build(:eligibility_check, :public))
       end
 
       it { is_expected.to be_falsey }
@@ -133,12 +130,9 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to be_falsey }
     end
 
-    context "when eligibility_check is reporting_as_member_of_public" do
+    context "when eligibility_check is reporting_as_public" do
       let(:referral) do
-        build(
-          :referral,
-          eligibility_check: build(:eligibility_check, :member_of_public)
-        )
+        build(:referral, eligibility_check: build(:eligibility_check, :public))
       end
 
       it { is_expected.to be_truthy }

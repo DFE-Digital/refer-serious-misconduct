@@ -3,6 +3,12 @@ class EligibilityCheck < ApplicationRecord
 
   validates :reporting_as, presence: true
 
+  enum reporting_as: {
+         employer: "employer",
+         public: "public"
+       },
+       _prefix: "reporting_as"
+
   scope :complete, -> { where(serious_misconduct: "yes") }
   scope :group_by_day, -> { group("date_trunc('day', created_at)") }
   scope :incomplete,
@@ -23,14 +29,6 @@ class EligibilityCheck < ApplicationRecord
 
   def is_teacher?
     %w[yes].include?(is_teacher)
-  end
-
-  def reporting_as_employer?
-    reporting_as&.to_sym == :employer
-  end
-
-  def reporting_as_member_of_public?
-    reporting_as&.to_sym == :public
   end
 
   def serious_misconduct?
