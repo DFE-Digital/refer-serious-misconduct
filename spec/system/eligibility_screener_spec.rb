@@ -8,6 +8,7 @@ RSpec.feature "Eligibility screener", type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
     and_the_employer_form_feature_is_active
+    and_the_user_accounts_feature_is_active
     and_i_am_signed_in
     when_i_visit_the_service
     then_i_see_the_start_page
@@ -83,7 +84,9 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_the_you_should_know_page
 
     when_i_press_continue
-    then_i_see_the_completion_page
+    then_i_see_the_progress_is_saved_page
+    when_i_press_continue
+    then_i_have_started_a_member_of_public_referral
   end
 
   private
@@ -92,14 +95,8 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_content("There is a problem")
   end
 
-  def then_i_see_the_completion_page
-    expect(page).to have_current_path("/complete")
-    expect(page).to have_title(
-      "You need to complete a teacher misconduct form - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content(
-      "You need to complete a teacher misconduct form"
-    )
+  def then_i_see_the_progress_is_saved_page
+    expect(page).to have_content "Your progress is saved as you go"
   end
 
   def then_i_see_the_employer_or_public_question
@@ -275,5 +272,12 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_visit_the_service
     visit root_path
+  end
+
+  def then_i_have_started_a_member_of_public_referral
+    referral = User.last.latest_referral
+
+    expect(page).to have_current_path edit_referral_path(referral)
+    expect(referral).to be_from_member_of_public
   end
 end
