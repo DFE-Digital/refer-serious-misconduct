@@ -6,9 +6,6 @@ module Referrals
           CategoriesForm.new(referral: current_referral, evidence:)
       end
 
-      def show
-      end
-
       def update
         @evidence_categories_form =
           CategoriesForm.new(
@@ -16,6 +13,7 @@ module Referrals
           )
 
         if @evidence_categories_form.save
+          set_back_link
           next_evidence = @evidence_categories_form.next_evidence
           if next_evidence.present?
             redirect_to referrals_update_evidence_categories_path(
@@ -45,6 +43,10 @@ module Referrals
         @evidence ||= current_referral.evidences.find(params[:evidence_id])
       end
       helper_method :evidence
+
+      def set_back_link
+        session[:evidence_back_link] = request.url
+      end
     end
   end
 end

@@ -1,11 +1,9 @@
 module ReferralHelper
   def evidence_categories_back_link(form)
-    previous_evidence = form.previous_evidence
-    if previous_evidence.present?
-      referrals_edit_evidence_categories_path(form.referral, previous_evidence)
-    else
-      referrals_evidence_uploaded_path(form.referral)
-    end
+    back_link = session.delete(:evidence_back_link)
+    return back_link if back_link.present?
+
+    referrals_evidence_uploaded_path(form.referral)
   end
 
   def evidence_check_answers_link(referral)
