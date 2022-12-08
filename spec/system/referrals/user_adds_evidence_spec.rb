@@ -64,6 +64,16 @@ RSpec.feature "Evidence", type: :system do
     when_i_confirm_i_want_to_delete
     then_i_can_no_longer_see_the_upload_in_the_referral_summary
 
+    when_i_click_add_more_evidence
+    and_i_upload_more_evidence
+    and_i_click_save_and_continue
+    then_i_see_a_list_of_the_updated_files
+
+    when_i_click_save_and_continue
+    and_i_choose_categories_for_the_additional_item
+    and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_the_updated_evidence_details
+
     when_i_choose_not_to_confirm
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
@@ -187,6 +197,39 @@ RSpec.feature "Evidence", type: :system do
     )
   end
 
+  def then_i_am_asked_to_confirm_the_updated_evidence_details
+    expect(page).to have_content("Check and confirm your answers")
+
+    expect_summary_row(
+      key: "doc2.pdf",
+      value: "Police investigation and reports, Other: Some other details",
+      change_link:
+        referrals_edit_evidence_categories_path(
+          @referral,
+          @referral.evidences.first
+        )
+    )
+
+    expect_summary_row(
+      key: "upload.pdf",
+      value:
+        "Statements made by the person you’re referring, Other: Some more details",
+      change_link:
+        referrals_edit_evidence_categories_path(
+          @referral,
+          @referral.evidences.second
+        )
+    )
+  end
+
+  def then_i_see_a_list_of_the_updated_files
+    expect(page).to have_content("You uploaded 2 files")
+    within(".govuk-list") do
+      expect(page).to have_link("doc2.pdf")
+      expect(page).to have_link("upload.pdf")
+    end
+  end
+
   def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Tell us if you have completed this section")
   end
@@ -212,7 +255,30 @@ RSpec.feature "Evidence", type: :system do
     )
   end
 
-  def and_i_choose_to_confirm
+  def when_i_click_add_more_evidence
+    click_on "Add more evidence"
+  end
+
+  def and_i_upload_more_evidence
+    attach_file(
+      "Upload files",
+      [Rails.root.join("spec/fixtures/files/upload.pdf")]
+    )
+  end
+
+  def and_i_choose_categories_for_the_additional_item
+    expect(page).to have_content("Your uploaded file")
+    expect(page).to have_content("upload.pdf")
+    expect(page).to have_content(
+      "Select all the categories that describe this file"
+    )
+
+    check "Statements made by the person you’re referring", visible: false
+    check "Other", visible: false
+    fill_in "Explain what this document is", with: "Some more details"
+  end
+
+  def when_i_choose_to_confirm
     choose "Yes, I’ve completed this section", visible: false
   end
 
