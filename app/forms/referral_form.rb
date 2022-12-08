@@ -90,7 +90,11 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.evidence_and_supporting_information"),
-          referrals_edit_evidence_start_path(referral),
+          section_path(
+            section_status(:evidence_details_complete),
+            referrals_edit_evidence_start_path(referral),
+            referrals_edit_evidence_check_answers_path(referral)
+          ),
           section_status(:evidence_details_complete)
         )
       ]
@@ -102,5 +106,11 @@ class ReferralForm
     return :not_started_yet if status.nil?
 
     status ? :completed : :incomplete
+  end
+
+  def section_path(status, start_path, check_answers_path)
+    return start_path if status == :not_started_yet
+
+    check_answers_path
   end
 end
