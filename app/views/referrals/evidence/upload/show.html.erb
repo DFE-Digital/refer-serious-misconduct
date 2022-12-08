@@ -1,21 +1,26 @@
-<% content_for :page_title, "You uploaded #{current_referral.evidences.size} files" %>
+<% uploaded_items = current_referral.evidences.uncategorised %>
+<% content_for :page_title, "You uploaded #{uploaded_items.size} files" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <h1 class="govuk-heading-xl">
-      You uploaded <%= pluralize(current_referral.evidences.size, "file") %>
+      You uploaded <%= pluralize(uploaded_items.size, "file") %>
     </h1>
 
-    <p>Your <%= "file".pluralize(current_referral.evidences.size) %>:</p>
+    <p>Your <%= "file".pluralize(uploaded_items.size) %>:</p>
 
     <ul class="govuk-list govuk-!-margin-bottom-6">
-      <% current_referral.evidences.each do |evidence| %>
+      <% uploaded_items.each do |evidence| %>
         <li>
           <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
         </li>
       <% end %>
     </ul>
-    <%= govuk_link_to "Save and continue", referrals_edit_evidence_categories_path(current_referral, current_referral.evidences.first), class: "govuk-button" %>
+    <%= govuk_link_to(
+      "Save and continue",
+      referrals_edit_evidence_categories_path(current_referral, uploaded_items.first),
+      class: "govuk-button",
+    ) %>
   </div>
 </div>
