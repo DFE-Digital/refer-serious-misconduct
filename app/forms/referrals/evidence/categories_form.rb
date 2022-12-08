@@ -43,24 +43,15 @@ module Referrals
         @categories_other ||= evidence.categories_other
       end
 
-      def evidences
-        @evidences ||= referral.evidences
+      def next_evidence
+        referral.evidences.uncategorised.first
       end
-
-      def adjacent_evidence(next_item: true)
-        index = evidences.index(evidence)
-        return if index.nil?
-
-        modifier = next_item ? :+ : :-
-        index = index.send(modifier, 1)
-        return if index.negative?
-
-        evidences[index]
-      end
-      alias_method :next_evidence, :adjacent_evidence
 
       def previous_evidence
-        adjacent_evidence(next_item: false)
+        index = referral.evidences.index(evidence)
+        return if index.in?([0, nil])
+
+        referral.evidences[index - 1]
       end
 
       def save

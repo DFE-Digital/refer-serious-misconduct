@@ -47,7 +47,7 @@ RSpec.describe Referrals::Evidence::CategoriesForm, type: :model do
   describe "#next_evidence" do
     subject(:next_evidence) { categories_form.next_evidence }
 
-    let(:evidence) { build(:referral_evidence, referral:) }
+    let(:evidence) { build(:referral_evidence, referral:, categories: %w[cv]) }
     let(:evidences) { [evidence] }
     let(:referral) { create(:referral) }
     let(:categories_form) { described_class.new(referral:, evidence:) }
