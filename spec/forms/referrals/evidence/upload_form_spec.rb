@@ -8,15 +8,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
     let(:referral) { create(:referral) }
     let(:upload_form) { described_class.new(referral:, evidence_uploads:) }
     let(:evidence_uploads) do
-      [
-        "",
-        Rack::Test::UploadedFile.new(
-          Rails.root.join("test/fixtures/files/doc2.pdf")
-        ),
-        Rack::Test::UploadedFile.new(
-          Rails.root.join("test/fixtures/files/doc1.pdf")
-        )
-      ]
+      ["", fixture_file_upload("doc2.pdf"), fixture_file_upload("doc1.pdf")]
     end
 
     before { save }
@@ -45,7 +37,6 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       let(:evidence_uploads) { nil }
 
       it "adds an error" do
-        save
         expect(upload_form.errors[:evidence_uploads]).to eq(
           ["Select evidence to upload"]
         )
@@ -56,11 +47,39 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       let(:evidence_uploads) { [fixture_file_upload("upload.pl")] }
 
       it "adds an error" do
-        save
         expect(upload_form.errors[:evidence_uploads]).to eq(
           [
             "Please upload files of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
           ]
+        )
+      end
+    end
+
+    context "with multiple uploads" do
+      it "appends to existing referral evidence" do
+        upload_form.evidence_uploads = [fixture_file_upload("upload.pdf")]
+        expect { upload_form.save }.to change(referral.evidences, :size).by(1)
+        expect(referral.evidences.size).to eq(3)
+        expect(referral.evidences.map(&:filename)).to eq(
+          %w[doc1.pdf doc2.pdf upload.pdf]
+        )
+      end
+
+      it "validates that the maximum number of files is not exceeded" do
+        upload_form.evidence_uploads = [
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf"),
+          fixture_file_upload("upload.pdf")
+        ]
+        expect(upload_form.save).to be false
+        expect(upload_form.errors[:evidence_uploads]).to eq(
+          ["No more than 10 files can be uploaded"]
         )
       end
     end

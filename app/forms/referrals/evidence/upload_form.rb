@@ -4,6 +4,8 @@ module Referrals
     class UploadForm
       include ActiveModel::Model
 
+      MAX_FILES = FileUploadValidator::MAX_FILES
+
       validate :evidence_selected
       validates :evidence_uploads, file_upload: true
 
@@ -29,7 +31,12 @@ module Referrals
             )
           end
 
-        referral.update(evidences: evidences.sort_by(&:filename))
+        if referral.evidences.size + evidences.size > MAX_FILES
+          errors.add(:evidence_uploads, :file_count, max_files: MAX_FILES)
+          return false
+        end
+
+        referral.evidences << evidences.sort_by(&:filename)
       end
     end
   end
