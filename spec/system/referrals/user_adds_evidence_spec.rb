@@ -65,17 +65,15 @@ RSpec.feature "Evidence", type: :system do
     when_i_confirm_i_want_to_delete
     then_i_can_no_longer_see_the_upload_in_the_referral_summary
 
-    when_i_choose_to_confirm
+    when_i_choose_not_to_confirm
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
-    and_the_evidence_section_is_complete
+    and_the_evidence_section_state_is(:incomplete)
 
-    # Additional scenario of changing to 'No evidence' state
     when_i_edit_the_evidence
-    then_i_am_asked_if_i_have_evidence_to_upload
-    when_i_choose_no_to_uploading_evidence
+    and_i_choose_to_confirm
     and_i_click_save_and_continue
-    then_i_am_asked_to_confirm_evidence_details_without_uploads
+    then_the_evidence_section_state_is(:completed)
   end
 
   private
@@ -190,16 +188,6 @@ RSpec.feature "Evidence", type: :system do
     )
   end
 
-  def then_i_am_asked_to_confirm_evidence_details_without_uploads
-    expect(page).to have_content("Check and confirm your answers")
-
-    expect_summary_row(
-      key: "Documents",
-      value: "No evidence uploaded",
-      change_link: referrals_edit_evidence_start_path(@referral)
-    )
-  end
-
   def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Tell us if you have completed this section")
   end
@@ -225,20 +213,26 @@ RSpec.feature "Evidence", type: :system do
     )
   end
 
-  def when_i_choose_to_confirm
+  def and_i_choose_to_confirm
     choose "Yes, I’ve completed this section", visible: false
   end
 
-  def and_the_evidence_section_is_complete
+  def when_i_choose_not_to_confirm
+    choose "No, I’ll come back to it later", visible: false
+  end
+
+  def and_the_evidence_section_state_is(state)
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[2]) do
         expect(find(".app-task-list__task-name a").text).to eq(
           "Evidence and supporting information"
         )
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq(state.to_s.upcase)
       end
     end
   end
+  alias_method :then_the_evidence_section_state_is,
+               :and_the_evidence_section_state_is
 
   def when_i_click_change_categories_for_the_first_item
     click_on "Change categories", match: :first
