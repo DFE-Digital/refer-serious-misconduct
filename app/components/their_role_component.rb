@@ -1,11 +1,12 @@
 class TheirRoleComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include AddressHelper
 
   attr_accessor :referral
 
   def rows
-    [
+    @rows = [
       {
         actions: [
           {
@@ -135,5 +136,30 @@ class TheirRoleComponent < ViewComponent::Base
         }
       }
     ]
+
+    if referral.teaching_somewhere_else?
+      @rows << {
+        actions: [
+          {
+            text: "Change",
+            href:
+              referrals_edit_teacher_role_teaching_location_path(
+                referral,
+                return_to: request.url
+              ),
+            visually_hidden_text: "teaching location"
+          }
+        ],
+        key: {
+          text: "Do you know where they are teaching?"
+        },
+        value: {
+          text:
+            referral.teaching_location_known ? teaching_address(referral) : "No"
+        }
+      }
+    end
+
+    @rows
   end
 end

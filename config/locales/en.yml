@@ -200,6 +200,19 @@ en:
           attributes:
             teaching_somewhere_else:
               inclusion: Tell us if you know if they are teaching somewhere else
+        "referrals/teacher_role/teaching_location_form":
+          attributes:
+            teaching_location_known:
+              inclusion: Tell us if you know where they are teaching
+            teaching_organisation_name:
+              blank: Tell us the name of their organisation
+            teaching_address_line_1:
+              blank: Enter the first line of their organisation's address
+            teaching_town_or_city:
+              blank: Enter a town or city for their organisation
+            teaching_postcode:
+              blank: Enter a postcode for their organisation
+              invalid: Enter a real postcode
         "referrals/teacher_role/check_answers_form":
           attributes:
             teacher_role_complete:

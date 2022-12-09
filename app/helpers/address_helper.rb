@@ -1,4 +1,4 @@
-module ReferrerHelper
+module AddressHelper
   def address(referral)
     address_fields_to_html(
       [
@@ -18,6 +18,18 @@ module ReferrerHelper
         organisation.street_2,
         organisation.city,
         organisation.postcode
+      ]
+    )
+  end
+
+  def teaching_address(referral)
+    address_fields_to_html(
+      [
+        referral.teaching_organisation_name,
+        referral.teaching_address_line_1,
+        referral.teaching_address_line_2,
+        referral.teaching_town_or_city,
+        referral.teaching_postcode
       ]
     )
   end

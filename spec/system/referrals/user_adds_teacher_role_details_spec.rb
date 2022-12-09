@@ -149,8 +149,31 @@ RSpec.feature "Teacher role", type: :system do
     when_i_choose_no
     when_i_click_save_and_continue
     then_i_see_the_check_answers_page
+    and_i_see_a_summary_list(
+      duties_description: "Main duties",
+      teaching_somewhere_else: "No"
+    )
 
     when_i_visit_the_teaching_somewhere_else_page
+    and_i_choose_yes
+    when_i_click_save_and_continue
+
+    # Do you know where they are teaching?
+
+    then_i_see_the_teaching_location_page
+
+    when_i_click_save_and_continue
+    then_i_see_teaching_location_field_validation_errors
+
+    when_i_choose_no
+    and_i_click_save_and_continue
+
+    when_i_visit_the_teaching_location_page
+    and_i_choose_yes
+    when_i_click_save_and_continue
+    then_i_see_teaching_location_address_field_validation_errors
+
+    when_i_fill_in_the_teaching_address_details
     and_i_choose_yes
     when_i_click_save_and_continue
 
@@ -161,6 +184,7 @@ RSpec.feature "Teacher role", type: :system do
       duties_description: "Main duties",
       teaching_somewhere_else: "Yes"
     )
+    and_i_see_a_summary_row_for_teaching_address
 
     when_i_click_save_and_continue
     then_i_see_a_completed_error
@@ -198,6 +222,10 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_visit_the_teaching_somewhere_else_page
     visit referrals_edit_teacher_role_teaching_somewhere_else_path(@referral)
+  end
+
+  def when_i_visit_the_teaching_location_page
+    visit referrals_edit_teacher_role_teaching_location_path(@referral)
   end
 
   def when_i_visit_the_check_answers_page
@@ -264,6 +292,14 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
+  def then_i_see_the_teaching_location_page
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/teacher-role/teaching-location"
+    )
+    expect(page).to have_title("Do you know where they are teaching?")
+    expect(page).to have_content("Do you know where they are teaching?")
+  end
+
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path(
       "/referrals/#{@referral.id}/teacher-role/check-answers"
@@ -327,6 +363,13 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_fill_in_the_duties_field
     fill_in "Describe their main duties", with: "Main duties"
+  end
+
+  def when_i_fill_in_the_teaching_address_details
+    fill_in "Organisation name", with: "High School"
+    fill_in "Address line 1", with: "1428 Elm Street"
+    fill_in "Town or city", with: "London"
+    fill_in "Postcode", with: "NW1 4NP"
   end
 
   # File uploads
@@ -403,6 +446,19 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
+  def then_i_see_teaching_location_field_validation_errors
+    expect(page).to have_content("Tell us if you know where they are teaching")
+  end
+
+  def then_i_see_teaching_location_address_field_validation_errors
+    expect(page).to have_content("Tell us the name of their organisation")
+    expect(page).to have_content(
+      "Enter the first line of their organisation's address"
+    )
+    expect(page).to have_content("Enter a town or city for their organisation")
+    expect(page).to have_content("Enter a postcode for their organisation")
+  end
+
   def then_i_see_a_completed_error
     expect(page).to have_content("Tell us if you have completed this section")
   end
@@ -469,6 +525,18 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
   alias_method :then_i_see_a_summary_list, :and_i_see_a_summary_list
+
+  def and_i_see_a_summary_row_for_teaching_address
+    expect_summary_row(
+      key: "Do you know where they are teaching?",
+      value: "High School\n1428 Elm Street\nLondon\nNW1 4NP",
+      change_link:
+        referrals_edit_teacher_role_teaching_location_path(
+          @referral,
+          return_to: current_url
+        )
+    )
+  end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
