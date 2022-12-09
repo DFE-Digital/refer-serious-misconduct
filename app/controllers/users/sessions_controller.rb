@@ -4,9 +4,7 @@ class Users::SessionsController < Devise::SessionsController
 
     if resource.save
       resource.create_otp
-      if FeatureFlags::FeatureFlag.active?(:otp_emails)
-        UserMailer.send_otp(resource).deliver_later
-      end
+      UserMailer.send_otp(resource).deliver_later
 
       redirect_to new_user_otp_path(uuid: resource.uuid)
     else
