@@ -12,10 +12,6 @@ module CommonSteps
     FeatureFlags::FeatureFlag.activate(:employer_form)
   end
 
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
   def and_the_eligibility_screener_feature_is_active
     FeatureFlags::FeatureFlag.activate(:eligibility_screener)
   end
