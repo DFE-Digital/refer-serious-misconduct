@@ -30,7 +30,19 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_teacher_role_check_answers_path(current_referral)
+        if current_referral.teaching_somewhere_else?
+          referrals_edit_teacher_role_teaching_location_path(current_referral)
+        else
+          referrals_edit_teacher_role_check_answers_path(current_referral)
+        end
+      end
+
+      def next_page
+        if @teaching_somewhere_else_form.referral.saved_changes?
+          return next_path
+        end
+
+        super
       end
     end
   end

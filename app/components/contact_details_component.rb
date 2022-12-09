@@ -1,6 +1,6 @@
 class ContactDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
-  include ReferrerHelper
+  include AddressHelper
 
   attr_accessor :referral
 

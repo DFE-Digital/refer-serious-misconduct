@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @teaching_somewhere_else_form.errors.any?}Do you know if they are teaching somewhere else?" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, return_to_session_or(referrals_edit_teacher_role_duties_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
@@ -10,7 +10,7 @@
         legend: { size: "l", text: "Do you know if they are teaching somewhere else?" } do %>
         <%= f.hidden_field :teaching_somewhere_else %>
         <%= f.govuk_radio_button :teaching_somewhere_else, "yes", label: { text: "Yes, they are teaching somewhere else" } %>
-        <%= f.govuk_radio_button :teaching_somewhere_else, "no", label: { text: "No, a different organisation" } %>
+        <%= f.govuk_radio_button :teaching_somewhere_else, "no", label: { text: "No, they are not teaching somewhere else" } %>
         <%= f.govuk_radio_button :teaching_somewhere_else, "dont_know", label: { text: "I don’t know" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>
