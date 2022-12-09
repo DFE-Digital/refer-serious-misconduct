@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def start
     @start_now_path =
-      if FeatureFlags::FeatureFlag.active?(:user_accounts)
+      if FeatureFlags::FeatureFlag.active?(:employer_form)
         current_user ? who_path : new_user_session_path
       else
         who_path
@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
   def you_should_know
     @continue_path =
-      if FeatureFlags::FeatureFlag.active?(:user_accounts)
+      if FeatureFlags::FeatureFlag.active?(:employer_form)
         new_referral_path
       else
         complete_path
