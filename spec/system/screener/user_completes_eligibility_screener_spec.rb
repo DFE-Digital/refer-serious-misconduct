@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.feature "Eligibility screener", type: :system do
   include CommonSteps
 
-  scenario "happy path" do
+  scenario "User completes eligibility screener" do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
     and_the_employer_form_feature_is_active
@@ -235,10 +235,6 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_choose_not_sure
     choose "I’m not sure", visible: false
-  end
-
-  def when_i_choose_referring_as_an_employer
-    choose "I’m referring as an employer", visible: false
   end
 
   def when_i_choose_referring_as_public
