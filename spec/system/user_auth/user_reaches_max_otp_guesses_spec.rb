@@ -6,7 +6,6 @@ RSpec.feature "User accounts" do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
     and_the_employer_form_feature_is_active
-    and_the_user_accounts_feature_is_active
 
     when_i_start_the_signin_flow
     and_max_out_my_otp_guesses
@@ -25,10 +24,6 @@ RSpec.feature "User accounts" do
 
   def and_the_employer_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:employer_form)
-  end
-
-  def and_the_user_accounts_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:user_accounts)
   end
 
   def when_i_start_the_signin_flow

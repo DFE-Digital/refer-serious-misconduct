@@ -5,7 +5,6 @@ module Referrals
     include RedirectIfFeatureFlagInactive
 
     before_action { redirect_if_feature_flag_inactive(:employer_form) }
-    before_action { redirect_if_feature_flag_inactive(:user_accounts) }
     before_action :set_return_to_url, only: :edit
 
     def edit
