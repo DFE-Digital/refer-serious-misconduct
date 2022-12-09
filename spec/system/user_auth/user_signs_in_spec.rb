@@ -7,7 +7,6 @@ RSpec.feature "User accounts" do
     and_the_eligibility_screener_is_enabled
     and_the_employer_form_feature_is_active
     and_the_user_accounts_feature_is_active
-    and_the_otp_emails_feature_is_active
 
     when_i_visit_the_root_page
     and_click_start_now
@@ -49,10 +48,6 @@ RSpec.feature "User accounts" do
 
   def and_the_user_accounts_feature_is_active
     FeatureFlags::FeatureFlag.activate(:user_accounts)
-  end
-
-  def and_the_otp_emails_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:otp_emails)
   end
 
   def when_i_visit_the_root_page
