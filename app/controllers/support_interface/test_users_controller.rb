@@ -8,7 +8,7 @@ module SupportInterface
     end
 
     def create
-      user = FactoryBot.create(:user)
+      user = User.create!(email: "#{SecureRandom.hex(5)}@example.com")
       flash[:success] = "User #{user.email} created"
       redirect_to support_interface_test_users_path
     end
