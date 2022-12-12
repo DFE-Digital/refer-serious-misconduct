@@ -6,8 +6,10 @@ require "capybara/cuprite"
 Capybara.javascript_driver = :cuprite
 Capybara.always_include_port = false
 
+TEST_ENVIRONMENTS = "local dev test"
+
 RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
-  xit "works as expected" do
+  it "works as expected" do
     given_i_am_authorized_as_a_support_user
     when_i_visit_the_service
     then_i_see_the_start_page
@@ -38,12 +40,20 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
   end
 
   def when_i_visit_the_first_page_of_the_screener
-    page.visit("#{ENV["HOSTING_DOMAIN"]}/who")
+    click_on "Start now"
   end
 
   def then_it_loads_successfully
-    expect(
-      page
-    ).to have_content "Are you making a referral as an employer or member of the public?"
+    if TEST_ENVIRONMENTS.include?(hosting_environment_name)
+      expect(page).to have_content("What is your email address?")
+    else
+      expect(
+        page
+      ).to have_content "Are you making a referral as an employer or member of the public?"
+    end
+  end
+
+  def hosting_environment_name
+    ENV.fetch("HOSTING_ENVIRONMENT_NAME", "unknown")
   end
 end
