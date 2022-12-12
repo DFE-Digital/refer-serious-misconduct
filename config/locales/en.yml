@@ -296,7 +296,7 @@ en:
               invalid_content_type: Please upload files of valid type (%{valid_types})
               mismatch_content_type: File type does not match file contents
               file_size_too_big: Maximum file size is %{max_file_size}
-              file_count: No more than %{max_files} files can be uploaded
+              file_count: You can only upload %{max_files} files in total
         "referrals/evidence/categories_form":
           attributes:
             categories:
