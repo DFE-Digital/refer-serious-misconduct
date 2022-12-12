@@ -66,16 +66,17 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
 
-  deploy:
+  deploy_non_prod:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_${{ matrix.environment }}
     needs: [build_image]
     strategy:
-      max-parallel: 1
+      fail-fast: false # this is necessary to prevent early terminiation of terraform deployments that will result in tfstate locks
+      max-parallel: 3
       matrix:
-        environment: [dev, test, preprod, production]
+        environment: [dev, test, preprod]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
@@ -92,9 +93,29 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
       - uses: ./.github/actions/smoke-test
-        if: ${{ matrix.environment }} != 'production'
         id: smoke-test
         with:
           environment: ${{ matrix.environment }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
+
+  deploy_prod:
+    name: Deploy to production environment
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    concurrency: deploy_prod
+    needs: [build_image, deploy_non_prod]
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/deploy-environment
+        id: deploy
+        with:
+          environment_name: production
+          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
+          image_tag: ${{ github.sha }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
