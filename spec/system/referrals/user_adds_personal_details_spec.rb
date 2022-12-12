@@ -163,7 +163,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Date of birth",
       value: "17 January 1990",
       change_link:
-        referrals_edit_personal_details_age_path(
+        edit_referral_personal_details_age_path(
           @referral,
           return_to: current_url
         )
