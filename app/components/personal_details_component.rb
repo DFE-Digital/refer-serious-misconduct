@@ -48,7 +48,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_personal_details_trn_path(
+              edit_referral_personal_details_trn_path(
                 referral,
                 return_to: request.url
               ),
