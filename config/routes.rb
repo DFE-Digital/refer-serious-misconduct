@@ -125,15 +125,15 @@ Rails.application.routes.draw do
              controller: "referrals/referrer_name"
 
     resource :review, only: %i[show], controller: "referrals/review"
+
+    scope module: "referrals" do
+      namespace :personal_details, path: "personal-details" do
+        resource :name, only: %i[edit update], controller: :name
+      end
+    end
   end
 
   namespace :referrals do
-    get "/:referral_id/personal-details/name",
-        to: "personal_details/name#edit",
-        as: "edit_personal_details_name"
-    put "/:referral_id/personal-details/name",
-        to: "personal_details/name#update",
-        as: "update_personal_details_name"
     get "/:referral_id/personal-details/age",
         to: "personal_details/age#edit",
         as: "edit_personal_details_age"

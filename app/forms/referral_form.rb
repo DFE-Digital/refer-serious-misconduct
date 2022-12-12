@@ -56,7 +56,7 @@ class ReferralForm
       [
         ReferralSectionItem.new(
           I18n.t("referral_form.personal_details"),
-          referrals_edit_personal_details_name_path(referral),
+          edit_referral_personal_details_name_path(referral),
           section_status(:personal_details_complete)
         ),
         ReferralSectionItem.new(

@@ -153,7 +153,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Name",
       value: "Jane Smith",
       change_link:
-        referrals_edit_personal_details_name_path(
+        edit_referral_personal_details_name_path(
           @referral,
           return_to: current_url
         )

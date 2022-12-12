@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @personal_details_name_form, url: referrals_update_personal_details_name_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_name_form, url: referral_personal_details_name_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl">What is the name of the person you’re referring?</h1>
       <h2 class="govuk-heading-m">Why do we ask for personal information?</h2>
