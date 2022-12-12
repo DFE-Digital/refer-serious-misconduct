@@ -173,7 +173,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Teacher reference number (TRN)",
       value: "9912345",
       change_link:
-        referrals_edit_personal_details_trn_path(
+        edit_referral_personal_details_trn_path(
           @referral,
           return_to: current_url
         )
