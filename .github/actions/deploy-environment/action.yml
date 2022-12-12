@@ -117,10 +117,11 @@ runs:
           make ci ${{ inputs.environment_name }} terraform-apply
         fi
         cd terraform
-        OUTPUTS=($(terraform output --json | jq -r 'keys | @sh' | tr -d \'))
+        TFOUTPUTS=$(terraform output --json)
+        OUTPUTS=($(jq -r <<< "$TFOUTPUTS" | jq -r 'keys | @sh' | tr -d \'))
         for o in "${OUTPUTS[@]}"
         do
-          echo "${o}=$(terraform output -raw ${o})" >> $GITHUB_ENV
+          echo ${o}=$(jq -r .${o}.value <<< "$TFOUTPUTS") >> $GITHUB_ENV
         done
         echo "app_fqdn=$(terraform output -raw app_fqdn)" >>$GITHUB_OUTPUT
       env:
