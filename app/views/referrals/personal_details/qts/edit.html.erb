@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @personal_details_qts_form, url: referrals_update_personal_details_qts_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_qts_form, url: referral_personal_details_qts_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:has_qts, legend: { size: "xl", text: "Do they have qualified teacher status (QTS)?" }) do %>

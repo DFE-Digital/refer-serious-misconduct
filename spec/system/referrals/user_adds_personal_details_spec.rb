@@ -183,7 +183,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Do they have QTS?",
       value: "Yes",
       change_link:
-        referrals_edit_personal_details_qts_path(
+        edit_referral_personal_details_qts_path(
           @referral,
           return_to: current_url
         )
