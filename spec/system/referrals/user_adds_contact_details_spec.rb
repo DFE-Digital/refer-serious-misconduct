@@ -147,7 +147,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_the_contact_number_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/contact-details/telephone"
+      edit_referral_contact_details_telephone_path(@referral)
     )
     expect(page).to have_title("Do you know their main contact number?")
     expect(page).to have_content("Do you know their main contact number?")
@@ -258,7 +258,7 @@ RSpec.feature "Contact details", type: :system do
       key: "Phone number",
       value: "07700 900 982",
       change_link:
-        referrals_edit_contact_details_telephone_path(
+        edit_referral_contact_details_telephone_path(
           @referral,
           return_to: current_url
         )

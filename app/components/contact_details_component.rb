@@ -30,7 +30,7 @@ class ContactDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_contact_details_telephone_path(
+              edit_referral_contact_details_telephone_path(
                 referral,
                 return_to: request.url
               ),
