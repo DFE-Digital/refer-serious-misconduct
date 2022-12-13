@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_152155) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_13_163958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -120,10 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_152155) do
     t.date "role_start_date"
     t.datetime "previous_misconduct_completed_at", precision: nil
     t.datetime "previous_misconduct_deferred_at", precision: nil
-    t.string "previous_misconduct_reported"
     t.string "employment_status"
     t.date "role_end_date"
     t.string "reason_leaving_role"
+    t.string "previous_misconduct_reported"
     t.string "job_title"
     t.boolean "same_organisation"
     t.text "previous_misconduct_details"
@@ -133,13 +133,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_152155) do
     t.boolean "teacher_role_complete"
     t.datetime "submitted_at", precision: nil
     t.string "teaching_somewhere_else"
+    t.bigint "eligibility_check_id"
     t.boolean "teaching_location_known"
     t.string "teaching_organisation_name"
     t.string "teaching_address_line_1"
     t.string "teaching_address_line_2"
     t.string "teaching_town_or_city"
     t.string "teaching_postcode"
-    t.bigint "eligibility_check_id"
     t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
