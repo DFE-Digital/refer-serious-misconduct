@@ -121,8 +121,8 @@ RSpec.feature "Evidence", type: :system do
     attach_file(
       "Upload files",
       [
-        Rails.root.join("spec/fixtures/files/doc2.pdf"),
-        Rails.root.join("spec/fixtures/files/doc1.pdf")
+        Rails.root.join("spec/fixtures/files/upload2.pdf"),
+        Rails.root.join("spec/fixtures/files/upload1.pdf")
       ]
     )
   end
@@ -130,14 +130,14 @@ RSpec.feature "Evidence", type: :system do
   def then_i_see_a_list_of_the_uploaded_files
     expect(page).to have_content("You uploaded 2 files")
     within(".govuk-list") do
-      expect(page).to have_link("doc1.pdf")
-      expect(page).to have_link("doc2.pdf")
+      expect(page).to have_link("upload1.pdf")
+      expect(page).to have_link("upload2.pdf")
     end
   end
 
   def then_i_am_asked_to_choose_categories_for_the_first_item
     expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("doc1.pdf")
+    expect(page).to have_content("upload1.pdf")
     expect(page).to have_content(
       "Select all the categories that describe this file"
     )
@@ -155,7 +155,7 @@ RSpec.feature "Evidence", type: :system do
 
   def then_i_am_asked_to_choose_categories_for_the_second_item
     expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("doc2.pdf")
+    expect(page).to have_content("upload2.pdf")
     expect(page).to have_content(
       "Select all the categories that describe this file"
     )
@@ -171,11 +171,11 @@ RSpec.feature "Evidence", type: :system do
     expect(page).to have_content("Check and confirm your answers")
 
     expect_summary_row(
-      key: "doc1.pdf",
+      key: "upload1.pdf",
       value: "CV, Job offer, Signed witness statements"
     )
     expect(page).to have_link(
-      "doc1.pdf",
+      "upload1.pdf",
       href:
         rails_blob_path(
           @referral.evidences.first.document,
@@ -184,11 +184,11 @@ RSpec.feature "Evidence", type: :system do
     )
 
     expect_summary_row(
-      key: "doc2.pdf",
+      key: "upload2.pdf",
       value: "Police investigation and reports, Other: Some other details"
     )
     expect(page).to have_link(
-      "doc2.pdf",
+      "upload2.pdf",
       href:
         rails_blob_path(
           @referral.evidences.second.document,
@@ -201,7 +201,7 @@ RSpec.feature "Evidence", type: :system do
     expect(page).to have_content("Check and confirm your answers")
 
     expect_summary_row(
-      key: "doc2.pdf",
+      key: "upload2.pdf",
       value: "Police investigation and reports, Other: Some other details",
       change_link:
         referrals_edit_evidence_categories_path(
@@ -212,7 +212,7 @@ RSpec.feature "Evidence", type: :system do
     )
 
     expect_summary_row(
-      key: "upload.pdf",
+      key: "upload.txt",
       value:
         "Statements made by the person you’re referring, Other: Some more details",
       change_link:
@@ -226,7 +226,7 @@ RSpec.feature "Evidence", type: :system do
 
   def then_i_see_a_list_of_the_updated_files
     expect(page).to have_content("You uploaded 1 file")
-    within(".govuk-list") { expect(page).to have_link("upload.pdf") }
+    within(".govuk-list") { expect(page).to have_link("upload.txt") }
   end
 
   def then_i_see_check_answers_form_validation_errors
@@ -234,13 +234,13 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_click_delete_on_the_first_evidence_item
-    within(page.find(".govuk-summary-list__row", text: "doc1.pdf")) do
+    within(page.find(".govuk-summary-list__row", text: "upload1.pdf")) do
       click_on "Delete"
     end
   end
 
   def then_i_am_asked_to_confirm_deletion
-    expect(page).to have_content("Are you sure you want to delete doc1.pdf?")
+    expect(page).to have_content("Are you sure you want to delete upload1.pdf?")
   end
 
   def when_i_confirm_i_want_to_delete
@@ -249,7 +249,7 @@ RSpec.feature "Evidence", type: :system do
 
   def then_i_can_no_longer_see_the_upload_in_the_referral_summary
     expect_summary_row(
-      key: "doc2.pdf",
+      key: "upload2.pdf",
       value: "Police investigation and reports, Other: Some other details"
     )
   end
@@ -261,13 +261,13 @@ RSpec.feature "Evidence", type: :system do
   def and_i_upload_more_evidence
     attach_file(
       "Upload files",
-      [Rails.root.join("spec/fixtures/files/upload.pdf")]
+      [Rails.root.join("spec/fixtures/files/upload.txt")]
     )
   end
 
   def and_i_choose_categories_for_the_additional_item
     expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("upload.pdf")
+    expect(page).to have_content("upload.txt")
     expect(page).to have_content(
       "Select all the categories that describe this file"
     )

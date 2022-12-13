@@ -8,7 +8,11 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
     let(:referral) { create(:referral) }
     let(:upload_form) { described_class.new(referral:, evidence_uploads:) }
     let(:evidence_uploads) do
-      ["", fixture_file_upload("doc2.pdf"), fixture_file_upload("doc1.pdf")]
+      [
+        "",
+        fixture_file_upload("spec/fixtures/files/upload2.pdf"),
+        fixture_file_upload("spec/fixtures/files/upload1.pdf")
+      ]
     end
 
     before { save }
@@ -30,7 +34,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
     end
 
     it "sets the correct filename" do
-      expect(referral.evidences.first.filename).to eq("doc1.pdf")
+      expect(referral.evidences.first.filename).to eq("upload1.pdf")
     end
 
     context "with no values" do
@@ -57,25 +61,25 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
 
     context "with multiple uploads" do
       it "appends to existing referral evidence" do
-        upload_form.evidence_uploads = [fixture_file_upload("upload.pdf")]
+        upload_form.evidence_uploads = [fixture_file_upload("upload.txt")]
         expect { upload_form.save }.to change(referral.evidences, :size).by(1)
         expect(referral.evidences.size).to eq(3)
         expect(referral.evidences.map(&:filename)).to eq(
-          %w[doc1.pdf doc2.pdf upload.pdf]
+          %w[upload1.pdf upload2.pdf upload.txt]
         )
       end
 
       it "validates that the maximum number of files is not exceeded" do
         upload_form.evidence_uploads = [
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf"),
-          fixture_file_upload("upload.pdf")
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt"),
+          fixture_file_upload("upload.txt")
         ]
         expect(upload_form.save).to be false
         expect(upload_form.errors[:evidence_uploads]).to eq(

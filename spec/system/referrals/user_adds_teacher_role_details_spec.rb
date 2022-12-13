@@ -121,7 +121,7 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_teaching_somewhere_else_page
 
     when_i_visit_the_check_answers_page
-    then_i_see_a_summary_list(duties_description: "File: file.pdf")
+    then_i_see_a_summary_list(duties_description: "File: upload1.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_uploaded_filename
@@ -131,7 +131,7 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_teaching_somewhere_else_page
 
     when_i_visit_the_check_answers_page
-    then_i_see_a_summary_list(duties_description: "File: file2.pdf")
+    then_i_see_a_summary_list(duties_description: "File: upload2.pdf")
 
     when_i_visit_the_duties_page
     and_i_see_the_second_uploaded_filename
@@ -376,14 +376,14 @@ RSpec.feature "Teacher role", type: :system do
   def and_i_attach_a_job_description_file
     attach_file(
       "Upload job description",
-      File.absolute_path(Rails.root.join("spec/fixtures/files/file.pdf"))
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf"))
     )
   end
 
   def and_i_attach_a_second_job_description_file
     attach_file(
       "Upload job description",
-      File.absolute_path(Rails.root.join("spec/fixtures/files/file2.pdf"))
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf"))
     )
   end
 
@@ -465,11 +465,11 @@ RSpec.feature "Teacher role", type: :system do
   # Page content
 
   def and_i_see_the_uploaded_filename
-    expect(page).to have_content("Uploaded file: file.pdf")
+    expect(page).to have_content("Uploaded file: upload1.pdf")
   end
 
   def and_i_see_the_second_uploaded_filename
-    expect(page).to have_content("Uploaded file: file2.pdf")
+    expect(page).to have_content("Uploaded file: upload2.pdf")
   end
 
   def and_i_see_a_summary_list(duties_description:, teaching_somewhere_else: "")

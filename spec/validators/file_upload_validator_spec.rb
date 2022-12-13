@@ -15,7 +15,7 @@ RSpec.describe FileUploadValidator do
   end
 
   context "with a valid file" do
-    let(:files) { fixture_file_upload("upload.pdf", "application/pdf") }
+    let(:files) { fixture_file_upload("upload1.pdf", "application/pdf") }
 
     it { is_expected.to be_valid }
   end
@@ -33,7 +33,7 @@ RSpec.describe FileUploadValidator do
   end
 
   context "with a large file" do
-    let(:files) { fixture_file_upload("upload.pdf", "application/pdf") }
+    let(:files) { fixture_file_upload("upload1.pdf", "application/pdf") }
 
     before { allow(files).to receive(:size).and_return(25 * 1024 * 1024) }
 
@@ -43,17 +43,17 @@ RSpec.describe FileUploadValidator do
   context "with too many files" do
     let(:files) do
       [
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf"),
-        fixture_file_upload("upload.pdf", "application/pdf")
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf"),
+        fixture_file_upload("upload1.pdf", "application/pdf")
       ]
     end
 

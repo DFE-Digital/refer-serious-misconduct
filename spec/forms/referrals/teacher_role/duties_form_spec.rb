@@ -45,7 +45,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
     context "with upload format and file" do
       let(:duties_format) { "upload" }
-      let(:duties_upload) { fixture_file_upload("upload.pdf") }
+      let(:duties_upload) { fixture_file_upload("upload1.pdf") }
 
       it { is_expected.to be_truthy }
 
@@ -86,7 +86,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
       context "when there is an existing upload" do
         before do
-          referral.duties_upload.attach(fixture_file_upload("upload.pdf"))
+          referral.duties_upload.attach(fixture_file_upload("upload1.pdf"))
         end
 
         it "has the attached file" do
@@ -107,7 +107,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
     context "when format is incomplete" do
       let(:duties_details) { "Something something" }
-      let(:duties_upload) { fixture_file_upload("upload.pdf") }
+      let(:duties_upload) { fixture_file_upload("upload1.pdf") }
       let(:duties_format) { "incomplete" }
 
       it { is_expected.to be_truthy }
