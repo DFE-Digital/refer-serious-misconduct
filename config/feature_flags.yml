@@ -13,9 +13,9 @@ feature_flags:
     description: When enabled, the eligibility screener will be shown to
       candidates. When disabled, redirect the visitor to the existing eligibility
       information page on GOV.UK.
-  employer_form:
+  referral_form:
     author: Steve Laing
-    description: Allow users to access the employer-specific form.
+    description: Allow users to access the employer and public facing referral form.
   staff_http_basic_auth:
     author: Malcolm Baig
     description: Allow signing in as a staff user using HTTP Basic
