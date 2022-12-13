@@ -7,7 +7,7 @@ RSpec.feature "Eligibility screener", type: :system do
   scenario "User completes eligibility screener, inactive employer form" do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
-    and_the_employer_form_feature_is_inactive
+    and_the_referral_form_feature_is_inactive
     when_i_visit_the_service
     then_i_see_the_start_page
 
@@ -15,8 +15,8 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_links_to_the_referral_form_documents
   end
 
-  def and_the_employer_form_feature_is_inactive
-    FeatureFlags::FeatureFlag.deactivate(:employer_form)
+  def and_the_referral_form_feature_is_inactive
+    FeatureFlags::FeatureFlag.deactivate(:referral_form)
   end
 
   def when_i_visit_the_service

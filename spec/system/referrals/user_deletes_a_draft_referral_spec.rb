@@ -7,7 +7,7 @@ RSpec.feature "User deletes a draft referral", type: :system do
   scenario "User deletes a draft referral" do
     given_the_service_is_open
     and_i_am_signed_in
-    and_the_employer_form_feature_is_active
+    and_the_referral_form_feature_is_active
 
     when_i_make_a_new_referral
     and_i_dont_want_to_continue
