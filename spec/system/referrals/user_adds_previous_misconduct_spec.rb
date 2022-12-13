@@ -6,7 +6,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   scenario "User provides details of previous misconduct" do
     given_the_service_is_open
     and_i_am_signed_in
-    and_the_employer_form_feature_is_active
+    and_the_referral_form_feature_is_active
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     when_i_click_on_previous_misconduct

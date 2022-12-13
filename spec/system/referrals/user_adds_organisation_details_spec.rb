@@ -6,7 +6,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   scenario "User provides the organisation details" do
     given_the_service_is_open
     and_i_am_signed_in
-    and_the_employer_form_feature_is_active
+    and_the_referral_form_feature_is_active
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     when_i_click_on_your_organisation

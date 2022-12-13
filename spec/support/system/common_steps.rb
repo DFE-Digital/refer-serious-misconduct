@@ -8,8 +8,8 @@ module CommonSteps
     sign_in(@user)
   end
 
-  def and_the_employer_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:employer_form)
+  def and_the_referral_form_feature_is_active
+    FeatureFlags::FeatureFlag.activate(:referral_form)
   end
 
   def and_the_eligibility_screener_feature_is_active

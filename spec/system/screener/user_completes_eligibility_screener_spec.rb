@@ -7,7 +7,7 @@ RSpec.feature "Eligibility screener", type: :system do
   scenario "User completes eligibility screener" do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
-    and_the_employer_form_feature_is_active
+    and_the_referral_form_feature_is_active
     and_i_am_signed_in
     when_i_visit_the_service
     then_i_see_the_start_page

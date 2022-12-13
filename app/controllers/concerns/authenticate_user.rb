@@ -4,6 +4,6 @@ module AuthenticateUser
 
   included do
     before_action :authenticate_user!,
-                  if: -> { FeatureFlags::FeatureFlag.active?(:employer_form) }
+                  if: -> { FeatureFlags::FeatureFlag.active?(:referral_form) }
   end
 end

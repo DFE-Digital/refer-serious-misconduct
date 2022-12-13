@@ -1,5 +1,5 @@
 class ReferralsController < Referrals::BaseController
-  before_action :check_employer_form_feature_flag_enabled
+  before_action :check_referral_form_feature_flag_enabled
   before_action :redirect_to_referral_if_exists, only: %i[new create]
   before_action :redirect_to_screener_if_no_id_in_session, only: %i[new create]
 
@@ -57,8 +57,8 @@ class ReferralsController < Referrals::BaseController
   end
   helper_method :referral
 
-  def check_employer_form_feature_flag_enabled
-    unless FeatureFlags::FeatureFlag.active?(:employer_form)
+  def check_referral_form_feature_flag_enabled
+    unless FeatureFlags::FeatureFlag.active?(:referral_form)
       redirect_to start_path
     end
   end

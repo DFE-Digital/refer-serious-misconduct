@@ -63,7 +63,7 @@ module ApplicationHelper
           )
         end
       else
-        if FeatureFlags::FeatureFlag.active?(:employer_form)
+        if FeatureFlags::FeatureFlag.active?(:referral_form)
           if current_user
             header.navigation_item(
               href: main_app.users_sign_out_path,
