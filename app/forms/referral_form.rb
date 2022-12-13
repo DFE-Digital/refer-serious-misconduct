@@ -61,7 +61,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.contact_details"),
-          referrals_edit_contact_details_email_path(referral),
+          edit_referral_contact_details_email_path(referral),
           section_status(:contact_details_complete)
         ),
         ReferralSectionItem.new(

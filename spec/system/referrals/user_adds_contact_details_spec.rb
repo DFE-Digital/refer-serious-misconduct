@@ -135,7 +135,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_the_personal_email_address_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/contact-details/email"
+      edit_referral_contact_details_email_path(@referral)
     )
     expect(page).to have_title(
       "Do you know the personal email address of the person you are referring?"
@@ -248,7 +248,7 @@ RSpec.feature "Contact details", type: :system do
       key: "Email address",
       value: "name@example.com",
       change_link:
-        referrals_edit_contact_details_email_path(
+        edit_referral_contact_details_email_path(
           @referral,
           return_to: current_url
         )
