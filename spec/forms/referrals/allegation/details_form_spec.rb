@@ -48,7 +48,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
     context "with upload format and file" do
       let(:allegation_format) { "upload" }
-      let(:allegation_upload) { fixture_file_upload("upload.pdf") }
+      let(:allegation_upload) { fixture_file_upload("upload1.pdf") }
       let(:referral) { build(:referral, allegation_details: "Old details") }
 
       before { save }
