@@ -156,7 +156,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_the_home_address_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/contact-details/address"
+      edit_referral_contact_details_address_path(@referral)
     )
     expect(page).to have_title("Do you know their home address?")
     expect(page).to have_content("Do you know their home address?")
@@ -269,7 +269,7 @@ RSpec.feature "Contact details", type: :system do
       key: "Address",
       value: "1428 Elm Street\nLondon\nNW1 4NP",
       change_link:
-        referrals_edit_contact_details_address_path(
+        edit_referral_contact_details_address_path(
           @referral,
           return_to: current_url
         )
