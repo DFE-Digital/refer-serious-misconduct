@@ -20,12 +20,6 @@ RSpec.describe FileUploadValidator do
     it { is_expected.to be_valid }
   end
 
-  context "with a valid file with an uppercase extension" do
-    let(:files) { fixture_file_upload("upload.PDF", "application/pdf") }
-
-    it { is_expected.to be_valid }
-  end
-
   context "with an invalid content type" do
     let(:files) { fixture_file_upload("upload.pl", "application/x-perl") }
 
