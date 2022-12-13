@@ -57,4 +57,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_options = { from: "mail@example.com" }
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  # Limit logs to 50MB
+  config.logger =
+    ActiveSupport::Logger.new(config.paths["log"].first, 1, 50.megabytes)
 end
