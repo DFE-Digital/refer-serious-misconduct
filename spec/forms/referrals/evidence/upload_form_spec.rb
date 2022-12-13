@@ -79,7 +79,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
         ]
         expect(upload_form.save).to be false
         expect(upload_form.errors[:evidence_uploads]).to eq(
-          ["No more than 10 files can be uploaded"]
+          ["You can only upload 10 files in total"]
         )
       end
     end
