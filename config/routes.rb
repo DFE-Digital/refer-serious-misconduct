@@ -132,18 +132,14 @@ Rails.application.routes.draw do
         resource :age, only: %i[edit update], controller: :age
         resource :trn, only: %i[edit update], controller: :trn
         resource :qts, only: %i[edit update], controller: :qts
+        resource :check_answers,
+                 only: %i[edit update],
+                 controller: :check_answers
       end
     end
   end
 
   namespace :referrals do
-    get "/:referral_id/personal-details/check-answers",
-        to: "personal_details/check_answers#edit",
-        as: "edit_personal_details_check_answers"
-    put "/:referral_id/personal-details/check-answers",
-        to: "personal_details/check_answers#update",
-        as: "update_personal_details_check_answers"
-
     get "/:referral_id/contact-details/email",
         to: "contact_details/email#edit",
         as: "edit_contact_details_email"
