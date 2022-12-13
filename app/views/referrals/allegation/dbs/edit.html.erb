@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @allegation_dbs_form, url: referrals_update_allegation_dbs_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @allegation_dbs_form, url: referral_allegation_dbs_path(current_referral), method: :put do |f| %>
       <h1 class="govuk-heading-xl">Telling DBS about this case</h1>
       <p>DBS (Disclosure and Barring Service) need to know about any allegations that involve harm to a child, or the risk of harm to a child.</p>
       <p>If you haven’t told DBS about your allegation, we’ll pass your report onto them if it meets all the legal requirements.</p>

@@ -93,7 +93,7 @@ RSpec.feature "Allegation", type: :system do
       key: "Have you told DBS?",
       value: "Yes",
       change_link:
-        referrals_edit_allegation_dbs_path(@referral, return_to: current_url)
+        edit_referral_allegation_dbs_path(@referral, return_to: current_url)
     )
   end
 

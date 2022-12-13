@@ -8,7 +8,7 @@
 
     <%= render WhatHappenedComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @allegation_check_answers_form, url: referrals_update_allegation_check_answers_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @allegation_check_answers_form, url: referral_allegation_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

@@ -34,7 +34,7 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_allegation_dbs_path(current_referral)
+        edit_referral_allegation_dbs_path(current_referral)
       end
     end
   end
