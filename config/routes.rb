@@ -141,16 +141,14 @@ Rails.application.routes.draw do
         resource :address, only: %i[edit update], controller: :address
         resource :check_answers, only: %i[edit update]
       end
+
+      namespace :allegation do
+        resource :details, only: %i[edit update]
+      end
     end
   end
 
   namespace :referrals do
-    get "/:referral_id/allegation/details",
-        to: "allegation/details#edit",
-        as: "edit_allegation_details"
-    put "/:referral_id/allegation/details",
-        to: "allegation/details#update",
-        as: "update_allegation_details"
     get "/:referral_id/allegation/dbs",
         to: "allegation/dbs#edit",
         as: "edit_allegation_dbs"

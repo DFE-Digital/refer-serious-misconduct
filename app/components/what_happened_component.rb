@@ -15,7 +15,7 @@ class WhatHappenedComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_allegation_details_path(
+              edit_referral_allegation_details_path(
                 referral,
                 return_to: request.url
               ),

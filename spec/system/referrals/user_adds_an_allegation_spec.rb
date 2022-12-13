@@ -85,10 +85,7 @@ RSpec.feature "Allegation", type: :system do
       key: "Summary",
       value: "Something something something",
       change_link:
-        referrals_edit_allegation_details_path(
-          @referral,
-          return_to: current_url
-        )
+        edit_referral_allegation_details_path(@referral, return_to: current_url)
     )
 
     expect_summary_row(
