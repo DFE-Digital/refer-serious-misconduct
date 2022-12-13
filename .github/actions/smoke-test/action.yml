@@ -39,6 +39,7 @@ runs:
     - run: bin/smoke
       env:
         HOSTING_DOMAIN: ${{ inputs.url }}
+        HOSTING_ENVIRONMENT_NAME: ${{ inputs.environment }}
         GOVUK_NOTIFY_API_KEY: ${{ steps.keyvault-yaml-secret.outputs.GOVUK_NOTIFY_API_KEY }}
         SUPPORT_USERNAME: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_USERNAME }}
         SUPPORT_PASSWORD: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_PASSWORD }}
