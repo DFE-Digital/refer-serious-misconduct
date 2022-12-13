@@ -135,12 +135,12 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_visit_a_page
-    visit referrals_edit_contact_details_email_path(@referral)
+    visit edit_referral_contact_details_email_path(@referral)
   end
 
   def then_i_see_my_current_page_before_logging_in
     expect(page).to have_current_path(
-      referrals_edit_contact_details_email_path(@referral)
+      edit_referral_contact_details_email_path(@referral)
     )
   end
 
