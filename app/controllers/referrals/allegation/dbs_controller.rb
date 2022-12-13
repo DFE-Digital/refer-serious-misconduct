@@ -24,7 +24,7 @@ module Referrals
       end
 
       def next_path
-        referrals_edit_allegation_check_answers_path(current_referral)
+        edit_referral_allegation_check_answers_path(current_referral)
       end
     end
   end
