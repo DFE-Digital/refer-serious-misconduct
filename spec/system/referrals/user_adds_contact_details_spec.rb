@@ -123,7 +123,7 @@ RSpec.feature "Contact details", type: :system do
   private
 
   def when_i_visit_the_check_answers_page
-    visit referrals_update_contact_details_check_answers_path(@referral)
+    visit edit_referral_contact_details_check_answers_path(@referral)
   end
 
   def and_i_click_on_contact_details
@@ -237,7 +237,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/contact-details/check-answers"
+      edit_referral_contact_details_check_answers_path(@referral)
     )
     expect(page).to have_title("Have you completed this section?")
     expect(page).to have_content("Contact details")

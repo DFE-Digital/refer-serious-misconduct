@@ -41,7 +41,7 @@ module Referrals
       end
 
       def next_path
-        referrals_update_contact_details_check_answers_path(current_referral)
+        edit_referral_contact_details_check_answers_path(current_referral)
       end
     end
   end
