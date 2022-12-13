@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @contact_details_telephone_form, url: referrals_update_contact_details_telephone_url, method: :put do |f| %>
+    <%= form_with model: @contact_details_telephone_form, url: referral_contact_details_telephone_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset :phone_known, legend: { size: "xl", text: "Do you know their main contact number?" }  do %>

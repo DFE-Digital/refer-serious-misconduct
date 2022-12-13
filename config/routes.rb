@@ -139,17 +139,12 @@ Rails.application.routes.draw do
 
       namespace :contact_details, path: "contact-details" do
         resource :email, only: %i[edit update], controller: :email
+        resource :telephone, only: %i[edit update], controller: :telephone
       end
     end
   end
 
   namespace :referrals do
-    get "/:referral_id/contact-details/telephone",
-        to: "contact_details/telephone#edit",
-        as: "edit_contact_details_telephone"
-    put "/:referral_id/contact-details/telephone",
-        to: "contact_details/telephone#update",
-        as: "update_contact_details_telephone"
     get "/:referral_id/contact-details/address",
         to: "contact_details/address#edit",
         as: "edit_contact_details_address"
