@@ -36,7 +36,7 @@
       class: "govuk-button--secondary govuk-!-margin-bottom-8"
     ) if current_referral.evidences.any? %>
 
-    <%= form_with model: @evidence_check_answers_form, url: referrals_update_evidence_check_answers_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @evidence_check_answers_form, url: referral_evidence_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

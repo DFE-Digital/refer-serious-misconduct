@@ -9,7 +9,7 @@
 
     <%= render TheirRoleComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @teacher_role_check_answers_form, url: referrals_update_teacher_role_check_answers_url, method: :put do |f| %>
+    <%= form_with model: @teacher_role_check_answers_form, url: referral_teacher_role_check_answers_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_radio_buttons_fieldset :teacher_role_complete,
         legend: { size: "m", text: "Have you completed this section?" },

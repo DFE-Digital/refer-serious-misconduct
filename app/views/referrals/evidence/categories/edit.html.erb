@@ -8,7 +8,7 @@
       <%= evidence.filename %>
     </h1>
 
-    <%= form_with model: @evidence_categories_form, url: referrals_update_evidence_categories_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @evidence_categories_form, url: referral_evidence_categories_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_check_boxes_fieldset(
