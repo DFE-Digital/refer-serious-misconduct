@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @teaching_location_form, url: referrals_update_teacher_role_teaching_location_url, method: :put do |f| %>
+    <%= form_with model: @teaching_location_form, url: referral_teacher_role_teaching_location_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset :teaching_location_known, legend: { size: "xl", text: "Do you know where they are teaching?" }  do %>

@@ -191,46 +191,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :referrals do
-    put "/:referral_id/teacher-role/start-date",
-        to: "teacher_role/start_date#update",
-        as: "update_teacher_role_start_date"
-    put "/:referral_id/teacher-role/employment-status",
-        to: "teacher_role/employment_status#update",
-        as: "update_teacher_role_employment_status"
-    put "/:referral_id/teacher-role/job-title",
-        to: "teacher_role/job_title#update",
-        as: "update_teacher_role_job_title"
-    put "/:referral_id/teacher-role/same-organisation",
-        to: "teacher_role/same_organisation#update",
-        as: "update_teacher_role_same_organisation"
-    put "/:referral_id/teacher-role/duties",
-        to: "teacher_role/duties#update",
-        as: "update_teacher_role_duties"
-    put "/:referral_id/teacher-role/teaching-somewhere-else",
-        to: "teacher_role/teaching_somewhere_else#update",
-        as: "update_teacher_role_teaching_somewhere_else"
-    put "/:referral_id/teacher-role/teaching-location",
-        to: "teacher_role/teaching_location#update",
-        as: "update_teacher_role_teaching_location"
-    put "/:referral_id/teacher-role/check-answers",
-        to: "teacher_role/check_answers#update",
-        as: "update_teacher_role_check_answers"
-
-    put "/:referral_id/evidence/start",
-        to: "evidence/start#update",
-        as: "update_evidence_start"
-    put "/:referral_id/evidence/upload",
-        to: "evidence/upload#update",
-        as: "update_evidence_upload"
-    put "/:referral_id/evidence/:evidence_id/categories",
-        to: "evidence/categories#update",
-        as: "update_evidence_categories"
-    put "/:referral_id/evidence/check-answers",
-        to: "evidence/check_answers#update",
-        as: "update_evidence_check_answers"
-  end
-
   get "/performance", to: "performance#index"
 
   namespace :support_interface, path: "/support" do

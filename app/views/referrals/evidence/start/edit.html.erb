@@ -35,7 +35,7 @@
     <p>Do not redact any of the documents. This will make it difficult to consider the evidence. All
     information given is treated in strict confidence.</p>
 
-    <%= form_with model: @evidence_start_form, url: referrals_update_evidence_start_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @evidence_start_form, url: referral_evidence_start_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

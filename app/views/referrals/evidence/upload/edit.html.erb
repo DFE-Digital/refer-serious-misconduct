@@ -38,7 +38,7 @@
       </div>
     </details>
 
-    <%= form_with model: @evidence_upload_form, url: referrals_update_evidence_upload_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @evidence_upload_form, url: referral_evidence_upload_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_file_field :evidence_uploads,
