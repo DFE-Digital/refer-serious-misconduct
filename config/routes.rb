@@ -147,83 +147,83 @@ Rails.application.routes.draw do
         resource :dbs, only: %i[edit update]
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
+
+      namespace :teacher_role, path: "teacher-role" do
+        resource :start_date,
+                 path: "start-date",
+                 only: %i[edit update],
+                 controller: :start_date
+        resource :employment_status,
+                 path: "employment-status",
+                 only: %i[edit update],
+                 controller: :employment_status
+        resource :job_title,
+                 path: "job-title",
+                 only: %i[edit update],
+                 controller: :job_title
+        resource :same_organisation,
+                 path: "same-organisation",
+                 only: %i[edit update],
+                 controller: :same_organisation
+        resource :duties, only: %i[edit update]
+        resource :teaching_somewhere_else,
+                 path: "teaching-somewhere-else",
+                 only: %i[edit update],
+                 controller: :teaching_somewhere_else
+        resource :teaching_location,
+                 path: "teaching-location",
+                 only: %i[edit update],
+                 controller: :teaching_location
+        resource :check_answers, path: "check-answers", only: %i[edit update]
+      end
+
+      resources :evidence, only: [] do
+        resource :categories, only: %i[edit update], module: :evidence
+      end
+      namespace :evidence do
+        resource :start, only: %i[edit update], controller: :start
+        resource :upload, only: %i[edit update], controller: :upload
+        resource :uploaded, only: :show, controller: :upload
+        resource :check_answers, path: "check-answers", only: %i[edit update]
+      end
     end
   end
 
   namespace :referrals do
-    get "/:referral_id/teacher-role/start-date",
-        to: "teacher_role/start_date#edit",
-        as: "edit_teacher_role_start_date"
     put "/:referral_id/teacher-role/start-date",
         to: "teacher_role/start_date#update",
         as: "update_teacher_role_start_date"
-    get "/:referral_id/teacher-role/employment-status",
-        to: "teacher_role/employment_status#edit",
-        as: "edit_teacher_role_employment_status"
     put "/:referral_id/teacher-role/employment-status",
         to: "teacher_role/employment_status#update",
         as: "update_teacher_role_employment_status"
-    get "/:referral_id/teacher-role/job-title",
-        to: "teacher_role/job_title#edit",
-        as: "edit_teacher_role_job_title"
     put "/:referral_id/teacher-role/job-title",
         to: "teacher_role/job_title#update",
         as: "update_teacher_role_job_title"
-    get "/:referral_id/teacher-role/same-organisation",
-        to: "teacher_role/same_organisation#edit",
-        as: "edit_teacher_role_same_organisation"
     put "/:referral_id/teacher-role/same-organisation",
         to: "teacher_role/same_organisation#update",
         as: "update_teacher_role_same_organisation"
-    get "/:referral_id/teacher-role/duties",
-        to: "teacher_role/duties#edit",
-        as: "edit_teacher_role_duties"
     put "/:referral_id/teacher-role/duties",
         to: "teacher_role/duties#update",
         as: "update_teacher_role_duties"
-    get "/:referral_id/teacher-role/teaching-somewhere-else",
-        to: "teacher_role/teaching_somewhere_else#edit",
-        as: "edit_teacher_role_teaching_somewhere_else"
     put "/:referral_id/teacher-role/teaching-somewhere-else",
         to: "teacher_role/teaching_somewhere_else#update",
         as: "update_teacher_role_teaching_somewhere_else"
-    get "/:referral_id/teacher-role/teaching-location",
-        to: "teacher_role/teaching_location#edit",
-        as: "edit_teacher_role_teaching_location"
     put "/:referral_id/teacher-role/teaching-location",
         to: "teacher_role/teaching_location#update",
         as: "update_teacher_role_teaching_location"
-    get "/:referral_id/teacher-role/check-answers",
-        to: "teacher_role/check_answers#edit",
-        as: "edit_teacher_role_check_answers"
     put "/:referral_id/teacher-role/check-answers",
         to: "teacher_role/check_answers#update",
         as: "update_teacher_role_check_answers"
 
-    get "/:referral_id/evidence/start",
-        to: "evidence/start#edit",
-        as: "edit_evidence_start"
     put "/:referral_id/evidence/start",
         to: "evidence/start#update",
         as: "update_evidence_start"
-    get "/:referral_id/evidence/upload",
-        to: "evidence/upload#edit",
-        as: "edit_evidence_upload"
-    get "/:referral_id/evidence/uploaded",
-        to: "evidence/upload#show",
-        as: "evidence_uploaded"
     put "/:referral_id/evidence/upload",
         to: "evidence/upload#update",
         as: "update_evidence_upload"
-    get "/:referral_id/evidence/:evidence_id/categories",
-        to: "evidence/categories#edit",
-        as: "edit_evidence_categories"
     put "/:referral_id/evidence/:evidence_id/categories",
         to: "evidence/categories#update",
         as: "update_evidence_categories"
-    get "/:referral_id/evidence/check-answers",
-        to: "evidence/check_answers#edit",
-        as: "edit_evidence_check_answers"
     put "/:referral_id/evidence/check-answers",
         to: "evidence/check_answers#update",
         as: "update_evidence_check_answers"

@@ -31,9 +31,9 @@ module Referrals
 
       def next_path
         if current_referral.teaching_somewhere_else?
-          referrals_edit_teacher_role_teaching_location_path(current_referral)
+          edit_referral_teacher_role_teaching_location_path(current_referral)
         else
-          referrals_edit_teacher_role_check_answers_path(current_referral)
+          edit_referral_teacher_role_check_answers_path(current_referral)
         end
       end
 

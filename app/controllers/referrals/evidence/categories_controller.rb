@@ -16,12 +16,12 @@ module Referrals
           set_back_link
           next_evidence = @evidence_categories_form.next_evidence
           if next_evidence.present?
-            redirect_to referrals_update_evidence_categories_path(
+            redirect_to edit_referral_evidence_categories_path(
                           current_referral,
                           next_evidence
                         )
           else
-            redirect_to referrals_edit_evidence_check_answers_path(
+            redirect_to edit_referral_evidence_check_answers_path(
                           current_referral
                         )
           end
@@ -45,7 +45,10 @@ module Referrals
       helper_method :evidence
 
       def set_back_link
-        session[:evidence_back_link] = request.url
+        session[:evidence_back_link] = edit_referral_evidence_categories_path(
+          current_referral,
+          evidence
+        )
       end
     end
   end

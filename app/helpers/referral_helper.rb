@@ -3,14 +3,14 @@ module ReferralHelper
     back_link = session.delete(:evidence_back_link)
     return back_link if back_link.present?
 
-    referrals_evidence_uploaded_path(form.referral)
+    referral_evidence_uploaded_path(form.referral)
   end
 
   def evidence_check_answers_link(referral)
     if referral.evidences.any?
-      referrals_edit_evidence_categories_path(referral, referral.evidences.last)
+      edit_referral_evidence_categories_path(referral, referral.evidences.last)
     else
-      referrals_edit_evidence_start_path(referral)
+      edit_referral_evidence_start_path(referral)
     end
   end
 

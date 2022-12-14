@@ -12,10 +12,10 @@ module Referrals
 
         if @evidence_start_form.save
           if @evidence_start_form.has_evidence
-            redirect_to referrals_edit_evidence_upload_path(current_referral)
+            redirect_to edit_referral_evidence_upload_path(current_referral)
           else
             current_referral.update(evidences: [])
-            redirect_to referrals_edit_evidence_check_answers_path(
+            redirect_to edit_referral_evidence_check_answers_path(
                           current_referral
                         )
           end

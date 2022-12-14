@@ -15,7 +15,7 @@ RSpec.describe ReferralHelper, type: :helper do
       let(:mock_session) do
         {
           evidence_back_link:
-            "/referrals/#{referral.id}/evidence/#{previous_evidence.id}/categories"
+            "/referrals/#{referral.id}/evidence/#{previous_evidence.id}/categories/edit"
         }
       end
 
@@ -26,7 +26,7 @@ RSpec.describe ReferralHelper, type: :helper do
 
       it "returns a link from the session" do
         expect(link).to eq(
-          "/referrals/#{referral.id}/evidence/#{previous_evidence.id}/categories"
+          edit_referral_evidence_categories_path(referral, previous_evidence)
         )
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe ReferralHelper, type: :helper do
     context "without previous evidence" do
       let(:evidences) { [evidence] }
 
-      it { is_expected.to eq("/referrals/#{referral.id}/evidence/uploaded") }
+      it { is_expected.to eq(referral_evidence_uploaded_path(referral)) }
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe ReferralHelper, type: :helper do
 
       it do
         expect(link).to eq(
-          "/referrals/#{referral.id}/evidence/#{evidence.id}/categories"
+          edit_referral_evidence_categories_path(referral, evidence)
         )
       end
     end
@@ -54,7 +54,7 @@ RSpec.describe ReferralHelper, type: :helper do
     context "without evidence" do
       let(:evidences) { [] }
 
-      it { is_expected.to eq("/referrals/#{referral.id}/evidence/start") }
+      it { is_expected.to eq(edit_referral_evidence_start_path(referral)) }
     end
   end
 end

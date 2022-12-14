@@ -66,7 +66,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.about_their_role"),
-          referrals_edit_teacher_role_start_date_path(referral),
+          edit_referral_teacher_role_start_date_path(referral),
           section_status(:teacher_role_complete)
         )
       ]
@@ -92,8 +92,8 @@ class ReferralForm
           I18n.t("referral_form.evidence_and_supporting_information"),
           section_path(
             section_status(:evidence_details_complete),
-            referrals_edit_evidence_start_path(referral),
-            referrals_edit_evidence_check_answers_path(referral)
+            edit_referral_evidence_start_path(referral),
+            edit_referral_evidence_check_answers_path(referral)
           ),
           section_status(:evidence_details_complete)
         )
