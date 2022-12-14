@@ -44,7 +44,7 @@ class EvidenceComponent < ViewComponent::Base
           {
             text: "Delete",
             href:
-              referrals_delete_evidence_path(
+              referral_evidence_delete_path(
                 referral,
                 evidence,
                 return_to: request.url

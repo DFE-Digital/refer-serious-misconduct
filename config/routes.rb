@@ -179,6 +179,8 @@ Rails.application.routes.draw do
 
       resources :evidence, only: [] do
         resource :categories, only: %i[edit update], module: :evidence
+        get "/delete", to: "evidence/check_answers#delete"
+        delete "/", to: "evidence/check_answers#destroy", as: :destroy
       end
       namespace :evidence do
         resource :start, only: %i[edit update], controller: :start
@@ -227,12 +229,6 @@ Rails.application.routes.draw do
     put "/:referral_id/evidence/check-answers",
         to: "evidence/check_answers#update",
         as: "update_evidence_check_answers"
-    get "/:referral_id/evidence/:evidence_id/delete",
-        to: "evidence/check_answers#delete",
-        as: "delete_evidence"
-    delete "/:referral_id/evidence/:evidence_id",
-           to: "evidence/check_answers#destroy",
-           as: "destroy_evidence"
   end
 
   get "/performance", to: "performance#index"

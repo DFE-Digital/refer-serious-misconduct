@@ -9,7 +9,7 @@
 
     <%= govuk_button_to(
       "Yes I’m sure – delete it",
-      referrals_destroy_evidence_path(current_referral, evidence),
+      referral_evidence_destroy_path(current_referral, evidence),
       method: :delete,
       class: "govuk-button--warning"
     ) %>
