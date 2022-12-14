@@ -196,8 +196,8 @@ resource "azurerm_container_group" "rsm-worker" {
     name  = local.rsm_worker_app_name
     image = var.rsm_docker_image
 
-    cpu    = "1"
-    memory = "1.5"
+    cpu    = "0.5"
+    memory = "0.5"
 
     environment_variables = local.rsm_env_vars
 
