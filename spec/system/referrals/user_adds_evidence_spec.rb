@@ -204,7 +204,7 @@ RSpec.feature "Evidence", type: :system do
       key: "upload2.pdf",
       value: "Police investigation and reports, Other: Some other details",
       change_link:
-        referrals_edit_evidence_categories_path(
+        edit_referral_evidence_categories_path(
           @referral,
           @referral.evidences.first,
           return_to: current_url
@@ -216,7 +216,7 @@ RSpec.feature "Evidence", type: :system do
       value:
         "Statements made by the person you’re referring, Other: Some more details",
       change_link:
-        referrals_edit_evidence_categories_path(
+        edit_referral_evidence_categories_path(
           @referral,
           @referral.evidences.second,
           return_to: current_url

@@ -13,7 +13,7 @@ module Referrals
           UploadForm.new(upload_params.merge(referral: current_referral))
 
         if @evidence_upload_form.save
-          redirect_to referrals_evidence_uploaded_path(current_referral)
+          redirect_to referral_evidence_uploaded_path(current_referral)
         else
           render :edit
         end

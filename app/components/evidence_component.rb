@@ -11,7 +11,7 @@ class EvidenceComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: referrals_edit_evidence_start_path(referral),
+            href: edit_referral_evidence_start_path(referral),
             visually_hidden_text: "evidence"
           }
         ],
@@ -34,7 +34,7 @@ class EvidenceComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_evidence_categories_path(
+              edit_referral_evidence_categories_path(
                 referral,
                 evidence,
                 return_to: request.url

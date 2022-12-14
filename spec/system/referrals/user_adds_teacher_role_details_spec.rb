@@ -204,38 +204,38 @@ RSpec.feature "Teacher role", type: :system do
   private
 
   def when_i_visit_the_employment_status_page
-    visit referrals_edit_teacher_role_employment_status_path(@referral)
+    visit edit_referral_teacher_role_employment_status_path(@referral)
   end
 
   def when_i_visit_the_job_title_page
-    visit referrals_edit_teacher_role_job_title_path(@referral)
+    visit edit_referral_teacher_role_job_title_path(@referral)
   end
 
   def when_i_visit_the_same_organisation_page
-    visit referrals_edit_teacher_role_same_organisation_path(@referral)
+    visit edit_referral_teacher_role_same_organisation_path(@referral)
   end
 
   def when_i_visit_the_duties_page
-    visit referrals_edit_teacher_role_duties_path(@referral)
+    visit edit_referral_teacher_role_duties_path(@referral)
   end
 
   def when_i_visit_the_teaching_somewhere_else_page
-    visit referrals_edit_teacher_role_teaching_somewhere_else_path(@referral)
+    visit edit_referral_teacher_role_teaching_somewhere_else_path(@referral)
   end
 
   def when_i_visit_the_teaching_location_page
-    visit referrals_edit_teacher_role_teaching_location_path(@referral)
+    visit edit_referral_teacher_role_teaching_location_path(@referral)
   end
 
   def when_i_visit_the_check_answers_page
-    visit referrals_edit_teacher_role_check_answers_path(@referral)
+    visit edit_referral_teacher_role_check_answers_path(@referral)
   end
 
   # Page URL/Title
 
   def then_i_see_the_employed_status_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/employment-status"
+      edit_referral_teacher_role_employment_status_path(@referral)
     )
     expect(page).to have_title("Are they still employed in that job?")
     expect(page).to have_content("Are they still employed in that job?")
@@ -243,7 +243,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_job_title_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/job-title"
+      edit_referral_teacher_role_job_title_path(@referral)
     )
     expect(page).to have_title("What’s their job title?")
     expect(page).to have_content("What’s their job title?")
@@ -251,7 +251,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_same_organisation_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/same-organisation"
+      edit_referral_teacher_role_same_organisation_path(@referral)
     )
     expect(page).to have_title("Do they work in the same organisation as you?")
     expect(page).to have_content(
@@ -261,7 +261,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_duties_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/duties"
+      edit_referral_teacher_role_duties_path(@referral)
     )
     expect(page).to have_title(
       "How do you want to tell us about their main duties?"
@@ -273,7 +273,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_job_start_date_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/start-date"
+      edit_referral_teacher_role_start_date_path(@referral)
     )
     expect(page).to have_title("Do you know when they started their job?")
     expect(page).to have_content("Do you know when they started their job?")
@@ -281,7 +281,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_teaching_somewhere_else_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/teaching-somewhere-else"
+      edit_referral_teacher_role_teaching_somewhere_else_path(@referral)
     )
     expect(page).to have_title(
       "Do you know if they are teaching somewhere else?"
@@ -293,7 +293,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_teaching_location_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/teaching-location"
+      edit_referral_teacher_role_teaching_location_path(@referral)
     )
     expect(page).to have_title("Do you know where they are teaching?")
     expect(page).to have_content("Do you know where they are teaching?")
@@ -301,7 +301,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/teacher-role/check-answers"
+      edit_referral_teacher_role_check_answers_path(@referral)
     )
     expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Check and confirm your answers")
@@ -477,7 +477,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Job start date",
       value: "17 January 1990",
       change_link:
-        referrals_edit_teacher_role_start_date_path(
+        edit_referral_teacher_role_start_date_path(
           @referral,
           return_to: current_url
         )
@@ -487,7 +487,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Are they still employed in that job?",
       value: "Left role",
       change_link:
-        referrals_edit_teacher_role_employment_status_path(
+        edit_referral_teacher_role_employment_status_path(
           @referral,
           return_to: current_url
         )
@@ -497,7 +497,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Do they work in the same organisation as you?",
       value: "Yes",
       change_link:
-        referrals_edit_teacher_role_same_organisation_path(
+        edit_referral_teacher_role_same_organisation_path(
           @referral,
           return_to: current_url
         )
@@ -507,7 +507,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "About their main duties",
       value: duties_description,
       change_link:
-        referrals_edit_teacher_role_duties_path(
+        edit_referral_teacher_role_duties_path(
           @referral,
           return_to: current_url
         )
@@ -517,7 +517,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Do they teach somewhere else?",
       value: teaching_somewhere_else,
       change_link:
-        referrals_edit_teacher_role_teaching_somewhere_else_path(
+        edit_referral_teacher_role_teaching_somewhere_else_path(
           @referral,
           return_to: current_url
         )
@@ -530,7 +530,7 @@ RSpec.feature "Teacher role", type: :system do
       key: "Do you know where they are teaching?",
       value: "High School\n1428 Elm Street\nLondon\nNW1 4NP",
       change_link:
-        referrals_edit_teacher_role_teaching_location_path(
+        edit_referral_teacher_role_teaching_location_path(
           @referral,
           return_to: current_url
         )

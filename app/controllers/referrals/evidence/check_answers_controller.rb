@@ -31,7 +31,7 @@ module Referrals
         evidence.destroy
 
         redirect_to(
-          referrals_edit_evidence_check_answers_path(current_referral),
+          edit_referral_evidence_check_answers_path(current_referral),
           flash: {
             success: "#{filename} deleted"
           }

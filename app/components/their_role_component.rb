@@ -12,7 +12,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_start_date_path(
+              edit_referral_teacher_role_start_date_path(
                 referral,
                 return_to: request.url
               ),
@@ -38,7 +38,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_employment_status_path(
+              edit_referral_teacher_role_employment_status_path(
                 referral,
                 return_to: request.url
               ),
@@ -64,7 +64,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_job_title_path(
+              edit_referral_teacher_role_job_title_path(
                 referral,
                 return_to: request.url
               ),
@@ -83,7 +83,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_same_organisation_path(
+              edit_referral_teacher_role_same_organisation_path(
                 referral,
                 return_to: request.url
               ),
@@ -102,7 +102,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_duties_path(
+              edit_referral_teacher_role_duties_path(
                 referral,
                 return_to: request.url
               ),
@@ -121,7 +121,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_teaching_somewhere_else_path(
+              edit_referral_teacher_role_teaching_somewhere_else_path(
                 referral,
                 return_to: request.url
               ),
@@ -143,7 +143,7 @@ class TheirRoleComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              referrals_edit_teacher_role_teaching_location_path(
+              edit_referral_teacher_role_teaching_location_path(
                 referral,
                 return_to: request.url
               ),
