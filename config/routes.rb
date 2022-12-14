@@ -73,59 +73,6 @@ Rails.application.routes.draw do
     get "/delete", to: "referrals#delete", on: :member
     get "/deleted", to: "referrals#deleted", on: :collection
 
-    resource :confirmation, only: %i[show], controller: "referrals/confirmation"
-
-    resource :declaration,
-             only: %i[show create],
-             controller: "referrals/declaration"
-
-    resource :organisation,
-             only: %i[show update],
-             controller: "referrals/organisation"
-
-    resource :organisation_name,
-             only: %i[edit update],
-             controller: "referrals/organisation_name"
-
-    resource :organisation_address,
-             only: %i[edit update],
-             controller: "referrals/organisation_address"
-
-    resource :previous_misconduct,
-             only: %i[show update],
-             controller: "referrals/previous_misconduct"
-
-    resource :previous_misconduct_detailed_account,
-             only: %i[edit update],
-             controller: "referrals/previous_misconduct_detailed_account"
-
-    resource :previous_misconduct_reported,
-             only: %i[edit update],
-             controller: "referrals/previous_misconduct_reported"
-
-    resource :referrer, only: %i[show update], controller: "referrals/referrers"
-    resource :referrer_details,
-             only: %i[show],
-             path: "referrer-details",
-             controller: "referrals/referrer_details"
-
-    resource :referrer_job_title,
-             only: %i[edit update],
-             path: "referrer-job-title",
-             controller: "referrals/referrer_job_title"
-
-    resource :referrer_phone,
-             controller: "referrals/referrer_phone",
-             only: %i[edit update],
-             path: "referrer-phone"
-
-    resource :referrer_name,
-             only: %i[edit update],
-             path: "referrer-name",
-             controller: "referrals/referrer_name"
-
-    resource :review, only: %i[show], controller: "referrals/review"
-
     scope module: "referrals" do
       namespace :personal_details, path: "personal-details" do
         resource :name, only: %i[edit update], controller: :name
@@ -135,12 +82,45 @@ Rails.application.routes.draw do
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 
+      resource :referrer, only: %i[show update]
+      resource :referrer_details, only: %i[show], path: "referrer-details"
+      resource :referrer_name,
+               only: %i[edit update],
+               path: "referrer-name",
+               controller: :referrer_name
+      resource :referrer_job_title,
+               only: %i[edit update],
+               path: "referrer-job-title",
+               controller: :referrer_job_title
+      resource :referrer_phone,
+               only: %i[edit update],
+               path: "referrer-phone",
+               controller: :referrer_phone
+
       namespace :contact_details, path: "contact-details" do
         resource :email, only: %i[edit update], controller: :email
         resource :telephone, only: %i[edit update], controller: :telephone
         resource :address, only: %i[edit update], controller: :address
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
+
+      resource :organisation, only: %i[show update], controller: :organisation
+      resource :organisation_name,
+               only: %i[edit update],
+               controller: :organisation_name
+      resource :organisation_address,
+               only: %i[edit update],
+               controller: :organisation_address
+
+      resource :previous_misconduct,
+               only: %i[show update],
+               controller: :previous_misconduct
+      resource :previous_misconduct_detailed_account,
+               only: %i[edit update],
+               controller: :previous_misconduct_detailed_account
+      resource :previous_misconduct_reported,
+               only: %i[edit update],
+               controller: :previous_misconduct_reported
 
       namespace :allegation do
         resource :details, only: %i[edit update]
@@ -188,6 +168,10 @@ Rails.application.routes.draw do
         resource :uploaded, only: :show, controller: :upload
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
+
+      resource :declaration, only: %i[show create], controller: :declaration
+      resource :confirmation, only: %i[show], controller: :confirmation
+      resource :review, only: %i[show], controller: :review
     end
   end
 
