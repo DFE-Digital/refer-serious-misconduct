@@ -132,20 +132,20 @@ Rails.application.routes.draw do
         resource :age, only: %i[edit update], controller: :age
         resource :trn, only: %i[edit update], controller: :trn
         resource :qts, only: %i[edit update], controller: :qts
-        resource :check_answers, only: %i[edit update]
+        resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 
       namespace :contact_details, path: "contact-details" do
         resource :email, only: %i[edit update], controller: :email
         resource :telephone, only: %i[edit update], controller: :telephone
         resource :address, only: %i[edit update], controller: :address
-        resource :check_answers, only: %i[edit update]
+        resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 
       namespace :allegation do
         resource :details, only: %i[edit update]
         resource :dbs, only: %i[edit update]
-        resource :check_answers, only: %i[edit update]
+        resource :check_answers, path: "check-answers", only: %i[edit update]
       end
     end
   end
