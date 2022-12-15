@@ -22,6 +22,11 @@ module Referrals
         end
       end
 
+      def update_path
+        referral_personal_details_name_path(current_referral)
+      end
+      helper_method :update_path
+
       private
 
       def name_params

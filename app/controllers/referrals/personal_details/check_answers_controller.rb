@@ -22,6 +22,12 @@ module Referrals
         end
       end
 
+      def back_link
+        session[:return_to] ||
+          edit_referral_personal_details_qts_path(current_referral)
+      end
+      helper_method :back_link
+
       private
 
       def check_answers_params
