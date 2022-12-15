@@ -84,9 +84,8 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def and_i_am_asked_their_name
-    expect(page).to have_content(
-      "What is the name of the person you’re referring?"
-    )
+    expect(page).to have_content("Personal details")
+    expect(page).to have_content("Their name")
   end
 
   def then_i_see_name_field_validation_errors
@@ -98,7 +97,7 @@ RSpec.feature "Personal details", type: :system do
     fill_in "First name", with: "Jane"
     fill_in "Last name", with: "Smith"
     choose "Yes", visible: false
-    fill_in "Previous name", with: "Jane Jones"
+    fill_in "Other name", with: "Jane Jones"
   end
 
   def then_i_am_asked_their_date_of_birth

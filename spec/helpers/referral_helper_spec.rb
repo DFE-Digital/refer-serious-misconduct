@@ -4,7 +4,6 @@ RSpec.describe ReferralHelper, type: :helper do
   let(:evidence) { create(:referral_evidence, referral:) }
   let(:referral) { create(:referral) }
 
-
   describe "#evidence_categories_back_link" do
     subject(:link) { helper.evidence_categories_back_link(form) }
 
