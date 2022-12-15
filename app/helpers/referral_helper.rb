@@ -23,4 +23,16 @@ module ReferralHelper
       "Incomplete"
     end
   end
+
+  def subsection_path(referral:, subsection:, action: nil, return_to: nil)
+    referrer_scope = referral.from_employer? ? "referral" : "public_referrals"
+    path_name = [action, referrer_scope, subsection, "path"].compact_blank.join(
+      "_"
+    )
+
+    args = [referral]
+    args << { return_to: } if return_to
+
+    send(path_name, *args)
+  end
 end
