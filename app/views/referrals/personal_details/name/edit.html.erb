@@ -3,29 +3,35 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @personal_details_name_form, url: referral_personal_details_name_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_name_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-xl">What is the name of the person you’re referring?</h1>
-      <h2 class="govuk-heading-m">Why do we ask for personal information?</h2>
-      <p class="govuk-!-padding-bottom-6">We’ll use the details you provide to help us identify the correct person. This information is required by law. It will help us decide whether we need to investigate the case further, or if we need more information first.</p>
+      <span class="govuk-caption-l">Personal details</span>
+      <h1 class="govuk-heading-l">Their name</h1>
+      <p class="govuk-!-padding-bottom-6">This information is required by law. It’ll help us to identify the person you’re referring and decide if we need to investigate the case further.</p>
       <div class="govuk-form-group">
-        <%= f.govuk_text_field :first_name, label: { text: "First name", class: "govuk-label--m" } %>
+        <%= f.govuk_text_field(
+          :first_name,
+          label: { text: "First name", class: "govuk-label--m" },
+          hint: { text: "Or given name - enter their initial if you do not know their first name" }
+        ) %>
       </div>
       <div class="govuk-form-group">
-        <%= f.govuk_text_field :last_name, label: { text: "Last name", class: "govuk-label--m" } %>
+        <%= f.govuk_text_field(
+          :last_name,
+          label: { text: "Last name", class: "govuk-label--m" },
+          hint: { text: "Or family name" }
+        ) %>
       </div>
-
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(
             :name_has_changed,
             legend: { size: 'm', text: "Do you know them by any other name?" },
-            hint: { text: "For example, a nickname or professional name." },
+            hint: { text: "For example, if they’ve changed their name after getting married" }
         ) do %>
           <%= f.govuk_radio_button :name_has_changed, "yes", label: { text: "Yes" } do %>
-            <%= f.govuk_text_field :previous_name, label: { text: "Previous name" } %>
+            <%= f.govuk_text_field :previous_name, label: { text: "Other name", class: "govuk-label--s" } %>
           <% end %>
           <%= f.govuk_radio_button :name_has_changed, "no", label: { text: "No" } %>
-          <%= f.govuk_radio_button :name_has_changed, "dont_know", label: { text: "I don’t know" } %>
         <% end %>
       </div>
       <%= f.govuk_submit "Save and continue" %>
