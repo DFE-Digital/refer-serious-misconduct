@@ -175,6 +175,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :public_referrals, path: "public-referrals/:referral_id" do
+    namespace :personal_details, path: "personal-details" do
+      resource :name, only: %i[edit update], controller: :name
+      resource :check_answers, path: "check-answers", only: %i[edit update]
+    end
+  end
+
   get "/performance", to: "performance#index"
 
   namespace :support_interface, path: "/support" do
