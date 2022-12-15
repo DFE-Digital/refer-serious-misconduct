@@ -1,6 +1,7 @@
 class ReferralForm
   include Rails.application.routes.url_helpers
   include ActiveModel::Model
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -56,7 +57,11 @@ class ReferralForm
       [
         ReferralSectionItem.new(
           I18n.t("referral_form.personal_details"),
-          edit_referral_personal_details_name_path(referral),
+          subsection_path(
+            referral:,
+            subsection: :personal_details_name,
+            action: :edit
+          ),
           section_status(:personal_details_complete)
         ),
         ReferralSectionItem.new(
@@ -90,7 +95,7 @@ class ReferralForm
         ),
         ReferralSectionItem.new(
           I18n.t("referral_form.evidence_and_supporting_information"),
-          section_path(
+          path_for_section_status(
             section_status(:evidence_details_complete),
             edit_referral_evidence_start_path(referral),
             edit_referral_evidence_check_answers_path(referral)
@@ -108,7 +113,7 @@ class ReferralForm
     status ? :completed : :incomplete
   end
 
-  def section_path(status, start_path, check_answers_path)
+  def path_for_section_status(status, start_path, check_answers_path)
     return start_path if status == :not_started_yet
 
     check_answers_path
