@@ -1,29 +1,14 @@
 class PersonalDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferralHelper
 
   attr_accessor :referral
 
   def rows
+    return [name_row] if referral.from_member_of_public?
+
     [
-      {
-        actions: [
-          {
-            text: "Change",
-            href:
-              edit_referral_personal_details_name_path(
-                referral,
-                return_to: request.url
-              ),
-            visually_hidden_text: "name"
-          }
-        ],
-        key: {
-          text: "Name"
-        },
-        value: {
-          text: "#{referral.first_name} #{referral.last_name}"
-        }
-      },
+      name_row,
       {
         actions: [
           {
@@ -82,5 +67,29 @@ class PersonalDetailsComponent < ViewComponent::Base
         }
       }
     ]
+  end
+
+  def name_row
+    {
+      actions: [
+        {
+          text: "Change",
+          href:
+            subsection_path(
+              referral:,
+              subsection: :personal_details_name,
+              action: :edit,
+              return_to: request.url
+            ),
+          visually_hidden_text: "name"
+        }
+      ],
+      key: {
+        text: "Name"
+      },
+      value: {
+        text: "#{referral.first_name} #{referral.last_name}"
+      }
+    }
   end
 end
