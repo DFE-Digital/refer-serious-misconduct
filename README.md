@@ -2,6 +2,28 @@
 
 A service that allows people to refer a teacher for serious misconduct.
 
+## Live environments
+
+### Links and application names
+
+| Name       | URL                                                        |
+| ---------- | ---------------------------------------------------------- |
+| Production | https://refer-serious-misconduct.education.gov.uk/         |
+| Preprod    | https://preprod.refer-serious-misconduct.education.gov.uk/ |
+| Test       | https://test.refer-serious-misconduct.education.gov.uk/    |
+| Dev        | https://dev.refer-serious-misconduct.education.gov.uk/     |
+
+All environments have continuous deployment, the state of which can be inspected in Github Actions.
+
+### Details and configuration
+
+| Name       | Description                                   |
+| ---------- | --------------------------------------------- |
+| Production | Public site                                   |
+| Preprod    | For internal use by DfE to test deploys       |
+| Test       | For external use by 3rd parties to run audits |
+| Dev        | For internal use by DfE for testing           |
+
 ## Dependencies
 
 - Ruby 3.x
