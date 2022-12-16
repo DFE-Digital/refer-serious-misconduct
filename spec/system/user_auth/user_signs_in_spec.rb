@@ -121,7 +121,7 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_my_referral
-    expect(page).to have_current_path(referral_path(@referral))
+    expect(page).to have_current_path(edit_referral_path(@referral))
   end
 
   def and_i_visit_a_page
