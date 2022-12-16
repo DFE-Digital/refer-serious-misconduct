@@ -15,10 +15,6 @@ class ReferralsController < Referrals::BaseController
     redirect_to edit_referral_path(referral)
   end
 
-  def show
-    @referral_form = ReferralForm.new(referral:)
-  end
-
   def edit
     @referral_form = ReferralForm.new(referral:)
   end
