@@ -24,7 +24,7 @@ RSpec.describe Referrals::Allegation::CheckAnswersForm, type: :model do
       it "adds an error" do
         save
         expect(check_answers_form.errors[:allegation_details_complete]).to eq(
-          ["Tell us if you have completed this section"]
+          ["Select yes if you’ve completed this section"]
         )
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe Referrals::Allegation::CheckAnswersForm, type: :model do
         referral.allegation_format = "incomplete"
         save
         expect(check_answers_form.errors[:base]).to eq(
-          ["Please give details of the allegation"]
+          ["Give details of the allegation"]
         )
       end
     end

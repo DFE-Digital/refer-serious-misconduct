@@ -69,9 +69,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     end
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter their #{field_name(field)} in the correct format"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -83,9 +81,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsey }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter their #{field_name(field)}"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -97,7 +93,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(["Enter a year with 4 digits"])
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -109,9 +105,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter a day for their #{field_name(field)}, formatted as a number"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -123,9 +117,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter a month for their #{field_name(field)}, formatted as a number"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -137,9 +129,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter a month for their #{field_name(field)}, formatted as a number"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 
@@ -155,9 +145,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Enter a month for their #{field_name(field)}, formatted as a number"]
-      )
+      expect(form.errors[field.to_s].size).to eq(1)
     end
   end
 end

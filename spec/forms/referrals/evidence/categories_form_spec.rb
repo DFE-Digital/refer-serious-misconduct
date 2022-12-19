@@ -21,7 +21,7 @@ RSpec.describe Referrals::Evidence::CategoriesForm, type: :model do
       it "adds an error" do
         save
         expect(categories_form.errors[:categories_other]).to eq(
-          ["Tell us what type of evidence this is"]
+          ["Enter a description of this evidence"]
         )
       end
     end

@@ -88,7 +88,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def then_i_am_asked_to_make_a_choice
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def then_i_am_on_the_organisation_address_page
@@ -127,14 +127,14 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def then_i_see_the_missing_address_errors
     expect(page).to have_content(
-      "Tell us the street address for your organisation"
+      "Enter the first line of your organisation’s address"
     )
-    expect(page).to have_content("Tell us the city for your organisation")
-    expect(page).to have_content("Tell us the postcode for your organisation")
+    expect(page).to have_content("Enter the town or city")
+    expect(page).to have_content("Enter the postcode")
   end
 
   def then_i_see_the_missing_name_error
-    expect(page).to have_content("Tell us the name of your organisation")
+    expect(page).to have_content("Enter the organisation name")
   end
 
   def when_i_choose_no_come_back_later

@@ -54,9 +54,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def then_i_see_allegation_form_validation_errors
-    expect(page).to have_content(
-      "Choose how you want to tell us about your allegation"
-    )
+    expect(page).to have_content("There is a problem")
   end
 
   def when_i_fill_out_allegation_details
@@ -69,9 +67,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def then_i_see_dbs_form_validation_errors
-    expect(page).to have_content(
-      "Tell us if you have notified DBS about the case"
-    )
+    expect(page).to have_content("There is a problem")
   end
 
   def when_i_choose_i_have_notified_dbs
@@ -97,7 +93,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def then_i_see_check_answers_form_validation_errors
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def when_i_choose_to_confirm

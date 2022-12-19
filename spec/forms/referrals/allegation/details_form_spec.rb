@@ -27,7 +27,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:allegation_format]).to eq(
-          ["Choose how you want to tell us about your allegation"]
+          ["Select how you want to give details about the allegation"]
         )
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
         save
         expect(form.errors[:allegation_upload]).to eq(
           [
-            "Please upload a valid file type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
+            "The selected file must be of type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
           ]
         )
       end

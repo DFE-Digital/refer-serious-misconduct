@@ -98,7 +98,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_see_evidence_start_form_validation_errors
-    expect(page).to have_content("Tell us if you have evidence to upload")
+    expect(page).to have_content("Select yes if you have evidence to upload")
   end
 
   def when_i_choose_yes_to_uploading_evidence
@@ -144,7 +144,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_see_categories_form_validation_errors
-    expect(page).to have_content("Select categories that describe this file")
+    expect(page).to have_content("Select a description of this file")
   end
 
   def when_i_choose_categories_for_the_first_item
@@ -230,7 +230,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_see_check_answers_form_validation_errors
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def when_i_click_delete_on_the_first_evidence_item

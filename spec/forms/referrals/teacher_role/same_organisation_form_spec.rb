@@ -21,7 +21,9 @@ RSpec.describe Referrals::TeacherRole::SameOrganisationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:same_organisation]).to eq(
-          ["Tell us if they work in the same organisation as you"]
+          [
+            "Select yes if they worked at the same organisation as you at the time of the alleged misconduct"
+          ]
         )
       end
     end

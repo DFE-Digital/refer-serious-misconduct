@@ -24,7 +24,7 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:phone_known]).to eq(
-          ["Tell us if you know their main contact number"]
+          ["Select yes if you know their phone number"]
         )
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:phone_number]).to eq(["Enter their contact number"])
+        expect(form.errors[:phone_number]).to eq(["Enter their phone number"])
       end
     end
 
@@ -46,9 +46,7 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:phone_number]).to eq(
-          [
-            "Enter a valid mobile number, like 07700 900 982 or +44 7700 900 982"
-          ]
+          ["Enter a phone number in the correct format, like 07700 900 982"]
         )
       end
     end

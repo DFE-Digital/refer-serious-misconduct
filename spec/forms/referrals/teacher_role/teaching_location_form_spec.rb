@@ -45,7 +45,9 @@ RSpec.describe Referrals::TeacherRole::TeachingLocationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:teaching_location_known]).to eq(
-          ["Tell us if you know where they are teaching"]
+          [
+            "Select yes if you know the name and address of the organisation where they’re currently working"
+          ]
         )
       end
     end
@@ -57,7 +59,7 @@ RSpec.describe Referrals::TeacherRole::TeachingLocationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:teaching_organisation_name]).to eq(
-          ["Tell us the name of their organisation"]
+          ["Enter the organisation name"]
         )
       end
     end
@@ -69,7 +71,7 @@ RSpec.describe Referrals::TeacherRole::TeachingLocationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:teaching_address_line_1]).to eq(
-          ["Enter the first line of their organisation's address"]
+          ["Enter the first line of the address"]
         )
       end
     end
@@ -81,7 +83,7 @@ RSpec.describe Referrals::TeacherRole::TeachingLocationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:teaching_town_or_city]).to eq(
-          ["Enter a town or city for their organisation"]
+          ["Enter the town or city"]
         )
       end
     end
@@ -92,9 +94,7 @@ RSpec.describe Referrals::TeacherRole::TeachingLocationForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:teaching_postcode]).to eq(
-          ["Enter a postcode for their organisation"]
-        )
+        expect(form.errors[:teaching_postcode]).to eq(["Enter the postcode"])
       end
     end
 

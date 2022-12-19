@@ -186,7 +186,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_a_missing_phone_number_error
-    expect(page).to have_content("Enter their contact number")
+    expect(page).to have_content("Enter their phone number")
   end
 
   def when_i_select_yes_with_an_invalid_phone_number
@@ -196,7 +196,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_an_invalid_phone_number_error
     expect(page).to have_content(
-      "Enter a valid mobile number, like 07700 900 982 or +44 7700 900 982"
+      "Enter a phone number in the correct format, like 07700 900 982"
     )
   end
 
@@ -216,8 +216,8 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_a_missing_address_fields_error
     expect(page).to have_content("Enter the first line of their address")
-    expect(page).to have_content("Enter their town or city")
-    expect(page).to have_content("Enter their postcode")
+    expect(page).to have_content("Enter the town or city")
+    expect(page).to have_content("Enter the postcode")
   end
 
   def when_i_fill_in_an_incorrect_postcode
@@ -276,12 +276,12 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_a_completed_error
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
-      section: "About the person you are referring",
+      section: "About the person you’re referring",
       item_position: 2,
       name: "Contact details",
       tag: status

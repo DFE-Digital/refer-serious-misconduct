@@ -53,7 +53,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       it "adds an error" do
         expect(upload_form.errors[:evidence_uploads]).to eq(
           [
-            "Please upload files of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
+            "The selected file must be of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
           ]
         )
       end
@@ -83,7 +83,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
         ]
         expect(upload_form.save).to be false
         expect(upload_form.errors[:evidence_uploads]).to eq(
-          ["You can only upload 10 files in total"]
+          ["You can only upload 10 files"]
         )
       end
     end

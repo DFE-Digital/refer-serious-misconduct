@@ -14,7 +14,7 @@ en:
     about_you: About you
     your_details: Your details
     your_organisation: Your organisation
-    about_the_person_you_are_referring: About the person you are referring
+    about_the_person_you_are_referring: About the person you’re referring
     personal_details: Personal details
     contact_details: Contact details
     about_their_role: About their role
@@ -59,27 +59,27 @@ en:
         have_complained_form:
           attributes:
             complained:
-              inclusion: Tell us if you have already made a complaint
+              inclusion: Select yes if you’ve already made a complaint to the school, school governors or your local council
         is_teacher_form:
           attributes:
             is_teacher:
-              inclusion: Tell us if the allegation is about a teacher
+              inclusion: Select yes if the allegation is about a teacher
         reporting_as_form:
           attributes:
             reporting_as:
-              blank: Tell us if you are reporting as an employer or a member of the public
+              blank: Select if you’re making a referral as an employer or member of public
         serious_misconduct_form:
           attributes:
             serious_misconduct:
-              inclusion: Tell us if you are reporting serious misconduct
+              inclusion: Select yes if the allegation involves serious misconduct
         teaching_in_england_form:
           attributes:
             teaching_in_england:
-              inclusion: Tell us if you are reporting a teacher who is teaching in England
+              inclusion: Select yes if they were employed in England at the time the alleged misconduct took place
         unsupervised_teaching_form:
           attributes:
             unsupervised_teaching:
-              blank: Tell us if they were teaching unsupervised
+              blank: Select yes if they carry out unsupervised teaching working
         "users/otp_form":
           attributes:
             otp:
@@ -102,81 +102,81 @@ en:
         "referrals/personal_details/name_form":
           attributes:
             first_name:
-              blank: First name can't be blank
+              blank: Enter their first name
             last_name:
-              blank: Last name can't be blank
+              blank: Enter their last name
             name_has_changed:
-              inclusion: Tell us if you know their name has changed
+              inclusion: Select yes if you know them by any other name
             previous_name:
-              blank: Tell us their previous name
+              blank: Enter their other name
         "referrals/personal_details/trn_form":
           attributes:
             trn_known:
-              inclusion: Tell us if you know their TRN number
+              inclusion: Select yes if you know their TRN
             trn:
-              blank: Enter their TRN number
-              wrong_length: Their TRN number should contain 7 digits
+              blank: Enter their TRN
+              wrong_length: TRN must be 7 digits
         "referrals/personal_details/qts_form":
           attributes:
             has_qts:
-              inclusion: Tell us if you know whether they have QTS
+              inclusion: Select yes if they have QTS
         "referrals/personal_details/check_answers_form":
           attributes:
             personal_details_complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
         "referrals/contact_details/email_form":
           attributes:
             email_known:
-              inclusion: Tell us if you know their email address
+              inclusion: Select yes if you know their email address
             email_address:
               blank: Enter their email address
               invalid: Enter an email address in the correct format, like name@example.com
         "referrals/contact_details/telephone_form":
           attributes:
             phone_known:
-              inclusion: Tell us if you know their main contact number
+              inclusion: Select yes if you know their phone number
             phone_number:
-              blank: Enter their contact number
-              invalid: Enter a valid mobile number, like 07700 900 982 or +44 7700 900 982
+              blank: Enter their phone number
+              invalid: Enter a phone number in the correct format, like 07700 900 982
         "referrals/contact_details/address_form":
           attributes:
             address_known:
-              inclusion: Tell us if you know their home address
+              inclusion: Select yes if you know their home address
             address_line_1:
               blank: Enter the first line of their address
             town_or_city:
-              blank: Enter their town or city
+              blank: Enter the town or city
             postcode:
-              blank: Enter their postcode
+              blank: Enter the postcode
               invalid: Enter a real postcode
         "referrals/contact_details/check_answers_form":
           attributes:
             contact_details_complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
         "referrals/teacher_role/start_date_form":
           attributes:
             role_start_date_known:
-              inclusion: Tell us if you know their role start date
+              inclusion: Select yes if you know when they started their job
             role_start_date:
-              blank: Enter their role start date
-              in_the_future: Their role start date must be in the past
-              invalid: Enter their role start date in the correct format
-              missing_day: Enter a day for their role start date, formatted as a number
-              missing_month: Enter a month for their role start date, formatted as a number
-              missing_year: Enter a year with 4 digits
+              blank: Enter the job start date
+              in_the_future: Job start date must be in the past
+              invalid: Job start date must be a real date
+              missing_day: Job start date must include a day
+              missing_month: Job start date must include a month
+              missing_year: Job start date must include a year
         "referrals/teacher_role/employment_status_form":
           attributes:
             employment_status:
-              inclusion: Tell us if you know if they are still employed in that job
+              inclusion: Select whether they’re still employed where the alleged misconduct took place
             reason_leaving_role:
-              inclusion: Tell us how they left this job
+              inclusion: Select the reason they left the job
             role_end_date:
-              blank: Enter their role end date
-              in_the_future: Their role end date must be in the past
-              invalid: Enter their role end date in the correct format
-              missing_day: Enter a day for their role end date, formatted as a number
-              missing_month: Enter a month for their role end date, formatted as a number
-              missing_year: Enter a year with 4 digits
+              blank: Enter the job end date
+              in_the_future: Job end date must be in the past
+              invalid: Job end date must be a real date
+              missing_day: Job end date must include a day
+              missing_month: Job end date must include a month
+              missing_year: Job end date must include a year
         "referrals/teacher_role/job_title_form":
           attributes:
             job_title:
@@ -184,39 +184,39 @@ en:
         "referrals/teacher_role/same_organisation_form":
           attributes:
             same_organisation:
-              inclusion: Tell us if they work in the same organisation as you
+              inclusion: Select yes if they worked at the same organisation as you at the time of the alleged misconduct
         "referrals/teacher_role/duties_form":
           attributes:
             duties_format:
-              inclusion: Choose how you want to tell us about their main duties
+              inclusion: Select how you want to give details about their main duties
             duties_details:
-              blank: Enter details of their main duties
+              blank: Enter a description of their main duties
             duties_upload:
-              blank: Select a file containing their job description
-              invalid_content_type: Please upload files of valid type (%{valid_types})
-              mismatch_content_type: File type does not match file contents
-              file_size_too_big: Maximum file size is 25MB
+              blank: Select a file containing a description of their main duties
+              invalid_content_type: The selected file must be of type (%{valid_types})
+              mismatch_content_type: The selected file does not match its contents
+              file_size_too_big: The selected file must be smaller than 25MB
         "referrals/teacher_role/teaching_somewhere_else_form":
           attributes:
             teaching_somewhere_else:
-              inclusion: Tell us if you know if they are teaching somewhere else
+              inclusion: Select yes if they’re employed somewhere else
         "referrals/teacher_role/teaching_location_form":
           attributes:
             teaching_location_known:
-              inclusion: Tell us if you know where they are teaching
+              inclusion: Select yes if you know the name and address of the organisation where they’re currently working
             teaching_organisation_name:
-              blank: Tell us the name of their organisation
+              blank: Enter the organisation name
             teaching_address_line_1:
-              blank: Enter the first line of their organisation's address
+              blank: Enter the first line of the address
             teaching_town_or_city:
-              blank: Enter a town or city for their organisation
+              blank: Enter the town or city
             teaching_postcode:
-              blank: Enter a postcode for their organisation
+              blank: Enter the postcode
               invalid: Enter a real postcode
         "referrals/teacher_role/check_answers_form":
           attributes:
             teacher_role_complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
 
         referrer_job_title_form:
           attributes:
@@ -233,30 +233,30 @@ en:
         organisation_form:
           attributes:
             complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
         organisation_address_form:
           attributes:
             street_1:
-              blank: Tell us the street address for your organisation
+              blank: Enter the first line of your organisation’s address
             city:
-              blank: Tell us the city for your organisation
+              blank: Enter the town or city
             postcode:
-              blank: Tell us the postcode for your organisation
+              blank: Enter the postcode
 
         organisation_name_form:
           attributes:
             name:
-              blank: Tell us the name of your organisation
+              blank: Enter the organisation name
         previous_misconduct_form:
           attributes:
             complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
         previous_misconduct_detailed_account_form:
           attributes:
             details:
-              blank: Let us know the details of previous allegations
+              blank: Enter a description of previous allegations
             format:
-              inclusion: Choose how you want to give us details of previous allegations
+              inclusion: Select how you want to give details about previous allegations
         previous_misconduct_reported_form:
           attributes:
             previous_misconduct_reported:
@@ -264,49 +264,49 @@ en:
         referrer_form:
           attributes:
             complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
         "referrals/allegation/details_form":
           attributes:
             allegation_format:
-              inclusion: Choose how you want to tell us about your allegation
+              inclusion: Select how you want to give details about the allegation
             allegation_details:
               blank: Enter details of the allegation
             allegation_upload:
               blank: Select a file containing details of your allegation
-              invalid_content_type: Please upload a valid file type (%{valid_types})
-              mismatch_content_type: File type does not match file contents
-              file_size_too_big: Maximum file size is %{max_file_size}
+              invalid_content_type: The selected file must be of type (%{valid_types})
+              mismatch_content_type: The selected file does not match its contents
+              file_size_too_big: The selected file must be smaller than %{max_file_size}
         "referrals/allegation/dbs_form":
           attributes:
             dbs_notified:
-              inclusion: Tell us if you have notified DBS about the case
+              inclusion: Select yes if you’ve told DBS about this case
         "referrals/allegation/check_answers_form":
           attributes:
             allegation_details_complete:
-              inclusion: Tell us if you have completed this section
-          allegation_incomplete: Please give details of the allegation
+              inclusion: Select yes if you’ve completed this section
+          allegation_incomplete: Give details of the allegation
         "referrals/evidence/start_form":
           attributes:
             has_evidence:
-              inclusion: Tell us if you have evidence to upload
+              inclusion: Select yes if you have evidence to upload
         "referrals/evidence/upload_form":
           attributes:
             evidence_uploads:
               blank: Select evidence to upload
-              invalid_content_type: Please upload files of valid type (%{valid_types})
-              mismatch_content_type: File type does not match file contents
-              file_size_too_big: Maximum file size is %{max_file_size}
-              file_count: You can only upload %{max_files} files in total
+              invalid_content_type: The selected file must be of valid type (%{valid_types})
+              mismatch_content_type: The selected file does not match its contents
+              file_size_too_big: The selected file must be smaller than %{max_file_size}
+              file_count: You can only upload %{max_files} files
         "referrals/evidence/categories_form":
           attributes:
             categories:
-              blank: Select categories that describe this file
+              blank: Select a description of this file
             categories_other:
-              blank: Tell us what type of evidence this is
+              blank: Enter a description of this evidence
         "referrals/evidence/check_answers_form":
           attributes:
             evidence_details_complete:
-              inclusion: Tell us if you have completed this section
+              inclusion: Select yes if you’ve completed this section
 
   activerecord:
     errors:

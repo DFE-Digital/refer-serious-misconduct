@@ -24,7 +24,7 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:email_known]).to eq(
-          ["Tell us if you know their email address"]
+          ["Select yes if you know their email address"]
         )
       end
     end

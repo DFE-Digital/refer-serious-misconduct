@@ -26,7 +26,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
       it "adds an error" do
         save
         expect(trn_form.errors[:trn_known]).to eq(
-          ["Tell us if you know their TRN number"]
+          ["Select yes if you know their TRN"]
         )
       end
     end
@@ -44,7 +44,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn]).to include("Enter their TRN number")
+        expect(trn_form.errors[:trn]).to include("Enter their TRN")
       end
     end
 
@@ -55,9 +55,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn]).to eq(
-          ["Their TRN number should contain 7 digits"]
-        )
+        expect(trn_form.errors[:trn]).to eq(["TRN must be 7 digits"])
       end
     end
 
@@ -68,9 +66,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn]).to eq(
-          ["Their TRN number should contain 7 digits"]
-        )
+        expect(trn_form.errors[:trn]).to eq(["TRN must be 7 digits"])
       end
     end
 
