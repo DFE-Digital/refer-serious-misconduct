@@ -3,47 +3,30 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <h1 class="govuk-heading-xl">
+    <h1 class="govuk-heading-l">
       Evidence and supporting information
     </h1>
-    <p>Upload all relevant correspondence and supporting information.</p>
-    <h2 class="govuk-heading-m">Commonly uploaded documents</h2>
+
+    <p>For example:</p>
+
     <ul class="govuk-list govuk-list--bullet">
-      <li>CV</li>
-      <li>References</li>
-      <li>Job application</li>
-      <li>Job offer</li>
-      <li>Job description, role requirement or person specification</li>
-      <li>File notes concerning conduct, behaviour, attitude</li>
-      <li>Statements made by the person you’re referring</li>
-      <li>Documents of internal investigations and outcomes</li>
-      <li>Documentation of any past disciplinary action and complaints</li>
-      <li>Police investigation and reports</li>
-      <li>Local authority investigation reports or documents</li>
-      <li>Reports from other bodies or agencies</li>
-      <li>Signed witness statements</li>
-      <li>Dismissal, resignation or redeployment letters</li>
-      <li>Interview reports relating to the allegation</li>
-      <li>Minutes of strategy meetings</li>
+      <li>complaint made to the school</li>
+      <li>correspondence with the school</li>
+      <li>school complaints policy</li>
+      <li>complaint made to the police</li>
+      <li>complaint made to the local authority or any other agency or body</li>
+      <li>signed witness statements</li>
     </ul>
-
-    <h2 class="govuk-heading-m">Preparing your documents</h2>
-
-    <p>Signed and dated documents are better than unsigned ones. If they were not signed at the time of being written,
-    ask the parties involved to sign and date a statement confirming their accuracy.</p>
-
-    <p>Do not redact any of the documents. This will make it difficult to consider the evidence. All
-    information given is treated in strict confidence.</p>
 
     <%= form_with model: @evidence_start_form, url: referral_evidence_start_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(
         :has_evidence,
-        legend: { text: "Do you have anything to upload?", size: "m" },
+        legend: { text: "Do you have evidence to upload?", size: "m" },
       ) do %>
-        <%= f.govuk_radio_button :has_evidence, "true", label: { text: "Yes, I need to upload files" } %>
-        <%= f.govuk_radio_button :has_evidence, "false", label: { text: "No, I do not have anything to upload" } %>
+        <%= f.govuk_radio_button :has_evidence, "true", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :has_evidence, "false", label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
