@@ -102,11 +102,11 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_choose_yes_to_uploading_evidence
-    choose "Yes, I need to upload files", visible: false
+    choose "Yes", visible: false
   end
 
   def when_i_choose_no_to_uploading_evidence
-    choose "No, I do not have anything to upload", visible: false
+    choose "No", visible: false
   end
 
   def then_i_am_asked_to_upload_evidence_files
