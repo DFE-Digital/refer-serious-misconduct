@@ -27,7 +27,7 @@ RSpec.describe ReportingAsForm, type: :model do
       it "returns an informative error message" do
         save
         expect(reporting_as_form.errors["reporting_as"]).to include(
-          "Tell us if you are reporting as an employer or a member of the public"
+          "Select if you’re making a referral as an employer or member of public"
         )
       end
     end

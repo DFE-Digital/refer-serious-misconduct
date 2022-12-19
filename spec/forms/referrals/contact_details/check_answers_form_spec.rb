@@ -23,7 +23,7 @@ RSpec.describe Referrals::ContactDetails::CheckAnswersForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:contact_details_complete]).to eq(
-          ["Tell us if you have completed this section"]
+          ["Select yes if you’ve completed this section"]
         )
       end
     end

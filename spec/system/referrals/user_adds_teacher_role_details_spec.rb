@@ -391,20 +391,22 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_employment_status_field_validation_errors
     expect(page).to have_content(
-      "Tell us if you know if they are still employed in that job"
+      "Select whether they’re still employed where the alleged misconduct took place"
     )
   end
 
   def then_i_see_reason_leaving_role_field_validation_errors
-    expect(page).to have_content("Tell us how they left this job")
+    expect(page).to have_content("Select the reason they left the job")
   end
 
   def then_i_see_role_start_date_known_field_validation_errors
-    expect(page).to have_content("Tell us if you know their role start date")
+    expect(page).to have_content(
+      "Select yes if you know when they started their job"
+    )
   end
 
   def then_i_see_role_start_date_field_validation_errors
-    expect(page).to have_content("Enter their role start date")
+    expect(page).to have_content("Enter the job start date")
   end
 
   def then_i_see_role_end_date_field_validation_errors
@@ -419,47 +421,47 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_same_organisation_field_validation_errors
     expect(page).to have_content(
-      "Tell us if they work in the same organisation as you"
+      "Select yes if they worked at the same organisation as you at the time of the alleged misconduct"
     )
   end
 
   def then_i_see_duties_format_field_validation_errors
     expect(page).to have_content(
-      "Choose how you want to tell us about their main duties"
+      "Select how you want to give details about their main duties"
     )
   end
 
   def then_i_see_duties_upload_field_validation_errors
     expect(page).to have_content(
-      "Select a file containing their job description"
+      "Select a file containing a description of their main duties"
     )
   end
 
   def then_i_see_duties_details_field_validation_errors
-    expect(page).to have_content("Enter details of their main duties")
+    expect(page).to have_content("Enter a description of their main duties")
   end
 
   def then_i_see_teaching_somewhere_else_field_validation_errors
     expect(page).to have_content(
-      "Tell us if you know if they are teaching somewhere else"
+      "Select yes if they’re employed somewhere else"
     )
   end
 
   def then_i_see_teaching_location_field_validation_errors
-    expect(page).to have_content("Tell us if you know where they are teaching")
+    expect(page).to have_content(
+      "Select yes if you know the name and address of the organisation where they’re currently working"
+    )
   end
 
   def then_i_see_teaching_location_address_field_validation_errors
-    expect(page).to have_content("Tell us the name of their organisation")
-    expect(page).to have_content(
-      "Enter the first line of their organisation's address"
-    )
-    expect(page).to have_content("Enter a town or city for their organisation")
-    expect(page).to have_content("Enter a postcode for their organisation")
+    expect(page).to have_content("Enter the organisation name")
+    expect(page).to have_content("Enter the first line of the address")
+    expect(page).to have_content("Enter the town or city")
+    expect(page).to have_content("Enter the postcode")
   end
 
   def then_i_see_a_completed_error
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   # Page content
@@ -539,7 +541,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
-      section: "About the person you are referring",
+      section: "About the person you’re referring",
       item_position: 3,
       name: "About their role",
       tag: status

@@ -23,7 +23,7 @@ RSpec.feature "User views an existing referral summary", type: :system do
     end
 
     within(all(".app-task-list__section")[1]) do
-      expect(page).to have_content("2. About the person you are referring")
+      expect(page).to have_content("2. About the person you’re referring")
     end
 
     within(all(".app-task-list__section").last) do

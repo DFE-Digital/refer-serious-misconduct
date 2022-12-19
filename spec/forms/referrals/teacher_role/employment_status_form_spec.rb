@@ -26,7 +26,9 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       it "adds an error" do
         valid
         expect(form.errors[:employment_status]).to eq(
-          ["Tell us if you know if they are still employed in that job"]
+          [
+            "Select whether they’re still employed where the alleged misconduct took place"
+          ]
         )
       end
     end
@@ -57,7 +59,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       it "adds an error" do
         save
         expect(form.errors[:reason_leaving_role]).to eq(
-          ["Tell us how they left this job"]
+          ["Select the reason they left the job"]
         )
       end
     end

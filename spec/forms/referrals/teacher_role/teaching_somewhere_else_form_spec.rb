@@ -22,7 +22,7 @@ RSpec.describe Referrals::TeacherRole::TeachingSomewhereElseForm,
 
       it "adds an error" do
         expect(form.errors[:teaching_somewhere_else]).to eq(
-          ["Tell us if you know if they are teaching somewhere else"]
+          ["Select yes if they’re employed somewhere else"]
         )
       end
     end

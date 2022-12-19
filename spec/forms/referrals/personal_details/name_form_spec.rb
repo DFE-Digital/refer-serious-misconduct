@@ -40,20 +40,20 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
 
     context "when first name is blank" do
       it "raises an error on first name" do
-        expect(form.errors[:first_name]).to include "First name can't be blank"
+        expect(form.errors[:first_name]).to include "Enter their first name"
       end
     end
 
     context "when last name is blank" do
       it "raises an error on last name" do
-        expect(form.errors[:last_name]).to include "Last name can't be blank"
+        expect(form.errors[:last_name]).to include "Enter their last name"
       end
     end
 
     context "when name_has_changed is blank" do
       it "raises an error on name has changed" do
         expect(form.errors[:name_has_changed]).to include(
-          "Tell us if you know their name has changed"
+          "Select yes if you know them by any other name"
         )
       end
     end
@@ -62,9 +62,7 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
       let(:params) { { name_has_changed: "yes", referral: } }
 
       it "raises an error on previous name" do
-        expect(form.errors[:previous_name]).to include(
-          "Tell us their previous name"
-        )
+        expect(form.errors[:previous_name]).to include("Enter their other name")
       end
     end
   end

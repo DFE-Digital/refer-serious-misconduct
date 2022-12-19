@@ -24,7 +24,7 @@ RSpec.describe Referrals::Evidence::CheckAnswersForm, type: :model do
       it "adds an error" do
         save
         expect(check_answers_form.errors[:evidence_details_complete]).to eq(
-          ["Tell us if you have completed this section"]
+          ["Select yes if you’ve completed this section"]
         )
       end
     end

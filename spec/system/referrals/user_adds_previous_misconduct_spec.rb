@@ -98,7 +98,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def then_i_am_asked_to_make_a_choice
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def then_i_see_the_details_prefilled
@@ -130,7 +130,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
   def then_i_see_the_missing_details_error
     expect(page).to have_content(
-      "Choose how you want to give us details of previous allegations"
+      "Select how you want to give details about previous allegations"
     )
   end
 

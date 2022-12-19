@@ -21,9 +21,7 @@ RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
 
       it "adds an error" do
         save
-        expect(qts_form.errors[:has_qts]).to eq(
-          ["Tell us if you know whether they have QTS"]
-        )
+        expect(qts_form.errors[:has_qts]).to eq(["Select yes if they have QTS"])
       end
     end
 
@@ -32,9 +30,7 @@ RSpec.describe Referrals::PersonalDetails::QtsForm, type: :model do
 
       it "adds an error" do
         save
-        expect(qts_form.errors[:has_qts]).to eq(
-          ["Tell us if you know whether they have QTS"]
-        )
+        expect(qts_form.errors[:has_qts]).to eq(["Select yes if they have QTS"])
       end
     end
   end

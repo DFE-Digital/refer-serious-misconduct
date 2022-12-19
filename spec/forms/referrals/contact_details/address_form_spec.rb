@@ -44,7 +44,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:address_known]).to eq(
-          ["Tell us if you know their home address"]
+          ["Select yes if you know their home address"]
         )
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:town_or_city]).to eq(["Enter their town or city"])
+        expect(form.errors[:town_or_city]).to eq(["Enter the town or city"])
       end
     end
 
@@ -77,7 +77,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:postcode]).to eq(["Enter their postcode"])
+        expect(form.errors[:postcode]).to eq(["Enter the postcode"])
       end
     end
 

@@ -24,7 +24,7 @@ RSpec.describe Referrals::TeacherRole::StartDateForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:role_start_date_known]).to eq(
-          ["Tell us if you know their role start date"]
+          ["Select yes if you know when they started their job"]
         )
       end
     end

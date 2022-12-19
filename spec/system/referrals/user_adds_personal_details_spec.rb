@@ -89,8 +89,8 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_see_name_field_validation_errors
-    expect(page).to have_content("First name can't be blank")
-    expect(page).to have_content("Last name can't be blank")
+    expect(page).to have_content("Enter their first name")
+    expect(page).to have_content("Enter their last name")
   end
 
   def when_i_fill_out_the_name_fields_and_save
@@ -123,7 +123,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_see_trn_field_validation_errors
-    expect(page).to have_content("Tell us if you know their TRN number")
+    expect(page).to have_content("Select yes if you know their TRN")
   end
 
   def when_i_fill_out_their_trn
@@ -136,7 +136,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_see_qts_field_validation_errors
-    expect(page).to have_content("Tell us if you know whether they have QTS")
+    expect(page).to have_content("Select yes if they have QTS")
   end
 
   def when_i_fill_out_their_qts
@@ -191,7 +191,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_see_confirmation_validation_errors
-    expect(page).to have_content("Tell us if you have completed this section")
+    expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
   def when_i_confirm_their_personal_details
