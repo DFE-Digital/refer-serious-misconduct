@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.feature "Eligibility screener", type: :system do
   include CommonSteps
 
-  scenario "User completes eligibility screener" do
+  scenario "User completes eligibility screener as member of public" do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
     and_the_referral_form_feature_is_active
