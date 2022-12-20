@@ -270,9 +270,9 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_have_started_a_member_of_public_referral
-    referral = User.last.latest_referral
+    referral = @user.latest_referral
 
-    expect(page).to have_current_path edit_referral_path(referral)
+    expect(page).to have_current_path edit_public_referral_path(referral)
     expect(referral).to be_from_member_of_public
   end
 end
