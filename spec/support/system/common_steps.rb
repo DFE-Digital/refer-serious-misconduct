@@ -8,6 +8,10 @@ module CommonSteps
     sign_in(@user)
   end
 
+  def when_i_visit_the_service
+    visit root_path
+  end
+
   def and_the_referral_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:referral_form)
   end
