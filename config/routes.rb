@@ -69,6 +69,8 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
+  resources :public_referrals, except: %i[index show], path: "public-referrals"
+
   resources :referrals, except: %i[index show] do
     get "/delete", to: "referrals#delete", on: :member
     get "/deleted", to: "referrals#deleted", on: :collection
