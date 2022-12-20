@@ -1,18 +1,20 @@
 class ReferralsController < Referrals::BaseController
+  include ReferralPaths
+
   before_action :check_referral_form_feature_flag_enabled
   before_action :redirect_to_referral_if_exists, only: %i[new create]
   before_action :redirect_to_screener_if_no_id_in_session, only: %i[new create]
 
   def new
+    @create_path = referrals_path
   end
 
   def create
-    eligibility_check =
-      EligibilityCheck.find_by!(id: session.delete(:eligibility_check_id))
-    referral =
-      current_user.referrals.create!(eligibility_check_id: eligibility_check.id)
-
-    redirect_to edit_referral_path(referral)
+    new_referral =
+      current_user.create_referral!(
+        eligibility_check_id: session.delete(:eligibility_check_id)
+      )
+    redirect_to edit_path_for(new_referral)
   end
 
   def edit
@@ -45,7 +47,7 @@ class ReferralsController < Referrals::BaseController
   def redirect_to_referral_if_exists
     latest_referral = current_user.latest_referral
 
-    redirect_to edit_referral_path(latest_referral) if latest_referral
+    redirect_to edit_path_for(latest_referral) if latest_referral
   end
 
   def referral
