@@ -31,14 +31,17 @@ module Referrals
 
       def next_path
         if current_referral.teaching_somewhere_else?
-          edit_referral_teacher_role_teaching_location_path(current_referral)
+          edit_referral_teacher_role_teaching_location_known_path(
+            current_referral
+          )
         else
           edit_referral_teacher_role_check_answers_path(current_referral)
         end
       end
 
       def next_page
-        if @teaching_somewhere_else_form.referral.saved_changes?
+        if @teaching_somewhere_else_form.referral.saved_changes? &&
+             current_referral.teaching_somewhere_else
           return next_path
         end
 

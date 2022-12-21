@@ -22,6 +22,18 @@ module AddressHelper
     )
   end
 
+  def referral_organisation_address(referral)
+    address_fields_to_html(
+      [
+        referral.organisation_name,
+        referral.organisation_address_line_1,
+        referral.organisation_address_line_2,
+        referral.organisation_town_or_city,
+        referral.organisation_postcode
+      ]
+    )
+  end
+
   def teaching_address(referral)
     address_fields_to_html(
       [

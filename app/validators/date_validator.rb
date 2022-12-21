@@ -73,7 +73,7 @@ class DateValidator < ActiveModel::EachValidator
       return false
     end
 
-    return true unless options[:date_of_birth]
+    return true unless options[:date_of_birth] || !options[:in_the_future]
 
     if year > Time.zone.today.year
       record.errors.add(attribute, :in_the_future)

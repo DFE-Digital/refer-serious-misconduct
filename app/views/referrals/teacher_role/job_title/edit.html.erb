@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}What’s their job title?" %>
+<% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}Their job title" %>
 <% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_employment_status_path(current_referral)) %>
 
 <div class="govuk-grid-row">
@@ -6,8 +6,9 @@
     <%= form_with model: @job_title_form, url: referral_teacher_role_job_title_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
+      <span class="govuk-caption-l">About their role</span>
       <%= f.govuk_text_field :job_title,
-        label: { text: "What’s their job title?", size: "xl" },
+        label: { text: "Their job title", tag: 'h1', size: "l" },
         hint: { text: "For example, ‘Teacher’" }
       %>
       <%= f.govuk_submit "Save and continue" %>

@@ -4,7 +4,6 @@ module Referrals
       def edit
         @teaching_location_form =
           TeachingLocationForm.new(
-            teaching_location_known: current_referral.teaching_location_known,
             teaching_organisation_name:
               current_referral.teaching_organisation_name,
             teaching_address_line_1: current_referral.teaching_address_line_1,
@@ -31,7 +30,6 @@ module Referrals
 
       def teaching_location_params
         params.require(:referrals_teacher_role_teaching_location_form).permit(
-          :teaching_location_known,
           :teaching_organisation_name,
           :teaching_address_line_1,
           :teaching_address_line_2,

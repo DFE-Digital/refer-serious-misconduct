@@ -7,10 +7,7 @@ module Referrals
       attr_accessor :referral, :teaching_somewhere_else
 
       validates :referral, presence: true
-      validates :teaching_somewhere_else,
-                inclusion: {
-                  in: %w[yes no dont_know]
-                }
+      validates :teaching_somewhere_else, inclusion: { in: %w[yes no not_sure] }
 
       def save
         return false if invalid?

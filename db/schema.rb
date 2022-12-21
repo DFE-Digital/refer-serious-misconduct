@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_13_163958) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_16_172718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -126,20 +126,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_13_163958) do
     t.string "reason_leaving_role"
     t.string "job_title"
     t.boolean "same_organisation"
-    t.text "previous_misconduct_details"
-    t.datetime "previous_misconduct_details_incomplete_at", precision: nil
     t.string "duties_format"
     t.string "duties_details"
     t.boolean "teacher_role_complete"
+    t.text "previous_misconduct_details"
+    t.datetime "previous_misconduct_details_incomplete_at", precision: nil
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.datetime "submitted_at", precision: nil
-    t.bigint "eligibility_check_id"
     t.string "teaching_somewhere_else"
+    t.bigint "eligibility_check_id"
     t.boolean "teaching_location_known"
     t.string "teaching_organisation_name"
     t.string "teaching_address_line_1"
     t.string "teaching_address_line_2"
     t.string "teaching_town_or_city"
     t.string "teaching_postcode"
+    t.boolean "organisation_address_known"
+    t.string "organisation_name"
+    t.string "organisation_address_line_1"
+    t.string "organisation_address_line_2"
+    t.string "organisation_town_or_city"
+    t.string "organisation_postcode", limit: 11
+    t.boolean "role_end_date_known"
     t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end

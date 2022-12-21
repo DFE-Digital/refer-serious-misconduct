@@ -30,7 +30,22 @@ module Referrals
       end
 
       def next_path
-        edit_referral_teacher_role_duties_path(current_referral)
+        if current_referral.same_organisation?
+          edit_referral_teacher_role_start_date_path(current_referral)
+        else
+          edit_referral_teacher_role_organisation_address_known_path(
+            current_referral
+          )
+        end
+      end
+
+      def next_page
+        if @same_organisation_form.referral.saved_changes? &&
+             !current_referral.same_organisation
+          return next_path
+        end
+
+        super
       end
     end
   end

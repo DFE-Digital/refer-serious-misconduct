@@ -6,7 +6,7 @@ module Referrals
 
       attr_accessor :referral, :duties_details, :duties_format, :duties_upload
 
-      validates :duties_format, inclusion: { in: %w[details incomplete upload] }
+      validates :duties_format, inclusion: { in: %w[details upload] }
       validates :duties_details,
                 presence: true,
                 if: -> { duties_format == "details" }
