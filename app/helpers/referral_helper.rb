@@ -14,6 +14,12 @@ module ReferralHelper
     end
   end
 
+  def duties_format(referral)
+    return "Describe their main duties" if referral.duties_format == "details"
+
+    "Upload file"
+  end
+
   def duties_details(referral)
     if referral.duties_upload.attached?
       "File: #{referral.duties_upload.filename}"
@@ -34,5 +40,18 @@ module ReferralHelper
     args << { return_to: } if return_to
 
     send(path_name, *args)
+  end
+
+  def employment_status(referral)
+    case referral.employment_status
+    when "employed"
+      "Yes"
+    when "suspended"
+      "They’re still employed but they’ve been suspended"
+    when "left_role"
+      "No, they have left the organisation"
+    else
+      "Incomplete"
+    end
   end
 end

@@ -48,4 +48,8 @@ class Referral < ApplicationRecord
   def teaching_somewhere_else?
     teaching_somewhere_else == "yes"
   end
+
+  def left_role?
+    employment_status == "left_role"
+  end
 end

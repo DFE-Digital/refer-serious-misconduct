@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @employment_status_form.errors.any?}Are they still employed in that job?" %>
+<% content_for :page_title, "#{'Error: ' if @employment_status_form.errors.any?}Are they still employed in the job where the alleged misconduct took place?" %>
 <% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_start_date_path(current_referral)) %>
 
 <div class="govuk-grid-row">
@@ -6,21 +6,13 @@
     <%= form_with model: @employment_status_form, url: referral_teacher_role_employment_status_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
-      <%= f.govuk_radio_buttons_fieldset :employment_status, legend: { size: "xl", text: "Are they still employed in that job?" }  do %>
+      <span class="govuk-caption-l">About their role</span>
+      <%= f.govuk_radio_buttons_fieldset :employment_status,
+        legend: { text: "Are they still employed in the job where the alleged misconduct took place?", tag: 'h1', size: "l" }  do %>
         <%= f.hidden_field :employment_status %>
         <%= f.govuk_radio_button :employment_status, "employed", label: { text: "Yes" } %>
-        <%= f.govuk_radio_button :employment_status, "suspended", label: { text: "They are still employed but they’ve been suspended" } %>
-        <%= f.govuk_radio_button :employment_status, "left_role", label: { text: "No, they have left the organisation" } do %>
-          <%= f.govuk_date_field :role_end_date,
-            legend: { text: "When did they leave the organisation? (optional)", size: "m" },
-            hint: { text: "For example, 27 3 2021" } %>
-          <%= f.govuk_radio_buttons_fieldset :reason_leaving_role, legend: { size: "m", text: "How did they leave the organisation?" }  do %>
-             <%= f.govuk_radio_button :reason_leaving_role, "resigned", label: { text: "Resigned" } %>
-             <%= f.govuk_radio_button :reason_leaving_role, "dismissed", label: { text: "Dismissed" } %>
-             <%= f.govuk_radio_button :reason_leaving_role, "retired", label: { text: "Retired" } %>
-             <%= f.govuk_radio_button :reason_leaving_role, "unknown", label: { text: "I don't know" } %>
-          <% end %>
-        <% end %>
+        <%= f.govuk_radio_button :employment_status, "suspended", label: { text: "They’re still employed but they’ve been suspended" } %>
+        <%= f.govuk_radio_button :employment_status, "left_role", label: { text: "No, they have left the organisation" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>

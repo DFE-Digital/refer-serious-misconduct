@@ -84,7 +84,7 @@ class ReferralForm
         section.items.append(
           ReferralSectionItem.new(
             I18n.t("referral_form.about_their_role"),
-            edit_referral_teacher_role_start_date_path(referral),
+            edit_referral_teacher_role_job_title_path(referral),
             section_status(:teacher_role_complete)
           )
         )

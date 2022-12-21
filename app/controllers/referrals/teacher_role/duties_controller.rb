@@ -32,9 +32,7 @@ module Referrals
       end
 
       def next_path
-        edit_referral_teacher_role_teaching_somewhere_else_path(
-          current_referral
-        )
+        edit_referral_teacher_role_same_organisation_path(current_referral)
       end
     end
   end

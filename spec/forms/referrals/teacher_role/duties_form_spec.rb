@@ -104,21 +104,5 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
         end
       end
     end
-
-    context "when format is incomplete" do
-      let(:duties_details) { "Something something" }
-      let(:duties_upload) { fixture_file_upload("upload1.pdf") }
-      let(:duties_format) { "incomplete" }
-
-      it { is_expected.to be_truthy }
-
-      it "clears out the description" do
-        expect(referral.duties_details).to be_nil
-      end
-
-      it "purges the attached file" do
-        expect(referral.duties_upload).not_to be_attached
-      end
-    end
   end
 end

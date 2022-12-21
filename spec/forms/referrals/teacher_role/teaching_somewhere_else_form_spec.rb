@@ -50,12 +50,12 @@ RSpec.describe Referrals::TeacherRole::TeachingSomewhereElseForm,
     end
 
     context "when teaching_somewhere_else is not known" do
-      let(:teaching_somewhere_else) { "dont_know" }
+      let(:teaching_somewhere_else) { "not_sure" }
 
-      it "updates the teaching_somewhere_else to dont_know" do
+      it "updates the teaching_somewhere_else to not_sure" do
         expect { form.save }.to change(referral, :teaching_somewhere_else).from(
           nil
-        ).to("dont_know")
+        ).to("not_sure")
       end
     end
   end

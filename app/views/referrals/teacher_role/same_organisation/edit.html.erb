@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @same_organisation_form.errors.any?}Do they work in the same organisation as you?" %>
+<% content_for :page_title, "#{'Error: ' if @same_organisation_form.errors.any?}Did they work at the same organisation as you at the time of the alleged misconduct?" %>
 <% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_job_title_path(current_referral)) %>
 
 <div class="govuk-grid-row">
@@ -6,11 +6,12 @@
     <%= form_with model: @same_organisation_form, url: referral_teacher_role_same_organisation_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
+      <span class="govuk-caption-l">About their role</span>
       <%= f.govuk_radio_buttons_fieldset :same_organisation,
-        legend: { size: "l", text: "Do they work in the same organisation as you?" } do %>
+        legend: { text: "Did they work at the same organisation as you at the time of the alleged misconduct?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :same_organisation %>
-        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes, the same organisation" } %>
-        <%= f.govuk_radio_button :same_organisation, false, label: { text: "No, a different organisation" } %>
+        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :same_organisation, false, label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>

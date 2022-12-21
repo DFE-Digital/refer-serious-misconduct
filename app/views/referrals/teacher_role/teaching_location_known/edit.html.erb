@@ -1,0 +1,19 @@
+<% content_for :page_title, "#{'Error: ' if @teaching_location_known_form.errors.any?}Do you know the name and address of the organisation where they’re currently working?" %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_job_title_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <%= form_with model: @teaching_location_known_form, url: referral_teacher_role_teaching_location_known_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">About their role</span>
+      <%= f.govuk_radio_buttons_fieldset :teaching_location_known,
+        legend: { text: "Do you know the name and address of the organisation where they’re currently working?", tag: 'h1', size: "l" } do %>
+        <%= f.hidden_field :teaching_location_known %>
+        <%= f.govuk_radio_button :teaching_location_known, true, label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :teaching_location_known, false, label: { text: "No" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

@@ -5,14 +5,13 @@
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @role_start_date_form, url: referral_teacher_role_start_date_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
-
+      <span class="govuk-caption-l">About their role</span>
       <%= f.govuk_radio_buttons_fieldset :role_start_date_known,
-        legend: { size: "l", text: "Do you know when they started their job?" },
-        hint: { size: "m", text: "This is the job the person had when the allegation of serious misconduct was made against them." } do %>
+        legend: { text: "Do you know when they started their job?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :role_start_date_known %>
         <%= f.govuk_radio_button :role_start_date_known, true, label: { text: "Yes" } do %>
           <%= f.govuk_date_field :role_start_date,
-            legend: { text: "Start date", size: "m" },
+            legend: { text: "Job start date", size: "s" },
             hint: { text: "For example, 27 3 2021" } %>
         <% end %>
         <%= f.govuk_radio_button :role_start_date_known, false, label: { text: "No" } %>

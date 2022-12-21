@@ -161,10 +161,30 @@ Rails.application.routes.draw do
                  path: "teaching-somewhere-else",
                  only: %i[edit update],
                  controller: :teaching_somewhere_else
+        resource :teaching_location_known,
+                 path: "teaching-location-known",
+                 only: %i[edit update],
+                 controller: :teaching_location_known
         resource :teaching_location,
                  path: "teaching-location",
                  only: %i[edit update],
                  controller: :teaching_location
+        resource :organisation_address_known,
+                 path: "organisation-address-known",
+                 only: %i[edit update],
+                 controller: :organisation_address_known
+        resource :organisation_address,
+                 path: "organisation-address",
+                 only: %i[edit update],
+                 controller: :organisation_address
+        resource :end_date,
+                 path: "end-date",
+                 only: %i[edit update],
+                 controller: :end_date
+        resource :reason_leaving_role,
+                 path: "reason-leaving-role",
+                 only: %i[edit update],
+                 controller: :reason_leaving_role
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 

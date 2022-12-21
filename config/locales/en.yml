@@ -98,7 +98,7 @@ en:
               missing_month: Enter a month for their date of birth, formatted as a number
               missing_year: Enter a year with 4 digits
             age_known:
-              inclusion: Tell us if you know their date of birth
+              inclusion: Select yes if you know their date of birth
         "referrals/personal_details/name_form":
           attributes:
             first_name:
@@ -168,15 +168,6 @@ en:
           attributes:
             employment_status:
               inclusion: Select whether they’re still employed where the alleged misconduct took place
-            reason_leaving_role:
-              inclusion: Select the reason they left the job
-            role_end_date:
-              blank: Enter the job end date
-              in_the_future: Job end date must be in the past
-              invalid: Job end date must be a real date
-              missing_day: Job end date must include a day
-              missing_month: Job end date must include a month
-              missing_year: Job end date must include a year
         "referrals/teacher_role/job_title_form":
           attributes:
             job_title:
@@ -202,8 +193,6 @@ en:
               inclusion: Select yes if they’re employed somewhere else
         "referrals/teacher_role/teaching_location_form":
           attributes:
-            teaching_location_known:
-              inclusion: Select yes if you know the name and address of the organisation where they’re currently working
             teaching_organisation_name:
               blank: Enter the organisation name
             teaching_address_line_1:
@@ -213,6 +202,40 @@ en:
             teaching_postcode:
               blank: Enter the postcode
               invalid: Enter a real postcode
+        "referrals/teacher_role/teaching_location_known_form":
+          attributes:
+            teaching_location_known:
+              inclusion: Select yes if you know the name and address of the organisation where they’re currently working
+        "referrals/teacher_role/organisation_address_known_form":
+          attributes:
+            organisation_address_known:
+              inclusion: Select yes if you know the name and address of the organisation
+        "referrals/teacher_role/organisation_address_form":
+          attributes:
+            organisation_name:
+              blank: Enter organisation name
+            organisation_address_line_1:
+              blank: Enter the first line of their organisation's address
+            organisation_town_or_city:
+              blank: Enter a town or city for their organisation
+            organisation_postcode:
+              blank: Enter a postcode for their organisation
+              invalid: Enter a real postcode
+        "referrals/teacher_role/end_date_form":
+          attributes:
+            role_end_date_known:
+              inclusion: Select yes if you know when they left the job
+            role_end_date:
+              blank: Enter the job end date
+              in_the_future: Job end date must be in the past
+              invalid: Job end date must be a real date
+              missing_day: Job end date must include a day
+              missing_month: Job end date must include a month
+              missing_year: Job end date must include a year
+        "referrals/teacher_role/reason_leaving_role_form":
+          attributes:
+            reason_leaving_role:
+              inclusion: Select the reason they left the job
         "referrals/teacher_role/check_answers_form":
           attributes:
             teacher_role_complete:

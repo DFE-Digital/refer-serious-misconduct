@@ -4,19 +4,14 @@ module Referrals
       def edit
         @employment_status_form =
           EmploymentStatusForm.new(
-            employment_status: current_referral.employment_status,
-            role_end_date: current_referral.role_end_date,
-            reason_leaving_role: current_referral.reason_leaving_role
+            employment_status: current_referral.employment_status
           )
       end
 
       def update
         @employment_status_form =
           EmploymentStatusForm.new(
-            employment_status_params.merge(
-              date_params: end_date_params,
-              referral: current_referral
-            )
+            employment_status_params.merge(referral: current_referral)
           )
 
         if @employment_status_form.save
@@ -30,21 +25,25 @@ module Referrals
 
       def employment_status_params
         params.require(:referrals_teacher_role_employment_status_form).permit(
-          :employment_status,
-          :reason_leaving_role
-        )
-      end
-
-      def end_date_params
-        params.require(:referrals_teacher_role_employment_status_form).permit(
-          "role_end_date(3i)",
-          "role_end_date(2i)",
-          "role_end_date(1i)"
+          :employment_status
         )
       end
 
       def next_path
-        edit_referral_teacher_role_job_title_path(current_referral)
+        if current_referral.left_role?
+          edit_referral_teacher_role_end_date_path(current_referral)
+        else
+          edit_referral_teacher_role_check_answers_path(current_referral)
+        end
+      end
+
+      def next_page
+        if @employment_status_form.referral.saved_changes? &&
+             current_referral.left_role?
+          return next_path
+        end
+
+        super
       end
     end
   end

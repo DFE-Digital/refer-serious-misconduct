@@ -9,7 +9,11 @@ module Referrals
 
       validates :referral, presence: true
       validates :role_start_date_known, inclusion: { in: [true, false] }
-      validates :role_start_date, date: true, if: -> { role_start_date_known }
+      validates :role_start_date,
+                date: {
+                  in_the_future: false
+                },
+                if: -> { role_start_date_known }
 
       def role_start_date_known=(value)
         @role_start_date_known = ActiveModel::Type::Boolean.new.cast(value)

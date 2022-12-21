@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class EmploymentStatusForm
+    class ReasonLeavingRoleForm
       include ActiveModel::Model
 
-      attr_accessor :referral, :employment_status
+      attr_accessor :referral, :reason_leaving_role
 
       validates :referral, presence: true
-      validates :employment_status,
+      validates :reason_leaving_role,
                 inclusion: {
-                  in: %w[employed suspended left_role]
+                  in: %w[resigned dismissed retired unknown]
                 }
 
       def save
         return false if invalid?
 
-        referral.update(employment_status:)
+        referral.update(reason_leaving_role:)
       end
     end
   end
