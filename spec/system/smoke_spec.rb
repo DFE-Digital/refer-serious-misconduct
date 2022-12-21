@@ -6,7 +6,7 @@ require "capybara/cuprite"
 Capybara.javascript_driver = :cuprite
 Capybara.always_include_port = false
 
-TEST_ENVIRONMENTS = "local dev test"
+TEST_ENVIRONMENTS = "local dev test preprod"
 
 RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
   it "works as expected" do
