@@ -1,0 +1,34 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_start_form.errors.any?}Evidence and supporting information" %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <h1 class="govuk-heading-l">
+      Evidence and supporting information
+    </h1>
+
+    <p>For example:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>complaint made to the school</li>
+      <li>correspondence with the school</li>
+      <li>school complaints policy</li>
+      <li>complaint made to the police</li>
+      <li>complaint made to the local authority or any other agency or body</li>
+      <li>signed witness statements</li>
+    </ul>
+
+    <%= form_with model: @evidence_start_form, url: public_referral_evidence_start_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_radio_buttons_fieldset(
+        :has_evidence,
+        legend: { text: "Do you have evidence to upload?", size: "m" },
+      ) do %>
+        <%= f.govuk_radio_button :has_evidence, "true", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :has_evidence, "false", label: { text: "No" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

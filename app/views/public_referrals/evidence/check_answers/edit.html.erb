@@ -1,0 +1,34 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_check_answers_form.errors.any?}Check and confirm your answers" %>
+<% content_for :back_link_url, return_to_session_or(edit_public_referral_evidence_uploaded_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">Evidence and supporting information</span>
+      Check and confirm your answers
+    </h1>
+
+    <%= govuk_button_to(
+      "Add more evidence",
+      edit_public_referral_evidence_upload_path(current_referral),
+      method: "get",
+      class: "govuk-button--secondary govuk-!-margin-bottom-8"
+    ) %>
+
+    <%= render EvidenceComponent.new(referral: current_referral) %>
+
+    <%= form_with model: @evidence_check_answers_form, url: public_referral_evidence_check_answers_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_radio_buttons_fieldset(
+        :evidence_details_complete,
+        legend: { text: "Have you completed this section?", size: "m" },
+        hint: { text: "You can still make changes to a completed section" },
+      ) do %>
+        <%= f.govuk_radio_button :evidence_details_complete, "true", label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :evidence_details_complete, "false", label: { text: "No, I’ll come back to it later" } %>
+      <% end %>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

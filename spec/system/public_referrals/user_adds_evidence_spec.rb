@@ -5,13 +5,13 @@ RSpec.feature "Evidence", type: :system do
   include CommonSteps
   include SummaryListHelpers
 
-  scenario "An employer adds evidence to a referral" do
+  scenario "A member of public adds evidence to referral" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_referral_form_feature_is_active
-    and_i_have_an_existing_referral
-    and_i_visit_the_referral
-    then_i_see_the_referral_summary
+    and_i_am_a_member_of_the_public_with_an_existing_referral
+    and_i_visit_the_public_referral
+    then_i_see_the_public_referral_summary
 
     when_i_edit_the_evidence
     then_i_am_asked_if_i_have_evidence_to_upload
@@ -29,9 +29,6 @@ RSpec.feature "Evidence", type: :system do
     when_i_upload_evidence_files
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
-
-    when_i_click_save_and_continue
-    then_i_see_uploaded_evidence_form_validation_errors
 
     when_i_have_more_evidence_to_upload
     and_i_click_save_and_continue
@@ -67,7 +64,7 @@ RSpec.feature "Evidence", type: :system do
 
     when_i_choose_not_to_confirm
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
+    then_i_see_the_public_referral_summary
     and_the_evidence_section_state_is(:incomplete)
 
     when_i_edit_the_evidence
@@ -86,6 +83,7 @@ RSpec.feature "Evidence", type: :system do
 
   def then_i_am_asked_if_i_have_evidence_to_upload
     expect(page).to have_content("Evidence and supporting information")
+    expect(page).to have_content("complaint made to the school")
   end
 
   def then_i_see_evidence_start_form_validation_errors
@@ -134,12 +132,6 @@ RSpec.feature "Evidence", type: :system do
       expect(page).to have_link("upload2.pdf")
       expect(page).to have_link("upload.txt")
     end
-  end
-
-  def then_i_see_uploaded_evidence_form_validation_errors
-    expect(page).to have_content(
-      "Select yes if you have more evidence to upload"
-    )
   end
 
   def when_i_have_more_evidence_to_upload
