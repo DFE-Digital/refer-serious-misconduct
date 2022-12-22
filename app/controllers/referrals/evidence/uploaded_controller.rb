@@ -1,6 +1,8 @@
 module Referrals
   module Evidence
     class UploadedController < Referrals::BaseController
+      include ReferralHelper
+
       def edit
         @uploaded_form = UploadedForm.new
       end
@@ -9,13 +11,19 @@ module Referrals
         @uploaded_form = UploadedForm.new(more_evidence_params)
 
         if @uploaded_form.valid?
-          if @uploaded_form.more_evidence?
-            redirect_to edit_referral_evidence_upload_path(current_referral)
+          subsection = if @uploaded_form.more_evidence?
+            :evidence_upload
           else
-            redirect_to edit_referral_evidence_check_answers_path(
-                          current_referral
-                        )
+            :evidence_check_answers
           end
+
+          redirect_to(
+            subsection_path(
+              referral: current_referral,
+              action: :edit,
+              subsection:
+            )
+          )
         else
           render :edit
         end
