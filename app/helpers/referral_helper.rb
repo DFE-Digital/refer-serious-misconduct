@@ -25,7 +25,7 @@ module ReferralHelper
   end
 
   def subsection_path(referral:, subsection:, action: nil, return_to: nil)
-    referrer_scope = referral.from_employer? ? "referral" : "public_referrals"
+    referrer_scope = referral.from_employer? ? "referral" : "public_referral"
     path_name = [action, referrer_scope, subsection, "path"].compact_blank.join(
       "_"
     )

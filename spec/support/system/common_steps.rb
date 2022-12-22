@@ -40,12 +40,25 @@ module CommonSteps
   end
   alias_method :when_i_visit_the_referral, :and_i_visit_the_referral
 
+  def and_i_visit_the_public_referral
+    visit edit_public_referral_path(@referral)
+  end
+  alias_method :when_i_visit_the_public_referral,
+               :and_i_visit_the_public_referral
+
   def then_i_see_the_referral_summary
     expect(page).to have_current_path(edit_referral_path(@referral))
     expect(page).to have_title(
       "Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your allegation of serious misconduct")
+  end
+
+  def then_i_see_the_public_referral_summary
+    expect(page).to have_current_path(edit_public_referral_path(@referral))
+    expect(page).to have_title(
+      "Refer serious misconduct by a teacher in England"
+    )
   end
 
   def when_i_click_save_and_continue
