@@ -24,7 +24,11 @@ module Referrals
     end
 
     def next_path
-      edit_referral_referrer_job_title_path(current_referral)
+      if current_referral.from_employer?
+        return edit_referral_referrer_job_title_path(current_referral)
+      end
+
+      edit_referral_referrer_phone_path(current_referral)
     end
   end
 end
