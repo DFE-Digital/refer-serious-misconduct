@@ -29,10 +29,6 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       expect(referral.evidences.first.document).to be_attached
     end
 
-    it "doesn't set a default category" do
-      expect(referral.evidences.first.categories).to eq([])
-    end
-
     it "sets the correct filename" do
       expect(referral.evidences.first.filename).to eq("upload1.pdf")
     end
