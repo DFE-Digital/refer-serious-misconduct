@@ -77,6 +77,15 @@ Rails.application.routes.draw do
         resource :name, only: %i[edit update], controller: :name
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
+
+      namespace :evidence do
+        resource :start, only: %i[edit update], controller: :start
+        resource :upload, only: %i[edit update], controller: :upload
+        resource :uploaded, only: %i[edit update], controller: :uploaded
+        resource :check_answers,
+                 only: %i[edit update],
+                 controller: :check_answers
+      end
     end
   end
 
