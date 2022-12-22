@@ -1,0 +1,38 @@
+<% content_for :page_title, "Uploaded evidence" %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_evidence_upload_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <span class="govuk-caption-l">Evidence and supporting information</span>
+    <h1 class="govuk-heading-l">Uploaded evidence</h1>
+    <h2 class="govuk-heading-m">Files added</h2>
+
+    <dl class="govuk-summary-list">
+      <% current_referral.evidences.each_with_index do |evidence, idx| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            File <%= idx + 1 %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <%= govuk_link_to(referral_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
+              Delete<span class="govuk-visually-hidden"> <%= evidence.filename %></span>
+            <% end %>
+          </dd>
+        </div>
+        </li>
+      <% end %>
+    </dl>
+
+    <%= form_with url: edit_referral_evidence_uploaded_path(current_referral), method: :get do |f| %>
+      <%= f.govuk_radio_buttons_fieldset(:more_evidence, legend: { size: "m", text: "Do you have evidence to upload?" }) do %>
+        <%= f.govuk_radio_button :more_evidence, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :more_evidence, "no", label: { text: "No" } %>
+      <% end %>
+
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

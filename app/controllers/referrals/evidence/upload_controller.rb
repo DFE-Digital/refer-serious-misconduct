@@ -5,15 +5,12 @@ module Referrals
         @evidence_upload_form = UploadForm.new(referral: current_referral)
       end
 
-      def show
-      end
-
       def update
         @evidence_upload_form =
           UploadForm.new(upload_params.merge(referral: current_referral))
 
         if @evidence_upload_form.save
-          redirect_to referral_evidence_uploaded_path(current_referral)
+          redirect_to edit_referral_evidence_uploaded_path(current_referral)
         else
           render :edit
         end

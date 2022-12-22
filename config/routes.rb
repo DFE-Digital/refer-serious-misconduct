@@ -189,14 +189,13 @@ Rails.application.routes.draw do
       end
 
       resources :evidence, only: [] do
-        resource :categories, only: %i[edit update], module: :evidence
         get "/delete", to: "evidence/check_answers#delete"
         delete "/", to: "evidence/check_answers#destroy", as: :destroy
       end
       namespace :evidence do
         resource :start, only: %i[edit update], controller: :start
         resource :upload, only: %i[edit update], controller: :upload
-        resource :uploaded, only: :show, controller: :upload
+        resource :uploaded, only: %i[edit], controller: :uploaded
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 
