@@ -10,8 +10,8 @@ RSpec.feature "Personal details", type: :system do
     and_i_am_signed_in
     and_the_referral_form_feature_is_active
     and_i_am_a_member_of_the_public_with_an_existing_referral
-    and_i_visit_the_referral
-    then_i_see_the_referral_summary
+    and_i_visit_the_public_referral
+    then_i_see_the_public_referral_summary
 
     when_i_edit_personal_details
     and_i_am_asked_their_name
@@ -66,7 +66,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Name",
       value: "Jane Smith",
       change_link:
-        edit_public_referrals_personal_details_name_path(
+        edit_public_referral_personal_details_name_path(
           @referral,
           return_to: current_url
         )

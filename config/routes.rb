@@ -69,13 +69,22 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
-  resources :public_referrals, except: %i[index show], path: "public-referrals"
+  resources :public_referrals,
+            except: %i[index show],
+            path: "public-referrals" do
+    scope module: :public_referrals do
+      namespace :personal_details, path: "personal-details" do
+        resource :name, only: %i[edit update], controller: :name
+        resource :check_answers, path: "check-answers", only: %i[edit update]
+      end
+    end
+  end
 
   resources :referrals, except: %i[index show] do
     get "/delete", to: "referrals#delete", on: :member
     get "/deleted", to: "referrals#deleted", on: :collection
 
-    scope module: "referrals" do
+    scope module: :referrals do
       namespace :personal_details, path: "personal-details" do
         resource :name, only: %i[edit update], controller: :name
         resource :age, only: %i[edit update], controller: :age
@@ -174,13 +183,6 @@ Rails.application.routes.draw do
       resource :declaration, only: %i[show create], controller: :declaration
       resource :confirmation, only: %i[show], controller: :confirmation
       resource :review, only: %i[show], controller: :review
-    end
-  end
-
-  namespace :public_referrals, path: "public-referrals/:referral_id" do
-    namespace :personal_details, path: "personal-details" do
-      resource :name, only: %i[edit update], controller: :name
-      resource :check_answers, path: "check-answers", only: %i[edit update]
     end
   end
 
