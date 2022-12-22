@@ -225,7 +225,7 @@ en:
         referrer_phone_form:
           attributes:
             phone:
-              blank: Enter your phone number
+              blank: Enter your main contact number
         "referrals/referrer_name_form":
           attributes:
             name:
