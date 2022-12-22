@@ -10,13 +10,19 @@
     <p>For example:</p>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li>complaint made to the school</li>
-      <li>correspondence with the school</li>
-      <li>school complaints policy</li>
-      <li>complaint made to the police</li>
-      <li>complaint made to the local authority or any other agency or body</li>
+      <li>file notes concerning conduct, behaviour, attitude</li>
+      <li>statements made by the person you’re referring</li>
+      <li>documents of internal investigations and outcomes</li>
+      <li>documentation of any past disciplinary action and complaints</li>
+      <li>investigation and reports from the police or local authority</li>
       <li>signed witness statements</li>
     </ul>
+
+    <p>Signed and dated documents are better than unsigned ones. If they were not signed at the time of being written,
+    ask the parties involved to sign and date a statement confirming their accuracy.</p>
+
+    <p>Do not redact any of the documents. This will make it difficult to consider the evidence. All
+  information given is treated in strict confidence.</p>
 
     <%= form_with model: @evidence_start_form, url: referral_evidence_start_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>

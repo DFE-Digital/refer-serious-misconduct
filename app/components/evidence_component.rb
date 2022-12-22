@@ -4,68 +4,64 @@ class EvidenceComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    return evidence_rows if referral.evidences.any?
-
-    [
-      {
-        actions: [
-          {
-            text: "Change",
-            href: edit_referral_evidence_start_path(referral),
-            visually_hidden_text: "evidence"
-          }
-        ],
-        key: {
-          text: "Documents"
-        },
-        value: {
-          text: "No evidence uploaded"
-        }
-      }
-    ]
+    [anything_to_upload_row, evidence_row].compact
   end
 
   private
 
-  def evidence_rows
-    referral.evidences.map do |evidence|
-      {
-        actions: [
-          {
-            text: "Change",
-            href:
-              edit_referral_evidence_categories_path(
-                referral,
-                evidence,
-                return_to: request.url
-              ),
-            visually_hidden_text: "categories"
-          },
-          {
-            text: "Delete",
-            href:
-              referral_evidence_delete_path(
-                referral,
-                evidence,
-                return_to: request.url
-              ),
-            visually_hidden_text: "evidence upload"
-          }
-        ],
-        key: {
-          text:
+  def anything_to_upload_row
+    {
+      actions: [
+        {
+          text: "Change",
+          href:
+            edit_referral_evidence_start_path(referral, return_to: request.url)
+        }
+      ],
+      key: {
+        text: "Do you have anything to upload?"
+      },
+      value: {
+        text: referral.has_evidence ? "Yes" : "No"
+      }
+    }
+  end
+
+  def evidence_row
+    return unless referral.evidences.any?
+
+    {
+      actions: [
+        {
+          text: "Change",
+          href:
+            edit_referral_evidence_uploaded_path(
+              referral,
+              return_to: request.url
+            )
+        }
+      ],
+      key: {
+        text: "Uploaded evidence"
+      },
+      value: {
+        text: evidence_text
+      }
+    }
+  end
+
+  def evidence_text
+    tag.ul(class: "govuk-list govuk-list--bullet govuk-!-margin-bottom-0") do
+      referral.evidences.map do |evidence|
+        concat(
+          tag.li(class: "govuk-!-margin-bottom-0") do
             govuk_link_to(
               evidence.filename,
               rails_blob_path(evidence.document, disposition: "attachment")
             )
-        },
-        value: {
-          text:
-            Referrals::Evidence::CategoriesForm.selected_categories(
-              evidence
-            ).join(", ")
-        }
-      }
+          end
+        )
+      end
     end
   end
 end

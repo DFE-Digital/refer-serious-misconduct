@@ -30,35 +30,23 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
 
-    when_i_click_save_and_continue
-    then_i_am_asked_to_choose_categories_for_the_first_item
-
-    when_i_click_save_and_continue
-    then_i_see_categories_form_validation_errors
-
-    when_i_choose_categories_for_the_first_item
+    when_i_have_more_evidence_to_upload
     and_i_click_save_and_continue
-    then_i_am_asked_to_choose_categories_for_the_second_item
+    then_i_am_asked_to_upload_evidence_files
 
-    when_i_click_back
-    then_i_am_asked_to_choose_categories_for_the_first_item
-
-    when_i_click_save_and_continue
-    then_i_am_asked_to_choose_categories_for_the_second_item
-
-    when_i_choose_categories_for_the_second_item
+    when_i_upload_more_evidence_files
     and_i_click_save_and_continue
-    then_i_am_asked_to_confirm_the_evidence_details
+    then_i_see_a_list_of_the_uploaded_files
 
-    when_i_click_change_categories_for_the_first_item
-    then_i_am_asked_to_choose_categories_for_the_first_item
-    when_i_click_back
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_evidence_details
 
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
-    when_i_click_delete_on_the_first_evidence_item
+    when_i_click_change_uploaded_evidence
+    and_i_click_delete_on_the_first_evidence_item
     then_i_am_asked_to_confirm_deletion
 
     when_i_confirm_i_want_to_delete
@@ -69,8 +57,7 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_updated_files
 
-    when_i_click_save_and_continue
-    and_i_choose_categories_for_the_additional_item
+    when_i_have_no_more_evidence_to_upload
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_updated_evidence_details
 
@@ -110,7 +97,8 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_am_asked_to_upload_evidence_files
-    expect(page).to have_content("Upload evidence and supporting information")
+    expect(page).to have_content("Evidence and supporting information")
+    expect(page).to have_content("Upload evidence")
   end
 
   def then_i_see_evidence_upload_form_validation_errors
@@ -128,51 +116,43 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_see_a_list_of_the_uploaded_files
-    expect(page).to have_content("You uploaded 2 files")
-    within(".govuk-list") do
+    expect(page).to have_content("Uploaded evidence")
+    within(".govuk-summary-list") do
       expect(page).to have_link("upload1.pdf")
       expect(page).to have_link("upload2.pdf")
     end
   end
 
-  def then_i_am_asked_to_choose_categories_for_the_first_item
-    expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("upload1.pdf")
-    expect(page).to have_content(
-      "Select all the categories that describe this file"
+  def then_i_see_a_list_of_the_updated_files
+    expect(page).to have_content("Uploaded evidence")
+
+    within(".govuk-summary-list") do
+      expect(page).to have_link("upload2.pdf")
+      expect(page).to have_link("upload.txt")
+    end
+  end
+
+  def when_i_have_more_evidence_to_upload
+    choose "Yes", visible: false
+  end
+
+  def when_i_have_no_more_evidence_to_upload
+    choose "No", visible: false
+  end
+
+  def when_i_upload_more_evidence_files
+    attach_file(
+      "Upload files",
+      [Rails.root.join("spec/fixtures/files/upload.txt")]
     )
-  end
-
-  def then_i_see_categories_form_validation_errors
-    expect(page).to have_content("Select a description of this file")
-  end
-
-  def when_i_choose_categories_for_the_first_item
-    check "CV", visible: false
-    check "Job offer", visible: false
-    check "Signed witness statements", visible: false
-  end
-
-  def then_i_am_asked_to_choose_categories_for_the_second_item
-    expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("upload2.pdf")
-    expect(page).to have_content(
-      "Select all the categories that describe this file"
-    )
-  end
-
-  def when_i_choose_categories_for_the_second_item
-    check "Police investigation and reports", visible: false
-    check "Other", visible: false
-    fill_in "Explain what this document is", with: "Some other details"
   end
 
   def then_i_am_asked_to_confirm_the_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
     expect_summary_row(
-      key: "upload1.pdf",
-      value: "CV, Job offer, Signed witness statements"
+      key: "Uploaded evidence",
+      value: "upload1.pdf\nupload2.pdf\nupload.txt"
     )
     expect(page).to have_link(
       "upload1.pdf",
@@ -183,10 +163,6 @@ RSpec.feature "Evidence", type: :system do
         )
     )
 
-    expect_summary_row(
-      key: "upload2.pdf",
-      value: "Police investigation and reports, Other: Some other details"
-    )
     expect(page).to have_link(
       "upload2.pdf",
       href:
@@ -195,38 +171,40 @@ RSpec.feature "Evidence", type: :system do
           disposition: "attachment"
         )
     )
+
+    expect(page).to have_link(
+      "upload.txt",
+      href:
+        rails_blob_path(
+          @referral.evidences.last.document,
+          disposition: "attachment"
+        )
+    )
   end
 
   def then_i_am_asked_to_confirm_the_updated_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
-    @referral.evidences.each do |evidence|
-      expect_summary_row(
-        key: evidence.filename,
-        value:
-          Referrals::Evidence::CategoriesForm.selected_categories(
-            evidence
-          ).join(", "),
-        change_link:
-          edit_referral_evidence_categories_path(
-            @referral,
-            evidence,
-            return_to: current_url
-          )
-      )
-    end
-  end
+    expect_summary_row(
+      key: "Do you have anything to upload?",
+      value: "Yes",
+      change_link:
+        edit_referral_evidence_start_path(@referral, return_to: current_url)
+    )
 
-  def then_i_see_a_list_of_the_updated_files
-    expect(page).to have_content("You uploaded 1 file")
-    within(".govuk-list") { expect(page).to have_link("upload.txt") }
+    expect_summary_row(
+      key: "Uploaded evidence",
+      value: "upload2.pdf\nupload.txt",
+      change_link:
+        edit_referral_evidence_uploaded_path(@referral, return_to: current_url)
+    )
   end
 
   def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Select yes if you’ve completed this section")
   end
 
-  def when_i_click_delete_on_the_first_evidence_item
+  def and_i_click_delete_on_the_first_evidence_item
     within(page.find(".govuk-summary-list__row", text: "upload1.pdf")) do
       click_on "Delete"
     end
@@ -241,10 +219,11 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_can_no_longer_see_the_upload_in_the_referral_summary
-    expect_summary_row(
-      key: "upload2.pdf",
-      value: "Police investigation and reports, Other: Some other details"
-    )
+    within(".govuk-summary-list") do
+      expect(page).not_to have_link("upload1.pdf")
+    end
+
+    expect_summary_row(key: "Uploaded evidence", value: "upload2.pdf")
   end
 
   def when_i_click_add_more_evidence
@@ -258,24 +237,16 @@ RSpec.feature "Evidence", type: :system do
     )
   end
 
-  def and_i_choose_categories_for_the_additional_item
-    expect(page).to have_content("Your uploaded file")
-    expect(page).to have_content("upload.txt")
-    expect(page).to have_content(
-      "Select all the categories that describe this file"
-    )
-
-    check "Statements made by the person you’re referring", visible: false
-    check "Other", visible: false
-    fill_in "Explain what this document is", with: "Some more details"
-  end
-
   def and_i_choose_to_confirm
     choose "Yes, I’ve completed this section", visible: false
   end
 
   def when_i_choose_not_to_confirm
     choose "No, I’ll come back to it later", visible: false
+  end
+
+  def when_i_click_change_uploaded_evidence
+    within(all(".govuk-summary-list__actions")[1]) { click_on "Change" }
   end
 
   def and_the_evidence_section_state_is(state)
@@ -290,8 +261,4 @@ RSpec.feature "Evidence", type: :system do
   end
   alias_method :then_the_evidence_section_state_is,
                :and_the_evidence_section_state_is
-
-  def when_i_click_change_categories_for_the_first_item
-    click_on "Change categories", match: :first
-  end
 end
