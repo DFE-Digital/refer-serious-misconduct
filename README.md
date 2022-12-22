@@ -40,6 +40,14 @@ All environments have continuous deployment, the state of which can be inspected
 
 Refer serious misconduct is a monolithic Rails app built with the GOVUK Design System.
 
+The application has a number of different interfaces for different types of users:
+
+![User journey system diagram](docs/architecture-context.svg)
+
+### Architecture
+
+![Architecture diagram](docs/tech-architecture.svg)
+
 We keep track of architecture decisions in [Architecture Decision Records
 (ADRs)](/adr/).
 
