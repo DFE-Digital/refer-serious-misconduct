@@ -50,9 +50,10 @@ RSpec.feature "Evidence", type: :system do
     then_i_am_asked_to_confirm_deletion
 
     when_i_confirm_i_want_to_delete
-    then_i_can_no_longer_see_the_upload_in_the_referral_summary
+    then_i_can_no_longer_see_the_upload_in_the_list
 
-    when_i_click_add_more_evidence
+    when_i_continue_to_the_evidence_summary_page
+    and_i_click_add_more_evidence
     and_i_upload_more_evidence
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_updated_files
@@ -218,15 +219,20 @@ RSpec.feature "Evidence", type: :system do
     click_on "Yes I’m sure – delete it"
   end
 
-  def then_i_can_no_longer_see_the_upload_in_the_referral_summary
+  def then_i_can_no_longer_see_the_upload_in_the_list
     within(".govuk-summary-list") do
       expect(page).not_to have_link("upload1.pdf")
     end
 
-    expect_summary_row(key: "Uploaded evidence", value: "upload2.pdf")
+    expect_summary_row(key: "File 1", value: "upload2.pdf")
   end
 
-  def when_i_click_add_more_evidence
+  def when_i_continue_to_the_evidence_summary_page
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
+  end
+
+  def and_i_click_add_more_evidence
     click_on "Add more evidence"
   end
 
