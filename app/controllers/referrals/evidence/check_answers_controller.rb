@@ -30,12 +30,14 @@ module Referrals
         evidence.document.purge
         evidence.destroy
 
-        redirect_to(
-          edit_referral_evidence_check_answers_path(current_referral),
-          flash: {
-            success: "#{filename} deleted"
-          }
-        )
+        redirect_path =
+          if current_referral.evidences.any?
+            edit_referral_evidence_uploaded_path(current_referral)
+          else
+            edit_referral_evidence_upload_path(current_referral)
+          end
+
+        redirect_to(redirect_path, flash: { success: "#{filename} deleted" })
       end
 
       def evidence
