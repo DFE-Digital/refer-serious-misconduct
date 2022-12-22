@@ -1,0 +1,42 @@
+<% content_for :page_title, "#{'Error: ' if @evidence_upload_form.errors.any?}Upload evidence and supporting information" %>
+<% content_for :back_link_url, return_to_session_or(edit_public_referral_evidence_start_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop ">
+    <span class="govuk-caption-l">Evidence and supporting information</span>
+    <h1 class="govuk-heading-l">Upload evidence</h1>
+
+    <p>For example:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>complaint made to the school</li>
+      <li>correspondence with the school</li>
+      <li>school complaints policy</li>
+      <li>complaint made to the police</li>
+      <li>complaint made to the local authority or any other agency or body</li>
+      <li>signed witness statements</li>
+    </ul>
+
+    <p>Make sure the file names describe the content, for example ‘signed witness statement’.</p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive"></span>
+        Do not include explicit content, for example indecent photos. You’ll be asked for these separately if needed.
+      </strong>
+    </div>
+
+    <%= form_with model: @evidence_upload_form, url: public_referral_evidence_upload_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= f.govuk_file_field(
+          :evidence_uploads,
+          multiple: true,
+          label: { text: "Upload files", size: "m" }
+      ) %>
+
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>

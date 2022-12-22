@@ -37,9 +37,7 @@ RSpec.describe ReferralHelper, type: :helper do
     it "allows optional subsection" do
       link = helper.subsection_path(referral:, action: :edit)
 
-      expect(link).to eq(
-        "/referrals/#{referral.id}/edit"
-      )
+      expect(link).to eq("/referrals/#{referral.id}/edit")
     end
 
     it "includes a return to link" do
