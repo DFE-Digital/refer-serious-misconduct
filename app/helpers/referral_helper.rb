@@ -1,19 +1,4 @@
 module ReferralHelper
-  def evidence_categories_back_link(form)
-    back_link = session.delete(:evidence_back_link)
-    return back_link if back_link.present?
-
-    referral_evidence_uploaded_path(form.referral)
-  end
-
-  def evidence_check_answers_link(referral)
-    if referral.evidences.any?
-      edit_referral_evidence_categories_path(referral, referral.evidences.last)
-    else
-      edit_referral_evidence_start_path(referral)
-    end
-  end
-
   def duties_format(referral)
     return "Describe their main duties" if referral.duties_format == "details"
 

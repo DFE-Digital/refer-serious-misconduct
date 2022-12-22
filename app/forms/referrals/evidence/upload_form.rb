@@ -26,8 +26,7 @@ module Referrals
             ::ReferralEvidence.new(
               filename: upload.original_filename,
               document: upload,
-              referral:,
-              categories: []
+              referral:
             )
           end
 
