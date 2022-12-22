@@ -1,40 +1,21 @@
 <% content_for :page_title, "#{'Error: ' if @evidence_check_answers_form.errors.any?}Check and confirm your answers" %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_evidence_uploaded_path(current_referral)) %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">Evidence and supporting information</span>
       Check and confirm your answers
     </h1>
-
-    <p>Upload all relevant evidence and supporting information.</p>
-
-    <details class="govuk-details" data-module="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          See examples of commonly uploaded documents
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <h2 class="govuk-heading-m">Commonly uploaded documents</h2>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>Complaint made to the school</li>
-          <li>Correspondence to or from school</li>
-          <li>School complaint policy</li>
-          <li>Complaint made to the police</li>
-          <li>Complaint made to the local authority or any other agency or body</li>
-          <li>Signed witness statements</li>
-        </ul>
-      </div>
-    </details>
-
-    <%= render EvidenceComponent.new(referral: current_referral) %>
 
     <%= govuk_button_to(
       "Add more evidence",
       edit_referral_evidence_upload_path(current_referral),
       method: "get",
       class: "govuk-button--secondary govuk-!-margin-bottom-8"
-    ) if current_referral.evidences.any? %>
+    ) %>
+
+    <%= render EvidenceComponent.new(referral: current_referral) %>
 
     <%= form_with model: @evidence_check_answers_form, url: referral_evidence_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
