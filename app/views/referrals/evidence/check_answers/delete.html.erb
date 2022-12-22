@@ -1,5 +1,5 @@
 <% content_for :page_title, "Are you sure you want to delete #{evidence.filename}" %>
-<% content_for :back_link_url, return_to_session_or(url_for(:back)) %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_evidence_uploaded_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
