@@ -1,6 +1,8 @@
 module Referrals
   module Evidence
     class CheckAnswersController < Referrals::BaseController
+      include ReferralHelper
+
       def edit
         @evidence_check_answers_form =
           CheckAnswersForm.new(
@@ -16,7 +18,9 @@ module Referrals
           )
 
         if @evidence_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to(
+            subsection_path(referral: current_referral, action: :edit)
+          )
         else
           render :edit
         end
@@ -32,9 +36,17 @@ module Referrals
 
         redirect_path =
           if current_referral.evidences.any?
-            edit_referral_evidence_uploaded_path(current_referral)
+            subsection_path(
+              referral: current_referral,
+              action: :edit,
+              subsection: :evidence_uploaded
+            )
           else
-            edit_referral_evidence_upload_path(current_referral)
+            subsection_path(
+              referral: current_referral,
+              action: :edit,
+              subsection: :evidence_upload
+            )
           end
 
         redirect_to(redirect_path, flash: { success: "#{filename} deleted" })

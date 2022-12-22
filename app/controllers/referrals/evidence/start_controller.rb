@@ -1,6 +1,8 @@
 module Referrals
   module Evidence
     class StartController < Referrals::BaseController
+      include ReferralHelper
+
       def edit
         @evidence_start_form =
           StartForm.new(has_evidence: current_referral.has_evidence)
@@ -11,14 +13,21 @@ module Referrals
           StartForm.new(start_params.merge(referral: current_referral))
 
         if @evidence_start_form.save
-          if @evidence_start_form.has_evidence
-            redirect_to edit_referral_evidence_upload_path(current_referral)
-          else
-            current_referral.update(evidences: [])
-            redirect_to edit_referral_evidence_check_answers_path(
-                          current_referral
-                        )
-          end
+          redirect_path =
+            if @evidence_start_form.has_evidence
+              subsection_path(
+                referral: current_referral,
+                action: :edit,
+                subsection: :evidence_upload
+              )
+            else
+              subsection_path(
+                referral: current_referral,
+                action: :edit,
+                subsection: :evidence_check_answers
+              )
+            end
+          redirect_to redirect_path
         else
           render :edit
         end
