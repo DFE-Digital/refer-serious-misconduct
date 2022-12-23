@@ -200,28 +200,21 @@ RSpec.feature "Evidence", type: :system do
   def then_i_am_asked_to_confirm_the_updated_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
-    expect_summary_row(
-      key: "upload2.pdf",
-      value: "Police investigation and reports, Other: Some other details",
-      change_link:
-        edit_referral_evidence_categories_path(
-          @referral,
-          @referral.evidences.first,
-          return_to: current_url
-        )
-    )
-
-    expect_summary_row(
-      key: "upload.txt",
-      value:
-        "Statements made by the person you’re referring, Other: Some more details",
-      change_link:
-        edit_referral_evidence_categories_path(
-          @referral,
-          @referral.evidences.second,
-          return_to: current_url
-        )
-    )
+    @referral.evidences.each do |evidence|
+      expect_summary_row(
+        key: evidence.filename,
+        value:
+          Referrals::Evidence::CategoriesForm.selected_categories(
+            evidence
+          ).join(", "),
+        change_link:
+          edit_referral_evidence_categories_path(
+            @referral,
+            evidence,
+            return_to: current_url
+          )
+      )
+    end
   end
 
   def then_i_see_a_list_of_the_updated_files
