@@ -6,7 +6,7 @@
     <%= form_with model: @referrer_job_title_form, url: referral_referrer_job_title_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_text_field :job_title, label: { size: 'xl', text: "What is your job title?" }, hint: { text: 'For example, ‘Headteacher’' } %>
-      <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>
+      <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>
 </div>
