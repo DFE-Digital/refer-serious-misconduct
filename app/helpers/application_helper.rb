@@ -81,9 +81,7 @@ module ApplicationHelper
   end
 
   def humanize_three_way_choice(choice)
-    { "true" => "Yes", "false" => "No", "i_dont_know" => "I don’t know" }[
-      choice
-    ]
+    { "true" => "Yes", "false" => "No", "not_sure" => "I’m not sure" }[choice]
   end
 
   def return_to_session_or(url)

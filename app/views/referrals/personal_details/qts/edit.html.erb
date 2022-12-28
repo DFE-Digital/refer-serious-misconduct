@@ -9,7 +9,7 @@
         <%= f.govuk_radio_buttons_fieldset(:has_qts, legend: { size: "xl", text: "Do they have qualified teacher status (QTS)?" }) do %>
           <%= f.govuk_radio_button :has_qts, "yes", label: { text: "Yes, they have QTS" } %>
           <%= f.govuk_radio_button :has_qts, "no", label: { text: "No, they do not have QTS" } %>
-          <%= f.govuk_radio_button :has_qts, "dont_know", label: { text: "I don’t know" } %>
+          <%= f.govuk_radio_button :has_qts, "not_sure", label: { text: "I’m not sure" } %>
         <% end %>
       </div>
       <%= f.govuk_submit "Save and continue" %>
