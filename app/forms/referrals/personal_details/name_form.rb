@@ -10,7 +10,7 @@ module Referrals
                     :referral
 
       validates :first_name, :last_name, presence: true
-      validates :name_has_changed, inclusion: { in: %w[yes no dont_know] }
+      validates :name_has_changed, inclusion: { in: %w[yes no] }
       validates :previous_name,
                 presence: true,
                 if: -> { name_has_changed == "yes" }

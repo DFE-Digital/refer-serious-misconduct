@@ -8,14 +8,14 @@
 
       <div class="govuk-form-group">
         <%= f.govuk_collection_radio_buttons(
-          :previous_misconduct_reported, 
+          :previous_misconduct_reported,
           [
-            OpenStruct.new(label: 'Yes', value: 'true'), 
-            OpenStruct.new(label: 'No', value: 'false'), 
-            OpenStruct.new(label: 'I don’t know', value: 'i_dont_know')
+            OpenStruct.new(label: 'Yes', value: 'true'),
+            OpenStruct.new(label: 'No', value: 'false'),
+            OpenStruct.new(label: 'I’m not sure', value: 'not_sure')
           ],
           :value, :label,
-          legend: { text: "Has there been any previous misconduct, disciplinary action or complaints?", size: "xl" }, 
+          legend: { text: "Has there been any previous misconduct, disciplinary action or complaints?", size: "xl" },
           hint: -> do %>
             <p class="govuk-body">This includes:</p>
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">

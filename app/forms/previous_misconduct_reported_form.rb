@@ -7,7 +7,7 @@ class PreviousMisconductReportedForm
   validates :referral, presence: true
   validates :previous_misconduct_reported,
             inclusion: {
-              in: %w[true false i_dont_know]
+              in: %w[true false not_sure]
             }
 
   def previous_misconduct_reported

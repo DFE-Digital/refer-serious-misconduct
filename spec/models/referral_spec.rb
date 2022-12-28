@@ -90,9 +90,9 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to be_falsey }
     end
 
-    context "when previous_misconduct_reported is i_dont_know" do
+    context "when previous_misconduct_reported is not_sure" do
       let(:referral) do
-        build(:referral, previous_misconduct_reported: "i_dont_know")
+        build(:referral, previous_misconduct_reported: "not_sure")
       end
 
       it { is_expected.to be_falsey }

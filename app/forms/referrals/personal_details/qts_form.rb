@@ -6,7 +6,7 @@ module Referrals
 
       attr_accessor :referral, :has_qts
 
-      validates :has_qts, inclusion: { in: %w[yes no dont_know] }
+      validates :has_qts, inclusion: { in: %w[yes no not_sure] }
 
       def save
         referral.update(has_qts:) if valid?
