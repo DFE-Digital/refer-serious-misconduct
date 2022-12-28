@@ -6,7 +6,7 @@
     <%= form_with model: @referrer_phone_form, url: referral_referrer_phone_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_text_field :phone, label: { size: 'xl', text: "What is your main contact number?" }, hint: { text: 'We will only use this number to contact you about your referral' }, class: 'govuk-input--width-20' %>
-      <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>
+      <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>
 </div>

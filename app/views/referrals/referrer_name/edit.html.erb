@@ -6,7 +6,7 @@
     <%= form_with model: @referrer_name_form, url: referral_referrer_name_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_text_field :name, label: { size: 'xl', text: "What is your name?" } %>
-      <%= f.govuk_submit 'Save and continue', prevent_double_click: false %>
+      <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>
 </div>
