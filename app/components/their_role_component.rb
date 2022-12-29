@@ -35,7 +35,7 @@ class TheirRoleComponent < ViewComponent::Base
 
     return @rows unless referral.working_location_known
 
-    @rows << teaching_location_row
+    @rows << work_location_row
   end
 
   private
@@ -357,13 +357,13 @@ class TheirRoleComponent < ViewComponent::Base
     }
   end
 
-  def teaching_location_row
+  def work_location_row
     {
       actions: [
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_teaching_location_path(
+            edit_referral_teacher_role_work_location_path(
               referral,
               return_to: request.url
             ),

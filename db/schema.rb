@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_123249) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_29_124830) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -135,11 +135,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_123249) do
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
     t.boolean "working_location_known"
-    t.string "teaching_organisation_name"
-    t.string "teaching_address_line_1"
-    t.string "teaching_address_line_2"
-    t.string "teaching_town_or_city"
-    t.string "teaching_postcode"
+    t.string "work_organisation_name"
+    t.string "work_address_line_1"
+    t.string "work_address_line_2"
+    t.string "work_town_or_city"
+    t.string "work_postcode"
     t.boolean "organisation_address_known"
     t.string "organisation_name"
     t.string "organisation_address_line_1"

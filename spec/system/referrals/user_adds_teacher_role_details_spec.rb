@@ -144,7 +144,7 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_working_location_known_page
 
     when_i_click_save_and_continue
-    then_i_see_teaching_location_field_validation_errors
+    then_i_see_work_location_field_validation_errors
 
     when_i_choose_no
     and_i_click_save_and_continue
@@ -156,9 +156,9 @@ RSpec.feature "Teacher role", type: :system do
 
     # Where they currently work
 
-    then_i_see_the_teaching_location_page
+    then_i_see_the_work_location_page
     when_i_click_save_and_continue
-    then_i_see_teaching_location_address_field_validation_errors
+    then_i_see_work_location_address_field_validation_errors
 
     when_i_fill_in_the_teaching_address_details
     when_i_click_save_and_continue
@@ -209,8 +209,8 @@ RSpec.feature "Teacher role", type: :system do
     visit edit_referral_teacher_role_working_location_known_path(@referral)
   end
 
-  def when_i_visit_the_teaching_location_page
-    visit edit_referral_teacher_role_teaching_location_path(@referral)
+  def when_i_visit_the_work_location_page
+    visit edit_referral_teacher_role_work_location_path(@referral)
   end
 
   def when_i_visit_the_check_answers_page
@@ -307,9 +307,9 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
-  def then_i_see_the_teaching_location_page
+  def then_i_see_the_work_location_page
     expect(page).to have_current_path(
-      edit_referral_teacher_role_teaching_location_path(@referral)
+      edit_referral_teacher_role_work_location_path(@referral)
     )
     expect(page).to have_title("Where they currently work")
     expect(page).to have_content("Where they currently work")
@@ -464,13 +464,13 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
-  def then_i_see_teaching_location_field_validation_errors
+  def then_i_see_work_location_field_validation_errors
     expect(page).to have_content(
       "Select yes if you know the name and address of the organisation where they’re currently working"
     )
   end
 
-  def then_i_see_teaching_location_address_field_validation_errors
+  def then_i_see_work_location_address_field_validation_errors
     expect(page).to have_content("Enter the organisation name")
     expect(page).to have_content("Enter the first line of the address")
     expect(page).to have_content("Enter the town or city")

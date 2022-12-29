@@ -1,7 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::TeacherRole::WorkingLocationKnownForm,
-               type: :model do
+RSpec.describe Referrals::TeacherRole::WorkingLocationKnownForm, type: :model do
   let(:referral) { create(:referral) }
   let(:working_location_known) { true }
   let(:form) { described_class.new(referral:, working_location_known:) }

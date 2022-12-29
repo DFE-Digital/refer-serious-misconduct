@@ -191,15 +191,15 @@ en:
           attributes:
             working_somewhere_else:
               inclusion: Select yes if they’re employed somewhere else
-        "referrals/teacher_role/teaching_location_form":
+        "referrals/teacher_role/work_location_form":
           attributes:
-            teaching_organisation_name:
+            work_organisation_name:
               blank: Enter the organisation name
-            teaching_address_line_1:
+            work_address_line_1:
               blank: Enter the first line of the address
-            teaching_town_or_city:
+            work_town_or_city:
               blank: Enter the town or city
-            teaching_postcode:
+            work_postcode:
               blank: Enter the postcode
               invalid: Enter a real postcode
         "referrals/teacher_role/working_location_known_form":
