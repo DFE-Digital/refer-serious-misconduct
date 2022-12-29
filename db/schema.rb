@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_175138) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_29_123249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_175138) do
     t.datetime "submitted_at", precision: nil
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
-    t.boolean "teaching_location_known"
+    t.boolean "working_location_known"
     t.string "teaching_organisation_name"
     t.string "teaching_address_line_1"
     t.string "teaching_address_line_2"

@@ -161,10 +161,10 @@ Rails.application.routes.draw do
                  path: "teaching-somewhere-else",
                  only: %i[edit update],
                  controller: :working_somewhere_else
-        resource :teaching_location_known,
+        resource :working_location_known,
                  path: "teaching-location-known",
                  only: %i[edit update],
-                 controller: :teaching_location_known
+                 controller: :working_location_known
         resource :teaching_location,
                  path: "teaching-location",
                  only: %i[edit update],

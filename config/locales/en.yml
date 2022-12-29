@@ -202,9 +202,9 @@ en:
             teaching_postcode:
               blank: Enter the postcode
               invalid: Enter a real postcode
-        "referrals/teacher_role/teaching_location_known_form":
+        "referrals/teacher_role/working_location_known_form":
           attributes:
-            teaching_location_known:
+            working_location_known:
               inclusion: Select yes if you know the name and address of the organisation where they’re currently working
         "referrals/teacher_role/organisation_address_known_form":
           attributes:
