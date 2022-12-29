@@ -27,9 +27,9 @@ class TheirRoleComponent < ViewComponent::Base
     @rows << end_date_known_row
     @rows << end_date_row if referral.role_end_date_known
     @rows << reason_leaving_role_row
-    @rows << teaching_somewhere_else_row
+    @rows << working_somewhere_else_row
 
-    return @rows unless referral.teaching_somewhere_else?
+    return @rows unless referral.working_somewhere_else?
 
     @rows << teaching_location_known_row
 
@@ -311,13 +311,13 @@ class TheirRoleComponent < ViewComponent::Base
     }
   end
 
-  def teaching_somewhere_else_row
+  def working_somewhere_else_row
     {
       actions: [
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_teaching_somewhere_else_path(
+            edit_referral_teacher_role_working_somewhere_else_path(
               referral,
               return_to: request.url
             ),
@@ -328,7 +328,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Are they employed somewhere else?"
       },
       value: {
-        text: referral.teaching_somewhere_else&.humanize
+        text: referral.working_somewhere_else&.humanize
       }
     }
   end

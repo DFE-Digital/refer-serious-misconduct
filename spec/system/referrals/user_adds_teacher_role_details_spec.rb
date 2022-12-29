@@ -127,15 +127,15 @@ RSpec.feature "Teacher role", type: :system do
 
     # Do you know if they are teaching somewhere else
 
-    then_i_see_the_teaching_somewhere_else_page
+    then_i_see_the_working_somewhere_else_page
     when_i_click_save_and_continue
-    then_i_see_teaching_somewhere_else_field_validation_errors
+    then_i_see_working_somewhere_else_field_validation_errors
 
     when_i_choose_no
     when_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
-    when_i_visit_the_teaching_somewhere_else_page
+    when_i_visit_the_working_somewhere_else_page
     and_i_choose_yes
     when_i_click_save_and_continue
 
@@ -201,8 +201,8 @@ RSpec.feature "Teacher role", type: :system do
     visit edit_referral_teacher_role_duties_path(@referral)
   end
 
-  def when_i_visit_the_teaching_somewhere_else_page
-    visit edit_referral_teacher_role_teaching_somewhere_else_path(@referral)
+  def when_i_visit_the_working_somewhere_else_page
+    visit edit_referral_teacher_role_working_somewhere_else_path(@referral)
   end
 
   def when_i_visit_the_teaching_location_known_page
@@ -287,9 +287,9 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Reason they left the job")
   end
 
-  def then_i_see_the_teaching_somewhere_else_page
+  def then_i_see_the_working_somewhere_else_page
     expect(page).to have_current_path(
-      edit_referral_teacher_role_teaching_somewhere_else_path(@referral)
+      edit_referral_teacher_role_working_somewhere_else_path(@referral)
     )
     expect(page).to have_title("Are they employed somewhere else?")
     expect(page).to have_content("Are they employed somewhere else?")
@@ -458,7 +458,7 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Enter a description of their main duties")
   end
 
-  def then_i_see_teaching_somewhere_else_field_validation_errors
+  def then_i_see_working_somewhere_else_field_validation_errors
     expect(page).to have_content(
       "Select yes if they’re employed somewhere else"
     )

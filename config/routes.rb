@@ -157,10 +157,10 @@ Rails.application.routes.draw do
                  only: %i[edit update],
                  controller: :same_organisation
         resource :duties, only: %i[edit update]
-        resource :teaching_somewhere_else,
+        resource :working_somewhere_else,
                  path: "teaching-somewhere-else",
                  only: %i[edit update],
-                 controller: :teaching_somewhere_else
+                 controller: :working_somewhere_else
         resource :teaching_location_known,
                  path: "teaching-location-known",
                  only: %i[edit update],
