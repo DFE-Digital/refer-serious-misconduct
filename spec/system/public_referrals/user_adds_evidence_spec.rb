@@ -258,7 +258,7 @@ RSpec.feature "Evidence", type: :system do
 
   def and_the_evidence_section_state_is(state)
     within(all(".app-task-list__section")[2]) do
-      within(all(".app-task-list__item")[2]) do
+      within(all(".app-task-list__item")[1]) do
         expect(find(".app-task-list__task-name a").text).to eq(
           "Evidence and supporting information"
         )

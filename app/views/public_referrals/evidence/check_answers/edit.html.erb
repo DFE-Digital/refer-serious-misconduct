@@ -13,7 +13,7 @@
       edit_public_referral_evidence_upload_path(current_referral),
       method: "get",
       class: "govuk-button--secondary govuk-!-margin-bottom-8"
-    ) %>
+    ) if current_referral.has_evidence %>
 
     <%= render EvidenceComponent.new(referral: current_referral) %>
 

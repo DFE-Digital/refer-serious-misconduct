@@ -34,21 +34,20 @@ module Referrals
         evidence.document.purge
         evidence.destroy
 
+        subsection =
+          (
+            if current_referral.evidences.any?
+              :evidence_uploaded
+            else
+              :evidence_upload
+            end
+          )
         redirect_path =
-          if current_referral.evidences.any?
-            subsection_path(
-              referral: current_referral,
-              action: :edit,
-              subsection: :evidence_uploaded
-            )
-          else
-            subsection_path(
-              referral: current_referral,
-              action: :edit,
-              subsection: :evidence_upload
-            )
-          end
-
+          subsection_path(
+            referral: current_referral,
+            action: :edit,
+            subsection:
+          )
         redirect_to(redirect_path, flash: { success: "#{filename} deleted" })
       end
 
