@@ -37,11 +37,11 @@ module AddressHelper
   def teaching_address(referral)
     address_fields_to_html(
       [
-        referral.teaching_organisation_name,
-        referral.teaching_address_line_1,
-        referral.teaching_address_line_2,
-        referral.teaching_town_or_city,
-        referral.teaching_postcode
+        referral.work_organisation_name,
+        referral.work_address_line_1,
+        referral.work_address_line_2,
+        referral.work_town_or_city,
+        referral.work_postcode
       ]
     )
   end

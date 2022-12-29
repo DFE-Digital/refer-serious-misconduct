@@ -1,0 +1,22 @@
+<% content_for :page_title, "#{"Error: " if @work_location_form.errors.any?}Where they currently work" %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_working_somewhere_else_path(current_referral)) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @work_location_form, url: referral_teacher_role_work_location_path, method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">About their role</span>
+      <h1 class="govuk-heading-l">
+        Where they currently work
+      </h1>
+
+      <%= f.govuk_text_field :work_organisation_name, label: { text: "Organisation name", size: "m" } %>
+      <%= f.govuk_text_field :work_address_line_1, label: { text: "Address line 1", size: "m" } %>
+      <%= f.govuk_text_field :work_address_line_2, label: { text: "Address line 2 (optional)", size: "m" } %>
+      <%= f.govuk_text_field :work_town_or_city, label: { text: "Town or city", size: "m" } %>
+      <%= f.govuk_text_field :work_postcode, label: { text: "Postcode", size: "m" } %>
+      <%= f.govuk_submit "Save and continue", prevent_double_click: false %>
+    <% end %>
+  </div>
+</div>

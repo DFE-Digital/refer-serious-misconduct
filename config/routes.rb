@@ -165,10 +165,10 @@ Rails.application.routes.draw do
                  path: "teaching-location-known",
                  only: %i[edit update],
                  controller: :working_location_known
-        resource :teaching_location,
+        resource :work_location,
                  path: "teaching-location",
                  only: %i[edit update],
-                 controller: :teaching_location
+                 controller: :work_location
         resource :organisation_address_known,
                  path: "organisation-address-known",
                  only: %i[edit update],
