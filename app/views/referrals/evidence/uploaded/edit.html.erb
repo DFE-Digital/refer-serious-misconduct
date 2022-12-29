@@ -26,7 +26,9 @@
       <% end %>
     </dl>
 
-    <%= form_with url: edit_referral_evidence_uploaded_path(current_referral), method: :get do |f| %>
+    <%= form_with model: @uploaded_form, url: referral_evidence_uploaded_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
       <%= f.govuk_radio_buttons_fieldset(:more_evidence, legend: { size: "m", text: "Do you want to upload another file?" }) do %>
         <%= f.govuk_radio_button :more_evidence, "yes", label: { text: "Yes" } %>
         <%= f.govuk_radio_button :more_evidence, "no", label: { text: "No" } %>

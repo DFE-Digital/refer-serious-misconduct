@@ -320,6 +320,10 @@ en:
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_file_size}
               file_count: You can only upload %{max_files} files
+        "referrals/evidence/uploaded_form":
+          attributes:
+            more_evidence:
+              inclusion: Select yes if you have more evidence to upload
         "referrals/evidence/categories_form":
           attributes:
             categories:

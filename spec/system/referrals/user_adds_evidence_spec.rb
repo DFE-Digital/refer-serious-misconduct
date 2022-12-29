@@ -30,6 +30,9 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
 
+    when_i_click_save_and_continue
+    then_i_see_uploaded_evidence_form_validation_errors
+
     when_i_have_more_evidence_to_upload
     and_i_click_save_and_continue
     then_i_am_asked_to_upload_evidence_files
@@ -131,6 +134,12 @@ RSpec.feature "Evidence", type: :system do
       expect(page).to have_link("upload2.pdf")
       expect(page).to have_link("upload.txt")
     end
+  end
+
+  def then_i_see_uploaded_evidence_form_validation_errors
+    expect(page).to have_content(
+      "Select yes if you have more evidence to upload"
+    )
   end
 
   def when_i_have_more_evidence_to_upload
