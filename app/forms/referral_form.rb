@@ -92,39 +92,47 @@ class ReferralForm
   end
 
   def the_allegation_section
-    ReferralSection.new(
-      3,
-      I18n.t("referral_form.the_allegation"),
-      [
-        ReferralSectionItem.new(
-          I18n.t("referral_form.details_of_the_allegation"),
-          edit_referral_allegation_details_path(referral),
-          section_status(:allegation_details_complete)
-        ),
-        ReferralSectionItem.new(
-          I18n.t("referral_form.previous_allegations"),
-          edit_referral_previous_misconduct_reported_path(referral),
-          referral.previous_misconduct_status
-        ),
-        ReferralSectionItem.new(
-          I18n.t("referral_form.evidence_and_supporting_information"),
-          path_for_section_status(
-            section_status(:evidence_details_complete),
-            subsection_path(
-              referral:,
-              action: :edit,
-              subsection: :evidence_start
-            ),
-            subsection_path(
-              referral:,
-              action: :edit,
-              subsection: :evidence_check_answers
+    ReferralSection
+      .new(3, I18n.t("referral_form.the_allegation"))
+      .tap do |section|
+        section.items = [
+          ReferralSectionItem.new(
+            I18n.t("referral_form.details_of_the_allegation"),
+            edit_referral_allegation_details_path(referral),
+            section_status(:allegation_details_complete)
+          )
+        ]
+
+        if referral.from_employer?
+          section.items.append(
+            ReferralSectionItem.new(
+              I18n.t("referral_form.previous_allegations"),
+              edit_referral_previous_misconduct_reported_path(referral),
+              referral.previous_misconduct_status
             )
-          ),
-          section_status(:evidence_details_complete)
+          )
+        end
+
+        section.items.append(
+          ReferralSectionItem.new(
+            I18n.t("referral_form.evidence_and_supporting_information"),
+            path_for_section_status(
+              section_status(:evidence_details_complete),
+              subsection_path(
+                referral:,
+                action: :edit,
+                subsection: :evidence_start
+              ),
+              subsection_path(
+                referral:,
+                action: :edit,
+                subsection: :evidence_check_answers
+              )
+            ),
+            section_status(:evidence_details_complete)
+          )
         )
-      ]
-    )
+      end
   end
 
   def section_status(section_complete_method)

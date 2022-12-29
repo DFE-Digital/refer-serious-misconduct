@@ -11,11 +11,12 @@ module Referrals
         @uploaded_form = UploadedForm.new(more_evidence_params)
 
         if @uploaded_form.valid?
-          subsection = if @uploaded_form.more_evidence?
-            :evidence_upload
-          else
-            :evidence_check_answers
-          end
+          subsection =
+            if @uploaded_form.more_evidence?
+              :evidence_upload
+            else
+              :evidence_check_answers
+            end
 
           redirect_to(
             subsection_path(
