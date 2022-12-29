@@ -158,15 +158,15 @@ Rails.application.routes.draw do
                  controller: :same_organisation
         resource :duties, only: %i[edit update]
         resource :working_somewhere_else,
-                 path: "teaching-somewhere-else",
+                 path: "working-somewhere-else",
                  only: %i[edit update],
                  controller: :working_somewhere_else
-        resource :working_location_known,
-                 path: "teaching-location-known",
+        resource :work_location_known,
+                 path: "work-location-known",
                  only: %i[edit update],
-                 controller: :working_location_known
+                 controller: :work_location_known
         resource :work_location,
-                 path: "teaching-location",
+                 path: "work-location",
                  only: %i[edit update],
                  controller: :work_location
         resource :organisation_address_known,
