@@ -195,7 +195,7 @@ Rails.application.routes.draw do
       namespace :evidence do
         resource :start, only: %i[edit update], controller: :start
         resource :upload, only: %i[edit update], controller: :upload
-        resource :uploaded, only: %i[edit], controller: :uploaded
+        resource :uploaded, only: %i[edit update], controller: :uploaded
         resource :check_answers, path: "check-answers", only: %i[edit update]
       end
 
