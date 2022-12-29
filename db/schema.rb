@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_124830) do
     t.datetime "submitted_at", precision: nil
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
-    t.boolean "working_location_known"
+    t.boolean "work_location_known"
     t.string "work_organisation_name"
     t.string "work_address_line_1"
     t.string "work_address_line_2"
