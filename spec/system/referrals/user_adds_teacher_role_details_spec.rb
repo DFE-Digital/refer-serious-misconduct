@@ -141,7 +141,7 @@ RSpec.feature "Teacher role", type: :system do
 
     # Do you know the name and address of the organisation where they’re currently working?
 
-    then_i_see_the_teaching_location_known_page
+    then_i_see_the_working_location_known_page
 
     when_i_click_save_and_continue
     then_i_see_teaching_location_field_validation_errors
@@ -150,7 +150,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
-    when_i_visit_the_teaching_location_known_page
+    when_i_visit_the_working_location_known_page
     and_i_choose_yes
     when_i_click_save_and_continue
 
@@ -205,8 +205,8 @@ RSpec.feature "Teacher role", type: :system do
     visit edit_referral_teacher_role_working_somewhere_else_path(@referral)
   end
 
-  def when_i_visit_the_teaching_location_known_page
-    visit edit_referral_teacher_role_teaching_location_known_path(@referral)
+  def when_i_visit_the_working_location_known_page
+    visit edit_referral_teacher_role_working_location_known_path(@referral)
   end
 
   def when_i_visit_the_teaching_location_page
@@ -295,9 +295,9 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Are they employed somewhere else?")
   end
 
-  def then_i_see_the_teaching_location_known_page
+  def then_i_see_the_working_location_known_page
     expect(page).to have_current_path(
-      edit_referral_teacher_role_teaching_location_known_path(@referral)
+      edit_referral_teacher_role_working_location_known_path(@referral)
     )
     expect(page).to have_title(
       "Do you know the name and address of the organisation where they’re currently working?"

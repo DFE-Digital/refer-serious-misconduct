@@ -31,9 +31,9 @@ class TheirRoleComponent < ViewComponent::Base
 
     return @rows unless referral.working_somewhere_else?
 
-    @rows << teaching_location_known_row
+    @rows << working_location_known_row
 
-    return @rows unless referral.teaching_location_known
+    return @rows unless referral.working_location_known
 
     @rows << teaching_location_row
   end
@@ -333,13 +333,13 @@ class TheirRoleComponent < ViewComponent::Base
     }
   end
 
-  def teaching_location_known_row
+  def working_location_known_row
     {
       actions: [
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_teaching_location_known_path(
+            edit_referral_teacher_role_working_location_known_path(
               referral,
               return_to: request.url
             ),
@@ -352,7 +352,7 @@ class TheirRoleComponent < ViewComponent::Base
           "Do you know the name and address of the organisation where they’re currently working?"
       },
       value: {
-        text: referral.teaching_location_known ? "Yes" : "No"
+        text: referral.working_location_known ? "Yes" : "No"
       }
     }
   end
