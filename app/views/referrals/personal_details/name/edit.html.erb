@@ -2,7 +2,7 @@
 <% content_for :back_link_url, return_to_session_or(edit_referral_path(current_referral)) %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds-from-desktop ">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: @personal_details_name_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <span class="govuk-caption-l">Personal details</span>
