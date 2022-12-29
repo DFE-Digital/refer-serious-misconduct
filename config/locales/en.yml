@@ -187,9 +187,9 @@ en:
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than 25MB
-        "referrals/teacher_role/teaching_somewhere_else_form":
+        "referrals/teacher_role/working_somewhere_else_form":
           attributes:
-            teaching_somewhere_else:
+            working_somewhere_else:
               inclusion: Select yes if they’re employed somewhere else
         "referrals/teacher_role/teaching_location_form":
           attributes:

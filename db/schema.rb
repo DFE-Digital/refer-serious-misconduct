@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_142426) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_28_175138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -132,7 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_142426) do
     t.datetime "previous_misconduct_details_incomplete_at", precision: nil
     t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.datetime "submitted_at", precision: nil
-    t.string "teaching_somewhere_else"
+    t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
     t.boolean "teaching_location_known"
     t.string "teaching_organisation_name"

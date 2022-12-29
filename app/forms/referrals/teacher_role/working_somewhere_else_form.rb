@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class TeachingSomewhereElseForm
+    class WorkingSomewhereElseForm
       include ActiveModel::Model
 
-      attr_accessor :referral, :teaching_somewhere_else
+      attr_accessor :referral, :working_somewhere_else
 
       validates :referral, presence: true
-      validates :teaching_somewhere_else, inclusion: { in: %w[yes no not_sure] }
+      validates :working_somewhere_else, inclusion: { in: %w[yes no not_sure] }
 
       def save
         return false if invalid?
 
-        referral.update(teaching_somewhere_else:)
+        referral.update(working_somewhere_else:)
       end
     end
   end
