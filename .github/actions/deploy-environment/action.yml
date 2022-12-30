@@ -172,6 +172,9 @@ runs:
         done
 
         echo "sha: $APP_SHA"
+
+        sleep 30
+
         HEALTH_URL="${{ env.app_fqdn }}/health/all"
         START_URL="${{ env.app_fqdn }}/start"
         HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
