@@ -179,6 +179,8 @@ runs:
         START_URL="${{ env.app_fqdn }}/start"
         HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
         START_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $START_URL)
+        echo "health_response: $HEALTH_RESPONSE"
+        echo "start_response: $START_RESPONSE"
         until [[ "$HEALTH_RESPONSE" == "200" ]]; do
             echo "health_response: $HEALTH_RESPONSE"
             echo "start_response: $START_RESPONSE"
