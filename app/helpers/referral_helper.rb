@@ -7,7 +7,10 @@ module ReferralHelper
 
   def duties_details(referral)
     if referral.duties_upload.attached?
-      "File: #{referral.duties_upload.filename}"
+      govuk_link_to(
+        referral.duties_upload.filename,
+        rails_blob_path(referral.duties_upload, disposition: "attachment")
+      )
     elsif referral.duties_details.present?
       referral.duties_details.truncate(150, " ")
     else
