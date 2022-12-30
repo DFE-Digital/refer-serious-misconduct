@@ -173,7 +173,7 @@ runs:
 
         echo "sha: $APP_SHA"
 
-        sleep 30
+        sleep 60
 
         HEALTH_URL="${{ env.app_fqdn }}/health/all"
         START_URL="${{ env.app_fqdn }}/start"
