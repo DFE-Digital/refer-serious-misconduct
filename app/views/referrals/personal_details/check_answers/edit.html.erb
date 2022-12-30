@@ -10,7 +10,7 @@
 
     <%= render PersonalDetailsComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @personal_details_check_answers_form, url: referral_personal_details_check_answers_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_check_answers_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

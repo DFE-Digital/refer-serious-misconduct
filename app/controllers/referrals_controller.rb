@@ -51,7 +51,11 @@ class ReferralsController < Referrals::BaseController
   end
 
   def referral
-    @referral ||= current_user.referrals.find(params[:id])
+    @referral ||=
+      current_user
+        .referrals
+        .find(params[:id])
+        .tap { |r| check_referral_against_path(r) }
   end
   helper_method :referral
 

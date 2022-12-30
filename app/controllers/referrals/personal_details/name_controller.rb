@@ -1,6 +1,8 @@
 module Referrals
   module PersonalDetails
     class NameController < Referrals::BaseController
+      include ReferralPaths
+
       def edit
         @personal_details_name_form =
           NameForm.new(
@@ -26,6 +28,11 @@ module Referrals
         referral_personal_details_name_path(current_referral)
       end
       helper_method :update_path
+
+      def back_link
+        session[:return_to] || edit_path_for(current_referral)
+      end
+      helper_method :back_link
 
       private
 

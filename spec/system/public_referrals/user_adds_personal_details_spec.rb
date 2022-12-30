@@ -16,10 +16,11 @@ RSpec.feature "Personal details", type: :system do
     when_i_edit_personal_details
     and_i_am_asked_their_name
     and_i_click_back
-    then_i_see_the_referral_summary
+    then_i_see_the_public_referral_summary
 
     when_i_edit_personal_details
     and_i_am_asked_their_name
+
     and_i_click_save_and_continue
     then_i_see_name_field_validation_errors
 

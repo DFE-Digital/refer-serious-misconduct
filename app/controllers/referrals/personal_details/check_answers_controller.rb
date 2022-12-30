@@ -1,6 +1,8 @@
 module Referrals
   module PersonalDetails
     class CheckAnswersController < Referrals::BaseController
+      include ReferralPaths
+
       def edit
         @personal_details_check_answers_form =
           CheckAnswersForm.new(
@@ -16,11 +18,16 @@ module Referrals
           )
 
         if @personal_details_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to edit_path_for(current_referral)
         else
           render :edit
         end
       end
+
+      def update_path
+        referral_personal_details_check_answers_path(current_referral)
+      end
+      helper_method :update_path
 
       def back_link
         session[:return_to] ||

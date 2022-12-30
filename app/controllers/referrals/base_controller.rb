@@ -3,6 +3,7 @@ module Referrals
     include AuthenticateUser
     include StoreUserLocation
     include RedirectIfFeatureFlagInactive
+    include EnsureReferralTypeMatchesPath
 
     before_action { redirect_if_feature_flag_inactive(:referral_form) }
     before_action :set_return_to_url, only: :edit
@@ -14,7 +15,11 @@ module Referrals
 
     def current_referral
       id = params[:referral_id] || params[:public_referral_id]
-      @current_referral ||= current_user.referrals.find(id)
+      @current_referral ||=
+        current_user
+          .referrals
+          .find(id)
+          .tap { |r| check_referral_against_path(r) }
     end
     helper_method :current_referral
 
