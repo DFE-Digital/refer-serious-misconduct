@@ -157,10 +157,11 @@ runs:
         attempt_counter=0
         max_attempts=$RETRIES
 
-        ##TO DO: test both urls
-        SHA_URL="${{ env.app_fqdn }}/health/all"
+        HEALTH_URL="${{ env.app_fqdn }}/health/all"
+        SHA_URL="${{ env.app_fqdn }}/_sha"
         APP_SHA=$(curl $SHA_URL --silent)
-        until [[ "$EXPECTED_SHA" == "$APP_SHA" ]]; do
+        HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
+        until [[ "$EXPECTED_SHA" == "$APP_SHA" && "$HEALTH_RESPONSE" == "200" ]]; do
             if [ ${attempt_counter} -eq ${max_attempts} ];then
               echo "Max attempts reached"
               exit 1
@@ -169,6 +170,7 @@ runs:
             sleep 5
             attempt_counter=$(($attempt_counter+1))
             APP_SHA=$(curl $SHA_URL --silent)
+            HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
         done
       shell: bash
       env:
