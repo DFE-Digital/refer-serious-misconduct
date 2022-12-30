@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @role_end_date_form.errors.any?}Do you know when they left the job?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_employment_status_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
