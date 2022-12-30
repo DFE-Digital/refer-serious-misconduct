@@ -157,7 +157,8 @@ runs:
         attempt_counter=0
         max_attempts=$RETRIES
 
-        SHA_URL="${{ env.app_fqdn }}/_sha"
+        ##TO DO: test both urls
+        SHA_URL="${{ env.app_fqdn }}/health/all"
         APP_SHA=$(curl $SHA_URL --silent)
         until [[ "$EXPECTED_SHA" == "$APP_SHA" ]]; do
             if [ ${attempt_counter} -eq ${max_attempts} ];then
