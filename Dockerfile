@@ -67,6 +67,7 @@ ENV RAILS_ENV=production
 # Add the commit sha to the env
 ARG GIT_SHA
 ENV GIT_SHA=$GIT_SHA
+ENV SHA=$GIT_SHA
 
 # Add the timezone (prod image) as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
