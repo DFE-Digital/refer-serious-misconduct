@@ -2,9 +2,9 @@ class PagesController < ApplicationController
   def start
     @start_now_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)
-        current_user ? who_path : new_user_session_path
+        current_user ? referral_type_path : new_user_session_path
       else
-        who_path
+        referral_type_path
       end
   end
 
