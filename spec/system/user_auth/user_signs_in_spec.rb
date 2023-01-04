@@ -99,10 +99,10 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_am_not_prompted_to_sign_in_again
-    expect(page).to have_current_path who_path
+    expect(page).to have_current_path referral_type_path
     visit root_path
     click_on "Start now"
-    expect(page).to have_current_path who_path
+    expect(page).to have_current_path referral_type_path
   end
 
   def when_i_have_a_referral_in_progress
