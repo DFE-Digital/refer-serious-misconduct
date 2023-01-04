@@ -32,7 +32,7 @@ module EnforceQuestionOrder
 
   def questions
     [
-      { path: referral_type_path, needs_answer: reporting_as_needs_answer? },
+      { path: referral_type_path, needs_answer: referral_type_needs_answer? },
       {
         path: have_you_complained_path,
         needs_answer: complained_needs_answer?
@@ -46,7 +46,10 @@ module EnforceQuestionOrder
         path: teaching_in_england_path,
         needs_answer: teaching_in_england_needs_answer?
       },
-      { path: serious_path, needs_answer: serious_misconduct_needs_answer? }
+      {
+        path: serious_misconduct_path,
+        needs_answer: serious_misconduct_needs_answer?
+      }
     ]
   end
 
@@ -75,7 +78,7 @@ module EnforceQuestionOrder
     !previous_question[:needs_answer]
   end
 
-  def reporting_as_needs_answer?
+  def referral_type_needs_answer?
     eligibility_check.reporting_as.nil?
   end
 
