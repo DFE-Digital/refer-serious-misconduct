@@ -157,42 +157,28 @@ runs:
         attempt_counter=0
         max_attempts=$RETRIES
 
-        SHA_URL="${{ env.app_fqdn }}/_sha"
-        APP_SHA=$(curl $SHA_URL --silent)
-        until [[ "$EXPECTED_SHA" == "$APP_SHA" ]]; do
-            echo "sha: $APP_SHA"
-            if [ ${attempt_counter} -eq ${max_attempts} ];then
-              echo "Max attempts reached"
-              exit 1
-            fi
-            echo "Attempt $attempt_counter: new site not up, retrying in 5 seconds ..."
-            sleep 5
-            attempt_counter=$(($attempt_counter+1))
-            APP_SHA=$(curl $SHA_URL --silent)
-        done
+        HEALTH_URL="${{ env.app_fqdn }}/health/all.json"
+        HEALTH_RESPONSE=$(curl $HEALTH_URL --silent)
+        $APP_SHA=$(echo $HEALTH_RESPONSE | jq .version.message | grep -Po "Version: \K\w*")
+        $APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
+        $APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
+        until [[ "$EXPECTED_SHA" == "$APP_SHA" && "$APP_STATUS" == "true" && "$APP_DATABASE_STATUS" = "true" ]]; do
+          echo "sha: $APP_SHA"
+          echo "app_status: $APP_STATUS"
+          echo "app_database_status: $APP_DATABASE_STATUS"
 
-        echo "sha: $APP_SHA"
+          if [ ${attempt_counter} -eq ${max_attempts} ];then
+            echo "Max attempts reached"
+            exit 1
+          fi
+          echo "Attempt $attempt_counter: new site not up, retrying in 5 seconds ..."
+          sleep 5
+          attempt_counter=$(($attempt_counter+1))
 
-        sleep 60
-
-        HEALTH_URL="${{ env.app_fqdn }}/health/all"
-        START_URL="${{ env.app_fqdn }}/start"
-        HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
-        START_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $START_URL)
-        echo "health_response: $HEALTH_RESPONSE"
-        echo "start_response: $START_RESPONSE"
-        until [[ "$HEALTH_RESPONSE" == "200" ]]; do
-            echo "health_response: $HEALTH_RESPONSE"
-            echo "start_response: $START_RESPONSE"
-            if [ ${attempt_counter} -eq ${max_attempts} ];then
-              echo "Max attempts reached"
-              exit 1
-            fi
-            echo "Attempt $attempt_counter: new site not up, retrying in 5 seconds ..."
-            sleep 5
-            attempt_counter=$(($attempt_counter+1))
-            HEALTH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
-            START_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $START_URL)
+          HEALTH_RESPONSE=$(curl $HEALTH_URL --silent)
+          $APP_SHA=$(echo $HEALTH_RESPONSE | jq .version.message | grep -Po "Version: \K\w*")
+          $APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
+          $APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
         done
       shell: bash
       env:
