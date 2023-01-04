@@ -130,7 +130,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_124830) do
     t.boolean "teacher_role_complete"
     t.text "previous_misconduct_details"
     t.datetime "previous_misconduct_details_incomplete_at", precision: nil
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.datetime "submitted_at", precision: nil
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
