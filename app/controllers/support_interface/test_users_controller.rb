@@ -33,7 +33,7 @@ module SupportInterface
     def after_sign_in_path
       latest_referral = current_user.latest_referral
 
-      latest_referral ? edit_path_for(latest_referral) : who_path
+      latest_referral ? edit_path_for(latest_referral) : referral_type_path
     end
   end
 end

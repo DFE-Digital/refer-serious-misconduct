@@ -62,6 +62,6 @@ class ReferralsController < Referrals::BaseController
   end
 
   def redirect_to_screener_if_no_id_in_session
-    redirect_to who_path if session[:eligibility_check_id].blank?
+    redirect_to referral_type_path if session[:eligibility_check_id].blank?
   end
 end
