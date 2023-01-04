@@ -176,9 +176,9 @@ runs:
           attempt_counter=$(($attempt_counter+1))
 
           HEALTH_RESPONSE=$(curl $HEALTH_URL --silent)
-          $APP_SHA=$(echo $HEALTH_RESPONSE | jq .version.message | grep -Po "Version: \K\w*")
-          $APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
-          $APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
+          APP_SHA=$(echo $HEALTH_RESPONSE | jq .version.message | grep -Po "Version: \K\w*")
+          APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
+          APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
         done
       shell: bash
       env:
