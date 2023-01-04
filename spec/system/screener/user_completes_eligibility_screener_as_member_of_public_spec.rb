@@ -200,7 +200,7 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_the_serious_misconduct_question
-    expect(page).to have_current_path("/serious")
+    expect(page).to have_current_path("/serious-misconduct")
     expect(page).to have_title(
       "Does the allegation involve serious misconduct? - Refer serious misconduct by a teacher in England"
     )

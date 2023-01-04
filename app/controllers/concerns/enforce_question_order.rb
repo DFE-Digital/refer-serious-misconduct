@@ -46,7 +46,10 @@ module EnforceQuestionOrder
         path: teaching_in_england_path,
         needs_answer: teaching_in_england_needs_answer?
       },
-      { path: serious_path, needs_answer: serious_misconduct_needs_answer? }
+      {
+        path: serious_misconduct_path,
+        needs_answer: serious_misconduct_needs_answer?
+      }
     ]
   end
 

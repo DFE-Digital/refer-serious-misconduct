@@ -86,7 +86,7 @@ RSpec.feature "Question order", type: :system do
   end
 
   def when_i_visit_the_serious_misconduct_page
-    visit serious_path
+    visit serious_misconduct_path
   end
 
   def when_i_visit_the_service
