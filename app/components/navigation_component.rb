@@ -14,4 +14,16 @@ class NavigationComponent < ViewComponent::Base
   def current_namespace
     request.path.split("/").second
   end
+
+  def homepage_url
+    "https://www.gov.uk/"
+  end
+
+  def service_url
+    if current_user && current_user.latest_referral
+      edit_path_for(current_user.latest_referral)
+    else
+      root_path
+    end
+  end
 end
