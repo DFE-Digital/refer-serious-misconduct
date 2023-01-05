@@ -67,7 +67,7 @@ class AboutYouComponent < ViewComponent::Base
           }
         ],
         key: {
-          text: "Main contact number"
+          text: "Your phone number"
         },
         value: {
           text: referrer.phone

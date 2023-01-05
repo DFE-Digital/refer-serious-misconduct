@@ -75,7 +75,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def and_i_see_my_answers_on_the_referrer_check_your_answers_page
     expect(page).to have_content("Your name\tTest Name")
-    expect(page).to have_content("Main contact number\t01234567890")
+    expect(page).to have_content("Your phone number\t01234567890")
   end
 
   def and_i_see_your_details_flagged_as_incomplete
@@ -115,10 +115,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_phone_number_prefilled
-    expect(page).to have_field(
-      "What is your main contact number?",
-      with: "01234567890"
-    )
+    expect(page).to have_field("Your phone number", with: "01234567890")
   end
 
   def then_i_see_the_name_error_message
@@ -138,7 +135,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_phone_error_message
-    expect(page).to have_content("Enter your main contact number")
+    expect(page).to have_content("Enter your phone number, like 07700 900 982")
   end
 
   def then_i_see_the_what_is_your_phone_number_page
@@ -146,9 +143,9 @@ RSpec.feature "Employer Referral: About You", type: :system do
       "/referrals/#{@referral.id}/referrer-phone/edit"
     )
     expect(page).to have_title(
-      "What is your main contact number? - Refer serious misconduct by a teacher in England"
+      "Your phone number - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What is your main contact number?")
+    expect(page).to have_content("Your phone number")
   end
 
   def then_i_see_your_details_flagged_as_complete
@@ -175,6 +172,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def when_i_enter_my_phone_number
-    fill_in "What is your main contact number?", with: "01234567890"
+    fill_in "Your phone number", with: "01234567890"
   end
 end

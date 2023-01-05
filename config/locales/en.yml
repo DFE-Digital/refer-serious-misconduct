@@ -248,7 +248,8 @@ en:
         referrer_phone_form:
           attributes:
             phone:
-              blank: Enter your main contact number
+              blank: Enter your phone number, like 07700 900 982
+              invalid: Enter your phone number in the correct format
         "referrals/referrer_name_form":
           attributes:
             name:
