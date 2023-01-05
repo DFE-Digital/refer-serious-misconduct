@@ -1,11 +1,11 @@
-<% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}What is your main contact number?" %>
+<% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}Your phone number" %>
 <% content_for :back_link_url, return_to_session_or(edit_referral_referrer_job_title_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @referrer_phone_form, url: referral_referrer_phone_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_text_field :phone, label: { size: 'xl', text: "What is your main contact number?" }, hint: { text: 'We will only use this number to contact you about your referral' }, class: 'govuk-input--width-20' %>
+      <%= f.govuk_text_field :phone, caption: { size: 'l', text: 'Your details' }, label: { size: 'l', text: "Your phone number" }, hint: { text: 'The TRA will only use this number to contact you about your referral' }, class: 'govuk-input--width-20' %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>
