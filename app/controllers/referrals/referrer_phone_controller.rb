@@ -25,5 +25,10 @@ module Referrals
     def next_path
       referral_referrer_path(current_referral)
     end
+
+    def update_path
+      referral_referrer_phone_path(current_referral)
+    end
+    helper_method :update_path
   end
 end

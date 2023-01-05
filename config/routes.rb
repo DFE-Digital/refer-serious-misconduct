@@ -86,6 +86,18 @@ Rails.application.routes.draw do
                  only: %i[edit update],
                  controller: :check_answers
       end
+
+      resource :referrer, only: %i[show update]
+
+      resource :referrer_name,
+               only: %i[edit update],
+               path: "referrer-name",
+               controller: :referrer_name
+
+      resource :referrer_phone,
+               only: %i[edit update],
+               path: "referrer-phone",
+               controller: :referrer_phone
     end
   end
 
