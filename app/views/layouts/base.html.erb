@@ -27,7 +27,7 @@
 
     <%= govuk_skip_link %>
 
-    <%= navigation %>
+    <%= render NavigationComponent.new(current_user:, current_staff:) %>
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>
