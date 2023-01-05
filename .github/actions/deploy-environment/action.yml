@@ -163,10 +163,6 @@ runs:
         APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
         APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
         until [[ "$EXPECTED_SHA" == "$APP_SHA" && "$APP_STATUS" == "true" && "$APP_DATABASE_STATUS" == "true" ]]; do
-          echo "sha: $APP_SHA"
-          echo "app_status: $APP_STATUS"
-          echo "app_database_status: $APP_DATABASE_STATUS"
-
           if [ ${attempt_counter} -eq ${max_attempts} ];then
             echo "Max attempts reached"
             exit 1
@@ -179,6 +175,7 @@ runs:
           APP_SHA=$(echo $HEALTH_RESPONSE | jq .version.message | grep -Po "Version: \K\w*")
           APP_STATUS=$(echo $HEALTH_RESPONSE | jq .default.success)
           APP_DATABASE_STATUS=$(echo $HEALTH_RESPONSE | jq .database.success)
+          echo "sha: $APP_SHA; app_status: $APP_STATUS; app_database_status: $APP_DATABASE_STATUS"
         done
       shell: bash
       env:
