@@ -1,11 +1,11 @@
-<% content_for :page_title, "#{'Error: ' if @referrer_job_title_form.errors.any?}What is your job title?" %>
+<% content_for :page_title, "#{'Error: ' if @referrer_job_title_form.errors.any?}Your job title" %>
 <% content_for :back_link_url, return_to_session_or(edit_referral_referrer_name_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @referrer_job_title_form, url: referral_referrer_job_title_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_text_field :job_title, label: { size: 'xl', text: "What is your job title?" }, hint: { text: 'For example, ‘Headteacher’' } %>
+      <%= f.govuk_text_field :job_title, caption: { size: 'l', text: 'Your details' }, label: { size: 'l', text: "Your job title" }, hint: { text: 'For example, ‘Headteacher’' } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

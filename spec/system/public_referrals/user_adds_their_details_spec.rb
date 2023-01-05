@@ -1,28 +1,21 @@
 require "rails_helper"
 
-RSpec.feature "Employer Referral: About You", type: :system do
+RSpec.feature "Public Referral: About You", type: :system do
   include CommonSteps
 
   scenario "User provides their details" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_referral_form_feature_is_active
-    and_i_have_an_existing_referral
-    and_i_visit_the_referral
-    when_i_click_on_your_details
+    and_i_am_a_member_of_the_public_with_an_existing_referral
+    when_i_visit_the_public_referral
+    and_i_click_on_your_details
     then_i_am_on_the_your_details_page
 
     when_i_click_save_and_continue
     then_i_see_the_name_error_message
 
     when_i_enter_my_name
-    and_i_click_save_and_continue
-    then_i_see_the_job_title_page
-
-    when_i_click_save_and_continue
-    then_i_see_the_job_title_error_message
-
-    when_i_enter_my_job_title
     and_i_click_save_and_continue
     then_i_see_the_what_is_your_phone_number_page
 
@@ -46,9 +39,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
     when_i_click_on_your_details
     then_i_see_the_name_prefilled
-
-    when_i_click_save_and_continue
-    then_i_see_the_job_title_prefilled
 
     when_i_click_save_and_continue
     then_i_see_the_phone_number_prefilled
@@ -87,31 +77,13 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_am_on_the_your_details_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer-name/edit",
+      "/public-referrals/#{@referral.id}/referrer-name/edit",
       ignore_query: true
     )
     expect(page).to have_title(
       "Your name - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your name")
-  end
-
-  def then_i_see_the_job_title_page
-    expect(page).to have_current_path(
-      "/referrals/#{Referral.last.id}/referrer-job-title/edit"
-    )
-    expect(page).to have_title(
-      "Your job title - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("Your job title")
-  end
-
-  def then_i_see_the_job_title_error_message
-    expect(page).to have_content("Enter your job title")
-  end
-
-  def then_i_see_the_job_title_prefilled
-    expect(page).to have_field("Your job title", with: "Teacher")
   end
 
   def then_i_see_the_phone_number_prefilled
@@ -127,7 +99,9 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer")
+    expect(page).to have_current_path(
+      "/public-referrals/#{@referral.id}/referrer"
+    )
     expect(page).to have_title(
       "Your details - Refer serious misconduct by a teacher in England"
     )
@@ -135,12 +109,12 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_phone_error_message
-    expect(page).to have_content("Enter your phone number, like 07700 900 982")
+    expect(page).to have_content("Enter your phone number")
   end
 
   def then_i_see_the_what_is_your_phone_number_page
     expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer-phone/edit"
+      "/public-referrals/#{@referral.id}/referrer-phone/edit"
     )
     expect(page).to have_title(
       "Your phone number - Refer serious misconduct by a teacher in England"
@@ -162,10 +136,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   def when_i_click_on_your_details
     click_link "Your details"
   end
-
-  def when_i_enter_my_job_title
-    fill_in "Your job title", with: "Teacher"
-  end
+  alias_method :and_i_click_on_your_details, :when_i_click_on_your_details
 
   def when_i_enter_my_name
     fill_in "Your name", with: "Test Name"

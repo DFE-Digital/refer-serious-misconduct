@@ -26,5 +26,10 @@ module Referrals
     def next_path
       edit_referral_referrer_job_title_path(current_referral)
     end
+
+    def update_path
+      referral_referrer_name_path(current_referral)
+    end
+    helper_method :update_path
   end
 end

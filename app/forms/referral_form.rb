@@ -38,7 +38,11 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.your_details"),
-            edit_referral_referrer_name_path(referral),
+            subsection_path(
+              action: :edit,
+              referral:,
+              subsection: :referrer_name
+            ),
             referral.referrer_status
           )
         ]
