@@ -184,7 +184,3 @@ runs:
       env:
         EXPECTED_SHA: ${{ inputs.image_tag }}
         RETRIES: ${{ inputs.site_up_retries }}
-
-      ##TO DO: delete this comment
-      
-
