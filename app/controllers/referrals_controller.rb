@@ -51,7 +51,7 @@ class ReferralsController < Referrals::BaseController
   end
 
   def referral
-    @referral ||= current_user.referrals.find(params[:id])
+    @referral ||= current_user.referrals.employer.find(params[:id])
   end
   helper_method :referral
 
