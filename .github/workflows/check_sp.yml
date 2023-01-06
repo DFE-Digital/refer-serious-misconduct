@@ -14,11 +14,10 @@ jobs:
       - name: Select Tests
         id: select-tests
         run: |
-          d="{'environment':'dev', 'principal': 's165d01-rsm-keyvault-readonly-access', 'keyvault': 's165d01-rsm-dv-kv'}"
-          t="{'environment':'test', 'principal': 's165t01-rsm-keyvault-readonly-access', 'keyvault': 's165t01-rsm-pp-kv'}"
-          pp="{'environment':'preprod', 'principal': 's165t01-rsm-keyvault-readonly-access', 'keyvault': 's165t01-rsm-pp-kv'}"
-          p="{'environment':'production', 'principal': 's165p01-rsm-keyvault-readonly-access', 'keyvault': 's165p01-rsm-pd-kv'}"
-          tests="{ 'data':[ ${d},  ${t},  ${pp},  ${p} ]}"
+          d="{'environment':'dev', 'principal': 's165d01-rsm-contributor', 'keyvault': 's165d01-rsm-dv-kv'}"
+          t="{'environment':'test', 'principal': 's165t01-rsm-contributor', 'keyvault': 's165t01-rsm-ts-kv'}"
+          p="{'environment':'production', 'principal': 's165p01-rsm-contributor', 'keyvault': 's165p01-rsm-pd-kv'}"
+          tests="{ 'data':[ ${d},  ${t}, ${p} ]}"
           echo "tests=${tests}" >> $GITHUB_OUTPUT
   check_expires:
     name: ${{matrix.data.environment}}/${{ matrix.data.principal }}
