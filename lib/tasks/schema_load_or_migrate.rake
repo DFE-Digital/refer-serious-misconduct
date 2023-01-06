@@ -15,5 +15,7 @@ db_namespace =
             db_namespace["schema:load"].invoke
           end
         end
+    rescue ActiveRecord::ConcurrentMigrationError
+      # Do nothing
     end
   end
