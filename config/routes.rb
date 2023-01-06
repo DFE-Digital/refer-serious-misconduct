@@ -69,22 +69,24 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
-  resources :public_referrals,
-            except: %i[index show],
-            path: "public-referrals" do
+  resources :public_referrals, except: %i[index show], path: "public-referrals" do
     scope module: :public_referrals do
-      namespace :personal_details, path: "personal-details" do
-        resource :name, only: %i[edit update], controller: :name
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
+      constraints(RouteConstraints::PublicConstraint.new) do
+        namespace :personal_details, path: "personal-details" do
+          resource :name, only: %i[edit update], controller: :name
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
 
-      namespace :evidence do
-        resource :start, only: %i[edit update], controller: :start
-        resource :upload, only: %i[edit update], controller: :upload
-        resource :uploaded, only: %i[edit update], controller: :uploaded
-        resource :check_answers,
-                 only: %i[edit update],
-                 controller: :check_answers
+        resources :evidence, only: [] do
+          get "/delete", to: "evidence/check_answers#delete"
+          delete "/", to: "evidence/check_answers#destroy", as: :destroy
+        end
+        namespace :evidence do
+          resource :start, only: %i[edit update], controller: :start
+          resource :upload, only: %i[edit update], controller: :upload
+          resource :uploaded, only: %i[edit update], controller: :uploaded
+          resource :check_answers, only: %i[edit update], controller: :check_answers
+        end
       end
 
       resource :referrer, only: %i[show update]
@@ -106,123 +108,125 @@ Rails.application.routes.draw do
     get "/deleted", to: "referrals#deleted", on: :collection
 
     scope module: :referrals do
-      namespace :personal_details, path: "personal-details" do
-        resource :name, only: %i[edit update], controller: :name
-        resource :age, only: %i[edit update], controller: :age
-        resource :trn, only: %i[edit update], controller: :trn
-        resource :qts, only: %i[edit update], controller: :qts
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
+      constraints(RouteConstraints::EmployerConstraint.new) do
+        namespace :personal_details, path: "personal-details" do
+          resource :name, only: %i[edit update], controller: :name
+          resource :age, only: %i[edit update], controller: :age
+          resource :trn, only: %i[edit update], controller: :trn
+          resource :qts, only: %i[edit update], controller: :qts
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
 
-      resource :referrer, only: %i[show update]
-      resource :referrer_details, only: %i[show], path: "referrer-details"
-      resource :referrer_name,
-               only: %i[edit update],
-               path: "referrer-name",
-               controller: :referrer_name
-      resource :referrer_job_title,
-               only: %i[edit update],
-               path: "referrer-job-title",
-               controller: :referrer_job_title
-      resource :referrer_phone,
-               only: %i[edit update],
-               path: "referrer-phone",
-               controller: :referrer_phone
+        resource :referrer, only: %i[show update]
+        resource :referrer_details, only: %i[show], path: "referrer-details"
+        resource :referrer_name,
+          only: %i[edit update],
+          path: "referrer-name",
+          controller: :referrer_name
+        resource :referrer_job_title,
+          only: %i[edit update],
+          path: "referrer-job-title",
+          controller: :referrer_job_title
+        resource :referrer_phone,
+          only: %i[edit update],
+          path: "referrer-phone",
+          controller: :referrer_phone
 
-      namespace :contact_details, path: "contact-details" do
-        resource :email, only: %i[edit update], controller: :email
-        resource :telephone, only: %i[edit update], controller: :telephone
-        resource :address, only: %i[edit update], controller: :address
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
+        namespace :contact_details, path: "contact-details" do
+          resource :email, only: %i[edit update], controller: :email
+          resource :telephone, only: %i[edit update], controller: :telephone
+          resource :address, only: %i[edit update], controller: :address
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
 
-      resource :organisation, only: %i[show update], controller: :organisation
-      resource :organisation_name,
-               only: %i[edit update],
-               controller: :organisation_name
-      resource :organisation_address,
-               only: %i[edit update],
-               controller: :organisation_address
-
-      resource :previous_misconduct,
-               only: %i[show update],
-               controller: :previous_misconduct
-      resource :previous_misconduct_detailed_account,
-               only: %i[edit update],
-               controller: :previous_misconduct_detailed_account
-      resource :previous_misconduct_reported,
-               only: %i[edit update],
-               controller: :previous_misconduct_reported
-
-      namespace :allegation do
-        resource :details, only: %i[edit update]
-        resource :dbs, only: %i[edit update]
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
-
-      namespace :teacher_role, path: "teacher-role" do
-        resource :start_date,
-                 path: "start-date",
-                 only: %i[edit update],
-                 controller: :start_date
-        resource :employment_status,
-                 path: "employment-status",
-                 only: %i[edit update],
-                 controller: :employment_status
-        resource :job_title,
-                 path: "job-title",
-                 only: %i[edit update],
-                 controller: :job_title
-        resource :same_organisation,
-                 path: "same-organisation",
-                 only: %i[edit update],
-                 controller: :same_organisation
-        resource :duties, only: %i[edit update]
-        resource :working_somewhere_else,
-                 path: "working-somewhere-else",
-                 only: %i[edit update],
-                 controller: :working_somewhere_else
-        resource :work_location_known,
-                 path: "work-location-known",
-                 only: %i[edit update],
-                 controller: :work_location_known
-        resource :work_location,
-                 path: "work-location",
-                 only: %i[edit update],
-                 controller: :work_location
-        resource :organisation_address_known,
-                 path: "organisation-address-known",
-                 only: %i[edit update],
-                 controller: :organisation_address_known
+        resource :organisation, only: %i[show update], controller: :organisation
+        resource :organisation_name,
+          only: %i[edit update],
+          controller: :organisation_name
         resource :organisation_address,
-                 path: "organisation-address",
-                 only: %i[edit update],
-                 controller: :organisation_address
-        resource :end_date,
-                 path: "end-date",
-                 only: %i[edit update],
-                 controller: :end_date
-        resource :reason_leaving_role,
-                 path: "reason-leaving-role",
-                 only: %i[edit update],
-                 controller: :reason_leaving_role
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
+          only: %i[edit update],
+          controller: :organisation_address
 
-      resources :evidence, only: [] do
-        get "/delete", to: "evidence/check_answers#delete"
-        delete "/", to: "evidence/check_answers#destroy", as: :destroy
-      end
-      namespace :evidence do
-        resource :start, only: %i[edit update], controller: :start
-        resource :upload, only: %i[edit update], controller: :upload
-        resource :uploaded, only: %i[edit update], controller: :uploaded
-        resource :check_answers, path: "check-answers", only: %i[edit update]
-      end
+        resource :previous_misconduct,
+          only: %i[show update],
+          controller: :previous_misconduct
+        resource :previous_misconduct_detailed_account,
+          only: %i[edit update],
+          controller: :previous_misconduct_detailed_account
+        resource :previous_misconduct_reported,
+          only: %i[edit update],
+          controller: :previous_misconduct_reported
 
-      resource :declaration, only: %i[show create], controller: :declaration
-      resource :confirmation, only: %i[show], controller: :confirmation
-      resource :review, only: %i[show], controller: :review
+        namespace :allegation do
+          resource :details, only: %i[edit update]
+          resource :dbs, only: %i[edit update]
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
+
+        namespace :teacher_role, path: "teacher-role" do
+          resource :start_date,
+            path: "start-date",
+            only: %i[edit update],
+            controller: :start_date
+          resource :employment_status,
+            path: "employment-status",
+            only: %i[edit update],
+            controller: :employment_status
+          resource :job_title,
+            path: "job-title",
+            only: %i[edit update],
+            controller: :job_title
+          resource :same_organisation,
+            path: "same-organisation",
+            only: %i[edit update],
+            controller: :same_organisation
+          resource :duties, only: %i[edit update]
+          resource :working_somewhere_else,
+            path: "working-somewhere-else",
+            only: %i[edit update],
+            controller: :working_somewhere_else
+          resource :work_location_known,
+            path: "work-location-known",
+            only: %i[edit update],
+            controller: :work_location_known
+          resource :work_location,
+            path: "work-location",
+            only: %i[edit update],
+            controller: :work_location
+          resource :organisation_address_known,
+            path: "organisation-address-known",
+            only: %i[edit update],
+            controller: :organisation_address_known
+          resource :organisation_address,
+            path: "organisation-address",
+            only: %i[edit update],
+            controller: :organisation_address
+          resource :end_date,
+            path: "end-date",
+            only: %i[edit update],
+            controller: :end_date
+          resource :reason_leaving_role,
+            path: "reason-leaving-role",
+            only: %i[edit update],
+            controller: :reason_leaving_role
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
+
+        resources :evidence, only: [] do
+          get "/delete", to: "evidence/check_answers#delete"
+          delete "/", to: "evidence/check_answers#destroy", as: :destroy
+        end
+        namespace :evidence do
+          resource :start, only: %i[edit update], controller: :start
+          resource :upload, only: %i[edit update], controller: :upload
+          resource :uploaded, only: %i[edit update], controller: :uploaded
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
+
+        resource :declaration, only: %i[show create], controller: :declaration
+        resource :confirmation, only: %i[show], controller: :confirmation
+        resource :review, only: %i[show], controller: :review
+      end
     end
   end
 
