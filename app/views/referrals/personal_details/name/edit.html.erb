@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @personal_details_name_form.errors.any?}What is the name of the person you’re referring?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(back_link) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
