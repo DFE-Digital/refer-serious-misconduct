@@ -12,6 +12,24 @@ class Referral < ApplicationRecord
            class_name: "ReferralEvidence",
            dependent: :destroy
 
+  scope :employer,
+        -> {
+          joins(:eligibility_check).where(
+            eligibility_check: {
+              reporting_as: :employer
+            }
+          )
+        }
+
+  scope :member_of_public,
+        -> {
+          joins(:eligibility_check).where(
+            eligibility_check: {
+              reporting_as: :public
+            }
+          )
+        }
+
   def from_employer?
     eligibility_check.reporting_as_employer?
   end

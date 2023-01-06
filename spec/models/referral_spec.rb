@@ -5,6 +5,28 @@ RSpec.describe Referral, type: :model do
   it { is_expected.to have_one(:referrer).dependent(:destroy) }
   it { is_expected.to have_one_attached(:previous_misconduct_upload) }
 
+  describe ".employer" do
+    subject { described_class.employer }
+
+    let(:employer_referral) { create(:referral) }
+    let(:public_referral) do
+      create(:referral, eligibility_check: create(:eligibility_check, :public))
+    end
+
+    it { is_expected.to eq [employer_referral] }
+  end
+
+  describe ".member_of_public" do
+    subject { described_class.member_of_public }
+
+    let(:employer_referral) { create(:referral) }
+    let(:public_referral) do
+      create(:referral, eligibility_check: create(:eligibility_check, :public))
+    end
+
+    it { is_expected.to eq [public_referral] }
+  end
+
   describe "#referrer_status" do
     subject { referral.referrer_status }
 
