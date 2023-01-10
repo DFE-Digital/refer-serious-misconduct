@@ -16,19 +16,27 @@ module Referrals
           )
 
         if @personal_details_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to next_page
         else
           render :edit
         end
       end
 
+      private
+
+      def next_path
+        edit_referral_path(current_referral)
+      end
+
+      def update_path
+        referral_personal_details_check_answers_path(current_referral)
+      end
+      helper_method :update_path
+
       def back_link
-        session[:return_to] ||
-          edit_referral_personal_details_qts_path(current_referral)
+        edit_referral_personal_details_qts_path(current_referral)
       end
       helper_method :back_link
-
-      private
 
       def check_answers_params
         params.fetch(:referrals_personal_details_check_answers_form, {}).permit(

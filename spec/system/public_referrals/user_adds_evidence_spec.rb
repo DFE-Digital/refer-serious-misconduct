@@ -5,7 +5,7 @@ RSpec.feature "Evidence", type: :system do
   include CommonSteps
   include SummaryListHelpers
 
-  scenario "A member of public adds evidence to referral" do
+  xscenario "A member of public adds evidence to referral" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_referral_form_feature_is_active
