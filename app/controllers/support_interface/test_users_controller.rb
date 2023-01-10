@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module SupportInterface
   class TestUsersController < SupportInterfaceController
-    include ReferralHelper
+    include ReferralPaths
 
     before_action :redirect_unless_test_environment
 
