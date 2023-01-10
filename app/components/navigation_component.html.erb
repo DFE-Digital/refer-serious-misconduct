@@ -1,5 +1,5 @@
 <%=
-  govuk_header(service_name: t("service.name"), homepage_url:, service_url:) do |header|
+  govuk_header(service_name: t("service.name")) do |header|
     case current_namespace
     when "support"
       header.navigation_item(
