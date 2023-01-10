@@ -13,6 +13,15 @@ on:
       - reopened
       - opened
       - converted_to_draft
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - preprod
 
 jobs:
   build_image:
@@ -66,17 +75,32 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
 
+  set_matrix:
+    name: Set deployment matrix
+    runs-on: ubuntu-latest
+    needs: [build_image]
+    outputs:
+      deployment_matrix: ${{ steps.set-matrix.outputs.deployment_matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            DEPLOYMENT_MATRIX="{ 'environment': ['${{ github.event.inputs.environment }}'] }"
+          else
+            DEPLOYMENT_MATRIX="{ 'environment': ['dev', 'test', 'preprod'] }"
+          fi
+          echo "deployment_matrix=$DEPLOYMENT_MATRIX" >> $GITHUB_OUTPUT
+
   deploy_non_prod:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || ${{ github.event_name }} == 'workflow_dispatch'
     concurrency: deploy_${{ matrix.environment }}
-    needs: [build_image]
+    needs: [build_image, set_matrix]
     strategy:
       fail-fast: false # this is necessary to prevent early terminiation of terraform deployments that will result in tfstate locks
       max-parallel: 3
-      matrix:
-        environment: [dev, test, preprod]
+      matrix: ${{ fromJson(needs.set_matrix.outputs.deployment_matrix) }}
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
