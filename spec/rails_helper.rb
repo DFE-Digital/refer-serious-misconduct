@@ -89,10 +89,6 @@ RSpec.configure do |config|
   Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 end
 
-def routing
-  Rails.application.routes.url_helpers
-end
-
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
