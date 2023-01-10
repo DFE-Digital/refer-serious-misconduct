@@ -1,5 +1,5 @@
 class ReferralsController < Referrals::BaseController
-  include ReferralHelper
+  include ReferralPaths
 
   before_action :check_referral_form_feature_flag_enabled
   before_action :redirect_to_referral_if_exists, only: %i[new create]

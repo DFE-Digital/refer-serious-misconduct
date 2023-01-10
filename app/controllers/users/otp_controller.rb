@@ -1,5 +1,5 @@
 class Users::OtpController < DeviseController
-  include ReferralHelper
+  include ReferralPaths
 
   prepend_before_action :require_no_authentication, only: %i[new create]
   prepend_before_action :allow_params_authentication!, only: :create
