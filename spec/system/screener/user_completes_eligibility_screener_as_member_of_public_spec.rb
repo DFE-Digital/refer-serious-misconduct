@@ -99,7 +99,7 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_the_employer_or_public_question
-    expect(page).to have_current_path("/who")
+    expect(page).to have_current_path("/referral-type")
     expect(page).to have_title(
       "Are you making a referral as an employer or member of the public?"
     )
@@ -200,7 +200,7 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_the_serious_misconduct_question
-    expect(page).to have_current_path("/serious")
+    expect(page).to have_current_path("/serious-misconduct")
     expect(page).to have_title(
       "Does the allegation involve serious misconduct? - Refer serious misconduct by a teacher in England"
     )

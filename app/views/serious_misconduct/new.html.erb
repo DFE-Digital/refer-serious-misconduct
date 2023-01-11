@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @serious_misconduct_form, url: serious_url, method: :post do |f| %>
+    <%= form_with model: @serious_misconduct_form, url: serious_misconduct_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl">Does the allegation involve serious misconduct?</h1>
       <p class="govuk_body">Serious misconduct is unacceptable behaviour that:</p>

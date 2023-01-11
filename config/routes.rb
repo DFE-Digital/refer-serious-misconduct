@@ -35,8 +35,8 @@ Rails.application.routes.draw do
     -> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
   ) do
     get "/start", to: "pages#start"
-    get "/who", to: "reporting_as#new"
-    post "/who", to: "reporting_as#create"
+    get "/referral-type", to: "referral_type#new"
+    post "/referral-type", to: "referral_type#create"
     get "/have-you-complained", to: "have_complained#new"
     post "/have-you-complained", to: "have_complained#create"
     get "/no-complaint", to: "pages#no_complaint"
@@ -49,8 +49,8 @@ Rails.application.routes.draw do
     get "/teaching-in-england", to: "teaching_in_england#new"
     post "/teaching-in-england", to: "teaching_in_england#create"
     get "/no-jurisdiction", to: "pages#no_jurisdiction"
-    get "/serious", to: "serious_misconduct#new"
-    post "/serious", to: "serious_misconduct#create"
+    get "/serious-misconduct", to: "serious_misconduct#new"
+    post "/serious-misconduct", to: "serious_misconduct#create"
     get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
     get "/you-should-know", to: "pages#you_should_know"
     get "/complete", to: "pages#complete"

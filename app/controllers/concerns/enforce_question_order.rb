@@ -27,12 +27,12 @@ module EnforceQuestionOrder
 
   def start_page_is_required?
     (eligibility_check.nil? || eligibility_check.new_record?) &&
-      request.path != who_path
+      request.path != referral_type_path
   end
 
   def questions
     [
-      { path: who_path, needs_answer: reporting_as_needs_answer? },
+      { path: referral_type_path, needs_answer: reporting_as_needs_answer? },
       {
         path: have_you_complained_path,
         needs_answer: complained_needs_answer?
@@ -46,7 +46,10 @@ module EnforceQuestionOrder
         path: teaching_in_england_path,
         needs_answer: teaching_in_england_needs_answer?
       },
-      { path: serious_path, needs_answer: serious_misconduct_needs_answer? }
+      {
+        path: serious_misconduct_path,
+        needs_answer: serious_misconduct_needs_answer?
+      }
     ]
   end
 

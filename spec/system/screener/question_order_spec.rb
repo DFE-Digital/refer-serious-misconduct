@@ -49,8 +49,8 @@ RSpec.feature "Question order", type: :system do
     expect(page).to have_current_path("/is-a-teacher")
   end
 
-  def then_i_see_the_reporting_as_page
-    expect(page).to have_current_path("/who")
+  def then_i_see_the_employer_or_public_page
+    expect(page).to have_current_path("/referral-type")
   end
 
   def then_i_see_the_start_page
@@ -86,7 +86,7 @@ RSpec.feature "Question order", type: :system do
   end
 
   def when_i_visit_the_serious_misconduct_page
-    visit serious_path
+    visit serious_misconduct_path
   end
 
   def when_i_visit_the_service
