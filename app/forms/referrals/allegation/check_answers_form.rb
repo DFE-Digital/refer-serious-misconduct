@@ -29,7 +29,7 @@ module Referrals
         if referral.allegation_upload.attached?
           "File: #{referral.allegation_upload.filename}"
         elsif referral.allegation_details.present?
-          referral.allegation_details.truncate(150, " ")
+          referral.allegation_details.truncate(150)
         else
           "Incomplete"
         end

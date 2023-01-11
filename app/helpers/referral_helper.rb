@@ -12,7 +12,7 @@ module ReferralHelper
         rails_blob_path(referral.duties_upload, disposition: "attachment")
       )
     elsif referral.duties_details.present?
-      referral.duties_details.truncate(150, " ")
+      referral.duties_details.truncate(150)
     else
       "Incomplete"
     end
