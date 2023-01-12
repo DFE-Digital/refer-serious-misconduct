@@ -181,6 +181,11 @@ RSpec.feature "Teacher role", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
     then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+
+    # Check answers back link
+    when_i_visit_the_check_answers_page
+    when_i_click_back
+    then_i_see_the_referral_summary
   end
 
   private
