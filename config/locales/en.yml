@@ -335,6 +335,10 @@ en:
           attributes:
             evidence_details_complete:
               inclusion: Select yes if you’ve completed this section
+        "referrals/allegation/considerations_form":
+          attributes:
+            allegation_consideration_details:
+              blank: Enter details of how the complaint was considered
 
   activerecord:
     errors:

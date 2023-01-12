@@ -22,6 +22,13 @@ RSpec.feature "Details of the allegation", type: :system do
     when_i_fill_out_allegation_details
     and_i_click_save_and_continue
     then_i_am_asked_how_the_complaint_has_been_considered
+
+    when_i_click_save_and_continue
+    then_i_see_the_allegation_considerations_form_validation_errors
+
+    when_i_fill_out_allegation_considerations
+    and_i_click_save_and_continue
+    then_i_am_asked_to_confirm_the_allegation_details
   end
 
   private
@@ -49,5 +56,17 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_am_asked_how_the_complaint_has_been_considered
     expect(page).to have_content("How has this complaint been considered?")
+  end
+
+  def then_i_see_the_allegation_considerations_form_validation_errors
+    expect(page).to have_content("There is a problem")
+  end
+
+  def then_i_am_asked_to_confirm_the_allegation_details
+    expect(page).to have_content("Check and confirm your answers")
+  end
+
+  def when_i_fill_out_allegation_considerations
+    fill_in "Details about how this complaint has been considered", with: "considered stuff"
   end
 end

@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @allegation_considerations_form.errors.any?}How this complaint has been considered?" %>
-<% content_for :back_link_url, return_to_session_or(back_link) %>
+<% content_for :back_link_url, return_to_session_or(edit_public_referral_path(current_referral)) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @allegation_considerations_form, url: update_path, method: :put do |f| %>
+    <%= form_with model: @allegation_considerations_form, url: public_referral_allegation_considerations_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <span class="govuk-caption-l">The allegation</span>
       <h1 class="govuk-heading-l">How has this complaint been considered?</h1>
@@ -14,7 +14,7 @@
         <li>the outcomes of the complaint</li>
       </ul>
       <div class="govuk-form-group">
-        <%= f.govuk_text_area :allegation_considerations,
+        <%= f.govuk_text_area :allegation_consideration_details,
           label: { text: "Details about how this complaint has been considered", size: "m" },
           rows: 20 %>
       </div>
