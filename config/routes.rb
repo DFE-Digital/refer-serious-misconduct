@@ -87,6 +87,12 @@ Rails.application.routes.draw do
           resource :uploaded, only: %i[edit update], controller: :uploaded
           resource :check_answers, only: %i[edit update], controller: :check_answers
         end
+
+        namespace :allegation do
+          resource :details, only: %i[edit]# update]
+          # resource :dbs, only: %i[edit update]
+          # resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
       end
 
       resource :referrer, only: %i[show update]

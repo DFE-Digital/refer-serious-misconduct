@@ -102,7 +102,11 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.details_of_the_allegation"),
-            edit_referral_allegation_details_path(referral),
+            subsection_path(
+              referral:,
+              subsection: :allegation_details,
+              action: :edit
+            ),
             section_status(:allegation_details_complete)
           )
         ]
