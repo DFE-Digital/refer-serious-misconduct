@@ -16,7 +16,7 @@ module Referrals
           )
 
         if @allegation_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to next_path
         else
           render :edit
         end
@@ -28,6 +28,10 @@ module Referrals
         params.fetch(:referrals_allegation_check_answers_form, {}).permit(
           :allegation_details_complete
         )
+      end
+
+      def next_path
+        edit_referral_path(current_referral)
       end
     end
   end
