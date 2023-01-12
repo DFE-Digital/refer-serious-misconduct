@@ -15,6 +15,13 @@ RSpec.feature "Details of the allegation", type: :system do
 
     when_i_edit_details_of_the_allegation
     then_i_am_asked_how_i_want_to_make_the_allegation
+
+    when_i_click_save_and_continue
+    then_i_see_allegation_form_validation_errors
+
+    when_i_fill_out_allegation_details
+    and_i_click_save_and_continue
+    then_i_am_asked_how_the_complaint_has_been_considered
   end
 
   private
@@ -29,5 +36,18 @@ RSpec.feature "Details of the allegation", type: :system do
     expect(page).to have_content(
       "How do you want to tell us about your allegation?"
     )
+  end
+
+  def then_i_see_allegation_form_validation_errors
+    expect(page).to have_content("There is a problem")
+  end
+
+  def when_i_fill_out_allegation_details
+    choose "I’ll give details of the allegation", visible: false
+    fill_in "Details of the allegation", with: "Something something something"
+  end
+
+  def then_i_am_asked_how_the_complaint_has_been_considered
+    expect(page).to have_content("How has this complaint been considered?")
   end
 end
