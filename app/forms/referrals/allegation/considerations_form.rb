@@ -4,8 +4,7 @@ module Referrals
     class ConsiderationsForm
       include ActiveModel::Model
 
-      validates :allegation_consideration_details,
-                presence: true
+      validates :allegation_consideration_details, presence: true
 
       attr_accessor :referral, :allegation_consideration_details
 

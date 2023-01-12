@@ -4,10 +4,12 @@ module PublicReferrals
   module Allegation
     class ConsiderationsController < Referrals::BaseController
       def edit
-        @allegation_considerations_form = Referrals::Allegation::ConsiderationsForm.new(
-          referral: current_referral,
-          allegation_consideration_details: current_referral.allegation_consideration_details
-        )
+        @allegation_considerations_form =
+          Referrals::Allegation::ConsiderationsForm.new(
+            referral: current_referral,
+            allegation_consideration_details:
+              current_referral.allegation_consideration_details
+          )
       end
 
       def update
@@ -27,7 +29,7 @@ module PublicReferrals
 
       def allegation_considerations_params
         params.require(:referrals_allegation_considerations_form).permit(
-          :allegation_consideration_details,
+          :allegation_consideration_details
         )
       end
 

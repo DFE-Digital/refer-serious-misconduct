@@ -1,0 +1,24 @@
+<% content_for :page_title, "#{'Error: ' if @allegation_check_answers_form.errors.any?}Check and confirm your answers" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">
+      Check and confirm your answers
+    </h1>
+    <%= form_with model: @allegation_check_answers_form, url: public_referral_allegation_check_answers_path(current_referral), method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <%= render PublicAllegationComponent.new(referral: current_referral) %>
+
+      <%= f.govuk_radio_buttons_fieldset(
+        :allegation_details_complete,
+        legend: { text: "Have you completed this section?", size: "m" },
+        hint: { text: "You can still make changes to a completed section" },
+      ) do %>
+      <%= f.govuk_radio_button :allegation_details_complete, "true", label: { text: "Yes, I’ve completed this section" } %>
+      <%= f.govuk_radio_button :allegation_details_complete, "false", label: { text: "No, I’ll come back to it later" } %>
+    <% end %>
+    <%= f.govuk_submit "Save and continue" %>
+  <% end %>
+  </div>
+</div>
