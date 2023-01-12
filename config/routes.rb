@@ -91,7 +91,7 @@ Rails.application.routes.draw do
         namespace :allegation do
           resource :details, only: %i[edit update]
           resource :considerations, only: %i[edit update]
-          # resource :check_answers, path: "check-answers", only: %i[edit update]
+          resource :check_answers, path: "check-answers", only: %i[edit update]
         end
       end
 
