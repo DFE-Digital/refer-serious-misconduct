@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_29_124830) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_202954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -146,6 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_124830) do
     t.string "organisation_town_or_city"
     t.string "organisation_postcode", limit: 11
     t.boolean "role_end_date_known"
+    t.text "allegation_consideration_details"
     t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
