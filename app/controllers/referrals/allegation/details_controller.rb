@@ -36,6 +36,16 @@ module Referrals
       def next_path
         edit_referral_allegation_dbs_path(current_referral)
       end
+
+      def back_link
+        edit_referral_path(current_referral)
+      end
+      helper_method :back_link
+
+      def update_path
+        referral_allegation_details_path(current_referral)
+      end
+      helper_method :update_path
     end
   end
 end

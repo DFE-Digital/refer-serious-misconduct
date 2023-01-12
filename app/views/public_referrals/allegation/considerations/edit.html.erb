@@ -1,0 +1,24 @@
+<% content_for :page_title, "#{'Error: ' if @allegation_considerations_form.errors.any?}How this complaint has been considered?" %>
+<% content_for :back_link_url, return_to_session_or(back_link) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <%= form_with model: @allegation_considerations_form, url: update_path, method: :put do |f| %>
+      <%= f.govuk_error_summary %>
+      <span class="govuk-caption-l">The allegation</span>
+      <h1 class="govuk-heading-l">How has this complaint been considered?</h1>
+      <p>Include details about:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the local procedures you followed, for example if you made a complaint to the headteacher, local authority or police</li>
+        <li>when you made the complaint</li>
+        <li>the outcomes of the complaint</li>
+      </ul>
+      <div class="govuk-form-group">
+        <%= f.govuk_text_area :allegation_considerations,
+          label: { text: "Details about how this complaint has been considered", size: "m" },
+          rows: 20 %>
+      </div>
+      <%= f.govuk_submit "Save and continue" %>
+    <% end %>
+  </div>
+</div>
