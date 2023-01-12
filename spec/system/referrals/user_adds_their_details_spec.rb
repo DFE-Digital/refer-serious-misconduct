@@ -38,7 +38,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     then_i_am_on_the_your_details_page
     and_i_see_my_name_in_the_form_field
 
-    when_i_click_back
+    when_i_click_save_and_continue
     and_i_choose_no_come_back_later
     and_i_click_save_and_continue
     then_i_see_the_referral_summary

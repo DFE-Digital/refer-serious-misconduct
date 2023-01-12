@@ -13,7 +13,7 @@ module Referrals
         )
 
       if @referrer_form.save
-        redirect_to edit_referral_path(current_referral)
+        redirect_to next_page
       else
         @referrer = current_referral.referrer
         render :show
@@ -25,5 +25,14 @@ module Referrals
     def referrer_params
       params.require(:referrer_form).permit(:complete)
     end
+
+    def next_path
+      edit_referral_path(current_referral)
+    end
+
+    def update_path
+      referral_referrer_path(current_referral)
+    end
+    helper_method :update_path
   end
 end
