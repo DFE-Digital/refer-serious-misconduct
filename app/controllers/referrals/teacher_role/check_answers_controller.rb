@@ -16,7 +16,7 @@ module Referrals
             )
           )
         if @teacher_role_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to next_page
         else
           render :edit
         end
@@ -29,6 +29,20 @@ module Referrals
           :teacher_role_complete
         )
       end
+
+      def next_path
+        edit_referral_path(current_referral)
+      end
+
+      def update_path
+        referral_teacher_role_check_answers_path(current_referral)
+      end
+      helper_method :update_path
+
+      def back_link
+        edit_referral_path(current_referral)
+      end
+      helper_method :back_link
     end
   end
 end
