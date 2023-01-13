@@ -17,7 +17,7 @@
             <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <%= govuk_link_to(referral_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
+            <%= govuk_link_to(public_referral_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
               Delete<span class="govuk-visually-hidden"> <%= evidence.filename %></span>
             <% end %>
           </dd>
