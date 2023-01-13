@@ -110,6 +110,9 @@ Rails.application.routes.draw do
             controller: :organisation_address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
+
+        resource :review, only: %i[show], controller: :review
+        resource :declaration, only: %i[show create], controller: :declaration
       end
 
       resource :referrer, only: %i[show update]
