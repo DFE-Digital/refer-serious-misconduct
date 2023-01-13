@@ -94,7 +94,7 @@ jobs:
   deploy_non_prod:
     name: Deploy to ${{ matrix.environment }} environment
     runs-on: ubuntu-latest
-    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || ${{ github.event_name }} == 'workflow_dispatch'
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
     concurrency: deploy_${{ matrix.environment }}
     needs: [build_image, set_matrix]
     strategy:
