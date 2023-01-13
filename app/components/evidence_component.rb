@@ -1,5 +1,6 @@
 class EvidenceComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -15,7 +16,12 @@ class EvidenceComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_evidence_start_path(referral, return_to: request.url)
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.path,
+              subsection: :evidence_start
+            )
         }
       ],
       key: {
@@ -35,9 +41,11 @@ class EvidenceComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_evidence_uploaded_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.path,
+              subsection: :evidence_uploaded
             )
         }
       ],

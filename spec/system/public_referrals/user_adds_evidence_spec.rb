@@ -5,7 +5,7 @@ RSpec.feature "Evidence", type: :system do
   include CommonSteps
   include SummaryListHelpers
 
-  xscenario "A member of public adds evidence to referral" do
+  scenario "A member of public adds evidence to referral" do
     given_the_service_is_open
     and_i_am_signed_in
     and_the_referral_form_feature_is_active
@@ -191,14 +191,20 @@ RSpec.feature "Evidence", type: :system do
       key: "Do you have anything to upload?",
       value: "Yes",
       change_link:
-        edit_referral_evidence_start_path(@referral, return_to: current_url)
+        edit_public_referral_evidence_start_path(
+          @referral,
+          return_to: current_path
+        )
     )
 
     expect_summary_row(
       key: "Uploaded evidence",
       value: "upload2.pdf\nupload.txt",
       change_link:
-        edit_referral_evidence_uploaded_path(@referral, return_to: current_url)
+        edit_public_referral_evidence_uploaded_path(
+          @referral,
+          return_to: current_path
+        )
     )
   end
 
