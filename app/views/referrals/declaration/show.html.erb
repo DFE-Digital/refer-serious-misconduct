@@ -1,20 +1,20 @@
 <% content_for :page_title, "#{'Error: ' if @declaration_form.errors.any?}Before you send your referral" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, return_to_session_or(back_link) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-xl">Before you send your referral</h1>
-    <p>You must confirm that:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>you want TRA to investigate this allegation, which could result in the person you’re referring being stopped from teaching</li>
-      <li>all your answers are true to the best of your knowledge and belief</li>
-      <li>you give consent for this referral and any supporting documents to be shared with the person you’re referring and any employer (only your name will be shared with them)</li>
-      <li>you have permission from the relevant third parties for any supporting documents to be shared, for example the police or DBS</li>
-      <li>you understand that you might need to attend a hearing of a professional conduct panel to give evidence should this allegation reach that stage</li>
-    </ul>
-    <p>This declaration is required by law and won’t affect any existing GDPR or other workplace regulations.</p>
-    <%= form_with model: @declaration_form, url: referral_declaration_path(current_referral), method: :post do |f| %>
+    <%= form_with model: @declaration_form, url: update_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
+      <h1 class="govuk-heading-xl">Before you send your referral</h1>
+      <p>You must confirm that:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you want TRA to investigate this allegation, which could result in the person you’re referring being stopped from teaching</li>
+        <li>all your answers are true to the best of your knowledge and belief</li>
+        <li>you give consent for this referral and any supporting documents to be shared with the person you’re referring and any employer (only your name will be shared with them)</li>
+        <li>you have permission from the relevant third parties for any supporting documents to be shared, for example the police or DBS</li>
+        <li>you understand that you might need to attend a hearing of a professional conduct panel to give evidence should this allegation reach that stage</li>
+      </ul>
+      <p>This declaration is required by law and won’t affect any existing GDPR or other workplace regulations.</p>
       <%= f.govuk_check_boxes_fieldset :declaration_agreed, multiple: false, legend: { text: 'Do you agree to this declaration?', size: 'm' } do %>
         <%= f.govuk_check_box :declaration_agreed, 1, 0, multiple: false, link_errors: true, label: { text: "Yes, I agree" } %>
       <% end %>

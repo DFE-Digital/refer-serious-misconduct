@@ -113,6 +113,7 @@ Rails.application.routes.draw do
 
         resource :review, only: %i[show], controller: :review
         resource :declaration, only: %i[show create], controller: :declaration
+        resource :confirmation, only: %i[show], controller: :confirmation
       end
 
       resource :referrer, only: %i[show update]
