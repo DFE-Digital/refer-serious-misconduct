@@ -46,6 +46,16 @@ module Referrals
 
         super
       end
+
+      def update_path
+        referral_teacher_role_organisation_address_known_path(current_referral)
+      end
+      helper_method :update_path
+
+      def back_link
+        edit_referral_teacher_role_same_organisation_path(current_referral)
+      end
+      helper_method :back_link
     end
   end
 end

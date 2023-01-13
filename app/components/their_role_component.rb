@@ -6,21 +6,18 @@ class TheirRoleComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    @rows = [
-      job_title_row,
-      role_duties_row,
-      role_duties_description_row,
-      same_organisation_row
-    ]
+    @rows = [job_title_row, role_duties_row, role_duties_description_row]
+
+    @rows << same_organisation_row if referral.from_employer?
 
     unless referral.same_organisation?
       @rows << organisation_address_known_row
-      @rows << organisation_address_row
+      @rows << organisation_address_row if referral.organisation_address_known
     end
 
-    @rows << start_date_known_row
+    @rows << start_date_known_row if referral.from_employer?
     @rows << start_date_row if referral.role_start_date_known
-    @rows << employment_status_row
+    @rows << employment_status_row if referral.from_employer?
 
     return @rows unless referral.left_role?
 
@@ -46,9 +43,11 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_job_title_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.url,
+              subsection: :teacher_role_job_title
             ),
           visually_hidden_text: "their job title"
         }
@@ -68,9 +67,11 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_duties_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.url,
+              subsection: :teacher_role_duties
             ),
           visually_hidden_text:
             "how do you want to give details about their main duties"
@@ -91,9 +92,11 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_duties_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.url,
+              subsection: :teacher_role_duties
             ),
           visually_hidden_text: "the description of their role"
         }
@@ -136,9 +139,11 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_organisation_address_known_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.url,
+              subsection: :teacher_role_organisation_address_known
             ),
           visually_hidden_text:
             "if you know the name and address of the organisation where the alleged misconduct took place"
@@ -160,16 +165,19 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            edit_referral_teacher_role_organisation_address_path(
-              referral,
-              return_to: request.url
+            subsection_path(
+              action: :edit,
+              referral:,
+              return_to: request.url,
+              subsection: :teacher_role_organisation_address
             ),
           visually_hidden_text:
-            "where they were employed at the time of the alleged misconduct"
+            "name and address of the organisation where the alleged misconduct took place"
         }
       ],
       key: {
-        text: "Where they were employed at the time of the alleged misconduct"
+        text:
+          "Name and address of the organisation where the alleged misconduct took place"
       },
       value: {
         text: referral_organisation_address(referral)

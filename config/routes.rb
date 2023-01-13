@@ -93,6 +93,23 @@ Rails.application.routes.draw do
           resource :considerations, only: %i[edit update]
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
+
+        namespace :teacher_role, path: "teacher-role" do
+          resource :job_title,
+            path: "job-title",
+            only: %i[edit update],
+            controller: :job_title
+          resource :duties, only: %i[edit update]
+          resource :organisation_address_known,
+            path: "organisation-address-known",
+            only: %i[edit update],
+            controller: :organisation_address_known
+          resource :organisation_address,
+            path: "organisation-address",
+            only: %i[edit update],
+            controller: :organisation_address
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
       end
 
       resource :referrer, only: %i[show update]

@@ -13,7 +13,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     then_i_see_the_referral_summary
-    then_i_see_the_status_section_in_the_referral_summary(
+    and_i_see_the_status_section_in_the_referral_summary(
       status: "NOT STARTED YET"
     )
 
@@ -27,7 +27,7 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_job_title_field_validation_errors
 
     when_i_fill_in_the_job_title_field
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
 
     # How do you want to give details about their main duties?
 
@@ -44,7 +44,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_click_save_and_continue
     then_i_see_duties_details_field_validation_errors
 
-    and_i_choose_upload
+    when_i_choose_upload
     and_i_attach_a_job_description_file
     and_i_click_save_and_continue
     then_i_see_the_same_organisation_page
@@ -59,7 +59,7 @@ RSpec.feature "Teacher role", type: :system do
     when_i_visit_the_duties_page
     and_i_see_the_second_uploaded_filename
     and_i_choose_details
-    when_i_fill_in_the_duties_field
+    and_i_fill_in_the_duties_field
     and_i_click_save_and_continue
 
     # Did they work at the same organisation as you at the time of the alleged misconduct?
@@ -70,7 +70,39 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_same_organisation_field_validation_errors
 
     when_i_choose_yes
+    and_i_click_save_and_continue
+    then_i_see_the_job_start_date_page
+
+    # Do you know the name and address of the organisation where the alleged misconduct took place?
+
+    when_i_visit_the_same_organisation_page
+    and_i_choose_no
+    and_i_click_save_and_continue
+    then_i_see_the_organisation_address_known_page
+
     when_i_click_save_and_continue
+    then_i_see_organisation_address_known_field_validation_errors
+
+    when_i_choose_no
+    and_i_click_save_and_continue
+    then_i_see_the_job_start_date_page
+
+    when_i_visit_the_organisation_address_known_page
+    and_i_choose_yes
+    and_i_click_save_and_continue
+
+    # Name and address of the organisation where the alleged misconduct took place
+
+    then_i_see_the_organisation_address_page
+
+    when_i_click_save_and_continue
+    then_i_see_organisation_address_fields_validation_errors
+
+    when_i_fill_in_the_teaching_address_details
+    and_i_click_save_and_continue
+
+    # Do you know when they started their job?
+
     then_i_see_the_job_start_date_page
 
     when_i_click_save_and_continue
@@ -81,12 +113,12 @@ RSpec.feature "Teacher role", type: :system do
 
     then_i_see_the_employed_status_page
     when_i_click_back
-    when_i_choose_yes
+    and_i_choose_yes
     and_i_click_save_and_continue
     then_i_see_role_start_date_field_validation_errors
 
     when_i_choose_yes
-    when_i_fill_out_the_role_start_date_fields
+    and_i_fill_out_the_role_start_date_fields
     and_i_click_save_and_continue
 
     # Are they still employed in that job?
@@ -101,12 +133,12 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_check_answers_page
 
     when_i_visit_the_employment_status_page
-    when_i_choose_employed
+    and_i_choose_employed
     and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
     when_i_visit_the_employment_status_page
-    when_i_choose_left
+    and_i_choose_left
     and_i_click_save_and_continue
     then_i_see_the_job_end_date_page
 
@@ -114,7 +146,7 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_role_end_date_field_validation_errors
 
     when_i_choose_yes
-    when_i_fill_out_the_role_end_date_fields
+    and_i_fill_out_the_role_end_date_fields
     and_i_click_save_and_continue
 
     then_i_see_the_reason_leaving_role_page
@@ -132,12 +164,12 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_working_somewhere_else_field_validation_errors
 
     when_i_choose_no
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
     then_i_see_the_check_answers_page
 
     when_i_visit_the_working_somewhere_else_page
     and_i_choose_yes
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
 
     # Do you know the name and address of the organisation where they’re currently working?
 
@@ -152,16 +184,16 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_visit_the_work_location_known_page
     and_i_choose_yes
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
 
     # Where they currently work
 
     then_i_see_the_work_location_page
     when_i_click_save_and_continue
-    then_i_see_work_location_address_field_validation_errors
+    then_i_see_work_location_address_fields_validation_errors
 
     when_i_fill_in_the_teaching_address_details
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
 
     # Check and confirm your answers
 
@@ -173,18 +205,20 @@ RSpec.feature "Teacher role", type: :system do
     when_i_choose_yes
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
-    then_i_see_the_status_section_in_the_referral_summary
+    and_i_see_the_status_section_in_the_referral_summary
 
     # Not completed
+
     when_i_visit_the_check_answers_page
-    when_i_choose_no
+    and_i_choose_no
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
-    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
 
     # Check answers back link
+
     when_i_visit_the_check_answers_page
-    when_i_click_back
+    and_i_click_back
     then_i_see_the_referral_summary
   end
 
@@ -200,6 +234,10 @@ RSpec.feature "Teacher role", type: :system do
 
   def when_i_visit_the_same_organisation_page
     visit edit_referral_teacher_role_same_organisation_path(@referral)
+  end
+
+  def when_i_visit_the_organisation_address_known_page
+    visit edit_referral_teacher_role_organisation_address_known_path(@referral)
   end
 
   def when_i_visit_the_duties_page
@@ -253,6 +291,30 @@ RSpec.feature "Teacher role", type: :system do
     )
     expect(page).to have_content(
       "Did they work at the same organisation as you at the time of the alleged misconduct?"
+    )
+  end
+
+  def then_i_see_the_organisation_address_known_page
+    expect(page).to have_current_path(
+      edit_referral_teacher_role_organisation_address_known_path(@referral)
+    )
+    expect(page).to have_title(
+      "Do you know the name and address of the organisation?"
+    )
+    expect(page).to have_content(
+      "Do you know the name and address of the organisation where the alleged misconduct took place?"
+    )
+  end
+
+  def then_i_see_the_organisation_address_page
+    expect(page).to have_current_path(
+      edit_referral_teacher_role_organisation_address_path(@referral)
+    )
+    expect(page).to have_title(
+      "Name and address of the organisation where the alleged misconduct took place"
+    )
+    expect(page).to have_content(
+      "Name and address of the organisation where the alleged misconduct took place"
     )
   end
 
@@ -346,11 +408,11 @@ RSpec.feature "Teacher role", type: :system do
   end
   alias_method :and_i_choose_no, :when_i_choose_no
 
-  def when_i_choose_employed
+  def and_i_choose_employed
     choose "They’re still employed but they’ve been suspended", visible: false
   end
 
-  def when_i_choose_left
+  def and_i_choose_left
     choose "No, they have left the organisation", visible: false
   end
 
@@ -370,19 +432,19 @@ RSpec.feature "Teacher role", type: :system do
 
   # Text inputs
 
-  def when_i_fill_out_the_role_start_date_fields
+  def and_i_fill_out_the_role_start_date_fields
     fill_in "Day", with: "17"
     fill_in "Month", with: "1"
     fill_in "Year", with: "1990"
   end
-  alias_method :when_i_fill_out_the_role_end_date_fields,
-               :when_i_fill_out_the_role_start_date_fields
+  alias_method :and_i_fill_out_the_role_end_date_fields,
+               :and_i_fill_out_the_role_start_date_fields
 
   def when_i_fill_in_the_job_title_field
     fill_in "Their job title", with: "Teacher"
   end
 
-  def when_i_fill_in_the_duties_field
+  def and_i_fill_in_the_duties_field
     fill_in "Description of their main duties", with: "Main duties"
   end
 
@@ -447,6 +509,21 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
+  def then_i_see_organisation_address_known_field_validation_errors
+    expect(page).to have_content(
+      "Select yes if you know the name and address of the organisation"
+    )
+  end
+
+  def then_i_see_organisation_address_fields_validation_errors
+    expect(page).to have_content("Enter the organisation name")
+    expect(page).to have_content(
+      "Enter the first line of their organisation's address"
+    )
+    expect(page).to have_content("Enter a town or city for their organisation")
+    expect(page).to have_content("Enter a postcode for their organisation")
+  end
+
   def then_i_see_duties_format_field_validation_errors
     expect(page).to have_content(
       "Select how you want to give details about their main duties"
@@ -475,7 +552,7 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
-  def then_i_see_work_location_address_field_validation_errors
+  def then_i_see_work_location_address_fields_validation_errors
     expect(page).to have_content("Enter the organisation name")
     expect(page).to have_content("Enter the first line of the address")
     expect(page).to have_content("Enter the town or city")
@@ -496,7 +573,7 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("Uploaded file: upload2.pdf")
   end
 
-  def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
+  def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
       section: "About the person you’re referring",
       item_position: 3,

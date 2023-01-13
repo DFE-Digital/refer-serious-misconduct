@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @organisation_address_form.errors.any?}Where they were employed at the time of the alleged misconduct" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_organisation_address_known_path(current_referral)) %>
+<% content_for :page_title, "#{'Error: ' if @organisation_address_form.errors.any?}Name and address of the organisation where the alleged misconduct took place" %>
+<% content_for :back_link_url, return_to_session_or(back_link) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @organisation_address_form, url: referral_teacher_role_organisation_address_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @organisation_address_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">About their role</span>
       <h1 class="govuk-heading-l">
-        Where they were employed at the time of the alleged misconduct
+        Name and address of the organisation where the alleged misconduct took place
       </h1>
 
       <%= f.govuk_text_field :organisation_name, label: { text: "Organisation name", size: "m" } %>

@@ -45,6 +45,18 @@ module Referrals
       def next_path
         edit_referral_teacher_role_start_date_path(current_referral)
       end
+
+      def update_path
+        referral_teacher_role_organisation_address_path(current_referral)
+      end
+      helper_method :update_path
+
+      def back_link
+        edit_referral_teacher_role_organisation_address_known_path(
+          current_referral
+        )
+      end
+      helper_method :back_link
     end
   end
 end

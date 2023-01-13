@@ -213,7 +213,7 @@ en:
         "referrals/teacher_role/organisation_address_form":
           attributes:
             organisation_name:
-              blank: Enter organisation name
+              blank: Enter the organisation name
             organisation_address_line_1:
               blank: Enter the first line of their organisation's address
             organisation_town_or_city:

@@ -39,7 +39,7 @@ RSpec.describe Referrals::TeacherRole::OrganisationAddressForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:organisation_name]).to eq(
-          ["Enter organisation name"]
+          ["Enter the organisation name"]
         )
       end
     end

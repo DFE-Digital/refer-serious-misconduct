@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @duties_form.errors.any?}How do you want to give details about their main duties?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_job_title_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(back_link) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @duties_form, url: referral_teacher_role_duties_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @duties_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">About their role</span>

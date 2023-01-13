@@ -88,7 +88,7 @@ class ReferralForm
         section.items.append(
           ReferralSectionItem.new(
             I18n.t("referral_form.about_their_role"),
-            edit_referral_teacher_role_job_title_path(referral),
+            path_for_teacher_role,
             section_status(:teacher_role_complete)
           )
         )
@@ -154,5 +154,13 @@ class ReferralForm
     return start_path if status == :not_started_yet
 
     check_answers_path
+  end
+
+  def path_for_teacher_role
+    if referral.from_employer?
+      edit_referral_teacher_role_job_title_path(referral)
+    else
+      edit_public_referral_teacher_role_job_title_path(referral)
+    end
   end
 end
