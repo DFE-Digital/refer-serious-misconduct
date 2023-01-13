@@ -1,0 +1,26 @@
+<% content_for :page_title, 'Check your answers before continuing' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Check your answers before&nbsp;continuing</h1>
+      </div>
+    </div>
+
+    <h2 class="govuk-heading-l">1. About you</h2>
+    <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
+
+    <h2 class="govuk-heading-l">2. About the teacher </h2>
+    <%= render PersonalDetailsComponent.new(referral: current_referral) %>
+    <%= render TheirRoleComponent.new(referral: current_referral) %>
+
+    <h2 class="govuk-heading-l">3. The allegation</h2>
+    <%= render PublicAllegationComponent.new(referral: current_referral) %>
+    
+    <h2 class="govuk-heading-l">4. The evidence</h2>
+    <%= render EvidenceComponent.new(referral: current_referral) %>
+
+    <%= govuk_button_link_to "Continue", public_referral_declaration_path(current_referral) %>
+  </div>
+</div>

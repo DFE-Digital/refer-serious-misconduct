@@ -25,7 +25,7 @@ class ReferralsController < Referrals::BaseController
     @referral_form = ReferralForm.new(referral:)
 
     if @referral_form.save
-      redirect_to referral_review_path(referral)
+      redirect_to review_path
     else
       render :edit
     end
@@ -64,4 +64,13 @@ class ReferralsController < Referrals::BaseController
   def redirect_to_screener_if_no_id_in_session
     redirect_to referral_type_path if session[:eligibility_check_id].blank?
   end
+
+  def review_path
+    referral_review_path(referral)
+  end
+
+  def update_path
+    referral_path(referral)
+  end
+  helper_method :update_path
 end
