@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :work_location_known,
         legend: { text: "Do you know the name and address of the organisation where they’re currently working?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :work_location_known %>
-        <%= f.govuk_radio_button :work_location_known, true, label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :work_location_known, true, label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :work_location_known, false, label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>

@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :same_organisation,
         legend: { text: "Did they work at the same organisation as you at the time of the alleged misconduct?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :same_organisation %>
-        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :same_organisation, true, label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :same_organisation, false, label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>

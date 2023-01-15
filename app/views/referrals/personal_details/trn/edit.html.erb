@@ -11,7 +11,7 @@
           legend: { size: "xl", text: "Do you know their teacher reference number (TRN)?" },
           hint: { text: "A TRN is 7 digits long, for example 4567814."},
         ) do %>
-          <%= f.govuk_radio_button :trn_known, "true", label: { text: "Yes" } do %>
+          <%= f.govuk_radio_button :trn_known, "true", label: { text: "Yes" }, link_errors: true do %>
             <%= f.govuk_text_field :trn,
                 label: { text: "Teacher reference number", class: "govuk-label--s" } %>
           <% end %>

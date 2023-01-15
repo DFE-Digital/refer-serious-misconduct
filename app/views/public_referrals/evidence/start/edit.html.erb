@@ -25,7 +25,7 @@
         :has_evidence,
         legend: { text: "Do you have evidence to upload?", size: "m" },
       ) do %>
-        <%= f.govuk_radio_button :has_evidence, "true", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :has_evidence, "true", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :has_evidence, "false", label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>

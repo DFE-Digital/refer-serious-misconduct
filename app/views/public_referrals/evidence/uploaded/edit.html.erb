@@ -30,7 +30,7 @@
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(:more_evidence, legend: { size: "m", text: "Do you want to upload another file?" }) do %>
-        <%= f.govuk_radio_button :more_evidence, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :more_evidence, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :more_evidence, "no", label: { text: "No" } %>
       <% end %>
 

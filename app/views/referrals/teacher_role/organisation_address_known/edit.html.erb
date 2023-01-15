@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :organisation_address_known,
         legend: { text: "Do you know the name and address of the organisation where the alleged misconduct took place?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :organisation_address_known %>
-        <%= f.govuk_radio_button :organisation_address_known, true, label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :organisation_address_known, true, label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :organisation_address_known, false, label: { text: "No" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>

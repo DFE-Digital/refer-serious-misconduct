@@ -28,7 +28,7 @@
             legend: { size: 'm', text: "Do you know them by any other name?" },
             hint: { text: "For example, if they’ve changed their name after getting married" }
         ) do %>
-          <%= f.govuk_radio_button :name_has_changed, "yes", label: { text: "Yes" } do %>
+          <%= f.govuk_radio_button :name_has_changed, "yes", label: { text: "Yes" }, link_errors: true do %>
             <%= f.govuk_text_field :previous_name, label: { text: "Other name", class: "govuk-label--s" } %>
           <% end %>
           <%= f.govuk_radio_button :name_has_changed, "no", label: { text: "No" } %>

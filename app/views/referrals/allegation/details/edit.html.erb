@@ -7,7 +7,7 @@
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "xl", text: "How do you want to tell us about your allegation?" }) do %>
-          <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "I’ll upload the allegation details" } do %>
+          <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "I’ll upload the allegation details" }, link_errors: true do %>
             <%= f.govuk_file_field :allegation_upload, label: { text: "Upload allegation details", size: "s" } %>
           <% end %>
           <%= f.govuk_radio_button :allegation_format, "details", label: { text: "I’ll give details of the allegation" } do %>

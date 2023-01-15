@@ -22,7 +22,7 @@
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:format, legend: { size: "m", text: "How do you want to tell us about previous allegations?" }) do %>
-          <%= f.govuk_radio_button :format, "upload", label: { text: "I’ll upload the previous allegation details" } do %>
+          <%= f.govuk_radio_button :format, "upload", label: { text: "I’ll upload the previous allegation details" }, link_errors: true do %>
             <%= f.govuk_file_field :upload, label: { text: "Upload details of previous allegations", size: "s" } %>
           <% end %>
           <%= f.govuk_radio_button :format, "details", label: { text: "I’ll give details of the previous allegations" } do %>

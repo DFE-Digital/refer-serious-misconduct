@@ -8,7 +8,7 @@
 
       <%= f.govuk_radio_buttons_fieldset :phone_known, legend: { size: "xl", text: "Do you know their main contact number?" }  do %>
         <%= f.hidden_field :phone_known %>
-        <%= f.govuk_radio_button :phone_known, true, label: { text: "Yes" } do %>
+        <%= f.govuk_radio_button :phone_known, true, label: { text: "Yes" }, link_errors: true do %>
           <%= f.govuk_text_field :phone_number, label: { text: "Main contact number" } %>
         <% end %>
         <%= f.govuk_radio_button :phone_known, false, label: { text: "No" } %>
