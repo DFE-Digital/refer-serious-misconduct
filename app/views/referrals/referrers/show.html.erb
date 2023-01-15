@@ -12,7 +12,7 @@
     <%= form_with model: @referrer_form, url: update_path, method: :patch do |f| %>
       <%= f.govuk_radio_buttons_fieldset :complete, hint: { text: 'You can still make changes to a completed section' }, legend: { size: 'm', text: 'Have you completed this section?' } do %>
         <%= f.hidden_field :complete %>
-        <%= f.govuk_radio_button :complete, 'true', label: { text: "Yes, I’ve completed this section" } %>
+        <%= f.govuk_radio_button :complete, 'true', label: { text: "Yes, I’ve completed this section" }, link_errors: true %>
         <%= f.govuk_radio_button :complete, 'false', label: { text: "No, I’ll come back to it later" } %>
       <% end %>
       <%= f.govuk_submit "Save and continue" %>

@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :employment_status,
         legend: { text: "Are they still employed in the job where the alleged misconduct took place?", tag: 'h1', size: "l" }  do %>
         <%= f.hidden_field :employment_status %>
-        <%= f.govuk_radio_button :employment_status, "employed", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :employment_status, "employed", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :employment_status, "suspended", label: { text: "They’re still employed but they’ve been suspended" } %>
         <%= f.govuk_radio_button :employment_status, "left_role", label: { text: "No, they have left the organisation" } %>
       <% end %>

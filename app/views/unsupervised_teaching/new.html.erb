@@ -18,7 +18,7 @@
 
       <%= f.govuk_radio_buttons_fieldset :unsupervised_teaching, legend: { size: 'm', text: 'Does this person carry out unsupervised teaching work?' } do %>
         <%= f.hidden_field :unsupervised_teaching %>
-        <%= f.govuk_radio_button :unsupervised_teaching, "yes", label: { text: "Yes, they do unsupervised teaching work" } %>
+        <%= f.govuk_radio_button :unsupervised_teaching, "yes", label: { text: "Yes, they do unsupervised teaching work" }, link_errors: true %>
         <%= f.govuk_radio_button :unsupervised_teaching, "no", label: { text: "No" } %>
         <%= f.govuk_radio_button :unsupervised_teaching, "not_sure", label: { text: "I’m not sure" } do %>
           <p class="govuk_body">

@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :role_end_date_known,
         legend: { text: "Do you know when they left the job?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :role_end_date_known %>
-        <%= f.govuk_radio_button :role_end_date_known, true, label: { text: "Yes" } do %>
+        <%= f.govuk_radio_button :role_end_date_known, true, label: { text: "Yes" }, link_errors: true do %>
           <%= f.govuk_date_field :role_end_date,
             legend: { text: "Job end date", size: "s" },
             hint: { text: "For example, 27 3 2022" } %>

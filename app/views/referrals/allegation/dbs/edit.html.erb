@@ -11,7 +11,7 @@
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:dbs_notified, legend: { text: "Have you told DBS about this case?", size: "m" }) do %>
-          <%= f.govuk_radio_button :dbs_notified, "true", label: { text: "Yes, I’ve told DBS" } %>
+          <%= f.govuk_radio_button :dbs_notified, "true", label: { text: "Yes, I’ve told DBS" }, link_errors: true %>
           <%= f.govuk_radio_button :dbs_notified, "false", label: { text: "No" } %>
         <% end %>
       </div>

@@ -11,7 +11,7 @@
         legend: { text: "Reason they left the job", tag: 'h1', size: "l" }  do %>
         <%= f.hidden_field :reason_leaving_role %>
 
-        <%= f.govuk_radio_button :reason_leaving_role, "resigned", label: { text: "Resigned" } %>
+        <%= f.govuk_radio_button :reason_leaving_role, "resigned", label: { text: "Resigned" }, link_errors: true %>
         <%= f.govuk_radio_button :reason_leaving_role, "dismissed", label: { text: "Dismissed" } %>
         <%= f.govuk_radio_button :reason_leaving_role, "retired", label: { text: "Retired" } %>
         <%= f.govuk_radio_button :reason_leaving_role, "unknown", label: { text: "I’m not sure" } %>

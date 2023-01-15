@@ -9,7 +9,7 @@
       <span class="govuk-caption-l">About their role</span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:duties_format, legend: { text: "How do you want to give details about their main duties?", tag: 'h1', size: "l" }) do %>
-          <%= f.govuk_radio_button :duties_format, "upload", label: { text: "Upload file" } do %>
+          <%= f.govuk_radio_button :duties_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
             <%= f.govuk_file_field :duties_upload,
               label: { text: "Upload file", size: "s" },
               hint: { text: current_referral.duties_upload.attached? ? "Uploaded file: #{current_referral.duties_upload.filename}" : "For example, a job description"  }

@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :working_somewhere_else,
         legend: { size: "l", text: "Are they employed somewhere else?" } do %>
         <%= f.hidden_field :working_somewhere_else %>
-        <%= f.govuk_radio_button :working_somewhere_else, "yes", label: { text: "Yes" } %>
+        <%= f.govuk_radio_button :working_somewhere_else, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :working_somewhere_else, "no", label: { text: "No" } %>
         <%= f.govuk_radio_button :working_somewhere_else, "not_sure", label: { text: "I’m not sure" } %>
       <% end %>
