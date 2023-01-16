@@ -148,7 +148,7 @@ resource "azurerm_linux_web_app" "rsm-app" {
       action   = "Allow"
       priority = 1
       headers = [{
-        x_azure_fdid      = try([local.infrastructure_secrets.FRONTDOOR_ID], [])
+        x_azure_fdid      = try([local.infrastructure_secrets.PENTEST_FRONTDOOR_ID], [])
         x_fd_health_probe = []
         x_forwarded_for   = []
         x_forwarded_host  = []
