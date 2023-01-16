@@ -10,10 +10,6 @@ module PublicReferrals
       def update_path
         public_referral_teacher_role_check_answers_path(current_referral)
       end
-
-      def back_link
-        edit_public_referral_path(current_referral)
-      end
     end
   end
 end
