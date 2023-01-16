@@ -18,9 +18,7 @@ module Referrals
           )
 
         if @evidence_check_answers_form.save
-          redirect_to(
-            subsection_path(referral: current_referral, action: :edit)
-          )
+          redirect_to([:edit, current_referral.routing_scope, current_referral])
         else
           render :edit
         end
@@ -42,12 +40,12 @@ module Referrals
               :evidence_upload
             end
           )
-        redirect_path =
-          subsection_path(
-            referral: current_referral,
-            action: :edit,
-            subsection:
-          )
+        redirect_path = [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          subsection
+        ]
         redirect_to(redirect_path, flash: { success: "#{filename} deleted" })
       end
 

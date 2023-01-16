@@ -38,10 +38,8 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.your_details"),
-            subsection_path(
-              action: :edit,
-              referral:,
-              subsection: :referrer_name
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :referrer_name]
             ),
             referral.referrer_status
           )
@@ -51,7 +49,9 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.your_organisation"),
-              edit_referral_organisation_name_path(referral),
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :organisation_name]
+              ),
               referral.organisation_status
             )
           )
@@ -66,10 +66,8 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.personal_details"),
-            subsection_path(
-              referral:,
-              subsection: :personal_details_name,
-              action: :edit
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :personal_details_name]
             ),
             section_status(:personal_details_complete)
           )
@@ -102,10 +100,8 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.details_of_the_allegation"),
-            subsection_path(
-              referral:,
-              subsection: :allegation_details,
-              action: :edit
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :allegation_details]
             ),
             section_status(:allegation_details_complete)
           )
@@ -115,7 +111,14 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.previous_allegations"),
-              edit_referral_previous_misconduct_reported_path(referral),
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :previous_misconduct_reported
+                ]
+              ),
               referral.previous_misconduct_status
             )
           )
@@ -126,15 +129,16 @@ class ReferralForm
             I18n.t("referral_form.evidence_and_supporting_information"),
             path_for_section_status(
               section_status(:evidence_details_complete),
-              subsection_path(
-                referral:,
-                action: :edit,
-                subsection: :evidence_start
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :evidence_start]
               ),
-              subsection_path(
-                referral:,
-                action: :edit,
-                subsection: :evidence_check_answers
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :evidence_check_answers
+                ]
               )
             ),
             section_status(:evidence_details_complete)

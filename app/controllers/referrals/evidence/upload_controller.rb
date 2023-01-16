@@ -13,11 +13,12 @@ module Referrals
 
         if @evidence_upload_form.save
           redirect_to(
-            subsection_path(
-              referral: current_referral,
-              action: :edit,
-              subsection: :evidence_uploaded
-            )
+            [
+              :edit,
+              current_referral.routing_scope,
+              current_referral,
+              :evidence_uploaded
+            ]
           )
         else
           render :edit

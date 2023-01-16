@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module SupportInterface
   class TestUsersController < SupportInterfaceController
-    include ReferralPaths
-
     before_action :redirect_unless_test_environment
 
     def index
@@ -33,7 +31,11 @@ module SupportInterface
     def after_sign_in_path
       latest_referral = current_user.latest_referral
 
-      latest_referral ? edit_path_for(latest_referral) : referral_type_path
+      if latest_referral
+        [:edit, latest_referral.routing_scope, latest_referral]
+      else
+        referral_type_path
+      end
     end
   end
 end

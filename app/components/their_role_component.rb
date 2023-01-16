@@ -43,11 +43,14 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.url,
-              subsection: :teacher_role_job_title
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :teacher_role_job_title
+              ],
+              return_to: request.url
             ),
           visually_hidden_text: "their job title"
         }
@@ -67,11 +70,9 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.url,
-              subsection: :teacher_role_duties
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :teacher_role_duties],
+              return_to: request.url
             ),
           visually_hidden_text:
             "how do you want to give details about their main duties"
@@ -92,11 +93,9 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.url,
-              subsection: :teacher_role_duties
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :teacher_role_duties],
+              return_to: request.url
             ),
           visually_hidden_text: "the description of their role"
         }
@@ -139,11 +138,14 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.url,
-              subsection: :teacher_role_organisation_address_known
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :teacher_role_organisation_address_known
+              ],
+              return_to: request.url
             ),
           visually_hidden_text:
             "if you know the name and address of the organisation where the alleged misconduct took place"
@@ -165,11 +167,14 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.url,
-              subsection: :teacher_role_organisation_address
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :teacher_role_organisation_address
+              ],
+              return_to: request.url
             ),
           visually_hidden_text:
             "name and address of the organisation where the alleged misconduct took place"

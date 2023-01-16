@@ -13,11 +13,9 @@ class AboutYouComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              subsection_path(
-                action: :edit,
-                referral:,
-                return_to: request.url,
-                subsection: :referrer_name
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :referrer_name],
+                return_to: request.path
               ),
             visually_hidden_text: "name"
           }
@@ -47,11 +45,14 @@ class AboutYouComponent < ViewComponent::Base
             {
               text: "Change",
               href:
-                subsection_path(
-                  action: :edit,
-                  referral:,
-                  return_to: request.url,
-                  subsection: :referrer_job_title
+                polymorphic_path(
+                  [
+                    :edit,
+                    referral.routing_scope,
+                    referral,
+                    :referrer_job_title
+                  ],
+                  return_to: request.path
                 ),
               visually_hidden_text: "job title"
             }
@@ -72,9 +73,9 @@ class AboutYouComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              edit_referral_referrer_phone_path(
-                referral,
-                return_to: request.url
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :referrer_phone],
+                return_to: request.path
               ),
             visually_hidden_text: "phone"
           }

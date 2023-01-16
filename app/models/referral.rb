@@ -30,6 +30,12 @@ class Referral < ApplicationRecord
           )
         }
 
+  def routing_scope
+    return :public if from_member_of_public?
+
+    nil
+  end
+
   def from_employer?
     eligibility_check.reporting_as_employer?
   end
