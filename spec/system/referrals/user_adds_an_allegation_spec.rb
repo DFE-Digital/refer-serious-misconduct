@@ -30,6 +30,20 @@ RSpec.feature "Allegation", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_allegation_details
 
+    when_i_click_change_allegation_details
+    then_i_am_asked_how_i_want_to_make_the_allegation
+
+    when_i_choose_upload_the_allegation
+    and_i_click_save_and_continue
+    then_i_am_asked_to_upload_an_allegation_file
+
+    when_i_click_save_and_continue
+    then_i_see_the_upload_form_validation_errors
+
+    when_i_upload_the_allegation
+    and_i_click_save_and_continue
+    then_i_see_the_uploaded_filename
+
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
@@ -109,5 +123,34 @@ RSpec.feature "Allegation", type: :system do
         expect(find(".app-task-list__tag").text).to eq("COMPLETED")
       end
     end
+  end
+
+  def when_i_click_change_allegation_details
+    click_on "Change how I want to report the allegation"
+  end
+
+  def when_i_choose_upload_the_allegation
+    choose "I’ll upload the allegation details", visible: false
+  end
+
+  def then_i_am_asked_to_upload_an_allegation_file
+    expect(page).to have_content("Upload allegation details")
+  end
+
+  def then_i_see_the_upload_form_validation_errors
+    expect(page).to have_content(
+      "Select a file containing details of your allegation"
+    )
+  end
+
+  def then_i_see_the_uploaded_filename
+    expect(page).to have_content("upload1.pdf")
+  end
+
+  def when_i_upload_the_allegation
+    attach_file(
+      "Upload allegation details",
+      [Rails.root.join("spec/fixtures/files/upload1.pdf")]
+    )
   end
 end

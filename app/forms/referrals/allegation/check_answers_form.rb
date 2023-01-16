@@ -24,16 +24,6 @@ module Referrals
           errors.add(:base, :allegation_incomplete)
         end
       end
-
-      def allegation_details
-        if referral.allegation_upload.attached?
-          "File: #{referral.allegation_upload.filename}"
-        elsif referral.allegation_details.present?
-          referral.allegation_details.truncate(150)
-        else
-          "Incomplete"
-        end
-      end
     end
   end
 end

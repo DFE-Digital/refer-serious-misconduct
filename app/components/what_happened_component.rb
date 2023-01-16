@@ -19,14 +19,14 @@ class WhatHappenedComponent < ViewComponent::Base
                 referral,
                 return_to: request.url
               ),
-            visually_hidden_text: "summary"
+            visually_hidden_text: "how I want to report the allegation"
           }
         ],
         key: {
           text: "Summary"
         },
         value: {
-          text: allegation_check_answers_form.allegation_details
+          text: allegation_details
         }
       },
       {
@@ -49,5 +49,21 @@ class WhatHappenedComponent < ViewComponent::Base
         }
       }
     ]
+  end
+
+  def allegation_details
+    if referral.allegation_upload.attached?
+      [
+        "File:",
+        govuk_link_to(
+          referral.allegation_upload.filename,
+          rails_blob_path(referral.allegation_upload, disposition: "attachment")
+        )
+      ].join(" ").html_safe
+    elsif referral.allegation_details.present?
+      referral.allegation_details.truncate(150)
+    else
+      "Incomplete"
+    end
   end
 end
