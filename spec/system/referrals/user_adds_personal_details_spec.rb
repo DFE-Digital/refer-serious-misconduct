@@ -153,7 +153,7 @@ RSpec.feature "Personal details", type: :system do
       change_link:
         edit_referral_personal_details_name_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 
@@ -163,7 +163,7 @@ RSpec.feature "Personal details", type: :system do
       change_link:
         edit_referral_personal_details_age_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 
@@ -173,7 +173,7 @@ RSpec.feature "Personal details", type: :system do
       change_link:
         edit_referral_personal_details_trn_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 
@@ -183,7 +183,7 @@ RSpec.feature "Personal details", type: :system do
       change_link:
         edit_referral_personal_details_qts_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 

@@ -19,11 +19,12 @@ module Referrals
             end
 
           redirect_to(
-            subsection_path(
-              referral: current_referral,
-              action: :edit,
-              subsection:
-            )
+            [
+              :edit,
+              current_referral.routing_scope,
+              current_referral,
+              subsection
+            ]
           )
         else
           render :edit

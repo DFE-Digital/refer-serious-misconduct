@@ -13,20 +13,16 @@ module Referrals
           StartForm.new(start_params.merge(referral: current_referral))
 
         if @evidence_start_form.save
-          redirect_path =
-            if @evidence_start_form.has_evidence
-              subsection_path(
-                referral: current_referral,
-                action: :edit,
-                subsection: :evidence_upload
-              )
-            else
-              subsection_path(
-                referral: current_referral,
-                action: :edit,
-                subsection: :evidence_check_answers
-              )
-            end
+          redirect_path = [
+            :edit,
+            current_referral.routing_scope,
+            current_referral
+          ]
+          if @evidence_start_form.has_evidence
+            redirect_path.push(:evidence_upload)
+          else
+            redirect_path.push(:evidence_check_answers)
+          end
           redirect_to redirect_path
         else
           render :edit

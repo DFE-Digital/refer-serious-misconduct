@@ -1,6 +1,4 @@
 class Users::OtpController < DeviseController
-  include ReferralPaths
-
   prepend_before_action :require_no_authentication, only: %i[new create]
   prepend_before_action :allow_params_authentication!, only: :create
   prepend_before_action(only: [:create]) do
@@ -59,7 +57,11 @@ class Users::OtpController < DeviseController
   def latest_referral_path(resource)
     latest_referral = resource.latest_referral
 
-    latest_referral ? edit_path_for(latest_referral) : referral_type_path
+    if latest_referral
+      [:edit, latest_referral.routing_scope, latest_referral]
+    else
+      referral_type_path
+    end
   end
 
   def user_params

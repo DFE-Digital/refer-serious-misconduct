@@ -16,11 +16,9 @@ class EvidenceComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.path,
-              subsection: :evidence_start
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :evidence_start],
+              return_to: request.path
             )
         }
       ],
@@ -41,11 +39,9 @@ class EvidenceComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              action: :edit,
-              referral:,
-              return_to: request.path,
-              subsection: :evidence_uploaded
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :evidence_uploaded],
+              return_to: request.path
             )
         }
       ],

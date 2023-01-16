@@ -14,9 +14,14 @@ class PersonalDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              edit_referral_personal_details_age_path(
-                referral,
-                return_to: request.url
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :personal_details_age
+                ],
+                return_to: request.path
               ),
             visually_hidden_text: "date of birth"
           }
@@ -33,9 +38,14 @@ class PersonalDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              edit_referral_personal_details_trn_path(
-                referral,
-                return_to: request.url
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :personal_details_trn
+                ],
+                return_to: request.path
               ),
             visually_hidden_text: "teacher reference number (TRN)"
           }
@@ -52,9 +62,14 @@ class PersonalDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              edit_referral_personal_details_qts_path(
-                referral,
-                return_to: request.url
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :personal_details_qts
+                ],
+                return_to: request.path
               ),
             visually_hidden_text: "do they have QTS?"
           }
@@ -75,11 +90,9 @@ class PersonalDetailsComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            subsection_path(
-              referral:,
-              subsection: :personal_details_name,
-              action: :edit,
-              return_to: request.url
+            polymorphic_path(
+              [:edit, referral.routing_scope, referral, :personal_details_name],
+              return_to: request.path
             ),
           visually_hidden_text: "name"
         }
