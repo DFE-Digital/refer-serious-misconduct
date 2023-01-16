@@ -38,11 +38,6 @@ module Referrals
         referral_teacher_role_check_answers_path(current_referral)
       end
       helper_method :update_path
-
-      def back_link
-        edit_referral_path(current_referral)
-      end
-      helper_method :back_link
     end
   end
 end
