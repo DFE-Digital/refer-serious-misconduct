@@ -5,6 +5,8 @@
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: @allegation_details_form, url: update_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">The allegation</span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "xl", text: "How do you want to tell us about your allegation?" }) do %>
           <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "I’ll upload the allegation details" }, link_errors: true do %>

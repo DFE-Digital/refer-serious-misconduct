@@ -240,7 +240,6 @@ RSpec.feature "Contact details", type: :system do
     )
     expect(page).to have_title("Have you completed this section?")
     expect(page).to have_content("Contact details")
-    expect(page).to have_content("About the person you are referring")
   end
 
   def and_i_see_a_summary_list

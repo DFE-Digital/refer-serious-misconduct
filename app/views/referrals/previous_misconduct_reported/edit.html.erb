@@ -4,6 +4,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @previous_misconduct_reported_form, url: referral_previous_misconduct_reported_url(current_referral), method: :patch do |f| %>
+      <h1 class="govuk-heading-l">Previous allegations</h1>
+      <p class="govuk-body">This includes:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>internal investigations</li>
+        <li>disciplinary action by your organisation</li>
+        <li>reports to the Teaching Regulation Agency, National College for Teaching and Leadership, Teaching Agency or General Teaching Council for England</li>
+      </ul>
+
       <%= f.govuk_error_summary %>
 
       <div class="govuk-form-group">
@@ -15,15 +23,7 @@
             OpenStruct.new(label: 'I’m not sure', value: 'not_sure')
           ],
           :value, :label,
-          legend: { text: "Has there been any previous misconduct, disciplinary action or complaints?", size: "xl" },
-          hint: -> do %>
-            <p class="govuk-body">This includes:</p>
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
-              <li>internal investigations</li>
-              <li>disciplinary action by your organisation</li>
-              <li>reports to the Teaching Regulation Agency, National College for Teaching and Leadership, Teaching Agency or General Teaching Council for England</li>
-            </ul>
-          <% end
+          legend: { text: "Has there been any previous misconduct, disciplinary action or complaints?", size: "m" }
         ) %>
       </div>
       <%= f.govuk_submit 'Save and continue' %>

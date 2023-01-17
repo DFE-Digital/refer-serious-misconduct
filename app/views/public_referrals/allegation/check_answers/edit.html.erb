@@ -3,7 +3,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl">
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">The allegation</span>
       Check and confirm your answers
     </h1>
     <%= form_with model: @allegation_check_answers_form, url: public_referral_allegation_check_answers_path(current_referral), method: :put do |f| %>
