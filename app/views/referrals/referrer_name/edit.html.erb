@@ -5,7 +5,9 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @referrer_name_form, url: update_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_text_field :name, caption: { size: 'l', text: 'Your details' }, label: { size: 'l', text: "Your name" } %>
+
+      <span class="govuk-caption-l">Your details</span>
+      <%= f.govuk_text_field :name, label: { size: 'l', text: "Your name" } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

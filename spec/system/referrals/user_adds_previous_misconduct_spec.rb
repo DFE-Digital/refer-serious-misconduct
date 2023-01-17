@@ -103,7 +103,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
   def then_i_see_the_details_prefilled
     expect(page).to have_field(
-      "Details of previous allegations",
+      "Description of previous allegations",
       with: "Some details"
     )
   end
@@ -170,8 +170,8 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_enter_details_as_text
-    choose "I’ll give details of the previous allegations", visible: :all
-    fill_in "Details of previous allegations", with: "Some details"
+    choose "Describe the previous allegations", visible: :all
+    fill_in "Description of previous allegations", with: "Some details"
   end
 
   def when_i_go_back
@@ -179,8 +179,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_upload_a_file
-    choose "I’ll upload the previous allegation details", visible: :all
-    attach_file "Upload details of previous allegations",
-                Rails.root.join("spec/support/upload.txt")
+    choose "Upload file", visible: :all
+    attach_file "Upload file", Rails.root.join("spec/support/upload.txt")
   end
 end

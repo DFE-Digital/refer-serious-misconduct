@@ -58,7 +58,6 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_am_asked_to_confirm_their_personal_details
-    expect(page).to have_content("About the person you are referring")
     expect(page).to have_content("Personal details")
 
     expect_summary_row(

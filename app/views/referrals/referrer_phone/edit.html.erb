@@ -5,7 +5,9 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @referrer_phone_form, url: update_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_text_field :phone, caption: { size: 'l', text: 'Your details' }, label: { size: 'l', text: "Your phone number" }, hint: { text: 'The TRA will only use this number to contact you about your referral' }, class: 'govuk-input--width-20' %>
+
+      <span class="govuk-caption-l">Your details</span>
+      <%= f.govuk_text_field :phone, label: { size: 'l', text: "Your phone number" }, hint: { text: 'The TRA will only use this number to contact you about your referral' }, class: 'govuk-input--width-20' %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

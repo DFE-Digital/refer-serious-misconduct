@@ -219,7 +219,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_am_asked_to_confirm_deletion
-    expect(page).to have_content("Are you sure you want to delete upload1.pdf?")
+    expect(page).to have_content("Confirm that you want to delete upload1.pdf?")
   end
 
   def when_i_confirm_i_want_to_delete

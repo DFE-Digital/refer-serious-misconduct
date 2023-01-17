@@ -5,7 +5,9 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @referrer_job_title_form, url: referral_referrer_job_title_path(current_referral), method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_text_field :job_title, caption: { size: 'l', text: 'Your details' }, label: { size: 'l', text: "Your job title" }, hint: { text: 'For example, ‘Headteacher’' } %>
+
+      <span class="govuk-caption-l">Your details</span>
+      <%= f.govuk_text_field :job_title, label: { size: 'l', text: "Your job title" }, hint: { text: 'For example, ‘Headteacher’' } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

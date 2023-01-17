@@ -6,6 +6,7 @@
     <%= form_with model: @contact_details_email_form, url: referral_contact_details_email_url, method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
+      <span class="govuk-caption-l">Contact details</span>
       <%= f.govuk_radio_buttons_fieldset :email_known, legend: { size: "l", text: "Do you know the personal email address of the person you are referring?" }  do %>
         <%= f.hidden_field :email_known %>
         <%= f.govuk_radio_button :email_known, true, label: { text: "Yes" }, link_errors: true do %>

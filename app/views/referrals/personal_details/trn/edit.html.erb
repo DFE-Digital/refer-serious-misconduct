@@ -5,6 +5,8 @@
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: @personal_details_trn_form, url: referral_personal_details_trn_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">Personal details</span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(
           :trn_known,

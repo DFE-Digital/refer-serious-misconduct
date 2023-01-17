@@ -5,6 +5,8 @@
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: @personal_details_age_form, url: referral_personal_details_age_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">Personal details</span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:age_known, legend: { size: "xl", text: "Do you know their date of birth?" }) do %>
           <%= f.govuk_radio_button :age_known, "true", label: { text: "I know their date of birth" }, link_errors: true do %>

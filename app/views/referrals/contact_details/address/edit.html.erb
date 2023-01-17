@@ -5,6 +5,8 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @contact_details_address_form, url: referral_contact_details_address_path, method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">Contact details</span>
       <%= f.govuk_radio_buttons_fieldset :address_known, legend: { size: "xl", text: "Do you know their home address?" }  do %>
         <%= f.hidden_field :address_known %>
         <%= f.govuk_radio_button :address_known, true, label: { text: "Yes" }, link_errors: true do %>
