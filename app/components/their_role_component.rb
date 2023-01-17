@@ -42,16 +42,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :teacher_role_job_title
-              ],
-              return_to: request.url
-            ),
+          href: path_for(:job_title),
           visually_hidden_text: "their job title"
         }
       ],
@@ -69,11 +60,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :teacher_role_duties],
-              return_to: request.url
-            ),
+          href: path_for(:duties),
           visually_hidden_text:
             "how do you want to give details about their main duties"
         }
@@ -92,11 +79,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :teacher_role_duties],
-              return_to: request.url
-            ),
+          href: path_for(:duties),
           visually_hidden_text: "the description of their role"
         }
       ],
@@ -114,11 +97,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_same_organisation_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:same_organisation),
           visually_hidden_text: "working in the same organisation"
         }
       ],
@@ -137,16 +116,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :teacher_role_organisation_address_known
-              ],
-              return_to: request.url
-            ),
+          href: path_for(:organisation_address_known),
           visually_hidden_text:
             "if you know the name and address of the organisation where the alleged misconduct took place"
         }
@@ -166,16 +136,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :teacher_role_organisation_address
-              ],
-              return_to: request.url
-            ),
+          href: path_for(:organisation_address),
           visually_hidden_text:
             "name and address of the organisation where the alleged misconduct took place"
         }
@@ -195,11 +156,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_start_date_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:start_date),
           visually_hidden_text: "if you know when they started their job"
         }
       ],
@@ -217,11 +174,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_start_date_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:start_date),
           visually_hidden_text: "their job start date"
         }
       ],
@@ -239,11 +192,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_employment_status_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:employment_status),
           visually_hidden_text:
             "if they are still employed in the job where the alleged misconduct took place"
         }
@@ -263,11 +212,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_end_date_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:end_date),
           visually_hidden_text: "if you know when they left the job"
         }
       ],
@@ -285,11 +230,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_end_date_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:end_date),
           visually_hidden_text: "their job end date"
         }
       ],
@@ -307,11 +248,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_reason_leaving_role_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:reason_leaving_role),
           visually_hidden_text: "the reason they left the job"
         }
       ],
@@ -329,11 +266,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_working_somewhere_else_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:working_somewhere_else),
           visually_hidden_text: "if they are they employed somewhere else"
         }
       ],
@@ -351,11 +284,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_work_location_known_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:work_location_known),
           visually_hidden_text:
             "if you know the name and address of the organisation where they’re currently working"
         }
@@ -375,11 +304,7 @@ class TheirRoleComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            edit_referral_teacher_role_work_location_path(
-              referral,
-              return_to: request.url
-            ),
+          href: path_for(:work_location),
           visually_hidden_text: "where they currently work"
         }
       ],
@@ -390,5 +315,22 @@ class TheirRoleComponent < ViewComponent::Base
         text: teaching_address(referral)
       }
     }
+  end
+
+  def path_for(part)
+    [
+      :edit,
+      referral.routing_scope,
+      referral,
+      :teacher_role,
+      part,
+      { return_to: }
+    ]
+  end
+
+  def return_to
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :teacher_role, :check_answers]
+    )
   end
 end

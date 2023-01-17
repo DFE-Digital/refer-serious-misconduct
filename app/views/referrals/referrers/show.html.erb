@@ -10,7 +10,7 @@
 
      <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
 
-    <%= form_with model: @referrer_form, url: update_path, method: :patch do |f| %>
+    <%= form_with model: @referrer_form, url: [current_referral.routing_scope, current_referral, :referrer], method: :patch do |f| %>
       <%= f.govuk_radio_buttons_fieldset :complete, hint: { text: 'You can still make changes to a completed section' }, legend: { size: 'm', text: 'Have you completed this section?' } do %>
         <%= f.hidden_field :complete %>
         <%= f.govuk_radio_button :complete, 'true', label: { text: "Yes, I’ve completed this section" }, link_errors: true %>

@@ -24,12 +24,12 @@ module Referrals
     end
 
     def next_path
-      edit_referral_referrer_job_title_path(current_referral)
+      [
+        :edit,
+        current_referral.routing_scope,
+        current_referral,
+        :referrer_job_title
+      ]
     end
-
-    def update_path
-      referral_referrer_name_path(current_referral)
-    end
-    helper_method :update_path
   end
 end

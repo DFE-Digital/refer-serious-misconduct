@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @declaration_form.errors.any?}Before you send your referral" %>
-<% content_for :back_link_url, return_to_session_or(back_link) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([current_referral.routing_scope, current_referral, :review])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @declaration_form, url: update_path, method: :post do |f| %>
+    <%= form_with model: @declaration_form, url: [current_referral.routing_scope, current_referral, :declaration], method: :post do |f| %>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl">Before you send your referral</h1>
       <p>You must confirm that:</p>

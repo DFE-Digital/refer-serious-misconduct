@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @referrer_name_form, url: update_path, method: :patch do |f| %>
+    <%= form_with model: @referrer_name_form, url: [current_referral.routing_scope, current_referral, :referrer_name], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Your details</span>

@@ -10,11 +10,7 @@ class ContactDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_contact_details_email_path(
-                referral,
-                return_to: request.url
-              ),
+            href: path_for(:email),
             visually_hidden_text: "email"
           }
         ],
@@ -29,11 +25,7 @@ class ContactDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_contact_details_telephone_path(
-                referral,
-                return_to: request.url
-              ),
+            href: path_for(:telephone),
             visually_hidden_text: "telephone"
           }
         ],
@@ -48,11 +40,7 @@ class ContactDetailsComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_contact_details_address_path(
-                referral,
-                return_to: request.url
-              ),
+            href: path_for(:address),
             visually_hidden_text: "address"
           }
         ],
@@ -64,5 +52,22 @@ class ContactDetailsComponent < ViewComponent::Base
         }
       }
     ]
+  end
+
+  def path_for(part)
+    [
+      :edit,
+      referral.routing_scope,
+      referral,
+      :contact_details,
+      part,
+      { return_to: }
+    ]
+  end
+
+  def return_to
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :contact_details_check_answers]
+    )
   end
 end

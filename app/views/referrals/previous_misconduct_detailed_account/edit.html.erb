@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_previous_misconduct_reported_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :previous_misconduct_reported])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -12,7 +12,7 @@
       <li>what action was taken</li>
       <li>reference numbers from previous referrals</li>
     </ul>
-    <%= form_with model: @detailed_account_form, url: referral_previous_misconduct_detailed_account_url(current_referral), method: :patch do |f| %>
+    <%= form_with model: @detailed_account_form, url: [current_referral.routing_scope, current_referral, :previous_misconduct, :detailed_account], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:format, legend: { size: "m", text: "How do you want to give details about previous allegations?" }) do %>

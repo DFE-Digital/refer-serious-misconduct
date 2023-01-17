@@ -32,9 +32,21 @@ module Referrals
 
       def next_path
         if current_referral.organisation_address_known?
-          edit_referral_teacher_role_organisation_address_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :organisation_address
+          ]
         else
-          edit_referral_teacher_role_start_date_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :start_date
+          ]
         end
       end
 
@@ -47,13 +59,16 @@ module Referrals
         super
       end
 
-      def update_path
-        referral_teacher_role_organisation_address_known_path(current_referral)
-      end
-      helper_method :update_path
-
       def back_link
-        edit_referral_teacher_role_same_organisation_path(current_referral)
+        polymorphic_path(
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :same_organisation
+          ]
+        )
       end
       helper_method :back_link
     end

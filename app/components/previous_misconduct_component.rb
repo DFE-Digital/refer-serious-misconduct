@@ -10,11 +10,14 @@ class PreviousMisconductComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_previous_misconduct_reported_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :previous_misconduct,
+              :reported,
+              { return_to: }
+            ],
             visually_hidden_text: "reported"
           }
         ],
@@ -31,11 +34,14 @@ class PreviousMisconductComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_previous_misconduct_detailed_account_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :previous_misconduct,
+              :detailed_account,
+              { return_to: }
+            ],
             visually_hidden_text: "details"
           }
         ],
@@ -61,5 +67,9 @@ class PreviousMisconductComponent < ViewComponent::Base
     end
 
     "Not answered yet"
+  end
+
+  def return_to
+    polymorphic_path([referral.routing_scope, referral, :previous_misconduct])
   end
 end

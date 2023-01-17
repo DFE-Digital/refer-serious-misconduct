@@ -32,18 +32,14 @@ module Referrals
       end
 
       def next_path
-        edit_referral_teacher_role_same_organisation_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :teacher_role,
+          :same_organisation
+        ]
       end
-
-      def update_path
-        referral_teacher_role_duties_path(current_referral)
-      end
-      helper_method :update_path
-
-      def back_link
-        edit_referral_teacher_role_job_title_path(current_referral)
-      end
-      helper_method :back_link
     end
   end
 end

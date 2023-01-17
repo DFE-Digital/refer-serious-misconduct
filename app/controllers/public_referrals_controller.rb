@@ -11,12 +11,4 @@ class PublicReferralsController < ReferralsController
   def referral
     @referral ||= current_user.referrals.member_of_public.find(params[:id])
   end
-
-  def review_path
-    public_referral_review_path(referral)
-  end
-
-  def update_path
-    public_referral_path(referral)
-  end
 end

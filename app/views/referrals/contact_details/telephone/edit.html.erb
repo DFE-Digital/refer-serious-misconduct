@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{"Error: " if @contact_details_telephone_form.errors.any?}Do you know their main contact number?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_contact_details_email_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_email])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @contact_details_telephone_form, url: referral_contact_details_telephone_path, method: :put do |f| %>
+    <%= form_with model: @contact_details_telephone_form, url: [current_referral.routing_scope, current_referral, :contact_details_telephone], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Contact details</span>

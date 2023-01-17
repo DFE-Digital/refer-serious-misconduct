@@ -249,7 +249,7 @@ RSpec.feature "Contact details", type: :system do
       change_link:
         edit_referral_contact_details_email_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 
@@ -259,7 +259,7 @@ RSpec.feature "Contact details", type: :system do
       change_link:
         edit_referral_contact_details_telephone_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
 
@@ -269,7 +269,7 @@ RSpec.feature "Contact details", type: :system do
       change_link:
         edit_referral_contact_details_address_path(
           @referral,
-          return_to: current_url
+          return_to: current_path
         )
     )
   end

@@ -5,22 +5,34 @@ module PublicReferrals
 
       def next_path
         if current_referral.organisation_address_known?
-          edit_public_referral_teacher_role_organisation_address_path(
-            current_referral
-          )
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :organisation_address
+          ]
         else
-          edit_public_referral_teacher_role_check_answers_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :check_answers
+          ]
         end
       end
 
-      def update_path
-        public_referral_teacher_role_organisation_address_known_path(
-          current_referral
-        )
-      end
-
       def back_link
-        edit_public_referral_teacher_role_duties_path(current_referral)
+        polymorphic_path(
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :duties
+          ]
+        )
       end
     end
   end

@@ -41,7 +41,13 @@ module Referrals
       end
 
       def next_path
-        edit_referral_contact_details_check_answers_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :contact_details,
+          :check_answers
+        ]
       end
     end
   end

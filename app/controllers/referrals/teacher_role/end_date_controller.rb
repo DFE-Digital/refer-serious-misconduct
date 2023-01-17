@@ -43,9 +43,21 @@ module Referrals
 
       def next_path
         if current_referral.left_role?
-          edit_referral_teacher_role_reason_leaving_role_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :reason_leaving_role
+          ]
         else
-          edit_referral_teacher_role_check_answers_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :check_answers
+          ]
         end
       end
     end

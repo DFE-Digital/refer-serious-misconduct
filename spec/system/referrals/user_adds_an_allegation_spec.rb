@@ -95,14 +95,17 @@ RSpec.feature "Allegation", type: :system do
       key: "Summary",
       value: "Something something something",
       change_link:
-        edit_referral_allegation_details_path(@referral, return_to: current_url)
+        edit_referral_allegation_details_path(
+          @referral,
+          return_to: current_path
+        )
     )
 
     expect_summary_row(
       key: "Have you told DBS?",
       value: "Yes",
       change_link:
-        edit_referral_allegation_dbs_path(@referral, return_to: current_url)
+        edit_referral_allegation_dbs_path(@referral, return_to: current_path)
     )
   end
 

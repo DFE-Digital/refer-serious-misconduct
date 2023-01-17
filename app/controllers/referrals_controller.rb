@@ -66,11 +66,6 @@ class ReferralsController < Referrals::BaseController
   end
 
   def review_path
-    referral_review_path(referral)
+    [referral.routing_scope, referral, :review]
   end
-
-  def update_path
-    referral_path(referral)
-  end
-  helper_method :update_path
 end

@@ -31,11 +31,21 @@ module Referrals
 
       def next_path
         if current_referral.same_organisation?
-          edit_referral_teacher_role_start_date_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :start_date
+          ]
         else
-          edit_referral_teacher_role_organisation_address_known_path(
-            current_referral
-          )
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :organisation_address_known
+          ]
         end
       end
 

@@ -12,11 +12,14 @@ class OrganisationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_organisation_name_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :organisation,
+              :name,
+              { return_to: }
+            ],
             visually_hidden_text: "name"
           }
         ],
@@ -31,11 +34,14 @@ class OrganisationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_organisation_address_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :organisation,
+              :address,
+              { return_to: }
+            ],
             visually_hidden_text: "address"
           }
         ],
@@ -47,5 +53,9 @@ class OrganisationComponent < ViewComponent::Base
         }
       }
     ]
+  end
+
+  def return_to
+    polymorphic_path([referral.routing_scope, referral, :organisation])
   end
 end

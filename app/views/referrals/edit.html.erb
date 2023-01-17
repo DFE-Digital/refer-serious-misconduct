@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @referral_form, url: update_path, method: :put do |f| %>
+    <%= form_with model: @referral_form, url: [current_referral.routing_scope, current_referral], method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <h1 class="govuk-heading-xl"><%= t("referral_form.heading") %></h1>
       <%= render TaskListComponent.new(sections: @referral_form.sections) %>

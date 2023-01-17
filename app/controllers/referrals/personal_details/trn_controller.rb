@@ -30,7 +30,13 @@ module Referrals
       end
 
       def next_path
-        edit_referral_personal_details_qts_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :personal_details,
+          :qts
+        ]
       end
     end
   end
