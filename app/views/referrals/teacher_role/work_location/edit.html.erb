@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{"Error: " if @work_location_form.errors.any?}Where they currently work" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_work_location_known_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :work_location_known])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @work_location_form, url: referral_teacher_role_work_location_path, method: :put do |f| %>
+    <%= form_with model: @work_location_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :work_location], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">About their role</span>

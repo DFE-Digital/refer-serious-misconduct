@@ -77,7 +77,14 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.contact_details"),
-              edit_referral_contact_details_email_path(referral),
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :contact_details_email
+                ]
+              ),
               section_status(:contact_details_complete)
             )
           )
@@ -86,7 +93,15 @@ class ReferralForm
         section.items.append(
           ReferralSectionItem.new(
             I18n.t("referral_form.about_their_role"),
-            path_for_teacher_role,
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :teacher_role,
+                :job_title
+              ]
+            ),
             section_status(:teacher_role_complete)
           )
         )
@@ -158,13 +173,5 @@ class ReferralForm
     return start_path if status == :not_started_yet
 
     check_answers_path
-  end
-
-  def path_for_teacher_role
-    if referral.from_employer?
-      edit_referral_teacher_role_job_title_path(referral)
-    else
-      edit_public_referral_teacher_role_job_title_path(referral)
-    end
   end
 end

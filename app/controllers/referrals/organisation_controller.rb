@@ -14,7 +14,7 @@ module Referrals
         )
 
       if @organisation_form.save
-        redirect_to edit_referral_path(current_referral)
+        redirect_to [:edit, current_referral.routing_scope, current_referral]
       else
         @organisation = current_referral.organisation
         render :show

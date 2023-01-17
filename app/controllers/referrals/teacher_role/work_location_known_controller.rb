@@ -31,9 +31,21 @@ module Referrals
 
       def next_path
         if current_referral.work_location_known?
-          edit_referral_teacher_role_work_location_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :work_location
+          ]
         else
-          edit_referral_teacher_role_check_answers_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :check_answers
+          ]
         end
       end
 

@@ -31,9 +31,21 @@ module Referrals
 
       def next_path
         if current_referral.left_role?
-          edit_referral_teacher_role_end_date_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :end_date
+          ]
         else
-          edit_referral_teacher_role_check_answers_path(current_referral)
+          [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :teacher_role,
+            :check_answers
+          ]
         end
       end
 

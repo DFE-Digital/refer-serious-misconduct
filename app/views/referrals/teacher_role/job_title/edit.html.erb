@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}Their job title" %>
-<% content_for :back_link_url, return_to_session_or(back_link) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @job_title_form, url: update_path, method: :put do |f| %>
+    <%= form_with model: @job_title_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :job_title], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">About their role</span>

@@ -20,7 +20,12 @@ module Referrals
     private
 
     def next_path
-      edit_referral_organisation_address_path(current_referral)
+      [
+        :edit,
+        current_referral.routing_scope,
+        current_referral,
+        :organisation_address
+      ]
     end
 
     def organisation_name_form_params

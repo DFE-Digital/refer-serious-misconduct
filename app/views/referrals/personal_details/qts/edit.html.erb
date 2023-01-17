@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @personal_details_qts_form.errors.any?}Do they have qualified teacher status (QTS)?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_personal_details_trn_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :personal_details_trn])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @personal_details_qts_form, url: referral_personal_details_qts_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @personal_details_qts_form, url: [current_referral.routing_scope, current_referral, :personal_details_qts], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Personal details</span>

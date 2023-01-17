@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @organisation_name_form.errors.any?}What’s the name of your organisation?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @organisation_name_form, url: referral_organisation_name_url(current_referral), method: :patch do |f| %>
+    <%= form_with model: @organisation_name_form, url: [current_referral.routing_scope, current_referral, :organisation_name], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_text_field :name, label: { size: 'xl', text: "What’s the name of your organisation?" } %>

@@ -30,7 +30,13 @@ module Referrals
       end
 
       def next_path
-        edit_referral_teacher_role_working_somewhere_else_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :teacher_role,
+          :working_somewhere_else
+        ]
       end
     end
   end

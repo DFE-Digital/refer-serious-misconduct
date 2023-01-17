@@ -40,7 +40,13 @@ module Referrals
       end
 
       def next_path
-        edit_referral_personal_details_trn_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :personal_details,
+          :trn
+        ]
       end
     end
   end

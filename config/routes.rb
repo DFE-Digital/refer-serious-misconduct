@@ -240,7 +240,7 @@ Rails.application.routes.draw do
         end
 
         resources :evidence, only: [] do
-          get "/delete", to: "evidence/check_answers#delete"
+          get "/delete", to: "evidence/check_answers#delete", as: :delete
           delete "/", to: "evidence/check_answers#destroy", as: :destroy
         end
         namespace :evidence do

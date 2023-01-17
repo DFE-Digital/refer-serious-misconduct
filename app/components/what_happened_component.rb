@@ -14,11 +14,14 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_allegation_details_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :allegation,
+              :details,
+              { return_to: }
+            ],
             visually_hidden_text: "how I want to report the allegation"
           }
         ],
@@ -33,11 +36,14 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_referral_allegation_dbs_path(
-                referral,
-                return_to: request.url
-              ),
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :allegation,
+              :dbs,
+              { return_to: }
+            ],
             visually_hidden_text: "DBS notified"
           }
         ],
@@ -65,5 +71,11 @@ class WhatHappenedComponent < ViewComponent::Base
     else
       "Incomplete"
     end
+  end
+
+  def return_to
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :allegation, :check_answers]
+    )
   end
 end

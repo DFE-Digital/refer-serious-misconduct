@@ -16,7 +16,7 @@ module Referrals
             )
           )
         if @contact_details_check_answers_form.save
-          redirect_to edit_referral_path(current_referral)
+          redirect_to [:edit, current_referral.routing_scope, current_referral]
         else
           render :edit
         end

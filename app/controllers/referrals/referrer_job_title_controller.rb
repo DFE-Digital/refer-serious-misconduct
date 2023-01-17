@@ -24,7 +24,7 @@ module Referrals
     end
 
     def next_path
-      edit_referral_referrer_phone_path(current_referral)
+      [:edit, current_referral.routing_scope, current_referral, :referrer_phone]
     end
   end
 end

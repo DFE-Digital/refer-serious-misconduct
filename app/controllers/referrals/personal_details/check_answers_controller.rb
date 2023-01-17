@@ -25,13 +25,8 @@ module Referrals
       private
 
       def next_path
-        edit_referral_path(current_referral)
+        [:edit, current_referral.routing_scope, current_referral]
       end
-
-      def update_path
-        referral_personal_details_check_answers_path(current_referral)
-      end
-      helper_method :update_path
 
       def check_answers_params
         params.fetch(:referrals_personal_details_check_answers_form, {}).permit(

@@ -25,18 +25,14 @@ module Referrals
       private
 
       def next_path
-        edit_referral_personal_details_age_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :personal_details,
+          :age
+        ]
       end
-
-      def update_path
-        referral_personal_details_name_path(current_referral)
-      end
-      helper_method :update_path
-
-      def back_link
-        edit_referral_path(current_referral)
-      end
-      helper_method :back_link
 
       def name_params
         params.require(:referrals_personal_details_name_form).permit(

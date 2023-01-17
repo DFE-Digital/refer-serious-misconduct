@@ -1,9 +1,9 @@
 <% content_for :page_title, "#{'Error: ' if @employment_status_form.errors.any?}Are they still employed in the job where the alleged misconduct took place?" %>
-<% content_for :back_link_url, return_to_session_or(edit_referral_teacher_role_start_date_path(current_referral)) %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :start_date])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @employment_status_form, url: referral_teacher_role_employment_status_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @employment_status_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :employment_status], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">About their role</span>

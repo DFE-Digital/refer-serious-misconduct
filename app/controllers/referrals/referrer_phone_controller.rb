@@ -23,7 +23,7 @@ module Referrals
     end
 
     def next_path
-      referral_referrer_path(current_referral)
+      [current_referral.routing_scope, current_referral, :referrer]
     end
 
     def previous_path
@@ -37,10 +37,5 @@ module Referrals
       )
     end
     helper_method :previous_path
-
-    def update_path
-      referral_referrer_phone_path(current_referral)
-    end
-    helper_method :update_path
   end
 end

@@ -10,7 +10,7 @@
 
     <%= render ContactDetailsComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @contact_details_check_answers_form, url: referral_contact_details_check_answers_path, method: :put do |f| %>
+    <%= form_with model: @contact_details_check_answers_form, url: [current_referral.routing_scope, current_referral, :contact_details, :check_answers], method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <%= f.govuk_radio_buttons_fieldset :contact_details_complete,
         legend: { size: "m", text: "Have you completed this section?" },

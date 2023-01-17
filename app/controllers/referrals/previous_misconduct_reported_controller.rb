@@ -32,7 +32,13 @@ module Referrals
     end
 
     def next_path
-      edit_referral_previous_misconduct_detailed_account_path(current_referral)
+      [
+        :edit,
+        current_referral.routing_scope,
+        current_referral,
+        :previous_misconduct,
+        :detailed_account
+      ]
     end
 
     def next_page

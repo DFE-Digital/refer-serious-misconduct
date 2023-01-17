@@ -10,14 +10,14 @@
 
     <%= govuk_button_to(
       "Add more evidence",
-      edit_referral_evidence_upload_path(current_referral),
+      [:edit, current_referral.routing_scope, current_referral, :evidence_upload],
       method: "get",
       class: "govuk-button--secondary govuk-!-margin-bottom-8"
     ) if current_referral.has_evidence %>
 
     <%= render EvidenceComponent.new(referral: current_referral) %>
 
-    <%= form_with model: @evidence_check_answers_form, url: referral_evidence_check_answers_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @evidence_check_answers_form, url: [current_referral.routing_scope, current_referral, :evidence, :check_answers], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_radio_buttons_fieldset(

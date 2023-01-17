@@ -13,7 +13,7 @@ module Referrals
     private
 
     def current_referral
-      id = params[:referral_id] || params[:public_referral_id]
+      id = params[:id] || params[:referral_id] || params[:public_referral_id]
       @current_referral ||= current_user.referrals.find(id)
     end
     helper_method :current_referral

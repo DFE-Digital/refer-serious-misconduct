@@ -33,7 +33,13 @@ module Referrals
       end
 
       def next_path
-        edit_referral_contact_details_address_path(current_referral)
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :contact_details,
+          :address
+        ]
       end
     end
   end
