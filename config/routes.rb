@@ -278,6 +278,10 @@ Rails.application.routes.draw do
     get "/eligibility-checks", to: "eligibility_checks#index"
   end
 
+  namespace :manage_interface, path: "/manage" do
+    resources :referrals, only: %i[index show]
+  end
+
   get "/accessibility", to: "static#accessibility"
   get "/cookies", to: "static#cookies"
   get "/privacy", to: "static#privacy"
