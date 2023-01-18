@@ -21,10 +21,6 @@ RSpec.feature "Test users" do
 
   private
 
-  def and_staff_http_basic_is_active
-    FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
-  end
-
   def when_i_am_authorized_as_a_staff_user
     page.driver.basic_authorize(
       ENV.fetch("SUPPORT_USERNAME", "test"),

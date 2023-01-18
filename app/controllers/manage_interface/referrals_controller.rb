@@ -6,6 +6,7 @@ module ManageInterface
     end
 
     def show
+      @referral = Referral.find(params[:id])
     end
   end
 end

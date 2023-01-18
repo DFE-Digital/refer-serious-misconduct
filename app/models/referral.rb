@@ -30,6 +30,8 @@ class Referral < ApplicationRecord
           )
         }
 
+  delegate :name, to: :referrer, prefix: true, allow_nil: true
+
   def routing_scope
     return :public if from_member_of_public?
 

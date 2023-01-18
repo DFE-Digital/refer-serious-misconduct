@@ -1,0 +1,24 @@
+<% content_for :page_title, "Manage teacher misconduct referrals" %>
+
+<% content_for :breadcrumbs do %>
+  <%= govuk_breadcrumbs(breadcrumbs: {
+    "Referrals" => manage_interface_referrals_path,
+    @referral.referrer_name => nil
+  }) %>
+<% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <span class="govuk-caption-l"><%= @referral.id %></span>
+    <h1 class="govuk-heading-l"><%= @referral.referrer_name %></h1>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Summary</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "Referral ID" }, value: { text: @referral.id } },
+        { key: { text: "Referral date" }, value: { text: @referral.created_at.to_fs(:day_month_year_time) } }
+      ]) 
+      %>
+    </div>
+  </div>
+</div>
