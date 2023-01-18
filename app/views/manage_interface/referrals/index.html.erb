@@ -1,0 +1,26 @@
+<% content_for :page_title, "Manage teacher misconduct referrals" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">Referrals (<%= @referrals_count %>)</h1>
+    <div class="app-list">
+      <% @referrals.each do |referral| %>
+        <div class="app-list__item">
+          <h1 class="govuk-heading-m">
+            <%= govuk_link_to "#{referral.first_name} #{referral.last_name}", manage_interface_referral_path(referral.id) %>
+          </h1>
+
+          <%= govuk_summary_list(
+            classes: ["govuk-summary-list--no-border"],
+            rows: [
+              { key: { text: "Referral date" }, value: { text: referral.created_at.to_fs(:day_month_year_time)} },
+              { key: { text: "Referrer" }, value: { text: referral.referrer.name } }
+            ])
+          %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= govuk_pagination(pagy: @pagy) %>

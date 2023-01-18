@@ -28,7 +28,12 @@ module ApplicationHelper
   def navigation
     govuk_header(service_name: t("service.name")) do |header|
       case current_namespace
-      when "support"
+      when "manage", "support"
+        header.navigation_item(
+          active: current_page?(main_app.manage_interface_referrals_path),
+          href: main_app.manage_interface_referrals_path,
+          text: "Referrals"
+        )
         header.navigation_item(
           active:
             current_page?(main_app.support_interface_eligibility_checks_path),
