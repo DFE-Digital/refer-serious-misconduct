@@ -16,5 +16,10 @@ FactoryBot.define do
         create(:referrer, :complete, referral:)
       end
     end
+
+    trait :submitted do
+      complete
+      submitted_at { Time.current }
+    end
   end
 end
