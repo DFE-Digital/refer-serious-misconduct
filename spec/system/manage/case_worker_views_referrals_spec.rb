@@ -6,7 +6,7 @@ RSpec.feature "Manage referrals" do
 
   before do
     travel_to Time.zone.local(2022, 11, 22, 12, 0, 0)
-    create_list(:referral, 30, :complete)
+    create_list(:referral, 30, :submitted)
   end
 
   scenario "Case worker views referrals" do

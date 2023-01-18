@@ -30,6 +30,8 @@ class Referral < ApplicationRecord
           )
         }
 
+  scope :submitted, -> { where.not(submitted_at: nil) }
+
   delegate :name, to: :referrer, prefix: true, allow_nil: true
 
   def routing_scope
