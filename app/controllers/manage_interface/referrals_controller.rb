@@ -1,7 +1,7 @@
 module ManageInterface
   class ReferralsController < ManageInterfaceController
     def index
-      @referrals_count = Referral.count
+      @referrals_count = Referral.submitted.count
       @pagy, @referrals = pagy(Referral.submitted)
     end
 
