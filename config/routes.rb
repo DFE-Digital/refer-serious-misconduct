@@ -279,7 +279,9 @@ Rails.application.routes.draw do
   end
 
   namespace :manage_interface, path: "/manage" do
-    resources :referrals, only: %i[index show]
+    resources :referrals, only: %i[index show] do
+      get 'download', on: :member, to: "referrals#download"
+    end
   end
 
   get "/accessibility", to: "static#accessibility"
