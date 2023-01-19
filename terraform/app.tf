@@ -15,6 +15,7 @@ locals {
       AZURE_STORAGE_ACCESS_KEY              = azurerm_storage_account.allegations.primary_access_key,
       AZURE_STORAGE_CONTAINER               = azurerm_storage_container.uploads.name
       REDIS_URL                             = "rediss://:${azurerm_redis_cache.redis.primary_access_key}@${azurerm_redis_cache.redis.hostname}:${azurerm_redis_cache.redis.ssl_port}/0"
+      GOVUK_NOTIFY_API_KEY                  = local.infrastructure_secrets.PENTEST_GOVUK_NOTIFY_API_KEY
     }
   )
 }
