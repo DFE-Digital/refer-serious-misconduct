@@ -21,5 +21,14 @@ FactoryBot.define do
       complete
       submitted_at { Time.current }
     end
+
+    trait :with_attachments do
+      allegation_upload do
+        Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf")
+      end
+      duties_upload do
+        Rack::Test::UploadedFile.new("spec/fixtures/files/upload2.pdf")
+      end
+    end
   end
 end

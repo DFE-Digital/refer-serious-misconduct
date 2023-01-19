@@ -23,6 +23,7 @@ gem "propshaft"
 gem "puma", "~> 6.0"
 gem "rails", "~> 7.0.4"
 gem "rotp"
+gem "rubyzip"
 gem "sentry-rails"
 gem "sidekiq", "< 7"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

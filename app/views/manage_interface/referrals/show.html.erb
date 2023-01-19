@@ -13,11 +13,18 @@
     <h1 class="govuk-heading-l"><%= @referral.name %></h1>
 
     <div class="app-panel">
+      <% if @referral.has_attachments? %>
+        <p class="govuk-body">
+          <%= govuk_link_to "Download referral (ZIP)", download_manage_interface_referral_path %>
+        </p>
+      <% end %>
+
       <h2 class="govuk-heading-m">Summary</h2>
+
       <%= govuk_summary_list(rows: [
         { key: { text: "Referral ID" }, value: { text: @referral.id } },
         { key: { text: "Referral date" }, value: { text: @referral.created_at.to_fs(:day_month_year_time) } }
-      ]) 
+      ])
       %>
     </div>
 
