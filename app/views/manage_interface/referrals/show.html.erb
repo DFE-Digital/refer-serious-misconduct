@@ -3,14 +3,14 @@
 <% content_for :breadcrumbs do %>
   <%= govuk_breadcrumbs(breadcrumbs: {
     "Referrals" => manage_interface_referrals_path,
-    @referral.referrer_name => nil
+    @referral.name => nil
   }) %>
 <% end %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <span class="govuk-caption-l"><%= @referral.id %></span>
-    <h1 class="govuk-heading-l"><%= @referral.referrer_name %></h1>
+    <h1 class="govuk-heading-l"><%= @referral.name %></h1>
 
     <div class="app-panel">
       <h2 class="govuk-heading-m">Summary</h2>
@@ -19,6 +19,75 @@
         { key: { text: "Referral date" }, value: { text: @referral.created_at.to_fs(:day_month_year_time) } }
       ]) 
       %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Personal details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "First name" }, value: { text: @referral.first_name } },
+        { key: { text: "Last name" }, value: { text: @referral.last_name } },
+        { key: { text: "Do they have qualified teacher status?" }, value: { text: @referral.has_qts&.humanize } },
+      ])
+      %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Employment details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "Job title" }, value: { text: @referral.job_title || "Not known" } },
+        { key: { text: "Main duties" }, value: { text: duties_details(@referral) } },
+        { key: { text: "Organisation" }, value: { text: referral_organisation_address(@referral) } },
+        { key: { text: "Job start date" }, value: { text: @referral.role_start_date&.to_fs(:long_ordinal_uk) }},
+        { key: { text: "Job end date" }, value: { text: @referral.role_end_date&.to_fs(:long_ordinal_uk) }},
+        { key: { text: "Reason they left the job" }, value: { text: @referral.reason_leaving_role&.humanize }},
+      ]) %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Other employment details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "Organisation" }, value: { text: teaching_address(@referral) } }
+      ]) %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Allegation details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "Allegation details" }, value: { text: allegation_details(@referral) } },
+        { key: { text: "Have you told the Disclosure and Barring Service (DBS)?" }, value: { text: @referral.dbs_notified ? "Yes" : "No" } },
+      ]) %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Evidence and supporting information</h2>
+      <% if @referral.evidences.any? %>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+          <% @referral.evidences.map do |evidence| %>
+            <li class="govuk-!-margin-bottom-0">
+              <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Previous allegation details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "Has there been any previous misconduct?" }, value: { text: humanize_three_way_choice(@referral.previous_misconduct_reported) } },
+        { key: { text: "Previous allegation details" }, value: { text: previous_allegation_details(@referral) } },
+      ]) %>
+    </div>
+
+    <div class="app-panel">
+      <h2 class="govuk-heading-m">Referrer details</h2>
+      <%= govuk_summary_list(rows: [
+        { key: { text: "First name" }, value: { text: @referral.referrer.first_name } },
+        { key: { text: "Last name" }, value: { text: @referral.referrer.last_name } },
+        { key: { text: "Job title" }, value: { text: @referral.referrer.job_title } },
+        { key: { text: "Email address" }, value: { text: @referral.user.email } },
+        { key: { text: "Phone number" }, value: { text: @referral.referrer.phone } },
+      ]) %>
     </div>
   </div>
 </div>

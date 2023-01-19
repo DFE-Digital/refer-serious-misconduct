@@ -36,3 +36,8 @@ $govuk-assets-path: "/";
     }
   }
 }
+
+.app-panel {
+  padding-bottom: govuk-spacing(6);
+  padding-top: govuk-spacing(5);
+}
