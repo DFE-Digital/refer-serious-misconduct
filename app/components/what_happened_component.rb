@@ -1,12 +1,8 @@
 class WhatHappenedComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ReferralHelper
 
   attr_accessor :referral
-
-  def allegation_check_answers_form
-    @allegation_check_answers_form ||=
-      Referrals::Allegation::CheckAnswersForm.new(referral:)
-  end
 
   def rows
     [
@@ -29,7 +25,7 @@ class WhatHappenedComponent < ViewComponent::Base
           text: "Summary"
         },
         value: {
-          text: allegation_details
+          text: allegation_details(referral)
         }
       },
       {
@@ -55,22 +51,6 @@ class WhatHappenedComponent < ViewComponent::Base
         }
       }
     ]
-  end
-
-  def allegation_details
-    if referral.allegation_upload.attached?
-      [
-        "File:",
-        govuk_link_to(
-          referral.allegation_upload.filename,
-          rails_blob_path(referral.allegation_upload, disposition: "attachment")
-        )
-      ].join(" ").html_safe
-    elsif referral.allegation_details.present?
-      referral.allegation_details.truncate(150)
-    else
-      "Incomplete"
-    end
   end
 
   def return_to

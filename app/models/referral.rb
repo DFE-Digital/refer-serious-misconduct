@@ -80,4 +80,8 @@ class Referral < ApplicationRecord
   def left_role?
     employment_status == "left_role"
   end
+
+  def name
+    [first_name, last_name].join(" ")
+  end
 end
