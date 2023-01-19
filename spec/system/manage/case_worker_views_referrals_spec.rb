@@ -7,6 +7,7 @@ RSpec.feature "Manage referrals" do
   before do
     travel_to Time.zone.local(2022, 11, 22, 12, 0, 0)
     create_list(:referral, 30, :submitted)
+    create_list(:referral, 20)
   end
 
   scenario "Case worker views referrals" do
@@ -16,6 +17,7 @@ RSpec.feature "Manage referrals" do
 
     and_i_visit_the_referrals_page
     then_i_can_see_the_referrals_page
+    and_i_can_see_pagination_for_submitted_claims
   end
 
   private
@@ -36,7 +38,9 @@ RSpec.feature "Manage referrals" do
     expect(page).to have_content "Referrals (30)"
     expect(page).to have_content "MyString"
     expect(page).to have_content "22 November 2022 at 12:00 pm"
+  end
 
+  def and_i_can_see_pagination_for_submitted_claims
     within(".govuk-pagination") do
       expect(page).to have_content "1"
       expect(page).to have_content "2"
