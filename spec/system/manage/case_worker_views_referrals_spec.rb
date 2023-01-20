@@ -36,7 +36,7 @@ RSpec.feature "Manage referrals" do
 
   def then_i_can_see_the_referrals_page
     expect(page).to have_content "Referrals (30)"
-    expect(page).to have_content "MyString"
+    expect(page).to have_content "Jane Smith"
     expect(page).to have_content "22 November 2022 at 12:00 pm"
   end
 
