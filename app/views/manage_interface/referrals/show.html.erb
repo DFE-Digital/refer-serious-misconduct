@@ -15,7 +15,7 @@
     <div class="app-panel">
       <% if @referral.has_attachments? %>
         <p class="govuk-body">
-          <%= govuk_link_to "Download referral (ZIP)", download_manage_interface_referral_path %>
+          <%= govuk_link_to "Download referral (ZIP)", manage_interface_referral_path(format: :zip) %>
         </p>
       <% end %>
 
