@@ -18,7 +18,9 @@
           <%= govuk_link_to "Download referral (ZIP)", manage_interface_referral_path(format: :zip) %>
         </p>
       <% end %>
+    </div>
 
+    <div class="app-panel" id="summary">
       <h2 class="govuk-heading-m">Summary</h2>
 
       <%= govuk_summary_list(rows: [
@@ -28,36 +30,44 @@
       %>
     </div>
 
-    <div class="app-panel">
+    <div class="app-panel" id="personal_details">
       <h2 class="govuk-heading-m">Personal details</h2>
-      <%= govuk_summary_list(rows: [
+      <% personal_rows = [
         { key: { text: "First name" }, value: { text: @referral.first_name } },
         { key: { text: "Last name" }, value: { text: @referral.last_name } },
-        { key: { text: "Do they have qualified teacher status?" }, value: { text: @referral.has_qts&.humanize } },
-      ])
+      ]
+        personal_rows << { key: { text: "Do they have qualified teacher status?" }, value: { text: @referral.has_qts&.humanize } } if @referral.from_employer?
       %>
+      <%= govuk_summary_list(rows: personal_rows) %>
     </div>
 
-    <div class="app-panel">
+    <div class="app-panel" id="employment_details">
       <h2 class="govuk-heading-m">Employment details</h2>
-      <%= govuk_summary_list(rows: [
-        { key: { text: "Job title" }, value: { text: @referral.job_title || "Not known" } },
-        { key: { text: "Main duties" }, value: { text: duties_details(@referral) } },
-        { key: { text: "Organisation" }, value: { text: referral_organisation_address(@referral) } },
-        { key: { text: "Job start date" }, value: { text: @referral.role_start_date&.to_fs(:long_ordinal_uk) }},
-        { key: { text: "Job end date" }, value: { text: @referral.role_end_date&.to_fs(:long_ordinal_uk) }},
-        { key: { text: "Reason they left the job" }, value: { text: @referral.reason_leaving_role&.humanize }},
-      ]) %>
+      <% 
+        employment_rows = [
+          { key: { text: "Job title" }, value: { text: @referral.job_title || "Not known" } },
+          { key: { text: "Main duties" }, value: { text: duties_details(@referral) } },
+        ] 
+        if @referral.from_employer?
+          employment_rows.push({ key: { text: "Organisation" }, value: { text: @referral.same_organisation? ? organisation_address(@referral.organisation) : referral_organisation_address(@referral) } })
+          employment_rows.push({ key: { text: "Job start date" }, value: { text: @referral.role_start_date&.to_fs(:long_ordinal_uk) }}) if @referral.role_start_date_known
+          employment_rows.push({ key: { text: "Job end date" }, value: { text: @referral.role_end_date&.to_fs(:long_ordinal_uk) }}) if @referral.role_end_date_known
+          employment_rows.push({ key: { text: "Reason they left the job" }, value: { text: @referral.reason_leaving_role&.humanize }})
+        end
+      %>
+      <%= govuk_summary_list(rows: employment_rows) %>
     </div>
 
-    <div class="app-panel">
-      <h2 class="govuk-heading-m">Other employment details</h2>
-      <%= govuk_summary_list(rows: [
-        { key: { text: "Organisation" }, value: { text: teaching_address(@referral) } }
-      ]) %>
-    </div>
+    <% if @referral.from_employer? %>
+      <div class="app-panel" id="other_employment_details">
+        <h2 class="govuk-heading-m">Other employment details</h2>
+        <%= govuk_summary_list(rows: [
+          { key: { text: "Organisation" }, value: { text: teaching_address(@referral) } }
+        ]) %>
+      </div>
+    <% end %>
 
-    <div class="app-panel">
+    <div class="app-panel" id="allegation_details">
       <h2 class="govuk-heading-m">Allegation details</h2>
       <%= govuk_summary_list(rows: [
         { key: { text: "Allegation details" }, value: { text: allegation_details(@referral) } },
@@ -65,7 +75,7 @@
       ]) %>
     </div>
 
-    <div class="app-panel">
+    <div class="app-panel" id="evidence">
       <h2 class="govuk-heading-m">Evidence and supporting information</h2>
       <% if @referral.evidences.any? %>
         <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
@@ -78,23 +88,29 @@
       <% end %>
     </div>
 
-    <div class="app-panel">
-      <h2 class="govuk-heading-m">Previous allegation details</h2>
-      <%= govuk_summary_list(rows: [
-        { key: { text: "Has there been any previous misconduct?" }, value: { text: humanize_three_way_choice(@referral.previous_misconduct_reported) } },
-        { key: { text: "Previous allegation details" }, value: { text: previous_allegation_details(@referral) } },
-      ]) %>
-    </div>
+    <% if @referral.from_employer? %>
+      <div class="app-panel" id="previous_allegation_details">
+        <h2 class="govuk-heading-m">Previous allegation details</h2>
+        <%= govuk_summary_list(rows: [
+          { key: { text: "Has there been any previous misconduct?" }, value: { text: humanize_three_way_choice(@referral.previous_misconduct_reported) } },
+          { key: { text: "Previous allegation details" }, value: { text: previous_allegation_details(@referral) } },
+        ]) %>
+      </div>
+    <% end %>
 
-    <div class="app-panel">
+    <div class="app-panel" id="referrer_details">
       <h2 class="govuk-heading-m">Referrer details</h2>
-      <%= govuk_summary_list(rows: [
-        { key: { text: "First name" }, value: { text: @referral.referrer.first_name } },
-        { key: { text: "Last name" }, value: { text: @referral.referrer.last_name } },
-        { key: { text: "Job title" }, value: { text: @referral.referrer.job_title } },
-        { key: { text: "Email address" }, value: { text: @referral.user.email } },
-        { key: { text: "Phone number" }, value: { text: @referral.referrer.phone } },
-      ]) %>
+      <% 
+        referrer_rows = [
+          { key: { text: "First name" }, value: { text: @referral.referrer.first_name } },
+          { key: { text: "Last name" }, value: { text: @referral.referrer.last_name } },
+        ] 
+        referrer_rows.push({ key: { text: "Job title" }, value: { text: @referral.referrer.job_title } }) if @referral.from_employer?
+        referrer_rows.push({ key: { text: "Email address" }, value: { text: @referral.user.email } })
+        referrer_rows.push({ key: { text: "Phone number" }, value: { text: @referral.referrer.phone } })
+        referrer_rows.push({ key: { text: "Employer" }, value: { text: organisation_address(@referral.organisation) } }) if @referral.from_employer?
+      %>
+      <%= govuk_summary_list(rows: referrer_rows) %>
     </div>
   </div>
 </div>

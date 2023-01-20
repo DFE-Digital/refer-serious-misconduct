@@ -14,6 +14,7 @@ module AddressHelper
   def organisation_address(organisation)
     address_fields_to_html(
       [
+        organisation.name,
         organisation.street_1,
         organisation.street_2,
         organisation.city,
