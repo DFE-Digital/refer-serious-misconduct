@@ -131,9 +131,6 @@ Rails.application.routes.draw do
   end
 
   resources :referrals, except: %i[index show] do
-    get "/delete", to: "referrals#delete", on: :member
-    get "/deleted", to: "referrals#deleted", on: :collection
-
     scope module: :referrals do
       constraints(RouteConstraints::EmployerConstraint.new) do
         namespace :personal_details, path: "personal-details" do
