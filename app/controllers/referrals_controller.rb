@@ -29,17 +29,6 @@ class ReferralsController < Referrals::BaseController
     end
   end
 
-  def destroy
-    referral.destroy!
-    redirect_to deleted_referrals_path
-  end
-
-  def delete
-    referral if params[:id]
-
-    render :delete
-  end
-
   private
 
   def redirect_to_referral_if_exists
