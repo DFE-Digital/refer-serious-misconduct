@@ -39,6 +39,18 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
       end
     end
 
+    context "when email_address is longer than 256 characters" do
+      let(:email_address) { "#{"x" * 250}@example.com" }
+
+      it { is_expected.to be_falsy }
+
+      it "adds an error" do
+        expect(form.errors[:email_address]).to eq(
+          ["The email address must have no more than 256 characters."]
+        )
+      end
+    end
+
     context "when email_address is invalid" do
       let(:email_address) { "name" }
 
