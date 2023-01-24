@@ -31,5 +31,12 @@ module Referrals
         :referrer_job_title
       ]
     end
+
+    def previous_path
+      polymorphic_path(
+        [:edit, current_referral.routing_scope, current_referral]
+      )
+    end
+    helper_method :previous_path
   end
 end

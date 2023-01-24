@@ -70,6 +70,11 @@ module CommonSteps
   end
   alias_method :and_i_click_save_and_continue, :when_i_click_save_and_continue
 
+  def when_i_click_continue
+    click_on "Continue"
+  end
+  alias_method :and_i_click_continue, :when_i_click_continue
+
   def when_i_click_back
     click_on "Back"
   end

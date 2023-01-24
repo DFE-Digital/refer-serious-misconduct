@@ -117,6 +117,7 @@ Rails.application.routes.draw do
       end
 
       resource :referrer, only: %i[show update]
+      get "/personal-details", to: "referrers#personal_details"
 
       resource :referrer_name,
                only: %i[edit update],

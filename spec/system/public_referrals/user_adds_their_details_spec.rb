@@ -10,7 +10,10 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_am_a_member_of_the_public_with_an_existing_referral
     when_i_visit_the_public_referral
     and_i_click_on_your_details
-    then_i_am_on_the_your_details_page
+    then_i_am_on_the_personal_details_page
+
+    when_i_click_continue
+    then_i_am_on_the_your_name_page
 
     when_i_click_save_and_continue
     then_i_see_the_name_error_message
@@ -28,7 +31,7 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_on_change_name
-    then_i_am_on_the_your_details_page
+    then_i_am_on_the_your_name_page
     and_i_see_my_name_in_the_form_field
 
     when_i_click_save_and_continue
@@ -38,6 +41,7 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_see_your_details_flagged_as_incomplete
 
     when_i_click_on_your_details
+    and_i_click_continue
     then_i_see_the_name_prefilled
 
     when_i_click_save_and_continue
@@ -75,7 +79,16 @@ RSpec.feature "Public Referral: About You", type: :system do
     end
   end
 
-  def then_i_am_on_the_your_details_page
+  def then_i_am_on_the_personal_details_page
+    expect(page).to have_current_path(
+      "/public-referrals/#{@referral.id}/personal-details",
+      ignore_query: true
+    )
+    expect(page).to have_title("How your personal details will be used")
+    expect(page).to have_content("Your details")
+  end
+
+  def then_i_am_on_the_your_name_page
     expect(page).to have_current_path(
       "/public-referrals/#{@referral.id}/referrer-name/edit",
       ignore_query: true
