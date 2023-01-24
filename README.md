@@ -126,6 +126,23 @@ Run the application on `http://localhost:3000`:
 bin/dev
 ```
 
+### Visit app
+
+Main front end: http://localhost:3000/start
+
+Admin area: http://localhost:3000/support/eligibility-checks
+
+Admin area login is defined by `ENV['SUPPORT_USERNAME']` and `ENV.fetch["SUPPORT_PASSWORD"]` by default test \ test
+
+### Feature flags
+
+The following feature flags are required for normal operation of the site and are set from seeds.rb as part of `bin/setup`:
+
+```ruby
+FeatureFlags::Feature.create(name: :service_open, active: true)
+FeatureFlags::Feature.create(name: :eligibility_screener, active: true)
+```
+
 ### Notify
 
 If you want to test and simulate sending emails locally, you need to be added
