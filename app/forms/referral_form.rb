@@ -38,9 +38,7 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.your_details"),
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :referrer_name]
-            ),
+            about_you_section_path,
             referral.referrer_status
           )
         ]
@@ -57,6 +55,16 @@ class ReferralForm
           )
         end
       end
+  end
+
+  def about_you_section_path
+    if referral.from_employer?
+      polymorphic_path(
+        [:edit, referral.routing_scope, referral, :referrer_name]
+      )
+    else
+      public_referral_personal_details_path(referral)
+    end
   end
 
   def about_the_person_you_are_referring_section

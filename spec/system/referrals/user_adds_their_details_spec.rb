@@ -10,7 +10,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     when_i_click_on_your_details
-    then_i_am_on_the_your_details_page
+    then_i_am_on_the_your_name_page
 
     when_i_click_save_and_continue
     then_i_see_the_name_error_message
@@ -35,7 +35,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_on_change_name
-    then_i_am_on_the_your_details_page
+    then_i_am_on_the_your_name_page
     and_i_see_my_name_in_the_form_field
 
     when_i_click_save_and_continue
@@ -85,7 +85,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     end
   end
 
-  def then_i_am_on_the_your_details_page
+  def then_i_am_on_the_your_name_page
     expect(page).to have_current_path(
       "/referrals/#{@referral.id}/referrer-name/edit",
       ignore_query: true

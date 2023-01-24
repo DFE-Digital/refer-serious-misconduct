@@ -1,0 +1,11 @@
+<% content_for :page_title, "How your personal details will be used" %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <span class="govuk-caption-l">Your details</span>
+    <h1 class="govuk-heading-l">How your personal details will be&nbsp;used</h1>
+    <p>If the TRA decides to investigate this case, your name will be shared with the teacher you’re referring and their employer. The teacher has a right to know who referred them.</p>
+    <p>Your contact details will not be shared. The TRA will only use these to contact you about this case.</p>
+    <%= govuk_button_link_to "Continue", polymorphic_path([:edit, current_referral.routing_scope, current_referral, :referrer_name]) %>
+</div>
