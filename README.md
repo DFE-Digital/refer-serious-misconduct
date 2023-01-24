@@ -126,6 +126,14 @@ Run the application on `http://localhost:3000`:
 bin/dev
 ```
 
+If you get redirected to ` https://www.gov.uk/government/publications/teacher-misconduct-referral-form` when trying to access `http://localhost:3000`, you might want to consider adding the `:eligibility_screener` flag.
+
+One way to do this is by using the rails console:
+
+```bash
+FeatureFlags::Feature.create(name: :eligibility_screener, active: true)
+```
+
 ### Notify
 
 If you want to test and simulate sending emails locally, you need to be added
