@@ -1,0 +1,12 @@
+<div class="app-panel" id="evidence">
+  <h2 class="govuk-heading-m">Evidence and supporting information</h2>
+  <% if referral.evidences.any? %>
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+      <% referral.evidences.map do |evidence| %>
+        <li class="govuk-!-margin-bottom-0">
+          <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
