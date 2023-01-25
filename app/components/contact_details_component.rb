@@ -26,7 +26,7 @@ class ContactDetailsComponent < ViewComponent::Base
           {
             text: "Change",
             href: path_for(:telephone),
-            visually_hidden_text: "telephone"
+            visually_hidden_text: "phone number"
           }
         ],
         key: {

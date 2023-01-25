@@ -17,7 +17,7 @@ class AboutYouComponent < ViewComponent::Base
                 [:edit, referral.routing_scope, referral, :referrer_name],
                 return_to: request.path
               ),
-            visually_hidden_text: "name"
+            visually_hidden_text: "your name"
           }
         ],
         key: {
@@ -54,7 +54,7 @@ class AboutYouComponent < ViewComponent::Base
                   ],
                   return_to: request.path
                 ),
-              visually_hidden_text: "job title"
+              visually_hidden_text: "your job title"
             }
           ],
           key: {
@@ -77,7 +77,7 @@ class AboutYouComponent < ViewComponent::Base
                 [:edit, referral.routing_scope, referral, :referrer_phone],
                 return_to: request.path
               ),
-            visually_hidden_text: "phone"
+            visually_hidden_text: "your phone number"
           }
         ],
         key: {

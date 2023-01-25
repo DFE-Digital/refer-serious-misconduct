@@ -209,6 +209,6 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_click_change_qts
-    click_on "Change do they have QTS"
+    click_on "Change if they have QTS"
   end
 end

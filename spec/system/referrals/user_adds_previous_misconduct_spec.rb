@@ -162,7 +162,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_click_change_previous_misconduct_reported
-    click_on "Change reported"
+    click_on "Change if there has been any previous misconduct"
   end
 
   def when_i_click_on_previous_misconduct
