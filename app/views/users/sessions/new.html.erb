@@ -8,7 +8,7 @@
     <%= form_for(resource, as: resource_name, url: user_session_path, method: :post) do |f| %>
       <p>Use your email address to return at any time.</p>
 
-      <%= f.govuk_email_field :email, autofocus: true, autocomplete: "email", label: nil %>
+      <%= f.govuk_email_field :email, autocomplete: "email", label: nil %>
 
       <%= f.govuk_submit "Continue" %>
     <% end %>
