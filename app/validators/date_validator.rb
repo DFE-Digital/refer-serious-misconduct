@@ -61,8 +61,13 @@ class DateValidator < ActiveModel::EachValidator
       return false
     end
 
-    if year < 1000
+    if year.zero?
       record.errors.add(attribute, :missing_year)
+      return false
+    end
+
+    if year < 1000
+      record.errors.add(attribute, :incomplete_year)
       return false
     end
 

@@ -94,9 +94,10 @@ en:
               inclusion: You must be 16 or over to use this service
               in_the_future: Their date of birth must be in the past
               invalid: Enter their date of birth in the correct format
-              missing_day: Enter a day for their date of birth, formatted as a number
-              missing_month: Enter a month for their date of birth, formatted as a number
-              missing_year: Enter a year with 4 digits
+              missing_day: Date of birth must include a day
+              missing_month: Date of birth must include a month
+              missing_year: Date of birth must include a year
+              incomplete_year: Year must include 4 numbers
             age_known:
               inclusion: Select yes if you know their date of birth
         "referrals/personal_details/name_form":
@@ -165,6 +166,7 @@ en:
               missing_day: Job start date must include a day
               missing_month: Job start date must include a month
               missing_year: Job start date must include a year
+              incomplete_year: Year must include 4 numbers
         "referrals/teacher_role/employment_status_form":
           attributes:
             employment_status:
@@ -233,6 +235,7 @@ en:
               missing_day: Job end date must include a day
               missing_month: Job end date must include a month
               missing_year: Job end date must include a year
+              incomplete_year: Year must include 4 numbers
         "referrals/teacher_role/reason_leaving_role_form":
           attributes:
             reason_leaving_role:
