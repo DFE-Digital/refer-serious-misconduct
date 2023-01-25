@@ -20,7 +20,10 @@ module Referrals
     private
 
     def name_params
-      params.require(:referrals_referrer_name_form).permit(:name)
+      params.require(:referrals_referrer_name_form).permit(
+        :first_name,
+        :last_name
+      )
     end
 
     def next_path

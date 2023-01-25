@@ -3,19 +3,24 @@ module Referrals
     include ActiveModel::Model
 
     attr_accessor :referral
-    attr_writer :name
+    attr_writer :first_name, :last_name
 
-    validates :name, presence: true
+    validates :first_name, presence: true
+    validates :last_name, presence: true
     validates :referral, presence: true
 
-    def name
-      @name ||= referrer&.name
+    def first_name
+      @first_name ||= referrer&.first_name
+    end
+
+    def last_name
+      @last_name ||= referrer&.last_name
     end
 
     def save
       return false unless valid?
 
-      referrer.update(name:)
+      referrer.update(first_name:, last_name:)
     end
 
     private

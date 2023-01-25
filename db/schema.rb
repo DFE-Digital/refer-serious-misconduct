@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_12_202954) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_24_125525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -153,12 +153,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_202954) do
 
   create_table "referrers", force: :cascade do |t|
     t.bigint "referral_id", null: false
-    t.string "name"
+    t.string "first_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone"
     t.string "job_title"
     t.datetime "completed_at", precision: nil
+    t.string "last_name"
     t.index ["referral_id"], name: "index_referrers_on_referral_id"
   end
 
