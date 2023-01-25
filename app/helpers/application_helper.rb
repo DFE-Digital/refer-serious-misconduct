@@ -28,7 +28,14 @@ module ApplicationHelper
   def navigation
     govuk_header(service_name: t("service.name")) do |header|
       case current_namespace
-      when "manage", "support"
+      when "manage"
+        if current_staff # TODO: replace with case worker user type
+          header.navigation_item(
+            href: main_app.staff_sign_out_path,
+            text: "Sign out"
+          )
+        end
+      when "support"
         header.navigation_item(
           active: current_page?(main_app.manage_interface_referrals_path),
           href: main_app.manage_interface_referrals_path,

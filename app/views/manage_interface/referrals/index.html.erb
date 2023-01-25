@@ -6,9 +6,9 @@
     <div class="app-list">
       <% @referrals.each do |referral| %>
         <div class="app-list__item">
-          <h1 class="govuk-heading-m">
+          <h2 class="govuk-heading-m">
             <%= govuk_link_to "#{referral.first_name} #{referral.last_name}", manage_interface_referral_path(referral.id) %>
-          </h1>
+          </h2>
 
           <%= govuk_summary_list(
             classes: ["govuk-summary-list--no-border"],
