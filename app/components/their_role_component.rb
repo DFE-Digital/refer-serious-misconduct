@@ -62,7 +62,7 @@ class TheirRoleComponent < ViewComponent::Base
           text: "Change",
           href: path_for(:duties),
           visually_hidden_text:
-            "how do you want to give details about their main duties"
+            "how you want to give details about their main duties"
         }
       ],
       key: {

@@ -19,7 +19,8 @@ class EvidenceComponent < ViewComponent::Base
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :evidence_start],
               return_to: request.path
-            )
+            ),
+          visually_hidden_text: "if you have anything to upload"
         }
       ],
       key: {
@@ -42,7 +43,8 @@ class EvidenceComponent < ViewComponent::Base
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :evidence_uploaded],
               return_to: request.path
-            )
+            ),
+          visually_hidden_text: "uploaded evidence"
         }
       ],
       key: {

@@ -159,7 +159,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def when_i_click_on_change_name
-    click_on "Change name"
+    click_on "Change your name"
   end
 
   def when_i_click_on_your_details

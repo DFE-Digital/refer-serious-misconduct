@@ -18,7 +18,7 @@ class PreviousMisconductComponent < ViewComponent::Base
               :reported,
               { return_to: }
             ],
-            visually_hidden_text: "reported"
+            visually_hidden_text: "if there has been any previous misconduct"
           }
         ],
         key: {

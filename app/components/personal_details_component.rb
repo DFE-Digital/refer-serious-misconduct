@@ -71,7 +71,7 @@ class PersonalDetailsComponent < ViewComponent::Base
                 ],
                 return_to: request.path
               ),
-            visually_hidden_text: "do they have QTS?"
+            visually_hidden_text: "if they have QTS?"
           }
         ],
         key: {
