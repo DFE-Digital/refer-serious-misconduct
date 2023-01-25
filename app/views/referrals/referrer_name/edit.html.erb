@@ -7,7 +7,10 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Your details</span>
-      <%= f.govuk_text_field :name, label: { size: 'l', text: "Your name" } %>
+      <h1 class="govuk-heading-l">Your name</h1>
+
+      <%= f.govuk_text_field :first_name, label: { size: 'm', text: "First name" }, hint: { text: "Or given name" } %>
+      <%= f.govuk_text_field :last_name, label: { size: 'm', text: "Last name" }, hint: { text: "Or family name" } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

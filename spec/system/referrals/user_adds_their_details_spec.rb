@@ -70,11 +70,12 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def and_i_see_my_name_in_the_form_field
-    expect(page).to have_field("Your name", with: "Test Name")
+    expect(page).to have_field("First name", with: "John")
+    expect(page).to have_field("Last name", with: "Doe")
   end
 
   def and_i_see_my_answers_on_the_referrer_check_your_answers_page
-    expect(page).to have_content("Your name\tTest Name")
+    expect(page).to have_content("Your name\tJohn Doe")
     expect(page).to have_content("Your phone number\t01234567890")
   end
 
@@ -119,11 +120,13 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_name_error_message
-    expect(page).to have_content("Enter your name")
+    expect(page).to have_content("Enter your first name")
+    expect(page).to have_content("Enter your last name")
   end
 
   def then_i_see_the_name_prefilled
-    expect(page).to have_field("Your name", with: "Test Name")
+    expect(page).to have_field("First name", with: "John")
+    expect(page).to have_field("Last name", with: "Doe")
   end
 
   def then_i_see_the_referrer_check_your_answers_page
@@ -168,7 +171,8 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def when_i_enter_my_name
-    fill_in "Your name", with: "Test Name"
+    fill_in "First name", with: "John"
+    fill_in "Last name", with: "Doe"
   end
 
   def when_i_enter_my_phone_number

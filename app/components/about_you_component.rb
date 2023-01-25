@@ -24,7 +24,7 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your name"
         },
         value: {
-          text: referrer.name
+          text: "#{referrer.first_name} #{referrer.last_name}"
         }
       },
       {

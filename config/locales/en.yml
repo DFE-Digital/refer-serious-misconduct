@@ -253,8 +253,10 @@ en:
               invalid: Enter your phone number in the correct format
         "referrals/referrer_name_form":
           attributes:
-            name:
-              blank: Enter your name
+            first_name:
+              blank: Enter your first name
+            last_name:
+              blank: Enter your last name
         organisation_form:
           attributes:
             complete:

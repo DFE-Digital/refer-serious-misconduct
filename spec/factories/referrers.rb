@@ -3,13 +3,15 @@ FactoryBot.define do
     referral { nil }
 
     trait :incomplete do
-      name { nil }
+      first_name { nil }
+      last_name { nil }
     end
 
     trait :complete do
       completed_at { Time.current }
       job_title { "Headteacher" }
-      name { "Jane Smith" }
+      first_name { "Jane" }
+      last_name { "Smith" }
       phone { "01234567890" }
     end
   end
