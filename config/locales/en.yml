@@ -284,6 +284,11 @@ en:
               blank: Enter a description of previous allegations
             format:
               inclusion: Select how you want to give details about previous allegations
+            upload:
+              blank: Select a file containing details of previous allegations
+              invalid_content_type: The selected file must be of type (%{valid_types})
+              mismatch_content_type: The selected file does not match its contents
+              file_size_too_big: The selected file must be smaller than %{max_file_size}
         previous_misconduct_reported_form:
           attributes:
             previous_misconduct_reported:

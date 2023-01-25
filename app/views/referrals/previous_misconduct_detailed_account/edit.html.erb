@@ -3,17 +3,17 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">Previous allegations</span>
-    <h1 class="govuk-heading-l">Detailed account of previous allegations</h1>
-    <p class="govuk-body">Provide details of:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>dates and locations</li>
-      <li>what happened</li>
-      <li>what action was taken</li>
-      <li>reference numbers from previous referrals</li>
-    </ul>
     <%= form_with model: @detailed_account_form, url: [current_referral.routing_scope, current_referral, :previous_misconduct, :detailed_account], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
+      <span class="govuk-caption-l">Previous allegations</span>
+      <h1 class="govuk-heading-l">Detailed account of previous allegations</h1>
+      <p class="govuk-body">Provide details of:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>dates and locations</li>
+        <li>what happened</li>
+        <li>what action was taken</li>
+        <li>reference numbers from previous referrals</li>
+      </ul>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:format, legend: { size: "m", text: "How do you want to give details about previous allegations?" }) do %>
           <%= f.govuk_radio_button :format, "upload", label: { text: "Upload file" }, link_errors: true do %>
