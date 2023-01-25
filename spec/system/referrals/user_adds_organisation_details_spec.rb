@@ -126,11 +126,18 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def then_i_see_the_missing_address_errors
-    expect(page).to have_content(
-      "Enter the first line of your organisation’s address"
-    )
-    expect(page).to have_content("Enter the town or city")
-    expect(page).to have_content("Enter the postcode")
+    expected_messages = [
+      "Enter the first line of your organisation’s address",
+      "Enter the town or city",
+      "Enter the postcode"
+    ]
+
+    page
+      .all(".govuk-error-summary ul li")
+      .collect(&:text)
+      .each_with_index do |error_message, position|
+        expect(error_message).to eq(expected_messages[position])
+      end
   end
 
   def then_i_see_the_missing_name_error

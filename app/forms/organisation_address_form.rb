@@ -4,10 +4,10 @@ class OrganisationAddressForm
   attr_accessor :referral
   attr_writer :street_1, :street_2, :city, :postcode
 
+  validates :street_1, presence: true
   validates :city, presence: true
   validates :postcode, presence: true
   validates :referral, presence: true
-  validates :street_1, presence: true
 
   def city
     @city ||= organisation&.city
