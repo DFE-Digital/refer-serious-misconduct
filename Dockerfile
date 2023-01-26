@@ -45,12 +45,7 @@ RUN RAILS_ENV=production \
 
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log/* tmp/* /tmp && \
-    rm -rf /usr/local/bundle/cache && \
-    rm -rf .env && \
-    find /usr/local/bundle/gems -name "*.c" -delete && \
-    find /usr/local/bundle/gems -name "*.h" -delete && \
-    find /usr/local/bundle/gems -name "*.o" -delete && \
-    find /usr/local/bundle/gems -name "*.html" -delete
+    rm -rf .env
 
 # Build runtime image
 FROM ruby:3.1.2-alpine as production
