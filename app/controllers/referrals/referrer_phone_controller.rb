@@ -1,12 +1,13 @@
 module Referrals
   class ReferrerPhoneController < Referrals::BaseController
     def edit
-      @referrer_phone_form = ReferrerPhoneForm.new(referral: current_referral)
+      @referrer_phone_form =
+        Referrals::Referrer::PhoneForm.new(referral: current_referral)
     end
 
     def update
       @referrer_phone_form =
-        ReferrerPhoneForm.new(
+        Referrals::Referrer::PhoneForm.new(
           referrer_phone_form_params.merge(referral: current_referral)
         )
       if @referrer_phone_form.save
@@ -19,7 +20,7 @@ module Referrals
     private
 
     def referrer_phone_form_params
-      params.require(:referrer_phone_form).permit(:phone)
+      params.require(:referrals_referrer_phone_form).permit(:phone)
     end
 
     def next_path

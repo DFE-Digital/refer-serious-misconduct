@@ -2,12 +2,12 @@ module Referrals
   class ReferrerJobTitleController < Referrals::BaseController
     def edit
       @referrer_job_title_form =
-        ReferrerJobTitleForm.new(referral: current_referral)
+        Referrals::Referrer::JobTitleForm.new(referral: current_referral)
     end
 
     def update
       @referrer_job_title_form =
-        ReferrerJobTitleForm.new(
+        Referrals::Referrer::JobTitleForm.new(
           job_title_params.merge(referral: current_referral)
         )
       if @referrer_job_title_form.save
@@ -20,7 +20,7 @@ module Referrals
     private
 
     def job_title_params
-      params.require(:referrer_job_title_form).permit(:job_title)
+      params.require(:referrals_referrer_job_title_form).permit(:job_title)
     end
 
     def next_path

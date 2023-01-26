@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ReferrerJobTitleForm, type: :model do
+RSpec.describe Referrals::Referrer::JobTitleForm, type: :model do
   let(:referral) { build(:referral, referrer:) }
   let(:referrer) { build(:referrer) }
 

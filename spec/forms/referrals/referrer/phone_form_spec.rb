@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ReferrerPhoneForm, type: :model do
+RSpec.describe Referrals::Referrer::PhoneForm, type: :model do
   let(:referral) { build(:referral, referrer:) }
   let(:referrer) { build(:referrer) }
   let(:phone) { "07700 123456" }
