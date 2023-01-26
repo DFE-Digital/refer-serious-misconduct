@@ -1,6 +1,4 @@
 class Referral < ApplicationRecord
-  include Zippable
-
   belongs_to :eligibility_check, dependent: :destroy
   belongs_to :user
 

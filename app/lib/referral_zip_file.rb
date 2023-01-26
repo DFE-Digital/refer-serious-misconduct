@@ -15,6 +15,10 @@ class ReferralZipFile
     "#{Time.zone.now.to_fs(:number)}-referral-#{referral.id}.zip"
   end
 
+  def has_attachments?
+    attachments.any?(&:attached?)
+  end
+
   private
 
   def zip_file
