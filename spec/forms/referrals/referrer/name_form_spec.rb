@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::ReferrerNameForm, type: :model do
+RSpec.describe Referrals::Referrer::NameForm, type: :model do
   context "when the referral has no referrer" do
     subject { described_class.new(referral:) }
 
