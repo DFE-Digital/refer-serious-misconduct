@@ -15,6 +15,28 @@ class WhatHappenedComponent < ViewComponent::Base
               referral.routing_scope,
               referral,
               :allegation,
+              :details
+            ],
+            visually_hidden_text:
+              "how you want to give details about the allegation"
+          }
+        ],
+        key: {
+          text: "How do you want to give details about the allegation?"
+        },
+        value: {
+          text: allegation_details_type
+        }
+      },
+      {
+        actions: [
+          {
+            text: "Change",
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :allegation,
               :details,
               { return_to: }
             ],
@@ -57,5 +79,14 @@ class WhatHappenedComponent < ViewComponent::Base
     polymorphic_path(
       [:edit, referral.routing_scope, referral, :allegation, :check_answers]
     )
+  end
+
+  private
+
+  def allegation_details_type
+    return "Upload file" if referral.allegation_upload.attached?
+    return "Describe the allegation" if referral.allegation_details.present?
+
+    "Incomplete"
   end
 end
