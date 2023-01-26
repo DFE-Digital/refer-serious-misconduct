@@ -9,6 +9,8 @@ class OrganisationAddressForm
   validates :postcode, presence: true
   validates :referral, presence: true
 
+  validate :postcode_is_valid, if: -> { postcode.present? }
+
   def city
     @city ||= organisation&.city
   end
@@ -31,5 +33,13 @@ class OrganisationAddressForm
     return false unless valid?
 
     organisation.update(city:, postcode:, street_1:, street_2:)
+  end
+
+  private
+
+  def postcode_is_valid
+    unless UKPostcode.parse(postcode).full_valid?
+      errors.add(:postcode, :invalid)
+    end
   end
 end
