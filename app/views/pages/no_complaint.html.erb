@@ -1,19 +1,18 @@
-<% content_for :page_title, 'You should complain to the school, school governors or your local council first' %>
+<% content_for :page_title, 'Make a complaint to the school, school governors or your local council first' %>
 <% content_for :back_link_url, have_you_complained_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">You should complain to the school, school governors or your local council first</h1>
+    <h1 class="govuk-heading-xl">Make a complaint to the school, school governors or your local council first</h1>
     <p class="govuk-body">
-      Visit GOV.UK for <%= link_to "guidance on how to make an informal complaint", "https://www.gov.uk/report-teacher-misconduct" %></a>.
+      View guidance about <%= link_to "how to make an informal complaint", "https://www.gov.uk/report-teacher-misconduct" %></a>.
     </p>
 
     <p class="govuk-body">You’ll need to provide proof to support your complaint.</p>
 
-    <h2 class="govuk-heading-m">Making a referral without an informal complaint</h2>
     <p class="govuk-body">
-      You can still refer serious misconduct without making an informal complaint. Depending on the case, TRA might not investigate unless you have tried to deal with the matter informally.
+      You can still refer serious misconduct without making an informal complaint. Depending on the allegation, it may not be investigated unless you have tried to deal with the matter informally.
     </p>
-    <%= govuk_button_link_to "Continue without an informal complaint", is_a_teacher_path, secondary: true %>
+    <%= govuk_button_link_to "Continue without an informal complaint", is_a_teacher_path %>
   </div>
 </div>
