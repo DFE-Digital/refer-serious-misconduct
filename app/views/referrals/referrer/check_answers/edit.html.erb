@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @referrer_form, url: [current_referral.routing_scope, current_referral, :referrer], method: :patch do |f| %>
+    <%= form_with model: @check_answers_form, url: [current_referral.routing_scope, current_referral, :referrer, :check_answers], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
       <h1 class="govuk-heading-l">
