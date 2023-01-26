@@ -22,4 +22,22 @@ describe ReferralZipFile do
       )
     end
   end
+
+  describe "#has_attachments?" do
+    context "when the referral doesn't have attached files" do
+      let(:referral) { create(:referral) }
+
+      it "returns false" do
+        expect(referral_zip_file.has_attachments?).to be false
+      end
+    end
+
+    context "when the referral has attached files" do
+      let(:referral) { create(:referral, :with_attachments) }
+
+      it "returns true" do
+        expect(referral_zip_file.has_attachments?).to be true
+      end
+    end
+  end
 end

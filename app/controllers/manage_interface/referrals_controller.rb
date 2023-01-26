@@ -8,12 +8,14 @@ module ManageInterface
     end
 
     def show
+      @has_attachments = referral_zip_file.has_attachments?
+
       respond_to do |format|
         format.html { render "show" }
         format.zip do
           send_data(
             referral_zip_file_contents,
-            filename: @referral.zip_file_name
+            filename: referral_zip_file.name
           )
         end
       end
