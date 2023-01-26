@@ -92,6 +92,11 @@ RSpec.feature "Allegation", type: :system do
     expect(page).to have_content("Check and confirm your answers")
 
     expect_summary_row(
+      key: "How do you want to give details about the allegation?",
+      value: "Describe the allegation"
+    )
+
+    expect_summary_row(
       key: "Summary",
       value: "Something something something",
       change_link:
