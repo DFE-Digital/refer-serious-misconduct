@@ -25,6 +25,14 @@ module ManageInterface
 
     def referral
       @referral ||= Referral.find(params[:id])
+
+      respond_to do |format|
+        format.pdf do
+          html = render_to_string "manage_interface/referrals/show", formats: :html
+          send_data Grover.new(html, format: "A4", display_url: "http://localhost:3000/manage/referrals/4").to_pdf, type: "application/pdf"
+        end
+        format.html
+      end
     end
 
     def referral_zip_file

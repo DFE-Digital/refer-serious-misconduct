@@ -29,6 +29,8 @@ gem "sidekiq", "< 7"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "uk_postcode"
 
+gem "grover"
+
 group :development, :test do
   gem "dotenv-rails", "~> 2.8"
   gem "factory_bot_rails"
