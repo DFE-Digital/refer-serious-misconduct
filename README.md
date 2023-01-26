@@ -44,6 +44,8 @@ The application has a number of different interfaces for different types of user
 
 ![User journey system diagram](docs/architecture-context.svg)
 
+For the referrer journey here's [how the forms are structured](docs/referrer-form-structure.md)
+
 ### Architecture
 
 ![Architecture diagram](docs/tech-architecture.svg)
