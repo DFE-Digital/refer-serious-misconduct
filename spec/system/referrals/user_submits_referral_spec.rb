@@ -45,8 +45,8 @@ RSpec.feature "User submits a referral", type: :system do
 
   def then_i_see_the_confirmation_page
     expect(page).to have_current_path("/referrals/#{@referral.id}/confirmation")
-    expect(page).to have_title("We have received your referral")
-    expect(page).to have_content("We have received your referral")
+    expect(page).to have_title("Referral sent")
+    expect(page).to have_content("Referral sent")
   end
 
   def then_i_see_the_declaration_page

@@ -182,12 +182,12 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_current_path("/no-complaint")
     expect(page).to have_title(
       [
-        "You should complain to the school, school governors or your local council first",
+        "Make a complaint to the school, school governors or your local council first",
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
     expect(page).to have_content(
-      "You should complain to the school, school governors or your local council first"
+      "Make a complaint to the school, school governors or your local council first"
     )
   end
 
