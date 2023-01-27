@@ -2,15 +2,13 @@
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">
-      <span class="govuk-caption-l">The allegation</span>
-      Check and confirm your answers
-    </h1>
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">The allegation</span>
+    <h1 class="govuk-heading-l">Check and confirm your answers</h1>
+    <%= render PublicAllegationComponent.new(referral: current_referral) %>
+
     <%= form_with model: @allegation_check_answers_form, url: public_referral_allegation_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
-
-      <%= render PublicAllegationComponent.new(referral: current_referral) %>
 
       <%= f.govuk_radio_buttons_fieldset(
         :allegation_details_complete,

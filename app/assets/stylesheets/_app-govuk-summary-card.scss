@@ -1,19 +1,4 @@
 .app-govuk-summary-card {
-  border: 1px solid $govuk-border-colour;
-
-  // Card header
-  &__header {
-    align-items: center;
-    background-color: govuk-colour("light-grey");
-    padding: govuk-spacing(3);
-
-    @include govuk-media-query($from: desktop) {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-    }
-  }
-
   &__title {
     @include govuk-font($size: 19);
     margin: 0;
@@ -53,16 +38,10 @@
   // Card body
   &__body {
     @include govuk-font($size: 19);
-    padding: govuk-spacing(3);
   }
 
   .govuk-summary-list {
     margin-bottom: 0;
-  }
-
-  .govuk-summary-list__row:last-child,
-  .govuk-summary-list__row:last-child > * {
-    border-bottom: 0;
   }
 }
 
