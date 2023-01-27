@@ -117,11 +117,5 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
         expect(referral.allegation_upload).not_to be_attached
       end
     end
-
-    context "when format is incomplete" do
-      let(:allegation_format) { "incomplete" }
-
-      it { is_expected.to be_truthy }
-    end
   end
 end

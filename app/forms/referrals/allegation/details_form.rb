@@ -4,10 +4,7 @@ module Referrals
     class DetailsForm
       include ActiveModel::Model
 
-      validates :allegation_format,
-                inclusion: {
-                  in: %w[details incomplete upload]
-                }
+      validates :allegation_format, inclusion: { in: %w[details upload] }
       validates :allegation_details,
                 presence: true,
                 if: -> { allegation_format == "details" }
@@ -25,6 +22,7 @@ module Referrals
         return false if invalid?
 
         attrs = { allegation_format: }
+
         case allegation_format
         when "details"
           referral.allegation_upload.purge
