@@ -380,7 +380,7 @@ GEM
     solargraph-rails (1.1.0)
       activesupport
       solargraph
-    syntax_tree (5.2.0)
+    syntax_tree (5.3.0)
       prettier_print (>= 1.2.0)
     syntax_tree-haml (3.0.0)
       haml (>= 5.2, != 6.0.0)
