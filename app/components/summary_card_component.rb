@@ -1,13 +1,8 @@
 class SummaryCardComponent < ViewComponent::Base
-  def initialize(rows:, border: true, editable: true, ignore_editable: [])
+  def initialize(rows:, editable: true, ignore_editable: [])
     super
     rows = transform_hash(rows) if rows.is_a?(Hash)
     @rows = rows_including_actions_if_editable(rows, editable, ignore_editable)
-    @border = border
-  end
-
-  def border_css_class
-    @border ? "" : "no-border"
   end
 
   private
