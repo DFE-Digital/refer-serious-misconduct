@@ -22,21 +22,35 @@ class ReferralZipFile
   private
 
   def zip_file
-    temp_file = Tempfile.new("temp.zip")
+    temp_zip_file = Tempfile.new("temp.zip")
+    temp_attachments = []
 
-    Zip::File.open(temp_file.path, create: true) do |zip_file|
+    Zip::File.open(temp_zip_file.path, create: true) do |zip|
       attachments.each do |attachment|
         next unless attachment.attached?
 
-        file = ActiveStorage::Blob.service.path_for(attachment.key)
-        zip_file.add(
+        blob = attachment.blob
+        temp_attachment = Tempfile.new(blob.filename.sanitized)
+
+        File.open(temp_attachment, "wb+") do |file|
+          blob.download { |chunk| file.write(chunk) }
+        end
+
+        zip.add(
           "#{attachment.name}/#{attachment.record.id}-#{attachment.filename}",
-          File.join(file)
+          File.join(temp_attachment.path)
         )
+
+        temp_attachments << temp_attachment
       end
     end
 
-    temp_file
+    temp_attachments.each do |file|
+      file.close
+      file.unlink
+    end
+
+    temp_zip_file
   end
 
   def attachments
