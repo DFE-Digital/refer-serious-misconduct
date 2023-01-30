@@ -48,7 +48,7 @@ class ReferralForm
             ReferralSectionItem.new(
               I18n.t("referral_form.your_organisation"),
               polymorphic_path(
-                [:edit, referral.routing_scope, referral, :organisation_name]
+                [:edit, referral.routing_scope, referral, :organisation_address]
               ),
               referral.organisation_status
             )

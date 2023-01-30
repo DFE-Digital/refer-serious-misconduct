@@ -2,8 +2,9 @@ class OrganisationAddressForm
   include ActiveModel::Model
 
   attr_accessor :referral
-  attr_writer :street_1, :street_2, :city, :postcode
+  attr_writer :name, :street_1, :street_2, :city, :postcode
 
+  validates :name, presence: true
   validates :street_1, presence: true
   validates :city, presence: true
   validates :postcode, presence: true
@@ -15,7 +16,13 @@ class OrganisationAddressForm
     @city ||= organisation&.city
   end
 
-  delegate :organisation, to: :referral, allow_nil: true
+  def name
+    @name ||= organisation&.name
+  end
+
+  def organisation
+    @organisation ||= referral&.organisation || referral&.build_organisation
+  end
 
   def postcode
     @postcode ||= organisation&.postcode
@@ -32,14 +39,14 @@ class OrganisationAddressForm
   def save
     return false unless valid?
 
-    organisation.update(city:, postcode:, street_1:, street_2:)
+    organisation.update(city:, name:, postcode:, street_1:, street_2:)
   end
 
   private
 
   def postcode_is_valid
-    unless UKPostcode.parse(postcode).full_valid?
-      errors.add(:postcode, :invalid)
-    end
+    return if UKPostcode.parse(postcode).full_valid?
+
+    errors.add(:postcode, :invalid)
   end
 end

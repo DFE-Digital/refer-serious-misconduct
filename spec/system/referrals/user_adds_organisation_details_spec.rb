@@ -10,31 +10,20 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     when_i_click_on_your_organisation
-
-    then_i_am_on_the_organisation_name_page
-    when_i_click_save_and_continue
-    then_i_see_the_missing_name_error
-
-    when_i_fill_in_the_organisation_name
-    and_i_click_save_and_continue
     then_i_am_on_the_organisation_address_page
 
     when_i_click_save_and_continue
+    then_i_see_the_missing_name_error
     then_i_see_the_missing_address_errors
 
+    when_i_fill_in_the_organisation_name
     when_i_complete_the_address
     and_i_click_save_and_continue
     then_i_am_on_the_organisation_details_page
 
-    when_i_click_change_organisation_name
-    then_i_am_on_the_organisation_name_page
-    and_i_see_the_name_prefilled
-
-    when_i_click_save_and_continue
-    then_i_am_on_the_organisation_details_page
-
-    when_i_click_change_organisation_address
+    when_i_click_change_your_organisation
     then_i_am_on_the_organisation_address_page
+    and_i_see_the_name_prefilled
     and_i_see_the_address_prefilled
 
     when_i_click_save_and_continue
@@ -68,10 +57,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_see_the_name_prefilled
-    expect(page).to have_field(
-      "What’s the name of your organisation?",
-      with: "My organisation"
-    )
+    expect(page).to have_field("Organisation name", with: "My organisation")
   end
 
   def and_i_see_your_organisation_flagged_as_incomplete
@@ -97,9 +83,9 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
       ignore_query: true
     )
     expect(page).to have_title(
-      "What is your organisation’s address? - Refer serious misconduct by a teacher in England"
+      "Your organisation - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What is your organisation’s address?")
+    expect(page).to have_content("Your organisation")
   end
 
   def then_i_am_on_the_organisation_details_page
@@ -127,9 +113,10 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def then_i_see_the_missing_address_errors
     expected_messages = [
+      "Enter the organisation name",
       "Enter the first line of your organisation’s address",
-      "Enter the town or city",
-      "Enter the postcode"
+      "Enter the town or city of your organisation",
+      "Enter the postcode of your organisation"
     ]
 
     page
@@ -148,12 +135,8 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     choose "No, I’ll come back to it later", visible: false
   end
 
-  def when_i_click_change_organisation_address
-    click_on "Change address"
-  end
-
-  def when_i_click_change_organisation_name
-    click_on "Change name"
+  def when_i_click_change_your_organisation
+    click_on "Change your organisation"
   end
 
   def when_i_click_on_your_organisation
@@ -167,7 +150,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def when_i_fill_in_the_organisation_name
-    fill_in "What’s the name of your organisation?", with: "My organisation"
+    fill_in "Organisation name", with: "My organisation"
   end
 
   def when_i_go_back

@@ -21,10 +21,11 @@ module Referrals
 
     def organisation_address_form_params
       params.require(:organisation_address_form).permit(
-        :street_1,
-        :street_2,
         :city,
-        :postcode
+        :name,
+        :postcode,
+        :street_1,
+        :street_2
       )
     end
 

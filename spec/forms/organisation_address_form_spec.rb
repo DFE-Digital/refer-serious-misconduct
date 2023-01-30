@@ -9,14 +9,20 @@ RSpec.describe OrganisationAddressForm, type: :model do
     it { is_expected.to validate_presence_of(:referral) }
 
     it do
+      expect(form).to validate_presence_of(:name).with_message(
+        "Enter the organisation name"
+      )
+    end
+
+    it do
       expect(form).to validate_presence_of(:city).with_message(
-        "Enter the town or city"
+        "Enter the town or city of your organisation"
       )
     end
 
     it do
       expect(form).to validate_presence_of(:postcode).with_message(
-        "Enter the postcode"
+        "Enter the postcode of your organisation"
       )
     end
 
@@ -36,6 +42,7 @@ RSpec.describe OrganisationAddressForm, type: :model do
     let(:params) do
       {
         city: "London",
+        name: "Organisation Name",
         postcode: "NW1 4NP",
         referral:,
         street_1: "1 Street",
@@ -63,6 +70,7 @@ RSpec.describe OrganisationAddressForm, type: :model do
     let(:params) do
       {
         city: "London",
+        name: "Organisation Name",
         postcode: "NW1 4NP",
         referral:,
         street_1: "1 Street",
