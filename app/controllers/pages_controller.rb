@@ -4,16 +4,18 @@ class PagesController < ApplicationController
 
     @start_now_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)
-        current_user ? referral_type_path : new_user_session_path
+        current_user ? referral_type_path : users_registrations_exists_path
       else
-        referral_type_path
+        users_registrations_exists_path
       end
   end
 
   def you_should_know
     @continue_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)
-        if eligibility_check.reporting_as_public?
+        if !current_user
+          new_user_session_path(new_referral: true)
+        elsif eligibility_check.reporting_as_public?
           new_public_referral_path
         else
           new_referral_path

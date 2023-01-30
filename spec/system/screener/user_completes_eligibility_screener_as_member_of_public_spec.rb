@@ -83,8 +83,6 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_the_you_should_know_page
 
     when_i_press_continue
-    then_i_see_the_progress_is_saved_page
-    when_i_press_continue
     then_i_have_started_a_member_of_public_referral
   end
 
@@ -92,10 +90,6 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def then_i_see_a_validation_error
     expect(page).to have_content("There is a problem")
-  end
-
-  def then_i_see_the_progress_is_saved_page
-    expect(page).to have_content "Your progress is saved as you go"
   end
 
   def then_i_see_the_employer_or_public_question

@@ -64,6 +64,10 @@ en:
           attributes:
             is_teacher:
               inclusion: Select yes if the allegation is about a teacher
+        registration_exists_form:
+          attributes:
+            registration_exists:
+              inclusion: Select yes if you have an account
         reporting_as_form:
           attributes:
             reporting_as:

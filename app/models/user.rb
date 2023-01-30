@@ -36,4 +36,12 @@ class User < ApplicationRecord
     eligibility_check = EligibilityCheck.find_by!(id: eligibility_check_id)
     referrals.create!(eligibility_check_id: eligibility_check.id)
   end
+
+  def find_or_create_referral!(eligibility_check_id:)
+    eligibility_check = EligibilityCheck.find_by!(id: eligibility_check_id)
+    Referral.find_or_create_by!(
+      user_id: id,
+      eligibility_check_id: eligibility_check.id
+    )
+  end
 end

@@ -1,17 +1,21 @@
-<% content_for :page_title, "Confirm your email address" %>
+<% content_for :page_title, "Check your email" %>
 <% content_for :back_link_url, new_user_session_path %>
 
-<h1 class="govuk-heading-xl">Confirm your email address</h1>
+<h1 class="govuk-heading-xl">Check your email</h1>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with(model: @otp_form, scope: resource_name, url: user_otp_path, method: :post) do |f| %>
+      <%= hidden_field_tag :new_referral, new_referral %>
+
       <%= f.hidden_field :uuid, value: @otp_form.uuid %>
       <%= f.hidden_field :email, value: @otp_form.email %>
 
-      <p>We've emailed a confirmation code to <%= @otp_form.email %></p>
+      <p>A confirmation code has been sent to <%= @otp_form.email %></p>
+      <p>Check your spam and trash folder if you cannot find the email.</p>
+      <p>You can also <%= link_to "request another confirmation code", new_user_session_path(new_referral:) %>.</p>
 
-      <%= f.govuk_text_field :otp, size: "m", label: { text: "Enter your code", class: "govuk-label--s" }, class: "govuk-!-width-one-quarter" %>
+      <%= f.govuk_text_field :otp, size: "m", label: { text: "Confirmation code", class: "govuk-label--s" }, class: "govuk-!-width-one-quarter" %>
 
       <%= f.govuk_submit "Continue" %>
     <% end %>

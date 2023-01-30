@@ -36,7 +36,7 @@ class Users::OtpController < DeviseController
 
   def fail_and_retry(reason:)
     @otp_form.user.after_failed_otp_authentication
-    redirect_to retry_user_sign_in_path(error: reason)
+    redirect_to retry_user_sign_in_path(error: reason, new_referral:)
   end
 
   def auth_options
@@ -64,11 +64,17 @@ class Users::OtpController < DeviseController
         [:edit, latest_referral.routing_scope, latest_referral]
       end
     else
-      referral_type_path
+      new_referral_path
     end
   end
 
   def user_params
     params.require(:user).permit(:uuid, :otp, :email)
   end
+
+  def new_referral
+    params[:new_referral] == "true"
+  end
+  alias_method :new_referral?, :new_referral
+  helper_method :new_referral, :new_referral?
 end

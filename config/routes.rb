@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     -> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
   ) do
     get "/start", to: "pages#start"
+    get "/users/registrations/exists", to: "users/existing_registration#new"
+    post "/users/registrations/exists", to: "users/existing_registration#create"
     get "/referral-type", to: "referral_type#new"
     post "/referral-type", to: "referral_type#create"
     get "/have-you-complained", to: "have_complained#new"

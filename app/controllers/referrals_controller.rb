@@ -4,7 +4,11 @@ class ReferralsController < Referrals::BaseController
   before_action :redirect_to_screener_if_no_id_in_session, only: %i[new create]
 
   def new
-    @create_path = referrals_path
+    new_referral =
+      current_user.find_or_create_referral!(
+        eligibility_check_id: session.delete(:eligibility_check_id)
+      )
+    redirect_to [:edit, new_referral.routing_scope, new_referral]
   end
 
   def create
