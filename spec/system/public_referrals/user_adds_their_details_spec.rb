@@ -10,9 +10,6 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_am_a_member_of_the_public_with_an_existing_referral
     when_i_visit_the_public_referral
     and_i_click_on_your_details
-    then_i_am_on_the_personal_details_page
-
-    when_i_click_continue
     then_i_am_on_the_your_name_page
 
     when_i_click_save_and_continue
@@ -26,7 +23,7 @@ RSpec.feature "Public Referral: About You", type: :system do
     then_i_see_the_phone_error_message
 
     when_i_enter_my_phone_number
-    when_i_click_save_and_continue
+    and_i_click_save_and_continue
     then_i_see_the_referrer_check_your_answers_page
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
@@ -41,10 +38,7 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_see_your_details_flagged_as_incomplete
 
     when_i_click_on_your_details
-    and_i_click_continue
-    then_i_see_the_name_prefilled
-
-    when_i_click_save_and_continue
+    and_i_click_on_change_phone_number
     then_i_see_the_phone_number_prefilled
 
     when_i_click_save_and_continue
@@ -80,12 +74,12 @@ RSpec.feature "Public Referral: About You", type: :system do
     end
   end
 
-  def then_i_am_on_the_personal_details_page
+  def then_i_am_on_the_your_details_your_name_page
     expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/personal-details",
+      "/public-referrals/#{@referral.id}/referrer-name/edit",
       ignore_query: true
     )
-    expect(page).to have_title("How your personal details will be used")
+    expect(page).to have_title("Your name")
     expect(page).to have_content("Your details")
   end
 
@@ -122,6 +116,7 @@ RSpec.feature "Public Referral: About You", type: :system do
       "Your details - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your details")
+    expect(page).to have_content("Check and confirm your answers")
   end
 
   def then_i_see_the_phone_error_message
@@ -143,23 +138,5 @@ RSpec.feature "Public Referral: About You", type: :system do
       status_tag = find(".app-task-list__tag")
       expect(status_tag.text).to match(/^COMPLETE/)
     end
-  end
-
-  def when_i_click_on_change_name
-    click_on "Change your name"
-  end
-
-  def when_i_click_on_your_details
-    click_link "Your details"
-  end
-  alias_method :and_i_click_on_your_details, :when_i_click_on_your_details
-
-  def when_i_enter_my_name
-    fill_in "First name", with: "John"
-    fill_in "Last name", with: "Doe"
-  end
-
-  def when_i_enter_my_phone_number
-    fill_in "Your phone number", with: "01234567890"
   end
 end
