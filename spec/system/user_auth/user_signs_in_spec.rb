@@ -9,8 +9,11 @@ RSpec.feature "User accounts" do
 
     when_i_visit_the_root_page
     and_click_start_now
-    and_i_submit_my_email
-    when_i_provide_a_short_otp
+    and_choose_continue_referral
+    then_i_should_see_the_sign_in_page
+
+    when_i_submit_my_email
+    and_i_provide_a_short_otp
     then_i_see_an_error_about_otp_length
     when_i_provide_the_wrong_otp
     then_i_see_an_error_about_a_wrong_code
@@ -53,19 +56,24 @@ RSpec.feature "User accounts" do
     click_on "Start now"
   end
 
+  def and_choose_continue_referral
+    choose "Yes, sign in and continue making a referral", visible: false
+    click_on "Continue"
+  end
+
   def and_i_submit_my_email
     fill_in "user-email-field", with: "test@example.com"
     click_on "Continue"
   end
   alias_method :when_i_submit_my_email, :and_i_submit_my_email
 
-  def when_i_provide_a_short_otp
-    fill_in "Enter your code", with: "123"
+  def and_i_provide_a_short_otp
+    fill_in "Confirmation code", with: "123"
     within("main") { click_on "Continue" }
   end
 
   def when_i_provide_the_wrong_otp
-    fill_in "Enter your code", with: "123456"
+    fill_in "Confirmation code", with: "123456"
     within("main") { click_on "Continue" }
   end
 
@@ -90,7 +98,7 @@ RSpec.feature "User accounts" do
     email = ActionMailer::Base.deliveries.last
     expect(email.body).to include expected_otp
 
-    fill_in "Enter your code", with: expected_otp
+    fill_in "Confirmation code", with: expected_otp
     within("main") { click_on "Continue" }
   end
 
@@ -132,6 +140,10 @@ RSpec.feature "User accounts" do
     expect(page).to have_current_path(
       edit_referral_contact_details_email_path(@referral)
     )
+  end
+
+  def then_i_should_see_the_sign_in_page
+    expect(page).to have_current_path(new_user_session_path)
   end
 
   def and_my_otp_state_is_reset

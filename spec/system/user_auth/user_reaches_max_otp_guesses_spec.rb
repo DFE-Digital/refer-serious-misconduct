@@ -29,13 +29,15 @@ RSpec.feature "User accounts" do
   def when_i_start_the_signin_flow
     visit root_path
     click_on "Start now"
+    choose "Yes, sign in and continue making a referral", visible: false
+    click_on "Continue"
     fill_in "user-email-field", with: "test@example.com"
     click_on "Continue"
   end
 
   def and_max_out_my_otp_guesses
     Users::OtpForm::MAX_GUESSES.times do
-      fill_in "Enter your code", with: "123456"
+      fill_in "Confirmation code", with: "123456"
       within("main") { click_on "Continue" }
     end
   end
@@ -47,7 +49,7 @@ RSpec.feature "User accounts" do
 
   def and_can_return_to_the_email_screen
     click_link "Continue"
-    expect(page).to have_content "What is your email address?"
+    expect(page).to have_content "Sign in"
   end
 
   def and_my_otp_state_is_reset

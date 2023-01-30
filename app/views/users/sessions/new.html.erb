@@ -1,14 +1,18 @@
-<% content_for :page_title, "What is your email address?" %>
+<% content_for :page_title, new_referral? ? "Your email address" : "Sign in" %>
 <% content_for :back_link_url, root_path %>
-
-<h1 class="govuk-heading-xl">What is your email address?</h1>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for(resource, as: resource_name, url: user_session_path, method: :post) do |f| %>
-      <p>Use your email address to return at any time.</p>
+      <%= hidden_field_tag :new_referral, new_referral %>
 
-      <%= f.govuk_email_field :email, autocomplete: "email", label: nil %>
+      <% if new_referral? %>
+        <%= f.govuk_email_field :email, autocomplete: "email", label: { tag: 'h1', text: "Your email address", size: "l" } %>
+      <% else %>
+        <h1 class="govuk-heading-xl">Sign in</h1>
+        <p>Sign in to continue making your referral of serious misconduct.</p>
+        <%= f.govuk_email_field :email, autocomplete: "email", label: { tag: 'h1', text: "Your email address", class: "m" } %>
+      <% end %>
 
       <%= f.govuk_submit "Continue" %>
     <% end %>

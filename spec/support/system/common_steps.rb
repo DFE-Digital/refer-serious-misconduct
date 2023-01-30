@@ -7,6 +7,10 @@ module CommonSteps
     FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
   end
 
+  def and_the_eligibility_screener_is_enabled
+    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
+  end
+
   def and_i_am_signed_in
     @user = create(:user)
     sign_in(@user)

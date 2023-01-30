@@ -8,7 +8,7 @@ RSpec.feature "Question order", type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_feature_is_active
     and_the_referral_form_feature_is_active
-    and_i_am_signed_in
+
     when_i_visit_the_service
     then_i_see_the_start_page
 
@@ -25,6 +25,9 @@ RSpec.feature "Question order", type: :system do
     then_i_see_the_start_page
 
     when_i_press_start
+    then_i_see_the_start_new_referral_page
+
+    when_i_start_new_referral
     when_i_choose_employer
     when_i_press_continue
     then_i_see_the_is_a_teacher_page
@@ -63,6 +66,15 @@ RSpec.feature "Question order", type: :system do
 
   def then_i_see_the_unsupervised_teaching_page
     expect(page).to have_current_path("/unsupervised-teaching")
+  end
+
+  def then_i_see_the_start_new_referral_page
+    expect(page).to have_current_path("/users/registrations/exists")
+  end
+
+  def when_i_start_new_referral
+    choose "No", visible: false
+    click_on "Continue"
   end
 
   def when_i_choose_employer

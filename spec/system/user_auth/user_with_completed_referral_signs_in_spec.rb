@@ -12,6 +12,7 @@ RSpec.feature "User accounts" do
     when_i_visit_the_service
     and_i_have_a_completed_referral
     and_click_start_now
+    and_choose_continue_referral
     and_i_submit_my_email
 
     when_i_provide_the_expected_otp
@@ -30,6 +31,11 @@ RSpec.feature "User accounts" do
     click_on "Start now"
   end
 
+  def and_choose_continue_referral
+    choose "Yes, sign in and continue making a referral", visible: false
+    click_on "Continue"
+  end
+
   def and_i_submit_my_email
     fill_in "user-email-field", with: @user.email
     click_on "Continue"
@@ -44,7 +50,7 @@ RSpec.feature "User accounts" do
     email = ActionMailer::Base.deliveries.last
     expect(email.body).to include expected_otp
 
-    fill_in "Enter your code", with: expected_otp
+    fill_in "Confirmation code", with: expected_otp
     within("main") { click_on "Continue" }
   end
 
