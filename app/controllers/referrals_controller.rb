@@ -31,14 +31,6 @@ class ReferralsController < Referrals::BaseController
 
   private
 
-  def redirect_to_referral_if_exists
-    latest_referral = current_user.latest_referral
-
-    if latest_referral
-      redirect_to [:edit, latest_referral.routing_scope, latest_referral]
-    end
-  end
-
   def referral
     @referral ||= current_user.referrals.employer.find(params[:id])
   end
