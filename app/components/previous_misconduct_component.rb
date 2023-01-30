@@ -42,6 +42,29 @@ class PreviousMisconductComponent < ViewComponent::Base
               :detailed_account,
               { return_to: }
             ],
+            visually_hidden_text:
+              "how you want to give details about previous allegations"
+          }
+        ],
+        key: {
+          text: "How do you want to give details about previous allegations?"
+        },
+        value: {
+          text: detail_type
+        }
+      }
+      @rows << {
+        actions: [
+          {
+            text: "Change",
+            href: [
+              :edit,
+              referral.routing_scope,
+              referral,
+              :previous_misconduct,
+              :detailed_account,
+              { return_to: }
+            ],
             visually_hidden_text: "details"
           }
         ],
@@ -59,7 +82,15 @@ class PreviousMisconductComponent < ViewComponent::Base
 
   def report
     if referral.previous_misconduct_upload.attached?
-      return referral.previous_misconduct_upload.filename
+      return(
+        govuk_link_to(
+          referral.previous_misconduct_upload.filename,
+          rails_blob_path(
+            referral.previous_misconduct_upload,
+            disposition: "attachment"
+          )
+        )
+      )
     end
 
     if referral.previous_misconduct_details.present?
@@ -71,5 +102,11 @@ class PreviousMisconductComponent < ViewComponent::Base
 
   def return_to
     polymorphic_path([referral.routing_scope, referral, :previous_misconduct])
+  end
+
+  def detail_type
+    return "Upload file" if referral.previous_misconduct_upload.attached?
+
+    "Describe the allegation"
   end
 end
