@@ -17,36 +17,14 @@ class OrganisationComponent < ViewComponent::Base
               referral.routing_scope,
               referral,
               :organisation,
-              :name,
-              { return_to: }
-            ],
-            visually_hidden_text: "name"
-          }
-        ],
-        key: {
-          text: "Organisation"
-        },
-        value: {
-          text: organisation.name
-        }
-      },
-      {
-        actions: [
-          {
-            text: "Change",
-            href: [
-              :edit,
-              referral.routing_scope,
-              referral,
-              :organisation,
               :address,
               { return_to: }
             ],
-            visually_hidden_text: "address"
+            visually_hidden_text: "your organisation"
           }
         ],
         key: {
-          text: "Address"
+          text: "Your organisation"
         },
         value: {
           text: organisation_address(organisation)

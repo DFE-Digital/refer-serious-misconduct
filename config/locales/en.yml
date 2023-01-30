@@ -266,18 +266,15 @@ en:
               inclusion: Select yes if you’ve completed this section
         organisation_address_form:
           attributes:
+            name:
+              blank: Enter the organisation name
             street_1:
               blank: Enter the first line of your organisation’s address
             city:
-              blank: Enter the town or city
+              blank: Enter the town or city of your organisation
             postcode:
-              blank: Enter the postcode
+              blank: Enter the postcode of your organisation
               invalid: Enter a real postcode
-
-        organisation_name_form:
-          attributes:
-            name:
-              blank: Enter the organisation name
         previous_misconduct_form:
           attributes:
             complete:
