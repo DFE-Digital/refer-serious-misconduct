@@ -13,6 +13,8 @@ dev:
 	$(eval RESOURCE_NAME_PREFIX=s165d01)
 	$(eval ENV_SHORT=dv)
 	$(eval ENV_TAG=dev)
+	$(eval NAME_ENV=${DEPLOY_ENV})
+	$(eval RESOURCE_ENV=${ENV_SHORT})
 
 .PHONY: test
 test:
@@ -21,6 +23,8 @@ test:
 	$(eval RESOURCE_NAME_PREFIX=s165t01)
 	$(eval ENV_SHORT=ts)
 	$(eval ENV_TAG=test)
+	$(eval NAME_ENV=${DEPLOY_ENV})
+	$(eval RESOURCE_ENV=${ENV_SHORT})
 
 .PHONY: preprod
 preprod:
@@ -29,6 +33,8 @@ preprod:
 	$(eval RESOURCE_NAME_PREFIX=s165t01)
 	$(eval ENV_SHORT=pp)
 	$(eval ENV_TAG=pre-prod)
+	$(eval NAME_ENV=${DEPLOY_ENV})
+	$(eval RESOURCE_ENV=${ENV_SHORT})
 
 .PHONY: production
 production:
@@ -39,6 +45,9 @@ production:
 	$(eval ENV_TAG=prod)
 	$(eval AZURE_BACKUP_STORAGE_ACCOUNT_NAME=s165p01rsmdbbackuppd)
 	$(eval AZURE_BACKUP_STORAGE_CONTAINER_NAME=rsm)
+	$(eval NAME_ENV=${DEPLOY_ENV})
+	$(eval RESOURCE_ENV=${ENV_SHORT})
+	$(eval CONSOLE_OPTIONS=--sandbox)
 
 .PHONY: review-init
 review-init:
@@ -57,6 +66,8 @@ review: review-init set-azure-resource-group-tags
 	$(eval export TF_VAR_app_suffix=$(env))
 	$(eval export TF_VAR_resource_group_name=s165d01-rsm-review$(env)-rg)
 	$(eval export TF_VAR_allegations_storage_account_name=s165d01rsmallegr$(pr_id))
+	$(eval NAME_ENV=${DEPLOY_ENV}${env})
+	$(eval RESOURCE_ENV=${DEPLOY_ENV}${env})
 
 .PHONY: domain
 domain:
@@ -148,3 +159,9 @@ domain-azure-resources: set-azure-account set-azure-template-tag set-azure-resou
 	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/${ARM_TEMPLATE_TAG}/azure/resourcedeploy.json" \
 		--parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsmdomains-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" \
 			"tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmdomainstf" "tfStorageContainerName=rsmdomains-tf"  "keyVaultName=${RESOURCE_NAME_PREFIX}-rsmdomains-kv"
+
+az-console: set-azure-account
+	az container exec \
+		--name=${RESOURCE_NAME_PREFIX}-rsm-${NAME_ENV}-wkr-cg \
+		--resource-group=${RESOURCE_NAME_PREFIX}-rsm-${RESOURCE_ENV}-rg \
+		--exec-command="bundle exec rails c ${CONSOLE_OPTIONS}"

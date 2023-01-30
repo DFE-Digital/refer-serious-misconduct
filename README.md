@@ -216,31 +216,25 @@ You'll also need to configure your editor's `solargraph` plugin to
 
 ### Accessing the Rails console through the Azure CLI
 
-We have a helpful script you can run that will connect you to the right resource
-(you will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli) installed
-first):
+We have a helpful command you can run that will connect you to the right
+resource (you will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli)
+installed first):
 
 ```bash
-bin/az-console $ENVIRONMENT # (production/preprod/test/dev/review)
-```
-
-Make sure you have permission to run the script:
-
-```bash
-chmod +x bin/az-console
+make dev az-console
+make test az-console
+make preprod az-console
+make production az-console
 ```
 
 Accessing a live console on production and test requires a [PIM (Privileged
 Identity Management) request](docs/privileged-identity-management-requests.md).
 
-The script will access the production console in sandbox mode to avoid making
-unintended changes to the database.
-
 If you want to access a review app you'll have to pass the GitHub PR number as
 an argument. E.g.:
 
 ```bash
-bin/az-console review 123
+make review pr_id=123 az-console-pr
 ```
 
 The review app needs to be deployed first. You can do this manually by tagging a
