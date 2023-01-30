@@ -6,12 +6,12 @@ A service that allows people to refer a teacher for serious misconduct.
 
 ### Links and application names
 
-| Name       | URL                                                        |
-| ---------- | ---------------------------------------------------------- |
-| Production | https://refer-serious-misconduct.education.gov.uk/         |
-| Preprod    | https://preprod.refer-serious-misconduct.education.gov.uk/ |
-| Test       | https://test.refer-serious-misconduct.education.gov.uk/    |
-| Dev        | https://dev.refer-serious-misconduct.education.gov.uk/     |
+| Name       | URL                                                          |
+| ---------- | ------------------------------------------------------------ |
+| Production | <https://refer-serious-misconduct.education.gov.uk/>         |
+| Preprod    | <https://preprod.refer-serious-misconduct.education.gov.uk/> |
+| Test       | <https://test.refer-serious-misconduct.education.gov.uk/>    |
+| Dev        | <https://dev.refer-serious-misconduct.education.gov.uk/>     |
 
 All environments have continuous deployment, the state of which can be inspected in Github Actions.
 
@@ -128,9 +128,9 @@ bin/dev
 
 ### Visit app
 
-Main front end: http://localhost:3000/start
+Main front end: <http://localhost:3000/start>
 
-Admin area: http://localhost:3000/support/eligibility-checks
+Admin area: <http://localhost:3000/support/eligibility-checks>
 
 Admin area login is defined by `ENV['SUPPORT_USERNAME']` and `ENV.fetch["SUPPORT_PASSWORD"]` by default test \ test
 
@@ -213,6 +213,38 @@ You'll also need to configure your editor's `solargraph` plugin to
 ```diff
 +  "solargraph.useBundler": true,
 ```
+
+### Accessing the Rails console through the Azure CLI
+
+We have a helpful script you can run that will connect you to the right resource
+(you will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli) installed
+first):
+
+```bash
+bin/az-console $ENVIRONMENT # (production/preprod/test/dev/review)
+```
+
+Make sure you have permission to run the script:
+
+```bash
+chmod +x bin/az-console
+```
+
+Accessing a live console on production and test requires a [PIM (Privileged
+Identity Management) request](docs/privileged-identity-management-requests.md).
+
+The script will access the production console in sandbox mode to avoid making
+unintended changes to the database.
+
+If you want to access a review app you'll have to pass the GitHub PR number as
+an argument. E.g.:
+
+```bash
+bin/az-console review 123
+```
+
+The review app needs to be deployed first. You can do this manually by tagging a
+PR with the `deploy` label.
 
 ## Licence
 
