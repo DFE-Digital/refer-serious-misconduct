@@ -12,7 +12,7 @@ class PersonalDetailsComponent < ViewComponent::Base
     return rows if referral.from_member_of_public?
 
     rows.push(date_of_birth_known_row)
-    rows.push(date_of_birth_row)
+    rows.push(date_of_birth_row) if referral.age_known?
     rows.push(trn_known_row)
     rows.push(trn_row) if referral.trn_known?
     rows.push(qts_row)
@@ -125,7 +125,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do you know their date of birth"
       },
       value: {
-        text: referral.date_of_birth&.present? ? "Yes" : "No"
+        text: referral.age_known? ? "Yes" : "No"
       }
     }
   end

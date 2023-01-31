@@ -23,6 +23,7 @@ module Referrals
 
         attrs = { age_known: }
         attrs.merge!(date_of_birth:) if age_known
+        attrs.merge!(date_of_birth: nil) unless age_known
 
         referral.update(attrs)
       end
