@@ -47,9 +47,7 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.your_organisation"),
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :organisation_address]
-              ),
+              about_your_organisation_section_path,
               referral.organisation_status
             )
           )
@@ -58,13 +56,11 @@ class ReferralForm
   end
 
   def about_you_section_path
-    if referral.from_employer?
-      polymorphic_path(
-        [:edit, referral.routing_scope, referral, :referrer_name]
-      )
-    else
-      public_referral_personal_details_path(referral)
+    if referral.referrer.present?
+      return polymorphic_path([referral.routing_scope, referral, :referrer])
     end
+
+    polymorphic_path([:edit, referral.routing_scope, referral, :referrer_name])
   end
 
   def about_the_person_you_are_referring_section
@@ -181,5 +177,15 @@ class ReferralForm
     return start_path if status == :not_started_yet
 
     check_answers_path
+  end
+
+  def about_your_organisation_section_path
+    if referral.organisation.present?
+      return polymorphic_path([referral.routing_scope, referral, :organisation])
+    end
+
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :organisation_address]
+    )
   end
 end
