@@ -147,7 +147,7 @@ RSpec.feature "Personal details", type: :system do
     expect(page).to have_content("Personal details")
 
     expect_summary_row(
-      key: "Name",
+      key: "Their name",
       value: "Jane Smith",
       change_link:
         edit_referral_personal_details_name_path(
@@ -177,7 +177,7 @@ RSpec.feature "Personal details", type: :system do
     )
 
     expect_summary_row(
-      key: "Do they have QTS?",
+      key: "Do they have qualified teacher status (QTS)?",
       value: "Yes",
       change_link:
         edit_referral_personal_details_qts_path(
@@ -209,6 +209,6 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_click_change_qts
-    click_on "Change if they have QTS"
+    click_on "Change if they have qualified teacher status (QTS)"
   end
 end

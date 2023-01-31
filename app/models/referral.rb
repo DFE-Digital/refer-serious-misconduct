@@ -48,6 +48,10 @@ class Referral < ApplicationRecord
     eligibility_check.reporting_as_public?
   end
 
+  def name_has_changed?
+    name_has_changed == "yes"
+  end
+
   def organisation_status
     return :not_started_yet if organisation.blank?
 
