@@ -45,12 +45,19 @@ RSpec.feature "Employer Referral: About You", type: :system do
     and_i_see_your_details_flagged_as_incomplete
 
     when_i_click_on_your_details
+    when_i_click_on_change_name
     then_i_see_the_name_prefilled
 
     when_i_click_save_and_continue
+    then_i_see_the_referrer_check_your_answers_page
+
+    when_i_click_on_change_title
     then_i_see_the_job_title_prefilled
 
     when_i_click_save_and_continue
+    then_i_see_the_referrer_check_your_answers_page
+
+    when_i_click_on_change_phone_number
     then_i_see_the_phone_number_prefilled
 
     when_i_click_save_and_continue
@@ -158,24 +165,11 @@ RSpec.feature "Employer Referral: About You", type: :system do
     end
   end
 
-  def when_i_click_on_change_name
-    click_on "Change your name"
-  end
-
-  def when_i_click_on_your_details
-    click_link "Your details"
+  def when_i_click_on_change_title
+    click_on "Change your job title"
   end
 
   def when_i_enter_my_job_title
     fill_in "Your job title", with: "Teacher"
-  end
-
-  def when_i_enter_my_name
-    fill_in "First name", with: "John"
-    fill_in "Last name", with: "Doe"
-  end
-
-  def when_i_enter_my_phone_number
-    fill_in "Your phone number", with: "01234567890"
   end
 end
