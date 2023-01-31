@@ -43,5 +43,13 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
     it "saves the age_known value" do
       expect(referral.age_known).to eq(false)
     end
+
+    context "when the date of birth was previously set" do
+      let(:referral) { build(:referral, date_of_birth: 30.years.ago) }
+
+      it "clears the date_of_birth" do
+        expect(referral.date_of_birth).to be_nil
+      end
+    end
   end
 end

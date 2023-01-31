@@ -37,6 +37,16 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
       it { is_expected.to be_truthy }
     end
 
+    context "when previous TRN is present and TRN is not known" do
+      let(:referral) { build(:referral, trn: "9912345") }
+      let(:trn_known) { "false" }
+
+      it "clears the TRN" do
+        save
+        expect(referral.trn).to be_nil
+      end
+    end
+
     context "when TRN is known but empty input submitted" do
       let(:trn) { "" }
 
