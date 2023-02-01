@@ -30,7 +30,13 @@ RSpec.feature "Personal details", type: :system do
     and_i_click_save_and_continue
     then_i_see_confirmation_validation_errors
 
-    when_i_confirm_their_personal_details
+    when_i_choose_no_come_back_later
+    and_i_click_save_and_continue
+    then_i_see_the_public_referral_summary
+    and_i_see_personal_details_flagged_as_incomplete
+
+    when_i_click_on_personal_details
+    and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_completed_section_in_the_referral_summary
   end
@@ -59,6 +65,7 @@ RSpec.feature "Personal details", type: :system do
 
   def then_i_am_asked_to_confirm_their_personal_details
     expect(page).to have_content("Personal details")
+    expect(page).to have_content("Check and confirm your answers")
 
     expect_summary_row(
       key: "Their name",

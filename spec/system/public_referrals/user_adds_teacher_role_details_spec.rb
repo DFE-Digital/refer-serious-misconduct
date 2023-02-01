@@ -112,6 +112,10 @@ RSpec.feature "Teacher role", type: :system do
     when_i_visit_the_check_answers_page
     and_i_click_back
     then_i_see_the_public_referral_summary
+
+    # Edit teacher role details
+    when_i_edit_teacher_role_details
+    then_i_see_the_check_answers_page
   end
 
   private

@@ -50,6 +50,17 @@ module CommonSteps
   alias_method :when_i_visit_the_public_referral,
                :and_i_visit_the_public_referral
 
+  def and_i_choose_complete
+    choose "Yes, I’ve completed this section", visible: false
+  end
+  alias_method :when_i_choose_complete, :and_i_choose_complete
+
+  def and_i_choose_no_come_back_later
+    choose "No, I’ll come back to it later", visible: false
+  end
+  alias_method :when_i_choose_no_come_back_later,
+               :and_i_choose_no_come_back_later
+
   def then_i_see_the_referral_summary
     expect(page).to have_current_path(edit_referral_path(@referral))
     expect(page).to have_title(
@@ -63,6 +74,13 @@ module CommonSteps
     expect(page).to have_title(
       "Refer serious misconduct by a teacher in England"
     )
+  end
+
+  def and_i_see_personal_details_flagged_as_incomplete
+    within(".app-task-list__item", text: "Personal details") do
+      status_tag = find(".app-task-list__tag")
+      expect(status_tag.text).to have_content("INCOMPLETE")
+    end
   end
 
   def when_i_click_save_and_continue
@@ -90,6 +108,12 @@ module CommonSteps
     click_link "Your details"
   end
   alias_method :and_i_click_on_your_details, :when_i_click_on_your_details
+
+  def when_i_click_on_personal_details
+    click_link "Personal details"
+  end
+  alias_method :and_i_click_on_personal_details,
+               :when_i_click_on_personal_details
 
   def when_i_click_back
     click_on "Back"
