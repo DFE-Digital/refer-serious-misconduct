@@ -13,6 +13,8 @@ class PersonalDetailsComponent < ViewComponent::Base
 
     rows.push(date_of_birth_known_row)
     rows.push(date_of_birth_row) if referral.age_known?
+    rows.push(ni_number_known_row)
+    rows.push(ni_number_row) if referral.ni_number_known?
     rows.push(trn_known_row)
     rows.push(trn_row) if referral.trn_known?
     rows.push(qts_row)
@@ -193,6 +195,60 @@ class PersonalDetailsComponent < ViewComponent::Base
       },
       value: {
         text: referral.has_qts&.humanize
+      }
+    }
+  end
+
+  def ni_number_known_row
+    {
+      actions: [
+        {
+          text: "Change",
+          href:
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :personal_details_ni_number
+              ],
+              return_to: request.path
+            ),
+          visually_hidden_text: "if you know their National Insurance number"
+        }
+      ],
+      key: {
+        text: "Do you know their National Insurance number?"
+      },
+      value: {
+        text: referral.ni_number_known? ? "Yes" : "No"
+      }
+    }
+  end
+
+  def ni_number_row
+    {
+      actions: [
+        {
+          text: "Change",
+          href:
+            polymorphic_path(
+              [
+                :edit,
+                referral.routing_scope,
+                referral,
+                :personal_details_ni_number
+              ],
+              return_to: request.path
+            ),
+          visually_hidden_text: "their National Insurance number"
+        }
+      ],
+      key: {
+        text: "National Insurance number"
+      },
+      value: {
+        text: referral.ni_number
       }
     }
   end

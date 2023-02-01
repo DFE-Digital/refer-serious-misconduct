@@ -22,7 +22,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index %w[record_type record_id name blob_id],
+            name: "index_active_storage_attachments_uniqueness",
+            unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -40,7 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
   create_table "active_storage_variant_records", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+    t.index %w[blob_id variation_digest],
+            name: "index_active_storage_variant_records_uniqueness",
+            unique: true
   end
 
   create_table "eligibility_checks", force: :cascade do |t|
@@ -146,7 +150,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
     t.text "allegation_consideration_details"
     t.string "previous_misconduct_format"
     t.boolean "previous_misconduct_complete"
-    t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
+    t.string "ni_number"
+    t.boolean "ni_number_known"
+    t.index ["eligibility_check_id"],
+            name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
 
@@ -190,12 +197,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.index ["confirmation_token"], name: "index_staff_on_confirmation_token", unique: true
+    t.index ["confirmation_token"],
+            name: "index_staff_on_confirmation_token",
+            unique: true
     t.index ["email"], name: "index_staff_on_email", unique: true
-    t.index ["invitation_token"], name: "index_staff_on_invitation_token", unique: true
+    t.index ["invitation_token"],
+            name: "index_staff_on_invitation_token",
+            unique: true
     t.index ["invited_by_id"], name: "index_staff_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_staff_on_invited_by"
-    t.index ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true
+    t.index %w[invited_by_type invited_by_id], name: "index_staff_on_invited_by"
+    t.index ["reset_password_token"],
+            name: "index_staff_on_reset_password_token",
+            unique: true
     t.index ["unlock_token"], name: "index_staff_on_unlock_token", unique: true
   end
 
@@ -217,8 +230,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_attachments",
+                  "active_storage_blobs",
+                  column: "blob_id"
+  add_foreign_key "active_storage_variant_records",
+                  "active_storage_blobs",
+                  column: "blob_id"
   add_foreign_key "organisations", "referrals"
   add_foreign_key "referral_evidences", "referrals"
   add_foreign_key "referrals", "eligibility_checks"
