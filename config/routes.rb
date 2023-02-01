@@ -137,6 +137,7 @@ Rails.application.routes.draw do
         namespace :personal_details, path: "personal-details" do
           resource :name, only: %i[edit update], controller: :name
           resource :age, only: %i[edit update], controller: :age
+          resource :ni_number, only: %i[edit update], controller: :ni_number
           resource :trn, only: %i[edit update], controller: :trn
           resource :qts, only: %i[edit update], controller: :qts
           resource :check_answers, path: "check-answers", only: %i[edit update]

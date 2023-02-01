@@ -45,7 +45,7 @@ module Referrals
           current_referral.routing_scope,
           current_referral,
           :personal_details,
-          :trn
+          :ni_number
         ]
       end
     end

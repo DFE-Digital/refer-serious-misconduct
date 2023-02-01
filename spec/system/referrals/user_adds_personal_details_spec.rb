@@ -37,10 +37,23 @@ RSpec.feature "Personal details", type: :system do
 
     when_i_fill_out_their_date_of_birth
     and_i_click_save_and_continue
-    then_i_am_asked_if_i_know_their_trn
+    then_i_am_asked_if_i_know_their_national_insurance_number
 
     when_i_click_back
     then_i_am_asked_their_date_of_birth
+    and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_their_national_insurance_number
+
+    when_i_choose_yes
+    and_i_click_save_and_continue
+    then_i_see_the_national_insurance_validation_errors
+
+    when_i_fill_in_the_national_insurance_number
+    and_i_click_save_and_continue
+    then_i_am_asked_if_i_know_their_trn
+
+    when_i_click_back
+    then_i_am_asked_if_i_know_their_national_insurance_number
 
     and_i_click_save_and_continue
     then_i_am_asked_if_i_know_their_trn
@@ -213,7 +226,24 @@ RSpec.feature "Personal details", type: :system do
     end
   end
 
+  def then_i_am_asked_if_i_know_their_national_insurance_number
+    expect(page).to have_title("Do you know their National Insurance number?")
+    expect(page).to have_content("Do you know their National Insurance number?")
+  end
+
+  def then_i_see_the_national_insurance_validation_errors
+    expect(page).to have_content("Enter their National Insurance number")
+  end
+
   def when_i_click_change_qts
     click_on "Change if they have qualified teacher status (QTS)"
+  end
+
+  def when_i_choose_yes
+    choose "Yes", visible: false
+  end
+
+  def when_i_fill_in_the_national_insurance_number
+    fill_in "National Insurance number", with: "QQ 12 34 56 C", visible: false
   end
 end
