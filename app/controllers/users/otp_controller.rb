@@ -58,7 +58,11 @@ class Users::OtpController < DeviseController
     latest_referral = resource.latest_referral
 
     if latest_referral
-      [:edit, latest_referral.routing_scope, latest_referral]
+      if latest_referral.submitted_at?
+        [latest_referral.routing_scope, latest_referral, :confirmation]
+      else
+        [:edit, latest_referral.routing_scope, latest_referral]
+      end
     else
       referral_type_path
     end
