@@ -68,14 +68,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   private
 
-  def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
-  end
-
-  def and_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
-  end
-
   def and_i_see_my_name_in_the_form_field
     expect(page).to have_field("First name", with: "John")
     expect(page).to have_field("Last name", with: "Doe")

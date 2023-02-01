@@ -70,9 +70,7 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.personal_details"),
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_name]
-            ),
+            personal_details_section_path,
             section_status(:personal_details_complete)
           )
         ]
@@ -81,14 +79,7 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.contact_details"),
-              polymorphic_path(
-                [
-                  :edit,
-                  referral.routing_scope,
-                  referral,
-                  :contact_details_email
-                ]
-              ),
+              contact_details_section_path,
               section_status(:contact_details_complete)
             )
           )
@@ -97,15 +88,7 @@ class ReferralForm
         section.items.append(
           ReferralSectionItem.new(
             I18n.t("referral_form.about_their_role"),
-            polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :teacher_role,
-                :job_title
-              ]
-            ),
+            about_their_role_section_path,
             section_status(:teacher_role_complete)
           )
         )
@@ -186,6 +169,60 @@ class ReferralForm
 
     polymorphic_path(
       [:edit, referral.routing_scope, referral, :organisation_address]
+    )
+  end
+
+  def personal_details_section_path
+    if referral.personal_details_complete.nil?
+      return(
+        polymorphic_path(
+          [:edit, referral.routing_scope, referral, :personal_details_name]
+        )
+      )
+    end
+
+    polymorphic_path(
+      [
+        :edit,
+        referral.routing_scope,
+        referral,
+        :personal_details,
+        :check_answers
+      ]
+    )
+  end
+
+  def contact_details_section_path
+    if referral.contact_details_complete.nil?
+      return(
+        polymorphic_path(
+          [:edit, referral.routing_scope, referral, :contact_details_email]
+        )
+      )
+    end
+
+    polymorphic_path(
+      [
+        :edit,
+        referral.routing_scope,
+        referral,
+        :contact_details,
+        :check_answers
+      ]
+    )
+  end
+
+  def about_their_role_section_path
+    if referral.teacher_role_complete.nil?
+      return(
+        polymorphic_path(
+          [:edit, referral.routing_scope, referral, :teacher_role, :job_title]
+        )
+      )
+    end
+
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :teacher_role, :check_answers]
     )
   end
 end
