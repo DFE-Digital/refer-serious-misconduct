@@ -11,7 +11,10 @@ module Referrals
       validates :allegation_upload,
                 presence: true,
                 file_upload: true,
-                if: -> { allegation_format == "upload" }
+                if: -> {
+                  allegation_format == "upload" &&
+                    !referral.allegation_upload.attached?
+                }
 
       attr_accessor :referral,
                     :allegation_details,
@@ -28,7 +31,9 @@ module Referrals
           referral.allegation_upload.purge
           attrs.merge!(allegation_details:)
         when "upload"
-          attrs.merge!(allegation_details: nil, allegation_upload:)
+          if allegation_upload.present?
+            attrs.merge!(allegation_details: nil, allegation_upload:)
+          end
         end
 
         referral.update(attrs)

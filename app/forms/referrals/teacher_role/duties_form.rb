@@ -28,8 +28,6 @@ module Referrals
           if duties_upload.present?
             attrs.merge!(duties_details: nil, duties_upload:)
           end
-        when "incomplete"
-          attrs.merge!(duties_details: nil, duties_upload: nil)
         end
 
         unless duties_upload.blank? && duties_format == "upload"

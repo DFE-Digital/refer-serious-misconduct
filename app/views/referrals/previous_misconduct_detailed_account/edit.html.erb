@@ -15,12 +15,12 @@
         <li>reference numbers from previous referrals</li>
       </ul>
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:format, legend: { size: "m", text: "How do you want to give details about previous allegations?" }) do %>
-          <%= f.govuk_radio_button :format, "upload", label: { text: "Upload file" }, link_errors: true do %>
-            <%= f.govuk_file_field :upload, label: { text: "Upload file", size: "s" } %>
+        <%= f.govuk_radio_buttons_fieldset(:previous_misconduct_format, legend: { size: "m", text: "How do you want to give details about previous allegations?" }) do %>
+          <%= f.govuk_radio_button :previous_misconduct_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
+            <%= f.govuk_file_field :previous_misconduct_upload, label: { text: "Upload file", size: "s" } %>
           <% end %>
-          <%= f.govuk_radio_button :format, "details", label: { text: "Describe the previous allegations" } do %>
-            <%= f.govuk_text_area :details,
+          <%= f.govuk_radio_button :previous_misconduct_format, "details", label: { text: "Describe the previous allegations" } do %>
+            <%= f.govuk_text_area :previous_misconduct_details,
                                   label: { text: "Description of previous allegations", size: "m" },
                                   rows: 20 %>
           <% end %>

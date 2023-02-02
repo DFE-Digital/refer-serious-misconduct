@@ -57,42 +57,6 @@ RSpec.describe Referral, type: :model do
     end
   end
 
-  describe "#previous_misconduct_status" do
-    subject { referral.previous_misconduct_status }
-
-    let(:referral) { build(:referral) }
-
-    it { is_expected.to eq(:not_started_yet) }
-
-    context "when previous_misconduct_completed_at is present" do
-      let(:referral) do
-        build(:referral, previous_misconduct_completed_at: Time.current)
-      end
-
-      it { is_expected.to eq(:completed) }
-    end
-
-    context "when previous_misconduct_deferred_at is present" do
-      let(:referral) do
-        build(:referral, previous_misconduct_deferred_at: Time.current)
-      end
-
-      it { is_expected.to eq(:incomplete) }
-    end
-
-    context "when both previous_misconduct_completed_at and previous_misconduct_deferred_at are present" do
-      let(:referral) do
-        build(
-          :referral,
-          previous_misconduct_completed_at: Time.current,
-          previous_misconduct_deferred_at: Time.current
-        )
-      end
-
-      it { is_expected.to eq(:completed) }
-    end
-  end
-
   describe "#previous_misconduct_reported?" do
     subject { referral.previous_misconduct_reported? }
 

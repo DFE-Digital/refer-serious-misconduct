@@ -1,60 +1,46 @@
 require "rails_helper"
 
 RSpec.describe PreviousMisconductForm, type: :model do
-  it { is_expected.to validate_presence_of(:referral) }
+  let(:referral) { create(:referral) }
+  let(:form) { described_class.new(referral:, previous_misconduct_complete:) }
+  let(:previous_misconduct_complete) { true }
 
-  describe "#save" do
-    subject(:save) { form.save }
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:referral) }
+  end
 
-    let(:complete) { "true" }
-    let(:form) { described_class.new(complete:, referral:) }
-    let(:referral) { build(:referral) }
+  describe "#valid?" do
+    subject(:valid) { form.valid? }
+
+    before { valid }
 
     it { is_expected.to be_truthy }
 
-    it "updates the referral" do
-      save
-      expect(referral.previous_misconduct_completed_at).to be_present
-    end
+    context "when previous_misconduct_complete is blank" do
+      let(:previous_misconduct_complete) { "" }
 
-    context "when the form is not valid" do
-      let(:referral) { nil }
+      it { is_expected.to be_falsy }
 
-      it { is_expected.to be_falsey }
+      it "adds an error" do
+        expect(form.errors[:previous_misconduct_complete]).to eq(
+          ["Select yes if you’ve completed this section"]
+        )
+      end
     end
   end
 
-  describe "#complete" do
-    subject(:form_complete) { form.complete }
+  describe "#save" do
+    before { form.save }
 
-    let(:form) { described_class.new(complete:, referral:) }
-    let(:referral) { build(:referral) }
-
-    context "when the value of complete is nil" do
-      let(:complete) { nil }
-      let(:referral) do
-        build(:referral, previous_misconduct_completed_at: Time.current)
-      end
-
-      it "returns the value from the referral" do
-        expect(form_complete).to eq(true)
-      end
+    it "saves previous_misconduct_complete" do
+      expect(referral.previous_misconduct_complete).to be_truthy
     end
 
-    context "when the value of complete is nil and there is no previous_misconduct on the referral" do
-      let(:complete) { nil }
-      let(:referral) { build(:referral, previous_misconduct_completed_at: nil) }
+    context "when the form is marked as in progress" do
+      let(:previous_misconduct_complete) { false }
 
-      it "returns nil" do
-        expect(form_complete).to be_nil
-      end
-    end
-
-    context "when the value of complete is set" do
-      let(:complete) { true }
-
-      it "returns the value of complete" do
-        expect(complete).to eq(true)
+      it "saves previous_misconduct_complete as false" do
+        expect(referral.previous_misconduct_complete).to be_falsy
       end
     end
   end

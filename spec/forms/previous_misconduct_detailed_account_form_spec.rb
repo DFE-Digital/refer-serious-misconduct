@@ -1,122 +1,167 @@
 require "rails_helper"
 
 RSpec.describe PreviousMisconductDetailedAccountForm, type: :model do
+  let(:referral) { build(:referral) }
+
+  # let(:form) do
+  #   described_class.new(
+  #     referral:,
+  #     previous_misconduct_details:,
+  #     previous_misconduct_format:,
+  #     previous_misconduct_upload:
+  #   )
+  # end
+
+  # let(:previous_misconduct_format) { nil }
+  # let(:previous_misconduct_details) { nil }
+  # let(:previous_misconduct_upload) { nil }
+
   describe "validations" do
-    subject(:form) { described_class.new }
+    subject(:form) { described_class.new(referral:) }
 
     it { is_expected.to validate_presence_of(:referral) }
 
     specify do
-      expect(form).to validate_inclusion_of(:format).in_array(
-        %w[details incomplete]
-      )
+      expect(form).to validate_inclusion_of(
+        :previous_misconduct_format
+      ).in_array(%w[details upload])
     end
 
-    it { is_expected.not_to validate_presence_of(:details) }
+    it { is_expected.not_to validate_presence_of(:previous_misconduct_details) }
 
     context "when format is details" do
-      subject { described_class.new(format: "details") }
+      subject { described_class.new(previous_misconduct_format: "details") }
 
-      it { is_expected.to validate_presence_of(:details) }
+      it { is_expected.to validate_presence_of(:previous_misconduct_details) }
     end
   end
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
-    let(:details) { "true" }
-    let(:form) { described_class.new(details:, format:, referral:) }
-    let(:format) { "details" }
-    let(:referral) { build(:referral) }
+    let(:previous_misconduct_details) { "true" }
+    let(:previous_misconduct_format) { "details" }
+    let(:form) do
+      described_class.new(
+        previous_misconduct_details:,
+        previous_misconduct_format:,
+        referral:
+      )
+    end
 
     it { is_expected.to be_truthy }
 
     context "when details is blank" do
-      let(:details) { "" }
+      let(:previous_misconduct_details) { "" }
 
       it { is_expected.to be_falsy }
-    end
-  end
-
-  describe "#format" do
-    subject { form.format }
-
-    let(:form) { described_class.new(format:, referral:) }
-    let(:referral) { build(:referral) }
-
-    context "when format is provided" do
-      let(:format) { "details" }
-
-      it { is_expected.to eq("details") }
-    end
-
-    context "when format is not provided and the referral has details" do
-      let(:format) { nil }
-      let(:referral) { build(:referral, previous_misconduct_details: "Text") }
-
-      it { is_expected.to eq("details") }
-    end
-
-    context "when format is not provided and the referral has incomplete details" do
-      let(:format) { nil }
-      let(:referral) do
-        build(
-          :referral,
-          previous_misconduct_details_incomplete_at: Time.current
-        )
-      end
-
-      it { is_expected.to eq("incomplete") }
-    end
-
-    context "when format is not provided and the referral has an upload" do
-      let(:format) { nil }
-      let(:referral) do
-        build(:referral).tap do |r|
-          r.previous_misconduct_upload.attach io: Tempfile.new("test"),
-                                              filename: "test",
-                                              content_type: "text/plain"
-        end
-      end
-
-      it { is_expected.to eq("upload") }
     end
   end
 
   describe "#save" do
     subject(:save) { form.save }
 
+    let(:previous_misconduct_format) { nil }
+    let(:previous_misconduct_details) { nil }
+    let(:previous_misconduct_upload) { nil }
     let(:form) do
-      described_class.new(details: "Previously", format:, referral:)
-    end
-    let(:format) { "details" }
-    let(:referral) { build(:referral) }
-
-    it "saves the Referral" do
-      save
-      expect(referral.previous_misconduct_details).to eq("Previously")
+      described_class.new(
+        referral:,
+        previous_misconduct_details:,
+        previous_misconduct_format:,
+        previous_misconduct_upload:
+      )
     end
 
-    context "when format is incomplete" do
-      let(:format) { "incomplete" }
+    context "with no duties format" do
+      it { is_expected.to be_falsey }
 
-      it "stores incomplete_at on the referral" do
+      it "adds an error" do
         save
-        expect(referral.previous_misconduct_details_incomplete_at).to be_present
+        expect(form.errors[:previous_misconduct_format]).to eq(
+          ["Select how you want to give details about previous allegations"]
+        )
       end
     end
 
-    context "when previous_misconduct_details_incomplete_at is already set" do
-      let(:referral) do
-        build(
-          :referral,
-          previous_misconduct_details_incomplete_at: Time.current
+    context "with upload format but no file" do
+      let(:previous_misconduct_format) { "upload" }
+
+      it { is_expected.to be_falsey }
+
+      it "adds an error" do
+        save
+        expect(form.errors[:previous_misconduct_upload]).to eq(
+          ["Select a file containing details of previous allegations"]
+        )
+      end
+    end
+
+    context "with upload format and file" do
+      let(:previous_misconduct_format) { "upload" }
+      let(:previous_misconduct_upload) { fixture_file_upload("upload1.pdf") }
+
+      it { is_expected.to be_truthy }
+
+      it "associates the upload with the referral" do
+        save
+        expect(referral.previous_misconduct_upload).to be_attached
+      end
+
+      it "updates details on the referral" do
+        save
+        expect(referral.previous_misconduct_details).to be nil
+      end
+    end
+
+    context "with details format and no details" do
+      let(:previous_misconduct_format) { "details" }
+
+      it { is_expected.to be_falsey }
+
+      it "adds an error" do
+        save
+        expect(form.errors[:previous_misconduct_details]).to eq(
+          ["Enter a description of previous allegations"]
+        )
+      end
+    end
+
+    context "with details format and details" do
+      let(:previous_misconduct_format) { "details" }
+      let(:previous_misconduct_details) { "Something something" }
+
+      it { is_expected.to be_truthy }
+
+      it "updates details on the referral" do
+        save
+        expect(referral.reload.previous_misconduct_details).to eq(
+          "Something something"
         )
       end
 
-      it "clears the incomplete value" do
-        save
-        expect(referral.previous_misconduct_details_incomplete_at).to be_nil
+      context "when there is an existing upload" do
+        before do
+          referral.previous_misconduct_upload.attach(
+            fixture_file_upload("upload1.pdf")
+          )
+        end
+
+        it "has the attached file" do
+          expect(referral.previous_misconduct_upload).to be_attached
+        end
+
+        it "updates details on the referral" do
+          save
+          expect(referral.reload.previous_misconduct_details).to eq(
+            "Something something"
+          )
+        end
+
+        it "purges the attached file" do
+          save
+          expect(referral.previous_misconduct_upload).not_to be_attached
+        end
       end
     end
   end

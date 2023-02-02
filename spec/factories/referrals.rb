@@ -9,7 +9,7 @@ FactoryBot.define do
       evidence_details_complete { true }
       personal_details_complete { true }
       teacher_role_complete { true }
-      previous_misconduct_completed_at { Time.current }
+      previous_misconduct_complete { true }
 
       after(:create) do |referral|
         create(:organisation, :complete, referral:)
@@ -117,7 +117,7 @@ FactoryBot.define do
     end
 
     trait :previous_misconduct_employer do
-      previous_misconduct_completed_at { Time.current }
+      previous_misconduct_complete { true }
       previous_misconduct_reported { "true" }
       previous_misconduct_details { "They were rude to a child" }
     end

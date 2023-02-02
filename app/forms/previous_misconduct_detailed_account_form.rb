@@ -1,40 +1,44 @@
 class PreviousMisconductDetailedAccountForm
   include ActiveModel::Model
 
-  attr_accessor :referral
-  attr_writer :details, :format, :upload
+  attr_accessor :referral,
+                :previous_misconduct_format,
+                :previous_misconduct_details,
+                :previous_misconduct_upload
 
-  validates :details, presence: true, if: -> { format == "details" }
-  validates :format, inclusion: { in: %w[details incomplete upload] }
   validates :referral, presence: true
-  validates :upload, presence: true, if: -> { format == "upload" }
-
-  def details
-    @details || referral&.previous_misconduct_details
-  end
-
-  def upload
-    @upload || referral&.previous_misconduct_upload
-  end
-
-  def format
-    return @format if @format
-    if referral&.previous_misconduct_details_incomplete_at.present?
-      return "incomplete"
-    end
-    return "details" if referral&.previous_misconduct_details.present?
-    return "upload" if referral&.previous_misconduct_upload&.attached?
-
-    nil
-  end
+  validates :previous_misconduct_format, inclusion: { in: %w[details upload] }
+  validates :previous_misconduct_details,
+            presence: true,
+            if: -> { previous_misconduct_format == "details" }
+  validates :previous_misconduct_upload,
+            presence: true,
+            file_upload: true,
+            if: -> {
+              previous_misconduct_format == "upload" &&
+                !referral.previous_misconduct_upload.attached?
+            }
 
   def save
     return false unless valid?
 
-    referral.previous_misconduct_details = details if format == "details"
-    referral.previous_misconduct_upload.attach(upload) if format == "upload"
-    referral.previous_misconduct_details_incomplete_at =
-      format == "incomplete" ? Time.current : nil
-    referral.save
+    attrs = { previous_misconduct_format: }
+    case previous_misconduct_format
+    when "details"
+      attrs.merge!(previous_misconduct_details:)
+    when "upload"
+      if previous_misconduct_upload.present?
+        attrs.merge!(
+          previous_misconduct_details: nil,
+          previous_misconduct_upload:
+        )
+      end
+    end
+
+    unless previous_misconduct_upload.blank? &&
+             previous_misconduct_format == "upload"
+      referral.previous_misconduct_upload.purge
+    end
+    referral.update(attrs)
   end
 end
