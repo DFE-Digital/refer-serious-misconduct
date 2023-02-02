@@ -61,6 +61,17 @@ module CommonSteps
   alias_method :when_i_choose_no_come_back_later,
                :and_i_choose_no_come_back_later
 
+  def and_the_allegation_section_is_incomplete
+    within(all(".app-task-list__section")[2]) do
+      within(all(".app-task-list__item")[0]) do
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Details of the allegation"
+        )
+        expect(find(".app-task-list__tag").text).to eq("INCOMPLETE")
+      end
+    end
+  end
+
   def then_i_see_the_referral_summary
     expect(page).to have_current_path(edit_referral_path(@referral))
     expect(page).to have_title(

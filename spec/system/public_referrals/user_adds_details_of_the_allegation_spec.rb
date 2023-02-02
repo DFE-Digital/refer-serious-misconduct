@@ -33,7 +33,13 @@ RSpec.feature "Details of the allegation", type: :system do
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
-    when_i_choose_to_confirm
+    when_i_choose_no_come_back_later
+    and_i_click_save_and_continue
+    then_i_see_the_public_referral_summary
+    and_the_allegation_section_is_incomplete
+
+    when_i_edit_details_of_the_allegation
+    and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_public_referral_summary
     and_the_allegation_section_is_complete
@@ -110,10 +116,6 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Select yes if you’ve completed this section")
-  end
-
-  def when_i_choose_to_confirm
-    choose "Yes, I’ve completed this section", visible: false
   end
 
   def and_the_allegation_section_is_complete

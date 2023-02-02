@@ -12,7 +12,11 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     when_i_click_on_previous_misconduct
     then_i_see_the_previous_misconduct_reported_page
 
-    when_i_click_save_and_continue
+    when_i_click_back
+    then_i_see_the_referral_summary
+
+    when_i_click_on_previous_misconduct
+    and_i_click_save_and_continue
     then_i_see_the_missing_reported_error
 
     when_i_choose_no
