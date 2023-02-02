@@ -275,11 +275,11 @@ en:
             postcode:
               blank: Enter the postcode of your organisation
               invalid: Enter a real postcode
-        previous_misconduct_form:
+        "referrals/previous_misconduct/check_answers_form":
           attributes:
             previous_misconduct_complete:
               inclusion: Select yes if you’ve completed this section
-        previous_misconduct_detailed_account_form:
+        "referrals/previous_misconduct/detailed_account_form":
           attributes:
             previous_misconduct_details:
               blank: Enter a description of previous allegations
@@ -290,7 +290,7 @@ en:
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_file_size}
-        previous_misconduct_reported_form:
+        "referrals/previous_misconduct/reported_form":
           attributes:
             previous_misconduct_reported:
               inclusion: Let us know if there has been any previous misconduct, disciplinary action or complaints

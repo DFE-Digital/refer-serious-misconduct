@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PreviousMisconductReportedForm, type: :model do
+RSpec.describe Referrals::PreviousMisconduct::ReportedForm, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
   end

@@ -172,15 +172,16 @@ Rails.application.routes.draw do
           only: %i[edit update],
           controller: :organisation_address
 
-        resource :previous_misconduct,
-          only: %i[show update],
-          controller: :previous_misconduct
-        resource :previous_misconduct_detailed_account,
-          only: %i[edit update],
-          controller: :previous_misconduct_detailed_account
-        resource :previous_misconduct_reported,
-          only: %i[edit update],
-          controller: :previous_misconduct_reported
+        namespace :previous_misconduct, path: "previous-misconduct" do
+          resource :reported,
+            only: %i[edit update],
+            controller: :reported
+          resource :detailed_account,
+            path: "detailed-account",
+            only: %i[edit update],
+            controller: :detailed_account
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
 
         namespace :allegation do
           resource :details, only: %i[edit update]
