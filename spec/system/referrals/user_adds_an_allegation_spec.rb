@@ -47,7 +47,13 @@ RSpec.feature "Allegation", type: :system do
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
-    when_i_choose_to_confirm
+    when_i_choose_no_come_back_later
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+    and_the_allegation_section_is_incomplete
+
+    when_i_edit_the_allegation
+    and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
     and_the_allegation_section_is_complete
