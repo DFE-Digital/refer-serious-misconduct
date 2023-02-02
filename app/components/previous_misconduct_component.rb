@@ -101,7 +101,14 @@ class PreviousMisconductComponent < ViewComponent::Base
   end
 
   def return_to
-    polymorphic_path([referral.routing_scope, referral, :previous_misconduct])
+    polymorphic_path(
+      [
+        :edit,
+        referral.routing_scope,
+        referral,
+        :previous_misconduct_check_answers
+      ]
+    )
   end
 
   def detail_type

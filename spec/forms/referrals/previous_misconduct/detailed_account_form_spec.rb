@@ -1,20 +1,8 @@
 require "rails_helper"
 
-RSpec.describe PreviousMisconductDetailedAccountForm, type: :model do
+RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
+               type: :model do
   let(:referral) { build(:referral) }
-
-  # let(:form) do
-  #   described_class.new(
-  #     referral:,
-  #     previous_misconduct_details:,
-  #     previous_misconduct_format:,
-  #     previous_misconduct_upload:
-  #   )
-  # end
-
-  # let(:previous_misconduct_format) { nil }
-  # let(:previous_misconduct_details) { nil }
-  # let(:previous_misconduct_upload) { nil }
 
   describe "validations" do
     subject(:form) { described_class.new(referral:) }
@@ -73,7 +61,7 @@ RSpec.describe PreviousMisconductDetailedAccountForm, type: :model do
       )
     end
 
-    context "with no duties format" do
+    context "without previous misconduct format" do
       it { is_expected.to be_falsey }
 
       it "adds an error" do
