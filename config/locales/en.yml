@@ -277,15 +277,15 @@ en:
               invalid: Enter a real postcode
         previous_misconduct_form:
           attributes:
-            complete:
+            previous_misconduct_complete:
               inclusion: Select yes if you’ve completed this section
         previous_misconduct_detailed_account_form:
           attributes:
-            details:
+            previous_misconduct_details:
               blank: Enter a description of previous allegations
-            format:
+            previous_misconduct_format:
               inclusion: Select how you want to give details about previous allegations
-            upload:
+            previous_misconduct_upload:
               blank: Select a file containing details of previous allegations
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents

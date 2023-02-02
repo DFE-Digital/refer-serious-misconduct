@@ -64,13 +64,6 @@ class Referral < ApplicationRecord
     false
   end
 
-  def previous_misconduct_status
-    return :completed if previous_misconduct_completed_at.present?
-    return :incomplete if previous_misconduct_deferred_at.present?
-
-    :not_started_yet
-  end
-
   def referrer_status
     return :not_started_yet if referrer.blank?
 

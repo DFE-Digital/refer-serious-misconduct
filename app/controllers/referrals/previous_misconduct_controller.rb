@@ -1,14 +1,16 @@
 class Referrals::PreviousMisconductController < Referrals::BaseController
   def show
     @previous_misconduct_form =
-      PreviousMisconductForm.new(referral: current_referral)
+      PreviousMisconductForm.new(
+        previous_misconduct_complete:
+          current_referral.previous_misconduct_complete
+      )
   end
 
   def update
     @previous_misconduct_form =
       PreviousMisconductForm.new(
-        complete: previous_misconduct_params[:complete],
-        referral: current_referral
+        previous_misconduct_params.merge(referral: current_referral)
       )
 
     if @previous_misconduct_form.save
@@ -21,6 +23,8 @@ class Referrals::PreviousMisconductController < Referrals::BaseController
   private
 
   def previous_misconduct_params
-    params.require(:previous_misconduct_form).permit(:complete)
+    params.require(:previous_misconduct_form).permit(
+      :previous_misconduct_complete
+    )
   end
 end

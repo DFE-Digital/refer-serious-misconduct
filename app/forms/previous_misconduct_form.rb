@@ -2,24 +2,18 @@ class PreviousMisconductForm
   include ActiveModel::Model
 
   attr_accessor :referral
-  attr_writer :complete
+  attr_reader :previous_misconduct_complete
 
-  validates :complete, inclusion: { in: %w[true false] }
   validates :referral, presence: true
+  validates :previous_misconduct_complete, inclusion: { in: [true, false] }
 
-  def complete
-    @complete || previous_misconduct_completed_at? || nil
+  def previous_misconduct_complete=(value)
+    @previous_misconduct_complete = ActiveModel::Type::Boolean.new.cast(value)
   end
 
   def save
     return false unless valid?
 
-    referral.previous_misconduct_completed_at = Time.current if complete ==
-      "true"
-    referral.previous_misconduct_deferred_at = Time.current if complete ==
-      "false"
-    referral.save
+    referral.update(previous_misconduct_complete:)
   end
-
-  delegate :previous_misconduct_completed_at?, to: :referral, allow_nil: true
 end

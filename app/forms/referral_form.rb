@@ -183,8 +183,27 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.previous_allegations"),
-              previous_allegations_path,
-              referral.previous_misconduct_status
+              path_for_section_status(
+                section_status(:previous_misconduct_complete),
+                polymorphic_path(
+                  [
+                    :edit,
+                    referral.routing_scope,
+                    referral,
+                    :previous_misconduct_reported
+                  ]
+                ),
+                polymorphic_path(
+                  [
+                    :edit,
+                    referral.routing_scope,
+                    referral,
+                    :previous_misconduct,
+                    :check_answers
+                  ]
+                )
+              ),
+              section_status(:previous_misconduct_complete)
             )
           )
         end

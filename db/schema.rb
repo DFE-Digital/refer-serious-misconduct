@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_24_125525) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -117,8 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_125525) do
     t.boolean "evidence_details_complete"
     t.boolean "role_start_date_known"
     t.date "role_start_date"
-    t.datetime "previous_misconduct_completed_at", precision: nil
-    t.datetime "previous_misconduct_deferred_at", precision: nil
     t.string "previous_misconduct_reported"
     t.string "employment_status"
     t.date "role_end_date"
@@ -129,7 +127,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_125525) do
     t.string "duties_details"
     t.boolean "teacher_role_complete"
     t.text "previous_misconduct_details"
-    t.datetime "previous_misconduct_details_incomplete_at", precision: nil
     t.datetime "submitted_at", precision: nil
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
@@ -147,6 +144,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_125525) do
     t.string "organisation_postcode", limit: 11
     t.boolean "role_end_date_known"
     t.text "allegation_consideration_details"
+    t.string "previous_misconduct_format"
+    t.boolean "previous_misconduct_complete"
     t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
   end
