@@ -211,7 +211,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_get_redirected_to_the_referral_summary
     expect(page).to have_current_path("/referrals/#{@referral.id}/edit")
-    expect(page).to have_content("Your allegation of serious misconduct")
+    expect(page).to have_content("Your referral")
   end
 
   def when_i_select_no
@@ -284,7 +284,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
-      section: "About the person you’re referring",
+      section: "About the teacher",
       item_position: 2,
       name: "Contact details",
       tag: status

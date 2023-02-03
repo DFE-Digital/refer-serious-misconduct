@@ -24,7 +24,7 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your name"
         },
         value: {
-          text: "#{referrer.first_name} #{referrer.last_name}"
+          text: "#{referrer&.first_name} #{referrer&.last_name}"
         }
       },
       {
@@ -61,7 +61,7 @@ class AboutYouComponent < ViewComponent::Base
             text: "Your job title"
           },
           value: {
-            text: referrer.job_title
+            text: referrer&.job_title
           }
         }
       )
@@ -84,7 +84,7 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your phone number"
         },
         value: {
-          text: referrer.phone
+          text: referrer&.phone
         }
       }
     )

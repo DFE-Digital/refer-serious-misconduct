@@ -10,11 +10,11 @@ en:
     warning: Warning
     success: Success
   referral_form:
-    heading: Your allegation of serious misconduct
+    heading: Your referral
     about_you: About you
     your_details: Your details
     your_organisation: Your organisation
-    about_the_person_you_are_referring: About the person you’re referring
+    about_the_person_you_are_referring: About the teacher
     personal_details: Personal details
     contact_details: Contact details
     about_their_role: About their role
@@ -83,6 +83,10 @@ en:
           attributes:
             unsupervised_teaching:
               blank: Select yes if they carry out unsupervised teaching working
+        referral_form:
+          attributes:
+            base:
+              all_sections_complete: Complete all sections of the referral
         "users/otp_form":
           attributes:
             otp:

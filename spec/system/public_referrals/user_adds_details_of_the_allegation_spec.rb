@@ -69,7 +69,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def then_i_see_allegation_form_validation_errors
-    expect(page).to have_content("There is a problem")
+    expect(page).to have_content("There’s a problem")
   end
 
   def when_i_fill_out_allegation_details
@@ -83,7 +83,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def then_i_see_the_allegation_considerations_form_validation_errors
-    expect(page).to have_content("There is a problem")
+    expect(page).to have_content("There’s a problem")
   end
 
   def then_i_am_asked_to_confirm_the_allegation_details

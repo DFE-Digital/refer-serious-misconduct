@@ -11,7 +11,7 @@ GOVUKDesignSystemFormBuilder.configure do |config|
   # config.default_submit_button_text: 'Continue'
   # config.default_radio_divider_text: 'or'
   # config.default_check_box_divider_text: 'or'
-  # config.default_error_summary_title: 'There is a problem'
+  config.default_error_summary_title = "There’s a problem"
   # config.default_error_summary_presenter: Presenters::ErrorSummaryPresenter
   # config.default_error_summary_error_order_method: nil
   # config.default_error_summary_turbo_prefix: 'turbo'

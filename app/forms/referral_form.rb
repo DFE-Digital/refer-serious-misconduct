@@ -15,6 +15,12 @@ class ReferralForm
     valid?
   end
 
+  def submit
+    return false unless valid?
+
+    referral.submit
+  end
+
   def sections
     [
       about_you_section,
@@ -27,7 +33,7 @@ class ReferralForm
 
   def sections_valid
     unless sections.map(&:items).flatten.map(&:status).uniq == [:completed]
-      errors.add(:base, "Please complete all sections of the referral")
+      errors.add(:base, :all_sections_complete)
     end
   end
 

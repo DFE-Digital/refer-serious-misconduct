@@ -306,7 +306,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
     expect_task_row(
-      section: "About the person you’re referring",
+      section: "About the teacher",
       item_position: 2,
       name: "About their role",
       tag: status

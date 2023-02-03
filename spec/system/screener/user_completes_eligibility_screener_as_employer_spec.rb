@@ -33,7 +33,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
     expect(page).to have_content "What completing this referral means for you"
     click_on "Continue"
-    expect(page).to have_content "Your allegation of serious misconduct"
+    expect(page).to have_content "Your referral"
   end
 
   def and_i_have_started_an_employer_referral

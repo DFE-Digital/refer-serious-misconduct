@@ -1,26 +1,45 @@
-<% content_for :page_title, 'Check your answers before continuing' %>
+<% content_for :page_title, 'Check details and send referral' %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">Check your answers before&nbsp;continuing</h1>
+        <%= form_with model: @referral_form, url: [current_referral.routing_scope, current_referral, :review], method: :put do |f| %>
+          <%= f.govuk_error_summary presenter: back_linked_error_presenter %>
+
+          <h1 class="govuk-heading-xl">Check details and send referral</h1>
+
+          <h2 class="govuk-heading-l">About you</h2>
+          <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
+
+          <h2 class="govuk-heading-l">About the teacher </h2>
+          <%= render PersonalDetailsComponent.new(referral: current_referral) %>
+          <%= render TheirRoleComponent.new(referral: current_referral) %>
+
+          <h2 class="govuk-heading-l">The allegation</h2>
+          <%= render PublicAllegationComponent.new(referral: current_referral) %>
+
+          <h2 class="govuk-heading-l">The evidence</h2>
+          <%= render EvidenceComponent.new(referral: current_referral) %>
+
+          <h2 class="govuk-heading-l">Declaration</h2>
+
+          <p>By sending this referral, you agree that:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>your allegation will be investigated, which could result in the person you’re referring being stopped from teaching</li>
+            <li>your answers are true to the best of your knowledge and belief</li>
+            <li>your referral, any evidence and supporting information will be shared with the person you’re referring and any employer</li>
+            <li>you have permission from the relevant third parties for any evidence and supporting information to be shared, for example the police or DBS</li>
+            <li>you may need to attend a hearing and give evidence if your allegation reaches that stage</li>
+            <li>your referral will be kept on file for 50 years</li>
+          </ul>
+
+          <button class="govuk-button" data-module="govuk-button">
+            Agree and send referral
+          </button>
+        <% end %>
       </div>
     </div>
-
-    <h2 class="govuk-heading-l">1. About you</h2>
-    <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
-
-    <h2 class="govuk-heading-l">2. About the teacher </h2>
-    <%= render PersonalDetailsComponent.new(referral: current_referral) %>
-    <%= render TheirRoleComponent.new(referral: current_referral) %>
-
-    <h2 class="govuk-heading-l">3. The allegation</h2>
-    <%= render PublicAllegationComponent.new(referral: current_referral) %>
-    
-    <h2 class="govuk-heading-l">4. The evidence</h2>
-    <%= render EvidenceComponent.new(referral: current_referral) %>
-
-    <%= govuk_button_link_to "Continue", public_referral_declaration_path(current_referral) %>
   </div>
 </div>
