@@ -34,6 +34,10 @@ class Referral < ApplicationRecord
 
   delegate :name, to: :referrer, prefix: true, allow_nil: true
 
+  def submit
+    update(submitted_at: Time.current)
+  end
+
   def routing_scope
     return :public if from_member_of_public?
 

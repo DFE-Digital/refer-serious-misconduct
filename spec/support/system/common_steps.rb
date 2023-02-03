@@ -81,7 +81,7 @@ module CommonSteps
     expect(page).to have_title(
       "Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("Your allegation of serious misconduct")
+    expect(page).to have_content("Your referral")
   end
 
   def then_i_see_the_public_referral_summary

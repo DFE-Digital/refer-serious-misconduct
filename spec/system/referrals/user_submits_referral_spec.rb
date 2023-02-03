@@ -10,19 +10,12 @@ RSpec.feature "User submits a referral", type: :system do
     and_i_have_an_incomplete_referral
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_missing_sections_error
-
-    when_i_have_a_complete_referral
-    and_i_click_review_and_send
     then_i_see_the_check_answers_page
 
-    when_i_click_continue
-    then_i_see_the_declaration_page
-
-    when_i_click_send_referral
-    then_i_see_the_missing_declaration_error
-
-    when_i_complete_the_declaration
+    when_i_have_a_complete_referral
+    and_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_check_answers_page
     and_i_click_send_referral
     then_i_see_the_confirmation_page
   end
@@ -39,8 +32,8 @@ RSpec.feature "User submits a referral", type: :system do
 
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path("/referrals/#{@referral.id}/review")
-    expect(page).to have_title("Check your answers before continuing")
-    expect(page).to have_content("Check your answers before continuing")
+    expect(page).to have_title("Check details and send referral")
+    expect(page).to have_content("Check details and send referral")
   end
 
   def then_i_see_the_confirmation_page
@@ -60,15 +53,11 @@ RSpec.feature "User submits a referral", type: :system do
   end
 
   def then_i_see_the_missing_sections_error
-    expect(page).to have_content("Please complete all sections of the referral")
-  end
-
-  def when_i_click_continue
-    click_on "Continue"
+    expect(page).to have_content("Complete all sections of the referral")
   end
 
   def when_i_click_send_referral
-    click_on "Send referral"
+    click_on "Agree and send referral"
   end
   alias_method :and_i_click_send_referral, :when_i_click_send_referral
 

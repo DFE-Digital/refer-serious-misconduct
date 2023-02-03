@@ -53,7 +53,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_see_name_field_validation_errors
-    expect(page).to have_content("There is a problem")
+    expect(page).to have_content("There’s a problem")
   end
 
   def when_i_fill_out_the_name_fields_and_save

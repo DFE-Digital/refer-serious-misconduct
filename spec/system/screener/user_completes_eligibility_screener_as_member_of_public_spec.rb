@@ -89,7 +89,7 @@ RSpec.feature "Eligibility screener", type: :system do
   private
 
   def then_i_see_a_validation_error
-    expect(page).to have_content("There is a problem")
+    expect(page).to have_content("There’s a problem")
   end
 
   def then_i_see_the_employer_or_public_question

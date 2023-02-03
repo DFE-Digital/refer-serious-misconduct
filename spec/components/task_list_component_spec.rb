@@ -40,18 +40,10 @@ RSpec.describe TaskListComponent, type: :component do
     ]
   end
 
-  it "renders the first numbered section" do
-    expect(rendered.css(".app-task-list__section-number")[0].text).to eq("1.")
-  end
-
   it "renders the title in the first numbered section" do
     expect(rendered.css(".app-task-list__section-heading")[0].text).to include(
       "Do laundry"
     )
-  end
-
-  it "renders the second numbered section" do
-    expect(rendered.css(".app-task-list__section-number")[1].text).to eq("2.")
   end
 
   it "renders the title in the second numbered section" do

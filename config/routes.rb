@@ -117,8 +117,7 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        resource :review, only: %i[show], controller: :review
-        resource :declaration, only: %i[show create], controller: :declaration
+        resource :review, only: %i[show update], controller: :review
         resource :confirmation, only: %i[show], controller: :confirmation
       end
 
@@ -257,9 +256,8 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        resource :declaration, only: %i[show create], controller: :declaration
         resource :confirmation, only: %i[show], controller: :confirmation
-        resource :review, only: %i[show], controller: :review
+        resource :review, only: %i[show update], controller: :review
       end
     end
   end

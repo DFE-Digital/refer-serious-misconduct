@@ -1,12 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @referral_form, url: [current_referral.routing_scope, current_referral], method: :put do |f| %>
-      <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-xl"><%= t("referral_form.heading") %></h1>
-      <%= render TaskListComponent.new(sections: @referral_form.sections) %>
-      <button class="govuk-button" data-module="govuk-button">
-        Review and send
-      </button>
-    <% end %>
+    <h1 class="govuk-heading-xl"><%= t("referral_form.heading") %></h1>
+    <%= render TaskListComponent.new(sections: @referral_form.sections) %>
+    <%= govuk_button_link_to "Review and send", [current_referral.routing_scope, current_referral, :review] %>
   </div>
 </div>

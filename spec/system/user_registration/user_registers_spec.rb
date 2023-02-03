@@ -110,7 +110,7 @@ RSpec.feature "User registration" do
   end
 
   def then_i_should_see_the_start_new_referral_page
-    expect(page).to have_content "Your allegation of serious misconduct"
+    expect(page).to have_content "Your referral"
   end
 
   def when_i_press_continue
