@@ -81,6 +81,6 @@ RSpec.feature "A member of the public submits a referral", type: :system do
   def when_i_have_a_complete_referral
     @referral.update(attributes_for(:referral, :complete))
     create(:organisation, completed_at: Time.current, referral: @referral)
-    create(:referrer, completed_at: Time.current, referral: @referral)
+    create(:referrer, complete: true, referral: @referral)
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe ReferrerForm, type: :model do
     let(:referrer) { build(:referrer) }
 
     specify do
-      expect(form).to validate_inclusion_of(:complete).in_array(%w[true false])
+      expect(form).to validate_inclusion_of(:complete).in_array([true, false])
     end
 
     it { is_expected.to validate_presence_of(:referrer) }
@@ -21,7 +21,7 @@ RSpec.describe ReferrerForm, type: :model do
     let(:referrer_form) { described_class.new(complete:, referrer:) }
 
     context "when the value of complete is nil" do
-      let(:referrer) { build(:referrer, completed_at: Time.current) }
+      let(:referrer) { build(:referrer) }
 
       it "returns the value from referrer" do
         expect(form_complete).to eq(referrer.completed?)

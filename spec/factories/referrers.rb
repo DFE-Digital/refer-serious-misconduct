@@ -8,7 +8,7 @@ FactoryBot.define do
     end
 
     trait :complete do
-      completed_at { Time.current }
+      complete { true }
       job_title { "Headteacher" }
       first_name { "Jane" }
       last_name { "Smith" }
