@@ -55,7 +55,7 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_am_asked_how_i_want_to_make_the_allegation
     expect(page).to have_content(
-      "How do you want to tell us about your allegation?"
+      "How do you want to give details about the allegation?"
     )
   end
 
@@ -64,8 +64,9 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def when_i_fill_out_allegation_details
-    choose "I’ll give details of the allegation", visible: false
-    fill_in "Details of the allegation", with: "Something something something"
+    choose "Describe the allegation", visible: false
+    fill_in "Description of the allegation",
+            with: "Something something something"
   end
 
   def then_i_am_asked_how_the_complaint_has_been_considered
