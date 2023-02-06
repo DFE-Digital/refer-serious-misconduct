@@ -59,4 +59,8 @@ module ReferralHelper
       "Incomplete"
     end
   end
+
+  def file_size(attachment)
+    attachment.byte_size.to_fs(:human_size)
+  end
 end

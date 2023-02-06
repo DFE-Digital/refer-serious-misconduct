@@ -48,6 +48,10 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     then_i_see_the_previous_misconduct_page
     and_i_see_the_uploaded_file_name
 
+    when_i_click_change_previous_misconduct_details_link
+    then_i_can_see_the_previous_misconduct_file
+    when_i_click_save_and_continue
+
     when_i_click_save_and_continue
     then_i_am_asked_to_make_a_choice
 
@@ -185,5 +189,18 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   def when_i_upload_a_file
     choose "Upload file", visible: :all
     attach_file "Upload file", Rails.root.join("spec/support/upload.txt")
+  end
+
+  def when_i_click_change_previous_misconduct_details_link
+    within(
+      page.find(
+        ".govuk-summary-list__row",
+        text: "How do you want to give details about previous allegations?"
+      )
+    ) { click_link "Change" }
+  end
+
+  def then_i_can_see_the_previous_misconduct_file
+    expect(page).to have_content("upload.txt (15 Bytes)")
   end
 end

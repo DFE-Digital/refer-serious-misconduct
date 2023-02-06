@@ -10,11 +10,27 @@
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "l", text: "How do you want to give details about the allegation?", tag: 'h1' }) do %>
           <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
-            <%= f.govuk_file_field :allegation_upload, label: { text: "Upload file", size: "s" } %>
+            <% if current_referral.allegation_upload.attached? %>
+              <div class="app-uploaded-file">
+                <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+                    Currently uploaded file
+                </h2>
+                <p>
+                  <%= govuk_link_to(
+                    "#{current_referral.allegation_upload.filename} (#{file_size(current_referral.allegation_upload)})",
+                    rails_blob_path(current_referral.allegation_upload, disposition: "attachment")
+                    )
+                  %>
+                </p>
+                <%= f.govuk_file_field :allegation_upload, label: { text: "Upload new file", size: "s" } %>
+              </div>
+            <% else %>
+              <%= f.govuk_file_field :allegation_upload, label: { text: "Upload file", size: "s" } %>
+            <% end %>
           <% end %>
           <%= f.govuk_radio_button :allegation_format, "details", label: { text: "Describe the allegation" } do %>
             <%= f.govuk_text_area :allegation_details,
-                                  label: { text: "Description of the allegation", size: "m" },
+                                  label: { text: "Description of the allegation", size: "s" },
                                   rows: 20 %>
           <% end %>
         <% end %>

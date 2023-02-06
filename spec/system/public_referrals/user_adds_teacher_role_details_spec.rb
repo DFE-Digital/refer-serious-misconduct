@@ -250,7 +250,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def and_i_attach_a_second_job_description_file
     attach_file(
-      "Upload file",
+      "Upload new file",
       File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf"))
     )
   end
@@ -299,11 +299,11 @@ RSpec.feature "Teacher role", type: :system do
   # Page content
 
   def and_i_see_the_uploaded_filename
-    expect(page).to have_content("Uploaded file: upload1.pdf")
+    expect(page).to have_content("upload1.pdf (4.98 KB)")
   end
 
   def and_i_see_the_second_uploaded_filename
-    expect(page).to have_content("Uploaded file: upload2.pdf")
+    expect(page).to have_content("upload2.pdf (5.11 KB)")
   end
 
   def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
