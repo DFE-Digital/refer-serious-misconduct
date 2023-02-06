@@ -2,19 +2,19 @@ class OrganisationForm
   include ActiveModel::Model
 
   attr_accessor :referral
-  attr_writer :complete
+  attr_reader :complete
 
-  validates :complete, inclusion: { in: %w[true false] }
+  validates :complete, inclusion: { in: [true, false] }
   validates :referral, presence: true
 
-  def complete
-    @complete || organisation&.completed_at? || nil
+  def complete=(value)
+    @complete = ActiveModel::Type::Boolean.new.cast(value)
   end
 
   def save
     return false unless valid?
 
-    organisation.update(completed_at: complete == "true" ? Time.current : nil)
+    organisation.update(complete:)
   end
 
   private

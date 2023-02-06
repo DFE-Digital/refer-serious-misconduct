@@ -6,7 +6,7 @@ class Organisation < ApplicationRecord
   end
 
   def completed?
-    completed_at.present?
+    complete
   end
 
   def status

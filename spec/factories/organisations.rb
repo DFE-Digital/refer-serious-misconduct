@@ -4,7 +4,7 @@ FactoryBot.define do
 
     trait :complete do
       name { "Example School" }
-      completed_at { Time.current }
+      complete { true }
       street_1 { "1 Example Street" }
       city { "Example City" }
       postcode { "AB1 2CD" }
