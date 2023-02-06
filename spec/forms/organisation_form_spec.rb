@@ -34,7 +34,7 @@ RSpec.describe OrganisationForm, type: :model do
 
     context "when the value of complete is nil" do
       let(:complete) { nil }
-      let(:organisation) { build(:organisation, completed_at: Time.current) }
+      let(:organisation) { build(:organisation) }
 
       it "returns the value from the organisation" do
         expect(form_complete).to eq(organisation.completed?)

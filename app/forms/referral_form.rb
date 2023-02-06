@@ -267,12 +267,14 @@ class ReferralForm
   end
 
   def about_your_organisation_section_path
-    if referral.organisation.present?
-      return polymorphic_path([referral.routing_scope, referral, :organisation])
+    if referral.organisation&.complete.nil?
+      return(
+        polymorphic_path(
+          [:edit, referral.routing_scope, referral, :organisation_address]
+        )
+      )
     end
 
-    polymorphic_path(
-      [:edit, referral.routing_scope, referral, :organisation_address]
-    )
+    polymorphic_path([referral.routing_scope, referral, :organisation])
   end
 end

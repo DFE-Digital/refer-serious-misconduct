@@ -27,14 +27,14 @@ RSpec.describe Organisation, type: :model do
   end
 
   describe "#completed?" do
-    context "when completed_at is not nil" do
-      subject { build(:organisation, completed_at: Time.current) }
+    context "when it is completed" do
+      subject { build(:organisation, complete: true) }
 
       it { is_expected.to be_completed }
     end
 
-    context "when completed_at is nil" do
-      subject { build(:organisation, completed_at: nil) }
+    context "when complete is nil" do
+      subject { build(:organisation) }
 
       it { is_expected.not_to be_completed }
     end
@@ -43,14 +43,14 @@ RSpec.describe Organisation, type: :model do
   describe "#status" do
     subject { organisation.status }
 
-    context "when completed_at is not nil" do
-      let(:organisation) { build(:organisation, completed_at: Time.current) }
+    context "when complete is true" do
+      let(:organisation) { build(:organisation, complete: true) }
 
       it { is_expected.to eq(:completed) }
     end
 
-    context "when completed_at is nil" do
-      let(:organisation) { build(:organisation, completed_at: nil) }
+    context "when complete is nil" do
+      let(:organisation) { build(:organisation, complete: nil) }
 
       it { is_expected.to eq(:incomplete) }
     end

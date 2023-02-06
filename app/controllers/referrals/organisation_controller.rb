@@ -3,7 +3,11 @@ module Referrals
     def show
       @organisation =
         current_referral.organisation || current_referral.build_organisation
-      @organisation_form = OrganisationForm.new(referral: current_referral)
+      @organisation_form =
+        OrganisationForm.new(
+          referral: current_referral,
+          complete: @organisation.complete
+        )
     end
 
     def update
