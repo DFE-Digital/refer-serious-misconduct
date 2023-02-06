@@ -69,7 +69,7 @@ RSpec.feature "Allegation", type: :system do
 
   def then_i_am_asked_how_i_want_to_make_the_allegation
     expect(page).to have_content(
-      "How do you want to tell us about your allegation?"
+      "How do you want to give details about the allegation?"
     )
   end
 
@@ -78,8 +78,9 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_fill_out_allegation_details
-    choose "I’ll give details of the allegation", visible: false
-    fill_in "Details of the allegation", with: "Something something something"
+    choose "Describe the allegation", visible: false
+    fill_in "Description of the allegation",
+            with: "Something something something"
   end
 
   def then_i_am_asked_if_i_have_notified_dbs
@@ -103,7 +104,7 @@ RSpec.feature "Allegation", type: :system do
     )
 
     expect_summary_row(
-      key: "Summary",
+      key: "Description of the allegation",
       value: "Something something something",
       change_link:
         edit_referral_allegation_details_path(
@@ -140,15 +141,15 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_click_change_allegation_details
-    click_on "Change how I want to report the allegation"
+    click_on "Change the description of the allegation"
   end
 
   def when_i_choose_upload_the_allegation
-    choose "I’ll upload the allegation details", visible: false
+    choose "Upload file", visible: false
   end
 
   def then_i_am_asked_to_upload_an_allegation_file
-    expect(page).to have_content("Upload allegation details")
+    expect(page).to have_content("Upload file")
   end
 
   def then_i_see_the_upload_form_validation_errors
@@ -163,7 +164,7 @@ RSpec.feature "Allegation", type: :system do
 
   def when_i_upload_the_allegation
     attach_file(
-      "Upload allegation details",
+      "Upload file",
       [Rails.root.join("spec/fixtures/files/upload1.pdf")]
     )
   end

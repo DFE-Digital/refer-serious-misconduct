@@ -40,11 +40,11 @@ class WhatHappenedComponent < ViewComponent::Base
               :details,
               { return_to: }
             ],
-            visually_hidden_text: "how I want to report the allegation"
+            visually_hidden_text: "the description of the allegation"
           }
         ],
         key: {
-          text: "Summary"
+          text: "Description of the allegation"
         },
         value: {
           text: allegation_details(referral)
@@ -62,7 +62,7 @@ class WhatHappenedComponent < ViewComponent::Base
               :dbs,
               { return_to: }
             ],
-            visually_hidden_text: "DBS notified"
+            visually_hidden_text: "if you have told DBS"
           }
         ],
         key: {
