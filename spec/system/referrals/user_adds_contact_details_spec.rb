@@ -52,7 +52,7 @@ RSpec.feature "Contact details", type: :system do
     # Phone number known
     when_i_select_no
     and_i_click_save_and_continue
-    then_i_see_the_home_address_page
+    then_i_see_the_home_address_known_page
 
     # Phone number unknown
     when_i_go_back
@@ -60,16 +60,7 @@ RSpec.feature "Contact details", type: :system do
     and_i_click_save_and_continue
 
     # Do you know their home address?
-    then_i_see_the_home_address_page
-
-    # Address errors
-    when_i_select_yes
-    and_i_click_save_and_continue
-    then_i_see_a_missing_address_fields_error
-
-    when_i_fill_in_an_incorrect_postcode
-    and_i_click_save_and_continue
-    then_i_see_a_invalid_postcode_error
+    then_i_see_the_home_address_known_page
 
     # Address unknown
     when_i_select_no
@@ -79,6 +70,17 @@ RSpec.feature "Contact details", type: :system do
     # Address known
     when_i_click_change_address
     when_i_select_yes
+    and_i_click_save_and_continue
+    then_i_see_the_home_address_page
+
+    # Address errors
+    and_i_click_save_and_continue
+    then_i_see_a_missing_address_fields_error
+
+    when_i_fill_in_an_incorrect_postcode
+    and_i_click_save_and_continue
+    then_i_see_a_invalid_postcode_error
+
     when_i_fill_in_the_address_details
     and_i_click_save_and_continue
     then_i_see_the_check_answers_page
@@ -135,28 +137,32 @@ RSpec.feature "Contact details", type: :system do
     expect(page).to have_current_path(
       edit_referral_contact_details_email_path(@referral)
     )
-    expect(page).to have_title(
-      "Do you know the personal email address of the person you are referring?"
-    )
-    expect(page).to have_content(
-      "Do you know the personal email address of the person you are referring?"
-    )
+    expect(page).to have_title("Do you know their email address?")
+    expect(page).to have_content("Do you know their email address?")
   end
 
   def then_i_see_the_contact_number_page
     expect(page).to have_current_path(
       edit_referral_contact_details_telephone_path(@referral)
     )
-    expect(page).to have_title("Do you know their main contact number?")
-    expect(page).to have_content("Do you know their main contact number?")
+    expect(page).to have_title("Do you know their phone number?")
+    expect(page).to have_content("Do you know their phone number?")
+  end
+
+  def then_i_see_the_home_address_known_page
+    expect(page).to have_current_path(
+      edit_referral_contact_details_address_known_path(@referral)
+    )
+    expect(page).to have_title("Do you know their home address?")
+    expect(page).to have_content("Do you know their home address?")
   end
 
   def then_i_see_the_home_address_page
     expect(page).to have_current_path(
       edit_referral_contact_details_address_path(@referral)
     )
-    expect(page).to have_title("Do you know their home address?")
-    expect(page).to have_content("Do you know their home address?")
+    expect(page).to have_title("Their home address")
+    expect(page).to have_content("Their home address")
   end
 
   def when_i_select_yes
@@ -189,7 +195,7 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_select_yes_with_an_invalid_phone_number
     when_i_select_yes
-    fill_in "Main contact number", with: "1234"
+    fill_in "Phone number", with: "1234"
   end
 
   def then_i_see_an_invalid_phone_number_error
@@ -200,7 +206,7 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_select_yes_with_a_valid_phone_number
     when_i_select_yes
-    fill_in "Main contact number", with: "07700 900 982"
+    fill_in "Phone number", with: "07700 900 982"
   end
 
   def then_i_get_redirected_to_the_referral_summary
@@ -262,7 +268,7 @@ RSpec.feature "Contact details", type: :system do
     )
 
     expect_summary_row(
-      key: "Address",
+      key: "Home address",
       value: "1428 Elm Street\nLondon\nNW1 4NP",
       change_link:
         edit_referral_contact_details_address_path(
@@ -298,12 +304,12 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def and_i_click_the_change_address_link
-    within(page.find(".govuk-summary-list__row", text: "Address")) do
+    within(page.find(".govuk-summary-list__row", text: "Home address")) do
       click_link "Change"
     end
   end
 
   def when_i_click_change_address
-    click_link "Change address"
+    click_link "Change if you know their home address"
   end
 end

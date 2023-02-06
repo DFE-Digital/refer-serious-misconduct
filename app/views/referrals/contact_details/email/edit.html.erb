@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_email_form.errors.any?}Do you know the personal email address of the person you are referring?" %>
+<% content_for :page_title, "#{"Error: " if @contact_details_email_form.errors.any?}Do you know their email address?" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
@@ -7,7 +7,7 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Contact details</span>
-      <%= f.govuk_radio_buttons_fieldset :email_known, legend: { size: "l", text: "Do you know the personal email address of the person you are referring?" }  do %>
+      <%= f.govuk_radio_buttons_fieldset :email_known, legend: { size: "l", text: "Do you know their email address?" }  do %>
         <%= f.hidden_field :email_known %>
         <%= f.govuk_radio_button :email_known, true, label: { text: "Yes" }, link_errors: true do %>
           <%= f.govuk_text_field :email_address, label: { text: "Email address" } %>

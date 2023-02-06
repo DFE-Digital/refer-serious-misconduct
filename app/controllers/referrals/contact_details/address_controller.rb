@@ -4,7 +4,6 @@ module Referrals
       def edit
         @contact_details_address_form =
           AddressForm.new(
-            address_known: current_referral.address_known,
             address_line_1: current_referral.address_line_1,
             address_line_2: current_referral.address_line_2,
             town_or_city: current_referral.town_or_city,
@@ -31,7 +30,6 @@ module Referrals
 
       def contact_details_address_form_params
         params.require(:referrals_contact_details_address_form).permit(
-          :address_known,
           :address_line_1,
           :address_line_2,
           :town_or_city,
