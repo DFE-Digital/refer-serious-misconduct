@@ -2,7 +2,7 @@ class Referrer < ApplicationRecord
   belongs_to :referral
 
   def completed?
-    completed_at.present?
+    complete
   end
 
   def name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_06_120315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -164,8 +164,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_140718) do
     t.datetime "updated_at", null: false
     t.string "phone"
     t.string "job_title"
-    t.datetime "completed_at", precision: nil
     t.string "last_name"
+    t.boolean "complete"
     t.index ["referral_id"], name: "index_referrers_on_referral_id"
   end
 

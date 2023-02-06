@@ -2,7 +2,8 @@ module Referrals
   class ReferrersController < BaseController
     def show
       @referrer = current_referral.referrer
-      @referrer_form = ReferrerForm.new(referrer: @referrer)
+      @referrer_form =
+        ReferrerForm.new(referrer: @referrer, complete: @referrer.complete)
     end
 
     def update

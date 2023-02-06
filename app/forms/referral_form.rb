@@ -56,11 +56,15 @@ class ReferralForm
   end
 
   def about_you_section_path
-    if referral.referrer.present?
-      return polymorphic_path([referral.routing_scope, referral, :referrer])
+    if referral.referrer&.complete.nil?
+      return(
+        polymorphic_path(
+          [:edit, referral.routing_scope, referral, :referrer_name]
+        )
+      )
     end
 
-    polymorphic_path([:edit, referral.routing_scope, referral, :referrer_name])
+    polymorphic_path([referral.routing_scope, referral, :referrer])
   end
 
   def about_the_person_you_are_referring_section

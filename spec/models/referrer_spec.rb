@@ -11,7 +11,7 @@ RSpec.describe Referrer, type: :model do
     it { is_expected.to eq(:incomplete) }
 
     context "when completed_at is present" do
-      let(:referrer) { build(:referrer, completed_at: Time.current) }
+      let(:referrer) { build(:referrer, complete: true) }
 
       it { is_expected.to eq(:completed) }
     end
@@ -27,7 +27,7 @@ RSpec.describe Referrer, type: :model do
     end
 
     context "when completed_at is present" do
-      let(:referrer) { build(:referrer, completed_at: Time.current) }
+      let(:referrer) { build(:referrer, complete: true) }
 
       it { is_expected.to be_truthy }
     end
