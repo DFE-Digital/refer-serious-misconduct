@@ -10,7 +10,7 @@ RSpec.describe Referrals::TeacherRole::WorkLocationKnownForm, type: :model do
 
     it do
       expect(form).to validate_presence_of(:work_location_known).with_message(
-        "Select yes if you know the name and address of the organisation where they’re currently working"
+        "Select yes if you know the name and address of the organisation where they’re employed"
       )
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe Referrals::TeacherRole::WorkLocationKnownForm, type: :model do
       it "adds an error" do
         expect(form.errors[:work_location_known]).to eq(
           [
-            "Select yes if you know the name and address of the organisation where they’re currently working"
+            "Select yes if you know the name and address of the organisation where they’re employed"
           ]
         )
       end

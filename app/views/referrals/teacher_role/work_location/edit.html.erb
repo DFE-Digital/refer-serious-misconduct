@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{"Error: " if @work_location_form.errors.any?}Where they currently work" %>
+<% content_for :page_title, "#{"Error: " if @work_location_form.errors.any?}Name and address of the organisation where they’re employed" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :work_location_known])) %>
 
 <div class="govuk-grid-row">
@@ -8,7 +8,7 @@
 
       <span class="govuk-caption-l">About their role</span>
       <h1 class="govuk-heading-l">
-        Where they currently work
+        Name and address of the organisation where they’re employed
       </h1>
 
       <%= f.govuk_text_field :work_organisation_name, label: { text: "Organisation name", size: "m" } %>

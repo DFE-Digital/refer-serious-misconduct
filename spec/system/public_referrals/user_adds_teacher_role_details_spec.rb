@@ -286,10 +286,10 @@ RSpec.feature "Teacher role", type: :system do
   def then_i_see_organisation_address_fields_validation_errors
     expect(page).to have_content("Enter the organisation name")
     expect(page).to have_content(
-      "Enter the first line of their organisation's address"
+      "Enter the first line of the organisation's address"
     )
-    expect(page).to have_content("Enter a town or city for their organisation")
-    expect(page).to have_content("Enter a postcode for their organisation")
+    expect(page).to have_content("Enter a town or city for the organisation")
+    expect(page).to have_content("Enter a postcode for the organisation")
   end
 
   def then_i_see_a_completed_error

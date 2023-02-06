@@ -101,7 +101,7 @@ RSpec.feature "Teacher role", type: :system do
     when_i_fill_in_the_teaching_address_details
     and_i_click_save_and_continue
 
-    # Do you know when they started their job?
+    # Do you know when they started the job?
 
     then_i_see_the_job_start_date_page
 
@@ -171,7 +171,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_choose_yes
     and_i_click_save_and_continue
 
-    # Do you know the name and address of the organisation where they’re currently working?
+    # Do you know the name and address of the organisation where they’re employed?
 
     then_i_see_the_work_location_known_page
 
@@ -271,10 +271,10 @@ RSpec.feature "Teacher role", type: :system do
       edit_referral_teacher_role_employment_status_path(@referral)
     )
     expect(page).to have_title(
-      "Are they still employed in the job where the alleged misconduct took place?"
+      "Are they still employed at the organisation where the alleged misconduct took place?"
     )
     expect(page).to have_content(
-      "Are they still employed in the job where the alleged misconduct took place?"
+      "Are they still employed at the organisation where the alleged misconduct took place?"
     )
   end
 
@@ -291,10 +291,10 @@ RSpec.feature "Teacher role", type: :system do
       edit_referral_teacher_role_same_organisation_path(@referral)
     )
     expect(page).to have_title(
-      "Did they work at the same organisation as you at the time of the alleged misconduct?"
+      "Were they employed at the same organisation as you at the time of the alleged misconduct?"
     )
     expect(page).to have_content(
-      "Did they work at the same organisation as you at the time of the alleged misconduct?"
+      "Were they employed at the same organisation as you at the time of the alleged misconduct?"
     )
   end
 
@@ -338,8 +338,8 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_current_path(
       edit_referral_teacher_role_start_date_path(@referral)
     )
-    expect(page).to have_title("Do you know when they started their job?")
-    expect(page).to have_content("Do you know when they started their job?")
+    expect(page).to have_title("Do you know when they started the job?")
+    expect(page).to have_content("Do you know when they started the job?")
   end
 
   def then_i_see_the_job_end_date_page
@@ -371,10 +371,10 @@ RSpec.feature "Teacher role", type: :system do
       edit_referral_teacher_role_work_location_known_path(@referral)
     )
     expect(page).to have_title(
-      "Do you know the name and address of the organisation where they’re currently working?"
+      "Do you know the name and address of the organisation where they’re employed?"
     )
     expect(page).to have_content(
-      "Do you know the name and address of the organisation where they’re currently working?"
+      "Do you know the name and address of the organisation where they’re employed?"
     )
   end
 
@@ -382,8 +382,12 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_current_path(
       edit_referral_teacher_role_work_location_path(@referral)
     )
-    expect(page).to have_title("Where they currently work")
-    expect(page).to have_content("Where they currently work")
+    expect(page).to have_title(
+      "Name and address of the organisation where they’re employed"
+    )
+    expect(page).to have_content(
+      "Name and address of the organisation where they’re employed"
+    )
   end
 
   def then_i_see_the_check_answers_page
@@ -417,7 +421,7 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def and_i_choose_left
-    choose "No, they have left the organisation", visible: false
+    choose "No", visible: false
   end
 
   def when_i_choose_resigned
@@ -489,7 +493,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_role_start_date_known_field_validation_errors
     expect(page).to have_content(
-      "Select yes if you know when they started their job"
+      "Select yes if you know when they started the job"
     )
   end
 
@@ -522,10 +526,10 @@ RSpec.feature "Teacher role", type: :system do
   def then_i_see_organisation_address_fields_validation_errors
     expect(page).to have_content("Enter the organisation name")
     expect(page).to have_content(
-      "Enter the first line of their organisation's address"
+      "Enter the first line of the organisation's address"
     )
-    expect(page).to have_content("Enter a town or city for their organisation")
-    expect(page).to have_content("Enter a postcode for their organisation")
+    expect(page).to have_content("Enter a town or city for the organisation")
+    expect(page).to have_content("Enter a postcode for the organisation")
   end
 
   def then_i_see_duties_format_field_validation_errors
@@ -552,7 +556,7 @@ RSpec.feature "Teacher role", type: :system do
 
   def then_i_see_work_location_field_validation_errors
     expect(page).to have_content(
-      "Select yes if you know the name and address of the organisation where they’re currently working"
+      "Select yes if you know the name and address of the organisation where they’re employed"
     )
   end
 

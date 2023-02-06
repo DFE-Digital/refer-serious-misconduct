@@ -164,7 +164,7 @@ en:
         "referrals/teacher_role/start_date_form":
           attributes:
             role_start_date_known:
-              inclusion: Select yes if you know when they started their job
+              inclusion: Select yes if you know when they started the job
             role_start_date:
               blank: Enter the job start date
               in_the_future: Job start date must be in the past
@@ -214,7 +214,7 @@ en:
         "referrals/teacher_role/work_location_known_form":
           attributes:
             work_location_known:
-              inclusion: Select yes if you know the name and address of the organisation where they’re currently working
+              inclusion: Select yes if you know the name and address of the organisation where they’re employed
         "referrals/teacher_role/organisation_address_known_form":
           attributes:
             organisation_address_known:
@@ -224,11 +224,11 @@ en:
             organisation_name:
               blank: Enter the organisation name
             organisation_address_line_1:
-              blank: Enter the first line of their organisation's address
+              blank: Enter the first line of the organisation's address
             organisation_town_or_city:
-              blank: Enter a town or city for their organisation
+              blank: Enter a town or city for the organisation
             organisation_postcode:
-              blank: Enter a postcode for their organisation
+              blank: Enter a postcode for the organisation
               invalid: Enter a real postcode
         "referrals/teacher_role/end_date_form":
           attributes:

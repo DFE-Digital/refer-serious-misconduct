@@ -98,12 +98,13 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:same_organisation),
-          visually_hidden_text: "working in the same organisation"
+          visually_hidden_text:
+            "if they were employed at the same organisation as you at the time of the alleged misconduct"
         }
       ],
       key: {
         text:
-          "Did they work at the same organisation as you at the time of the alleged misconduct?"
+          "Were they employed at the same organisation as you at the time of the alleged misconduct?"
       },
       value: {
         text: referral.same_organisation ? "Yes" : "No"
@@ -157,11 +158,11 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:start_date),
-          visually_hidden_text: "if you know when they started their job"
+          visually_hidden_text: "if you know when they started the job"
         }
       ],
       key: {
-        text: "Do you know when they started their job?"
+        text: "Do you know when they started the job?"
       },
       value: {
         text: referral.role_start_date_known ? "Yes" : "No"
@@ -175,7 +176,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:start_date),
-          visually_hidden_text: "their job start date"
+          visually_hidden_text: "the job start date"
         }
       ],
       key: {
@@ -194,12 +195,12 @@ class TheirRoleComponent < ViewComponent::Base
           text: "Change",
           href: path_for(:employment_status),
           visually_hidden_text:
-            "if they are still employed in the job where the alleged misconduct took place"
+            "if are they still employed at the organisation where the alleged misconduct took place?"
         }
       ],
       key: {
         text:
-          "Are they still employed in the job where the alleged misconduct took place?"
+          "Are they still employed at the organisation where the alleged misconduct took place?"
       },
       value: {
         text: employment_status(referral)
@@ -231,7 +232,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:end_date),
-          visually_hidden_text: "their job end date"
+          visually_hidden_text: "the job end date"
         }
       ],
       key: {
@@ -256,7 +257,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Reason they left the job"
       },
       value: {
-        text: referral.reason_leaving_role&.humanize
+        text: reason_leaving_role
       }
     }
   end
@@ -274,7 +275,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Are they employed somewhere else?"
       },
       value: {
-        text: referral.working_somewhere_else&.humanize
+        text: working_somewhere_else
       }
     }
   end
@@ -286,12 +287,12 @@ class TheirRoleComponent < ViewComponent::Base
           text: "Change",
           href: path_for(:work_location_known),
           visually_hidden_text:
-            "if you know the name and address of the organisation where they’re currently working"
+            "if you know the name and address of the organisation where they’re employed"
         }
       ],
       key: {
         text:
-          "Do you know the name and address of the organisation where they’re currently working?"
+          "Do you know the name and address of the organisation where they’re employed?"
       },
       value: {
         text: referral.work_location_known ? "Yes" : "No"
@@ -305,11 +306,12 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:work_location),
-          visually_hidden_text: "where they currently work"
+          visually_hidden_text:
+            "name and address of the organisation where they’re employed"
         }
       ],
       key: {
-        text: "Where they currently work"
+        text: "Name and address of the organisation where they’re employed"
       },
       value: {
         text: teaching_address(referral)
@@ -332,5 +334,17 @@ class TheirRoleComponent < ViewComponent::Base
     polymorphic_path(
       [:edit, referral.routing_scope, referral, :teacher_role, :check_answers]
     )
+  end
+
+  def reason_leaving_role
+    return "I'm not sure" if referral.reason_leaving_role.to_sym == :unknown
+
+    referral.reason_leaving_role&.humanize
+  end
+
+  def working_somewhere_else
+    return "I'm not sure" if referral.working_somewhere_else.to_sym == :not_sure
+
+    referral.working_somewhere_else&.humanize
   end
 end
