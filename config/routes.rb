@@ -71,7 +71,9 @@ Rails.application.routes.draw do
 
   root to: redirect("/start")
 
-  resources :public_referrals, except: %i[index show], path: "public-referrals" do
+  resources :public_referrals,
+            except: %i[index show],
+            path: "public-referrals" do
     scope module: :public_referrals do
       constraints(RouteConstraints::PublicConstraint.new) do
         namespace :personal_details, path: "personal-details" do
@@ -87,7 +89,9 @@ Rails.application.routes.draw do
           resource :start, only: %i[edit update], controller: :start
           resource :upload, only: %i[edit update], controller: :upload
           resource :uploaded, only: %i[edit update], controller: :uploaded
-          resource :check_answers, only: %i[edit update], controller: :check_answers
+          resource :check_answers,
+                   only: %i[edit update],
+                   controller: :check_answers
         end
 
         namespace :allegation do
@@ -98,18 +102,18 @@ Rails.application.routes.draw do
 
         namespace :teacher_role, path: "teacher-role" do
           resource :job_title,
-            path: "job-title",
-            only: %i[edit update],
-            controller: :job_title
+                   path: "job-title",
+                   only: %i[edit update],
+                   controller: :job_title
           resource :duties, only: %i[edit update]
           resource :organisation_address_known,
-            path: "organisation-address-known",
-            only: %i[edit update],
-            controller: :organisation_address_known
+                   path: "organisation-address-known",
+                   only: %i[edit update],
+                   controller: :organisation_address_known
           resource :organisation_address,
-            path: "organisation-address",
-            only: %i[edit update],
-            controller: :organisation_address
+                   path: "organisation-address",
+                   only: %i[edit update],
+                   controller: :organisation_address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
@@ -148,41 +152,42 @@ Rails.application.routes.draw do
         resource :referrer, only: %i[show update]
         resource :referrer_details, only: %i[show], path: "referrer-details"
         resource :referrer_name,
-          only: %i[edit update],
-          path: "referrer-name",
-          controller: :referrer_name
+                 only: %i[edit update],
+                 path: "referrer-name",
+                 controller: :referrer_name
         resource :referrer_job_title,
-          only: %i[edit update],
-          path: "referrer-job-title",
-          controller: :referrer_job_title
+                 only: %i[edit update],
+                 path: "referrer-job-title",
+                 controller: :referrer_job_title
         resource :referrer_phone,
-          only: %i[edit update],
-          path: "referrer-phone",
-          controller: :referrer_phone
+                 only: %i[edit update],
+                 path: "referrer-phone",
+                 controller: :referrer_phone
 
         namespace :contact_details, path: "contact-details" do
           resource :email, only: %i[edit update], controller: :email
           resource :telephone, only: %i[edit update], controller: :telephone
+          resource :address_known,
+                   only: %i[edit update],
+                   controller: :address_known
           resource :address, only: %i[edit update], controller: :address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
         resource :organisation, only: %i[show update], controller: :organisation
         resource :organisation_name,
-          only: %i[edit update],
-          controller: :organisation_name
+                 only: %i[edit update],
+                 controller: :organisation_name
         resource :organisation_address,
-          only: %i[edit update],
-          controller: :organisation_address
+                 only: %i[edit update],
+                 controller: :organisation_address
 
         namespace :previous_misconduct, path: "previous-misconduct" do
-          resource :reported,
-            only: %i[edit update],
-            controller: :reported
+          resource :reported, only: %i[edit update], controller: :reported
           resource :detailed_account,
-            path: "detailed-account",
-            only: %i[edit update],
-            controller: :detailed_account
+                   path: "detailed-account",
+                   only: %i[edit update],
+                   controller: :detailed_account
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
@@ -194,50 +199,50 @@ Rails.application.routes.draw do
 
         namespace :teacher_role, path: "teacher-role" do
           resource :start_date,
-            path: "start-date",
-            only: %i[edit update],
-            controller: :start_date
+                   path: "start-date",
+                   only: %i[edit update],
+                   controller: :start_date
           resource :employment_status,
-            path: "employment-status",
-            only: %i[edit update],
-            controller: :employment_status
+                   path: "employment-status",
+                   only: %i[edit update],
+                   controller: :employment_status
           resource :job_title,
-            path: "job-title",
-            only: %i[edit update],
-            controller: :job_title
+                   path: "job-title",
+                   only: %i[edit update],
+                   controller: :job_title
           resource :same_organisation,
-            path: "same-organisation",
-            only: %i[edit update],
-            controller: :same_organisation
+                   path: "same-organisation",
+                   only: %i[edit update],
+                   controller: :same_organisation
           resource :duties, only: %i[edit update]
           resource :working_somewhere_else,
-            path: "working-somewhere-else",
-            only: %i[edit update],
-            controller: :working_somewhere_else
+                   path: "working-somewhere-else",
+                   only: %i[edit update],
+                   controller: :working_somewhere_else
           resource :work_location_known,
-            path: "work-location-known",
-            only: %i[edit update],
-            controller: :work_location_known
+                   path: "work-location-known",
+                   only: %i[edit update],
+                   controller: :work_location_known
           resource :work_location,
-            path: "work-location",
-            only: %i[edit update],
-            controller: :work_location
+                   path: "work-location",
+                   only: %i[edit update],
+                   controller: :work_location
           resource :organisation_address_known,
-            path: "organisation-address-known",
-            only: %i[edit update],
-            controller: :organisation_address_known
+                   path: "organisation-address-known",
+                   only: %i[edit update],
+                   controller: :organisation_address_known
           resource :organisation_address,
-            path: "organisation-address",
-            only: %i[edit update],
-            controller: :organisation_address
+                   path: "organisation-address",
+                   only: %i[edit update],
+                   controller: :organisation_address
           resource :end_date,
-            path: "end-date",
-            only: %i[edit update],
-            controller: :end_date
+                   path: "end-date",
+                   only: %i[edit update],
+                   controller: :end_date
           resource :reason_leaving_role,
-            path: "reason-leaving-role",
-            only: %i[edit update],
-            controller: :reason_leaving_role
+                   path: "reason-leaving-role",
+                   only: %i[edit update],
+                   controller: :reason_leaving_role
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 

@@ -106,7 +106,7 @@ en:
         "referrals/personal_details/ni_number_form":
           attributes:
             ni_number_known:
-              inclusion: Choose if you know their National Insurance number
+              inclusion: Select yes if you know their National Insurance number
             ni_number:
               blank: Enter their National Insurance number
         "referrals/personal_details/name_form":
@@ -151,8 +151,6 @@ en:
               invalid: Enter a phone number in the correct format, like 07700 900 982
         "referrals/contact_details/address_form":
           attributes:
-            address_known:
-              inclusion: Select yes if you know their home address
             address_line_1:
               blank: Enter the first line of their address
             town_or_city:
@@ -160,6 +158,10 @@ en:
             postcode:
               blank: Enter the postcode
               invalid: Enter a real postcode
+        "referrals/contact_details/address_known_form":
+          attributes:
+            address_known:
+              inclusion: Select yes if you know their home address
         "referrals/contact_details/check_answers_form":
           attributes:
             contact_details_complete:

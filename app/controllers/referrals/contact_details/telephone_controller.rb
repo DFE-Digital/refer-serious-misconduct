@@ -38,7 +38,7 @@ module Referrals
           current_referral.routing_scope,
           current_referral,
           :contact_details,
-          :address
+          :address_known
         ]
       end
     end

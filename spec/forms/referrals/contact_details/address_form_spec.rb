@@ -6,7 +6,6 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
   let(:params) do
     {
-      address_known: true,
       address_line_1: "1428 Elm Street",
       address_line_2: "Sunset Boulevard",
       country: "United Kingdom",
@@ -18,16 +17,9 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
-
-    context "when address is known" do
-      subject { form }
-
-      let(:params) { { address_known: true } }
-
-      it { is_expected.to validate_presence_of(:address_line_1) }
-      it { is_expected.to validate_presence_of(:town_or_city) }
-      it { is_expected.to validate_presence_of(:postcode) }
-    end
+    it { is_expected.to validate_presence_of(:address_line_1) }
+    it { is_expected.to validate_presence_of(:town_or_city) }
+    it { is_expected.to validate_presence_of(:postcode) }
   end
 
   describe "#valid?" do
@@ -36,18 +28,6 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
     before { valid }
 
     it { is_expected.to be_truthy }
-
-    context "when address_known is blank" do
-      let(:params) { super().merge(address_known: "") }
-
-      it { is_expected.to be_falsy }
-
-      it "adds an error" do
-        expect(form.errors[:address_known]).to eq(
-          ["Select yes if you know their home address"]
-        )
-      end
-    end
 
     context "when address_line_1 is blank" do
       let(:params) { super().merge(address_line_1: "") }
@@ -95,10 +75,6 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
   describe "#save" do
     before { form.save }
 
-    it "saves address_known" do
-      expect(referral.address_known).to be_truthy
-    end
-
     it "saves address_line_1" do
       expect(referral.address_line_1).to eq("1428 Elm Street")
     end
@@ -117,34 +93,6 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
 
     it "saves country" do
       expect(referral.country).to eq("United Kingdom")
-    end
-
-    context "when the address is not known" do
-      let(:params) { super().merge(address_known: false) }
-
-      it "sets the address_known to false" do
-        expect(referral.address_known).to be_falsy
-      end
-
-      it "sets the address_line_1 to nil" do
-        expect(referral.address_line_1).to be_nil
-      end
-
-      it "sets the address_line_2 to nil" do
-        expect(referral.address_line_2).to be_nil
-      end
-
-      it "sets the town_or_city to nil" do
-        expect(referral.town_or_city).to be_nil
-      end
-
-      it "sets the postcode to nil" do
-        expect(referral.postcode).to be_nil
-      end
-
-      it "sets the country to nil" do
-        expect(referral.country).to be_nil
-      end
     end
   end
 end

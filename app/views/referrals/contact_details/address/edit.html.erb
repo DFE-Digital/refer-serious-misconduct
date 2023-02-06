@@ -1,5 +1,5 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_address_form.errors.any?}Do you know their home address?" %>
-<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_telephone])) %>
+<% content_for :page_title, "#{"Error: " if @contact_details_address_form.errors.any?}Their home address" %>
+<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_address_known])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -7,19 +7,12 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Contact details</span>
-      <%= f.govuk_radio_buttons_fieldset :address_known, legend: { size: "xl", text: "Do you know their home address?" }  do %>
-        <%= f.hidden_field :address_known %>
-        <%= f.govuk_radio_button :address_known, true, label: { text: "Yes" }, link_errors: true do %>
-          <%= f.govuk_fieldset legend: { text: "What is their address?" } do %>
-            <%= f.govuk_text_field :address_line_1, label: { text: "Address line 1" } %>
-            <%= f.govuk_text_field :address_line_2, label: { text: "Address line 2 (optional)" } %>
-            <%= f.govuk_text_field :town_or_city, label: { text: "Town or city" } %>
-            <%= f.govuk_text_field :postcode, label: { text: "Postcode" } %>
-            <%= f.govuk_text_field :country, label: { text: "Country (optional)" } %>
-          <% end %>
-        <% end %>
-        <%= f.govuk_radio_button :address_known, false, label: { text: "No" } %>
-      <% end %>
+      <h1 class="govuk-heading-l">Their home address</h1>
+      <%= f.govuk_text_field :address_line_1, label: { size: 'm', text: "Address line 1" } %>
+      <%= f.govuk_text_field :address_line_2, label: { size: 'm', text: "Address line 2 (optional)" } %>
+      <%= f.govuk_text_field :town_or_city, label: { size: 'm', text: "Town or city" } %>
+      <%= f.govuk_text_field :postcode, label: { size: 'm', text: "Postcode" } %>
+      <%= f.govuk_text_field :country, label: { size: 'm', text: "Country (optional)" } %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
   </div>
