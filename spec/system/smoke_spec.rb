@@ -45,7 +45,7 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
 
   def then_it_loads_successfully
     if TEST_ENVIRONMENTS.include?(hosting_environment_name)
-      expect(page).to have_content("What is your email address?")
+      expect(page).to have_content("Do you have an account?")
     else
       expect(
         page
