@@ -25,7 +25,7 @@ module ReferralHelper
     when "suspended"
       "They’re still employed but they’ve been suspended"
     when "left_role"
-      "No, they have left the organisation"
+      "No"
     else
       "Incomplete"
     end

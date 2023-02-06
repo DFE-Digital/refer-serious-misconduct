@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @work_location_known_form.errors.any?}Do you know the name and address of the organisation where they’re currently working?" %>
+<% content_for :page_title, "#{'Error: ' if @work_location_known_form.errors.any?}Do you know the name and address of the organisation where they’re employed?" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :working_somewhere_else])) %>
 
 <div class="govuk-grid-row">
@@ -8,7 +8,7 @@
 
       <span class="govuk-caption-l">About their role</span>
       <%= f.govuk_radio_buttons_fieldset :work_location_known,
-        legend: { text: "Do you know the name and address of the organisation where they’re currently working?", tag: 'h1', size: "l" } do %>
+        legend: { text: "Do you know the name and address of the organisation where they’re employed?", tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :work_location_known %>
         <%= f.govuk_radio_button :work_location_known, true, label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :work_location_known, false, label: { text: "No" } %>
