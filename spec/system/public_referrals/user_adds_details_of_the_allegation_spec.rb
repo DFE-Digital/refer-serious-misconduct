@@ -30,6 +30,15 @@ RSpec.feature "Details of the allegation", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_the_allegation_details
 
+    when_i_click_change_allegation_details_link
+    and_i_choose_upload
+    and_i_attach_an_allegation_file
+    when_i_click_save_and_continue
+    when_i_click_change_allegation_details_link
+    then_i_can_see_the_allegation_file
+    when_i_click_save_and_continue
+    then_i_can_see_the_allegation_file_in_the_summary
+
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
 
@@ -132,5 +141,41 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_see_the_public_referral_summary
     expect(page).to have_current_path(edit_public_referral_path(@referral))
+  end
+
+  def when_i_click_change_allegation_details_link
+    within(
+      page.find(
+        ".govuk-summary-list__row",
+        text: "How do you want to give details about the allegation?"
+      )
+    ) { click_link "Change" }
+  end
+
+  def and_i_choose_upload
+    choose "Upload file", visible: false
+  end
+
+  def and_i_attach_an_allegation_file
+    attach_file(
+      "Upload file",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf"))
+    )
+  end
+
+  def then_i_can_see_the_allegation_file_in_the_summary
+    expect_summary_row(
+      key: "Description of the allegation",
+      value: "upload1.pdf",
+      change_link:
+        edit_public_referral_allegation_details_path(
+          @referral,
+          return_to: current_path
+        )
+    )
+  end
+
+  def then_i_can_see_the_allegation_file
+    expect(page).to have_content("upload1.pdf (4.98 KB)")
   end
 end
