@@ -13,10 +13,6 @@ class RenderPdfJob < ApplicationJob
   attr_reader :referral, :stylesheet
 
   def render_pdf
-     File.open( "test.html", "w") do |file|
-       file.write(html)
-     end
-
      File.open( "test.pdf", "wb") do |file|
        file.write(Grover.new(html, format: "A4",).to_pdf)
      end
