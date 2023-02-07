@@ -13,9 +13,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     then_i_see_the_referral_summary
-    and_i_see_the_status_section_in_the_referral_summary(
-      status: "NOT STARTED YET"
-    )
+    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
 
     when_i_edit_teacher_role_details
 

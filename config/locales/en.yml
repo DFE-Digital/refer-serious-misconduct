@@ -23,7 +23,7 @@ en:
     previous_allegations: Previous allegations
     evidence_and_supporting_information: Evidence and supporting information
     statuses:
-      not_started_yet: Not started yet
+      not_started_yet: Incomplete
       incomplete: Incomplete
       completed: Completed
   referral_evidence:

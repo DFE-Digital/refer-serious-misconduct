@@ -11,7 +11,7 @@
         </span>
         <% tag_css = item.status != :completed ? " govuk-tag--grey" : "" -%>
         <strong class="govuk-tag app-task-list__tag<%= tag_css %>" id="<%= item.label.parameterize %>">
-          <%= item.status.to_s.humanize %>
+          <%= I18n.t("referral_form.statuses.#{item.status}") %>
         </strong>
       </li>
     <% end %>
