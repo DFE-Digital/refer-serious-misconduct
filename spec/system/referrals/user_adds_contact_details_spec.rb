@@ -12,9 +12,7 @@ RSpec.feature "Contact details", type: :system do
     and_the_referral_form_feature_is_active
     and_i_have_an_existing_referral
     when_i_visit_the_referral
-    then_i_see_the_status_section_in_the_referral_summary(
-      status: "NOT STARTED YET"
-    )
+    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
     and_i_click_on_contact_details
 
     # Do you know the personal email address

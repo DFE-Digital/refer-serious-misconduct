@@ -108,10 +108,10 @@ RSpec.describe TaskListComponent, type: :component do
     expect(rendered.css(".app-task-list__tag")[0].text).to include("Completed")
   end
 
-  it "renders the Not started yet tag with the correct colour" do
+  it "renders the Incomplete tag even if the sections was not started yet with the correct colour" do
     expect(
       rendered.css(".app-task-list__tag.govuk-tag--grey")[0].text
-    ).to include("Not started yet")
+    ).to include("Incomplete")
   end
 
   it "renders the Incomplete tag with the correct colour" do
