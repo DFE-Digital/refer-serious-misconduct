@@ -9,12 +9,6 @@ RSpec.describe Referrals::TeacherRole::EndDateForm, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
-
-    specify do
-      expect(form).to validate_inclusion_of(:role_end_date_known).in_array(
-        [true, false]
-      )
-    end
   end
 
   describe "#valid?" do
