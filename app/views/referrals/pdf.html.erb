@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="<%= @stylesheet%>">
+  </head>
+  <body>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="govuk-heading-xl">Referral of serious misconduct <%=Time.zone.now%></h1>
+        <h2 class="govuk-heading-l">1. About you</h2>
+        <%= render AboutYouComponent.new(referral:, user: referral.user, editable: false) %>
+        <%= render OrganisationComponent.new(referral:, editable: false) %>
+
+        <h2 class="govuk-heading-l">2. About the person you are referring</h2>
+      </div>
+    </div>
+  </body>
+</html>

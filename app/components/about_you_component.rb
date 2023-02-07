@@ -3,6 +3,11 @@ class AboutYouComponent < ViewComponent::Base
   include ReferralHelper
 
   attr_accessor :referral, :user
+  attr_writer :editable
+
+  def editable
+    @editable || false
+  end
 
   delegate :referrer, to: :referral
 
