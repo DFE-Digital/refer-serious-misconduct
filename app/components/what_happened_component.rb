@@ -40,7 +40,7 @@ class WhatHappenedComponent < ViewComponent::Base
               :details,
               { return_to: }
             ],
-            visually_hidden_text: "the description of the allegation"
+            visually_hidden_text: "description of the allegation"
           }
         ],
         key: {
