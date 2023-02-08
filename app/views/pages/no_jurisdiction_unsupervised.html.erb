@@ -1,28 +1,11 @@
-<% content_for :page_title, 'You need to report this misconduct somewhere else' %>
+<% content_for :page_title, 'You cannot use this service to refer someone who is not a teacher' %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">You need to report this misconduct somewhere else</h1>
-    <h2 class="govuk-heading-m">Why you can’t refer them using this service</h2>
-    <p class="govuk_body">
-      Cases of serious misconduct must be related to teachers who are (or have been) employed or engaged at:
-    </p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li>a school in England</li>
-      <li>a sixth form college in England</li>
-      <li>relevant youth accommodation in England</li>
-      <li>a children’s home in England</li>
-      <li>a 16 to 19 Academy</li>
-    </ul>
-
-    <p class="govuk_body">
-      This does not include cases relating to teaching assistants, higher level teaching assistants or other support staff.
-    </p>
-    <h2 class="govuk-heading-m">Reporting someone who is not a teacher</h2>
-    <p class="govuk_body">
-      You will need to <a href="https://www.gov.uk/report-teacher-misconduct">make an informal complaint</a>.
+    <h1 class="govuk-heading-l">You cannot use this service to refer someone who is not a teacher</h1>
+    <p class="govuk-body">
+      View guidance about <%= link_to "how to make an informal complaint", "https://www.gov.uk/report-teacher-misconduct" %></a>.
     </p>
   </div>
 </div>
