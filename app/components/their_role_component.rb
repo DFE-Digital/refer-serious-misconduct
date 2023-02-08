@@ -80,7 +80,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:duties),
-          visually_hidden_text: "the description of their role"
+          visually_hidden_text: "description of their role"
         }
       ],
       key: {
@@ -176,7 +176,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:start_date),
-          visually_hidden_text: "the job start date"
+          visually_hidden_text: "job start date"
         }
       ],
       key: {
@@ -195,7 +195,7 @@ class TheirRoleComponent < ViewComponent::Base
           text: "Change",
           href: path_for(:employment_status),
           visually_hidden_text:
-            "if are they still employed at the organisation where the alleged misconduct took place?"
+            "if are they still employed at the organisation where the alleged misconduct took place"
         }
       ],
       key: {
@@ -232,7 +232,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:end_date),
-          visually_hidden_text: "the job end date"
+          visually_hidden_text: "job end date"
         }
       ],
       key: {
@@ -250,7 +250,7 @@ class TheirRoleComponent < ViewComponent::Base
         {
           text: "Change",
           href: path_for(:reason_leaving_role),
-          visually_hidden_text: "the reason they left the job"
+          visually_hidden_text: "reason they left the job"
         }
       ],
       key: {

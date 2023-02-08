@@ -141,7 +141,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_click_change_allegation_details
-    click_on "Change the description of the allegation"
+    click_on "Change description of the allegation"
   end
 
   def when_i_choose_upload_the_allegation
