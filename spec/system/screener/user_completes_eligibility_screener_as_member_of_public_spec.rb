@@ -126,20 +126,26 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_no_jurisdiction_page
     expect(page).to have_current_path("/no-jurisdiction")
     expect(page).to have_title(
-      "You need to make your referral somewhere else - Refer serious misconduct by a teacher in England"
+      [
+        "You cannot refer a teacher who was not employed in England",
+        "Refer serious misconduct by a teacher in England"
+      ].join(" - ")
     )
     expect(page).to have_content(
-      "You need to make your referral somewhere else"
+      "You cannot refer a teacher who was not employed in England"
     )
   end
 
   def then_i_see_the_no_jurisdiction_unsupervised_page
     expect(page).to have_current_path("/no-jurisdiction-unsupervised")
     expect(page).to have_title(
-      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher in England"
+      [
+        "You cannot use this service to refer someone who is not a teacher",
+        "Refer serious misconduct by a teacher in England"
+      ].join(" - ")
     )
     expect(page).to have_content(
-      "You need to report this misconduct somewhere else"
+      "You cannot use this service to refer someone who is not a teacher"
     )
   end
 
@@ -176,13 +182,11 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_current_path("/no-complaint")
     expect(page).to have_title(
       [
-        "Make a complaint to the school, school governors or your local council first",
+        "Consider making a complaint first",
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
-    expect(page).to have_content(
-      "Make a complaint to the school, school governors or your local council first"
-    )
+    expect(page).to have_content("Consider making a complaint first")
   end
 
   def then_i_see_the_you_should_know_page
