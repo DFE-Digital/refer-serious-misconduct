@@ -17,7 +17,7 @@ RSpec.describe TaskListComponent, type: :component do
           OpenStruct.new(
             label: "Dark wash",
             path: "/dark-wash",
-            status: :not_started_yet
+            status: :incomplete
           )
         ]
       ),
@@ -33,7 +33,7 @@ RSpec.describe TaskListComponent, type: :component do
           OpenStruct.new(
             label: "Add filling",
             path: "/add-filling",
-            status: :not_started_yet
+            status: :incomplete
           )
         ]
       )

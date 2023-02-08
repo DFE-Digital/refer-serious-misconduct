@@ -38,8 +38,14 @@ class ReferralForm
         section.items = [
           ReferralSectionItem.new(
             I18n.t("referral_form.your_details"),
-            about_you_section_path,
-            referral.referrer_status
+            path_for_section_status(
+              check_answers?(referral.referrer&.complete),
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :referrer_name]
+              ),
+              polymorphic_path([referral.routing_scope, referral, :referrer])
+            ),
+            section_status(referral.referrer&.complete)
           )
         ]
 
@@ -47,24 +53,25 @@ class ReferralForm
           section.items.append(
             ReferralSectionItem.new(
               I18n.t("referral_form.your_organisation"),
-              about_your_organisation_section_path,
-              referral.organisation_status
+              path_for_section_status(
+                check_answers?(referral.organisation&.complete),
+                polymorphic_path(
+                  [
+                    :edit,
+                    referral.routing_scope,
+                    referral,
+                    :organisation_address
+                  ]
+                ),
+                polymorphic_path(
+                  [referral.routing_scope, referral, :organisation]
+                )
+              ),
+              section_status(referral.organisation&.complete)
             )
           )
         end
       end
-  end
-
-  def about_you_section_path
-    if referral.referrer&.complete.nil?
-      return(
-        polymorphic_path(
-          [:edit, referral.routing_scope, referral, :referrer_name]
-        )
-      )
-    end
-
-    polymorphic_path([referral.routing_scope, referral, :referrer])
   end
 
   def about_the_person_you_are_referring_section
@@ -75,7 +82,7 @@ class ReferralForm
           ReferralSectionItem.new(
             I18n.t("referral_form.personal_details"),
             path_for_section_status(
-              section_status(:personal_details_complete),
+              check_answers?(referral.personal_details_complete),
               polymorphic_path(
                 [
                   :edit,
@@ -94,7 +101,7 @@ class ReferralForm
                 ]
               )
             ),
-            section_status(:personal_details_complete)
+            section_status(referral.personal_details_complete)
           )
         ]
 
@@ -103,7 +110,7 @@ class ReferralForm
             ReferralSectionItem.new(
               I18n.t("referral_form.contact_details"),
               path_for_section_status(
-                section_status(:contact_details_complete),
+                check_answers?(referral.contact_details_complete),
                 polymorphic_path(
                   [
                     :edit,
@@ -122,7 +129,7 @@ class ReferralForm
                   ]
                 )
               ),
-              section_status(:contact_details_complete)
+              section_status(referral.contact_details_complete)
             )
           )
         end
@@ -131,7 +138,7 @@ class ReferralForm
           ReferralSectionItem.new(
             I18n.t("referral_form.about_their_role"),
             path_for_section_status(
-              section_status(:teacher_role_complete),
+              check_answers?(referral.teacher_role_complete),
               polymorphic_path(
                 [
                   :edit,
@@ -151,7 +158,7 @@ class ReferralForm
                 ]
               )
             ),
-            section_status(:teacher_role_complete)
+            section_status(referral.teacher_role_complete)
           )
         )
       end
@@ -165,7 +172,7 @@ class ReferralForm
           ReferralSectionItem.new(
             I18n.t("referral_form.details_of_the_allegation"),
             path_for_section_status(
-              section_status(:allegation_details_complete),
+              check_answers?(referral.allegation_details_complete),
               polymorphic_path(
                 [:edit, referral.routing_scope, referral, :allegation_details]
               ),
@@ -179,7 +186,7 @@ class ReferralForm
                 ]
               )
             ),
-            section_status(:allegation_details_complete)
+            section_status(referral.allegation_details_complete)
           )
         ]
 
@@ -188,7 +195,7 @@ class ReferralForm
             ReferralSectionItem.new(
               I18n.t("referral_form.previous_allegations"),
               path_for_section_status(
-                section_status(:previous_misconduct_complete),
+                check_answers?(referral.previous_misconduct_complete),
                 polymorphic_path(
                   [
                     :edit,
@@ -207,7 +214,7 @@ class ReferralForm
                   ]
                 )
               ),
-              section_status(:previous_misconduct_complete)
+              section_status(referral.previous_misconduct_complete)
             )
           )
         end
@@ -216,7 +223,7 @@ class ReferralForm
           ReferralSectionItem.new(
             I18n.t("referral_form.evidence_and_supporting_information"),
             path_for_section_status(
-              section_status(:evidence_details_complete),
+              check_answers?(referral.evidence_details_complete),
               polymorphic_path(
                 [:edit, referral.routing_scope, referral, :evidence_start]
               ),
@@ -229,52 +236,21 @@ class ReferralForm
                 ]
               )
             ),
-            section_status(:evidence_details_complete)
+            section_status(referral.evidence_details_complete)
           )
         )
       end
   end
 
-  def previous_allegations_path
-    if referral.previous_misconduct_completed_at.nil? &&
-         referral.previous_misconduct_deferred_at.nil?
-      return(
-        polymorphic_path(
-          [
-            :edit,
-            referral.routing_scope,
-            referral,
-            :previous_misconduct_reported
-          ]
-        )
-      )
-    end
-
-    polymorphic_path([referral.routing_scope, referral, :previous_misconduct])
+  def check_answers?(complete)
+    !complete.nil?
   end
 
-  def section_status(section_complete_method)
-    status = referral.send(section_complete_method)
-    return :not_started_yet if status.nil?
-
-    status ? :completed : :incomplete
+  def section_status(complete)
+    complete ? :completed : :incomplete
   end
 
-  def path_for_section_status(status, start_path, check_answers_path)
-    return start_path if status == :not_started_yet
-
-    check_answers_path
-  end
-
-  def about_your_organisation_section_path
-    if referral.organisation&.complete.nil?
-      return(
-        polymorphic_path(
-          [:edit, referral.routing_scope, referral, :organisation_address]
-        )
-      )
-    end
-
-    polymorphic_path([referral.routing_scope, referral, :organisation])
+  def path_for_section_status(check_answers, start_path, check_answers_path)
+    check_answers ? check_answers_path : start_path
   end
 end
