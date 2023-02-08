@@ -52,22 +52,10 @@ class Referral < ApplicationRecord
     name_has_changed == "yes"
   end
 
-  def organisation_status
-    return :not_started_yet if organisation.blank?
-
-    organisation.status
-  end
-
   def previous_misconduct_reported?
     return true if previous_misconduct_reported == "true"
 
     false
-  end
-
-  def referrer_status
-    return :not_started_yet if referrer.blank?
-
-    referrer.status
   end
 
   def working_somewhere_else?
