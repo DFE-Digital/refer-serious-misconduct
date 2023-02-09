@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="<%= @stylesheet%>">
+    <style>
+      @media print {
+        .no-break {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="govuk-heading-l"><%= referral.name %></h1>
+        <div class="no-break">
+          <%= render ManageInterface::ReferralSummaryComponent.new(referral:) %>
+        </div>
+        <div class="no-break">
+          <%= render ManageInterface::PersonalDetailsComponent.new(referral:) %>
+        </div>
+        <div class="no-break">
+          <%= render ManageInterface::EmploymentDetailsComponent.new(referral:) %>
+        </div>
+        <% if referral.from_employer? %>
+          <div class="no-break">
+            <%= render ManageInterface::OtherEmploymentDetailsComponent.new(referral:) %>
+          </div>
+        <% end %>
+        <div class="no-break">
+          <%= render ManageInterface::AllegationDetailsComponent.new(referral:) %>
+        </div>
+        <div class="no-break">
+          <%= render ManageInterface::EvidenceComponent.new(referral:) %>
+        </div>
+        <% if referral.from_employer? %>
+          <div class="no-break">
+            <%= render ManageInterface::PreviousAllegationDetailsComponent.new(referral:) %>
+          </div>
+        <% end %>
+        <div class="no-break">
+          <%= render ManageInterface::ReferrerDetailsComponent.new(referral:) %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
