@@ -118,9 +118,9 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
     expect(page).to have_title(
-      "Is the allegation about a teacher? - Refer serious misconduct by a teacher in England"
+      "Who the allegation is about - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("Is the allegation about a teacher?")
+    expect(page).to have_content("Who the allegation is about")
   end
 
   def then_i_see_the_no_jurisdiction_page
@@ -200,11 +200,9 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_serious_misconduct_question
     expect(page).to have_current_path("/serious-misconduct")
     expect(page).to have_title(
-      "Does the allegation involve serious misconduct? - Refer serious misconduct by a teacher in England"
+      "What the allegation is about - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content(
-      "Does the allegation involve serious misconduct?"
-    )
+    expect(page).to have_content("What the allegation is about")
   end
 
   def then_i_see_the_start_page

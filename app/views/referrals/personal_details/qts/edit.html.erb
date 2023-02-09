@@ -8,7 +8,7 @@
 
       <span class="govuk-caption-l">Personal details</span>
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:has_qts, legend: { size: "xl", text: "Do they have qualified teacher status (QTS)?" }) do %>
+        <%= f.govuk_radio_buttons_fieldset(:has_qts, legend: { size: "l", text: "Do they have qualified teacher status (QTS)?" }) do %>
           <%= f.govuk_radio_button :has_qts, "yes", label: { text: "Yes, they have QTS" }, link_errors: true %>
           <%= f.govuk_radio_button :has_qts, "no", label: { text: "No, they do not have QTS" } %>
           <%= f.govuk_radio_button :has_qts, "not_sure", label: { text: "I’m not sure" } %>

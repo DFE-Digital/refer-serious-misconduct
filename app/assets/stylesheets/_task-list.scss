@@ -15,6 +15,10 @@
   @include govuk-font($size: 24, $weight: bold);
 }
 
+.app-task-list__section-heading {
+  @include govuk-font($size: 24, $weight: bold);
+}
+
 .app-task-list__section-number {
   @include govuk-media-query($from: tablet) {
     min-width: govuk-spacing(6);

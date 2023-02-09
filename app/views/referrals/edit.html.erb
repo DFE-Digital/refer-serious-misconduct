@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-xl"><%= t("referral_form.heading") %></h1>
+    <h1 class="govuk-heading-l"><%= t("referral_form.heading") %></h1>
     <%= render TaskListComponent.new(sections: @referral_form.sections) %>
     <%= govuk_button_link_to "Review and send", [current_referral.routing_scope, current_referral, :review] %>
   </div>
