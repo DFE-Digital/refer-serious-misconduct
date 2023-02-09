@@ -97,4 +97,17 @@ RSpec.describe Referral, type: :model do
       it { is_expected.to be_truthy }
     end
   end
+
+  describe "#submit" do
+    let(:referral) { create(:referral) }
+
+    it "updates the submitted_at field" do
+      expect { referral.submit }.to change(referral, :submitted_at)
+    end
+
+    it "queues up a render pdf job" do
+      expect(RenderPdfJob).to receive(:perform_later).with({ referral: })
+      referral.submit
+    end
+  end
 end

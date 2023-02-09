@@ -51,6 +51,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_pdf do
+      pdf { Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf") }
+    end
+
     trait :personal_details_public do
       first_name { "John" }
       last_name { "Smith" }

@@ -54,7 +54,7 @@ class ReferralZipFile
   end
 
   def attachments
-    files = [referral.duties_upload, referral.allegation_upload]
+    files = [referral.duties_upload, referral.allegation_upload, referral.pdf]
 
     files + referral.evidences.map(&:document)
   end
