@@ -97,8 +97,8 @@ RSpec.feature "Staff invitations", type: :system do
   end
 
   def when_i_fill_password
-    fill_in "staff-password-field", with: "password"
-    fill_in "staff-password-confirmation-field", with: "password"
+    fill_in "staff-password-field", with: "Password123!"
+    fill_in "staff-password-confirmation-field", with: "Password123!"
   end
 
   def and_i_set_password
