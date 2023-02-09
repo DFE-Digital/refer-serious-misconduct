@@ -1,11 +1,11 @@
-<% content_for :page_title, "#{'Error: ' if @serious_misconduct_form.errors.any?}Does the allegation involve serious misconduct?" %>
+<% content_for :page_title, "#{'Error: ' if @serious_misconduct_form.errors.any?}What the allegation is about" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @serious_misconduct_form, url: serious_misconduct_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-xl">Does the allegation involve serious misconduct?</h1>
+      <h1 class="govuk-heading-l">What the allegation is about</h1>
       <p class="govuk_body">Serious misconduct is unacceptable behaviour that:</p>
       <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
         <li>falls significantly short of the standards expected of a teacher </li>
@@ -48,7 +48,7 @@
         </div>
       </details>
 
-      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { tag: 'h2', size: 'm', text: 'Is the allegation about serious misconduct?' } do %>
+      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { tag: 'h2', size: 'm', text: 'Does the allegation involve serious misconduct?' } do %>
         <%= f.hidden_field :serious_misconduct %>
         <%= f.govuk_radio_button :serious_misconduct, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :serious_misconduct, "no", label: { text: "No" } %>

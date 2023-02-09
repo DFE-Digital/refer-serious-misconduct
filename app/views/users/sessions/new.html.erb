@@ -9,9 +9,9 @@
       <% if new_referral? %>
         <%= f.govuk_email_field :email, autocomplete: "email", label: { tag: 'h1', text: "Your email address", size: "l" } %>
       <% else %>
-        <h1 class="govuk-heading-xl">Sign in</h1>
+        <h1 class="govuk-heading-l">Sign in</h1>
         <p>Sign in to continue making your referral of serious misconduct.</p>
-        <%= f.govuk_email_field :email, autocomplete: "email", label: { tag: 'h1', text: "Your email address", class: "m" } %>
+        <%= f.govuk_email_field :email, autocomplete: "email", label: { text: "Your email address", size: "m" } %>
       <% end %>
 
       <%= f.govuk_submit "Continue" %>

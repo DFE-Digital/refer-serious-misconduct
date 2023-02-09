@@ -8,18 +8,18 @@
         <%= form_with model: @referral_form, url: [current_referral.routing_scope, current_referral, :review], method: :put do |f| %>
           <%= f.govuk_error_summary presenter: back_linked_error_presenter %>
 
-          <h1 class="govuk-heading-xl">Check details and send referral</h1>
+          <h1 class="govuk-heading-l">Check details and send referral</h1>
 
-          <h2 class="govuk-heading-l">About you</h2>
+          <h2 class="govuk-heading-m">About you</h2>
           <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
           <%= render OrganisationComponent.new(referral: current_referral) %>
 
-          <h2 class="govuk-heading-l">About the teacher</h2>
+          <h2 class="govuk-heading-m">About the teacher</h2>
           <%= render PersonalDetailsComponent.new(referral: current_referral) %>
           <%= render ContactDetailsComponent.new(referral: current_referral) %>
           <%= render TheirRoleComponent.new(referral: current_referral) %>
 
-          <h2 class="govuk-heading-l">The allegation</h2>
+          <h2 class="govuk-heading-m">The allegation</h2>
           <%= render WhatHappenedComponent.new(referral: current_referral) %>
           <%= render PreviousMisconductComponent.new(referral: current_referral) %>
           <%= render EvidenceComponent.new(referral: current_referral) %>

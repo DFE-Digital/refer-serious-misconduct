@@ -1,23 +1,23 @@
-<% content_for :page_title, "#{'Error: ' if @is_teacher_form.errors.any?}Is the allegation about a teacher?" %>
+<% content_for :page_title, "#{'Error: ' if @is_teacher_form.errors.any?}Who the allegation is about" %>
 <% content_for :back_link_url, url_for(:back) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @is_teacher_form, url: is_a_teacher_url, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { tag: 'h1', size: 'xl', text: 'Is the allegation about a teacher?' } do %>
 
-        <%= govuk_details(summary_text: 'Who is considered to be a teacher?') do %>
-          <p>You can only refer a teacher if they’ve been engaged in unsupervised teaching work, such as:</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>planning and preparing lessons and courses for pupils</li>
-            <li>delivering lessons to pupils</li>
-            <li>assessing the development, progress and attainment of pupils</li>
-            <li>reporting on the development, progress and attainment of pupils</li>
-          </ul>
-          <p>This can include teaching that happened in person or online.</p>
-        <% end %>
+      <h1 class="govuk-heading-l">Who the allegation is about</h1>
 
+      <p>You can only refer a teacher if they’ve been engaged in unsupervised teaching work, such as:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>planning and preparing lessons and courses for pupils</li>
+        <li>delivering lessons to pupils</li>
+        <li>assessing the development, progress and attainment of pupils</li>
+        <li>reporting on the development, progress and attainment of pupils</li>
+      </ul>
+      <p>This can include teaching that happened in person or online.</p>
+
+      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { size: 'm', text: 'Is the allegation about a teacher?' } do %>
         <%= f.hidden_field :is_teacher %>
         <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :is_teacher, "no", label: { text: "No" } %>
