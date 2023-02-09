@@ -368,6 +368,10 @@ en:
             email:
               blank: Enter your email
               invalid: Enter an email address in the correct format, like name@example.com
+        staff:
+          attributes:
+            password:
+              password_complexity: "complexity requirement not met. Please use: 1 uppercase, 1 lowercase, 1 digit and 1 special character"
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
