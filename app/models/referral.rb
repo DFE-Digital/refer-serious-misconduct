@@ -37,7 +37,8 @@ class Referral < ApplicationRecord
   delegate :name, to: :referrer, prefix: true, allow_nil: true
 
   def submit
-    update(submitted_at: Time.current)
+    update(submitted_at: Time.current) &&
+      RenderPdfJob.perform_later(referral: self)
   end
 
   def routing_scope

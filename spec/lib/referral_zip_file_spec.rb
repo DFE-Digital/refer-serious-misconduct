@@ -39,5 +39,13 @@ describe ReferralZipFile do
         expect(referral_zip_file.has_attachments?).to be true
       end
     end
+
+    context "when the referral has a pdf attachment" do
+      let(:referral) { create(:referral, :with_pdf) }
+
+      it "returns true" do
+        expect(referral_zip_file.has_attachments?).to be true
+      end
+    end
   end
 end
