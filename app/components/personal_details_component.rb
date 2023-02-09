@@ -76,7 +76,7 @@ class PersonalDetailsComponent < ViewComponent::Base
               [:edit, referral.routing_scope, referral, :personal_details_name],
               return_to: request.path
             ),
-          visually_hidden_text: "their other name"
+          visually_hidden_text: "other name"
         }
       ],
       key: {
@@ -241,7 +241,7 @@ class PersonalDetailsComponent < ViewComponent::Base
               ],
               return_to: request.path
             ),
-          visually_hidden_text: "their National Insurance number"
+          visually_hidden_text: "National Insurance number"
         }
       ],
       key: {
