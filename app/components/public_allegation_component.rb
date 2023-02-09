@@ -54,7 +54,7 @@ class PublicAllegationComponent < ViewComponent::Base
                 return_to: request.path
               ),
             visually_hidden_text:
-              "how you want to give details about the allegation?"
+              "how you want to give details about the allegation"
           }
         ],
         key: {
