@@ -56,6 +56,7 @@ end
 
 group :test do
   gem "capybara"
+  gem "climate_control"
   gem "cuprite"
   gem "rspec"
   gem "shoulda-matchers"
