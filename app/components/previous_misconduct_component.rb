@@ -65,7 +65,7 @@ class PreviousMisconductComponent < ViewComponent::Base
               :detailed_account,
               { return_to: }
             ],
-            visually_hidden_text: "details"
+            visually_hidden_text: "detailed account"
           }
         ],
         key: {
