@@ -7,6 +7,8 @@ class Referral < ApplicationRecord
   has_one_attached :allegation_upload, dependent: :destroy
   has_one_attached :previous_misconduct_upload, dependent: :destroy
   has_one_attached :duties_upload, dependent: :destroy
+  has_one_attached :pdf, dependent: :destroy
+
   has_many :evidences,
            -> { order(:created_at) },
            class_name: "ReferralEvidence",
