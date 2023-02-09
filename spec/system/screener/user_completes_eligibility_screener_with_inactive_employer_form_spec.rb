@@ -30,9 +30,6 @@ RSpec.feature "Eligibility screener", type: :system do
   def when_i_complete_the_screener
     click_on "Start now"
 
-    choose "No", visible: false
-    click_on "Continue"
-
     choose "I’m referring as an employer", visible: false
     click_on "Continue"
 

@@ -6,7 +6,7 @@ class PagesController < ApplicationController
       if FeatureFlags::FeatureFlag.active?(:referral_form)
         current_user ? referral_type_path : users_registrations_exists_path
       else
-        users_registrations_exists_path
+        referral_type_path
       end
   end
 
