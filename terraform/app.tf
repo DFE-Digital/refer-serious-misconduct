@@ -49,7 +49,7 @@ resource "azurerm_postgresql_flexible_server" "postgres-server" {
 resource "azurerm_postgresql_flexible_server_configuration" "postgres-extensions" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.postgres-server.id
-  value     = "PLPGSQL,PGCRYPTO"
+  value     = "PGCRYPTO"
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgres-database" {
