@@ -10,7 +10,7 @@
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:ni_number_known, legend: { size: "l", text: "Do you know their National Insurance number?" }) do %>
           <%= f.govuk_radio_button :ni_number_known, true, label: { text: "Yes" }, link_errors: true do %>
-            <%= f.govuk_text_field :ni_number, label: { text: "National Insurance number", size: "m" },
+            <%= f.govuk_text_field :ni_number, label: { text: "National Insurance number", size: "s" },
                 hint: { size: 's', text: "For example, ‘QQ 12 34 56 C’" } %>
           <% end %>
           <%= f.govuk_radio_button :ni_number_known, false, label: { text: "No" } %>

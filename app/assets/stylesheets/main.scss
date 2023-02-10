@@ -47,3 +47,25 @@ $govuk-assets-path: "/";
   padding: 10px 15px;
   margin-bottom: 30px;
 }
+
+.app-review-panel {
+  margin-bottom: 40px;
+}
+
+@media (min-width: 40.0625em) {
+  .app-review-panel {
+    margin-bottom: 60px;
+  }
+}
+
+.app-review-panel h2 {
+  margin-bottom: 30px;
+}
+
+.app-review-panel .govuk-summary-list {
+  margin-bottom: 30px !important;
+}
+
+.app-review-panel h3 {
+  margin-bottom: 5px;
+}

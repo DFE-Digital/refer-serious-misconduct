@@ -9,13 +9,13 @@
       <span class="govuk-caption-l">Personal details</span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:age_known, legend: { size: "l", text: "Do you know their date of birth?" }) do %>
-          <%= f.govuk_radio_button :age_known, "true", label: { text: "I know their date of birth" }, link_errors: true do %>
+          <%= f.govuk_radio_button :age_known, "true", label: { text: "Yes" }, link_errors: true do %>
             <%= f.govuk_date_field :date_of_birth,
                 date_of_birth: true,
-                legend: { text: "Date of birth", size: "m" },
+                legend: { text: "Date of birth", size: "s" },
                 hint: { text: "For example, 27 3 1987" } %>
           <% end %>
-          <%= f.govuk_radio_button :age_known, "false", label: { text: "No, I don’t know their date of birth" } %>
+          <%= f.govuk_radio_button :age_known, "false", label: { text: "No" } %>
         <% end %>
       </div>
       <%= f.govuk_submit "Save and continue" %>
