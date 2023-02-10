@@ -79,7 +79,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def then_i_am_asked_how_the_complaint_has_been_considered
-    expect(page).to have_content("How has this complaint been considered?")
+    expect(page).to have_content("How this complaint has been considered")
   end
 
   def then_i_see_the_allegation_considerations_form_validation_errors

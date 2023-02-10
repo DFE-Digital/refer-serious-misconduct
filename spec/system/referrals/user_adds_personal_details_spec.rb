@@ -130,7 +130,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_fill_out_their_date_of_birth
-    choose "I know their date of birth", visible: false
+    choose "Yes", visible: false
     fill_in "Day", with: "17"
     fill_in "Month", with: "1"
     fill_in "Year", with: "1990"
@@ -149,7 +149,7 @@ RSpec.feature "Personal details", type: :system do
 
   def when_i_fill_out_their_trn
     choose "Yes", visible: false
-    fill_in "Teacher reference number", with: "RP99/12345"
+    fill_in "TRN", with: "RP99/12345"
   end
 
   def then_i_am_asked_if_i_know_whether_they_have_qts
