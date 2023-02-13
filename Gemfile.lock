@@ -255,7 +255,7 @@ GEM
     pry-nav (1.0.0)
       pry (>= 0.9.10, < 0.15)
     public_suffix (5.0.1)
-    puma (6.0.2)
+    puma (6.1.0)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.2)
@@ -449,7 +449,7 @@ DEPENDENCIES
   propshaft
   pry
   pry-nav
-  puma (~> 6.0)
+  puma (~> 6.1)
   rails (~> 7.0.4)
   rladr
   rotp
