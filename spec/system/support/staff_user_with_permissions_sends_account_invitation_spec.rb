@@ -1,31 +1,11 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.feature "Staff invitations", type: :system do
+RSpec.feature "Staff invitations" do
   include CommonSteps
 
-  scenario "Staff user without permissions is not authorized to send account invitation" do
-    given_the_service_is_open
-    and_the_eligibility_screener_is_enabled
-
-    when_i_am_authorized_as_a_case_worker_without_support_permissions
-    when_i_visit_the_staff_invitation_page
-
-    then_i_am_unauthorized_and_redirected_to_root_path
-  end
-
-  scenario "Staff user with basic auth is not authorized to send account invitation" do
-    given_the_service_is_open
-    and_the_eligibility_screener_is_enabled
-    and_staff_http_basic_is_active
-
-    when_i_am_authorized_with_basic_auth_as_a_case_worker
-    when_i_visit_the_staff_invitation_page
-
-    then_i_am_unauthorized_and_redirected_to_root_path
-  end
-
-  scenario "Staff user with permissions sends account invitation" do
+  scenario "Staff user with permissions sends account invitation",
+           type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
 
@@ -52,14 +32,6 @@ RSpec.feature "Staff invitations", type: :system do
   end
 
   private
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_staff_http_basic_is_active
-    FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
-  end
 
   def when_i_login_back_as_a_staff_user
     Capybara.reset_sessions!

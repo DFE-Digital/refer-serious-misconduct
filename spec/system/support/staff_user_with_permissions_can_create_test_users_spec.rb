@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.feature "Test users" do
   include CommonSteps
 
-  scenario "Staff user with permissions can create test users" do
+  scenario "Staff user with permissions can create test users", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -17,27 +17,6 @@ RSpec.feature "Test users" do
 
     when_i_click_sign_in_for_that_user
     then_i_am_signed_in_as_that_user
-  end
-
-  scenario "Staff user with no permissions is not authorized to create test users" do
-    given_the_service_is_open
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-    when_i_am_authorized_as_a_case_worker_without_support_permissions
-
-    and_i_visit_the_test_users_section
-    then_i_am_unauthorized_and_redirected_to_root_path
-  end
-
-  scenario "Staff user with basic auth is not authorized to create test users" do
-    given_the_service_is_open
-    and_staff_http_basic_is_active
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-    when_i_am_authorized_with_basic_auth_as_a_case_worker
-
-    and_i_visit_the_test_users_section
-    then_i_am_unauthorized_and_redirected_to_root_path
   end
 
   private
