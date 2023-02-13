@@ -31,7 +31,7 @@
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>
-        This is a new service – <a class="govuk-link" href="https://forms.gle/mroZH7aVYGPrB37G6">your feedback will help us to improve it</a>.
+        This is a new service – <%= govuk_link_to("your feedback will help us to improve it.", "https://forms.gle/mroZH7aVYGPrB37G6") %>
       <% end %>
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <%= yield(:breadcrumbs) if content_for?(:breadcrumbs) %>
@@ -45,7 +45,7 @@
       <% footer.with_meta do %>
         <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
           <h2 class="govuk-heading-m">Get help</h2>
-          <p class="govuk-!-font-size-16">Email: <a class="govuk-footer__link" href="mailto:misconduct.teacher@education.gov.uk">misconduct.teacher@education.gov.uk</a><br>You’ll get a response within 3 working days.</p>
+          <p class="govuk-!-font-size-16">Email: <%= govuk_link_to("misconduct.teacher@education.gov.uk", "misconduct.teacher@education.gov.uk", class: "govuk-footer__link") %><br>You’ll get a response within 3 working days.</p>
 
           <p class="govuk-!-font-size-16">Phone: 020 7593 5393<br>Monday to Friday, 9am to 5pm (except public holidays)</p>
           <hr class="govuk-section-break govuk-section-break--l">
@@ -54,13 +54,13 @@
 
           <ul class="govuk-footer__inline-list">
             <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="/accessibility">Accessibility</a>
+              <%= govuk_link_to("Accessibility", "/accessibility", class: "govuk-footer__link") %>
             </li>
             <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="/cookies">Cookies</a>
+              <%= govuk_link_to("Cookies", "/cookies", class: "govuk-footer__link") %>
             </li>
             <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="/privacy">Privacy notice</a>
+              <%= govuk_link_to("Privacy notice", "/privacy", class: "govuk-footer__link") %>
             </li>
           </ul>
 
@@ -68,7 +68,7 @@
             <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"></path>
           </svg>
 
-          <span class="govuk-footer__licence-description">All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>, except where otherwise stated</span>
+          <span class="govuk-footer__licence-description">All content is available under the <%= govuk_link_to("Open Government Licence v3.0", "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/", class: "govuk-footer__link") %>, except where otherwise stated</span>
         </div>
 
         <div class="govuk-footer__meta-item">
