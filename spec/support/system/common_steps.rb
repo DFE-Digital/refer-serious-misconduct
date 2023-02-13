@@ -98,6 +98,67 @@ module CommonSteps
     end
   end
 
+  def when_i_am_authorized_as_a_case_worker_with_management_permissions
+    Capybara.reset_sessions!
+
+    create(:staff, :confirmed, :can_view_support, :can_manage_referrals)
+
+    visit new_staff_session_path
+
+    fill_in "staff-email-field", with: "test@example.org"
+    fill_in "staff-password-field", with: "Example123!"
+
+    click_button "Log in"
+  end
+
+  def when_i_am_authorized_as_a_case_worker_without_management_permissions
+    Capybara.reset_sessions!
+
+    create(:staff, :confirmed, :can_view_support)
+
+    visit new_staff_session_path
+
+    fill_in "staff-email-field", with: "test@example.org"
+    fill_in "staff-password-field", with: "Example123!"
+
+    click_button "Log in"
+  end
+
+  def when_i_am_authorized_as_a_case_worker_with_support_permissions
+    Capybara.reset_sessions!
+
+    create(:staff, :confirmed, :can_view_support)
+
+    visit new_staff_session_path
+
+    fill_in "staff-email-field", with: "test@example.org"
+    fill_in "staff-password-field", with: "Example123!"
+
+    click_button "Log in"
+  end
+
+  def when_i_am_authorized_as_a_case_worker_without_support_permissions
+    Capybara.reset_sessions!
+
+    create(:staff, :confirmed)
+
+    visit new_staff_session_path
+
+    fill_in "staff-email-field", with: "test@example.org"
+    fill_in "staff-password-field", with: "Example123!"
+
+    click_button "Log in"
+  end
+
+  def when_i_am_authorized_with_basic_auth_as_a_case_worker
+    page.driver.basic_authorize(
+      ENV.fetch("SUPPORT_USERNAME", "test"),
+      ENV.fetch("SUPPORT_PASSWORD", "test")
+    )
+  end
+  alias_method :and_i_am_authorized_with_basic_auth_as_a_case_worker,
+               :when_i_am_authorized_with_basic_auth_as_a_case_worker
+
   def when_i_click_save_and_continue
     click_on "Save and continue"
   end
@@ -142,5 +203,10 @@ module CommonSteps
 
   def when_i_enter_my_phone_number
     fill_in "Your phone number", with: "01234567890"
+  end
+
+  def then_i_am_unauthorized_and_redirected_to_root_path
+    expect(page).to have_current_path("/start")
+    expect(page).to have_content("You are not authorized to see this section.")
   end
 end

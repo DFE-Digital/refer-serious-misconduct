@@ -38,5 +38,14 @@
       row.key { 'Last signed in at' }
       row.value { staff.last_sign_in_at.to_s }
     end
+
+    roles = []
+    roles << 'view_support' if staff.view_support?
+    roles << 'manage_referrals' if staff.manage_referrals?
+
+    summary_list.row do |row|
+      row.key { 'Roles' }
+      row.value { roles.join(',') if roles.size > 0 }
+    end
   end %>
 <% end %>

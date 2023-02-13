@@ -379,3 +379,6 @@ en:
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
+
+  pundit:
+    unauthorized: You are not authorized to see this section.

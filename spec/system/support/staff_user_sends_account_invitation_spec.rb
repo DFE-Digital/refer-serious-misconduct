@@ -2,11 +2,34 @@
 require "rails_helper"
 
 RSpec.feature "Staff invitations", type: :system do
-  scenario "Staff user sends account invitation" do
+  include CommonSteps
+
+  scenario "Staff user without permissions is not authorized to send account invitation" do
     given_the_service_is_open
+    and_the_eligibility_screener_is_enabled
+
+    when_i_am_authorized_as_a_case_worker_without_support_permissions
+    when_i_visit_the_staff_invitation_page
+
+    then_i_am_unauthorized_and_redirected_to_root_path
+  end
+
+  scenario "Staff user with basic auth is not authorized to send account invitation" do
+    given_the_service_is_open
+    and_the_eligibility_screener_is_enabled
     and_staff_http_basic_is_active
 
-    when_i_am_authorized_as_a_staff_user
+    when_i_am_authorized_with_basic_auth_as_a_case_worker
+    when_i_visit_the_staff_invitation_page
+
+    then_i_am_unauthorized_and_redirected_to_root_path
+  end
+
+  scenario "Staff user with permissions sends account invitation" do
+    given_the_service_is_open
+    and_the_eligibility_screener_is_enabled
+
+    when_i_am_authorized_as_a_case_worker_with_support_permissions
     when_i_visit_the_staff_invitation_page
     then_i_see_the_staff_index
     when_i_click_on_invite
@@ -20,7 +43,10 @@ RSpec.feature "Staff invitations", type: :system do
     when_i_visit_the_invitation_email
     when_i_fill_password
     and_i_set_password
+    then_i_am_unauthorized_and_redirected_to_root_path
 
+    when_i_login_back_as_a_staff_user
+    and_i_visit_the_staff_invitation_page
     then_i_see_the_staff_index
     and_i_see_the_accepted_staff_user
   end
@@ -35,16 +61,22 @@ RSpec.feature "Staff invitations", type: :system do
     FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
   end
 
-  def when_i_am_authorized_as_a_staff_user
-    page.driver.basic_authorize(
-      ENV.fetch("SUPPORT_USERNAME", "test"),
-      ENV.fetch("SUPPORT_PASSWORD", "test")
-    )
+  def when_i_login_back_as_a_staff_user
+    Capybara.reset_sessions!
+
+    visit new_staff_session_path
+
+    fill_in "staff-email-field", with: "test@example.org"
+    fill_in "staff-password-field", with: "Example123!"
+
+    click_button "Log in"
   end
 
   def when_i_visit_the_staff_invitation_page
     visit support_interface_staff_index_path
   end
+  alias_method :and_i_visit_the_staff_invitation_page,
+               :when_i_visit_the_staff_invitation_page
 
   def then_i_see_the_staff_index
     expect(page).to have_current_path("/support/staff")
@@ -85,7 +117,8 @@ RSpec.feature "Staff invitations", type: :system do
 
   def when_i_am_not_authorized_as_a_staff_user
     FeatureFlags::FeatureFlag.deactivate(:staff_http_basic_auth)
-    page.driver.open_new_window
+
+    Capybara.reset_sessions!
   end
 
   def when_i_visit_the_invitation_email
