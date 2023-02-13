@@ -234,7 +234,7 @@ If you want to access a review app you'll have to pass the GitHub PR number as
 an argument. E.g.:
 
 ```bash
-make review pr_id=123 az-console-pr
+make review pr_id=123 az-console
 ```
 
 The review app needs to be deployed first. You can do this manually by tagging a
