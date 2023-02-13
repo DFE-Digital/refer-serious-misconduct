@@ -119,20 +119,20 @@ Rails.application.routes.draw do
 
         resource :review, only: %i[show update], controller: :review
         resource :confirmation, only: %i[show], controller: :confirmation
+
+        resource :referrer, only: %i[show update]
+        get "/personal-details", to: "referrers#personal_details"
+
+        resource :referrer_name,
+          only: %i[edit update],
+          path: "referrer-name",
+          controller: :referrer_name
+
+        resource :referrer_phone,
+          only: %i[edit update],
+          path: "referrer-phone",
+          controller: :referrer_phone
       end
-
-      resource :referrer, only: %i[show update]
-      get "/personal-details", to: "referrers#personal_details"
-
-      resource :referrer_name,
-               only: %i[edit update],
-               path: "referrer-name",
-               controller: :referrer_name
-
-      resource :referrer_phone,
-               only: %i[edit update],
-               path: "referrer-phone",
-               controller: :referrer_phone
     end
   end
 
