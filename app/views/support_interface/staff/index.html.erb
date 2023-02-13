@@ -45,7 +45,7 @@
 
     summary_list.row do |row|
       row.key { 'Roles' }
-      row.value { roles.join(',') if roles.size > 0 }
+      row.value { roles.join(', ') }
     end
   end %>
 <% end %>

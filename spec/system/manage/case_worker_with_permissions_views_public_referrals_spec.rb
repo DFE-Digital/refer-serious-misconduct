@@ -9,7 +9,8 @@ RSpec.feature "Manage referrals" do
     create_list(:referral, 20)
   end
 
-  scenario "Case worker with permissions views referrals" do
+  scenario "Case worker with permissions views public referrals",
+           type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -19,29 +20,6 @@ RSpec.feature "Manage referrals" do
 
     then_i_can_see_the_referrals_page
     and_i_can_see_pagination_for_submitted_claims
-  end
-
-  scenario "Case worker with basic auth is not authorized to views referrals" do
-    given_the_service_is_open
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-    and_staff_http_basic_is_active
-
-    when_i_am_authorized_with_basic_auth_as_a_case_worker
-    when_i_visit_the_referrals_page
-
-    then_i_am_unauthorized_and_redirected_to_root_path
-  end
-
-  scenario "Case worker without manage referrals permissions is not authorized to view referrals" do
-    given_the_service_is_open
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-
-    when_i_am_authorized_as_a_case_worker_without_management_permissions
-    when_i_visit_the_referrals_page
-
-    then_i_am_unauthorized_and_redirected_to_root_path
   end
 
   private

@@ -99,55 +99,27 @@ module CommonSteps
   end
 
   def when_i_am_authorized_as_a_case_worker_with_management_permissions
-    Capybara.reset_sessions!
+    user = create(:staff, :confirmed, :can_view_support, :can_manage_referrals)
 
-    create(:staff, :confirmed, :can_view_support, :can_manage_referrals)
-
-    visit new_staff_session_path
-
-    fill_in "staff-email-field", with: "test@example.org"
-    fill_in "staff-password-field", with: "Example123!"
-
-    click_button "Log in"
+    sign_in(user)
   end
 
   def when_i_am_authorized_as_a_case_worker_without_management_permissions
-    Capybara.reset_sessions!
+    user = create(:staff, :confirmed, :can_view_support)
 
-    create(:staff, :confirmed, :can_view_support)
-
-    visit new_staff_session_path
-
-    fill_in "staff-email-field", with: "test@example.org"
-    fill_in "staff-password-field", with: "Example123!"
-
-    click_button "Log in"
+    sign_in(user)
   end
 
   def when_i_am_authorized_as_a_case_worker_with_support_permissions
-    Capybara.reset_sessions!
+    user = create(:staff, :confirmed, :can_view_support)
 
-    create(:staff, :confirmed, :can_view_support)
-
-    visit new_staff_session_path
-
-    fill_in "staff-email-field", with: "test@example.org"
-    fill_in "staff-password-field", with: "Example123!"
-
-    click_button "Log in"
+    sign_in(user)
   end
 
   def when_i_am_authorized_as_a_case_worker_without_support_permissions
-    Capybara.reset_sessions!
+    user = create(:staff, :confirmed)
 
-    create(:staff, :confirmed)
-
-    visit new_staff_session_path
-
-    fill_in "staff-email-field", with: "test@example.org"
-    fill_in "staff-password-field", with: "Example123!"
-
-    click_button "Log in"
+    sign_in(user)
   end
 
   def when_i_am_authorized_with_basic_auth_as_a_case_worker

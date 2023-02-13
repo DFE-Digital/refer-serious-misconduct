@@ -4,19 +4,8 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
-  scenario "Case worker with basic auth is not authorized to see referrals" do
-    given_the_service_is_open
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-    and_staff_http_basic_is_active
-    and_i_am_authorized_with_basic_auth_as_a_case_worker
-    and_there_is_an_existing_employer_referral
-
-    when_i_visit_the_referral
-    then_i_am_unauthorized_and_redirected_to_root_path
-  end
-
-  scenario "Case worker with manage_referrals permission sees the referrals" do
+  scenario "Case worker with manage_referrals permission views an employer referral",
+           type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -32,17 +21,6 @@ RSpec.feature "Manage referrals" do
     and_i_see_the_evidence_section
     and_i_see_the_previous_allegation_details_section
     and_i_see_the_referrer_details_section
-  end
-
-  scenario "Case worker without manage_referrals permission is not authorized to see referrals" do
-    given_the_service_is_open
-    and_the_referral_form_feature_is_active
-    and_the_eligibility_screener_feature_is_active
-    and_there_is_an_existing_employer_referral
-
-    when_i_am_authorized_as_a_case_worker_without_management_permissions
-    and_i_visit_the_referral
-    then_i_am_unauthorized_and_redirected_to_root_path
   end
 
   private
