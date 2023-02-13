@@ -4,14 +4,14 @@ require "rails_helper"
 RSpec.feature "Test users" do
   include CommonSteps
 
-  scenario "Staff user signs in as user" do
+  scenario "Staff user with permissions can create test users" do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
-    and_staff_http_basic_is_active
-    when_i_am_authorized_as_a_staff_user
+    when_i_am_authorized_as_a_case_worker_with_support_permissions
 
     and_i_visit_the_test_users_section
+    and_i_click_test_users_link
     and_i_create_a_new_user
     then_the_user_is_created
 
@@ -19,17 +19,34 @@ RSpec.feature "Test users" do
     then_i_am_signed_in_as_that_user
   end
 
-  private
+  scenario "Staff user with no permissions is not authorized to create test users" do
+    given_the_service_is_open
+    and_the_referral_form_feature_is_active
+    and_the_eligibility_screener_feature_is_active
+    when_i_am_authorized_as_a_case_worker_without_support_permissions
 
-  def when_i_am_authorized_as_a_staff_user
-    page.driver.basic_authorize(
-      ENV.fetch("SUPPORT_USERNAME", "test"),
-      ENV.fetch("SUPPORT_PASSWORD", "test")
-    )
+    and_i_visit_the_test_users_section
+    then_i_am_unauthorized_and_redirected_to_root_path
   end
+
+  scenario "Staff user with basic auth is not authorized to create test users" do
+    given_the_service_is_open
+    and_staff_http_basic_is_active
+    and_the_referral_form_feature_is_active
+    and_the_eligibility_screener_feature_is_active
+    when_i_am_authorized_with_basic_auth_as_a_case_worker
+
+    and_i_visit_the_test_users_section
+    then_i_am_unauthorized_and_redirected_to_root_path
+  end
+
+  private
 
   def and_i_visit_the_test_users_section
     visit support_interface_root_path
+  end
+
+  def and_i_click_test_users_link
     click_link "Test Users"
   end
 

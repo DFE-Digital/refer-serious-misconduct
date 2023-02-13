@@ -36,11 +36,13 @@ module ApplicationHelper
           )
         end
       when "support"
-        header.navigation_item(
-          active: current_page?(main_app.manage_interface_referrals_path),
-          href: main_app.manage_interface_referrals_path,
-          text: "Referrals"
-        )
+        if current_staff.manage_referrals?
+          header.navigation_item(
+            active: current_page?(main_app.manage_interface_referrals_path),
+            href: main_app.manage_interface_referrals_path,
+            text: "Referrals"
+          )
+        end
         header.navigation_item(
           active:
             current_page?(main_app.support_interface_eligibility_checks_path),
