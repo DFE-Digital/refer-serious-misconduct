@@ -8,6 +8,7 @@
 *.svg
 *.txt
 *.woff*
+.cache
 .bundle
 .gitattributes
 .gitignore
@@ -32,3 +33,4 @@ public/assets
 storage
 tmp
 vendor
+node_modules

@@ -29,6 +29,9 @@ RUN bundler -v && \
     bundle install --retry=5 --jobs=4 && \
     rm -rf /usr/local/bundle/cache
 
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --check-files
@@ -44,7 +47,7 @@ RUN RAILS_ENV=production \
     bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
-RUN rm -rf node_modules log/* tmp/* /tmp && \
+RUN rm -rf log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf .env && \
     find /usr/local/bundle/gems -name "*.c" -delete && \
@@ -76,6 +79,10 @@ RUN apk add --update --no-cache tzdata && \
 
 # libpq: required to run postgres
 RUN apk add --no-cache libpq
+
+# install chromium and node for the PDF generation
+RUN apk add --no-cache nodejs
+RUN apk add --no-cache chromium
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
