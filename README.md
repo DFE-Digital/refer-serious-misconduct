@@ -34,7 +34,7 @@ All environments have continuous deployment, the state of which can be inspected
 
 ## Local development dependencies
 
-- Graphviz 2.22+ (brew install graphviz) to generate the [domain model diagram](#domain-model)
+- [jq](https://stedolan.github.io/jq/) (`brew install jq`) to run the Azure makefile commands
 
 ## How the application works
 
@@ -216,29 +216,30 @@ You'll also need to configure your editor's `solargraph` plugin to
 
 ### Accessing the Rails console through the Azure CLI
 
-We have a helpful command you can run that will connect you to the right
-resource (you will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli)
-installed first):
+We have a helpful command you can run that will connect you to the right Azure resource.
+You will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli) installed and a [PIM (Privileged Identity Management) request](docs/privileged-identity-management-requests.md) for `production`, `preprod` and `test`.
 
 ```bash
 make dev az-console
 make test az-console
 make preprod az-console
 make production az-console
+make review pr_id=<ID> az-console
 ```
 
-Accessing a live console on production and test requires a [PIM (Privileged
-Identity Management) request](docs/privileged-identity-management-requests.md).
+The review app needs to be deployed first. You can do this manually by tagging a PR with the `deploy` label.
 
-If you want to access a review app you'll have to pass the GitHub PR number as
-an argument. E.g.:
+### Updating keyvault secrets
+
+Make sure `jq` is [installed](#local-development-dependencies).
 
 ```bash
-make review pr_id=123 az-console
+make dev edit-keyvault-secret
+make test edit-keyvault-secret
+make preprod edit-keyvault-secret
+make production edit-keyvault-secret
+make review pr_id=<ID> edit-keyvault-secret
 ```
-
-The review app needs to be deployed first. You can do this manually by tagging a
-PR with the `deploy` label.
 
 ## Licence
 
