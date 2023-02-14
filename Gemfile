@@ -15,6 +15,7 @@ gem "govuk_feature_flags",
     tag: "v1.0.0"
 gem "govuk_markdown", "~> 1.0"
 gem "jsbundling-rails"
+gem "logstop"
 gem "mail-notify"
 gem "okcomputer", "~> 1.18"
 gem "pagy"
