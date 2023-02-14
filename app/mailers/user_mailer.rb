@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
     Rails.logger.info "OTP: #{@otp}" if Rails.env.development?
     mailer_options = { to: user.email, subject: "Confirm your email address" }
 
-    notify_email(mailer_options)
+    view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
   end
 end
