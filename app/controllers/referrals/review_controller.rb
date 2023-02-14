@@ -8,6 +8,7 @@ module Referrals
       @referral_form = ReferralForm.new(referral:)
 
       if @referral_form.submit
+        CaseworkerMailer.referral_submitted(current_referral).deliver_later
         redirect_to [
                       current_referral.routing_scope,
                       current_referral,
