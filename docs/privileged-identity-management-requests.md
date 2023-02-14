@@ -1,6 +1,6 @@
 # Privileged Identity Management (PIM) requests
 
-Accessing resources in the `production` or `test` environments requires elevated
+Accessing resources in the `production`, `preprod` and `test` environments requires elevated
 privileges. We do this through Azure’s Privileged Identity Management (PIM)
 request system.
 
