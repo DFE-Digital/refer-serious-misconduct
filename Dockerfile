@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.2.0-alpine as builder
+FROM ruby:3.2.1-alpine as builder
 
 WORKDIR /app
 
@@ -53,7 +53,7 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:3.2.0-alpine as production
+FROM ruby:3.2.1-alpine as production
 
 ENV GOVUK_NOTIFY_API_KEY=TestKey \
     HOSTING_DOMAIN=https://required-but-not-used
