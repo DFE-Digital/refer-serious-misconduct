@@ -11,44 +11,12 @@ RSpec.describe ManagementPolicy do
   describe "#index?" do
     subject(:index?) { policy.index? }
 
-    context "without permission" do
-      let(:user) { create(:staff, :confirmed) }
-
-      it { is_expected.to be false }
-    end
-
-    context "with permission" do
-      let(:user) { create(:staff, :confirmed, :can_manage_referrals) }
-
-      it { is_expected.to be true }
-    end
-
-    context "with AnonymousSupportUser" do
-      let(:user) { AnonymousSupportUser.new }
-
-      it { is_expected.to be false }
-    end
+    it_behaves_like "staff policy with permission", :can_manage_referrals
   end
 
   describe "#show?" do
     subject(:show?) { policy.show? }
 
-    context "without permission" do
-      let(:user) { create(:staff, :confirmed) }
-
-      it { is_expected.to be false }
-    end
-
-    context "with permission" do
-      let(:user) { create(:staff, :confirmed, :can_manage_referrals) }
-
-      it { is_expected.to be true }
-    end
-
-    context "with AnonymousSupportUser" do
-      let(:user) { AnonymousSupportUser.new }
-
-      it { is_expected.to be false }
-    end
+    it_behaves_like "staff policy with permission", :can_manage_referrals
   end
 end
