@@ -16,4 +16,16 @@ class SupportPolicy < ApplicationPolicy
 
     false
   end
+
+  def activate?
+    return user.view_support? if user.is_a?(Staff)
+
+    false
+  end
+
+  def deactivate?
+    return user.view_support? if user.is_a?(Staff)
+
+    false
+  end
 end
