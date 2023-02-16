@@ -12,7 +12,7 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
     git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
-    tag: "v1.0.0"
+    tag: "v1.0.1"
 gem "govuk_markdown", "~> 1.0"
 gem "jsbundling-rails"
 gem "logstop"
