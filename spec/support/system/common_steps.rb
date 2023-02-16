@@ -1,31 +1,10 @@
 module CommonSteps
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_staff_http_basic_is_active
-    FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth)
-  end
-
-  def and_the_eligibility_screener_is_enabled
-    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
-  end
-
-  def and_i_am_signed_in
-    @user = create(:user)
-    sign_in(@user)
-  end
+  include AuthenticationSteps
+  include AuthorizationSteps
+  include ActivateFeaturesSteps
 
   def when_i_visit_the_service
     visit root_path
-  end
-
-  def and_the_referral_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:referral_form)
-  end
-
-  def and_the_eligibility_screener_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
   end
 
   def and_i_have_an_existing_referral
@@ -41,6 +20,11 @@ module CommonSteps
         eligibility_check: create(:eligibility_check, :public),
         user: @user
       )
+  end
+
+  def and_referral_forms_exist
+    create_list(:referral, 30, :submitted)
+    create_list(:referral, 20)
   end
 
   def and_i_visit_the_referral
@@ -98,39 +82,6 @@ module CommonSteps
     end
   end
 
-  def when_i_am_authorized_as_a_case_worker_with_management_permissions
-    user = create(:staff, :confirmed, :can_view_support, :can_manage_referrals)
-
-    sign_in(user)
-  end
-
-  def when_i_am_authorized_as_a_case_worker_without_management_permissions
-    user = create(:staff, :confirmed, :can_view_support)
-
-    sign_in(user)
-  end
-
-  def when_i_am_authorized_as_a_case_worker_with_support_permissions
-    user = create(:staff, :confirmed, :can_view_support)
-
-    sign_in(user)
-  end
-
-  def when_i_am_authorized_as_a_case_worker_without_support_permissions
-    user = create(:staff, :confirmed)
-
-    sign_in(user)
-  end
-
-  def when_i_am_authorized_with_basic_auth_as_a_case_worker
-    page.driver.basic_authorize(
-      ENV.fetch("SUPPORT_USERNAME", "test"),
-      ENV.fetch("SUPPORT_PASSWORD", "test")
-    )
-  end
-  alias_method :and_i_am_authorized_with_basic_auth_as_a_case_worker,
-               :when_i_am_authorized_with_basic_auth_as_a_case_worker
-
   def when_i_click_save_and_continue
     click_on "Save and continue"
   end
@@ -175,10 +126,5 @@ module CommonSteps
 
   def when_i_enter_my_phone_number
     fill_in "Your phone number", with: "01234567890"
-  end
-
-  def then_i_am_unauthorized_and_redirected_to_root_path
-    expect(page).to have_current_path("/start")
-    expect(page).to have_content("You are not authorized to see this section.")
   end
 end
