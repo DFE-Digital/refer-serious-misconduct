@@ -24,7 +24,7 @@ module ManageInterface
     private
 
     def referral
-      @referral ||= Referral.find(params[:id])
+      @referral ||= Referral.submitted.find(params[:id])
     end
 
     def referral_zip_file
