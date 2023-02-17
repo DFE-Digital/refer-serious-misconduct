@@ -241,6 +241,15 @@ make production edit-keyvault-secret
 make review pr_id=<ID> edit-keyvault-secret
 ```
 
+### PDF generation
+
+The service use Grover to generate PDF files. This uses the node module 'puppeteer' and headless Chrome on the server.
+
+The Chromium version available inside Alpine needs to be kept in sync with the puppeteer version requirements so they need to be updated together.
+
+[Alpine lastest chromium versions](https://pkgs.alpinelinux.org/packages?name=chromium&branch=edge&repo=&arch=&maintainer=)
+[Puppeteer releases](https://github.com/puppeteer/puppeteer/releases)
+
 ## Licence
 
 [MIT Licence](LICENCE).
