@@ -50,12 +50,12 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_an_error_screen
-    expect(page).to have_content "There was a problem signing in"
-    expect(page).to have_content I18n.t("users.retry.expired")
+    expect(page).to have_content I18n.t("users.retry.expired.heading")
+    expect(page).to have_content "You need to request a new confirmation code."
   end
 
   def and_can_return_to_the_email_screen
-    click_link "Continue"
+    click_link "request a new confirmation code"
     expect(page).to have_content "Sign in"
   end
 
