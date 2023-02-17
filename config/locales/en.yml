@@ -25,24 +25,6 @@ en:
     statuses:
       incomplete: Incomplete
       completed: Completed
-  referral_evidence:
-    categories:
-      cv: CV
-      references: References
-      job_application: Job application
-      job_offer: Job offer
-      job_description: Job description, role requirement or person specification
-      conduct_behaviour_attitude: File notes concerning conduct, behaviour, attitude
-      statements_made: Statements made by the person you’re referring
-      internal_investigations: Documents of internal investigations and outcomes
-      past_disciplinary_actions: Documentation of any past disciplinary action and complaints
-      police_investigations: Police investigation and reports
-      local_authority_investigations: Local authority investigation reports or documents
-      reports_from_other_agencies: Reports from other bodies or agencies
-      signed_witness_statements: Signed witness statements
-      dismissal_resignation_letters: Dismissal, resignation or redeployment letters
-      interview_reports: Interview reports relating to the allegation
-      minutes_strategy_meetings: Minutes of strategy meetings
   users:
     retry:
       expired:
@@ -353,12 +335,6 @@ en:
           attributes:
             more_evidence:
               inclusion: Select yes if you have more evidence to upload
-        "referrals/evidence/categories_form":
-          attributes:
-            categories:
-              blank: Select a description of this file
-            categories_other:
-              blank: Enter a description of this evidence
         "referrals/evidence/check_answers_form":
           attributes:
             evidence_details_complete:
