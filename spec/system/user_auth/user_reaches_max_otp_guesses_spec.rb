@@ -43,8 +43,8 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_an_error_screen
-    expect(page).to have_content "There was a problem signing in"
-    expect(page).to have_content I18n.t("users.retry.exhausted")
+    expect(page).to have_content I18n.t("users.retry.exhausted.heading")
+    expect(page).to have_content I18n.t("users.retry.exhausted.body")
   end
 
   def and_can_return_to_the_email_screen

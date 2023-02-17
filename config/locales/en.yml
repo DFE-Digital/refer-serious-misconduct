@@ -45,8 +45,12 @@ en:
       minutes_strategy_meetings: Minutes of strategy meetings
   users:
     retry:
-      expired: Your security code has expired. Try again.
-      exhausted: You've had too many incorrect sign in attempts. Try again.
+      expired:
+        heading: Your confirmation code has expired
+        body_html: You need to %{href}.
+      exhausted:
+        heading: There was a problem signing in
+        body: You've had too many incorrect sign in attempts. Try again.
 
   activemodel:
     errors:

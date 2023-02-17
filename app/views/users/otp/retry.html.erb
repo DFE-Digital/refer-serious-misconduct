@@ -1,18 +1,18 @@
-<h1 class="govuk-heading-l">There was a problem signing in</h1>
+<h1 class="govuk-heading-l"><%= t("users.retry.#{@error}.heading") %></h1>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% case @error %>
     <% when 'expired' %>
       <p>
-        <%= t('users.retry.expired') %>
+        <%= t("users.retry.#{@error}.body_html", href: govuk_link_to('request a new confirmation code', new_user_session_path(new_referral:), method: :get)) %>
       </p>
     <% when 'exhausted' %>
       <p>
-        <%= t('users.retry.exhausted') %>
+        <%= t('users.retry.exhausted.body') %>
       </p>
-    <% end %>
 
-    <%= govuk_button_link_to('Continue', new_user_session_path(new_referral:), method: :get) %>
+      <%= govuk_button_link_to('Continue', new_user_session_path(new_referral:), method: :get) %>
+    <% end %>
   </div>
 </div>
