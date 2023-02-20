@@ -9,11 +9,7 @@
         <%= f.hidden_field :teaching_in_england %>
         <%= f.govuk_radio_button :teaching_in_england, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :teaching_in_england, "no", label: { text: "No" } %>
-        <%= f.govuk_radio_button :teaching_in_england, "not_sure", label: { text: "I’m not sure" } do %>
-          <p class="govuk_body">
-            If you’re not sure, you should continue to make a referral and TRA will assess it.
-          </p>
-        <% end %>
+        <%= f.govuk_radio_button :teaching_in_england, "not_sure", label: { text: "I’m not sure" } %>
       <% end %>
       <%= f.govuk_submit %>
     <% end %>

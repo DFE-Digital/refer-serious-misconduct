@@ -49,7 +49,6 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
-    then_i_see_the_not_sure_hint
     when_i_choose_no
     when_i_press_continue
     then_i_see_the_no_jurisdiction_unsupervised_page
@@ -61,7 +60,6 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
-    then_i_see_the_not_sure_hint
     when_i_choose_no
     when_i_press_continue
     then_i_see_the_no_jurisdiction_page
@@ -73,7 +71,6 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_a_validation_error
     when_i_choose_not_sure
-    then_i_see_the_not_sure_hint
     when_i_choose_no
     when_i_press_continue
     then_i_see_the_not_serious_misconduct_page
@@ -146,12 +143,6 @@ RSpec.feature "Eligibility screener", type: :system do
     )
     expect(page).to have_content(
       "You cannot use this service to refer someone who is not a teacher"
-    )
-  end
-
-  def then_i_see_the_not_sure_hint
-    expect(page).to have_content(
-      "If you’re not sure, you should continue to make a referral and TRA will assess it."
     )
   end
 
