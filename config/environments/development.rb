@@ -70,7 +70,7 @@ Rails.application.configure do
         proc do |_, _, _, msg|
           if msg =~ /quoted-printable/
             message = Mail::Message.new(msg)
-            "\nTo: #{message.to}\n\n#{message.decoded}\n\n"
+            "\nTo: #{message.to}\n\nSubject: #{message.subject}\n\n#{message.decoded}\n\n"
           else
             "\n#{msg}"
           end

@@ -35,6 +35,7 @@ RSpec.feature "User registration" do
 
     when_i_provide_the_expected_otp
     then_i_should_see_the_start_new_referral_page
+    and_i_should_receive_an_email_with_my_referral_page_link
   end
 
   private
@@ -120,5 +121,15 @@ RSpec.feature "User registration" do
   def when_i_provide_a_short_otp
     fill_in "Confirmation code", with: "123"
     within("main") { click_on "Continue" }
+  end
+
+  def and_i_should_receive_an_email_with_my_referral_page_link
+    perform_enqueued_jobs
+
+    user = User.find_by(email: "test@example.com")
+    referral = user.latest_referral
+    email = ActionMailer::Base.deliveries.last
+
+    expect(email.body).to include(edit_referral_url(referral))
   end
 end

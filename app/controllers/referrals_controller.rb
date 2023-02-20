@@ -5,17 +5,29 @@ class ReferralsController < Referrals::BaseController
 
   def new
     new_referral =
-      current_user.find_or_create_referral!(
+      Referral.find_or_create_by!(
+        user_id: current_user.id,
         eligibility_check_id: session.delete(:eligibility_check_id)
       )
+
+    if new_referral.persisted?
+      UserMailer.referral_link(new_referral).deliver_later
+    end
+
     redirect_to [:edit, new_referral.routing_scope, new_referral]
   end
 
   def create
     new_referral =
-      current_user.create_referral!(
+      Referral.create!(
+        user_id: current_user.id,
         eligibility_check_id: session.delete(:eligibility_check_id)
       )
+
+    if new_referral.persisted?
+      UserMailer.referral_link(new_referral).deliver_later
+    end
+
     redirect_to [:edit, new_referral.routing_scope, new_referral]
   end
 
