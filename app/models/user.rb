@@ -31,17 +31,4 @@ class User < ApplicationRecord
     secret_key = Devise::Otp.generate_key
     update(secret_key:, otp_created_at: Time.zone.now)
   end
-
-  def create_referral!(eligibility_check_id:)
-    eligibility_check = EligibilityCheck.find_by!(id: eligibility_check_id)
-    referrals.create!(eligibility_check_id: eligibility_check.id)
-  end
-
-  def find_or_create_referral!(eligibility_check_id:)
-    eligibility_check = EligibilityCheck.find_by!(id: eligibility_check_id)
-    Referral.find_or_create_by!(
-      user_id: id,
-      eligibility_check_id: eligibility_check.id
-    )
-  end
 end

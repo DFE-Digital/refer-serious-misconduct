@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
 
     if resource.save
       resource.create_otp
-      UserMailer.send_otp(resource).deliver_later
+      UserMailer.otp(resource).deliver_later
 
       redirect_to new_user_otp_path(uuid: resource.uuid, new_referral:)
     else

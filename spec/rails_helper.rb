@@ -86,6 +86,12 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
   config.include ActiveSupport::Testing::TimeHelpers
 
+  # https://github.com/rspec/rspec-rails/issues/1275#issuecomment-1083301637
+  config.before(type: :feature) do
+    self.default_url_options =
+      Rails.application.config.action_mailer.default_url_options
+  end
+
   Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 end
 
