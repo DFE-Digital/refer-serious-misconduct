@@ -1,7 +1,7 @@
 class FileUploadValidator < ActiveModel::EachValidator
   include ActionView::Helpers::NumberHelper
 
-  MAX_FILE_SIZE = 25.megabytes
+  MAX_FILE_SIZE = 50.megabytes
   MAX_FILES = 10
 
   CONTENT_TYPES = {
@@ -16,6 +16,8 @@ class FileUploadValidator < ActiveModel::EachValidator
     ".jpg" => "image/jpeg",
     ".jpeg" => "image/jpeg",
     ".mp3" => "audio/mpeg",
+    ".mp4" => "video/mp4",
+    ".mov" => "video/quicktime",
     ".pdf" => "application/pdf",
     ".png" => "image/png",
     ".txt" => "text/plain",
@@ -33,7 +35,7 @@ class FileUploadValidator < ActiveModel::EachValidator
     uploaded_files.each do |uploaded_file|
       next if uploaded_file.nil?
 
-      if uploaded_file.size >= MAX_FILE_SIZE
+      if uploaded_file.size > MAX_FILE_SIZE
         record.errors.add(
           attribute,
           :file_size_too_big,
