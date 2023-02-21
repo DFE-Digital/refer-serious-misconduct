@@ -7,6 +7,7 @@ resource "azurerm_storage_account" "allegations" {
   account_kind                      = "StorageV2"
   min_tls_version                   = "TLS1_2"
   infrastructure_encryption_enabled = true
+  public_network_access_enabled     = false
 
   blob_properties {
     last_access_time_enabled = true
