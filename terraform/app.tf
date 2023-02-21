@@ -54,6 +54,12 @@ resource "azurerm_postgresql_flexible_server_configuration" "postgres-extensions
   value     = "PGCRYPTO"
 }
 
+resource "azurerm_postgresql_flexible_server_configuration" "postgres-connection-throttle-enable" {
+  name      = "connection_throttle.enable"
+  server_id = azurerm_postgresql_flexible_server.postgres-server.id
+  value     = "ON"
+}
+
 resource "azurerm_postgresql_flexible_server_database" "postgres-database" {
   name      = local.postgres_database_name
   server_id = azurerm_postgresql_flexible_server.postgres-server.id
