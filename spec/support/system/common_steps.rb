@@ -75,6 +75,10 @@ module CommonSteps
     )
   end
 
+  def then_i_see_check_answers_form_validation_errors
+    expect(page).to have_content("Select yes if you’ve completed this section")
+  end
+
   def and_i_see_personal_details_flagged_as_incomplete
     within(".app-task-list__item", text: "Personal details") do
       status_tag = find(".app-task-list__tag")
