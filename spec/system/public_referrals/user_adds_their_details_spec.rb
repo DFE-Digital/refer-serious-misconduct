@@ -27,6 +27,9 @@ RSpec.feature "Public Referral: About You", type: :system do
     then_i_see_the_referrer_check_your_answers_page
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
+    when_i_click_save_and_continue
+    then_i_see_check_answers_form_validation_errors
+
     when_i_click_on_change_name
     then_i_am_on_the_your_name_page
     and_i_see_my_name_in_the_form_field
