@@ -12,6 +12,7 @@ RSpec.feature "Question order", type: :system do
     when_i_visit_the_service
     then_i_see_the_start_page
 
+    # Visiting pages before completion
     when_i_visit_the_unsupervised_teaching_page
     then_i_see_the_start_page
 
@@ -24,6 +25,7 @@ RSpec.feature "Question order", type: :system do
     when_i_visit_the_complete_page
     then_i_see_the_start_page
 
+    # Partially completing screener
     when_i_press_start
     then_i_see_the_start_new_referral_page
 
@@ -32,21 +34,35 @@ RSpec.feature "Question order", type: :system do
     when_i_press_continue
     then_i_see_the_is_a_teacher_page
 
-    when_i_visit_unsupervised_teaching_page
+    # Visiting pages out of order before completion
+    when_i_visit_the_is_a_teacher_page
     then_i_see_the_is_a_teacher_page
 
-    when_i_visit_the_serious_misconduct_page
+    when_i_visit_the_unsupervised_teaching_page
+    then_i_see_the_start_page
+
+    # Resume and complete screener
+    when_i_visit_the_is_a_teacher_page
     then_i_see_the_is_a_teacher_page
 
     when_i_choose_yes
     when_i_press_continue
     then_i_see_the_teaching_in_england_page
 
-    when_i_visit_the_serious_misconduct_page
-    then_i_see_the_teaching_in_england_page
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_serious_misconduct_page
+
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_you_should_know_page
   end
 
   private
+
+  def then_i_see_the_have_you_complained_page
+    expect(page).to have_current_path("/have-you-complained")
+  end
 
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
@@ -70,6 +86,14 @@ RSpec.feature "Question order", type: :system do
 
   def then_i_see_the_start_new_referral_page
     expect(page).to have_current_path("/users/registrations/exists")
+  end
+
+  def then_i_see_the_serious_misconduct_page
+    expect(page).to have_current_path("/serious-misconduct")
+  end
+
+  def then_i_see_the_you_should_know_page
+    expect(page).to have_current_path("/you-should-know")
   end
 
   def when_i_start_new_referral
@@ -105,7 +129,7 @@ RSpec.feature "Question order", type: :system do
     visit root_path
   end
 
-  def when_i_visit_unsupervised_teaching_page
+  def when_i_visit_the_unsupervised_teaching_page
     visit unsupervised_teaching_path
   end
 
@@ -119,5 +143,13 @@ RSpec.feature "Question order", type: :system do
 
   def when_i_visit_the_unsupervised_teaching_page
     visit unsupervised_teaching_path
+  end
+
+  def when_i_visit_the_have_you_complained_page
+    visit have_you_complained_path
+  end
+
+  def when_i_visit_the_is_a_teacher_page
+    visit is_a_teacher_path
   end
 end

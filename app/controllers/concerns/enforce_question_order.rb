@@ -2,107 +2,107 @@
 module EnforceQuestionOrder
   extend ActiveSupport::Concern
 
-  included { before_action :redirect_to_next_question }
-
-  def redirect_to_next_question
-    redirect_to(start_url) and return if start_page_is_required?
-    return if all_questions_answered?
-    return if previous_question_answered?
-
-    redirect_to next_question_path if request.path != next_question_path
-  end
-
-  def next_question
-    session[:eligibility_check_id] ||= eligibility_check.reload.id
-
-    redirect_to next_question_path
-  end
+  included { before_action :redirect_to_correct_question }
 
   private
 
-  def eligibility_check
-    @eligibility_check ||=
-      EligibilityCheck.find_or_initialize_by(id: session[:eligibility_check_id])
+  def redirect_to_correct_question
+    redirect_to(start_url) and return if redirect_to_start_page?
+
+    if all_previous_question_answered? || request.path == next_question_path
+      return
+    end
+
+    redirect_to_next_question
   end
 
-  def start_page_is_required?
+  def redirect_to_next_question
+    redirect_to next_question_path
+  end
+
+  def redirect_to_start_page?
+    unsaved_eligibility_check_after_start? || !all_previous_question_answered?
+  end
+
+  def unsaved_eligibility_check_after_start?
     (eligibility_check.nil? || eligibility_check.new_record?) &&
-      request.path != referral_type_path
+      request.path != questions.first[:path]
   end
 
   def questions
     [
-      { path: referral_type_path, needs_answer: referral_type_needs_answer? },
+      {
+        path: referral_type_path,
+        needs_answer: true,
+        answered: referral_type_answered?
+      },
       {
         path: have_you_complained_path,
-        needs_answer: complained_needs_answer?
+        needs_answer: eligibility_check.reporting_as_public?,
+        answered: complained_answered?
       },
-      { path: is_a_teacher_path, needs_answer: is_a_teacher_needs_answer? },
+      {
+        path: is_a_teacher_path,
+        needs_answer: true,
+        answered: is_a_teacher_answered?
+      },
       {
         path: unsupervised_teaching_path,
-        needs_answer: unsupervised_teaching_needs_answer?
+        needs_answer: !eligibility_check.is_teacher?,
+        answered: unsupervised_teaching_answered?
       },
       {
         path: teaching_in_england_path,
-        needs_answer: teaching_in_england_needs_answer?
+        needs_answer: true,
+        answered: teaching_in_england_answered?
       },
       {
         path: serious_misconduct_path,
-        needs_answer: serious_misconduct_needs_answer?
+        needs_answer: true,
+        answered: serious_misconduct_answered?
       }
     ]
   end
 
   def next_question_path
-    questions.each { |q| return q[:path] if q[:needs_answer] }
-
-    you_should_know_path
+    next_question&.dig(:path) || you_should_know_path
   end
 
-  def all_questions_answered?
-    questions.none? { |q| q[:needs_answer] }
+  def all_previous_question_answered?
+    questions[0...requested_question_index].all? do |q|
+      q[:answered] || !q[:needs_answer]
+    end
   end
 
-  def previous_question_answered?
-    requested_question_index =
-      questions.find_index { |q| q[:path] == request.path }
-
-    path_is_not_a_question = requested_question_index.nil?
-    return false if path_is_not_a_question
-
-    is_first_question = requested_question_index.zero?
-    return true if is_first_question
-
-    previous_question = questions[requested_question_index - 1]
-
-    !previous_question[:needs_answer]
+  def requested_question_index
+    questions.find_index { |q| q[:path] == request.path }
   end
 
-  def referral_type_needs_answer?
-    eligibility_check.reporting_as.nil?
+  def next_question
+    questions[(requested_question_index + 1)..].find { |q| q[:needs_answer] }
   end
 
-  def complained_needs_answer?
-    return false if eligibility_check.reporting_as_employer?
-
-    eligibility_check.complained.nil?
+  def referral_type_answered?
+    !eligibility_check.reporting_as.nil?
   end
 
-  def unsupervised_teaching_needs_answer?
-    return false if eligibility_check.is_teacher?
-
-    eligibility_check.unsupervised_teaching.nil?
+  def complained_answered?
+    !eligibility_check.complained.nil?
   end
 
-  def is_a_teacher_needs_answer?
-    eligibility_check.is_teacher.nil?
+  def unsupervised_teaching_answered?
+    !eligibility_check.unsupervised_teaching.nil?
   end
 
-  def teaching_in_england_needs_answer?
-    eligibility_check.teaching_in_england.nil?
+  def is_a_teacher_answered?
+    !eligibility_check.is_teacher.nil?
   end
 
-  def serious_misconduct_needs_answer?
-    eligibility_check.serious_misconduct.nil?
+  def teaching_in_england_answered?
+    !eligibility_check.teaching_in_england.nil?
+  end
+
+  def serious_misconduct_answered?
+    !eligibility_check.serious_misconduct.nil?
   end
 end

@@ -6,9 +6,10 @@ class ReferralTypeController < EligibilityScreenerController
   def create
     @reporting_as_form =
       ReportingAsForm.new(reporting_as_params.merge(eligibility_check:))
+
     if @reporting_as_form.save
-      session[:eligibility_check_id] = eligibility_check.id
-      next_question
+      assign_eligibility_check_to_session
+      redirect_to_next_question
     else
       render :new
     end
