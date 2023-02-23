@@ -1,18 +1,20 @@
-<% content_for :page_title, "#{'Error: ' if @reported_form.errors.any?}Has there been any previous misconduct, disciplinary action or complaints?" %>
+<% content_for :page_title, "#{'Error: ' if @reported_form.errors.any?}Has there been any previous misconduct, disciplinary action or complaints? - Previous allegations" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @reported_form, url: [current_referral.routing_scope, current_referral, :previous_misconduct_reported], method: :patch do |f| %>
+      <%= f.govuk_error_summary %>
+
       <h1 class="govuk-heading-l">Previous allegations</h1>
+
       <p class="govuk-body">This includes:</p>
+
       <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
         <li>internal investigations</li>
         <li>disciplinary action by your organisation</li>
         <li>reports to the Teaching Regulation Agency, National College for Teaching and Leadership, Teaching Agency or General Teaching Council for England</li>
       </ul>
-
-      <%= f.govuk_error_summary %>
 
       <div class="govuk-form-group">
         <%= f.govuk_collection_radio_buttons(

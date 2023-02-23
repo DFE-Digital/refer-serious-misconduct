@@ -128,8 +128,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
       ignore_query: true
     )
     expect(page).to have_title(
-      "Has there been any previous misconduct, disciplinary action or complaints? - Refer " \
-        "serious misconduct by a teacher in England"
+      "Has there been any previous misconduct, disciplinary action or complaints? - Previous allegations"
     )
     expect(page).to have_content(
       "Has there been any previous misconduct, disciplinary action or complaints?"

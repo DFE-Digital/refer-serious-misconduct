@@ -46,7 +46,9 @@ RSpec.describe Referrals::ContactDetails::TelephoneForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:phone_number]).to eq(
-          ["Enter a phone number in the correct format, like 07700 900 982"]
+          [
+            "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+          ]
         )
       end
     end

@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_address_known_form.errors.any?}Do you know their home address?" %>
+<% content_for :page_title, "#{"Error: " if @contact_details_address_known_form.errors.any?}Do you know their home address? - Contact details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_telephone])) %>
 
 <div class="govuk-grid-row">
@@ -7,7 +7,8 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Contact details</span>
-      <%= f.govuk_radio_buttons_fieldset :address_known, legend: { size: "l", text: "Do you know their home address?" }  do %>
+
+      <%= f.govuk_radio_buttons_fieldset :address_known, legend: { tag: 'h1', size: 'l', text: "Do you know their home address?" }  do %>
         <%= f.hidden_field :address_known %>
         <%= f.govuk_radio_button :address_known, true, label: { text: "Yes" }, link_errors: true do %>
         <% end %>

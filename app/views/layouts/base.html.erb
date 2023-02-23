@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
   <head>
-    <title><%= [yield(:page_title).presence, t('service.name')].compact.join(' - ') %></title>
+    <title><%= [yield(:page_title).presence, t('service.name'), 'GOV.UK'].compact.join(' - ') %></title>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -31,7 +31,7 @@
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>
-        This is a new service – <%= govuk_link_to("your feedback will help us to improve it.", "https://forms.gle/mroZH7aVYGPrB37G6") %>
+        This is a new service – your <%= govuk_link_to("feedback", "https://forms.gle/mroZH7aVYGPrB37G6") %> will help us to improve it.
       <% end %>
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <%= yield(:breadcrumbs) if content_for?(:breadcrumbs) %>

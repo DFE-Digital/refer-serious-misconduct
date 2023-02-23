@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @referrer_job_title_form.errors.any?}Your job title" %>
+<% content_for :page_title, "#{'Error: ' if @referrer_job_title_form.errors.any?}Your job title - Your details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :referrer_name])) %>
 
 <div class="govuk-grid-row">
@@ -7,7 +7,7 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Your details</span>
-      <%= f.govuk_text_field :job_title, label: { size: 'l', text: "Your job title" }, hint: { text: 'For example, ‘Headteacher’' } %>
+      <%= f.govuk_text_field :job_title, label: { tag: 'h1', size: 'l', text: "Your job title" }, hint: { text: 'For example, ‘Headteacher’' } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

@@ -1,17 +1,17 @@
-<% content_for :page_title, "#{'Error: ' if @personal_details_check_answers_form.errors.any?}Personal details" %>
+<% content_for :page_title, "#{'Error: ' if @personal_details_check_answers_form.errors.any?}Check and confirm your answers - Personal details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">
-      <span class="govuk-caption-l">Personal details</span>
-      Check and confirm your answers
-    </h1>
-
-    <%= render PersonalDetailsComponent.new(referral: current_referral) %>
-
     <%= form_with model: @personal_details_check_answers_form, url: [current_referral.routing_scope, current_referral, :personal_details, :check_answers], method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">Personal details</span>
+        Check and confirm your answers
+      </h1>
+
+      <%= render PersonalDetailsComponent.new(referral: current_referral) %>
 
       <%= f.govuk_radio_buttons_fieldset(
         :personal_details_complete,

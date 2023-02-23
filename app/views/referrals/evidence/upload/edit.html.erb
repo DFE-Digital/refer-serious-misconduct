@@ -3,39 +3,42 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <span class="govuk-caption-l">Evidence and supporting information</span>
-    <h1 class="govuk-heading-l">Upload evidence</h1>
-
-    <p>For example:</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li>file notes concerning conduct, behaviour, attitude</li>
-      <li>statements made by the person you’re referring</li>
-      <li>documents of internal investigations and outcomes</li>
-      <li>documentation of any past disciplinary action and complaints</li>
-      <li>investigation and reports from the police or local authority</li>
-      <li>signed witness statements</li>
-    </ul>
-
-    <p>
-      Signed and dated documents are better than unsigned ones. If they were not signed at the time of being written,
-      ask the parties involved to sign and date a statement confirming their accuracy.
-    </p>
-    <p>
-      Do not redact any of the documents. This will make it difficult to consider the evidence. All
-      information given is treated in strict confidence.
-    </p>
-    <p>Make sure the file names describe the content, for example ‘signed witness statement’.</p>
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive"></span>
-        Do not include explicit content, for example indecent photos. You’ll be asked for these separately if needed.
-      </strong>
-    </div>
-
     <%= form_with model: @evidence_upload_form, url: referral_evidence_upload_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <span class="govuk-caption-l">Evidence and supporting information</span>
+      <h1 class="govuk-heading-l">Upload evidence</h1>
+
+      <p>For example:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>file notes concerning conduct, behaviour, attitude</li>
+        <li>statements made by the person you’re referring</li>
+        <li>documents of internal investigations and outcomes</li>
+        <li>documentation of any past disciplinary action and complaints</li>
+        <li>investigation and reports from the police or local authority</li>
+        <li>signed witness statements</li>
+      </ul>
+
+      <p>
+        Signed and dated documents are better than unsigned ones. If they were not signed at the time of being written,
+        ask the parties involved to sign and date a statement confirming their accuracy.
+      </p>
+
+      <p>
+        Do not redact any of the documents. This will make it difficult to consider the evidence. All
+        information given is treated in strict confidence.
+      </p>
+
+      <p>Make sure the file names describe the content, for example ‘signed witness statement’.</p>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive"></span>
+          Do not include explicit content, for example indecent photos. You’ll be asked for these separately if needed.
+        </strong>
+      </div>
 
       <%= f.govuk_file_field(
           :evidence_uploads,

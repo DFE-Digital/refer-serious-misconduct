@@ -3,23 +3,23 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <h1 class="govuk-heading-l">
-      Evidence and supporting information
-    </h1>
-
-    <p>For example:</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li>complaint made to the school</li>
-      <li>correspondence with the school</li>
-      <li>school complaints policy</li>
-      <li>complaint made to the police</li>
-      <li>complaint made to the local authority or any other agency or body</li>
-      <li>signed witness statements</li>
-    </ul>
-
     <%= form_with model: @evidence_start_form, url: public_referral_evidence_start_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <h1 class="govuk-heading-l">
+        Evidence and supporting information
+      </h1>
+
+      <p>For example:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>complaint made to the school</li>
+        <li>correspondence with the school</li>
+        <li>school complaints policy</li>
+        <li>complaint made to the police</li>
+        <li>complaint made to the local authority or any other agency or body</li>
+        <li>signed witness statements</li>
+      </ul>
 
       <%= f.govuk_radio_buttons_fieldset(
         :has_evidence,

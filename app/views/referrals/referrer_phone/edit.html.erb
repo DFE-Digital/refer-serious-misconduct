@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}Your phone number" %>
+<% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}Your phone number - Your details" %>
 <% content_for :back_link_url, return_to_session_or(previous_path) %>
 
 <div class="govuk-grid-row">
@@ -7,7 +7,7 @@
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Your details</span>
-      <%= f.govuk_text_field :phone, label: { size: 'l', text: "Your phone number" }, hint: { text: 'It’ll only be used to contact you about your referral' }, class: 'govuk-input--width-20' %>
+      <%= f.govuk_text_field :phone, type: :tel, autocomplete: :tel, label: { tag: 'h1', size: 'l', text: "Your phone number" }, hint: { text: 'It’ll only be used to contact you about your referral' }, class: 'govuk-input--width-20' %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>

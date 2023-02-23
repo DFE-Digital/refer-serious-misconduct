@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @work_location_known_form.errors.any?}Do you know the name and address of the organisation where they’re employed?" %>
+<% content_for :page_title, "#{'Error: ' if @work_location_known_form.errors.any?}Do you know the name and address of the organisation where they’re employed? - About their role" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :working_somewhere_else])) %>
 
 <div class="govuk-grid-row">
