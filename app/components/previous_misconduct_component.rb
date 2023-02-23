@@ -1,11 +1,12 @@
 class PreviousMisconductComponent < ViewComponent::Base
   include ActiveModel::Model
   include ApplicationHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    @rows = [
+    items = [
       {
         actions: [
           {
@@ -30,7 +31,7 @@ class PreviousMisconductComponent < ViewComponent::Base
       }
     ]
     if referral.previous_misconduct_reported?
-      @rows << {
+      items << {
         actions: [
           {
             text: "Change",
@@ -53,7 +54,7 @@ class PreviousMisconductComponent < ViewComponent::Base
           text: detail_type
         }
       }
-      @rows << {
+      items << {
         actions: [
           {
             text: "Change",
@@ -77,7 +78,7 @@ class PreviousMisconductComponent < ViewComponent::Base
       }
     end
 
-    @rows
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def report

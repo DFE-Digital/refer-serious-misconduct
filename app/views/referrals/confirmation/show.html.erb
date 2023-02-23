@@ -7,7 +7,7 @@
       classes: %w[govuk-!-margin-bottom-6]
     ) %>
     <p class="govuk_body">
-      You’ll be sent a confirmation email. This email will include a link to <%= link_to "view your referral", [current_referral.routing_scope, current_referral, :review] %></a>.
+      You’ll be sent a confirmation email. This email will include a link to <%= link_to "view your referral", users_referral_path(current_referral) %></a>.
     </p>
 
     <h2 class="govuk-heading-m">What happens next</h2>

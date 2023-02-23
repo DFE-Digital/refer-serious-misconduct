@@ -1,0 +1,37 @@
+<% content_for :page_title, "Your referrals" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Your referrals</h1>
+
+    <% if @referral_in_progress %>
+      <%= govuk_inset_text do %>
+        <p>You have a referral that you have not sent.</p>
+        <%= govuk_button_link_to "Complete referral", [:edit, @referral_in_progress.routing_scope, @referral_in_progress] %>
+      <% end %>
+    <% else %>
+      <%= govuk_button_link_to "Start new referral", new_referral_path %>
+    <% end %>
+
+    <% if @referrals_submitted.any? %>
+      <h2 class="govuk-heading-m">Sent referrals</h2>
+
+      <% @referrals_submitted.each do |referral| %>
+        <div class="app-list govuk-!-margin-top-6">
+          <div class="app-list__item">
+
+            <h2 class="govuk-heading-m">
+              <%= govuk_link_to(referral.name, users_referral_path(referral), { no_visited_state: true }) %>
+            </h2>
+
+            <%= govuk_summary_list(actions: false, classes: ["govuk-summary-list--no-border", "app-summary-list--compact"]) do |summary_list|
+            summary_list.with_row do |row|
+            row.with_key { "Referral date" }
+            row.with_value { referral.submitted_at.to_fs(:day_month_year_time) }
+            end; end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

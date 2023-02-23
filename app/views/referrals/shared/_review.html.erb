@@ -1,0 +1,35 @@
+<div class="app-review-panel">
+  <h2 class="govuk-heading-m govuk-!-font-size-27">About you</h2>
+
+  <h3 class="govuk-heading-m">Your details</h3>
+  <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
+
+  <h3 class="govuk-heading-m">Your organisation</h3>
+  <%= render OrganisationComponent.new(referral: current_referral) %>
+</div>
+
+<div class="app-review-panel">
+  <h2 class="govuk-heading-m govuk-!-font-size-27">About the teacher</h2>
+
+  <h3 class="govuk-heading-m">Personal details</h3>
+  <%= render PersonalDetailsComponent.new(referral: current_referral) %>
+
+  <h3 class="govuk-heading-m">Contact details</h3>
+  <%= render ContactDetailsComponent.new(referral: current_referral) %>
+
+  <h3 class="govuk-heading-m">About their role</h3>
+  <%= render TheirRoleComponent.new(referral: current_referral) %>
+</div>
+
+<div class="app-review-panel">
+  <h2 class="govuk-heading-m govuk-!-font-size-27">The allegation</h2>
+
+  <h3 class="govuk-heading-m">Allegation details</h3>
+  <%= render WhatHappenedComponent.new(referral: current_referral) %>
+
+  <h3 class="govuk-heading-m">Previous allegation details</h3>
+  <%= render PreviousMisconductComponent.new(referral: current_referral) %>
+
+  <h3 class="govuk-heading-m">Evidence and supporting information</h3>
+  <%= render EvidenceComponent.new(referral: current_referral) %>
+</div>

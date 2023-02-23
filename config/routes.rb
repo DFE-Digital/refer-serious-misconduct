@@ -29,6 +29,10 @@ Rails.application.routes.draw do
         }
 
     get "/users/sign_out", to: "users/sessions#destroy"
+
+    namespace :users do
+      resources :referrals, only: %i[index show]
+    end
   end
 
   constraints(

@@ -1,6 +1,6 @@
 class ReferralsController < Referrals::BaseController
   before_action :check_referral_form_feature_flag_enabled
-  before_action :redirect_to_referral_if_exists, only: %i[new create]
+  before_action :referrals_redirect, only: %i[create]
   before_action :redirect_to_screener_if_no_id_in_session, only: %i[new create]
 
   def new

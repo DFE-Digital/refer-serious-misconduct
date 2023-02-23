@@ -7,6 +7,10 @@ class User < ApplicationRecord
           -> { order(created_at: :desc) },
           class_name: "Referral"
 
+  has_one :referral_in_progress,
+          -> { where(submitted_at: nil).order(created_at: :desc) },
+          class_name: "Referral"
+
   scope :newest_first, -> { order(created_at: :desc) }
 
   after_commit :reload_uuid, on: :create

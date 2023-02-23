@@ -51,18 +51,21 @@ class Users::OtpController < DeviseController
   private
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || latest_referral_path(resource)
+    stored_location_for(resource) || user_referrals(resource) ||
+      latest_referral_path(resource)
+  end
+
+  def user_referrals(resource)
+    return false if resource.referrals.submitted.blank?
+
+    users_referrals_path
   end
 
   def latest_referral_path(resource)
     latest_referral = resource.latest_referral
 
-    if latest_referral
-      if latest_referral.submitted_at?
-        [latest_referral.routing_scope, latest_referral, :confirmation]
-      else
-        [:edit, latest_referral.routing_scope, latest_referral]
-      end
+    if latest_referral.present?
+      [:edit, latest_referral.routing_scope, latest_referral]
     else
       new_referral_path
     end

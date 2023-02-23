@@ -16,7 +16,7 @@ class ReferralForm
   end
 
   def submit
-    return false unless valid?
+    return false if !valid? || referral.submitted?
 
     referral.submit
   end

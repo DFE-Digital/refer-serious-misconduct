@@ -1,5 +1,6 @@
 class PublicAllegationComponent < ViewComponent::Base
   include ActiveModel::Model
+  include ComponentHelper
 
   attr_accessor :referral
 
@@ -43,7 +44,7 @@ class PublicAllegationComponent < ViewComponent::Base
   end
 
   def rows
-    [
+    items = [
       {
         actions: [
           {
@@ -104,5 +105,7 @@ class PublicAllegationComponent < ViewComponent::Base
         }
       }
     ]
+
+    referral.submitted? ? remove_actions(items) : items
   end
 end

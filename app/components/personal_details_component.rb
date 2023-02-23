@@ -1,25 +1,26 @@
 class PersonalDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    rows = [name_row, any_other_name_row]
+    items = [name_row, any_other_name_row]
 
-    rows.push(other_name_row) if referral.name_has_changed?
+    items.push(other_name_row) if referral.name_has_changed?
 
-    return rows if referral.from_member_of_public?
+    if referral.from_employer?
+      items.push(date_of_birth_known_row)
+      items.push(date_of_birth_row) if referral.age_known?
+      items.push(ni_number_known_row)
+      items.push(ni_number_row) if referral.ni_number_known?
+      items.push(trn_known_row)
+      items.push(trn_row) if referral.trn_known?
+      items.push(qts_row)
+    end
 
-    rows.push(date_of_birth_known_row)
-    rows.push(date_of_birth_row) if referral.age_known?
-    rows.push(ni_number_known_row)
-    rows.push(ni_number_row) if referral.ni_number_known?
-    rows.push(trn_known_row)
-    rows.push(trn_row) if referral.trn_known?
-    rows.push(qts_row)
-
-    rows
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def any_other_name_row
