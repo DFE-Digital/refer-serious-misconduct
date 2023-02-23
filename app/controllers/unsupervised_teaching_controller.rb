@@ -8,9 +8,10 @@ class UnsupervisedTeachingController < EligibilityScreenerController
       UnsupervisedTeachingForm.new(
         unsupervised_teaching_form_params.merge(eligibility_check:)
       )
+
     if @unsupervised_teaching_form.save
       if eligibility_check.unsupervised_teaching?
-        next_question
+        redirect_to_next_question
       else
         redirect_to(no_jurisdiction_unsupervised_path)
       end

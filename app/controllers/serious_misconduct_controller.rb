@@ -8,9 +8,10 @@ class SeriousMisconductController < EligibilityScreenerController
       SeriousMisconductForm.new(
         serious_misconduct_form_params.merge(eligibility_check:)
       )
+
     if @serious_misconduct_form.save
       if eligibility_check.serious_misconduct?
-        next_question
+        redirect_to_next_question
       else
         redirect_to(not_serious_misconduct_path)
       end
