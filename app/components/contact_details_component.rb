@@ -1,17 +1,18 @@
 class ContactDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
   include AddressHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    rows = [email_known_row]
-    rows.push(email_row) if referral.email_known
-    rows.push(phone_number_known_row)
-    rows.push(phone_number_row) if referral.phone_known
-    rows.push(address_known_row)
-    rows.push(address_row) if referral.address_known
-    rows
+    items = [email_known_row]
+    items.push(email_row) if referral.email_known
+    items.push(phone_number_known_row)
+    items.push(phone_number_row) if referral.phone_known
+    items.push(address_known_row)
+    items.push(address_row) if referral.address_known
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def path_for(part)

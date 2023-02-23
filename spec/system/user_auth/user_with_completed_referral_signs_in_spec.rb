@@ -17,14 +17,28 @@ RSpec.feature "User accounts" do
 
     when_i_provide_the_expected_otp
     then_i_am_signed_in
-    then_i_see_the_confirmation_page
+    then_i_see_the_referrals_page
+
+    when_i_click_on_the_start_a_referral_link
+    and_i_complete_the_screener
+    and_i_sign_out
+    and_i_sign_back_in
+
+    then_i_am_signed_in
+    and_i_see_the_referrals_page
+    and_i_can_continue_the_referral_in_progress
   end
 
   private
 
   def and_i_have_a_completed_referral
     @user = create(:user)
-    @referral = create(:referral, user: @user, submitted_at: 1.day.ago)
+
+    @referral = create(:referral, :personal_details_public, user: @user)
+
+    travel_to Time.zone.local(2022, 11, 29, 12, 0, 0)
+    @referral.update(submitted_at: Time.current)
+    travel_back
   end
 
   def and_click_start_now
@@ -53,14 +67,50 @@ RSpec.feature "User accounts" do
     fill_in "Confirmation code", with: expected_otp
     within("main") { click_on "Continue" }
   end
+  alias_method :and_i_provide_the_expected_otp, :when_i_provide_the_expected_otp
 
   def then_i_am_signed_in
     within(".govuk-header") { expect(page).to have_content "Sign out" }
   end
 
-  def then_i_see_the_confirmation_page
-    expect(page).to have_current_path("/referrals/#{@referral.id}/confirmation")
-    expect(page).to have_title("Referral sent")
-    expect(page).to have_content("Referral sent")
+  def then_i_see_the_referrals_page
+    expect(page).to have_current_path("/users/referrals")
+    expect(page).to have_title("Your referrals")
+    expect(page).to have_content("John Smith")
+    expect(page).to have_content("29 November 2022 at 12:00 pm")
+  end
+  alias_method :and_i_see_the_referrals_page, :then_i_see_the_referrals_page
+
+  def when_i_click_on_the_start_a_referral_link
+    click_on "Start new referral"
+  end
+
+  def and_i_complete_the_screener
+    choose "I’m referring as an employer", visible: false
+    click_on "Continue"
+
+    4.times do
+      choose "I’m not sure", visible: false
+      click_on "Continue"
+    end
+
+    click_on "Continue"
+  end
+
+  def and_i_sign_out
+    within(".govuk-header") { click_on "Sign out" }
+  end
+
+  def and_i_sign_back_in
+    within(".govuk-header") { click_on "Sign in" }
+    and_i_submit_my_email
+    and_i_provide_the_expected_otp
+  end
+
+  def and_i_can_continue_the_referral_in_progress
+    click_on "Complete referral"
+    expect(page).to have_current_path(
+      edit_referral_path(@user.referral_in_progress)
+    )
   end
 end

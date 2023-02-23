@@ -10,11 +10,21 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def redirect_to_referral_if_exists
-    latest_referral = current_user&.latest_referral
+  def referrals_redirect
+    redirect_to users_referrals_path and return if referrals_submitted?
 
-    if latest_referral
-      redirect_to [:edit, latest_referral.routing_scope, latest_referral]
-    end
+    referral_in_progress = current_user&.referral_in_progress
+
+    return unless referral_in_progress
+
+    redirect_to [
+                  :edit,
+                  referral_in_progress.routing_scope,
+                  referral_in_progress
+                ]
+  end
+
+  def referrals_submitted?
+    current_user&.referrals&.submitted&.present?
   end
 end

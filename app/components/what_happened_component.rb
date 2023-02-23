@@ -1,11 +1,12 @@
 class WhatHappenedComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    [
+    items = [
       {
         actions: [
           {
@@ -73,6 +74,8 @@ class WhatHappenedComponent < ViewComponent::Base
         }
       }
     ]
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def return_to

@@ -2,37 +2,35 @@ class TheirRoleComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
   include AddressHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    @rows = [job_title_row, role_duties_row, role_duties_description_row]
+    items = [job_title_row, role_duties_row, role_duties_description_row]
 
-    @rows << same_organisation_row if referral.from_employer?
+    items << same_organisation_row if referral.from_employer?
 
     unless referral.same_organisation?
-      @rows << organisation_address_known_row
-      @rows << organisation_address_row if referral.organisation_address_known
+      items << organisation_address_known_row
+      items << organisation_address_row if referral.organisation_address_known
     end
 
-    @rows << start_date_known_row if referral.from_employer?
-    @rows << start_date_row if referral.role_start_date_known
-    @rows << employment_status_row if referral.from_employer?
+    items << start_date_known_row if referral.from_employer?
+    items << start_date_row if referral.role_start_date_known
+    items << employment_status_row if referral.from_employer?
 
-    return @rows unless referral.left_role?
+    if referral.left_role?
+      items << end_date_known_row
+      items << end_date_row if referral.role_end_date_known
+      items << reason_leaving_role_row
+      items << working_somewhere_else_row
 
-    @rows << end_date_known_row
-    @rows << end_date_row if referral.role_end_date_known
-    @rows << reason_leaving_role_row
-    @rows << working_somewhere_else_row
+      items << work_location_known_row if referral.working_somewhere_else?
+      items << work_location_row if referral.work_location_known
+    end
 
-    return @rows unless referral.working_somewhere_else?
-
-    @rows << work_location_known_row
-
-    return @rows unless referral.work_location_known
-
-    @rows << work_location_row
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

@@ -76,4 +76,8 @@ class Referral < ApplicationRecord
   def name
     [first_name, last_name].join(" ")
   end
+
+  def submitted?
+    submitted_at.present?
+  end
 end

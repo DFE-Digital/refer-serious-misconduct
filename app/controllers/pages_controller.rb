@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def start
-    redirect_to_referral_if_exists
+    referrals_redirect
 
     @start_now_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)

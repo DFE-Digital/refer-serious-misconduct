@@ -1,13 +1,14 @@
 class OrganisationComponent < ViewComponent::Base
   include ActiveModel::Model
   include AddressHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   delegate :organisation, to: :referral
 
   def rows
-    [
+    items = [
       {
         actions: [
           {
@@ -31,6 +32,8 @@ class OrganisationComponent < ViewComponent::Base
         }
       }
     ]
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def return_to

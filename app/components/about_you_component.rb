@@ -1,6 +1,7 @@
 class AboutYouComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral, :user
 
@@ -89,6 +90,6 @@ class AboutYouComponent < ViewComponent::Base
       }
     )
 
-    items
+    referral.submitted? ? remove_actions(items) : items
   end
 end
