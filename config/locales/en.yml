@@ -68,7 +68,7 @@ en:
         unsupervised_teaching_form:
           attributes:
             unsupervised_teaching:
-              blank: Select yes if they carry out unsupervised teaching working
+              inclusion: Select if this person carries out unsupervised teaching work
         referral_form:
           attributes:
             base:
@@ -138,7 +138,7 @@ en:
               inclusion: Select yes if you know their phone number
             phone_number:
               blank: Enter their phone number
-              invalid: Enter a phone number in the correct format, like 07700 900 982
+              invalid: Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
         "referrals/contact_details/address_form":
           attributes:
             address_line_1:
@@ -253,8 +253,8 @@ en:
         referrer_phone_form:
           attributes:
             phone:
-              blank: Enter your phone number, like 07700 900 982
-              invalid: Enter your phone number in the correct format
+              blank: Enter your phone number
+              invalid: Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
         "referrals/referrer_name_form":
           attributes:
             first_name:

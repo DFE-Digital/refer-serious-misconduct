@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}Their job title" %>
+<% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}Their job title - About their role" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">

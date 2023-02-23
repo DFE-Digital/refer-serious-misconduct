@@ -92,7 +92,7 @@ RSpec.feature "Public Referral: About You", type: :system do
       ignore_query: true
     )
     expect(page).to have_title(
-      "Your name - Refer serious misconduct by a teacher in England"
+      "Your name - Your details - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your name")
   end
@@ -131,7 +131,7 @@ RSpec.feature "Public Referral: About You", type: :system do
       "/public-referrals/#{@referral.id}/referrer-phone/edit"
     )
     expect(page).to have_title(
-      "Your phone number - Refer serious misconduct by a teacher in England"
+      "Your phone number - Your details - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your phone number")
   end

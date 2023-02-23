@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @personal_details_trn_form.errors.any?}Do you know their teacher reference number (TRN)?" %>
+<% content_for :page_title, "#{'Error: ' if @personal_details_trn_form.errors.any?}Do you know their teacher reference number (TRN)? - Personal details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :personal_details, :ni_number])) %>
 
 <div class="govuk-grid-row">

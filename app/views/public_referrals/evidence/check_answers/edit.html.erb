@@ -3,22 +3,21 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-l">
-      <span class="govuk-caption-l">Evidence and supporting information</span>
-      Check and confirm your answers
-    </h1>
-
-    <%= govuk_button_to(
-      "Add more evidence",
-      edit_public_referral_evidence_upload_path(current_referral),
-      method: "get",
-      class: "govuk-button--secondary govuk-!-margin-bottom-8"
-    ) if current_referral.has_evidence %>
-
-    <%= render EvidenceComponent.new(referral: current_referral) %>
-
     <%= form_with model: @evidence_check_answers_form, url: public_referral_evidence_check_answers_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
+
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">Evidence and supporting information</span>
+        Check and confirm your answers
+      </h1>
+
+      <%= govuk_button_link_to(
+        "Add more evidence",
+        edit_public_referral_evidence_upload_path(current_referral),
+        class: "govuk-button--secondary govuk-!-margin-bottom-8"
+      ) if current_referral.has_evidence %>
+
+      <%= render EvidenceComponent.new(referral: current_referral) %>
 
       <%= f.govuk_radio_buttons_fieldset(
         :evidence_details_complete,

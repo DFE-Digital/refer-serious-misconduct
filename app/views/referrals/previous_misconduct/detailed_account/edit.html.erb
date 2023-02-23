@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations" %>
+<% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations - Previous allegations" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :previous_misconduct_reported])) %>
 
 <div class="govuk-grid-row">

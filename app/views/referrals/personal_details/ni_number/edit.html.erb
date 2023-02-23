@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{'Error: ' if @ni_number_form.errors.any?}Do you know their National Insurance number?" %>
+<% content_for :page_title, "#{'Error: ' if @ni_number_form.errors.any?}Do you know their National Insurance number? - Personal details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :personal_details_age])) %>
 
 <div class="govuk-grid-row">

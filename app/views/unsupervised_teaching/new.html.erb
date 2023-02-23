@@ -5,10 +5,13 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @unsupervised_teaching_form, url: unsupervised_teaching_url, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-xl">
+
+      <h1 class="govuk-heading-l">
         You can refer someone who does unsupervised teaching work
       </h1>
+
       <p class="govuk_body">Unsupervised teaching work is:</p>
+
       <ul class="govuk-list govuk-list--bullet">
         <li>planning and preparing lessons and courses for pupils</li>
         <li>delivering lessons to pupils</li>

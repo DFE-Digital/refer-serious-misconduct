@@ -200,7 +200,7 @@ RSpec.feature "Contact details", type: :system do
 
   def then_i_see_an_invalid_phone_number_error
     expect(page).to have_content(
-      "Enter a phone number in the correct format, like 07700 900 982"
+      "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
     )
   end
 
@@ -242,7 +242,7 @@ RSpec.feature "Contact details", type: :system do
     expect(page).to have_current_path(
       edit_referral_contact_details_check_answers_path(@referral)
     )
-    expect(page).to have_title("Have you completed this section?")
+    expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Contact details")
   end
 

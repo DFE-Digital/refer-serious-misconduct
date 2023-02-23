@@ -1,4 +1,4 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_address_form.errors.any?}Their home address" %>
+<% content_for :page_title, "#{"Error: " if @contact_details_address_form.errors.any?}Their home address - Contact details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_address_known])) %>
 
 <div class="govuk-grid-row">
@@ -8,6 +8,7 @@
 
       <span class="govuk-caption-l">Contact details</span>
       <h1 class="govuk-heading-l">Their home address</h1>
+
       <%= f.govuk_text_field :address_line_1, label: { size: 'm', text: "Address line 1" } %>
       <%= f.govuk_text_field :address_line_2, label: { size: 'm', text: "Address line 2 (optional)" } %>
       <%= f.govuk_text_field :town_or_city, label: { size: 'm', text: "Town or city" } %>

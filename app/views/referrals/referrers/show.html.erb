@@ -1,10 +1,8 @@
-<% content_for :page_title, "Your details" %>
+<% content_for :page_title, "Check and confirm your answers - Your details" %>
 <% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral])) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    
-
     <%= form_with model: @referrer_form, url: [current_referral.routing_scope, current_referral, :referrer], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
