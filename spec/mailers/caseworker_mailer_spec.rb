@@ -57,5 +57,13 @@ RSpec.describe CaseworkerMailer, type: :mailer do
         email.header.fields.find { |field| field.name == "template-id" }.value
       expect(template_id).to eq "4f8e7de9-3987-4e75-974f-ac94068c4a62"
     end
+
+    it "doesn't change the default Notify API key" do
+      expect { email.deliver_now }.not_to(
+        change { ActionMailer::Base.notify_settings[:api_key] }.from(
+          "govuk_notify_api_key"
+        )
+      )
+    end
   end
 end

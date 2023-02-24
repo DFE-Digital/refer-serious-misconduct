@@ -1,8 +1,6 @@
 class CaseworkerMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
-  before_action :set_action_mailer_misconduct_key
-
   def referral_submitted(referral)
     @name = referral.referrer_name
     @link = manage_interface_referral_url(referral)
@@ -12,7 +10,9 @@ class CaseworkerMailer < ApplicationMailer
       subject: "#{@name} has been referred"
     }
 
-    view_mail(MISCONDUCT_GENERIC_NOTIFY_TEMPLATE, mailer_options)
+    deliver_as_manage_misconduct do
+      view_mail(MISCONDUCT_GENERIC_NOTIFY_TEMPLATE, mailer_options)
+    end
   end
 
   private
