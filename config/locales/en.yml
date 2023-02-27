@@ -1,6 +1,7 @@
 en:
   service:
     name: Refer serious misconduct by a teacher in England
+    manage: Manage teacher misconduct referrals
     email: misconduct.teacher@education.gov.uk
     phone: 020 7593 5393
     url: https://refer-serious-misconduct.education.gov.uk

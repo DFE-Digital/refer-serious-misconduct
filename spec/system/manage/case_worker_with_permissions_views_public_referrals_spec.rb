@@ -11,7 +11,7 @@ RSpec.feature "Manage referrals" do
     and_the_eligibility_screener_feature_is_active
     and_referral_forms_exist
 
-    when_i_am_authorized_as_a_case_worker_with_management_permissions
+    when_i_login_as_a_case_worker_with_management_permissions_only
     when_i_visit_the_referrals_page
 
     then_i_can_see_the_referrals_page

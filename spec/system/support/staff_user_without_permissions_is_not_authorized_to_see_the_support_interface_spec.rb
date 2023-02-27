@@ -8,8 +8,7 @@ RSpec.describe "Support" do
            type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
-    when_i_am_authorized_as_a_case_worker_without_support_permissions
-    and_i_visit_the_support_page
+    when_i_login_as_a_case_worker_without_any_permissions_at_all
     then_i_am_unauthorized_and_redirected_to_root_path
   end
 

@@ -9,9 +9,10 @@ RSpec.feature "Manage referrals" do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
-    when_i_am_authorized_as_a_case_worker_with_management_permissions
+    when_i_login_as_a_case_worker_with_management_permissions_only
     and_there_is_an_existing_employer_referral
 
+    then_i_see_manage_referrals_page
     when_i_visit_the_referral
     then_i_see_the_referral_summary
     and_i_see_the_personal_details_section

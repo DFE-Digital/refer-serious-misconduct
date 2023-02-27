@@ -9,8 +9,7 @@ RSpec.feature "Staff invitations" do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
 
-    when_i_am_authorized_as_a_case_worker_with_support_permissions
-    when_i_visit_the_staff_invitation_page
+    when_i_login_as_a_case_worker_with_support_permissions_only
     then_i_see_the_staff_index
     when_i_click_on_invite
     then_i_see_the_staff_invitation_form
@@ -26,7 +25,6 @@ RSpec.feature "Staff invitations" do
     then_i_am_unauthorized_and_redirected_to_root_path
 
     when_i_login_back_as_a_staff_user
-    and_i_visit_the_staff_invitation_page
     then_i_see_the_staff_index
     and_i_see_the_accepted_staff_user
   end
@@ -49,11 +47,6 @@ RSpec.feature "Staff invitations" do
   end
   alias_method :and_i_visit_the_staff_invitation_page,
                :when_i_visit_the_staff_invitation_page
-
-  def then_i_see_the_staff_index
-    expect(page).to have_current_path("/support/staff")
-    expect(page).to have_title("Staff")
-  end
 
   def when_i_click_on_invite
     click_link "Invite"

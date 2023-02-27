@@ -9,7 +9,8 @@ RSpec.describe "Support" do
     given_the_service_is_open
     given_an_eligibility_check_exists
     and_the_eligibility_screener_is_enabled
-    when_i_am_authorized_as_a_case_worker_with_support_permissions
+    when_i_login_as_a_case_worker_with_support_permissions_only
+    then_i_see_the_staff_index
     and_i_visit_the_support_page
     then_i_see_the_eligibility_checks_page
     and_i_do_not_see_referrals_link
