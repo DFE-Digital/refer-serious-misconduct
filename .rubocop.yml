@@ -15,6 +15,10 @@ Rails/ApplicationController:
   Exclude:
     - app/controllers/support_interface/support_interface_controller.rb
 
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - app/controllers/staff/**/*
+
 Rails/SaveBang:
   Enabled: false
 

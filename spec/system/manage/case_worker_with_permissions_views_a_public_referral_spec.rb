@@ -11,7 +11,12 @@ RSpec.feature "Manage referrals" do
     and_the_eligibility_screener_feature_is_active
     and_there_is_an_existing_public_referral
 
-    when_i_am_authorized_as_a_case_worker_with_management_permissions
+    when_i_login_as_a_case_worker_with_management_permissions_only
+    then_i_see_manage_referrals_page
+
+    when_i_visit_staff_sign_in_page
+    then_i_see_manage_referrals_page
+
     and_i_visit_the_referral
     then_i_see_the_referral_summary
     and_i_see_the_personal_details_section

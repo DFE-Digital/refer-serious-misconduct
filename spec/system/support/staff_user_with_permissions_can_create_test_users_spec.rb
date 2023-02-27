@@ -8,7 +8,11 @@ RSpec.feature "Test users" do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
-    when_i_am_authorized_as_a_case_worker_with_support_permissions
+    when_i_login_as_a_case_worker_with_support_permissions_only
+    then_i_see_the_staff_index
+
+    when_i_visit_staff_sign_in_page
+    then_i_see_the_staff_index
 
     and_i_visit_the_test_users_section
     and_i_click_test_users_link
