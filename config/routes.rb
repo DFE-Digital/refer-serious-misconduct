@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     }
   )
   devise_scope :staff do
-    get "/staff/sign_out", to: "staff/sessions#destroy"
+    get "/manage/sign-out", to: "staff/sessions#destroy"
     get "/manage/sign-in", to: "staff/sessions#new"
   end
 

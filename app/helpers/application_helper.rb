@@ -67,7 +67,7 @@ module ApplicationHelper
             end
           end
           header.navigation_item(
-            href: main_app.staff_sign_out_path,
+            href: main_app.manage_sign_out_path,
             text: "Sign out"
           )
         end
@@ -108,7 +108,7 @@ module ApplicationHelper
 
         if current_staff
           header.navigation_item(
-            href: main_app.staff_sign_out_path,
+            href: main_app.manage_sign_out_path,
             text: "Sign out"
           )
         end
