@@ -2,7 +2,7 @@ module AuthorizationSteps
   def when_i_login_as_a_case_worker_with_management_permissions_only
     create(:staff, :confirmed, :can_manage_referrals)
 
-    visit new_staff_session_path
+    visit manage_sign_in_path
 
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
@@ -13,7 +13,7 @@ module AuthorizationSteps
   def when_i_login_as_a_case_worker_without_any_permissions_at_all
     create(:staff, :confirmed)
 
-    visit new_staff_session_path
+    visit manage_sign_in_path
 
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
@@ -24,7 +24,7 @@ module AuthorizationSteps
   def when_i_login_as_a_case_worker_with_support_permissions_only
     create(:staff, :confirmed, :can_view_support)
 
-    visit new_staff_session_path
+    visit manage_sign_in_path
 
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
@@ -33,7 +33,7 @@ module AuthorizationSteps
   end
 
   def when_i_visit_staff_sign_in_page
-    visit new_staff_session_path
+    visit manage_sign_in_path
   end
 
   def when_i_am_authorized_with_basic_auth_as_a_case_worker

@@ -34,7 +34,7 @@ RSpec.feature "Staff invitations" do
   def when_i_login_back_as_a_staff_user
     Capybara.reset_sessions!
 
-    visit new_staff_session_path
+    visit manage_sign_in_path
 
     fill_in "staff-email-field", with: "test@example.org"
     fill_in "staff-password-field", with: "Example123!"
