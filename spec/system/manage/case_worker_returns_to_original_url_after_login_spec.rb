@@ -11,6 +11,7 @@ RSpec.feature "Manage referrals and staff" do
     and_the_eligibility_screener_feature_is_active
     and_there_is_an_existing_public_referral
     and_i_visit_the_referral
+    
     and_i_login_as_a_case_worker_with_management_permissions_only
     then_i_see_the_referral_summary
     and_i_see_the_personal_details_section
