@@ -16,6 +16,9 @@ RSpec.describe RenderPdfJob do
       allow(ActionController::Base.helpers).to receive(:asset_path).with(
         "main.css"
       ).and_return("/1234-main.css")
+      allow(ActionController::Base.helpers).to receive(:asset_path).with(
+        "tra_logo.png"
+      ).and_return("/images/1234-tra_logo.png")
     end
 
     it "attaches a PDF to the referral" do
@@ -23,7 +26,7 @@ RSpec.describe RenderPdfJob do
       expect(referral.pdf.filename).to eq("referral-#{referral.id}.pdf")
     end
 
-    it "specifies the correct stylesheet" do
+    it "specifies the correct assets" do
       allow(ApplicationController.renderer).to receive(:new).and_return(
         renderer = double
       )
@@ -31,7 +34,8 @@ RSpec.describe RenderPdfJob do
       expect(renderer).to receive(:render).with(
         hash_including(
           assigns: {
-            stylesheet: "https://example.com/1234-main.css"
+            stylesheet: "https://example.com/1234-main.css",
+            logo: "https://example.com/images/1234-tra_logo.png"
           }
         )
       )
