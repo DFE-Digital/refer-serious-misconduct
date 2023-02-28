@@ -1,15 +1,14 @@
 class RenderPdfJob < ApplicationJob
   def perform(referral:)
     @referral = referral
-    @stylesheet =
-      "#{ENV.fetch("HOSTING_DOMAIN")}#{ActionController::Base.helpers.asset_path("main.css")}"
-
+    @stylesheet = asset_url("main.css")
+    @logo = asset_url("tra_logo.png")
     attach_pdf
   end
 
   private
 
-  attr_reader :referral, :stylesheet
+  attr_reader :referral, :stylesheet, :logo
 
   def attach_pdf
     referral.pdf.attach(io:, filename:)
@@ -19,7 +18,8 @@ class RenderPdfJob < ApplicationJob
     html_renderer.render(
       template: "referrals/pdf",
       assigns: {
-        stylesheet:
+        stylesheet:,
+        logo:
       },
       locals: {
         referral:
@@ -38,5 +38,9 @@ class RenderPdfJob < ApplicationJob
 
   def io
     StringIO.new(Grover.new(html, format: "A4").to_pdf)
+  end
+
+  def asset_url(asset_name)
+    "#{ENV.fetch("HOSTING_DOMAIN")}#{ActionController::Base.helpers.asset_path(asset_name)}"
   end
 end

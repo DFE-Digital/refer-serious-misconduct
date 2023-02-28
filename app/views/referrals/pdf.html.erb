@@ -5,9 +5,15 @@
         .no-break {
           break-inside: avoid;
         }
+        .logo {
+          margin: 0px 0px 80px 0px;
+          width: 150px;
+          height: 150px;
+        }
     </style>
   </head>
   <body>
+    <img src="<%= @logo %>" class="logo"/>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds-from-desktop">
         <h1 class="govuk-heading-l"><%= referral.name %></h1>
