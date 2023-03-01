@@ -39,7 +39,7 @@ RSpec.feature "User accounts" do
   end
 
   def and_my_otp_has_expired
-    travel_to(Users::OtpForm::EXPIRY_IN_MINUTES.from_now)
+    travel_to(Users::OtpForm::EXPIRY_TIME.from_now)
   end
 
   def when_i_try_to_sign_in

@@ -13,14 +13,14 @@ RSpec.describe Users::OtpForm do
     before { freeze_time }
     after { travel_back }
 
-    context "when the OTP is 30 minutes old" do
-      let(:otp_created_at) { 30.minutes.ago }
+    context "when the OTP is 60 minutes old" do
+      let(:otp_created_at) { 60.minutes.ago }
 
       it { is_expected.to be_truthy }
     end
 
-    context "when the OTP is 29 minutes old" do
-      let(:otp_created_at) { 29.minutes.ago }
+    context "when the OTP is 59 minutes old" do
+      let(:otp_created_at) { 59.minutes.ago }
 
       it { is_expected.to be_falsey }
     end
