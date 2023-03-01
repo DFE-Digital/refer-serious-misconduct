@@ -1,6 +1,6 @@
 class Users::OtpForm
   MAX_GUESSES = 5
-  EXPIRY_IN_MINUTES = 30.minutes
+  EXPIRY_TIME = 1.hour
 
   include ActiveModel::Model
 
@@ -28,7 +28,7 @@ class Users::OtpForm
   end
 
   def otp_expired?
-    user.otp_created_at.blank? || (EXPIRY_IN_MINUTES.ago >= user.otp_created_at)
+    user.otp_created_at.blank? || (EXPIRY_TIME.ago >= user.otp_created_at)
   end
 
   def secret_key?
