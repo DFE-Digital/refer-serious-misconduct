@@ -15,6 +15,7 @@ module ManageInterface
           { key: { text: "Job title" }, value: { text: referrer.job_title } }
         )
       end
+      rows.push({ key: { text: "Type" }, value: { text: referral_type } })
       rows.push({ key: { text: "Email address" }, value: { text: user.email } })
       rows.push(
         { key: { text: "Phone number" }, value: { text: referrer.phone } }
@@ -37,6 +38,10 @@ module ManageInterface
 
     def title
       "Referrer details"
+    end
+
+    def referral_type
+      referral.from_employer? ? "Employer" : "Public"
     end
 
     delegate :referrer, :user, to: :referral
