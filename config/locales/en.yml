@@ -191,7 +191,7 @@ en:
               blank: Select a file containing a description of their main duties
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
-              file_size_too_big: The selected file must be smaller than 25MB
+              file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
         "referrals/teacher_role/working_somewhere_else_form":
           attributes:
             working_somewhere_else:
@@ -291,7 +291,7 @@ en:
               blank: Select a file containing details of previous allegations
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
-              file_size_too_big: The selected file must be smaller than %{max_file_size}
+              file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
         "referrals/previous_misconduct/reported_form":
           attributes:
             previous_misconduct_reported:
@@ -310,7 +310,7 @@ en:
               blank: Select a file containing details of your allegation
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
-              file_size_too_big: The selected file must be smaller than %{max_file_size}
+              file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
         "referrals/allegation/dbs_form":
           attributes:
             dbs_notified:
@@ -330,7 +330,7 @@ en:
               blank: Select evidence to upload
               invalid_content_type: The selected file must be of valid type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
-              file_size_too_big: The selected file must be smaller than %{max_file_size}
+              file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
               file_count: You can only upload %{max_files} files
         "referrals/evidence/uploaded_form":
           attributes:

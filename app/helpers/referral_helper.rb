@@ -1,4 +1,6 @@
 module ReferralHelper
+  include FileSizeHelper
+
   def duties_format(referral)
     return "Describe their main duties" if referral.duties_format == "details"
 
@@ -58,9 +60,5 @@ module ReferralHelper
     else
       "Incomplete"
     end
-  end
-
-  def file_size(attachment)
-    attachment.byte_size.to_fs(:human_size)
   end
 end

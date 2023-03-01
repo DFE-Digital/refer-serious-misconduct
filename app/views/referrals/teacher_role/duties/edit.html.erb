@@ -24,11 +24,14 @@
                 </p>
                 <%= f.govuk_file_field :duties_upload,
                   label: { text: "Upload new file", size: "s" },
-                  hint: { text: "For example, a job description"  }
+                  hint: { text: "For example, a job description. Must be smaller than #{max_allowed_file_size}" }
                 %>
               </div>
             <% else %>
-              <%= f.govuk_file_field :duties_upload, label: { text: "Upload file", size: "s" } %>
+              <%= f.govuk_file_field :duties_upload,
+                label: { text: "Upload file", size: "s" },
+                hint: { text: "For example, a job description. Must be smaller than #{max_allowed_file_size}" }
+              %>
             <% end %>
           <% end %>
           <%= f.govuk_radio_button :duties_format, "details", label: { text: "Describe their main duties" } do %>
