@@ -176,6 +176,6 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def then_i_can_see_the_allegation_file
-    expect(page).to have_content("upload1.pdf (4.98 KB)")
+    expect(page).to have_content("upload1.pdf (4.98KB)")
   end
 end

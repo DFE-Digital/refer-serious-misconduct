@@ -5,12 +5,12 @@
   <div class="govuk-grid-column-two-thirds-from-desktop ">
     <%= form_with model: @evidence_upload_form, url: public_referral_evidence_upload_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
-    
+
       <span class="govuk-caption-l">Evidence and supporting information</span>
       <h1 class="govuk-heading-l">Upload evidence</h1>
-    
+
       <p>For example:</p>
-    
+
       <ul class="govuk-list govuk-list--bullet">
         <li>complaint made to the school</li>
         <li>correspondence with the school</li>
@@ -19,9 +19,9 @@
         <li>complaint made to the local authority or any other agency or body</li>
         <li>signed witness statements</li>
       </ul>
-    
+
       <p>Make sure the file names describe the content, for example ‘signed witness statement’.</p>
-    
+
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
@@ -29,13 +29,14 @@
           Do not include explicit content, for example indecent photos. You’ll be asked for these separately if needed.
         </strong>
       </div>
-    
+
       <%= f.govuk_file_field(
           :evidence_uploads,
           multiple: true,
-          label: { text: "Upload files", size: "m" }
+          label: { text: "Upload files", size: "m" },
+          hint: { text: "Must be smaller than #{max_allowed_file_size}" }
       ) %>
-  
+
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
   </div>

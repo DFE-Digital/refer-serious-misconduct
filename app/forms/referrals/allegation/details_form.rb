@@ -10,11 +10,13 @@ module Referrals
                 if: -> { allegation_format == "details" }
       validates :allegation_upload,
                 presence: true,
-                file_upload: true,
                 if: -> {
                   allegation_format == "upload" &&
                     !referral.allegation_upload.attached?
                 }
+      validates :allegation_upload,
+                file_upload: true,
+                if: -> { allegation_format == "upload" }
 
       attr_accessor :referral,
                     :allegation_details,

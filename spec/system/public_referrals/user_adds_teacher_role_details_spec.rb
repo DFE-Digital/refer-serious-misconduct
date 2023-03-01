@@ -297,11 +297,11 @@ RSpec.feature "Teacher role", type: :system do
   # Page content
 
   def and_i_see_the_uploaded_filename
-    expect(page).to have_content("upload1.pdf (4.98 KB)")
+    expect(page).to have_content("upload1.pdf (4.98KB)")
   end
 
   def and_i_see_the_second_uploaded_filename
-    expect(page).to have_content("upload2.pdf (5.11 KB)")
+    expect(page).to have_content("upload2.pdf (5.11KB)")
   end
 
   def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")

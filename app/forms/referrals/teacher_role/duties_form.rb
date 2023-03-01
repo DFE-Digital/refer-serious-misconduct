@@ -12,10 +12,12 @@ module Referrals
                 if: -> { duties_format == "details" }
       validates :duties_upload,
                 presence: true,
-                file_upload: true,
                 if: -> {
                   duties_format == "upload" && !referral.duties_upload.attached?
                 }
+      validates :duties_upload,
+                file_upload: true,
+                if: -> { duties_format == "upload" }
 
       def save
         return false if invalid?

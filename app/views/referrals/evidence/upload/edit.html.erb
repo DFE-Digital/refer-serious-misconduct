@@ -43,7 +43,8 @@
       <%= f.govuk_file_field(
           :evidence_uploads,
           multiple: true,
-          label: { text: "Upload files", size: "m" }
+          label: { text: "Upload files", size: "m" },
+          hint: { text: "Must be smaller than #{max_allowed_file_size}" }
       ) %>
 
       <%= f.govuk_submit "Save and continue" %>

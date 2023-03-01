@@ -200,6 +200,6 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def then_i_can_see_the_previous_misconduct_file
-    expect(page).to have_content("upload.txt (15 Bytes)")
+    expect(page).to have_content("upload.txt (15Bytes)")
   end
 end
