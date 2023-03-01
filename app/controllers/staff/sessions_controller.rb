@@ -47,7 +47,7 @@ class Staff::SessionsController < Devise::SessionsController
   private
 
   def check_signed_in
-    return unless signed_in?
+    return unless staff_signed_in?
 
     redirect_to after_sign_in_path_for(current_staff)
   end
