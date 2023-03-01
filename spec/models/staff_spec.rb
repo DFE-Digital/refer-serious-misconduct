@@ -41,5 +41,11 @@ RSpec.describe Staff, type: :model do
         it { is_expected.to be_falsey }
       end
     end
+
+    context "when the permissions are invalid" do
+      let(:staff) { build(:staff, view_support: nil, manage_referrals: nil) }
+
+      it { is_expected.to be_falsey }
+    end
   end
 end

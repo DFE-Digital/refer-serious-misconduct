@@ -9,10 +9,12 @@ class Staff < ApplicationRecord
     :rememberable,
     :timeoutable,
     :trackable,
-    :validatable
+    :validatable,
+    validate_on_invite: true
   )
 
   validate :password_complexity
+  validate :permissions_are_valid
 
   def password_complexity
     if password.blank? ||
@@ -25,5 +27,14 @@ class Staff < ApplicationRecord
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def permissions_are_valid
+    return if manage_referrals? || view_support?
+
+    errors.add(
+      :permissions,
+      I18n.t("validation_errors.missing_staff_permission")
+    )
   end
 end
