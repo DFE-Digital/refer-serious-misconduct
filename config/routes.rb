@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       passwords: "staff/passwords",
       sessions: "staff/sessions",
       unlocks: "staff/unlocks"
+    },
+    path: "",
+    path_names: {
+      sign_in:  "manage/sign-in",
+      sign_out: "manage/sign-out",
     }
   )
   devise_scope :staff do
