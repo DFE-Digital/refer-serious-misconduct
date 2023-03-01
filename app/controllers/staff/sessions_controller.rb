@@ -20,7 +20,13 @@ class Staff::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  def after_sign_in_path_for(_resource)
+  def after_sign_in_path_for(resource)
+    stored_location = stored_location_for(resource)
+
+    if stored_location.present? && stored_location.exclude?(manage_sign_in_path)
+      return URI.parse(stored_location).path
+    end
+
     if current_staff.manage_referrals?
       manage_interface_referrals_path
     elsif current_staff.view_support?
@@ -43,6 +49,6 @@ class Staff::SessionsController < Devise::SessionsController
   def check_signed_in
     return unless signed_in?
 
-    redirect_to after_sign_in_path_for(resource)
+    redirect_to after_sign_in_path_for(current_staff)
   end
 end

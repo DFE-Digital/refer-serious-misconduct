@@ -53,7 +53,7 @@ RSpec.feature "Staff invitations" do
   end
 
   def then_i_see_the_staff_invitation_form
-    expect(page).to have_current_path("/staff/invitation/new")
+    expect(page).to have_current_path("/invitation/new")
     expect(page).to have_content("Send invitation")
     expect(page).to have_content("Email")
     expect(page).to have_content("Send an invitation")
@@ -89,7 +89,7 @@ RSpec.feature "Staff invitations" do
   def when_i_visit_the_invitation_email
     message = ActionMailer::Base.deliveries.last
     uri = URI.parse(URI.extract(message.body.to_s).second)
-    expect(uri.path).to eq("/staff/invitation/accept")
+    expect(uri.path).to eq("/invitation/accept")
     expect(uri.query).to include("invitation_token=")
     visit "#{uri.path}?#{uri.query}"
   end
