@@ -13,7 +13,11 @@ RSpec.feature "Staff invitations" do
     then_i_see_the_staff_index
     when_i_click_on_invite
     then_i_see_the_staff_invitation_form
+    when_i_send_invitation
+    then_i_see_the_error_messages
+
     when_i_fill_email_address
+    and_i_select_a_permission
     and_i_send_invitation
     then_i_see_an_invitation_email
     then_i_see_the_invited_staff_user
@@ -56,17 +60,18 @@ RSpec.feature "Staff invitations" do
     expect(page).to have_current_path("/invitation/new")
     expect(page).to have_content("Send invitation")
     expect(page).to have_content("Email")
-    expect(page).to have_content("Send an invitation")
+    expect(page).to have_content("Invite user")
   end
 
   def when_i_fill_email_address
-    fill_in "staff-email-field", with: "test@example.com"
+    fill_in "Email address", with: "test@example.com"
   end
 
   def and_i_send_invitation
-    click_button "Send an invitation", visible: false
+    click_button "Send invitation", visible: false
     perform_enqueued_jobs
   end
+  alias_method :when_i_send_invitation, :and_i_send_invitation
 
   def then_i_see_an_invitation_email
     message = ActionMailer::Base.deliveries.last
@@ -110,5 +115,14 @@ RSpec.feature "Staff invitations" do
   def and_i_see_the_accepted_staff_user
     expect(page).to have_content("test@example.com")
     expect(page).to have_content("ACCEPTED")
+  end
+
+  def then_i_see_the_error_messages
+    expect(page).to have_content("Enter an email address")
+    expect(page).to have_content("Select permissions")
+  end
+
+  def and_i_select_a_permission
+    check "manage referrals", allow_label_click: true
   end
 end

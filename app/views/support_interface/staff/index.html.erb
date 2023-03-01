@@ -1,23 +1,26 @@
-<% content_for :page_title, 'Staff' %>
+<% content_for :page_title, "Staff" %>
 
 <h1 class="govuk-heading-l">Staff</h1>
 
 <p class="govuk-body">
-  <%= govuk_button_link_to 'Invite staff user', new_staff_invitation_path %>
+  <%= govuk_button_link_to "Invite staff user", new_staff_invitation_path %>
 </p>
 
 <% @staff.find_each do |staff| %>
   <h2 class="govuk-heading-m"><%= staff.email %></h2>
+  <p>
+    <%= govuk_link_to "Change permissions", edit_support_interface_staff_permission_path(staff) %>
+  </p>
 
   <%= govuk_summary_list do |summary_list|
     summary_list.row do |row|
-      row.key { 'Created at' }
-      row.value { staff.created_at.to_s }
+      row.key { "Created at" }
+      row.value { staff.created_at.to_fs(:day_month_year_time) }
     end
 
     if staff.created_by_invite?
       summary_list.row do |row|
-        row.key { 'Invitation status' }
+        row.key { "Invitation status" }
 
         row.value do
           if staff.invitation_accepted?
@@ -29,23 +32,23 @@
       end
 
       summary_list.row do |row|
-        row.key { 'Invited at' }
-        row.value { staff.invitation_sent_at.to_s }
+        row.key { "Invited at" }
+        row.value { staff.invitation_sent_at.to_fs(:day_month_year_time) }
       end
     end
 
     summary_list.row do |row|
-      row.key { 'Last signed in at' }
+      row.key { "Last signed in at" }
       row.value { staff.last_sign_in_at.to_s }
     end
 
-    roles = []
-    roles << 'view_support' if staff.view_support?
-    roles << 'manage_referrals' if staff.manage_referrals?
+    permissions = []
+    permissions << "view support" if staff.view_support?
+    permissions << "manage referrals" if staff.manage_referrals?
 
     summary_list.row do |row|
-      row.key { 'Roles' }
-      row.value { roles.join(', ') }
+      row.key { "Permissions" }
+      row.value { simple_format(permissions.join("<br>")) }
     end
   end %>
 <% end %>

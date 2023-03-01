@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :staff do
     email { "test@example.org" }
     password { "Example123!" }
+
+    can_view_support
   end
 
   trait :confirmed do

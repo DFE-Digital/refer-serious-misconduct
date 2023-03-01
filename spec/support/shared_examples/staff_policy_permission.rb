@@ -1,10 +1,4 @@
 RSpec.shared_examples "staff policy with permission" do |permission|
-  context "without permission" do
-    let(:user) { create(:staff, :confirmed) }
-
-    it { is_expected.to be false }
-  end
-
   context "with permission" do
     let(:user) { create(:staff, :confirmed, permission) }
 

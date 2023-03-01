@@ -357,9 +357,12 @@ en:
           attributes:
             password:
               password_complexity: "complexity requirement not met. Please use: 1 uppercase, 1 lowercase, 1 digit and 1 special character"
+            email:
+              blank: Enter an email address
 
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
+    missing_staff_permission: Select permissions
 
   pundit:
     unauthorized: You are not authorized to see this section.

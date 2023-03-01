@@ -10,17 +10,6 @@ module AuthorizationSteps
     click_on "Log in"
   end
 
-  def when_i_login_as_a_case_worker_without_any_permissions_at_all
-    create(:staff, :confirmed)
-
-    visit manage_sign_in_path
-
-    fill_in "Email", with: "test@example.org"
-    fill_in "Password", with: "Example123!"
-
-    click_on "Log in"
-  end
-
   def when_i_login_as_a_case_worker_with_support_permissions_only
     create(:staff, :confirmed, :can_view_support)
 

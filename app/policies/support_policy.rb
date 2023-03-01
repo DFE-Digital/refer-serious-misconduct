@@ -11,6 +11,18 @@ class SupportPolicy < ApplicationPolicy
     super
   end
 
+  def edit?
+    return user.view_support? if user.is_a?(Staff)
+
+    super
+  end
+
+  def update?
+    return user.view_support? if user.is_a?(Staff)
+
+    super
+  end
+
   def authenticate?
     return user.view_support? if user.is_a?(Staff)
 
