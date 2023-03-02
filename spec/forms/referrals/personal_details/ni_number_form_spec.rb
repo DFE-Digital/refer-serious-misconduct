@@ -25,5 +25,21 @@ RSpec.describe Referrals::PersonalDetails::NiNumberForm, type: :model do
       save
       expect(referral.ni_number).to eq(ni_number)
     end
+
+    context "with an invalid NI number" do
+      let(:ni_number) { "AB1234566" }
+
+      before { save }
+
+      it "does not update the ni_number" do
+        expect(referral.ni_number).to be_nil
+      end
+
+      it "adds an error to the form" do
+        expect(form.errors[:ni_number]).to eq(
+          ["Enter a National Insurance number in the correct format"]
+        )
+      end
+    end
   end
 end
