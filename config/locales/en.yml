@@ -115,8 +115,9 @@ en:
             trn_known:
               inclusion: Select yes if you know their TRN
             trn:
-              blank: Enter their TRN
+              blank: Enter TRN
               wrong_length: TRN must be 7 digits
+              not_a_number: Enter a TRN in the correct format
         "referrals/personal_details/qts_form":
           attributes:
             has_qts:

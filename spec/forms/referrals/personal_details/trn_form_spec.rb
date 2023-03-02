@@ -9,7 +9,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
     let(:trn_form) { described_class.new(referral:, trn_known:, trn:) }
     let(:trn_known) { "true" }
-    let(:trn) { "RP99/12345" }
+    let(:trn) { "9912345" }
 
     it { is_expected.to be_truthy }
 
@@ -54,12 +54,12 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn]).to include("Enter their TRN")
+        expect(trn_form.errors[:trn]).to include("Enter TRN")
       end
     end
 
     context "when a value too short for a TRN is submitted" do
-      let(:trn) { "RP99/123" }
+      let(:trn) { "123" }
 
       it { is_expected.to be_falsey }
 
@@ -70,7 +70,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
     end
 
     context "when a value too long for a TRN is submitted" do
-      let(:trn) { "RP99/123456" }
+      let(:trn) { "123456" }
 
       it { is_expected.to be_falsey }
 
@@ -81,12 +81,15 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
     end
 
     context "when a TRN includes non numeric characters" do
-      let(:trn) { "RP/99-123-67" }
+      let(:trn) { "991237A" }
 
-      it { is_expected.to be_truthy }
+      it { is_expected.to be_falsey }
 
-      it "strips all non numeric characters from the TRN" do
-        expect { save }.to change(referral, :trn).from(nil).to("9912367")
+      it "adds an error" do
+        save
+        expect(trn_form.errors[:trn]).to eq(
+          ["Enter a TRN in the correct format"]
+        )
       end
     end
   end
