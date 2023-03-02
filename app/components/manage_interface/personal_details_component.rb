@@ -9,7 +9,80 @@ module ManageInterface
         { key: { text: "First name" }, value: { text: referral.first_name } },
         { key: { text: "Last name" }, value: { text: referral.last_name } }
       ]
+
+      rows.push(
+        {
+          key: {
+            text: "Are they known by other name?"
+          },
+          value: {
+            text: referral.name_has_changed
+          }
+        }
+      )
+
+      if referral.previous_name.present?
+        rows.push(
+          {
+            key: {
+              text: "Other name"
+            },
+            value: {
+              text: referral.previous_name
+            }
+          }
+        )
+      end
+
       return rows unless referral.from_employer?
+
+      rows.push(
+        {
+          key: {
+            text: "Is their date of birth known?"
+          },
+          value: {
+            text: referral.age_known ? "yes" : "no"
+          }
+        }
+      )
+
+      if referral.date_of_birth.present?
+        rows.push(
+          {
+            key: {
+              text: "Date of birth"
+            },
+            value: {
+              text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
+            }
+          }
+        )
+      end
+
+      rows.push(
+        {
+          key: {
+            text: "Is their National Insurance number known?"
+          },
+          value: {
+            text: referral.ni_number_known ? "yes" : "no"
+          }
+        }
+      )
+
+      if referral.ni_number.present?
+        rows.push(
+          {
+            key: {
+              text: "National Insurance number"
+            },
+            value: {
+              text: referral.ni_number
+            }
+          }
+        )
+      end
 
       rows.push(
         {
