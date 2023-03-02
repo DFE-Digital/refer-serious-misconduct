@@ -5,17 +5,25 @@ module Referrals
       include ActiveModel::Model
 
       attr_accessor :referral
-      attr_reader :trn, :trn_known
+      attr_reader :trn_known, :trn
 
       validates :trn_known, inclusion: { in: [true, false] }
-      validates :trn, presence: true, length: { is: 7 }, if: -> { trn_known }
-
-      def trn=(value)
-        @trn = value&.delete("^0-9")
-      end
+      validates :trn,
+                presence: true,
+                length: {
+                  is: 7
+                },
+                numericality: {
+                  only_numeric: true
+                },
+                if: -> { trn_known }
 
       def trn_known=(value)
         @trn_known = ActiveModel::Type::Boolean.new.cast(value)
+      end
+
+      def trn=(value)
+        @trn = value&.strip
       end
 
       def save
