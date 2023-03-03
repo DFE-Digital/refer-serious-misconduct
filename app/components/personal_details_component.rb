@@ -170,7 +170,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         }
       ],
       key: {
-        text: "Teacher reference number (TRN)"
+        text: "TRN"
       },
       value: {
         text: referral.trn
