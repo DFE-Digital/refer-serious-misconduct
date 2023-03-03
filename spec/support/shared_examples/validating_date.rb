@@ -201,7 +201,9 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(["Enter a year later than 1900"])
+      expect(form.errors[field.to_s]).to eq(
+        ["Their date of birth must be the same as or after 1 January 1920"]
+      )
     end
   end
 end

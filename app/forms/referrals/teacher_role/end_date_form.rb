@@ -11,7 +11,8 @@ module Referrals
       validates :role_end_date_known, inclusion: { in: [true, false] }
       validates :role_end_date,
                 date: {
-                  in_the_future: false
+                  not_future: false,
+                  past_century: true
                 },
                 if: -> { role_end_date_known }
 

@@ -55,10 +55,10 @@ RSpec.describe DateValidator do
     it { is_expected.to be_valid }
   end
 
-  context "with date_of_birth option" do
+  context "with above_16 option" do
     subject(:model) do
-      stub_validatable_class("DobValidatable", options: { date_of_birth: true })
-      DobValidatable.new
+      stub_validatable_class("MinAgeValidatable", options: { above_16: true })
+      MinAgeValidatable.new
     end
 
     context "with valid date params" do
@@ -73,18 +73,6 @@ RSpec.describe DateValidator do
       it { is_expected.to be_valid }
     end
 
-    context "with date of birth params in future" do
-      let(:date_params) do
-        {
-          "the_date(1i)" => 1.year.since.year,
-          "the_date(2i)" => "12",
-          "the_date(3i)" => "25"
-        }
-      end
-
-      it { is_expected.to be_invalid }
-    end
-
     context "with min age date of birth params" do
       let(:date_params) do
         {
@@ -96,8 +84,44 @@ RSpec.describe DateValidator do
 
       it { is_expected.to be_invalid }
     end
+  end
 
-    context "with max age date of birth params" do
+  context "with past_century option" do
+    subject(:model) do
+      stub_validatable_class(
+        "CenturyValidatable",
+        options: {
+          past_century: true
+        }
+      )
+      CenturyValidatable.new
+    end
+
+    context "with valid date params" do
+      let(:date_params) do
+        {
+          "the_date(1i)" => "1990",
+          "the_date(2i)" => "12",
+          "the_date(3i)" => "25"
+        }
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context "with date params in future" do
+      let(:date_params) do
+        {
+          "the_date(1i)" => 1.year.since.year,
+          "the_date(2i)" => "12",
+          "the_date(3i)" => "25"
+        }
+      end
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "with year before 1920" do
       let(:date_params) do
         {
           "the_date(1i)" => "1899",
