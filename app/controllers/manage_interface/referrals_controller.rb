@@ -4,7 +4,7 @@ module ManageInterface
 
     def index
       @referrals_count = Referral.submitted.count
-      @pagy, @referrals = pagy(Referral.submitted)
+      @pagy, @referrals = pagy(Referral.submitted.order(submitted_at: :desc))
     end
 
     def show
@@ -24,7 +24,7 @@ module ManageInterface
     private
 
     def referral
-      @referral ||= Referral.submitted.find(params[:id])
+      @referral ||= Referral.find(params[:id])
     end
 
     def referral_zip_file
