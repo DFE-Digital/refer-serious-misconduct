@@ -78,27 +78,25 @@ class DateValidator < ActiveModel::EachValidator
       return false
     end
 
-    return true unless options[:date_of_birth] || !options[:in_the_future]
-
-    if year > Time.zone.today.year
-      record.errors.add(attribute, :in_the_future)
+    if options[:not_future] && Date.new(year, month, day) > Time.zone.today
+      record.errors.add(attribute, :not_future)
       return false
     end
 
-    return true unless options[:date_of_birth]
-
-    if year < 1900
-      record.errors.add(attribute, :born_after_1900)
+    if options[:past_century] && !year.between?(1920, Time.zone.today.year)
+      record.errors.add(attribute, :past_century)
       return false
     end
 
-    if record.send(attribute) > 16.years.ago
-      record.errors.add(attribute, :inclusion)
+    if options[:above_16] && record.send(attribute) > 16.years.ago
+      record.errors.add(attribute, :above_16)
       return false
     end
 
     true
   end
+
+  private
 
   def word_to_number(field)
     return field if field.is_a? Integer

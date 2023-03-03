@@ -10,7 +10,9 @@ module Referrals
       validates :age_known, inclusion: { in: [true, false] }
       validates :date_of_birth,
                 date: {
-                  date_of_birth: true
+                  above_16: true,
+                  not_future: true,
+                  past_century: true
                 },
                 if: -> { age_known }
 

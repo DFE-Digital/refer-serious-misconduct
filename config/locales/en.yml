@@ -84,9 +84,9 @@ en:
           attributes:
             date_of_birth:
               blank: Enter their date of birth
-              born_after_1900: Enter a year later than 1900
-              inclusion: You must be 16 or over to use this service
-              in_the_future: Their date of birth must be in the past
+              past_century: Their date of birth must be the same as or after 1 January 1920
+              above_16: You must be 16 or over to use this service
+              not_future: Their date of birth must be in the past
               invalid: Enter their date of birth in the correct format
               missing_day: Date of birth must include a day
               missing_month: Date of birth must include a month
@@ -165,7 +165,8 @@ en:
               inclusion: Select yes if you know when they started the job
             role_start_date:
               blank: Enter the job start date
-              in_the_future: Job start date must be in the past
+              not_future: Job start date must be in the past
+              past_century: Job start date must be the same as or after 1 January 1920
               invalid: Job start date must be a real date
               missing_day: Job start date must include a day
               missing_month: Job start date must include a month
@@ -234,7 +235,8 @@ en:
               inclusion: Select yes if you know when they left the job
             role_end_date:
               blank: Enter the job end date
-              in_the_future: Job end date must be in the past
+              not_future: Job end date must be in the past
+              past_century: Job end date must be the same as or after 1 January 1920
               invalid: Job end date must be a real date
               missing_day: Job end date must include a day
               missing_month: Job end date must include a month
