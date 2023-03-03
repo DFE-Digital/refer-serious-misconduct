@@ -48,7 +48,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Their job title"
       },
       value: {
-        text: referral.job_title || "Not known"
+        text: nullable_value_to_s(referral.job_title)
       }
     }
   end
@@ -105,7 +105,7 @@ class TheirRoleComponent < ViewComponent::Base
           "Were they employed at the same organisation as you at the time of the alleged misconduct?"
       },
       value: {
-        text: referral.same_organisation ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.same_organisation)
       }
     }
   end
@@ -125,7 +125,7 @@ class TheirRoleComponent < ViewComponent::Base
           "Do you know the name and address of the organisation where the alleged misconduct took place?"
       },
       value: {
-        text: referral.organisation_address_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.organisation_address_known)
       }
     }
   end
@@ -163,7 +163,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Do you know when they started the job?"
       },
       value: {
-        text: referral.role_start_date_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.role_start_date_known)
       }
     }
   end
@@ -219,7 +219,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Do you know when they left the job?"
       },
       value: {
-        text: referral.role_end_date_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.role_end_date_known)
       }
     }
   end
@@ -293,7 +293,7 @@ class TheirRoleComponent < ViewComponent::Base
           "Do you know the name and address of the organisation where they’re employed?"
       },
       value: {
-        text: referral.work_location_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.work_location_known)
       }
     }
   end
@@ -312,7 +312,7 @@ class TheirRoleComponent < ViewComponent::Base
         text: "Name and address of the organisation where they’re employed"
       },
       value: {
-        text: teaching_address(referral)
+        text: nullable_value_to_s(teaching_address(referral).presence)
       }
     }
   end
@@ -335,14 +335,16 @@ class TheirRoleComponent < ViewComponent::Base
   end
 
   def reason_leaving_role
-    return "I'm not sure" if referral.reason_leaving_role.to_sym == :unknown
+    return "I'm not sure" if referral.reason_leaving_role&.to_sym == :unknown
 
-    referral.reason_leaving_role&.humanize
+    referral.reason_leaving_role&.humanize.presence || "Not answered"
   end
 
   def working_somewhere_else
-    return "I'm not sure" if referral.working_somewhere_else.to_sym == :not_sure
+    if referral.working_somewhere_else&.to_sym == :not_sure
+      return "I'm not sure"
+    end
 
-    referral.working_somewhere_else&.humanize
+    referral.working_somewhere_else&.humanize.presence || "Not answered"
   end
 end

@@ -2,6 +2,7 @@ class PreviousMisconductComponent < ViewComponent::Base
   include ActiveModel::Model
   include ApplicationHelper
   include ComponentHelper
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -26,7 +27,10 @@ class PreviousMisconductComponent < ViewComponent::Base
           text: "Has there been any previous misconduct?"
         },
         value: {
-          text: humanize_three_way_choice(referral.previous_misconduct_reported)
+          text:
+            nullable_value_to_s(
+              humanize_three_way_choice(referral.previous_misconduct_reported)
+            )
         }
       }
     ]
@@ -98,7 +102,7 @@ class PreviousMisconductComponent < ViewComponent::Base
       return simple_format(referral.previous_misconduct_details)
     end
 
-    "Not answered yet"
+    "Not answered"
   end
 
   def return_to
@@ -113,8 +117,21 @@ class PreviousMisconductComponent < ViewComponent::Base
   end
 
   def detail_type
-    return "Upload file" if referral.previous_misconduct_upload.attached?
-
-    "Describe the allegation"
+    case referral.previous_misconduct_format
+    when "details"
+      if referral.previous_misconduct_details.present?
+        "Describe the allegation"
+      else
+        "Incomplete"
+      end
+    when "upload"
+      if referral.previous_misconduct_upload.attached?
+        "Upload file"
+      else
+        "Incomplete"
+      end
+    else
+      "Not answered"
+    end
   end
 end

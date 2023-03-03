@@ -40,7 +40,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do you know them by any other name?"
       },
       value: {
-        text: referral.name_has_changed&.humanize
+        text: nullable_value_to_s(referral.name_has_changed&.humanize)
       }
     }
   end
@@ -62,7 +62,10 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Their name"
       },
       value: {
-        text: "#{referral.first_name} #{referral.last_name}"
+        text:
+          nullable_value_to_s(
+            "#{referral.first_name} #{referral.last_name}".presence
+          )
       }
     }
   end
@@ -128,7 +131,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do you know their date of birth"
       },
       value: {
-        text: referral.age_known? ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.age_known)
       }
     }
   end
@@ -151,7 +154,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do you know their teacher reference number (TRN)?"
       },
       value: {
-        text: referral.trn.present? ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.trn_known)
       }
     }
   end
@@ -195,7 +198,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do they have qualified teacher status (QTS)?"
       },
       value: {
-        text: referral.has_qts&.humanize
+        text: nullable_value_to_s(referral.has_qts&.humanize)
       }
     }
   end
@@ -222,7 +225,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Do you know their National Insurance number?"
       },
       value: {
-        text: referral.ni_number_known? ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.ni_number_known)
       }
     }
   end

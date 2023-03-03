@@ -116,6 +116,7 @@ FactoryBot.define do
 
     trait :allegation_details do
       allegation_details_complete { true }
+      allegation_format { "details" }
       allegation_details { "They were rude to a child" }
       dbs_notified { true }
     end

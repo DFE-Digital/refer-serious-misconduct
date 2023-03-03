@@ -2,21 +2,39 @@ module ReferralHelper
   include FileSizeHelper
 
   def duties_format(referral)
-    return "Describe their main duties" if referral.duties_format == "details"
-
-    "Upload file"
+    case referral.duties_format
+    when "details"
+      if referral.duties_details.present?
+        "Describe their main duties"
+      else
+        "Incomplete"
+      end
+    when "upload"
+      referral.duties_upload.attached? ? "Upload file" : "Incomplete"
+    else
+      "Not answered"
+    end
   end
 
   def duties_details(referral)
-    if referral.duties_upload.attached?
-      govuk_link_to(
-        referral.duties_upload.filename,
-        rails_blob_path(referral.duties_upload, disposition: "attachment")
-      )
-    elsif referral.duties_details.present?
-      referral.duties_details.truncate(150)
+    case referral.duties_format
+    when "details"
+      if referral.duties_details.present?
+        simple_format(referral.duties_details)
+      else
+        "Incomplete"
+      end
+    when "upload"
+      if referral.duties_upload.attached?
+        govuk_link_to(
+          referral.duties_upload.filename,
+          rails_blob_path(referral.duties_upload, disposition: "attachment")
+        )
+      else
+        "Incomplete"
+      end
     else
-      "Incomplete"
+      "Not answered"
     end
   end
 
@@ -29,20 +47,44 @@ module ReferralHelper
     when "left_role"
       "No"
     else
-      "Incomplete"
+      "Not answered"
+    end
+  end
+
+  def allegation_details_format(referral)
+    case referral.allegation_format
+    when "details"
+      if referral.allegation_details.present?
+        "Describe the allegation"
+      else
+        "Incomplete"
+      end
+    when "upload"
+      referral.allegation_upload.attached? ? "Upload file" : "Incomplete"
+    else
+      "Not answered"
     end
   end
 
   def allegation_details(referral)
-    if referral.allegation_upload.attached?
-      govuk_link_to(
-        referral.allegation_upload.filename,
-        rails_blob_path(referral.allegation_upload, disposition: "attachment")
-      )
-    elsif referral.allegation_details.present?
-      simple_format(referral.allegation_details)
+    case referral.allegation_format
+    when "details"
+      if referral.allegation_details.present?
+        simple_format(referral.allegation_details)
+      else
+        "Incomplete"
+      end
+    when "upload"
+      if referral.allegation_upload.attached?
+        govuk_link_to(
+          referral.allegation_upload.filename,
+          rails_blob_path(referral.allegation_upload, disposition: "attachment")
+        )
+      else
+        "Incomplete"
+      end
     else
-      "Incomplete"
+      "Not answered"
     end
   end
 
@@ -60,5 +102,18 @@ module ReferralHelper
     else
       "Incomplete"
     end
+  end
+
+  def nullable_boolean_to_s(
+    value,
+    yes = "Yes",
+    noo = "No",
+    not_answered = "Not answered"
+  )
+    value.nil? && not_answered || value && yes || noo
+  end
+
+  def nullable_value_to_s(value, not_answered = "Not answered")
+    value.nil? && not_answered || value
   end
 end

@@ -2,6 +2,7 @@ class ContactDetailsComponent < ViewComponent::Base
   include ActiveModel::Model
   include AddressHelper
   include ComponentHelper
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -45,7 +46,7 @@ class ContactDetailsComponent < ViewComponent::Base
         text: "Do you know their email address?"
       },
       value: {
-        text: referral.email_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.email_known)
       }
     }
   end
@@ -81,7 +82,7 @@ class ContactDetailsComponent < ViewComponent::Base
         text: "Do you know their phone number?"
       },
       value: {
-        text: referral.phone_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.phone_known)
       }
     }
   end
@@ -117,7 +118,7 @@ class ContactDetailsComponent < ViewComponent::Base
         text: "Do you know their home address?"
       },
       value: {
-        text: referral.address_known ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.address_known)
       }
     }
   end
@@ -135,7 +136,7 @@ class ContactDetailsComponent < ViewComponent::Base
         text: "Home address"
       },
       value: {
-        text: address(referral)
+        text: nullable_value_to_s(address(referral).presence)
       }
     }
   end
