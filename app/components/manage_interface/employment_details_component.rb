@@ -170,20 +170,6 @@ module ManageInterface
             }
           }
         )
-
-        if referral.work_location_known
-          rows.push(
-            {
-              key: {
-                text:
-                  "Name and address of the organisation where they’re employed"
-              },
-              value: {
-                text: teaching_address(referral)
-              }
-            }
-          )
-        end
       end
 
       rows

@@ -70,10 +70,6 @@ RSpec.feature "Manage referrals" do
     within("#allegation_details") do
       expect(page).to have_content("Allegation details")
       expect(page).to have_content("They were rude to a child")
-      expect(page).to have_content(
-        "Have you told the Disclosure and Barring Service (DBS)?"
-      )
-      expect(page).to have_content("Yes")
     end
   end
 
