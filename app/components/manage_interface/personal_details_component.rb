@@ -42,7 +42,7 @@ module ManageInterface
             text: "Is their date of birth known?"
           },
           value: {
-            text: referral.age_known ? "yes" : "no"
+            text: referral.age_known ? "Yes" : "No"
           }
         }
       )
@@ -66,7 +66,7 @@ module ManageInterface
             text: "Is their National Insurance number known?"
           },
           value: {
-            text: referral.ni_number_known ? "yes" : "no"
+            text: referral.ni_number_known ? "Yes" : "No"
           }
         }
       )
