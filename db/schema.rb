@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_17_122304) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_141955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -112,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_122304) do
     t.boolean "contact_details_complete"
     t.bigint "user_id", null: false
     t.string "allegation_format"
-    t.string "allegation_details"
+    t.text "allegation_details"
     t.boolean "dbs_notified"
     t.boolean "allegation_details_complete"
     t.boolean "has_evidence"
@@ -126,7 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_122304) do
     t.string "job_title"
     t.boolean "same_organisation"
     t.string "duties_format"
-    t.string "duties_details"
+    t.text "duties_details"
     t.boolean "teacher_role_complete"
     t.text "previous_misconduct_details"
     t.datetime "submitted_at", precision: nil
