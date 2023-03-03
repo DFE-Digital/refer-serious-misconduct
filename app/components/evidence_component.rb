@@ -29,13 +29,13 @@ class EvidenceComponent < ViewComponent::Base
         text: "Do you have anything to upload?"
       },
       value: {
-        text: referral.has_evidence ? "Yes" : "No"
+        text: nullable_boolean_to_s(referral.has_evidence)
       }
     }
   end
 
   def evidence_row
-    return unless referral.evidences.any?
+    return unless referral.has_evidence?
 
     {
       actions: [
@@ -59,6 +59,8 @@ class EvidenceComponent < ViewComponent::Base
   end
 
   def evidence_text
+    return "Not answered" if referral.evidences.empty?
+
     tag.ul(class: "govuk-list govuk-list--bullet govuk-!-margin-bottom-0") do
       referral.evidences.map do |evidence|
         concat(

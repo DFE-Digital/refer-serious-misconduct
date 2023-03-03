@@ -26,7 +26,7 @@ class WhatHappenedComponent < ViewComponent::Base
           text: "How do you want to give details about the allegation?"
         },
         value: {
-          text: allegation_details_type
+          text: allegation_details_format(referral)
         }
       },
       {
@@ -70,7 +70,7 @@ class WhatHappenedComponent < ViewComponent::Base
           text: "Have you told DBS?"
         },
         value: {
-          text: referral.dbs_notified ? "Yes" : "No"
+          text: nullable_boolean_to_s(referral.dbs_notified)
         }
       }
     ]
@@ -82,14 +82,5 @@ class WhatHappenedComponent < ViewComponent::Base
     polymorphic_path(
       [:edit, referral.routing_scope, referral, :allegation, :check_answers]
     )
-  end
-
-  private
-
-  def allegation_details_type
-    return "Upload file" if referral.allegation_upload.attached?
-    return "Describe the allegation" if referral.allegation_details.present?
-
-    "Incomplete"
   end
 end

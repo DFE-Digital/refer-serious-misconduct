@@ -25,7 +25,10 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your name"
         },
         value: {
-          text: "#{referrer&.first_name} #{referrer&.last_name}"
+          text:
+            nullable_value_to_s(
+              "#{referrer&.first_name} #{referrer&.last_name}".presence
+            )
         }
       },
       {
@@ -62,7 +65,7 @@ class AboutYouComponent < ViewComponent::Base
             text: "Your job title"
           },
           value: {
-            text: referrer&.job_title
+            text: nullable_value_to_s(referrer&.job_title)
           }
         }
       )
@@ -85,7 +88,7 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your phone number"
         },
         value: {
-          text: referrer&.phone
+          text: nullable_value_to_s(referrer&.phone)
         }
       }
     )

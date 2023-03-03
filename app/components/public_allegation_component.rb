@@ -1,6 +1,7 @@
 class PublicAllegationComponent < ViewComponent::Base
   include ActiveModel::Model
   include ComponentHelper
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -9,30 +10,12 @@ class PublicAllegationComponent < ViewComponent::Base
       Referrals::Allegation::CheckAnswersForm.new(referral:)
   end
 
-  def details_format
-    case referral.allegation_format
-    when "details"
-      "Describe the allegation"
-    when "upload"
-      "File upload"
-    else
-      "Incomplete"
-    end
-  end
-
   def file_upload?
     referral.allegation_format == "upload"
   end
 
   def details_described?
     referral.allegation_format == "details"
-  end
-
-  def details_text
-    return file_link if file_upload?
-    return referral.allegation_details if details_described?
-
-    "Incomplete"
   end
 
   def file_link
@@ -62,7 +45,7 @@ class PublicAllegationComponent < ViewComponent::Base
           text: "How do you want to give details about the allegation?"
         },
         value: {
-          text: details_format
+          text: allegation_details_format(referral)
         }
       },
       {
@@ -81,7 +64,7 @@ class PublicAllegationComponent < ViewComponent::Base
           text: "Description of the allegation"
         },
         value: {
-          text: details_text
+          text: allegation_details(referral)
         }
       },
       {
@@ -101,7 +84,10 @@ class PublicAllegationComponent < ViewComponent::Base
           text: "Details about how this complaint has been considered"
         },
         value: {
-          text: referral.allegation_consideration_details || "Incomplete"
+          text:
+            nullable_value_to_s(
+              referral.allegation_consideration_details.presence
+            )
         }
       }
     ]

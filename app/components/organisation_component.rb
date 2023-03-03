@@ -2,6 +2,7 @@ class OrganisationComponent < ViewComponent::Base
   include ActiveModel::Model
   include AddressHelper
   include ComponentHelper
+  include ReferralHelper
 
   attr_accessor :referral
 
@@ -28,7 +29,7 @@ class OrganisationComponent < ViewComponent::Base
           text: "Your organisation"
         },
         value: {
-          text: organisation_address(organisation)
+          text: nullable_value_to_s(organisation_address(organisation).presence)
         }
       }
     ]
