@@ -27,6 +27,7 @@
     <% end %>
 
     <%= render ManageInterface::AllegationDetailsComponent.new(referral: @referral) %>
+    
     <%= render ManageInterface::EvidenceComponent.new(referral: @referral) %>
 
     <% if @referral.from_employer? %>

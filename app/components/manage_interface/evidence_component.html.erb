@@ -1,5 +1,6 @@
 <div class="app-panel" id="evidence">
   <h2 class="govuk-heading-m">Evidence and supporting information</h2>
+  <%= govuk_summary_list(rows: ManageInterface::EvidenceComponent.new(referral:).rows) %>
   <% if referral.evidences.any? %>
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
       <% referral.evidences.map do |evidence| %>
