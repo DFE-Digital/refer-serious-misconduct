@@ -19,6 +19,14 @@ module ManageInterface
         },
         {
           key: {
+            text: "How do you want to give details about previous allegations?"
+          },
+          value: {
+            text: detail_type
+          }
+        },
+        {
+          key: {
             text: "Previous allegation details"
           },
           value: {
@@ -30,6 +38,12 @@ module ManageInterface
 
     def title
       "Previous allegation details"
+    end
+
+    def detail_type
+      return "Upload file" if referral.previous_misconduct_upload.attached?
+
+      "Describe the allegation"
     end
   end
 end
