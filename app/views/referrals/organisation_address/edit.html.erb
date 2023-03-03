@@ -8,21 +8,6 @@
 
       <h1 class="govuk-heading-l">Your organisation</h1>
 
-      <p>Cases of serious misconduct must be related to teachers who are (or have been) employed or engaged at:</p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>a school in England</li>
-        <li>a sixth form college in England</li>
-        <li>relevant youth accommodation in England</li>
-        <li>a children’s home in England</li>
-        <li>a 16 to 19 Academy</li>
-      </ul>
-
-      <p>
-        This does not include cases relating to teaching assistants, higher level teaching assistants or other
-        support staff.
-      </p>
-
       <%= f.govuk_text_field :name, label: { size: "m", text: "Organisation name" } %>
       <%= f.govuk_text_field :street_1, autocomplete: "address-line1", label: { size: "m", text: "Address line 1" } %>
       <%= f.govuk_text_field :street_2, autocomplete: "address-line2", label: { size: "m", text: "Address line 2 (optional)" } %>
