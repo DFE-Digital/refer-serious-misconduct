@@ -189,13 +189,14 @@ RSpec.feature "Personal details", type: :system do
     )
 
     expect_summary_row(
-      key: "Teacher reference number (TRN)",
+      key: "TRN",
       value: "9912345",
       change_link:
         edit_referral_personal_details_trn_path(
           @referral,
           return_to: current_path
-        )
+        ),
+      exact_text: true
     )
 
     expect_summary_row(
