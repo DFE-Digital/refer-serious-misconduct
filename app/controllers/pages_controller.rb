@@ -1,13 +1,6 @@
 class PagesController < ApplicationController
   def start
-    referrals_redirect
-
-    @start_now_path =
-      if FeatureFlags::FeatureFlag.active?(:referral_form)
-        current_user ? referral_type_path : users_registrations_exists_path
-      else
-        referral_type_path
-      end
+    redirect_to StartPath.for(user: current_user) and return
   end
 
   def you_should_know
