@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   constraints(
     -> { !FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
   ) do
-    get "/start",
+    get "/",
         to:
           redirect(
             "https://www.gov.uk/government/publications/teacher-misconduct-referral-form",
@@ -79,7 +79,7 @@ Rails.application.routes.draw do
           )
   end
 
-  root to: redirect("/start")
+  root to: "pages#start"
 
   resources :public_referrals,
             except: %i[index show],
