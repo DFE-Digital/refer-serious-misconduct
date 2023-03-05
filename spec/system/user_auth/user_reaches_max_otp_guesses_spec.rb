@@ -28,7 +28,6 @@ RSpec.feature "User accounts" do
 
   def when_i_start_the_signin_flow
     visit root_path
-    click_on "Start now"
     choose "Yes, sign in and continue making a referral", visible: false
     click_on "Continue"
     fill_in "user-email-field", with: "test@example.com"

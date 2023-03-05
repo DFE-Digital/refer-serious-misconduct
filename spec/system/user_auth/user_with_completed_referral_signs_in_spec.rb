@@ -9,9 +9,8 @@ RSpec.feature "User accounts" do
     and_the_eligibility_screener_feature_is_active
     and_the_referral_form_feature_is_active
 
+    given_i_have_a_completed_referral
     when_i_visit_the_service
-    and_i_have_a_completed_referral
-    and_click_start_now
     and_choose_continue_referral
     and_i_submit_my_email
 
@@ -31,7 +30,7 @@ RSpec.feature "User accounts" do
 
   private
 
-  def and_i_have_a_completed_referral
+  def given_i_have_a_completed_referral
     @user = create(:user)
 
     @referral = create(:referral, :personal_details_public, user: @user)
@@ -39,10 +38,6 @@ RSpec.feature "User accounts" do
     travel_to Time.zone.local(2022, 11, 29, 12, 0, 0)
     @referral.update(submitted_at: Time.current)
     travel_back
-  end
-
-  def and_click_start_now
-    click_on "Start now"
   end
 
   def and_choose_continue_referral

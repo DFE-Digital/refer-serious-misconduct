@@ -25,7 +25,7 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_the_start_page
-    expect(page).to have_current_path("/start")
+    expect(page).to have_current_path("/referral-type")
   end
 
   def when_i_visit_the_service

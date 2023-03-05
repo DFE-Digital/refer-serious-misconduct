@@ -8,7 +8,6 @@ RSpec.feature "User accounts" do
     and_the_referral_form_feature_is_active
 
     when_i_visit_the_root_page
-    and_click_start_now
     and_choose_continue_referral
     then_i_should_see_the_sign_in_page
 
@@ -50,10 +49,6 @@ RSpec.feature "User accounts" do
 
   def when_i_visit_the_root_page
     visit root_path
-  end
-
-  def and_click_start_now
-    click_on "Start now"
   end
 
   def and_choose_continue_referral
@@ -109,7 +104,6 @@ RSpec.feature "User accounts" do
   def and_i_am_not_prompted_to_sign_in_again
     expect(page).to have_current_path referral_type_path
     visit root_path
-    click_on "Start now"
     expect(page).to have_current_path referral_type_path
   end
 

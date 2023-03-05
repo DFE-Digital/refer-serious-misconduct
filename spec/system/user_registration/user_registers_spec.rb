@@ -10,7 +10,6 @@ RSpec.feature "User registration" do
     and_the_referral_form_feature_is_active
 
     when_i_visit_the_service
-    and_click_start_now
     and_i_start_new_referral
     and_i_complete_the_eligibility_screener
     then_i_should_see_sign_up_page
@@ -39,10 +38,6 @@ RSpec.feature "User registration" do
   end
 
   private
-
-  def and_click_start_now
-    click_on "Start now"
-  end
 
   def and_i_start_new_referral
     choose "No", visible: false

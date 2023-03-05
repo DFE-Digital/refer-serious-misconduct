@@ -8,7 +8,7 @@ RSpec.feature "User revisits", type: :system do
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
     when_i_visit_the_service
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account
   end
 
   scenario "User with existing referral visits" do
@@ -23,7 +23,7 @@ RSpec.feature "User revisits", type: :system do
 
   private
 
-  def then_i_see_the_start_page
-    expect(page).to have_link("Start now")
+  def then_i_see_the_do_you_have_an_account
+    expect(page).to have_content("Do you have an account?")
   end
 end

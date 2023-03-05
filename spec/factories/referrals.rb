@@ -17,6 +17,14 @@ FactoryBot.define do
       end
     end
 
+    trait :public do
+      eligibility_check factory: %i[eligibility_check public complete]
+    end
+
+    trait :employer do
+      eligibility_check factory: %i[eligibility_check complete]
+    end
+
     trait :employer_complete do
       eligibility_check factory: %i[eligibility_check complete]
       submitted

@@ -11,16 +11,11 @@ RSpec.feature "Eligibility screener", type: :system do
     and_i_am_signed_in
     when_i_visit_the_service
 
-    when_i_press_start
     then_i_can_complete_the_screener_as_an_employer
     and_i_have_started_an_employer_referral
   end
 
   private
-
-  def when_i_press_start
-    click_on "Start now"
-  end
 
   def then_i_can_complete_the_screener_as_an_employer
     choose "I’m referring as an employer", visible: false
