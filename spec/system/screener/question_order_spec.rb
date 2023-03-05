@@ -10,24 +10,24 @@ RSpec.feature "Question order", type: :system do
     and_the_referral_form_feature_is_active
 
     when_i_visit_the_service
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     # Visiting pages before completion
     when_i_visit_the_unsupervised_teaching_page
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     when_i_visit_the_teaching_in_england_page
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     when_i_visit_the_serious_misconduct_page
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     when_i_visit_the_complete_page
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     # Partially completing screener
-    when_i_press_start
-    then_i_see_the_start_new_referral_page
+    when_i_visit_the_service
+    then_i_see_the_do_you_have_an_account_page
 
     when_i_start_new_referral
     when_i_choose_employer
@@ -39,7 +39,7 @@ RSpec.feature "Question order", type: :system do
     then_i_see_the_is_a_teacher_page
 
     when_i_visit_the_unsupervised_teaching_page
-    then_i_see_the_start_page
+    then_i_see_the_do_you_have_an_account_page
 
     # Resume and complete screener
     when_i_visit_the_is_a_teacher_page
@@ -72,10 +72,6 @@ RSpec.feature "Question order", type: :system do
     expect(page).to have_current_path("/referral-type")
   end
 
-  def then_i_see_the_start_page
-    expect(page).to have_current_path("/start")
-  end
-
   def then_i_see_the_teaching_in_england_page
     expect(page).to have_current_path("/teaching-in-england")
   end
@@ -84,7 +80,7 @@ RSpec.feature "Question order", type: :system do
     expect(page).to have_current_path("/unsupervised-teaching")
   end
 
-  def then_i_see_the_start_new_referral_page
+  def then_i_see_the_do_you_have_an_account_page
     expect(page).to have_current_path("/users/registrations/exists")
   end
 
@@ -111,10 +107,6 @@ RSpec.feature "Question order", type: :system do
 
   def when_i_press_continue
     click_on "Continue"
-  end
-
-  def when_i_press_start
-    click_link "Start now"
   end
 
   def when_i_visit_the_complete_page

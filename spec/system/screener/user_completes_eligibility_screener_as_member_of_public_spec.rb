@@ -10,9 +10,6 @@ RSpec.feature "Eligibility screener", type: :system do
     and_the_referral_form_feature_is_active
     and_i_am_signed_in
     when_i_visit_the_service
-    then_i_see_the_start_page
-
-    when_i_press_start
     then_i_see_the_employer_or_public_question
 
     when_i_press_continue
@@ -196,16 +193,6 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_content("What the allegation is about")
   end
 
-  def then_i_see_the_start_page
-    expect(page).to have_current_path("/start")
-    expect(page).to have_title(
-      "Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content(
-      "Refer serious misconduct by a teacher in England"
-    )
-  end
-
   def then_i_see_the_unsupervised_teaching_page
     expect(page).to have_current_path("/unsupervised-teaching")
     expect(page).to have_title(
@@ -246,10 +233,6 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_press_continue_without_complaint
     click_on "Continue without an informal complaint"
-  end
-
-  def when_i_press_start
-    click_link "Start now"
   end
 
   def when_i_visit_the_service

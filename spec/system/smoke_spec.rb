@@ -12,8 +12,6 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
   it "works as expected" do
     given_i_am_authorized_as_a_support_user
     when_i_visit_the_service
-    then_i_see_the_start_page
-    when_i_visit_the_first_page_of_the_screener
     then_it_loads_successfully
   end
 
@@ -33,14 +31,6 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
 
   def when_i_visit_the_service
     page.visit("#{ENV["HOSTING_DOMAIN"]}/start")
-  end
-
-  def then_i_see_the_start_page
-    expect(page).to have_link("Start now")
-  end
-
-  def when_i_visit_the_first_page_of_the_screener
-    click_on "Start now"
   end
 
   def then_it_loads_successfully

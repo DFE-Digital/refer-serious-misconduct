@@ -26,7 +26,7 @@ RSpec.feature "Staff invitations" do
     when_i_visit_the_invitation_email
     when_i_fill_password
     and_i_set_password
-    then_i_am_unauthorized_and_redirected_to_root_path
+    then_i_am_unauthorized
 
     when_i_login_back_as_a_staff_user
     then_i_see_the_staff_index

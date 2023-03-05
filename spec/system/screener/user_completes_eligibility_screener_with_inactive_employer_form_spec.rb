@@ -9,8 +9,6 @@ RSpec.feature "Eligibility screener", type: :system do
     and_the_eligibility_screener_feature_is_active
     and_the_referral_form_feature_is_inactive
     when_i_visit_the_service
-    then_i_see_the_start_page
-
     when_i_complete_the_screener
     then_i_see_links_to_the_referral_form_documents
   end
@@ -23,13 +21,7 @@ RSpec.feature "Eligibility screener", type: :system do
     visit root_path
   end
 
-  def then_i_see_the_start_page
-    expect(page).to have_current_path("/start")
-  end
-
   def when_i_complete_the_screener
-    click_on "Start now"
-
     choose "I’m referring as an employer", visible: false
     click_on "Continue"
 

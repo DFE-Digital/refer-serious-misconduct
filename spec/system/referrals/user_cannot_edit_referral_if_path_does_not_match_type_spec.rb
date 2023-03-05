@@ -12,8 +12,8 @@ RSpec.feature "Referral route constraints", type: :system do
 
   scenario "User tries to edit referral via wrong path" do
     given_the_service_is_open
-    and_i_am_signed_in
     and_the_referral_form_feature_is_active
+    and_i_am_signed_in
     and_i_have_two_different_types_of_referral
 
     when_i_edit_a_public_referral_via_an_employer_path
