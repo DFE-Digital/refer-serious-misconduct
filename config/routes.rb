@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     path: "",
     path_names: {
       sign_in:  "manage/sign-in",
-      sign_out: "manage/sign-out",
+      sign_out: "manage/sign-out"
     }
   )
   devise_scope :staff do
