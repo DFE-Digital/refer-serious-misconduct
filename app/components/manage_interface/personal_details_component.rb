@@ -10,18 +10,18 @@ module ManageInterface
         { key: { text: "Last name" }, value: { text: referral.last_name } }
       ]
 
-      rows.push(
-        {
-          key: {
-            text: "Are they known by other name?"
-          },
-          value: {
-            text: referral.name_has_changed
+      if referral.name_has_changed == "no"
+        rows.push(
+          {
+            key: {
+              text: "Do you know them by any other name?"
+            },
+            value: {
+              text: referral.name_has_changed.humanize
+            }
           }
-        }
-      )
-
-      if referral.previous_name.present?
+        )
+      elsif referral.previous_name.present?
         rows.push(
           {
             key: {
@@ -36,18 +36,18 @@ module ManageInterface
 
       return rows unless referral.from_employer?
 
-      rows.push(
-        {
-          key: {
-            text: "Is their date of birth known?"
-          },
-          value: {
-            text: referral.age_known ? "Yes" : "No"
+      if !referral.age_known
+        rows.push(
+          {
+            key: {
+              text: "Do you know their date of birth?"
+            },
+            value: {
+              text: "No"
+            }
           }
-        }
-      )
-
-      if referral.date_of_birth.present?
+        )
+      else
         rows.push(
           {
             key: {
@@ -60,18 +60,18 @@ module ManageInterface
         )
       end
 
-      rows.push(
-        {
-          key: {
-            text: "Is their National Insurance number known?"
-          },
-          value: {
-            text: referral.ni_number_known ? "Yes" : "No"
+      if !referral.ni_number_known
+        rows.push(
+          {
+            key: {
+              text: "Do you know their National Insurance number?"
+            },
+            value: {
+              text: "No"
+            }
           }
-        }
-      )
-
-      if referral.ni_number.present?
+        )
+      else
         rows.push(
           {
             key: {
@@ -79,6 +79,30 @@ module ManageInterface
             },
             value: {
               text: referral.ni_number
+            }
+          }
+        )
+      end
+
+      if referral.trn.blank?
+        rows.push(
+          {
+            key: {
+              text: "Do you know their teacher reference number (TRN)?"
+            },
+            value: {
+              text: "No"
+            }
+          }
+        )
+      else
+        rows.push(
+          {
+            key: {
+              text: "Teacher reference number (TRN)?"
+            },
+            value: {
+              text: referral.trn
             }
           }
         )

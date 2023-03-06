@@ -2,12 +2,19 @@
   <h2 class="govuk-heading-m">Evidence and supporting information</h2>
   <%= govuk_summary_list(rows: ManageInterface::EvidenceComponent.new(referral:).rows) %>
   <% if referral.evidences.any? %>
-    <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-      <% referral.evidences.map do |evidence| %>
-        <li class="govuk-!-margin-bottom-0">
-          <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
-        </li>
-      <% end %>
-    </ul>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Uploaded files</dt>
+          <dd class="govuk-summary-list__value">
+            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+              <% referral.evidences.map do |evidence| %>
+                <li class="govuk-!-margin-bottom-0">
+                  <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+                </li>
+              <% end %>
+            </ul>
+          </dd>
+      </div>
+    </dl>
   <% end %>
 </div>
