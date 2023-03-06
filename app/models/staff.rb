@@ -5,7 +5,6 @@ class Staff < ApplicationRecord
     :invitable,
     :lockable,
     :recoverable,
-    :registerable,
     :rememberable,
     :timeoutable,
     :trackable,
