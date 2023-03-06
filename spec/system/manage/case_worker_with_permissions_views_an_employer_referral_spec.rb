@@ -104,8 +104,6 @@ RSpec.feature "Manage referrals" do
   def and_i_see_the_previous_allegation_details_section
     expect(page).to have_content("Previous allegation details")
     within("#previous_allegation_details") do
-      expect(page).to have_content("Has there been any previous misconduct?")
-      expect(page).to have_content("Yes")
       expect(page).to have_content("Previous allegation details")
       expect(page).to have_content("They were rude to a child")
     end

@@ -7,16 +7,7 @@ module ManageInterface
     attr_accessor :referral
 
     def rows
-      [
-        {
-          key: {
-            text: "Has there been any previous misconduct?"
-          },
-          value: {
-            text:
-              humanize_three_way_choice(referral.previous_misconduct_reported)
-          }
-        },
+      rows = [
         {
           key: {
             text: "How do you want to give details about previous allegations?"
@@ -34,6 +25,23 @@ module ManageInterface
           }
         }
       ]
+
+      if humanize_three_way_choice(referral.previous_misconduct_reported) !=
+           "Yes"
+        rows.prepend(
+          {
+            key: {
+              text: "Has there been any previous misconduct?"
+            },
+            value: {
+              text:
+                humanize_three_way_choice(referral.previous_misconduct_reported)
+            }
+          }
+        )
+      end
+
+      rows
     end
 
     def title
