@@ -27,7 +27,7 @@ class TheirRoleComponent < ViewComponent::Base
       items << working_somewhere_else_row
 
       items << work_location_known_row if referral.working_somewhere_else?
-      items << work_location_row if referral.work_location_known
+      items << work_location_row if referral.work_location_known?
     end
 
     referral.submitted? ? remove_actions(items) : items

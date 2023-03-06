@@ -26,7 +26,7 @@
         <div class="no-break">
           <%= render ManageInterface::EmploymentDetailsComponent.new(referral:) %>
         </div>
-        <% if referral.from_employer? %>
+        <% if referral.work_location_known? %>
           <div class="no-break">
             <%= render ManageInterface::OtherEmploymentDetailsComponent.new(referral:) %>
           </div>

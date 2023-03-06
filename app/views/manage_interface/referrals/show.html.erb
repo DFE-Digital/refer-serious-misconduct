@@ -22,12 +22,12 @@
     <%= render ManageInterface::PersonalDetailsComponent.new(referral: @referral) %>
     <%= render ManageInterface::EmploymentDetailsComponent.new(referral: @referral) %>
 
-    <% if @referral.from_employer? %>
+    <% if @referral.work_location_known? %>
       <%= render ManageInterface::OtherEmploymentDetailsComponent.new(referral: @referral) %>
     <% end %>
 
     <%= render ManageInterface::AllegationDetailsComponent.new(referral: @referral) %>
-    
+
     <%= render ManageInterface::EvidenceComponent.new(referral: @referral) %>
 
     <% if @referral.from_employer? %>
