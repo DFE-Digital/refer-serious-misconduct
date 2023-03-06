@@ -1,6 +1,7 @@
 module ManageInterface
   class PersonalDetailsComponent < ViewComponent::Base
     include ActiveModel::Model
+    include AddressHelper
 
     attr_accessor :referral
 
@@ -57,6 +58,64 @@ module ManageInterface
               text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
             }
           }
+        )
+      end
+
+      if !referral.email_known
+        rows.push(
+          {
+            key: {
+              text: "Do you know their email address?"
+            },
+            value: {
+              text: "No"
+            }
+          }
+        )
+      else
+        rows.push(
+          {
+            key: {
+              text: "Email address"
+            },
+            value: {
+              text: referral.email_address
+            }
+          }
+        )
+      end
+
+      if !referral.phone_known
+        rows.push(
+          {
+            key: {
+              text: "Do you know their phone number?"
+            },
+            value: {
+              text: "No"
+            }
+          }
+        )
+      else
+        rows.push(
+          {
+            key: {
+              text: "Phone number"
+            },
+            value: {
+              text: referral.phone_number
+            }
+          }
+        )
+      end
+
+      if !referral.address_known
+        rows.push(
+          { key: { text: "Do you know their address?" }, value: { text: "No" } }
+        )
+      else
+        rows.push(
+          { key: { text: "Address" }, value: { text: address(referral) } }
         )
       end
 
