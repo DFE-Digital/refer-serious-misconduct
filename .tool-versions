@@ -1,6 +1,6 @@
 azure-cli 2.45.0
-nodejs 19.6.0
+nodejs 19.7.0
 postgres 13.5
-redis 7.0.8
+redis 7.0.9
 ruby 3.2.1
 yarn 1.22.19
