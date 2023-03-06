@@ -32,7 +32,7 @@ module ManageInterface
               text: "Details about how this complaint has been considered"
             },
             value: {
-              text: referral.allegation_consideration_details
+              text: simple_format(referral.allegation_consideration_details)
             }
           }
         )

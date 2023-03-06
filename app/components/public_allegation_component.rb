@@ -85,8 +85,10 @@ class PublicAllegationComponent < ViewComponent::Base
         },
         value: {
           text:
-            nullable_value_to_s(
-              referral.allegation_consideration_details.presence
+            simple_format(
+              nullable_value_to_s(
+                referral.allegation_consideration_details.presence
+              )
             )
         }
       }
