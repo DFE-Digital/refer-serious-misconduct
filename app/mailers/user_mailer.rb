@@ -20,4 +20,15 @@ class UserMailer < ApplicationMailer
 
     view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
   end
+
+  def referral_submitted(referral)
+    @link = users_referral_url(referral)
+    @user = referral.user
+    mailer_options = {
+      to: @user.email,
+      subject: "Your referral of serious misconduct has been sent"
+    }
+
+    view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
+  end
 end
