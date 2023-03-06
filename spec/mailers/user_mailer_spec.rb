@@ -41,4 +41,25 @@ RSpec.describe UserMailer, type: :mailer do
       ).to eq "Your referral of serious misconduct by a teacher"
     end
   end
+
+  describe ".referral_submitted" do
+    subject(:email) { described_class.referral_submitted(referral) }
+
+    let(:user) { create(:user) }
+    let(:referral) { create(:referral, :submitted, user_id: user.id) }
+
+    it "sends a referral link to the user" do
+      expect(email.to).to include user.email
+    end
+
+    it "includes the referral link in the email body" do
+      expect(email.body).to include(users_referral_url(referral))
+    end
+
+    it "sets the subject" do
+      expect(
+        email.subject
+      ).to eq "Your referral of serious misconduct has been sent"
+    end
+  end
 end

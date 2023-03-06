@@ -18,6 +18,7 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     then_i_see_the_check_answers_page
     and_i_click_send_referral
     then_i_see_the_confirmation_page
+    then_i_see_a_referral_submitted_email
   end
 
   private
@@ -69,5 +70,15 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     @referral.update(attributes_for(:referral, :complete))
     create(:organisation, complete: true, referral: @referral)
     create(:referrer, complete: true, referral: @referral)
+  end
+
+  def then_i_see_a_referral_submitted_email
+    perform_enqueued_jobs
+    message = ActionMailer::Base.deliveries.last
+    expect(message.subject).to eq(
+      "Your referral of serious misconduct has been sent"
+    )
+    expect(message.to).to include(@referral.user.email)
+    expect(message.body).to include(users_referral_path(@referral))
   end
 end
