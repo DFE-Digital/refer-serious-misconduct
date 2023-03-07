@@ -19,6 +19,8 @@ RSpec.describe UserMailer, type: :mailer do
     it "sets the subject" do
       expect(email.subject).to eq "#{otp} is your confirmation code"
     end
+
+    it_behaves_like "email with `Get help` section"
   end
 
   describe ".referral_link" do
@@ -40,6 +42,8 @@ RSpec.describe UserMailer, type: :mailer do
         email.subject
       ).to eq "Your referral of serious misconduct by a teacher"
     end
+
+    it_behaves_like "email with `Get help` section"
   end
 
   describe ".referral_submitted" do
@@ -61,5 +65,7 @@ RSpec.describe UserMailer, type: :mailer do
         email.subject
       ).to eq "Your referral of serious misconduct has been sent"
     end
+
+    it_behaves_like "email with `Get help` section"
   end
 end
