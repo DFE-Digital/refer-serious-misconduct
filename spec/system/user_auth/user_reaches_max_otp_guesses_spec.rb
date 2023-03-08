@@ -41,7 +41,7 @@ RSpec.feature "User accounts" do
   end
 
   def and_can_return_to_the_email_screen
-    click_link "Continue"
+    click_link "Sign in", href: new_user_session_path
     expect(page).to have_content "Sign in"
   end
 

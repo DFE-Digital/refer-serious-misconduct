@@ -27,7 +27,7 @@ RSpec.feature "User registration" do
     when_i_max_out_my_otp_guesses
     then_i_see_an_error_screen
 
-    when_i_press_continue
+    when_i_press_request_another_confirmation_code
     then_i_should_see_sign_up_page
 
     when_i_submit_my_email
@@ -87,7 +87,7 @@ RSpec.feature "User registration" do
   end
 
   def then_i_see_an_error_screen
-    expect(page).to have_content "There was a problem signing in"
+    expect(page).to have_content "You need to request another confirmation code"
     expect(page).to have_current_path(
       retry_user_sign_in_path(error: :exhausted, new_referral: true)
     )
@@ -110,8 +110,8 @@ RSpec.feature "User registration" do
     expect(page).to have_content "Your referral"
   end
 
-  def when_i_press_continue
-    click_on "Continue"
+  def when_i_press_request_another_confirmation_code
+    click_link "Request another confirmation code"
   end
 
   def when_i_provide_a_short_otp

@@ -32,8 +32,8 @@ en:
         heading: Your confirmation code has expired
         body_html: You need to %{href}.
       exhausted:
-        heading: There was a problem signing in
-        body: You've had too many incorrect sign in attempts. Try again.
+        heading: You need to request another confirmation code
+        body: This is because you entered an incorrect code 5 times.
 
   activemodel:
     errors:
