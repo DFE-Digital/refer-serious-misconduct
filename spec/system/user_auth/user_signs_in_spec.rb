@@ -2,6 +2,8 @@
 require "rails_helper"
 
 RSpec.feature "User accounts" do
+  include CommonSteps
+
   scenario "User signs in" do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
@@ -31,6 +33,7 @@ RSpec.feature "User accounts" do
     and_i_submit_my_email
     when_i_provide_the_expected_otp
     then_i_see_my_current_page_before_logging_in
+    and_event_tracking_is_working
   end
 
   private

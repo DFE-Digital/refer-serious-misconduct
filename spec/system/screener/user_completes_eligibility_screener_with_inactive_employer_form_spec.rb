@@ -11,6 +11,7 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_visit_the_service
     when_i_complete_the_screener
     then_i_see_links_to_the_referral_form_documents
+    and_event_tracking_is_working
   end
 
   def and_the_referral_form_feature_is_inactive

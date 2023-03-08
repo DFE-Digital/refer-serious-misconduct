@@ -162,6 +162,14 @@ the Notify dashboard in the `API integration` section.
 
 _Note:_ You can set `GOVUK_NOTIFY_API_KEY=fake-key` when running locally if you don't need to use Notify.
 
+### BigQuery
+
+Edit `.env.local` and add a BigQuery key if you want to use BigQuery locally.
+
+Set `BIGQUERY_DISABLE` to `false` as it defaults to `true` in the development environment.
+
+[Read more about setting up BigQuery](docs/set-up-analytics.md).
+
 ### Docker
 
 To run the application locally in production mode (to test that the container

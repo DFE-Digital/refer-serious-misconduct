@@ -12,6 +12,8 @@ require "rspec/rails"
 require "capybara/cuprite"
 require "sidekiq/testing"
 require "support/devise"
+require "dfe/analytics/testing"
+require "dfe/analytics/rspec/matchers"
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(

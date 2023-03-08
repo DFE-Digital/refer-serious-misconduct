@@ -13,6 +13,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
     then_i_can_complete_the_screener_as_an_employer
     and_i_have_started_an_employer_referral
+    and_event_tracking_is_working
   end
 
   private
