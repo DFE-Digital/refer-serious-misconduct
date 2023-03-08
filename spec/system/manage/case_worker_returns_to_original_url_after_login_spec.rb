@@ -14,6 +14,10 @@ RSpec.feature "Manage referrals and staff" do
 
     and_i_login_as_a_case_worker_with_management_permissions_only
     then_i_see_the_referral_summary
+
+    when_i_sign_out
+    and_i_login_as_a_case_worker_with_management_permissions_only
+    then_i_see_manage_referrals_page
   end
 
   private
@@ -46,5 +50,9 @@ RSpec.feature "Manage referrals and staff" do
     fill_in "Password", with: "Example123!"
 
     click_on "Log in"
+  end
+
+  def when_i_sign_out
+    within(".govuk-header") { click_on "Sign out" }
   end
 end
