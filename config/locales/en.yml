@@ -269,11 +269,7 @@ en:
           attributes:
             complete:
               inclusion: Select yes if you’ve completed this section
-        organisation_form:
-          attributes:
-            complete:
-              inclusion: Select yes if you’ve completed this section
-        organisation_address_form:
+        "referrals/organisation/address_form":
           attributes:
             name:
               blank: Enter the organisation name
@@ -284,6 +280,10 @@ en:
             postcode:
               blank: Enter the postcode of your organisation
               invalid: Enter a real postcode
+        "referrals/organisation/check_answers_form":
+          attributes:
+            complete:
+              inclusion: Select yes if you’ve completed this section
         "referrals/previous_misconduct/check_answers_form":
           attributes:
             previous_misconduct_complete:
