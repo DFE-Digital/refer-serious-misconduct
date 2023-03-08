@@ -38,6 +38,8 @@ class OrganisationComponent < ViewComponent::Base
   end
 
   def return_to
-    polymorphic_path([referral.routing_scope, referral, :organisation])
+    polymorphic_path(
+      [:edit, referral.routing_scope, referral, :organisation, :check_answers]
+    )
   end
 end
