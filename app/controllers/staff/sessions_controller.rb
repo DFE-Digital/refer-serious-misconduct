@@ -37,6 +37,10 @@ class Staff::SessionsController < Devise::SessionsController
     end
   end
 
+  def after_sign_out_path_for(_resource)
+    manage_sign_in_path
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
