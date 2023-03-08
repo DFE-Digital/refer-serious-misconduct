@@ -265,6 +265,10 @@ en:
               blank: Enter your first name
             last_name:
               blank: Enter your last name
+        "referrals/referrer/check_answers_form":
+          attributes:
+            complete:
+              inclusion: Select yes if you’ve completed this section
         organisation_form:
           attributes:
             complete:
@@ -299,10 +303,6 @@ en:
           attributes:
             previous_misconduct_reported:
               inclusion: Let us know if there has been any previous misconduct, disciplinary action or complaints
-        referrer_form:
-          attributes:
-            complete:
-              inclusion: Select yes if you’ve completed this section
         "referrals/allegation/details_form":
           attributes:
             allegation_format:

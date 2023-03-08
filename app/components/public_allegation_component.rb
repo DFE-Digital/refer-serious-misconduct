@@ -35,7 +35,7 @@ class PublicAllegationComponent < ViewComponent::Base
             href:
               edit_public_referral_allegation_details_path(
                 referral,
-                return_to: request.path
+                return_to: return_to_path
               ),
             visually_hidden_text:
               "how you want to give details about the allegation"
@@ -55,7 +55,7 @@ class PublicAllegationComponent < ViewComponent::Base
             href:
               edit_public_referral_allegation_details_path(
                 referral,
-                return_to: request.path
+                return_to: return_to_path
               ),
             visually_hidden_text: "description of the allegation"
           }
@@ -74,7 +74,7 @@ class PublicAllegationComponent < ViewComponent::Base
             href:
               edit_public_referral_allegation_considerations_path(
                 referral,
-                return_to: request.path
+                return_to: return_to_path
               ),
             visually_hidden_text:
               "details about how this complaint has been considered"

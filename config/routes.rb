@@ -86,6 +86,17 @@ Rails.application.routes.draw do
             path: "public-referrals" do
     scope module: :public_referrals do
       constraints(RouteConstraints::PublicConstraint.new) do
+
+        namespace :referrer do
+          resource :name,
+            only: %i[edit update],
+            controller: :name
+          resource :phone,
+            only: %i[edit update],
+            controller: :phone
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
+
         namespace :personal_details, path: "personal-details" do
           resource :name, only: %i[edit update], controller: :name
           resource :check_answers, path: "check-answers", only: %i[edit update]
@@ -129,19 +140,6 @@ Rails.application.routes.draw do
 
         resource :review, only: %i[show update], controller: :review
         resource :confirmation, only: %i[show], controller: :confirmation
-
-        resource :referrer, only: %i[show update]
-        get "/personal-details", to: "referrers#personal_details"
-
-        resource :referrer_name,
-          only: %i[edit update],
-          path: "referrer-name",
-          controller: :referrer_name
-
-        resource :referrer_phone,
-          only: %i[edit update],
-          path: "referrer-phone",
-          controller: :referrer_phone
       end
     end
   end
@@ -158,20 +156,19 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        resource :referrer, only: %i[show update]
-        resource :referrer_details, only: %i[show], path: "referrer-details"
-        resource :referrer_name,
-                 only: %i[edit update],
-                 path: "referrer-name",
-                 controller: :referrer_name
-        resource :referrer_job_title,
-                 only: %i[edit update],
-                 path: "referrer-job-title",
-                 controller: :referrer_job_title
-        resource :referrer_phone,
-                 only: %i[edit update],
-                 path: "referrer-phone",
-                 controller: :referrer_phone
+        namespace :referrer do
+          resource :name,
+                  only: %i[edit update],
+                  controller: :name
+          resource :job_title,
+                  only: %i[edit update],
+                  path: "job-title",
+                  controller: :job_title
+          resource :phone,
+                  only: %i[edit update],
+                  controller: :phone
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
 
         namespace :contact_details, path: "contact-details" do
           resource :email, only: %i[edit update], controller: :email

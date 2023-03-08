@@ -49,7 +49,15 @@ class ReferralForm
               polymorphic_path(
                 [:edit, referral.routing_scope, referral, :referrer_name]
               ),
-              polymorphic_path([referral.routing_scope, referral, :referrer])
+              polymorphic_path(
+                [
+                  :edit,
+                  referral.routing_scope,
+                  referral,
+                  :referrer,
+                  :check_answers
+                ]
+              )
             ),
             section_status(referral.referrer&.complete)
           )
