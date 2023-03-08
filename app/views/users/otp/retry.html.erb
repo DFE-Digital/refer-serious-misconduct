@@ -1,18 +1,23 @@
-<h1 class="govuk-heading-l"><%= t("users.retry.#{@error}.heading") %></h1>
+
+<% content_for :back_link_url, new_user_session_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t("users.retry.#{@error}.heading") %></h1>
+
     <% case @error %>
-    <% when 'expired' %>
+    <% when "expired" %>
       <p>
-        <%= t("users.retry.#{@error}.body_html", href: govuk_link_to('request a new confirmation code', new_user_session_path(new_referral:), method: :get)) %>
+        <%= t("users.retry.#{@error}.body_html", href: govuk_link_to("request a new confirmation code", new_user_session_path(new_referral:), method: :get)) %>
       </p>
-    <% when 'exhausted' %>
+    <% when "exhausted" %>
       <p>
-        <%= t('users.retry.exhausted.body') %>
+        <%= t("users.retry.exhausted.body") %>
       </p>
 
-      <%= govuk_button_link_to('Continue', new_user_session_path(new_referral:), method: :get) %>
+      <p>
+        <%= govuk_link_to("Request another confirmation code", new_user_session_path(new_referral:), method: :get) %>.
+      </p>
     <% end %>
   </div>
 </div>
