@@ -16,6 +16,7 @@ RSpec.feature "User registration" do
 
     when_i_submit_my_email
     then_i_should_see_the_otp_page
+    and_event_tracking_is_working
 
     when_i_request_another_confirmation_code
     then_i_should_see_sign_up_page

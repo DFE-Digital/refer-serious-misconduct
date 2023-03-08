@@ -60,6 +60,11 @@ module CommonSteps
     end
   end
 
+  def then_event_tracking_is_working
+    expect(:web_request).to have_been_enqueued_as_analytics_events
+  end
+  alias_method :and_event_tracking_is_working, :then_event_tracking_is_working
+
   def then_i_see_the_referral_summary
     expect(page).to have_current_path(edit_referral_path(@referral))
     expect(page).to have_title(

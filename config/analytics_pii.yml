@@ -1,0 +1,46 @@
+---
+:shared:
+  :active_storage_blobs:
+    - filename
+  :active_storage_attachments:
+    - name
+  :referrers:
+    - first_name
+    - phone
+    - last_name
+  :referral_evidences:
+    - filename
+  :referrals:
+    - first_name
+    - last_name
+    - previous_name
+    - date_of_birth
+    - email_address
+    - trn
+    - address_line_1
+    - address_line_2
+    - town_or_city
+    - postcode
+    - country
+    - phone_number
+    - ni_number
+    - work_location_known
+    - work_organisation_name
+    - work_address_line_1
+    - work_address_line_2
+    - work_town_or_city
+    - work_postcode
+    - organisation_address_known
+    - organisation_name
+    - organisation_address_line_1
+    - organisation_address_line_2
+    - organisation_town_or_city
+    - organisation_postcode
+    - allegation_details
+    - allegation_consideration_details
+    - previous_misconduct_details
+    - duties_details
+  :users:
+    - email
+  :staff:
+    - email

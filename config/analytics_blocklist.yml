@@ -1,0 +1,10 @@
+---
+:shared:
+  :users:
+    - secret_key
+  :staff:
+    - encrypted_password
+    - reset_password_token
+    - confirmation_token
+    - unlock_token
+    - invitation_token

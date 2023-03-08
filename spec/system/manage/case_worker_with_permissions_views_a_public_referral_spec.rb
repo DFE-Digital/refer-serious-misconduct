@@ -25,6 +25,7 @@ RSpec.feature "Manage referrals" do
     and_i_see_the_evidence_section
     and_i_see_the_referrer_details_section
     and_there_are_no_employer_only_sections
+    and_event_tracking_is_working
   end
 
   private

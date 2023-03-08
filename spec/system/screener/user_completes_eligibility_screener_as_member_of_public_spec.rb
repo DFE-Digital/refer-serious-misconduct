@@ -78,6 +78,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
     when_i_press_continue
     then_i_have_started_a_member_of_public_referral
+    and_event_tracking_is_working
   end
 
   private

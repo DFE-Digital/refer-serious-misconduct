@@ -11,6 +11,7 @@ RSpec.feature "User submits a referral", type: :system do
     when_i_visit_the_referral
     and_i_click_review_and_send
     then_i_see_the_check_answers_page
+    and_event_tracking_is_working
 
     when_i_have_a_complete_referral
     and_i_visit_the_referral
@@ -18,6 +19,7 @@ RSpec.feature "User submits a referral", type: :system do
     then_i_see_the_check_answers_page
     and_i_click_send_referral
     then_i_see_the_confirmation_page
+    and_event_tracking_is_working
   end
 
   private
