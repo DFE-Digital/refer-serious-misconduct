@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe OrganisationForm, type: :model do
+RSpec.describe Referrals::Organisation::CheckAnswersForm, type: :model do
   it { is_expected.to validate_presence_of(:referral) }
 
   describe "#save" do

@@ -170,6 +170,13 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
+        namespace :organisation do
+          resource :address,
+                  only: %i[edit update],
+                  controller: :address
+          resource :check_answers, path: "check-answers", only: %i[edit update]
+        end
+
         namespace :contact_details, path: "contact-details" do
           resource :email, only: %i[edit update], controller: :email
           resource :telephone, only: %i[edit update], controller: :telephone
@@ -179,14 +186,6 @@ Rails.application.routes.draw do
           resource :address, only: %i[edit update], controller: :address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
-
-        resource :organisation, only: %i[show update], controller: :organisation
-        resource :organisation_name,
-                 only: %i[edit update],
-                 controller: :organisation_name
-        resource :organisation_address,
-                 only: %i[edit update],
-                 controller: :organisation_address
 
         namespace :previous_misconduct, path: "previous-misconduct" do
           resource :reported, only: %i[edit update], controller: :reported
