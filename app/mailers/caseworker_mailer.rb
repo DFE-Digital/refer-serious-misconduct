@@ -2,7 +2,7 @@ class CaseworkerMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
   def referral_submitted(referral)
-    @name = referral.referrer_name
+    @name = referral.name
     @link = manage_interface_referral_url(referral)
     mailer_options = {
       to: misconduct_notify_mailer_to,
