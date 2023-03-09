@@ -4,12 +4,12 @@ RSpec.describe CaseworkerMailer, type: :mailer do
   describe ".referral_submitted" do
     subject(:email) { described_class.referral_submitted(referral) }
 
-    let(:referral) { create(:referral, :submitted) }
+    let(:referral) { create(:referral, :personal_details_public, :submitted) }
 
     it "includes the required information" do
       expect(
         email.body
-      ).to include "Jane Smith has been referred for serious misconduct by a teacher"
+      ).to include "John Smith has been referred for serious misconduct by a teacher"
     end
 
     it "includes the manage referral URL" do
@@ -17,7 +17,7 @@ RSpec.describe CaseworkerMailer, type: :mailer do
     end
 
     it "sets the subject" do
-      expect(email.subject).to eq "Jane Smith has been referred"
+      expect(email.subject).to eq "John Smith has been referred"
     end
 
     describe "to email address" do
