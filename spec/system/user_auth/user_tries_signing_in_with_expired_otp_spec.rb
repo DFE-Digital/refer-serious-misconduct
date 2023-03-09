@@ -2,6 +2,8 @@
 require "rails_helper"
 
 RSpec.feature "User accounts" do
+  include CommonSteps
+
   around { |example| freeze_time { example.run } }
 
   scenario "User signs in" do
@@ -15,26 +17,6 @@ RSpec.feature "User accounts" do
     then_i_see_an_error_screen
     and_can_return_to_the_email_screen
     and_my_otp_state_is_reset
-  end
-
-  def given_the_service_is_open
-    FeatureFlags::FeatureFlag.activate(:service_open)
-  end
-
-  def and_the_eligibility_screener_is_enabled
-    FeatureFlags::FeatureFlag.activate(:eligibility_screener)
-  end
-
-  def and_the_referral_form_feature_is_active
-    FeatureFlags::FeatureFlag.activate(:referral_form)
-  end
-
-  def when_i_start_the_signin_flow
-    visit root_path
-    choose "Yes, sign in and continue making a referral", visible: false
-    click_on "Continue"
-    fill_in "user-email-field", with: "test@example.com"
-    click_on "Continue"
   end
 
   def and_my_otp_has_expired
