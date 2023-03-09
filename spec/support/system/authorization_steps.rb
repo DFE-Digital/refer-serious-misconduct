@@ -1,4 +1,12 @@
 module AuthorizationSteps
+  def when_i_start_the_signin_flow
+    visit root_path
+    choose "Yes, sign in and continue making a referral", visible: false
+    click_on "Continue"
+    fill_in "user-email-field", with: "test@example.com"
+    click_on "Continue"
+  end
+
   def when_i_login_as_a_case_worker_with_management_permissions_only
     create(:staff, :confirmed, :can_manage_referrals)
 

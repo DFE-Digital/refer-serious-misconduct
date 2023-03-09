@@ -2,6 +2,8 @@
 require "rails_helper"
 
 RSpec.feature "User accounts" do
+  include CommonSteps
+
   scenario "User signs in" do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
@@ -24,14 +26,6 @@ RSpec.feature "User accounts" do
 
   def and_the_referral_form_feature_is_active
     FeatureFlags::FeatureFlag.activate(:referral_form)
-  end
-
-  def when_i_start_the_signin_flow
-    visit root_path
-    choose "Yes, sign in and continue making a referral", visible: false
-    click_on "Continue"
-    fill_in "user-email-field", with: "test@example.com"
-    click_on "Continue"
   end
 
   def and_max_out_my_otp_guesses
