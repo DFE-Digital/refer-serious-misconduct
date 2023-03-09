@@ -51,6 +51,9 @@ FactoryBot.define do
     end
 
     trait :with_attachments do
+      allegation_format { "upload" }
+      duties_format { "upload" }
+
       allegation_upload do
         Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf")
       end

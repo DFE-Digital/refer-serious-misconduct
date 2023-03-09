@@ -3,6 +3,17 @@ require "rails_helper"
 RSpec.describe RenderPdfJob do
   let(:referral) { create(:referral, :complete, :with_attachments) }
 
+  describe "generating the HTML" do
+    let(:job) { described_class.new }
+
+    it "renders the html and removes the a tags" do
+      job.perform(referral:)
+
+      expect(job.send(:html)).to match(%r{<dd.*?><a.*?>upload1.pdf</a></dd>})
+      expect(job.send(:processed_html)).to match(%r{<dd.*?>upload1.pdf</dd>})
+    end
+  end
+
   describe "running the job" do
     subject(:perform) { described_class.new.perform(referral:) }
 
