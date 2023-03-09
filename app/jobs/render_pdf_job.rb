@@ -28,6 +28,10 @@ class RenderPdfJob < ApplicationJob
     )
   end
 
+  def processed_html
+    html&.gsub(%r{<a.*?>(.*?)</a>}, '\1')
+  end
+
   def html_renderer
     @html_renderer = ApplicationController.renderer.new
   end
@@ -37,7 +41,7 @@ class RenderPdfJob < ApplicationJob
   end
 
   def io
-    StringIO.new(Grover.new(html, format: "A4").to_pdf)
+    StringIO.new(Grover.new(processed_html, format: "A4").to_pdf)
   end
 
   def asset_url(asset_name)
