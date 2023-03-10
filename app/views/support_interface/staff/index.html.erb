@@ -6,7 +6,7 @@
   <%= govuk_button_link_to "Invite staff user", new_staff_invitation_path %>
 </p>
 
-<% @staff.find_each do |staff| %>
+<% @staff.each do |staff| %>
   <h2 class="govuk-heading-m"><%= staff.email %></h2>
   <p>
     <%= govuk_link_to "Change permissions", edit_support_interface_staff_permission_path(staff) %>
