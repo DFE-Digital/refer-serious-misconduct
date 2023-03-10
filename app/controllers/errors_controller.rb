@@ -18,4 +18,8 @@ class ErrorsController < ApplicationController
   def internal_server_error
     render "internal_server_error", status: :internal_server_error
   end
+
+  def forbidden
+    render "forbidden", status: :forbidden
+  end
 end

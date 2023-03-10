@@ -1,0 +1,11 @@
+<%= content_for :page_title, "Forbidden" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l"><%= t('pundit.unauthorized') %></h1>
+    <p class="govuk-body">
+      If you need access to this page, send an email to
+      <a class="govuk-link" href="mailto:<%= t('service.email') %>"><%= t('service.email') %></a>.
+    </p>
+  </div>
+</div>

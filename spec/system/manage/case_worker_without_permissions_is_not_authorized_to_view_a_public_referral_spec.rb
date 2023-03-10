@@ -13,7 +13,7 @@ RSpec.feature "Manage referrals" do
 
     when_i_login_as_a_case_worker_with_support_permissions_only
     and_i_visit_the_referral
-    then_i_am_unauthorized_and_redirected_to_root_path
+    then_i_am_unauthorized_and_redirected_to_forbidden_path
   end
 
   private

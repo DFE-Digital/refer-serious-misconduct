@@ -14,9 +14,7 @@ module ManageInterface
     end
 
     def staff_user_not_authorized
-      flash[:warning] = I18n.t("pundit.unauthorized")
-
-      redirect_to root_path
+      redirect_to forbidden_path
     end
 
     alias_method :pundit_user, :current_staff

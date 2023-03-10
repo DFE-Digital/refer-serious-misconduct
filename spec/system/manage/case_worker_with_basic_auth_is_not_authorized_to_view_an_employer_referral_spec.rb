@@ -14,7 +14,7 @@ RSpec.feature "Manage referrals" do
     and_there_is_an_existing_employer_referral
 
     when_i_visit_the_referral
-    then_i_am_unauthorized_and_redirected_to_root_path
+    then_i_am_unauthorized_and_redirected_to_forbidden_path
   end
 
   private
