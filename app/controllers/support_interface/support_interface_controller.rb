@@ -12,12 +12,12 @@ module SupportInterface
     private
 
     def staff_user_not_authorized
-      flash[:warning] = I18n.t("pundit.unauthorized")
-
       # FeatureFlags::Engine is a mounted engine and we can't control the
       # behaviour from this level. Attempting to do the redirect
       # here ends up in multiple redirects.
-      redirect_to root_path unless is_a?(FeatureFlags::FeatureFlagsController)
+      unless is_a?(FeatureFlags::FeatureFlagsController)
+        redirect_to forbidden_path
+      end
     end
 
     def authorize_support

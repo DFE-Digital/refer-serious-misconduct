@@ -32,8 +32,7 @@ class Staff::SessionsController < Devise::SessionsController
     elsif current_staff.view_support?
       support_interface_staff_index_path
     else
-      flash[:warning] = I18n.t("pundit.unauthorized")
-      root_path
+      forbidden_path
     end
   end
 

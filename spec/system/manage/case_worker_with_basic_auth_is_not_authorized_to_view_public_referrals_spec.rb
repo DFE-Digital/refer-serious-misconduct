@@ -15,7 +15,7 @@ RSpec.feature "Manage referrals" do
     when_i_am_authorized_with_basic_auth_as_a_case_worker
     when_i_visit_the_referrals_page
 
-    then_i_am_unauthorized_and_redirected_to_root_path
+    then_i_am_unauthorized_and_redirected_to_forbidden_path
   end
 
   private

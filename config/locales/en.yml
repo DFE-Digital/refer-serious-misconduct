@@ -369,4 +369,4 @@ en:
     missing_staff_permission: Select permissions
 
   pundit:
-    unauthorized: You are not authorized to see this section.
+    unauthorized: You do not have permission to view this page

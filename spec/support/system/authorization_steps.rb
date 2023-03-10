@@ -43,12 +43,12 @@ module AuthorizationSteps
                :when_i_am_authorized_with_basic_auth_as_a_case_worker
 
   def then_i_am_unauthorized
-    expect(page).to have_content("You are not authorized to see this section.")
+    expect(page).to have_content("You do not have permission to view this page")
   end
 
-  def then_i_am_unauthorized_and_redirected_to_root_path
-    expect(page).to have_current_path("/users/registrations/exists")
-    expect(page).to have_content("You are not authorized to see this section.")
+  def then_i_am_unauthorized_and_redirected_to_forbidden_path
+    expect(page).to have_current_path("/403")
+    expect(page).to have_content("You do not have permission to view this page")
   end
 
   def then_i_see_the_staff_index

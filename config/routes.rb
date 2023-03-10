@@ -303,6 +303,7 @@ Rails.application.routes.draw do
   get "/privacy", to: "static#privacy"
 
   scope via: :all do
+    get "/403", to: "errors#forbidden", as: :forbidden
     get "/404", to: "errors#not_found"
     get "/422", to: "errors#unprocessable_entity"
     get "/429", to: "errors#too_many_requests"

@@ -13,7 +13,7 @@ RSpec.feature "Test users" do
     when_i_am_authorized_with_basic_auth_as_a_case_worker
 
     and_i_visit_the_test_users_section
-    then_i_am_unauthorized_and_redirected_to_root_path
+    then_i_am_unauthorized_and_redirected_to_forbidden_path
   end
 
   private
