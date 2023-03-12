@@ -23,6 +23,8 @@ class PersonalDetailsComponent < ViewComponent::Base
     referral.submitted? ? remove_actions(items) : items
   end
 
+  private
+
   def any_other_name_row
     {
       actions: [

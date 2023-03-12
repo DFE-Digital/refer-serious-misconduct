@@ -6,182 +6,203 @@ module ManageInterface
     attr_accessor :referral
 
     def rows
-      rows = [
-        { key: { text: "First name" }, value: { text: referral.first_name } },
-        { key: { text: "Last name" }, value: { text: referral.last_name } }
-      ]
+      items = []
 
-      if referral.name_has_changed == "no"
-        rows.push(
-          {
-            key: {
-              text: "Do you know them by any other name?"
-            },
-            value: {
-              text: referral.name_has_changed.humanize
-            }
-          }
-        )
-      elsif referral.previous_name.present?
-        rows.push(
-          {
-            key: {
-              text: "Other name"
-            },
-            value: {
-              text: referral.previous_name
-            }
-          }
-        )
-      end
+      items.push(first_name_row)
+      items.push(last_name_row)
+      items.push(other_name_row)
 
-      return rows unless referral.from_employer?
+      return items unless referral.from_employer?
 
-      if !referral.age_known
-        rows.push(
-          {
-            key: {
-              text: "Do you know their date of birth?"
-            },
-            value: {
-              text: "No"
-            }
-          }
-        )
-      else
-        rows.push(
-          {
-            key: {
-              text: "Date of birth"
-            },
-            value: {
-              text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
-            }
-          }
-        )
-      end
+      items.push(date_of_birth_row)
+      items.push(email_address_row)
+      items.push(phone_number_row)
+      items.push(address_row)
+      items.push(ni_number_row)
+      items.push(trn_row)
+      items.push(qts_row)
 
-      if !referral.email_known
-        rows.push(
-          {
-            key: {
-              text: "Do you know their email address?"
-            },
-            value: {
-              text: "No"
-            }
-          }
-        )
-      else
-        rows.push(
-          {
-            key: {
-              text: "Email address"
-            },
-            value: {
-              text: referral.email_address
-            }
-          }
-        )
-      end
-
-      if !referral.phone_known
-        rows.push(
-          {
-            key: {
-              text: "Do you know their phone number?"
-            },
-            value: {
-              text: "No"
-            }
-          }
-        )
-      else
-        rows.push(
-          {
-            key: {
-              text: "Phone number"
-            },
-            value: {
-              text: referral.phone_number
-            }
-          }
-        )
-      end
-
-      if !referral.address_known
-        rows.push(
-          { key: { text: "Do you know their address?" }, value: { text: "No" } }
-        )
-      else
-        rows.push(
-          { key: { text: "Address" }, value: { text: address(referral) } }
-        )
-      end
-
-      if !referral.ni_number_known
-        rows.push(
-          {
-            key: {
-              text: "Do you know their National Insurance number?"
-            },
-            value: {
-              text: "No"
-            }
-          }
-        )
-      else
-        rows.push(
-          {
-            key: {
-              text: "National Insurance number"
-            },
-            value: {
-              text: referral.ni_number
-            }
-          }
-        )
-      end
-
-      if referral.trn.blank?
-        rows.push(
-          {
-            key: {
-              text: "Do you know their teacher reference number (TRN)?"
-            },
-            value: {
-              text: "No"
-            }
-          }
-        )
-      else
-        rows.push(
-          {
-            key: {
-              text: "Teacher reference number (TRN)?"
-            },
-            value: {
-              text: referral.trn
-            }
-          }
-        )
-      end
-
-      rows.push(
-        {
-          key: {
-            text: "Do they have qualified teacher status?"
-          },
-          value: {
-            text: referral.has_qts&.humanize
-          }
-        }
-      )
-      rows
+      items
     end
 
     def title
       "Personal details"
+    end
+
+    private
+
+    def first_name_row
+      { key: { text: "First name" }, value: { text: referral.first_name } }
+    end
+
+    def last_name_row
+      { key: { text: "Last name" }, value: { text: referral.last_name } }
+    end
+
+    def known_by_any_other_name_row
+      {
+        key: {
+          text: "Do you know them by any other name?"
+        },
+        value: {
+          text: referral.name_has_changed.humanize
+        }
+      }
+    end
+
+    def other_name_row
+      if referral.name_has_changed?
+        { key: { text: "Other name" }, value: { text: referral.previous_name } }
+      else
+        {
+          key: {
+            text: "Do you know them by any other name?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def age_known
+      {
+        key: {
+          text: "Do you know their date of birth?"
+        },
+        value: {
+          text: "No"
+        }
+      }
+    end
+
+    def date_of_birth_row
+      if referral.age_known?
+        {
+          key: {
+            text: "Date of birth"
+          },
+          value: {
+            text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
+          }
+        }
+      else
+        {
+          key: {
+            text: "Do you know their date of birth?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def email_address_row
+      if referral.email_known?
+        {
+          key: {
+            text: "Email address"
+          },
+          value: {
+            text: referral.email_address
+          }
+        }
+      else
+        {
+          key: {
+            text: "Do you know their email address?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def phone_number_row
+      if referral.phone_known?
+        {
+          key: {
+            text: "Phone number"
+          },
+          value: {
+            text: referral.phone_number
+          }
+        }
+      else
+        {
+          key: {
+            text: "Do you know their phone number?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def address_row
+      if referral.address_known?
+        { key: { text: "Address" }, value: { text: address(referral) } }
+      else
+        { key: { text: "Do you know their address?" }, value: { text: "No" } }
+      end
+    end
+
+    def ni_number_row
+      if referral.ni_number_known?
+        {
+          key: {
+            text: "National Insurance number"
+          },
+          value: {
+            text: referral.ni_number
+          }
+        }
+      else
+        {
+          key: {
+            text: "Do you know their National Insurance number?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def trn_row
+      if referral.trn_known?
+        {
+          key: {
+            text: "Teacher reference number (TRN)?"
+          },
+          value: {
+            text: referral.trn
+          }
+        }
+      else
+        {
+          key: {
+            text: "Do you know their teacher reference number (TRN)?"
+          },
+          value: {
+            text: "No"
+          }
+        }
+      end
+    end
+
+    def qts_row
+      {
+        key: {
+          text: "Do they have qualified teacher status?"
+        },
+        value: {
+          text: referral.has_qts&.humanize
+        }
+      }
     end
   end
 end

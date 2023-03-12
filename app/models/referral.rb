@@ -80,4 +80,8 @@ class Referral < ApplicationRecord
   def submitted?
     submitted_at.present?
   end
+
+  def trn_known?
+    trn.present?
+  end
 end
