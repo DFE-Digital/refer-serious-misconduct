@@ -170,14 +170,7 @@ module ManageInterface
     end
 
     def negative_answer_for(question)
-      {
-        key: {
-          text: question
-        },
-        value: {
-          text: "No"
-        }
-      }
+      { key: { text: question }, value: { text: "No" } }
     end
   end
 end
