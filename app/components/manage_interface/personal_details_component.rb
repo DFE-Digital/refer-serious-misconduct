@@ -65,17 +65,6 @@ module ManageInterface
       end
     end
 
-    def age_known
-      {
-        key: {
-          text: "Do you know their date of birth?"
-        },
-        value: {
-          text: "No"
-        }
-      }
-    end
-
     def date_of_birth_row
       if referral.age_known?
         {
