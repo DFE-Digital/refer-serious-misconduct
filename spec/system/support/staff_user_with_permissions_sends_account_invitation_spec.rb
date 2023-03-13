@@ -22,6 +22,10 @@ RSpec.feature "Staff invitations" do
     then_i_see_an_invitation_email
     then_i_see_the_invited_staff_user
 
+    when_i_resend_invitation
+    then_i_see_an_invitation_email
+    then_i_see_the_invited_staff_user
+
     when_i_am_not_authorized_as_a_staff_user
     when_i_visit_the_invitation_email
     when_i_fill_password
@@ -72,6 +76,12 @@ RSpec.feature "Staff invitations" do
     perform_enqueued_jobs
   end
   alias_method :when_i_send_invitation, :and_i_send_invitation
+
+  def when_i_resend_invitation
+    click_link "Resend invitation"
+    click_button "Resend invitation"
+    perform_enqueued_jobs
+  end
 
   def then_i_see_an_invitation_email
     message = ActionMailer::Base.deliveries.last

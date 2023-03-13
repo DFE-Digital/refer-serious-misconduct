@@ -278,6 +278,7 @@ Rails.application.routes.draw do
     root to: redirect("/support/eligibility-checks")
     resources :staff, only: %i[index]
     resources :staff_permissions, only: %i[edit update]
+    resources :staff_invitations, only: %i[edit update]
     resources :test_users, only: %i[index create] do
       put "/authenticate", on: :member, to: "test_users#authenticate"
     end

@@ -8,9 +8,13 @@
 
 <% @staff.each do |staff| %>
   <h2 class="govuk-heading-m"><%= staff.email %></h2>
-  <p>
+
+  <div class="govuk-button-group">
     <%= govuk_link_to "Change permissions", edit_support_interface_staff_permission_path(staff) %>
-  </p>
+    <% if staff.created_by_invite? && !staff.invitation_accepted? %>
+      <%= govuk_link_to "Resend invitation", edit_support_interface_staff_invitation_path(staff) %>
+    <% end %>
+  </div>
 
   <%= govuk_summary_list do |summary_list|
     summary_list.row do |row|

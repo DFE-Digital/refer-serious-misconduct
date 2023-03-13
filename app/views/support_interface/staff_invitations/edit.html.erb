@@ -1,0 +1,13 @@
+<% content_for :back_link_url, support_interface_staff_index_path %>
+<% content_for :page_title, "Resend invitation for #{@staff.email}" %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l"><%= @staff.email %></span>
+    <h1 class="govuk-heading-l">Confirm that you want to resend the invitation</h1>
+
+    <p class="govuk-body">
+      <%= govuk_button_to "Resend invitation", support_interface_staff_invitation_path(@staff), method: :patch %>
+      <%= govuk_link_to "Cancel", support_interface_staff_index_path %>
+    </p>
+</div>
