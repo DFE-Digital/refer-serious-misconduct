@@ -13,7 +13,7 @@
           <%= govuk_summary_list(
             classes: ["govuk-summary-list--no-border"],
             rows: [
-              { key: { text: "Referral date" }, value: { text: referral.created_at.to_fs(:day_month_year_time)} },
+              { key: { text: "Referral date" }, value: { text: referral.submitted_at.to_fs(:day_month_year_time)} },
               { key: { text: "Referrer" }, value: { text: referral.referrer_name } }
             ])
           %>
