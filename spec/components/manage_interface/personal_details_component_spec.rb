@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ManageInterface::PersonalDetailsComponent, type: :component do
   subject(:rendered) { render_inline(described_class.new(referral:)) }
 
-  context "public referral" do
+  context "when public referral" do
     let(:referral) { create(:referral, :personal_details_public) }
 
     it "renders the correct data" do
