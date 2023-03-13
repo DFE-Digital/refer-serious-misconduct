@@ -3,6 +3,12 @@ require "rails_helper"
 RSpec.feature "A member of the public submits a referral", type: :system do
   include CommonSteps
 
+  around do |example|
+    Capybara.raise_server_errors = false
+    example.run
+    Capybara.raise_server_errors = true
+  end
+
   scenario "A successful submission" do
     given_the_service_is_open
     and_i_am_signed_in
@@ -21,6 +27,10 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     then_i_see_the_confirmation_page
     then_i_see_a_referral_submitted_email
     and_event_tracking_is_working
+
+    when_i_try_to_edit_the_referral
+    and_i_click_save_and_continue
+    then_i_get_an_error
   end
 
   private
@@ -88,5 +98,14 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     expect(
       %i[create_entity update_entity]
     ).to have_been_enqueued_as_analytics_events
+  end
+
+  def when_i_try_to_edit_the_referral
+    visit edit_public_referral_referrer_phone_path(@referral)
+    fill_in "Your phone number", with: "01234567890"
+  end
+
+  def then_i_get_an_error
+    expect(page).to have_content("ActionController::RoutingError")
   end
 end
