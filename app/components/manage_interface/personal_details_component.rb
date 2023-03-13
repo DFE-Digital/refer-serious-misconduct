@@ -39,29 +39,11 @@ module ManageInterface
       { key: { text: "Last name" }, value: { text: referral.last_name } }
     end
 
-    def known_by_any_other_name_row
-      {
-        key: {
-          text: "Do you know them by any other name?"
-        },
-        value: {
-          text: referral.name_has_changed.humanize
-        }
-      }
-    end
-
     def other_name_row
       if referral.name_has_changed?
         { key: { text: "Other name" }, value: { text: referral.previous_name } }
       else
-        {
-          key: {
-            text: "Do you know them by any other name?"
-          },
-          value: {
-            text: "No"
-          }
-        }
+        negative_answer_for("Do you know them by any other name?")
       end
     end
 
@@ -76,14 +58,7 @@ module ManageInterface
           }
         }
       else
-        {
-          key: {
-            text: "Do you know their date of birth?"
-          },
-          value: {
-            text: "No"
-          }
-        }
+        negative_answer_for("Do you know their date of birth?")
       end
     end
 
@@ -190,6 +165,17 @@ module ManageInterface
         },
         value: {
           text: referral.has_qts&.humanize
+        }
+      }
+    end
+
+    def negative_answer_for(question)
+      {
+        key: {
+          text: question
+        },
+        value: {
+          text: "No"
         }
       }
     end
