@@ -1,16 +1,14 @@
 module Referrals
   module TeacherRole
     class WorkLocationForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral,
-                    :work_organisation_name,
+      attr_accessor :work_organisation_name,
                     :work_address_line_1,
                     :work_address_line_2,
                     :work_town_or_city,
                     :work_postcode
 
-      validates :referral, presence: true
       validates :work_organisation_name,
                 :work_address_line_1,
                 :work_town_or_city,

@@ -1,13 +1,11 @@
 module Referrals
   module Organisation
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :complete
 
       validates :complete, inclusion: { in: [true, false] }
-      validates :referral, presence: true
 
       def complete=(value)
         @complete = ActiveModel::Type::Boolean.new.cast(value)

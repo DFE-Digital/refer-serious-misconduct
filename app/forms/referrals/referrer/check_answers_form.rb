@@ -1,7 +1,7 @@
 module Referrals
   module Referrer
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       attr_accessor :referrer
       attr_reader :complete

@@ -2,12 +2,11 @@
 module Referrals
   module Allegation
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       validates :allegation_details_complete, inclusion: { in: [true, false] }
       validate :allegation_not_incomplete
 
-      attr_accessor :referral
       attr_reader :allegation_details_complete
 
       def allegation_details_complete=(value)

@@ -2,7 +2,7 @@
 module Referrals
   module PersonalDetails
     class AgeForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       attr_accessor :date_params, :referral, :date_of_birth
       attr_reader :age_known

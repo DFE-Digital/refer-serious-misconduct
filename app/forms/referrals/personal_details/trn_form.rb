@@ -2,9 +2,8 @@
 module Referrals
   module PersonalDetails
     class TrnForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :trn_known, :trn
 
       validates :trn_known, inclusion: { in: [true, false] }

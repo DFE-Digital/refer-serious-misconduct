@@ -1,12 +1,10 @@
 module Referrals
   module ContactDetails
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :contact_details_complete
 
-      validates :referral, presence: true
       validates :contact_details_complete, inclusion: { in: [true, false] }
 
       def contact_details_complete=(value)

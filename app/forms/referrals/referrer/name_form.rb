@@ -1,14 +1,12 @@
 module Referrals
   module Referrer
     class NameForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_writer :first_name, :last_name
 
       validates :first_name, presence: true
       validates :last_name, presence: true
-      validates :referral, presence: true
 
       def first_name
         @first_name ||= referrer&.first_name

@@ -2,6 +2,7 @@ module Referrals
   module Evidence
     class UploadedForm
       include ActiveModel::Model
+      include ValidationTracking
 
       attr_accessor :more_evidence
 

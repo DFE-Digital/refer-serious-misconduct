@@ -1,12 +1,10 @@
 module Referrals
   module PreviousMisconduct
     class ReportedForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_writer :previous_misconduct_reported
 
-      validates :referral, presence: true
       validates :previous_misconduct_reported,
                 inclusion: {
                   in: %w[true false not_sure]

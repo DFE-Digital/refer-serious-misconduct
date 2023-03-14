@@ -1,16 +1,14 @@
 module Referrals
   module Organisation
     class AddressForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_writer :name, :street_1, :street_2, :city, :postcode
 
       validates :name, presence: true
       validates :street_1, presence: true
       validates :city, presence: true
       validates :postcode, presence: true
-      validates :referral, presence: true
 
       validate :postcode_is_valid, if: -> { postcode.present? }
 

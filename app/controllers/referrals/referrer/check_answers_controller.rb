@@ -14,7 +14,8 @@ module Referrals
         @check_answers_form =
           CheckAnswersForm.new(
             complete: referrer_params[:complete],
-            referrer: current_referral.referrer
+            referrer: current_referral.referrer,
+            referral: current_referral
           )
 
         if @check_answers_form.save

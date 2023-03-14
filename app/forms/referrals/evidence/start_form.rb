@@ -2,9 +2,8 @@
 module Referrals
   module Evidence
     class StartForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :has_evidence
 
       validates :has_evidence, inclusion: { in: [true, false] }

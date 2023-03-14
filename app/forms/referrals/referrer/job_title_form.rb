@@ -1,13 +1,11 @@
 module Referrals
   module Referrer
     class JobTitleForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_writer :job_title
 
       validates :job_title, presence: true
-      validates :referral, presence: true
 
       def job_title
         @job_title ||= referrer&.job_title

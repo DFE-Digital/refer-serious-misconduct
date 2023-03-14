@@ -2,12 +2,10 @@
 module Referrals
   module TeacherRole
     class SameOrganisationForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :same_organisation
 
-      validates :referral, presence: true
       validates :same_organisation, inclusion: { in: [true, false] }
 
       def same_organisation=(value)

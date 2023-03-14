@@ -2,12 +2,10 @@
 module Referrals
   module TeacherRole
     class OrganisationAddressKnownForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :organisation_address_known
 
-      validates :referral, presence: true
       validates :organisation_address_known, inclusion: { in: [true, false] }
 
       def organisation_address_known=(value)

@@ -1,12 +1,10 @@
 module Referrals
   module Referrer
     class PhoneForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_writer :phone
 
-      validates :referral, presence: true
       validates :phone,
                 format: {
                   with: /\A(\+44\s?)?(?:\d\s?){10,11}\z/,

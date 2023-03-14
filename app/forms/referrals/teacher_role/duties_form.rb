@@ -2,9 +2,9 @@
 module Referrals
   module TeacherRole
     class DutiesForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :duties_details, :duties_format, :duties_upload
+      attr_accessor :duties_details, :duties_format, :duties_upload
 
       validates :duties_format, inclusion: { in: %w[details upload] }
       validates :duties_details,

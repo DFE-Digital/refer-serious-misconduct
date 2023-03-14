@@ -2,17 +2,15 @@
 module Referrals
   module TeacherRole
     class OrganisationAddressForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral,
-                    :organisation_name,
+      attr_accessor :organisation_name,
                     :organisation_address_line_1,
                     :organisation_address_line_2,
                     :organisation_town_or_city,
                     :organisation_postcode
 
-      validates :referral,
-                :organisation_name,
+      validates :organisation_name,
                 :organisation_address_line_1,
                 :organisation_town_or_city,
                 :organisation_postcode,

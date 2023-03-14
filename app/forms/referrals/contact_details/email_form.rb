@@ -1,12 +1,11 @@
 module Referrals
   module ContactDetails
     class EmailForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :email_address
+      attr_accessor :email_address
       attr_reader :email_known
 
-      validates :referral, presence: true
       validates :email_known, inclusion: { in: [true, false] }
       validates :email_address,
                 presence: true,

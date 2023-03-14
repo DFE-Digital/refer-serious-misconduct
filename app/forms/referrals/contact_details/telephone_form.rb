@@ -1,12 +1,11 @@
 module Referrals
   module ContactDetails
     class TelephoneForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :phone_number
+      attr_accessor :phone_number
       attr_reader :phone_known
 
-      validates :referral, presence: true
       validates :phone_known, inclusion: { in: [true, false] }
       validates :phone_number, presence: true, if: -> { phone_known }
       validates :phone_number,

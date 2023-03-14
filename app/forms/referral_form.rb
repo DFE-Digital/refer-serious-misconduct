@@ -2,6 +2,7 @@ class ReferralForm
   include Rails.application.routes.url_helpers
   include ActiveModel::Model
   include ReferralHelper
+  include ValidationTracking
 
   attr_accessor :referral
 
