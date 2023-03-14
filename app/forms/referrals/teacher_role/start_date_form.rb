@@ -2,12 +2,11 @@
 module Referrals
   module TeacherRole
     class StartDateForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :date_params, :referral, :role_start_date
+      attr_accessor :date_params, :role_start_date
       attr_reader :role_start_date_known
 
-      validates :referral, presence: true
       validates :role_start_date_known, inclusion: { in: [true, false] }
       validates :role_start_date,
                 date: {

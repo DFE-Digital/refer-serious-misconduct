@@ -2,11 +2,10 @@
 module Referrals
   module TeacherRole
     class EmploymentStatusForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :employment_status
+      attr_accessor :employment_status
 
-      validates :referral, presence: true
       validates :employment_status,
                 inclusion: {
                   in: %w[employed suspended left_role]

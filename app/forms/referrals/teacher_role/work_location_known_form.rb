@@ -2,12 +2,10 @@
 module Referrals
   module TeacherRole
     class WorkLocationKnownForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :work_location_known
 
-      validates :referral, presence: true
       validates :work_location_known, inclusion: { in: [true, false] }
 
       def work_location_known=(value)

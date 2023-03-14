@@ -2,11 +2,11 @@
 module Referrals
   module Allegation
     class ConsiderationsForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       validates :allegation_consideration_details, presence: true
 
-      attr_accessor :referral, :allegation_consideration_details
+      attr_accessor :allegation_consideration_details
 
       def save
         return false if invalid?

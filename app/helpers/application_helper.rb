@@ -39,6 +39,14 @@ module ApplicationHelper
             header.navigation_item(
               active:
                 current_page?(
+                  main_app.support_interface_validation_errors_path
+                ),
+              href: main_app.support_interface_validation_errors_path,
+              text: "Validation Errors"
+            )
+            header.navigation_item(
+              active:
+                current_page?(
                   main_app.support_interface_eligibility_checks_path
                 ),
               href: main_app.support_interface_eligibility_checks_path,
@@ -79,6 +87,12 @@ module ApplicationHelper
             text: "Referrals"
           )
         end
+        header.navigation_item(
+          active:
+            current_page?(main_app.support_interface_validation_errors_path),
+          href: main_app.support_interface_validation_errors_path,
+          text: "Validation Errors"
+        )
         header.navigation_item(
           active:
             current_page?(main_app.support_interface_eligibility_checks_path),

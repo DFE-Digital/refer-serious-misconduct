@@ -2,9 +2,8 @@
 module Referrals
   module PersonalDetails
     class NiNumberForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :ni_number_known, :ni_number
 
       validates :ni_number,

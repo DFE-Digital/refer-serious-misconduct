@@ -2,11 +2,10 @@
 module Referrals
   module Allegation
     class DbsForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       validates :dbs_notified, inclusion: { in: [true, false] }
 
-      attr_accessor :referral
       attr_reader :dbs_notified
 
       def dbs_notified=(value)

@@ -1,14 +1,12 @@
 module Referrals
   module PreviousMisconduct
     class DetailedAccountForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral,
-                    :previous_misconduct_format,
+      attr_accessor :previous_misconduct_format,
                     :previous_misconduct_details,
                     :previous_misconduct_upload
 
-      validates :referral, presence: true
       validates :previous_misconduct_format,
                 inclusion: {
                   in: %w[details upload]

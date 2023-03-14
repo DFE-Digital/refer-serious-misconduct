@@ -1,13 +1,9 @@
 module Referrals
   module PersonalDetails
     class NameForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :first_name,
-                    :last_name,
-                    :name_has_changed,
-                    :previous_name,
-                    :referral
+      attr_accessor :first_name, :last_name, :name_has_changed, :previous_name
 
       validates :first_name, :last_name, presence: true
       validates :name_has_changed, inclusion: { in: %w[yes no] }

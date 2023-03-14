@@ -170,3 +170,9 @@ shared:
     - view_support
     - manage_referrals
     - deleted_at
+  :validation_errors:
+    - id
+    - form_object
+    - details
+    - created_at
+    - updated_at

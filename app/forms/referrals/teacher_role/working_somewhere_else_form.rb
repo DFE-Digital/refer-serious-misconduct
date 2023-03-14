@@ -2,11 +2,10 @@
 module Referrals
   module TeacherRole
     class WorkingSomewhereElseForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :working_somewhere_else
+      attr_accessor :working_somewhere_else
 
-      validates :referral, presence: true
       validates :working_somewhere_else, inclusion: { in: %w[yes no not_sure] }
 
       def save

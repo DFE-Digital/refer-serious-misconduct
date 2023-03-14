@@ -2,11 +2,10 @@
 module Referrals
   module TeacherRole
     class ReasonLeavingRoleForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :reason_leaving_role
+      attr_accessor :reason_leaving_role
 
-      validates :referral, presence: true
       validates :reason_leaving_role,
                 inclusion: {
                   in: %w[resigned dismissed retired unknown]

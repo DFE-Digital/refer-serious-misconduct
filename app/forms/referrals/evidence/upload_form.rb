@@ -2,14 +2,14 @@
 module Referrals
   module Evidence
     class UploadForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       MAX_FILES = FileUploadValidator::MAX_FILES
 
       validate :evidence_selected
       validates :evidence_uploads, file_upload: true
 
-      attr_accessor :referral, :evidence_uploads
+      attr_accessor :evidence_uploads
       attr_reader :evidences
 
       def evidence_selected

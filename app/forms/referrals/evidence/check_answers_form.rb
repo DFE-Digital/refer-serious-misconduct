@@ -2,11 +2,10 @@
 module Referrals
   module Evidence
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       validates :evidence_details_complete, inclusion: { in: [true, false] }
 
-      attr_accessor :referral
       attr_reader :evidence_details_complete
 
       def evidence_details_complete=(value)

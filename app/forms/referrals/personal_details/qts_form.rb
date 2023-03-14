@@ -2,9 +2,9 @@
 module Referrals
   module PersonalDetails
     class QtsForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral, :has_qts
+      attr_accessor :has_qts
 
       validates :has_qts, inclusion: { in: %w[yes no not_sure] }
 

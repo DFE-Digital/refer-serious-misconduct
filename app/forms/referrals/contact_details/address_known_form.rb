@@ -1,12 +1,10 @@
 module Referrals
   module ContactDetails
     class AddressKnownForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :address_known
 
-      validates :referral, presence: true
       validates :address_known, inclusion: { in: [true, false] }
 
       def address_known=(value)

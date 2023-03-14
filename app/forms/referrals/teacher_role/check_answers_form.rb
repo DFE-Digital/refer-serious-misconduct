@@ -1,12 +1,10 @@
 module Referrals
   module TeacherRole
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :teacher_role_complete
 
-      validates :referral, presence: true
       validates :teacher_role_complete, inclusion: { in: [true, false] }
 
       def teacher_role_complete=(value)

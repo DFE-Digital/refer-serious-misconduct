@@ -2,7 +2,7 @@
 module Referrals
   module Allegation
     class DetailsForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
       validates :allegation_format, inclusion: { in: %w[details upload] }
       validates :allegation_details,
@@ -18,10 +18,7 @@ module Referrals
                 file_upload: true,
                 if: -> { allegation_format == "upload" }
 
-      attr_accessor :referral,
-                    :allegation_details,
-                    :allegation_format,
-                    :allegation_upload
+      attr_accessor :allegation_details, :allegation_format, :allegation_upload
 
       def save
         return false if invalid?

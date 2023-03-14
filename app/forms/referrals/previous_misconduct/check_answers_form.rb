@@ -1,12 +1,10 @@
 module Referrals
   module PreviousMisconduct
     class CheckAnswersForm
-      include ActiveModel::Model
+      include ReferralFormSection
 
-      attr_accessor :referral
       attr_reader :previous_misconduct_complete
 
-      validates :referral, presence: true
       validates :previous_misconduct_complete, inclusion: { in: [true, false] }
 
       def previous_misconduct_complete=(value)
