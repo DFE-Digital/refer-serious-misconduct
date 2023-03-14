@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
       subject: "#{@otp} is your confirmation code"
     }
 
-    view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
+    view_mail_tra(mailer_options:)
   end
 
   def referral_link(referral)
@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
       subject: "Your referral of serious misconduct by a teacher"
     }
 
-    view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
+    view_mail_tra(mailer_options:)
   end
 
   def referral_submitted(referral)
@@ -29,6 +29,6 @@ class UserMailer < ApplicationMailer
       subject: "Your referral of serious misconduct has been sent"
     }
 
-    view_mail(GENERIC_NOTIFY_TEMPLATE, mailer_options)
+    view_mail_tra(mailer_options:)
   end
 end

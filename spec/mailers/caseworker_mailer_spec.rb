@@ -58,12 +58,16 @@ RSpec.describe CaseworkerMailer, type: :mailer do
       expect(template_id).to eq "4f8e7de9-3987-4e75-974f-ac94068c4a62"
     end
 
-    it "doesn't change the default Notify API key" do
-      expect { email.deliver_now }.not_to(
-        change { ActionMailer::Base.notify_settings[:api_key] }.from(
-          "govuk_notify_api_key"
+    describe "API keys" do
+      before { ActionMailer::Base.notify_settings[:api_key] = "fake_key" }
+
+      it "uses the manage Notify API key" do
+        expect { email.deliver_now }.to(
+          change { ActionMailer::Base.notify_settings[:api_key] }.from(
+            "fake_key"
+          ).to("govuk_notify_manage_serious_misconduct_api_key")
         )
-      )
+      end
     end
   end
 end

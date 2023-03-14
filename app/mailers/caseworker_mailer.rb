@@ -10,9 +10,7 @@ class CaseworkerMailer < ApplicationMailer
       subject: "#{@name} has been referred"
     }
 
-    deliver_as_manage_misconduct do
-      view_mail(MISCONDUCT_GENERIC_NOTIFY_TEMPLATE, mailer_options)
-    end
+    view_mail_manage(mailer_options:)
   end
 
   private
