@@ -116,4 +116,12 @@ module ReferralHelper
   def nullable_value_to_s(value, not_answered = "Not answered")
     value.nil? && not_answered || value
   end
+
+  def return_to_path
+    if request.path.ends_with?("/check-answers")
+      "#{request.path}/edit"
+    else
+      request.path
+    end
+  end
 end

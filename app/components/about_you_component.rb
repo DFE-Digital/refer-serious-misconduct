@@ -16,7 +16,7 @@ class AboutYouComponent < ViewComponent::Base
             href:
               polymorphic_path(
                 [:edit, referral.routing_scope, referral, :referrer_name],
-                return_to: request.path
+                return_to: return_to_path
               ),
             visually_hidden_text: "your name"
           }
@@ -56,7 +56,7 @@ class AboutYouComponent < ViewComponent::Base
                     referral,
                     :referrer_job_title
                   ],
-                  return_to: request.path
+                  return_to: return_to_path
                 ),
               visually_hidden_text: "your job title"
             }
@@ -79,7 +79,7 @@ class AboutYouComponent < ViewComponent::Base
             href:
               polymorphic_path(
                 [:edit, referral.routing_scope, referral, :referrer_phone],
-                return_to: request.path
+                return_to: return_to_path
               ),
             visually_hidden_text: "your phone number"
           }

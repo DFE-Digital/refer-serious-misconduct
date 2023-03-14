@@ -31,7 +31,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "if you know them by any other name"
         }
@@ -53,7 +53,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "their name"
         }
@@ -78,7 +78,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "other name"
         }
@@ -100,7 +100,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_age],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "date of birth"
         }
@@ -122,7 +122,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_age],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "if you know their date of birth"
         }
@@ -144,7 +144,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_trn],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text:
             "if you know their teacher reference number (TRN)"
@@ -167,7 +167,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_trn],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "teacher reference number (TRN)"
         }
@@ -189,7 +189,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           href:
             polymorphic_path(
               [:edit, referral.routing_scope, referral, :personal_details_qts],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "if they have qualified teacher status (QTS)"
         }
@@ -216,7 +216,7 @@ class PersonalDetailsComponent < ViewComponent::Base
                 referral,
                 :personal_details_ni_number
               ],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "if you know their National Insurance number"
         }
@@ -243,7 +243,7 @@ class PersonalDetailsComponent < ViewComponent::Base
                 referral,
                 :personal_details_ni_number
               ],
-              return_to: request.path
+              return_to: return_to_path
             ),
           visually_hidden_text: "National Insurance number"
         }
