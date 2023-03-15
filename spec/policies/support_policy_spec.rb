@@ -20,6 +20,18 @@ RSpec.describe SupportPolicy do
     it_behaves_like "staff policy with permission", :can_view_support
   end
 
+  describe "#delete?" do
+    subject(:delete?) { policy.delete? }
+
+    it_behaves_like "staff policy with permission", :can_view_support
+  end
+
+  describe "#destroy?" do
+    subject(:destroy?) { policy.destroy? }
+
+    it_behaves_like "staff policy with permission", :can_view_support
+  end
+
   describe "#activate?" do
     subject(:activate?) { policy.authenticate? }
 

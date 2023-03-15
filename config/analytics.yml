@@ -169,3 +169,4 @@ shared:
     - invitations_count
     - view_support
     - manage_referrals
+    - deleted_at

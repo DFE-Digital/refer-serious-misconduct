@@ -10,6 +10,10 @@ FactoryBot.define do
     confirmed_at { Time.zone.now }
   end
 
+  trait :deleted do
+    deleted_at { Time.zone.now }
+  end
+
   trait :can_view_support do
     view_support { true }
   end

@@ -12,8 +12,11 @@ class Staff < ApplicationRecord
     validate_on_invite: true
   )
 
+  validates :email, uniqueness: true
   validate :password_complexity
   validate :permissions_are_valid
+
+  scope :active, -> { where(deleted_at: nil) }
 
   def password_complexity
     if password.blank? ||
@@ -22,6 +25,10 @@ class Staff < ApplicationRecord
     end
 
     errors.add(:password, :password_complexity)
+  end
+
+  def archive
+    self.deleted_at = Time.zone.now
   end
 
   def send_devise_notification(notification, *args)
@@ -35,5 +42,15 @@ class Staff < ApplicationRecord
       :permissions,
       I18n.t("validation_errors.missing_staff_permission")
     )
+  end
+
+  def active_for_authentication?
+    super && active?
+  end
+
+  private
+
+  def active?
+    deleted_at.nil?
   end
 end

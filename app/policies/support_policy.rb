@@ -23,6 +23,18 @@ class SupportPolicy < ApplicationPolicy
     super
   end
 
+  def delete?
+    return user.view_support? if user.is_a?(Staff)
+
+    false
+  end
+
+  def destroy?
+    return user.view_support? if user.is_a?(Staff)
+
+    super
+  end
+
   def authenticate?
     return user.view_support? if user.is_a?(Staff)
 

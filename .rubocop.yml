@@ -18,6 +18,7 @@ Rails/ApplicationController:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - app/controllers/staff/**/*
+    - app/controllers/support_interface/staff_controller.rb
 
 Rails/SaveBang:
   Enabled: false
