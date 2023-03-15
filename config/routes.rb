@@ -276,7 +276,9 @@ Rails.application.routes.draw do
 
   namespace :support_interface, path: "/support" do
     root to: redirect("/support/eligibility-checks")
-    resources :staff, only: %i[index]
+    resources :staff, only: %i[index destroy] do
+      get '/delete', on: :member, to: "staff#delete"
+    end
     resources :staff_permissions, only: %i[edit update]
     resources :staff_invitations, only: %i[edit update]
     resources :test_users, only: %i[index create] do

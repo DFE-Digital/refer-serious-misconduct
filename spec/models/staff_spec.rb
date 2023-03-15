@@ -42,10 +42,28 @@ RSpec.describe Staff, type: :model do
       end
     end
 
+    context "when the email address is already taken" do
+      before { create(:staff) }
+
+      let(:staff) { build(:staff) }
+
+      it { is_expected.to be_falsey }
+    end
+
     context "when the permissions are invalid" do
       let(:staff) { build(:staff, view_support: nil, manage_referrals: nil) }
 
       it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#archive" do
+    let(:staff) { create(:staff) }
+
+    it "marks the user as deleted" do
+      staff.archive
+
+      expect(staff.deleted_at).to be_within(1).of(Time.zone.now)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_125912) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_112021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -193,6 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_125912) do
     t.integer "invitations_count", default: 0
     t.boolean "view_support", default: false
     t.boolean "manage_referrals", default: false
+    t.datetime "deleted_at", precision: nil
     t.index ["confirmation_token"], name: "index_staff_on_confirmation_token", unique: true
     t.index ["email"], name: "index_staff_on_email", unique: true
     t.index ["invitation_token"], name: "index_staff_on_invitation_token", unique: true
