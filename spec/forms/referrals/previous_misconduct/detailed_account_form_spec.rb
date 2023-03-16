@@ -1,7 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
-               type: :model do
+RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm, type: :model do
   let(:referral) { build(:referral) }
 
   describe "validations" do
@@ -9,11 +8,7 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
 
     it { is_expected.to validate_presence_of(:referral) }
 
-    specify do
-      expect(form).to validate_inclusion_of(
-        :previous_misconduct_format
-      ).in_array(%w[details upload])
-    end
+    specify { expect(form).to validate_inclusion_of(:previous_misconduct_format).in_array(%w[details upload]) }
 
     it { is_expected.not_to validate_presence_of(:previous_misconduct_details) }
 
@@ -29,13 +24,7 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
 
     let(:previous_misconduct_details) { "true" }
     let(:previous_misconduct_format) { "details" }
-    let(:form) do
-      described_class.new(
-        previous_misconduct_details:,
-        previous_misconduct_format:,
-        referral:
-      )
-    end
+    let(:form) { described_class.new(previous_misconduct_details:, previous_misconduct_format:, referral:) }
 
     it { is_expected.to be_truthy }
 
@@ -109,9 +98,7 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
 
       it "adds an error" do
         save
-        expect(form.errors[:previous_misconduct_details]).to eq(
-          ["Enter a description of previous allegations"]
-        )
+        expect(form.errors[:previous_misconduct_details]).to eq(["Enter a description of previous allegations"])
       end
     end
 
@@ -123,17 +110,11 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
 
       it "updates details on the referral" do
         save
-        expect(referral.reload.previous_misconduct_details).to eq(
-          "Something something"
-        )
+        expect(referral.reload.previous_misconduct_details).to eq("Something something")
       end
 
       context "when there is an existing upload" do
-        before do
-          referral.previous_misconduct_upload.attach(
-            fixture_file_upload("upload1.pdf")
-          )
-        end
+        before { referral.previous_misconduct_upload.attach(fixture_file_upload("upload1.pdf")) }
 
         it "has the attached file" do
           expect(referral.previous_misconduct_upload).to be_attached
@@ -141,9 +122,7 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm,
 
         it "updates details on the referral" do
           save
-          expect(referral.reload.previous_misconduct_details).to eq(
-            "Something something"
-          )
+          expect(referral.reload.previous_misconduct_details).to eq("Something something")
         end
 
         it "purges the attached file" do

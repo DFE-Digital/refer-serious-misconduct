@@ -14,10 +14,7 @@ class AboutYouComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :referrer_name],
-                return_to: return_to_path
-              ),
+              polymorphic_path([:edit, referral.routing_scope, referral, :referrer_name], return_to: return_to_path),
             visually_hidden_text: "your name"
           }
         ],
@@ -25,21 +22,10 @@ class AboutYouComponent < ViewComponent::Base
           text: "Your name"
         },
         value: {
-          text:
-            nullable_value_to_s(
-              "#{referrer&.first_name} #{referrer&.last_name}".presence
-            )
+          text: nullable_value_to_s("#{referrer&.first_name} #{referrer&.last_name}".presence)
         }
       },
-      {
-        actions: [],
-        key: {
-          text: "Your email address"
-        },
-        value: {
-          text: user.email
-        }
-      }
+      { actions: [], key: { text: "Your email address" }, value: { text: user.email } }
     ]
 
     if referral.from_employer?
@@ -50,12 +36,7 @@ class AboutYouComponent < ViewComponent::Base
               text: "Change",
               href:
                 polymorphic_path(
-                  [
-                    :edit,
-                    referral.routing_scope,
-                    referral,
-                    :referrer_job_title
-                  ],
+                  [:edit, referral.routing_scope, referral, :referrer_job_title],
                   return_to: return_to_path
                 ),
               visually_hidden_text: "your job title"
@@ -77,10 +58,7 @@ class AboutYouComponent < ViewComponent::Base
           {
             text: "Change",
             href:
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :referrer_phone],
-                return_to: return_to_path
-              ),
+              polymorphic_path([:edit, referral.routing_scope, referral, :referrer_phone], return_to: return_to_path),
             visually_hidden_text: "your phone number"
           }
         ],

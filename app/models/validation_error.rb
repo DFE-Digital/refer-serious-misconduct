@@ -5,9 +5,7 @@ class ValidationError < ApplicationRecord
     distinct_errors =
       all.flat_map do |e|
         e.details.flat_map do |attribute, details|
-          details["messages"].map do |message|
-            [e.form_object, attribute, message]
-          end
+          details["messages"].map { |message| [e.form_object, attribute, message] }
         end
       end
 

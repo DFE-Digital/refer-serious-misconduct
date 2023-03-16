@@ -8,12 +8,7 @@ module Referrals
       attr_reader :role_end_date_known
 
       validates :role_end_date_known, inclusion: { in: [true, false] }
-      validates :role_end_date,
-                date: {
-                  not_future: false,
-                  past_century: true
-                },
-                if: -> { role_end_date_known }
+      validates :role_end_date, date: { not_future: false, past_century: true }, if: -> { role_end_date_known }
 
       def role_end_date_known=(value)
         @role_end_date_known = ActiveModel::Type::Boolean.new.cast(value)

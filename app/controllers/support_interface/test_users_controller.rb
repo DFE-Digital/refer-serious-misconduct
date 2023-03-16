@@ -31,11 +31,7 @@ module SupportInterface
     def after_sign_in_path
       latest_referral = current_user.latest_referral
 
-      if latest_referral
-        [:edit, latest_referral.routing_scope, latest_referral]
-      else
-        referral_type_path
-      end
+      latest_referral ? [:edit, latest_referral.routing_scope, latest_referral] : referral_type_path
     end
   end
 end

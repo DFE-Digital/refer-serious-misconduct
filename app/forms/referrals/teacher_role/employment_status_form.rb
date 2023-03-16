@@ -6,10 +6,7 @@ module Referrals
 
       attr_accessor :employment_status
 
-      validates :employment_status,
-                inclusion: {
-                  in: %w[employed suspended left_role]
-                }
+      validates :employment_status, inclusion: { in: %w[employed suspended left_role] }
 
       def save
         return false if invalid?

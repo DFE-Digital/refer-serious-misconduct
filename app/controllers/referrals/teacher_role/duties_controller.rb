@@ -11,8 +11,7 @@ module Referrals
       end
 
       def update
-        @duties_form =
-          DutiesForm.new(duties_params.merge(referral: current_referral))
+        @duties_form = DutiesForm.new(duties_params.merge(referral: current_referral))
 
         if @duties_form.save
           redirect_to next_page
@@ -24,21 +23,11 @@ module Referrals
       private
 
       def duties_params
-        params.require(:referrals_teacher_role_duties_form).permit(
-          :duties_format,
-          :duties_details,
-          :duties_upload
-        )
+        params.require(:referrals_teacher_role_duties_form).permit(:duties_format, :duties_details, :duties_upload)
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :teacher_role,
-          :same_organisation
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :same_organisation]
       end
     end
   end

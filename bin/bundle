@@ -29,11 +29,8 @@ m =
       bundler_version = nil
       update_index = nil
       ARGV.each_with_index do |a, i|
-        bundler_version = a if update_index && update_index.succ == i &&
-          a =~ Gem::Version::ANCHORED_VERSION_PATTERN
-        unless a =~ /\A--bundler(?:[= ](#{Gem::Version::VERSION_PATTERN}))?\z/
-          next
-        end
+        bundler_version = a if update_index && update_index.succ == i && a =~ Gem::Version::ANCHORED_VERSION_PATTERN
+        next unless a =~ /\A--bundler(?:[= ](#{Gem::Version::VERSION_PATTERN}))?\z/
 
         bundler_version = Regexp.last_match(1)
         update_index = i
@@ -63,18 +60,13 @@ m =
       return unless File.file?(lockfile)
 
       lockfile_contents = File.read(lockfile)
-      unless lockfile_contents =~
-               /\n\nBUNDLED WITH\n\s{2,}(#{Gem::Version::VERSION_PATTERN})\n/
-        return
-      end
+      return unless lockfile_contents =~ /\n\nBUNDLED WITH\n\s{2,}(#{Gem::Version::VERSION_PATTERN})\n/
 
       Regexp.last_match(1)
     end
 
     def bundler_requirement
-      @bundler_requirement ||=
-        env_var_version || cli_arg_version ||
-          bundler_requirement_for(lockfile_version)
+      @bundler_requirement ||= env_var_version || cli_arg_version || bundler_requirement_for(lockfile_version)
     end
 
     def bundler_requirement_for(version)
@@ -84,9 +76,7 @@ m =
 
       requirement = bundler_gem_version.approximate_recommendation
 
-      unless Gem::Version.new(Gem::VERSION) < Gem::Version.new("2.7.0")
-        return requirement
-      end
+      return requirement unless Gem::Version.new(Gem::VERSION) < Gem::Version.new("2.7.0")
 
       requirement += ".a" if bundler_gem_version.prerelease?
 
@@ -100,15 +90,12 @@ m =
     end
 
     def activate_bundler
-      gem_error =
-        activation_error_handling { gem "bundler", bundler_requirement }
+      gem_error = activation_error_handling { gem "bundler", bundler_requirement }
       return if gem_error.nil?
 
       require_error = activation_error_handling { require "bundler/version" }
       if require_error.nil? &&
-           Gem::Requirement.new(bundler_requirement).satisfied_by?(
-             Gem::Version.new(Bundler::VERSION)
-           )
+           Gem::Requirement.new(bundler_requirement).satisfied_by?(Gem::Version.new(Bundler::VERSION))
         return
       end
 

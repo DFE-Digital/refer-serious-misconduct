@@ -4,8 +4,7 @@ class ReferralTypeController < EligibilityScreenerController
   end
 
   def create
-    @reporting_as_form =
-      ReportingAsForm.new(reporting_as_params.merge(eligibility_check:))
+    @reporting_as_form = ReportingAsForm.new(reporting_as_params.merge(eligibility_check:))
 
     if @reporting_as_form.save
       assign_eligibility_check_to_session

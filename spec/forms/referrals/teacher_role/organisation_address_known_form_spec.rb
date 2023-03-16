@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Referrals::TeacherRole::OrganisationAddressKnownForm,
-               type: :model do
+RSpec.describe Referrals::TeacherRole::OrganisationAddressKnownForm, type: :model do
   subject(:form) { described_class.new(referral:, organisation_address_known:) }
 
   let(:referral) { build(:referral) }
@@ -33,10 +32,7 @@ RSpec.describe Referrals::TeacherRole::OrganisationAddressKnownForm,
       let(:organisation_address_known) { "true" }
 
       it "updates the organisation_address_known to true" do
-        expect { form.save }.to change(
-          referral,
-          :organisation_address_known
-        ).from(nil).to(true)
+        expect { form.save }.to change(referral, :organisation_address_known).from(nil).to(true)
       end
     end
 
@@ -44,10 +40,7 @@ RSpec.describe Referrals::TeacherRole::OrganisationAddressKnownForm,
       let(:organisation_address_known) { false }
 
       it "updates the organisation_address_known to false" do
-        expect { form.save }.to change(
-          referral,
-          :organisation_address_known
-        ).from(nil).to(false)
+        expect { form.save }.to change(referral, :organisation_address_known).from(nil).to(false)
       end
     end
   end

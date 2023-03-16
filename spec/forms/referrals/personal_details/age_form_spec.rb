@@ -16,9 +16,7 @@ RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
 
     it "adds an error message" do
       form.valid?
-      expect(form.errors[:age_known]).to eq(
-        ["Select yes if you know their date of birth"]
-      )
+      expect(form.errors[:age_known]).to eq(["Select yes if you know their date of birth"])
     end
   end
 

@@ -18,11 +18,7 @@ class ApplicationController < ActionController::Base
 
     return unless referral_in_progress
 
-    redirect_to [
-                  :edit,
-                  referral_in_progress.routing_scope,
-                  referral_in_progress
-                ]
+    redirect_to [:edit, referral_in_progress.routing_scope, referral_in_progress]
   end
 
   def referrals_submitted?

@@ -2,13 +2,11 @@ module Referrals
   module TeacherRole
     class JobTitleController < Referrals::BaseController
       def edit
-        @job_title_form =
-          JobTitleForm.new(job_title: current_referral.job_title)
+        @job_title_form = JobTitleForm.new(job_title: current_referral.job_title)
       end
 
       def update
-        @job_title_form =
-          JobTitleForm.new(job_title_params.merge(referral: current_referral))
+        @job_title_form = JobTitleForm.new(job_title_params.merge(referral: current_referral))
 
         if @job_title_form.save
           redirect_to next_page
@@ -20,19 +18,11 @@ module Referrals
       private
 
       def job_title_params
-        params.require(:referrals_teacher_role_job_title_form).permit(
-          :job_title
-        )
+        params.require(:referrals_teacher_role_job_title_form).permit(:job_title)
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :teacher_role,
-          :duties
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :duties]
       end
     end
   end

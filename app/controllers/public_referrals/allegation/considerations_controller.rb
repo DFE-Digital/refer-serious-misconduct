@@ -7,8 +7,7 @@ module PublicReferrals
         @allegation_considerations_form =
           Referrals::Allegation::ConsiderationsForm.new(
             referral: current_referral,
-            allegation_consideration_details:
-              current_referral.allegation_consideration_details
+            allegation_consideration_details: current_referral.allegation_consideration_details
           )
       end
 
@@ -28,9 +27,7 @@ module PublicReferrals
       private
 
       def allegation_considerations_params
-        params.require(:referrals_allegation_considerations_form).permit(
-          :allegation_consideration_details
-        )
+        params.require(:referrals_allegation_considerations_form).permit(:allegation_consideration_details)
       end
 
       def next_path

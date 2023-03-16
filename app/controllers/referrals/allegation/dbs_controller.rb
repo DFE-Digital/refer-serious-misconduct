@@ -2,13 +2,11 @@ module Referrals
   module Allegation
     class DbsController < Referrals::BaseController
       def edit
-        @allegation_dbs_form =
-          DbsForm.new(dbs_notified: current_referral.dbs_notified)
+        @allegation_dbs_form = DbsForm.new(dbs_notified: current_referral.dbs_notified)
       end
 
       def update
-        @allegation_dbs_form =
-          DbsForm.new(allegation_dbs_params.merge(referral: current_referral))
+        @allegation_dbs_form = DbsForm.new(allegation_dbs_params.merge(referral: current_referral))
 
         if @allegation_dbs_form.save
           redirect_to next_page
@@ -24,13 +22,7 @@ module Referrals
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :allegation,
-          :check_answers
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :allegation, :check_answers]
       end
     end
   end

@@ -9,9 +9,7 @@ module EnforceQuestionOrder
   def redirect_to_correct_question
     redirect_to(start_url) and return if redirect_to_start_page?
 
-    if all_previous_question_answered? || request.path == next_question_path
-      return
-    end
+    return if all_previous_question_answered? || request.path == next_question_path
 
     redirect_to_next_question
   end
@@ -25,42 +23,25 @@ module EnforceQuestionOrder
   end
 
   def unsaved_eligibility_check_after_start?
-    (eligibility_check.nil? || eligibility_check.new_record?) &&
-      request.path != questions.first[:path]
+    (eligibility_check.nil? || eligibility_check.new_record?) && request.path != questions.first[:path]
   end
 
   def questions
     [
-      {
-        path: referral_type_path,
-        needs_answer: true,
-        answered: referral_type_answered?
-      },
+      { path: referral_type_path, needs_answer: true, answered: referral_type_answered? },
       {
         path: have_you_complained_path,
         needs_answer: eligibility_check.reporting_as_public?,
         answered: complained_answered?
       },
-      {
-        path: is_a_teacher_path,
-        needs_answer: true,
-        answered: is_a_teacher_answered?
-      },
+      { path: is_a_teacher_path, needs_answer: true, answered: is_a_teacher_answered? },
       {
         path: unsupervised_teaching_path,
         needs_answer: !eligibility_check.is_teacher?,
         answered: unsupervised_teaching_answered?
       },
-      {
-        path: teaching_in_england_path,
-        needs_answer: true,
-        answered: teaching_in_england_answered?
-      },
-      {
-        path: serious_misconduct_path,
-        needs_answer: true,
-        answered: serious_misconduct_answered?
-      }
+      { path: teaching_in_england_path, needs_answer: true, answered: teaching_in_england_answered? },
+      { path: serious_misconduct_path, needs_answer: true, answered: serious_misconduct_answered? }
     ]
   end
 
@@ -69,9 +50,7 @@ module EnforceQuestionOrder
   end
 
   def all_previous_question_answered?
-    questions[0...requested_question_index].all? do |q|
-      q[:answered] || !q[:needs_answer]
-    end
+    questions[0...requested_question_index].all? { |q| q[:answered] || !q[:needs_answer] }
   end
 
   def requested_question_index

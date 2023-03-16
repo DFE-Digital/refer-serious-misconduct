@@ -9,11 +9,7 @@ module SupportInterface
     def destroy
       staff_user.archive
 
-      flash[:info] = if staff_user.save
-        "User deleted"
-      else
-        "User could not be deleted"
-      end
+      flash[:info] = (staff_user.save ? "User deleted" : "User could not be deleted")
 
       redirect_to support_interface_staff_index_path
     end

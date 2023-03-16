@@ -18,16 +18,10 @@ RSpec.feature "User views an existing referral summary", type: :system do
   def then_i_see_the_referral_as_sections
     expect(page).to have_content("Your referral")
 
-    within(all(".app-task-list__section").first) do
-      expect(page).to have_content("About you")
-    end
+    within(all(".app-task-list__section").first) { expect(page).to have_content("About you") }
 
-    within(all(".app-task-list__section")[1]) do
-      expect(page).to have_content("About the teacher")
-    end
+    within(all(".app-task-list__section")[1]) { expect(page).to have_content("About the teacher") }
 
-    within(all(".app-task-list__section").last) do
-      expect(page).to have_content("The allegation")
-    end
+    within(all(".app-task-list__section").last) { expect(page).to have_content("The allegation") }
   end
 end

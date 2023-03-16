@@ -104,8 +104,6 @@ RSpec.feature "User accounts" do
 
   def and_i_can_continue_the_referral_in_progress
     click_on "Complete referral"
-    expect(page).to have_current_path(
-      edit_referral_path(@user.referral_in_progress)
-    )
+    expect(page).to have_current_path(edit_referral_path(@user.referral_in_progress))
   end
 end

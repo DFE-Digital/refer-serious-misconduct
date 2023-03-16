@@ -62,10 +62,7 @@ class PersonalDetailsComponent < ViewComponent::Base
         text: "Their name"
       },
       value: {
-        text:
-          nullable_value_to_s(
-            "#{referral.first_name} #{referral.last_name}".presence
-          )
+        text: nullable_value_to_s("#{referral.first_name} #{referral.last_name}".presence)
       }
     }
   end
@@ -146,8 +143,7 @@ class PersonalDetailsComponent < ViewComponent::Base
               [:edit, referral.routing_scope, referral, :personal_details_trn],
               return_to: return_to_path
             ),
-          visually_hidden_text:
-            "if you know their teacher reference number (TRN)"
+          visually_hidden_text: "if you know their teacher reference number (TRN)"
         }
       ],
       key: {
@@ -210,12 +206,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           text: "Change",
           href:
             polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :personal_details_ni_number
-              ],
+              [:edit, referral.routing_scope, referral, :personal_details_ni_number],
               return_to: return_to_path
             ),
           visually_hidden_text: "if you know their National Insurance number"
@@ -237,12 +228,7 @@ class PersonalDetailsComponent < ViewComponent::Base
           text: "Change",
           href:
             polymorphic_path(
-              [
-                :edit,
-                referral.routing_scope,
-                referral,
-                :personal_details_ni_number
-              ],
+              [:edit, referral.routing_scope, referral, :personal_details_ni_number],
               return_to: return_to_path
             ),
           visually_hidden_text: "National Insurance number"

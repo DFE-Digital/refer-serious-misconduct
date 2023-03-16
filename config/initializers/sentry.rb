@@ -7,10 +7,7 @@ Sentry.init do |config|
 
   config.environment = HostingEnvironment.environment_name
 
-  filter =
-    ActiveSupport::ParameterFilter.new(
-      Rails.application.config.filter_parameters
-    )
+  filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
   config.before_send = lambda { |event, _hint| filter.filter(event.to_hash) }
 
   config.inspect_exception_causes_for_exclusion = true

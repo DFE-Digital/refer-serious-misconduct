@@ -5,18 +5,11 @@ module Referrals
       include ReferralFormSection
 
       validates :allegation_format, inclusion: { in: %w[details upload] }
-      validates :allegation_details,
-                presence: true,
-                if: -> { allegation_format == "details" }
+      validates :allegation_details, presence: true, if: -> { allegation_format == "details" }
       validates :allegation_upload,
                 presence: true,
-                if: -> {
-                  allegation_format == "upload" &&
-                    !referral.allegation_upload.attached?
-                }
-      validates :allegation_upload,
-                file_upload: true,
-                if: -> { allegation_format == "upload" }
+                if: -> { allegation_format == "upload" && !referral.allegation_upload.attached? }
+      validates :allegation_upload, file_upload: true, if: -> { allegation_format == "upload" }
 
       attr_accessor :allegation_details, :allegation_format, :allegation_upload
 
@@ -30,9 +23,7 @@ module Referrals
           referral.allegation_upload.purge
           attrs.merge!(allegation_details:)
         when "upload"
-          if allegation_upload.present?
-            attrs.merge!(allegation_details: nil, allegation_upload:)
-          end
+          attrs.merge!(allegation_details: nil, allegation_upload:) if allegation_upload.present?
         end
 
         referral.update(attrs)

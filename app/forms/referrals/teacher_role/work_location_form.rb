@@ -9,11 +9,7 @@ module Referrals
                     :work_town_or_city,
                     :work_postcode
 
-      validates :work_organisation_name,
-                :work_address_line_1,
-                :work_town_or_city,
-                :work_postcode,
-                presence: true
+      validates :work_organisation_name, :work_address_line_1, :work_town_or_city, :work_postcode, presence: true
       validate :postcode_is_valid, if: -> { work_postcode.present? }
 
       def save
@@ -31,9 +27,7 @@ module Referrals
       private
 
       def postcode_is_valid
-        unless UKPostcode.parse(work_postcode).full_valid?
-          errors.add(:work_postcode, :invalid)
-        end
+        errors.add(:work_postcode, :invalid) unless UKPostcode.parse(work_postcode).full_valid?
       end
     end
   end

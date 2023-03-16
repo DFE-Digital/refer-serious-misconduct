@@ -6,8 +6,7 @@ class PublicAllegationComponent < ViewComponent::Base
   attr_accessor :referral
 
   def allegation_check_answers_form
-    @allegation_check_answers_form ||=
-      Referrals::Allegation::CheckAnswersForm.new(referral:)
+    @allegation_check_answers_form ||= Referrals::Allegation::CheckAnswersForm.new(referral:)
   end
 
   def file_upload?
@@ -20,10 +19,7 @@ class PublicAllegationComponent < ViewComponent::Base
 
   def file_link
     upload = referral.allegation_upload
-    govuk_link_to(
-      upload.filename,
-      rails_blob_path(upload, disposition: "attachment")
-    )
+    govuk_link_to(upload.filename, rails_blob_path(upload, disposition: "attachment"))
   end
 
   def rows
@@ -32,13 +28,8 @@ class PublicAllegationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_public_referral_allegation_details_path(
-                referral,
-                return_to: return_to_path
-              ),
-            visually_hidden_text:
-              "how you want to give details about the allegation"
+            href: edit_public_referral_allegation_details_path(referral, return_to: return_to_path),
+            visually_hidden_text: "how you want to give details about the allegation"
           }
         ],
         key: {
@@ -52,11 +43,7 @@ class PublicAllegationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_public_referral_allegation_details_path(
-                referral,
-                return_to: return_to_path
-              ),
+            href: edit_public_referral_allegation_details_path(referral, return_to: return_to_path),
             visually_hidden_text: "description of the allegation"
           }
         ],
@@ -71,25 +58,15 @@ class PublicAllegationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href:
-              edit_public_referral_allegation_considerations_path(
-                referral,
-                return_to: return_to_path
-              ),
-            visually_hidden_text:
-              "details about how this complaint has been considered"
+            href: edit_public_referral_allegation_considerations_path(referral, return_to: return_to_path),
+            visually_hidden_text: "details about how this complaint has been considered"
           }
         ],
         key: {
           text: "Details about how this complaint has been considered"
         },
         value: {
-          text:
-            simple_format(
-              nullable_value_to_s(
-                referral.allegation_consideration_details.presence
-              )
-            )
+          text: simple_format(nullable_value_to_s(referral.allegation_consideration_details.presence))
         }
       }
     ]

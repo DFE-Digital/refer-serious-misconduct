@@ -9,53 +9,31 @@ RSpec.describe TaskListComponent, type: :component do
         number: 1,
         label: "Do laundry",
         items: [
-          OpenStruct.new(
-            label: "Light wash",
-            path: "/light-wash",
-            status: :completed
-          ),
-          OpenStruct.new(
-            label: "Dark wash",
-            path: "/dark-wash",
-            status: :incomplete
-          )
+          OpenStruct.new(label: "Light wash", path: "/light-wash", status: :completed),
+          OpenStruct.new(label: "Dark wash", path: "/dark-wash", status: :incomplete)
         ]
       ),
       OpenStruct.new(
         number: 2,
         label: "Make a sandwich",
         items: [
-          OpenStruct.new(
-            label: "Butter bread",
-            path: "/butter-bread",
-            status: :incomplete
-          ),
-          OpenStruct.new(
-            label: "Add filling",
-            path: "/add-filling",
-            status: :incomplete
-          )
+          OpenStruct.new(label: "Butter bread", path: "/butter-bread", status: :incomplete),
+          OpenStruct.new(label: "Add filling", path: "/add-filling", status: :incomplete)
         ]
       )
     ]
   end
 
   it "renders the title in the first numbered section" do
-    expect(rendered.css(".app-task-list__section-heading")[0].text).to include(
-      "Do laundry"
-    )
+    expect(rendered.css(".app-task-list__section-heading")[0].text).to include("Do laundry")
   end
 
   it "renders the title in the second numbered section" do
-    expect(rendered.css(".app-task-list__section-heading")[1].text).to include(
-      "Make a sandwich"
-    )
+    expect(rendered.css(".app-task-list__section-heading")[1].text).to include("Make a sandwich")
   end
 
   it "renders the first section title" do
-    expect(rendered.css(".app-task-list__item")[0].text).to include(
-      "Light wash"
-    )
+    expect(rendered.css(".app-task-list__item")[0].text).to include("Light wash")
   end
 
   it "renders the second section title" do
@@ -63,21 +41,15 @@ RSpec.describe TaskListComponent, type: :component do
   end
 
   it "renders the third section title" do
-    expect(rendered.css(".app-task-list__item")[2].text).to include(
-      "Butter bread"
-    )
+    expect(rendered.css(".app-task-list__item")[2].text).to include("Butter bread")
   end
 
   it "renders the fourth section title" do
-    expect(rendered.css(".app-task-list__item")[3].text).to include(
-      "Add filling"
-    )
+    expect(rendered.css(".app-task-list__item")[3].text).to include("Add filling")
   end
 
   it "renders the first link" do
-    expect(rendered.css(".app-task-list__item a")[0][:href]).to eq(
-      "/light-wash"
-    )
+    expect(rendered.css(".app-task-list__item a")[0][:href]).to eq("/light-wash")
   end
 
   it "renders the second link" do
@@ -85,15 +57,11 @@ RSpec.describe TaskListComponent, type: :component do
   end
 
   it "renders the third link" do
-    expect(rendered.css(".app-task-list__item a")[2][:href]).to eq(
-      "/butter-bread"
-    )
+    expect(rendered.css(".app-task-list__item a")[2][:href]).to eq("/butter-bread")
   end
 
   it "renders the fourth link" do
-    expect(rendered.css(".app-task-list__item a")[3][:href]).to eq(
-      "/add-filling"
-    )
+    expect(rendered.css(".app-task-list__item a")[3][:href]).to eq("/add-filling")
   end
 
   it "renders the tag with the correct status" do
@@ -101,14 +69,10 @@ RSpec.describe TaskListComponent, type: :component do
   end
 
   it "renders the Incomplete tag even if the sections was not started yet with the correct colour" do
-    expect(
-      rendered.css(".app-task-list__tag.govuk-tag--grey")[0].text
-    ).to include("Incomplete")
+    expect(rendered.css(".app-task-list__tag.govuk-tag--grey")[0].text).to include("Incomplete")
   end
 
   it "renders the Incomplete tag with the correct colour" do
-    expect(
-      rendered.css(".app-task-list__tag.govuk-tag--grey")[1].text
-    ).to include("Incomplete")
+    expect(rendered.css(".app-task-list__tag.govuk-tag--grey")[1].text).to include("Incomplete")
   end
 end

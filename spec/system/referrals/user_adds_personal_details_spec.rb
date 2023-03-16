@@ -137,9 +137,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def then_i_am_asked_if_i_know_their_trn
-    expect(page).to have_content(
-      "Do you know their teacher reference number (TRN)?"
-    )
+    expect(page).to have_content("Do you know their teacher reference number (TRN)?")
     expect(page).to have_content("A TRN is 7 digits long, for example 4567814.")
   end
 
@@ -171,42 +169,26 @@ RSpec.feature "Personal details", type: :system do
     expect_summary_row(
       key: "Their name",
       value: "Jane Smith",
-      change_link:
-        edit_referral_personal_details_name_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_personal_details_name_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Date of birth",
       value: "17 January 1990",
-      change_link:
-        edit_referral_personal_details_age_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_personal_details_age_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "TRN",
       value: "9912345",
-      change_link:
-        edit_referral_personal_details_trn_path(
-          @referral,
-          return_to: current_path
-        ),
+      change_link: edit_referral_personal_details_trn_path(@referral, return_to: current_path),
       exact_text: true
     )
 
     expect_summary_row(
       key: "Do they have qualified teacher status (QTS)?",
       value: "Yes",
-      change_link:
-        edit_referral_personal_details_qts_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_personal_details_qts_path(@referral, return_to: current_path)
     )
 
     expect(page).to have_content("Have you completed this section?")
@@ -219,9 +201,7 @@ RSpec.feature "Personal details", type: :system do
   def then_i_see_the_completed_section_in_the_referral_summary
     within(all(".app-task-list__section")[1]) do
       within(all(".app-task-list__item")[0]) do
-        expect(find(".app-task-list__task-name a").text).to eq(
-          "Personal details"
-        )
+        expect(find(".app-task-list__task-name a").text).to eq("Personal details")
         expect(find(".app-task-list__tag").text).to eq("COMPLETED")
       end
     end

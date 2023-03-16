@@ -8,8 +8,7 @@ class FileUploadValidator < ActiveModel::EachValidator
     ".apng" => "image/apng",
     ".avif" => "image/avif",
     ".doc" => "application/msword",
-    ".docx" =>
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ".gif" => "image/gif",
     ".heic" => "image/heic",
     ".heif" => "image/heif",
@@ -28,9 +27,7 @@ class FileUploadValidator < ActiveModel::EachValidator
     uploaded_files = [uploaded_files] unless uploaded_files.is_a?(Array)
     uploaded_files.compact_blank!
 
-    if uploaded_files.size > MAX_FILES
-      record.errors.add(attribute, :file_count, max_files: MAX_FILES)
-    end
+    record.errors.add(attribute, :file_count, max_files: MAX_FILES) if uploaded_files.size > MAX_FILES
 
     uploaded_files.each do |uploaded_file|
       next if uploaded_file.nil?
@@ -49,13 +46,8 @@ class FileUploadValidator < ActiveModel::EachValidator
 
       extension = File.extname(uploaded_file.original_filename).downcase
 
-      if !CONTENT_TYPES.values.include?(content_type) ||
-           !CONTENT_TYPES.keys.include?(extension)
-        record.errors.add(
-          attribute,
-          :invalid_content_type,
-          valid_types: CONTENT_TYPES.keys.sort.join(", ")
-        )
+      if !CONTENT_TYPES.values.include?(content_type) || !CONTENT_TYPES.keys.include?(extension)
+        record.errors.add(attribute, :invalid_content_type, valid_types: CONTENT_TYPES.keys.sort.join(", "))
         break
       elsif CONTENT_TYPES[extension] != content_type
         record.errors.add attribute, :mismatch_content_type

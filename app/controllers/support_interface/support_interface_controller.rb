@@ -15,9 +15,7 @@ module SupportInterface
       # FeatureFlags::Engine is a mounted engine and we can't control the
       # behaviour from this level. Attempting to do the redirect
       # here ends up in multiple redirects.
-      unless is_a?(FeatureFlags::FeatureFlagsController)
-        redirect_to forbidden_path
-      end
+      redirect_to forbidden_path unless is_a?(FeatureFlags::FeatureFlagsController)
     end
 
     def authorize_support

@@ -5,17 +5,11 @@ module Referrals
 
       def edit
         @evidence_check_answers_form =
-          CheckAnswersForm.new(
-            evidence_details_complete:
-              current_referral.evidence_details_complete
-          )
+          CheckAnswersForm.new(evidence_details_complete: current_referral.evidence_details_complete)
       end
 
       def update
-        @evidence_check_answers_form =
-          CheckAnswersForm.new(
-            check_answers_params.merge(referral: current_referral)
-          )
+        @evidence_check_answers_form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
 
         if @evidence_check_answers_form.save
           redirect_to([:edit, current_referral.routing_scope, current_referral])
@@ -40,12 +34,7 @@ module Referrals
               :evidence_upload
             end
           )
-        redirect_path = [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          subsection
-        ]
+        redirect_path = [:edit, current_referral.routing_scope, current_referral, subsection]
         redirect_to(redirect_path, flash: { success: "#{filename} deleted" })
       end
 
@@ -57,9 +46,7 @@ module Referrals
       private
 
       def check_answers_params
-        params.fetch(:referrals_evidence_check_answers_form, {}).permit(
-          :evidence_details_complete
-        )
+        params.fetch(:referrals_evidence_check_answers_form, {}).permit(:evidence_details_complete)
       end
     end
   end

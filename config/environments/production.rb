@@ -62,9 +62,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store =
-    :redis_cache_store,
-    { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1") }
+  config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1") }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
@@ -94,11 +92,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.delivery_method = :notify
-  config.action_mailer.notify_settings = {
-    api_key: ENV.fetch("GOVUK_NOTIFY_API_KEY")
-  }
-  config.action_mailer.default_url_options = {
-    host: HostingEnvironment.host,
-    protocol: "https"
-  }
+  config.action_mailer.notify_settings = { api_key: ENV.fetch("GOVUK_NOTIFY_API_KEY") }
+  config.action_mailer.default_url_options = { host: HostingEnvironment.host, protocol: "https" }
 end

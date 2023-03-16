@@ -9,28 +9,11 @@ class Referral < ApplicationRecord
   has_one_attached :duties_upload, dependent: :destroy
   has_one_attached :pdf, dependent: :destroy
 
-  has_many :evidences,
-           -> { order(:created_at) },
-           class_name: "ReferralEvidence",
-           dependent: :destroy
+  has_many :evidences, -> { order(:created_at) }, class_name: "ReferralEvidence", dependent: :destroy
 
-  scope :employer,
-        -> {
-          joins(:eligibility_check).where(
-            eligibility_check: {
-              reporting_as: :employer
-            }
-          )
-        }
+  scope :employer, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :employer }) }
 
-  scope :member_of_public,
-        -> {
-          joins(:eligibility_check).where(
-            eligibility_check: {
-              reporting_as: :public
-            }
-          )
-        }
+  scope :member_of_public, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :public }) }
 
   scope :submitted, -> { where.not(submitted_at: nil) }
 
@@ -39,8 +22,7 @@ class Referral < ApplicationRecord
   def submit
     self.declaration = DeclarationRenderer.new.render
 
-    update(submitted_at: Time.current) &&
-      RenderPdfJob.perform_later(referral: self)
+    update(submitted_at: Time.current) && RenderPdfJob.perform_later(referral: self)
   end
 
   def routing_scope

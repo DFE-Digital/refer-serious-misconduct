@@ -1,25 +1,13 @@
 module AddressHelper
   def address(referral)
     address_fields_to_html(
-      [
-        referral.address_line_1,
-        referral.address_line_2,
-        referral.town_or_city,
-        referral.postcode,
-        referral.country
-      ]
+      [referral.address_line_1, referral.address_line_2, referral.town_or_city, referral.postcode, referral.country]
     )
   end
 
   def organisation_address(organisation)
     address_fields_to_html(
-      [
-        organisation&.name,
-        organisation&.street_1,
-        organisation&.street_2,
-        organisation&.city,
-        organisation&.postcode
-      ]
+      [organisation&.name, organisation&.street_1, organisation&.street_2, organisation&.city, organisation&.postcode]
     )
   end
 

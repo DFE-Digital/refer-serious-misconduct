@@ -24,12 +24,10 @@ RSpec.describe RenderPdfJob do
     end
 
     before do
-      allow(ActionController::Base.helpers).to receive(:asset_path).with(
-        "main.css"
-      ).and_return("/1234-main.css")
-      allow(ActionController::Base.helpers).to receive(:asset_path).with(
-        "tra_logo.png"
-      ).and_return("/images/1234-tra_logo.png")
+      allow(ActionController::Base.helpers).to receive(:asset_path).with("main.css").and_return("/1234-main.css")
+      allow(ActionController::Base.helpers).to receive(:asset_path).with("tra_logo.png").and_return(
+        "/images/1234-tra_logo.png"
+      )
     end
 
     it "attaches a PDF to the referral" do
@@ -38,9 +36,7 @@ RSpec.describe RenderPdfJob do
     end
 
     it "specifies the correct assets" do
-      allow(ApplicationController.renderer).to receive(:new).and_return(
-        renderer = double
-      )
+      allow(ApplicationController.renderer).to receive(:new).and_return(renderer = double)
 
       expect(renderer).to receive(:render).with(
         hash_including(

@@ -27,10 +27,8 @@ class StaffHttpBasicAuthStrategy < Warden::Strategies::Base
 
   private
 
-  SUPPORT_USERNAME =
-    Digest::SHA256.hexdigest(ENV.fetch("SUPPORT_USERNAME", "test"))
-  SUPPORT_PASSWORD =
-    Digest::SHA256.hexdigest(ENV.fetch("SUPPORT_PASSWORD", "test"))
+  SUPPORT_USERNAME = Digest::SHA256.hexdigest(ENV.fetch("SUPPORT_USERNAME", "test"))
+  SUPPORT_PASSWORD = Digest::SHA256.hexdigest(ENV.fetch("SUPPORT_PASSWORD", "test"))
 
   ANONYMOUS_SUPPORT_USER = AnonymousSupportUser.new
 
@@ -42,9 +40,6 @@ class StaffHttpBasicAuthStrategy < Warden::Strategies::Base
   end
 
   def valid_comparison?(correct_value, given_value)
-    ActiveSupport::SecurityUtils.secure_compare(
-      Digest::SHA256.hexdigest(given_value),
-      correct_value
-    )
+    ActiveSupport::SecurityUtils.secure_compare(Digest::SHA256.hexdigest(given_value), correct_value)
   end
 end

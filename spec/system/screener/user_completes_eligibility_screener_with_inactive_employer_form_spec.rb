@@ -43,8 +43,6 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_links_to_the_referral_form_documents
-    expect(
-      page
-    ).to have_content "You can download and print the teacher misconduct form"
+    expect(page).to have_content "You can download and print the teacher misconduct form"
   end
 end

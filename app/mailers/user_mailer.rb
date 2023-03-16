@@ -2,10 +2,7 @@ class UserMailer < ApplicationMailer
   def otp(user)
     @otp = Devise::Otp.derive_otp(user.secret_key)
     Rails.logger.info "OTP: #{@otp}" if Rails.env.development?
-    mailer_options = {
-      to: user.email,
-      subject: "#{@otp} is your confirmation code"
-    }
+    mailer_options = { to: user.email, subject: "#{@otp} is your confirmation code" }
 
     view_mail_tra(mailer_options:)
   end
@@ -13,10 +10,7 @@ class UserMailer < ApplicationMailer
   def referral_link(referral)
     @referral = referral
     @user = referral.user
-    mailer_options = {
-      to: @user.email,
-      subject: "Your referral of serious misconduct by a teacher"
-    }
+    mailer_options = { to: @user.email, subject: "Your referral of serious misconduct by a teacher" }
 
     view_mail_tra(mailer_options:)
   end
@@ -24,10 +18,7 @@ class UserMailer < ApplicationMailer
   def referral_submitted(referral)
     @link = users_referral_url(referral)
     @user = referral.user
-    mailer_options = {
-      to: @user.email,
-      subject: "Your referral of serious misconduct has been sent"
-    }
+    mailer_options = { to: @user.email, subject: "Your referral of serious misconduct has been sent" }
 
     view_mail_tra(mailer_options:)
   end

@@ -76,11 +76,7 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_an_error_about_otp_length
-    expect(page).to have_content(
-      I18n.t(
-        "activemodel.errors.models.users/otp_form.attributes.otp.too_short"
-      )
-    )
+    expect(page).to have_content(I18n.t("activemodel.errors.models.users/otp_form.attributes.otp.too_short"))
   end
 
   def then_i_see_an_error_about_a_wrong_code
@@ -134,9 +130,7 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_my_current_page_before_logging_in
-    expect(page).to have_current_path(
-      edit_referral_contact_details_email_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_email_path(@referral))
   end
 
   def then_i_should_see_the_sign_in_page

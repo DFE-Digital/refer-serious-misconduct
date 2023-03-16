@@ -113,9 +113,7 @@ RSpec.describe PerformanceStats, type: :model do
   end
 
   describe "#total_requests_by_month" do
-    subject(:total_requests_by_month) do
-      performance_stats.total_requests_by_month
-    end
+    subject(:total_requests_by_month) { performance_stats.total_requests_by_month }
 
     let(:performance_stats) { described_class.new }
 

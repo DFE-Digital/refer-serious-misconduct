@@ -6,9 +6,7 @@ RSpec.describe Referrals::Allegation::CheckAnswersForm, type: :model do
     subject(:save) { check_answers_form.save }
 
     let(:referral) { build(:referral) }
-    let(:check_answers_form) do
-      described_class.new(referral:, allegation_details_complete:)
-    end
+    let(:check_answers_form) { described_class.new(referral:, allegation_details_complete:) }
     let(:allegation_details_complete) { "false" }
 
     context "with a valid value" do
@@ -33,9 +31,7 @@ RSpec.describe Referrals::Allegation::CheckAnswersForm, type: :model do
       it "adds an error" do
         referral.allegation_format = "incomplete"
         save
-        expect(check_answers_form.errors[:base]).to eq(
-          ["Give details of the allegation"]
-        )
+        expect(check_answers_form.errors[:base]).to eq(["Give details of the allegation"])
       end
     end
   end

@@ -36,17 +36,13 @@ RSpec.feature "A member of the public submits a referral", type: :system do
   end
 
   def then_i_see_the_confirmation_page
-    expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/confirmation"
-    )
+    expect(page).to have_current_path("/public-referrals/#{@referral.id}/confirmation")
     expect(page).to have_title("Referral sent")
     expect(page).to have_content("Referral sent")
   end
 
   def then_i_see_the_declaration_page
-    expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/declaration"
-    )
+    expect(page).to have_current_path("/public-referrals/#{@referral.id}/declaration")
     expect(page).to have_title("Before you send your referral")
     expect(page).to have_content("Before you send your referral")
   end
@@ -77,16 +73,12 @@ RSpec.feature "A member of the public submits a referral", type: :system do
   def then_i_see_a_referral_submitted_email
     perform_enqueued_jobs
     message = ActionMailer::Base.deliveries.last
-    expect(message.subject).to eq(
-      "Your referral of serious misconduct has been sent"
-    )
+    expect(message.subject).to eq("Your referral of serious misconduct has been sent")
     expect(message.to).to include(@referral.user.email)
     expect(message.body).to include(users_referral_path(@referral))
   end
 
   def and_event_tracking_is_working
-    expect(
-      %i[create_entity update_entity]
-    ).to have_been_enqueued_as_analytics_events
+    expect(%i[create_entity update_entity]).to have_been_enqueued_as_analytics_events
   end
 end

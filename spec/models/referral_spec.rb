@@ -12,9 +12,7 @@ RSpec.describe Referral, type: :model do
     subject { described_class.employer }
 
     let(:employer_referral) { create(:referral) }
-    let(:public_referral) do
-      create(:referral, eligibility_check: create(:eligibility_check, :public))
-    end
+    let(:public_referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
 
     it { is_expected.to eq [employer_referral] }
   end
@@ -23,9 +21,7 @@ RSpec.describe Referral, type: :model do
     subject { described_class.member_of_public }
 
     let(:employer_referral) { create(:referral) }
-    let(:public_referral) do
-      create(:referral, eligibility_check: create(:eligibility_check, :public))
-    end
+    let(:public_referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
 
     it { is_expected.to eq [public_referral] }
   end
@@ -50,9 +46,7 @@ RSpec.describe Referral, type: :model do
     end
 
     context "when previous_misconduct_reported is not_sure" do
-      let(:referral) do
-        build(:referral, previous_misconduct_reported: "not_sure")
-      end
+      let(:referral) { build(:referral, previous_misconduct_reported: "not_sure") }
 
       it { is_expected.to be_falsey }
     end
@@ -62,17 +56,13 @@ RSpec.describe Referral, type: :model do
     subject { referral.from_employer? }
 
     context "when eligibility_check is reporting_as_employer" do
-      let(:referral) do
-        build(:referral, eligibility_check: build(:eligibility_check))
-      end
+      let(:referral) { build(:referral, eligibility_check: build(:eligibility_check)) }
 
       it { is_expected.to be_truthy }
     end
 
     context "when eligibility_check is reporting_as_public" do
-      let(:referral) do
-        build(:referral, eligibility_check: build(:eligibility_check, :public))
-      end
+      let(:referral) { build(:referral, eligibility_check: build(:eligibility_check, :public)) }
 
       it { is_expected.to be_falsey }
     end
@@ -82,17 +72,13 @@ RSpec.describe Referral, type: :model do
     subject { referral.from_member_of_public? }
 
     context "when eligibility_check is reporting_as_employer" do
-      let(:referral) do
-        build(:referral, eligibility_check: build(:eligibility_check))
-      end
+      let(:referral) { build(:referral, eligibility_check: build(:eligibility_check)) }
 
       it { is_expected.to be_falsey }
     end
 
     context "when eligibility_check is reporting_as_public" do
-      let(:referral) do
-        build(:referral, eligibility_check: build(:eligibility_check, :public))
-      end
+      let(:referral) { build(:referral, eligibility_check: build(:eligibility_check, :public)) }
 
       it { is_expected.to be_truthy }
     end

@@ -68,9 +68,7 @@ RSpec.describe EligibilityCheck, type: :model do
   end
 
   describe "#unsupervised_teaching" do
-    subject do
-      described_class.new(unsupervised_teaching:).unsupervised_teaching?
-    end
+    subject { described_class.new(unsupervised_teaching:).unsupervised_teaching? }
 
     context "when the value is no" do
       let(:unsupervised_teaching) { "no" }

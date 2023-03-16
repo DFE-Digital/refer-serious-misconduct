@@ -16,9 +16,7 @@ RSpec.describe Referrals::Allegation::DbsForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:dbs_notified]).to eq(
-          ["Select yes if you’ve told DBS about this case"]
-        )
+        expect(form.errors[:dbs_notified]).to eq(["Select yes if you’ve told DBS about this case"])
       end
     end
 

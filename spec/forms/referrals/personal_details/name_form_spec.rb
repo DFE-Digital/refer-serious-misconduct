@@ -12,13 +12,7 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
 
     context "with valid values" do
       let(:params) do
-        {
-          first_name: "Jane",
-          last_name: "Smith",
-          name_has_changed: "yes",
-          previous_name: "Janet Jones",
-          referral:
-        }
+        { first_name: "Jane", last_name: "Smith", name_has_changed: "yes", previous_name: "Janet Jones", referral: }
       end
 
       it "saves the first_name" do
@@ -52,9 +46,7 @@ RSpec.describe Referrals::PersonalDetails::NameForm do
 
     context "when name_has_changed is blank" do
       it "raises an error on name has changed" do
-        expect(form.errors[:name_has_changed]).to include(
-          "Select yes if you know them by any other name"
-        )
+        expect(form.errors[:name_has_changed]).to include("Select yes if you know them by any other name")
       end
     end
 

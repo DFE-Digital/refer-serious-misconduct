@@ -9,10 +9,7 @@ class FlashMessageComponent < ViewComponent::Base
   end
 
   def message_key
-    key =
-      flash.keys.detect do |k|
-        ALLOWED_PRIMARY_KEYS.include?(k) || DEVISE_PRIMARY_KEYS.keys.include?(k)
-      end
+    key = flash.keys.detect { |k| ALLOWED_PRIMARY_KEYS.include?(k) || DEVISE_PRIMARY_KEYS.keys.include?(k) }
     DEVISE_PRIMARY_KEYS[key] || key
   end
 
@@ -33,9 +30,7 @@ class FlashMessageComponent < ViewComponent::Base
   end
 
   def body
-    if messages.is_a?(Array) && messages.count >= 2
-      tag.p(messages[1], class: "govuk-body")
-    end
+    tag.p(messages[1], class: "govuk-body") if messages.is_a?(Array) && messages.count >= 2
   end
 
   def render?

@@ -3,13 +3,9 @@ class User < ApplicationRecord
   include Devise::Models::OtpAuthenticatable
 
   has_many :referrals
-  has_one :latest_referral,
-          -> { order(created_at: :desc) },
-          class_name: "Referral"
+  has_one :latest_referral, -> { order(created_at: :desc) }, class_name: "Referral"
 
-  has_one :referral_in_progress,
-          -> { where(submitted_at: nil).order(created_at: :desc) },
-          class_name: "Referral"
+  has_one :referral_in_progress, -> { where(submitted_at: nil).order(created_at: :desc) }, class_name: "Referral"
 
   scope :newest_first, -> { order(created_at: :desc) }
 

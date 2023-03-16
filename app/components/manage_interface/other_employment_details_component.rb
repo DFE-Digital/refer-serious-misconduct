@@ -6,16 +6,7 @@ module ManageInterface
     attr_accessor :referral
 
     def rows
-      [
-        {
-          key: {
-            text: "Organisation"
-          },
-          value: {
-            text: teaching_address(referral)
-          }
-        }
-      ]
+      [{ key: { text: "Organisation" }, value: { text: teaching_address(referral) } }]
     end
 
     def title

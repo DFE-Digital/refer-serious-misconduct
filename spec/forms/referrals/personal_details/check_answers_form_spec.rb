@@ -6,9 +6,7 @@ RSpec.describe Referrals::PersonalDetails::CheckAnswersForm, type: :model do
     subject(:save) { check_answers_form.save }
 
     let(:referral) { build(:referral) }
-    let(:check_answers_form) do
-      described_class.new(referral:, personal_details_complete:)
-    end
+    let(:check_answers_form) { described_class.new(referral:, personal_details_complete:) }
     let(:personal_details_complete) { false }
 
     context "with a valid value" do

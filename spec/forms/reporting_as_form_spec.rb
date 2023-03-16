@@ -8,15 +8,11 @@ RSpec.describe ReportingAsForm, type: :model do
     subject(:save) { reporting_as_form.save }
 
     let(:eligibility_check) { EligibilityCheck.new }
-    let(:reporting_as_form) do
-      described_class.new(eligibility_check:, reporting_as:)
-    end
+    let(:reporting_as_form) { described_class.new(eligibility_check:, reporting_as:) }
     let(:reporting_as) { :employer }
 
     it "saves the reporting_as value on the eligibility check" do
-      expect { save }.to change(eligibility_check, :reporting_as).from(nil).to(
-        "employer"
-      )
+      expect { save }.to change(eligibility_check, :reporting_as).from(nil).to("employer")
     end
 
     context "without a value for reporting_as" do

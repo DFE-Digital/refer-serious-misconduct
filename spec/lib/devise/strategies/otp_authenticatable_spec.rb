@@ -13,9 +13,7 @@ RSpec.describe Devise::Strategies::OtpAuthenticatable do
     let(:strategy) { described_class.new(env, :user) }
 
     context "with valid params" do
-      let(:params) do
-        { params: { user: { email: "test@example.com", otp: "123456" } } }
-      end
+      let(:params) { { params: { user: { email: "test@example.com", otp: "123456" } } } }
 
       it { is_expected.to be_truthy }
     end

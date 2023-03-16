@@ -12,13 +12,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   before { save }
 
   context "when valid date values" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => "2000",
-        "#{field}(2i)" => "01",
-        "#{field}(3i)" => "01"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => "2000", "#{field}(2i)" => "01", "#{field}(3i)" => "01" } }
 
     it "updates the date field" do
       expect(date_field).to eq(Date.new(2000, 1, 1))
@@ -26,13 +20,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a short month name" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => "2000",
-        "#{field}(2i)" => "Jan",
-        "#{field}(3i)" => "01"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => "2000", "#{field}(2i)" => "Jan", "#{field}(3i)" => "01" } }
 
     it "updates the date field" do
       expect(date_field).to eq(Date.new(2000, 1, 1))
@@ -40,13 +28,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a word for a number for the day and month" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => "2000",
-        "#{field}(2i)" => "tWeLvE  ",
-        "#{field}(3i)" => "One"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => "2000", "#{field}(2i)" => "tWeLvE  ", "#{field}(3i)" => "One" } }
 
     it "updates the date field" do
       expect(date_field).to eq(Date.new(2000, 12, 1))
@@ -54,13 +36,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "without a valid date" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => "2000",
-        "#{field}(2i)" => "02",
-        "#{field}(3i)" => "30"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => "2000", "#{field}(2i)" => "02", "#{field}(3i)" => "30" } }
 
     it { is_expected.to be_falsy }
 
@@ -74,9 +50,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a blank date", if: !optional do
-    let(:date_params) do
-      { "#{field}(1i)" => "", "#{field}(2i)" => "", "#{field}(3i)" => "" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "", "#{field}(2i)" => "", "#{field}(3i)" => "" } }
 
     it { is_expected.to be_falsey }
 
@@ -86,9 +60,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a year that is less than 4 digits" do
-    let(:date_params) do
-      { "#{field}(1i)" => "99", "#{field}(2i)" => "1", "#{field}(3i)" => "1" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "99", "#{field}(2i)" => "1", "#{field}(3i)" => "1" } }
 
     it { is_expected.to be_falsy }
 
@@ -98,9 +70,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a missing day" do
-    let(:date_params) do
-      { "#{field}(1i)" => "1990", "#{field}(2i)" => "1", "#{field}(3i)" => "" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "1990", "#{field}(2i)" => "1", "#{field}(3i)" => "" } }
 
     it { is_expected.to be_falsy }
 
@@ -110,9 +80,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a missing month" do
-    let(:date_params) do
-      { "#{field}(1i)" => "1990", "#{field}(2i)" => "", "#{field}(3i)" => "1" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "1990", "#{field}(2i)" => "", "#{field}(3i)" => "1" } }
 
     it { is_expected.to be_falsy }
 
@@ -122,9 +90,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a whitespace month" do
-    let(:date_params) do
-      { "#{field}(1i)" => "1990", "#{field}(2i)" => " ", "#{field}(3i)" => "1" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "1990", "#{field}(2i)" => " ", "#{field}(3i)" => "1" } }
 
     it { is_expected.to be_falsy }
 
@@ -134,13 +100,7 @@ RSpec.shared_examples "form with a date validator" do |field, optional = true|
   end
 
   context "with a word as a month" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => "1990",
-        "#{field}(2i)" => "Potatoes",
-        "#{field}(3i)" => "1"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => "1990", "#{field}(2i)" => "Potatoes", "#{field}(3i)" => "1" } }
 
     it { is_expected.to be_falsy }
 
@@ -158,20 +118,12 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
   before { save }
 
   context "when the date is in the future" do
-    let(:date_params) do
-      {
-        "#{field}(1i)" => 1.year.from_now.year,
-        "#{field}(2i)" => "01",
-        "#{field}(3i)" => "01"
-      }
-    end
+    let(:date_params) { { "#{field}(1i)" => 1.year.from_now.year, "#{field}(2i)" => "01", "#{field}(3i)" => "01" } }
 
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Their #{field_name(field)} must be in the past"]
-      )
+      expect(form.errors[field.to_s]).to eq(["Their #{field_name(field)} must be in the past"])
     end
   end
 
@@ -187,23 +139,17 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["You must be 16 or over to use this service"]
-      )
+      expect(form.errors[field.to_s]).to eq(["You must be 16 or over to use this service"])
     end
   end
 
   context "with a date before 1900" do
-    let(:date_params) do
-      { "#{field}(1i)" => "1899", "#{field}(2i)" => "1", "#{field}(3i)" => "1" }
-    end
+    let(:date_params) { { "#{field}(1i)" => "1899", "#{field}(2i)" => "1", "#{field}(3i)" => "1" } }
 
     it { is_expected.to be_falsy }
 
     it "adds an error" do
-      expect(form.errors[field.to_s]).to eq(
-        ["Their date of birth must be the same as or after 1 January 1920"]
-      )
+      expect(form.errors[field.to_s]).to eq(["Their date of birth must be the same as or after 1 January 1920"])
     end
   end
 end

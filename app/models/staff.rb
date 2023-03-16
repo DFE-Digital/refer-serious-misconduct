@@ -19,10 +19,7 @@ class Staff < ApplicationRecord
   scope :active, -> { where(deleted_at: nil) }
 
   def password_complexity
-    if password.blank? ||
-         password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
-      return
-    end
+    return if password.blank? || password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
 
     errors.add(:password, :password_complexity)
   end
@@ -38,10 +35,7 @@ class Staff < ApplicationRecord
   def permissions_are_valid
     return if manage_referrals? || view_support?
 
-    errors.add(
-      :permissions,
-      I18n.t("validation_errors.missing_staff_permission")
-    )
+    errors.add(:permissions, I18n.t("validation_errors.missing_staff_permission"))
   end
 
   def active_for_authentication?

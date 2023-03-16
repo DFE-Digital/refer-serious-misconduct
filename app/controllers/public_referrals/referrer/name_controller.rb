@@ -4,13 +4,7 @@ module PublicReferrals
       private
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :referrer,
-          :phone
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :referrer, :phone]
       end
 
       def previous_path

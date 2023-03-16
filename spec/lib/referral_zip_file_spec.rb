@@ -17,9 +17,7 @@ describe ReferralZipFile do
     let(:referral) { create(:referral) }
 
     it "returns the file name" do
-      expect(referral_zip_file.name).to eq(
-        "20221122120000-referral-#{referral.id}.zip"
-      )
+      expect(referral_zip_file.name).to eq("20221122120000-referral-#{referral.id}.zip")
     end
   end
 

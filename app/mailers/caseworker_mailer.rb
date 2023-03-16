@@ -16,7 +16,6 @@ class CaseworkerMailer < ApplicationMailer
   private
 
   def misconduct_notify_mailer_to
-    ENV["GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL"] ||
-      "misconduct.teacher@education.gov.uk"
+    ENV["GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL"] || "misconduct.teacher@education.gov.uk"
   end
 end

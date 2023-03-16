@@ -5,12 +5,7 @@ module Referrals
 
       attr_writer :phone
 
-      validates :phone,
-                format: {
-                  with: /\A(\+44\s?)?(?:\d\s?){10,11}\z/,
-                  if: -> { phone&.present? }
-                },
-                presence: true
+      validates :phone, format: { with: /\A(\+44\s?)?(?:\d\s?){10,11}\z/, if: -> { phone&.present? } }, presence: true
 
       def phone
         @phone ||= referrer&.phone

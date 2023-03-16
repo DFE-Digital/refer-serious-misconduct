@@ -18,10 +18,7 @@ module SupportInterface
     def permissions_are_valid
       return if manage_referrals || view_support
 
-      errors.add(
-        :permissions,
-        I18n.t("validation_errors.missing_staff_permission")
-      )
+      errors.add(:permissions, I18n.t("validation_errors.missing_staff_permission"))
     end
   end
 end

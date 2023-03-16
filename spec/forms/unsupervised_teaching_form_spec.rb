@@ -6,20 +6,14 @@ RSpec.describe UnsupervisedTeachingForm, type: :model do
 
     it { is_expected.to validate_presence_of(:eligibility_check) }
 
-    specify do
-      expect(form).to validate_inclusion_of(:unsupervised_teaching).in_array(
-        %w[yes no not_sure]
-      )
-    end
+    specify { expect(form).to validate_inclusion_of(:unsupervised_teaching).in_array(%w[yes no not_sure]) }
   end
 
   describe "#valid?" do
     subject(:valid) { form.valid? }
 
     let(:eligibility_check) { EligibilityCheck.new }
-    let(:form) do
-      described_class.new(eligibility_check:, unsupervised_teaching:)
-    end
+    let(:form) { described_class.new(eligibility_check:, unsupervised_teaching:) }
     let(:unsupervised_teaching) { "yes" }
 
     it { is_expected.to be_truthy }
@@ -35,9 +29,7 @@ RSpec.describe UnsupervisedTeachingForm, type: :model do
     subject(:save) { form.save }
 
     let(:eligibility_check) { EligibilityCheck.new }
-    let(:form) do
-      described_class.new(eligibility_check:, unsupervised_teaching: "yes")
-    end
+    let(:form) { described_class.new(eligibility_check:, unsupervised_teaching: "yes") }
 
     it "saves the eligibility check" do
       save

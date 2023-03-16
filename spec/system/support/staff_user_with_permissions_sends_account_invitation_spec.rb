@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Staff invitations" do
   include CommonSteps
 
-  scenario "Staff user with permissions sends account invitation",
-           type: :system do
+  scenario "Staff user with permissions sends account invitation", type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
 
@@ -53,8 +52,7 @@ RSpec.feature "Staff invitations" do
   def when_i_visit_the_staff_invitation_page
     visit support_interface_staff_index_path
   end
-  alias_method :and_i_visit_the_staff_invitation_page,
-               :when_i_visit_the_staff_invitation_page
+  alias_method :and_i_visit_the_staff_invitation_page, :when_i_visit_the_staff_invitation_page
 
   def when_i_click_on_invite
     click_link "Invite"
