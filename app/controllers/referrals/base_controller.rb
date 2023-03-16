@@ -3,6 +3,7 @@ module Referrals
     include AuthenticateUser
     include StoreUserLocation
     include RedirectIfFeatureFlagInactive
+    include RedirectIfReferralSubmitted
 
     before_action { redirect_if_feature_flag_inactive(:referral_form) }
     before_action :set_return_to_url, only: :edit
@@ -14,6 +15,9 @@ module Referrals
 
     def current_referral
       id = params[:id] || params[:referral_id] || params[:public_referral_id]
+
+      return nil if id.blank?
+
       @current_referral ||= current_user.referrals.find(id)
     end
     helper_method :current_referral
