@@ -12,12 +12,7 @@ module ManageInterface
 
       respond_to do |format|
         format.html { render "show" }
-        format.zip do
-          send_data(
-            referral_zip_file_contents,
-            filename: referral_zip_file.name
-          )
-        end
+        format.zip { send_data(referral_zip_file_contents, filename: referral_zip_file.name) }
       end
     end
 

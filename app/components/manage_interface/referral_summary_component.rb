@@ -7,14 +7,7 @@ module ManageInterface
     def rows
       [
         { key: { text: "Referral ID" }, value: { text: referral.id } },
-        {
-          key: {
-            text: "Referral date"
-          },
-          value: {
-            text: referral.created_at.to_fs(:day_month_year_time)
-          }
-        }
+        { key: { text: "Referral date" }, value: { text: referral.created_at.to_fs(:day_month_year_time) } }
       ]
     end
 

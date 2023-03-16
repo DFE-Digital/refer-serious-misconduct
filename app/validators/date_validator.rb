@@ -28,23 +28,17 @@ class DateValidator < ActiveModel::EachValidator
     end
 
     date_fields =
-      [
-        date_params["#{attribute}(1i)"],
-        date_params["#{attribute}(2i)"],
-        date_params["#{attribute}(3i)"]
-      ].map { |f| f&.to_s&.strip }
+      [date_params["#{attribute}(1i)"], date_params["#{attribute}(2i)"], date_params["#{attribute}(3i)"]].map do |f|
+        f&.to_s&.strip
+      end
 
     # Use a struct instead of a date object to maintain what the user typed in,
     # and not transform the fields into other data types like integers that
     # Date.new is capable of accepting.
-    record.send(
-      "#{attribute}=",
-      Struct.new(:year, :month, :day).new(*date_fields)
-    )
+    record.send("#{attribute}=", Struct.new(:year, :month, :day).new(*date_fields))
 
     year, month, day = date_fields.map { |f| word_to_number(f) }.map(&:to_i)
-    month = word_to_month(date_fields[1]) if month.zero? &&
-      date_fields[1].present?
+    month = word_to_month(date_fields[1]) if month.zero? && date_fields[1].present?
 
     if day.zero? && month.zero? && year.zero? && !options[:required]
       record.errors.add(attribute, :blank)

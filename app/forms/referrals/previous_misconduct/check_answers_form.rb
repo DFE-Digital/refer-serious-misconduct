@@ -8,8 +8,7 @@ module Referrals
       validates :previous_misconduct_complete, inclusion: { in: [true, false] }
 
       def previous_misconduct_complete=(value)
-        @previous_misconduct_complete =
-          ActiveModel::Type::Boolean.new.cast(value)
+        @previous_misconduct_complete = ActiveModel::Type::Boolean.new.cast(value)
       end
 
       def save

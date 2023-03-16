@@ -8,18 +8,10 @@ module Referrals
       end
 
       def update
-        @evidence_upload_form =
-          UploadForm.new(upload_params.merge(referral: current_referral))
+        @evidence_upload_form = UploadForm.new(upload_params.merge(referral: current_referral))
 
         if @evidence_upload_form.save
-          redirect_to(
-            [
-              :edit,
-              current_referral.routing_scope,
-              current_referral,
-              :evidence_uploaded
-            ]
-          )
+          redirect_to([:edit, current_referral.routing_scope, current_referral, :evidence_uploaded])
         else
           render :edit
         end
@@ -28,9 +20,7 @@ module Referrals
       private
 
       def upload_params
-        params.require(:referrals_evidence_upload_form).permit(
-          evidence_uploads: []
-        )
+        params.require(:referrals_evidence_upload_form).permit(evidence_uploads: [])
       end
     end
   end

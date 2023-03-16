@@ -22,9 +22,7 @@ RSpec.describe Referrals::ContactDetails::CheckAnswersForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:contact_details_complete]).to eq(
-          ["Select yes if you’ve completed this section"]
-        )
+        expect(form.errors[:contact_details_complete]).to eq(["Select yes if you’ve completed this section"])
       end
     end
   end

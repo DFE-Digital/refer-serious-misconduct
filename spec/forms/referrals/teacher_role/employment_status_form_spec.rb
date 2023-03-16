@@ -10,11 +10,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
 
-    specify do
-      expect(form).to validate_inclusion_of(:employment_status).in_array(
-        %w[employed suspended left_role]
-      )
-    end
+    specify { expect(form).to validate_inclusion_of(:employment_status).in_array(%w[employed suspended left_role]) }
   end
 
   describe "#valid?" do
@@ -26,9 +22,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       it "adds an error" do
         valid
         expect(form.errors[:employment_status]).to eq(
-          [
-            "Select whether they’re still employed where the alleged misconduct took place"
-          ]
+          ["Select whether they’re still employed where the alleged misconduct took place"]
         )
       end
     end
@@ -41,9 +35,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       let(:employment_status) { "employed" }
 
       it "updates the employment_status to employed" do
-        expect { form.save }.to change(referral, :employment_status).from(
-          nil
-        ).to("employed")
+        expect { form.save }.to change(referral, :employment_status).from(nil).to("employed")
       end
     end
 
@@ -51,9 +43,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       let(:employment_status) { "suspended" }
 
       it "updates the employment_status to suspended" do
-        expect { form.save }.to change(referral, :employment_status).from(
-          nil
-        ).to("suspended")
+        expect { form.save }.to change(referral, :employment_status).from(nil).to("suspended")
       end
     end
 
@@ -61,9 +51,7 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
       let(:employment_status) { "left_role" }
 
       it "updates the employment_status to left_role" do
-        expect { form.save }.to change(referral, :employment_status).from(
-          nil
-        ).to("left_role")
+        expect { form.save }.to change(referral, :employment_status).from(nil).to("left_role")
       end
     end
   end

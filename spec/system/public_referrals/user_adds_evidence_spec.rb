@@ -76,9 +76,7 @@ RSpec.feature "Evidence", type: :system do
   private
 
   def when_i_edit_the_evidence
-    within(all(".app-task-list__section")[2]) do
-      click_on "Evidence and supporting information"
-    end
+    within(all(".app-task-list__section")[2]) { click_on "Evidence and supporting information" }
   end
 
   def then_i_am_asked_if_i_have_evidence_to_upload
@@ -110,10 +108,7 @@ RSpec.feature "Evidence", type: :system do
   def when_i_upload_evidence_files
     attach_file(
       "Upload files",
-      [
-        Rails.root.join("spec/fixtures/files/upload2.pdf"),
-        Rails.root.join("spec/fixtures/files/upload1.pdf")
-      ]
+      [Rails.root.join("spec/fixtures/files/upload2.pdf"), Rails.root.join("spec/fixtures/files/upload1.pdf")]
     )
   end
 
@@ -143,44 +138,26 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_upload_more_evidence_files
-    attach_file(
-      "Upload files",
-      [Rails.root.join("spec/fixtures/files/upload.txt")]
-    )
+    attach_file("Upload files", [Rails.root.join("spec/fixtures/files/upload.txt")])
   end
 
   def then_i_am_asked_to_confirm_the_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
-    expect_summary_row(
-      key: "Uploaded evidence",
-      value: "upload1.pdf\nupload2.pdf\nupload.txt"
-    )
+    expect_summary_row(key: "Uploaded evidence", value: "upload1.pdf\nupload2.pdf\nupload.txt")
     expect(page).to have_link(
       "upload1.pdf",
-      href:
-        rails_blob_path(
-          @referral.evidences.first.document,
-          disposition: "attachment"
-        )
+      href: rails_blob_path(@referral.evidences.first.document, disposition: "attachment")
     )
 
     expect(page).to have_link(
       "upload2.pdf",
-      href:
-        rails_blob_path(
-          @referral.evidences.second.document,
-          disposition: "attachment"
-        )
+      href: rails_blob_path(@referral.evidences.second.document, disposition: "attachment")
     )
 
     expect(page).to have_link(
       "upload.txt",
-      href:
-        rails_blob_path(
-          @referral.evidences.last.document,
-          disposition: "attachment"
-        )
+      href: rails_blob_path(@referral.evidences.last.document, disposition: "attachment")
     )
   end
 
@@ -190,21 +167,13 @@ RSpec.feature "Evidence", type: :system do
     expect_summary_row(
       key: "Do you have anything to upload?",
       value: "Yes",
-      change_link:
-        edit_public_referral_evidence_start_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_public_referral_evidence_start_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Uploaded evidence",
       value: "upload2.pdf\nupload.txt",
-      change_link:
-        edit_public_referral_evidence_uploaded_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_public_referral_evidence_uploaded_path(@referral, return_to: current_path)
     )
   end
 
@@ -213,9 +182,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def and_i_click_delete_on_the_first_evidence_item
-    within(page.find(".govuk-summary-list__row", text: "upload1.pdf")) do
-      click_on "Delete"
-    end
+    within(page.find(".govuk-summary-list__row", text: "upload1.pdf")) { click_on "Delete" }
   end
 
   def then_i_am_asked_to_confirm_deletion
@@ -227,9 +194,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def then_i_can_no_longer_see_the_upload_in_the_list
-    within(".govuk-summary-list") do
-      expect(page).not_to have_link("upload1.pdf")
-    end
+    within(".govuk-summary-list") { expect(page).not_to have_link("upload1.pdf") }
 
     expect_summary_row(key: "File 1", value: "upload2.pdf")
   end
@@ -244,10 +209,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def and_i_upload_more_evidence
-    attach_file(
-      "Upload files",
-      [Rails.root.join("spec/fixtures/files/upload.txt")]
-    )
+    attach_file("Upload files", [Rails.root.join("spec/fixtures/files/upload.txt")])
   end
 
   def and_i_choose_to_confirm
@@ -265,13 +227,10 @@ RSpec.feature "Evidence", type: :system do
   def and_the_evidence_section_state_is(state)
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[1]) do
-        expect(find(".app-task-list__task-name a").text).to eq(
-          "Evidence and supporting information"
-        )
+        expect(find(".app-task-list__task-name a").text).to eq("Evidence and supporting information")
         expect(find(".app-task-list__tag").text).to eq(state.to_s.upcase)
       end
     end
   end
-  alias_method :then_the_evidence_section_state_is,
-               :and_the_evidence_section_state_is
+  alias_method :then_the_evidence_section_state_is, :and_the_evidence_section_state_is
 end

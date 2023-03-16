@@ -11,9 +11,7 @@ RSpec.describe Referrals::TeacherRole::ReasonLeavingRoleForm, type: :model do
     it { is_expected.to validate_presence_of(:referral) }
 
     specify do
-      expect(form).to validate_inclusion_of(:reason_leaving_role).in_array(
-        %w[resigned dismissed retired unknown]
-      )
+      expect(form).to validate_inclusion_of(:reason_leaving_role).in_array(%w[resigned dismissed retired unknown])
     end
   end
 
@@ -23,9 +21,7 @@ RSpec.describe Referrals::TeacherRole::ReasonLeavingRoleForm, type: :model do
     context "when reason_leaving_role is blank" do
       it "adds an error" do
         valid
-        expect(form.errors[:reason_leaving_role]).to eq(
-          ["Select the reason they left the job"]
-        )
+        expect(form.errors[:reason_leaving_role]).to eq(["Select the reason they left the job"])
       end
     end
   end
@@ -38,9 +34,7 @@ RSpec.describe Referrals::TeacherRole::ReasonLeavingRoleForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:reason_leaving_role]).to eq(
-          ["Select the reason they left the job"]
-        )
+        expect(form.errors[:reason_leaving_role]).to eq(["Select the reason they left the job"])
       end
     end
 
@@ -48,9 +42,7 @@ RSpec.describe Referrals::TeacherRole::ReasonLeavingRoleForm, type: :model do
       let(:reason_leaving_role) { "resigned" }
 
       it "updates the employment_status to employed" do
-        expect { form.save }.to change(referral, :reason_leaving_role).from(
-          nil
-        ).to("resigned")
+        expect { form.save }.to change(referral, :reason_leaving_role).from(nil).to("resigned")
       end
     end
   end

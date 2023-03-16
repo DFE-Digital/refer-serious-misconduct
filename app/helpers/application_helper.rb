@@ -2,23 +2,18 @@ module ApplicationHelper
   def link_to_referral_form_for(reporting_as = "public")
     link = {
       employer: {
-        title:
-          "download and print the teacher misconduct form for use by employers (opens in a new tab)",
+        title: "download and print the teacher misconduct form for use by employers (opens in a new tab)",
         url:
           "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1105692/Teacher_Misconduct_Referral_Form_for__Employers__8_.docx"
       },
       public: {
-        title:
-          "download and print the teacher misconduct form for use by members of the public (opens in a new tab)",
+        title: "download and print the teacher misconduct form for use by members of the public (opens in a new tab)",
         url:
           "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1105693/Teacher_misconduct_referral_form_for_members_of_the_public.docx"
       }
     }.with_indifferent_access
 
-    link_to link[reporting_as][:title],
-            link[reporting_as][:url],
-            target: "_blank",
-            rel: "noopener"
+    link_to link[reporting_as][:title], link[reporting_as][:url], target: "_blank", rel: "noopener"
   end
 
   def current_namespace
@@ -37,24 +32,17 @@ module ApplicationHelper
           )
           if current_staff.view_support?
             header.navigation_item(
-              active:
-                current_page?(
-                  main_app.support_interface_validation_errors_path
-                ),
+              active: current_page?(main_app.support_interface_validation_errors_path),
               href: main_app.support_interface_validation_errors_path,
               text: "Validation Errors"
             )
             header.navigation_item(
-              active:
-                current_page?(
-                  main_app.support_interface_eligibility_checks_path
-                ),
+              active: current_page?(main_app.support_interface_eligibility_checks_path),
               href: main_app.support_interface_eligibility_checks_path,
               text: "Eligibility Checks"
             )
             header.navigation_item(
-              active:
-                current_page?(main_app.support_interface_feature_flags_path),
+              active: current_page?(main_app.support_interface_feature_flags_path),
               href: main_app.support_interface_feature_flags_path,
               text: "Features"
             )
@@ -65,19 +53,13 @@ module ApplicationHelper
             )
             if HostingEnvironment.test_environment?
               header.navigation_item(
-                active:
-                  request.path.start_with?(
-                    main_app.support_interface_test_users_path
-                  ),
+                active: request.path.start_with?(main_app.support_interface_test_users_path),
                 text: "Test Users",
                 href: main_app.support_interface_test_users_path
               )
             end
           end
-          header.navigation_item(
-            href: main_app.manage_sign_out_path,
-            text: "Sign out"
-          )
+          header.navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
         end
       when "support"
         if current_staff.manage_referrals?
@@ -88,14 +70,12 @@ module ApplicationHelper
           )
         end
         header.navigation_item(
-          active:
-            current_page?(main_app.support_interface_validation_errors_path),
+          active: current_page?(main_app.support_interface_validation_errors_path),
           href: main_app.support_interface_validation_errors_path,
           text: "Validation Errors"
         )
         header.navigation_item(
-          active:
-            current_page?(main_app.support_interface_eligibility_checks_path),
+          active: current_page?(main_app.support_interface_eligibility_checks_path),
           href: main_app.support_interface_eligibility_checks_path,
           text: "Eligibility Checks"
         )
@@ -111,33 +91,19 @@ module ApplicationHelper
         )
         if HostingEnvironment.test_environment?
           header.navigation_item(
-            active:
-              request.path.start_with?(
-                main_app.support_interface_test_users_path
-              ),
+            active: request.path.start_with?(main_app.support_interface_test_users_path),
             text: "Test Users",
             href: main_app.support_interface_test_users_path
           )
         end
 
-        if current_staff
-          header.navigation_item(
-            href: main_app.manage_sign_out_path,
-            text: "Sign out"
-          )
-        end
+        header.navigation_item(href: main_app.manage_sign_out_path, text: "Sign out") if current_staff
       else
         if FeatureFlags::FeatureFlag.active?(:referral_form)
           if current_user
-            header.navigation_item(
-              href: main_app.users_sign_out_path,
-              text: "Sign out"
-            )
+            header.navigation_item(href: main_app.users_sign_out_path, text: "Sign out")
           else
-            header.navigation_item(
-              href: main_app.new_user_session_path,
-              text: "Sign in"
-            )
+            header.navigation_item(href: main_app.new_user_session_path, text: "Sign in")
           end
         end
       end
@@ -153,9 +119,7 @@ module ApplicationHelper
   end
 
   def service_name
-    if %w[manage support staff].include?(current_namespace)
-      return t("service.manage")
-    end
+    return t("service.manage") if %w[manage support staff].include?(current_namespace)
 
     t("service.name")
   end

@@ -4,8 +4,7 @@ class IsTeacherController < EligibilityScreenerController
   end
 
   def create
-    @is_teacher_form =
-      IsTeacherForm.new(is_teacher_form_params.merge(eligibility_check:))
+    @is_teacher_form = IsTeacherForm.new(is_teacher_form_params.merge(eligibility_check:))
 
     if @is_teacher_form.save
       redirect_to_next_question

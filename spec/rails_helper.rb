@@ -3,9 +3,7 @@ require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
-if Rails.env.production?
-  abort("The Rails environment is running in production mode!")
-end
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 #
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -16,12 +14,7 @@ require "dfe/analytics/testing"
 require "dfe/analytics/rspec/matchers"
 
 Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(
-    app,
-    timeout: 10,
-    process_timeout: 30,
-    window_size: [1200, 800]
-  )
+  Capybara::Cuprite::Driver.new(app, timeout: 10, process_timeout: 30, window_size: [1200, 800])
 end
 Capybara.default_driver = :cuprite
 Capybara.javascript_driver = :cuprite
@@ -90,8 +83,7 @@ RSpec.configure do |config|
 
   # https://github.com/rspec/rspec-rails/issues/1275#issuecomment-1083301637
   config.before(type: :feature) do
-    self.default_url_options =
-      Rails.application.config.action_mailer.default_url_options
+    self.default_url_options = Rails.application.config.action_mailer.default_url_options
   end
 
   Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }

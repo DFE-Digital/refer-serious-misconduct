@@ -29,9 +29,7 @@ class StartPath
 
   def path_when_user_present
     return users_referrals_path if referrals_submitted?
-    if user.referral_in_progress.present?
-      return edit_path_for_referral(user.referral_in_progress)
-    end
+    return edit_path_for_referral(user.referral_in_progress) if user.referral_in_progress.present?
 
     referral_type_path
   end

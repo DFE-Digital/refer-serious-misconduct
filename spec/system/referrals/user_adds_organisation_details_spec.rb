@@ -61,8 +61,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_see_your_organisation_flagged_as_incomplete
-    your_organisation_row =
-      find(".app-task-list__item", text: "Your organisation")
+    your_organisation_row = find(".app-task-list__item", text: "Your organisation")
     expect(your_organisation_row).to have_content("INCOMPLETE")
   end
 
@@ -78,31 +77,19 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def then_i_am_on_the_organisation_address_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/organisation/address/edit",
-      ignore_query: true
-    )
-    expect(page).to have_title(
-      "Your organisation - Refer serious misconduct by a teacher in England"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/organisation/address/edit", ignore_query: true)
+    expect(page).to have_title("Your organisation - Refer serious misconduct by a teacher in England")
     expect(page).to have_content("Your organisation")
   end
 
   def then_i_am_on_the_organisation_details_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/organisation/check-answers/edit"
-    )
-    expect(page).to have_title(
-      "Your organisation - Refer serious misconduct by a teacher in England"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/organisation/check-answers/edit")
+    expect(page).to have_title("Your organisation - Refer serious misconduct by a teacher in England")
     expect(page).to have_content("Your organisation")
   end
 
   def then_i_am_on_the_organisation_name_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/organisation_name/edit",
-      ignore_query: true
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/organisation_name/edit", ignore_query: true)
     expect(page).to have_title(
       "What’s the name of your organisation? - Refer serious misconduct by a teacher in England"
     )
@@ -124,9 +111,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     page
       .all(".govuk-error-summary ul li")
       .collect(&:text)
-      .each_with_index do |error_message, position|
-        expect(error_message).to eq(expected_messages[position])
-      end
+      .each_with_index { |error_message, position| expect(error_message).to eq(expected_messages[position]) }
   end
 
   def then_i_see_the_missing_name_error

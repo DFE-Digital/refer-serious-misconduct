@@ -36,9 +36,7 @@ RSpec.describe Referrals::PersonalDetails::NiNumberForm, type: :model do
       end
 
       it "adds an error to the form" do
-        expect(form.errors[:ni_number]).to eq(
-          ["Enter a National Insurance number in the correct format"]
-        )
+        expect(form.errors[:ni_number]).to eq(["Enter a National Insurance number in the correct format"])
       end
     end
   end

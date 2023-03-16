@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Staff actions" do
   include CommonSteps
 
-  scenario "Staff users with permissions can soft delete other staff user",
-           type: :system do
+  scenario "Staff users with permissions can soft delete other staff user", type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
     and_there_are_staff_users
@@ -28,8 +27,7 @@ RSpec.feature "Staff actions" do
   end
 
   def and_there_are_staff_users
-    @user =
-      create(:staff, :confirmed, :can_view_support, email: "another@test.com")
+    @user = create(:staff, :confirmed, :can_view_support, email: "another@test.com")
   end
 
   def then_i_see_the_warning_message

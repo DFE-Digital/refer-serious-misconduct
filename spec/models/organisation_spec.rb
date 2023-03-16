@@ -7,14 +7,7 @@ RSpec.describe Organisation, type: :model do
     subject { organisation.address? }
 
     context "when the address fields are all present" do
-      let(:organisation) do
-        build(
-          :organisation,
-          street_1: "Street",
-          city: "London",
-          postcode: "AB1 2CD"
-        )
-      end
+      let(:organisation) { build(:organisation, street_1: "Street", city: "London", postcode: "AB1 2CD") }
 
       it { is_expected.to be_truthy }
     end

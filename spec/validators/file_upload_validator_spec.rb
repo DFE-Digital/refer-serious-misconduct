@@ -62,24 +62,7 @@ RSpec.describe FileUploadValidator do
 
   it "supports common media and document file types" do
     expect(described_class::CONTENT_TYPES.keys).to eq(
-      %w[
-        .apng
-        .avif
-        .doc
-        .docx
-        .gif
-        .heic
-        .heif
-        .jpg
-        .jpeg
-        .mp3
-        .mp4
-        .mov
-        .pdf
-        .png
-        .txt
-        .webp
-      ]
+      %w[.apng .avif .doc .docx .gif .heic .heif .jpg .jpeg .mp3 .mp4 .mov .pdf .png .txt .webp]
     )
   end
 end

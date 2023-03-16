@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Staff actions" do
   include CommonSteps
 
-  scenario "Staff user with permissions updates another staff user's permissions",
-           type: :system do
+  scenario "Staff user with permissions updates another staff user's permissions", type: :system do
     given_the_service_is_open
     and_the_eligibility_screener_is_enabled
 
@@ -50,9 +49,7 @@ RSpec.feature "Staff actions" do
   end
 
   def and_i_see_the_permissions_updated_message
-    expect(page).to have_content(
-      "Staff permissions updated for test@example.org"
-    )
+    expect(page).to have_content("Staff permissions updated for test@example.org")
   end
 
   def and_i_see_the_permissions(permissions)

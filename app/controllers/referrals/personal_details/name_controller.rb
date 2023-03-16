@@ -12,8 +12,7 @@ module Referrals
       end
 
       def update
-        @personal_details_name_form =
-          NameForm.new(name_params.merge(referral: current_referral))
+        @personal_details_name_form = NameForm.new(name_params.merge(referral: current_referral))
 
         if @personal_details_name_form.save
           redirect_to next_page
@@ -25,13 +24,7 @@ module Referrals
       private
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :personal_details,
-          :age
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :personal_details, :age]
       end
 
       def name_params

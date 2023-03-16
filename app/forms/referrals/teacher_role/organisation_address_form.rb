@@ -32,9 +32,7 @@ module Referrals
       private
 
       def postcode_is_valid
-        unless UKPostcode.parse(organisation_postcode).full_valid?
-          errors.add(:organisation_postcode, :invalid)
-        end
+        errors.add(:organisation_postcode, :invalid) unless UKPostcode.parse(organisation_postcode).full_valid?
       end
     end
   end

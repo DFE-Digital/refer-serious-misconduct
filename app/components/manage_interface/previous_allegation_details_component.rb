@@ -8,34 +8,18 @@ module ManageInterface
 
     def rows
       rows = [
-        {
-          key: {
-            text: "How do you want to give details about previous allegations?"
-          },
-          value: {
-            text: detail_type
-          }
-        },
-        {
-          key: {
-            text: "Previous allegation details"
-          },
-          value: {
-            text: previous_allegation_details(referral)
-          }
-        }
+        { key: { text: "How do you want to give details about previous allegations?" }, value: { text: detail_type } },
+        { key: { text: "Previous allegation details" }, value: { text: previous_allegation_details(referral) } }
       ]
 
-      if humanize_three_way_choice(referral.previous_misconduct_reported) !=
-           "Yes"
+      if humanize_three_way_choice(referral.previous_misconduct_reported) != "Yes"
         rows.prepend(
           {
             key: {
               text: "Has there been any previous misconduct?"
             },
             value: {
-              text:
-                humanize_three_way_choice(referral.previous_misconduct_reported)
+              text: humanize_three_way_choice(referral.previous_misconduct_reported)
             }
           }
         )

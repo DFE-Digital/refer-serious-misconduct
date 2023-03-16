@@ -38,9 +38,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "sets the subject" do
-      expect(
-        email.subject
-      ).to eq "Your referral of serious misconduct by a teacher"
+      expect(email.subject).to eq "Your referral of serious misconduct by a teacher"
     end
 
     it_behaves_like "email with `Get help` section"
@@ -61,9 +59,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "sets the subject" do
-      expect(
-        email.subject
-      ).to eq "Your referral of serious misconduct has been sent"
+      expect(email.subject).to eq "Your referral of serious misconduct has been sent"
     end
 
     it_behaves_like "email with `Get help` section"
@@ -73,9 +69,7 @@ RSpec.describe UserMailer, type: :mailer do
 
       it "uses the TRA Notify API key" do
         expect { email.deliver_now }.to(
-          change { ActionMailer::Base.notify_settings[:api_key] }.from(
-            "fake_key"
-          ).to("govuk_notify_api_key")
+          change { ActionMailer::Base.notify_settings[:api_key] }.from("fake_key").to("govuk_notify_api_key")
         )
       end
     end

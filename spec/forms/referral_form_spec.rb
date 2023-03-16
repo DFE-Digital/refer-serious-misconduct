@@ -42,12 +42,7 @@ RSpec.describe ReferralForm do
     end
 
     context "when referral is from member of public" do
-      let(:referral) do
-        create(
-          :referral,
-          eligibility_check: create(:eligibility_check, :public)
-        )
-      end
+      let(:referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
 
       it "returns public form section items" do
         labels = sections.flat_map(&:items).pluck(:label)

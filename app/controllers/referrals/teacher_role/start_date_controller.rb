@@ -11,12 +11,7 @@ module Referrals
 
       def update
         @role_start_date_form =
-          StartDateForm.new(
-            role_params.merge(
-              date_params: start_date_params,
-              referral: current_referral
-            )
-          )
+          StartDateForm.new(role_params.merge(date_params: start_date_params, referral: current_referral))
 
         if @role_start_date_form.save
           redirect_to next_page
@@ -28,9 +23,7 @@ module Referrals
       private
 
       def role_params
-        params.require(:referrals_teacher_role_start_date_form).permit(
-          :role_start_date_known
-        )
+        params.require(:referrals_teacher_role_start_date_form).permit(:role_start_date_known)
       end
 
       def start_date_params
@@ -42,25 +35,11 @@ module Referrals
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :teacher_role,
-          :employment_status
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :employment_status]
       end
 
       def back_link
-        polymorphic_path(
-          [
-            :edit,
-            current_referral.routing_scope,
-            current_referral,
-            :teacher_role,
-            :same_organisation
-          ]
-        )
+        polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :same_organisation])
       end
       helper_method :back_link
     end

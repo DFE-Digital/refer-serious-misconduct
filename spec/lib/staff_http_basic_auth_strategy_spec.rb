@@ -58,9 +58,7 @@ RSpec.describe StaffHttpBasicAuthStrategy do
     # rubocop:enable RSpec/ExampleLength
 
     context "with valid credentials" do
-      let(:env) do
-        { "HTTP_AUTHORIZATION" => "Basic #{Base64.encode64("test:test")}" }
-      end
+      let(:env) { { "HTTP_AUTHORIZATION" => "Basic #{Base64.encode64("test:test")}" } }
 
       it "is successful" do
         expect(staff_http_basic_auth_strategy).to be_successful

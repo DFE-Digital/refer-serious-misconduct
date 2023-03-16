@@ -10,11 +10,7 @@ module Referrals
       if @referral_form.submit
         CaseworkerMailer.referral_submitted(current_referral).deliver_later
         UserMailer.referral_submitted(current_referral).deliver_later
-        redirect_to [
-                      current_referral.routing_scope,
-                      current_referral,
-                      :confirmation
-                    ]
+        redirect_to [current_referral.routing_scope, current_referral, :confirmation]
       else
         render :show
       end
@@ -30,9 +26,7 @@ module Referrals
     def back_linked_error_presenter
       BackLinkedErrorSummaryPresenter.new(
         @referral_form.errors.messages,
-        polymorphic_path(
-          [:edit, current_referral.routing_scope, current_referral]
-        )
+        polymorphic_path([:edit, current_referral.routing_scope, current_referral])
       )
     end
     helper_method :back_linked_error_presenter

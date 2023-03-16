@@ -35,9 +35,7 @@ RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:address_line_1]).to eq(
-          ["Enter the first line of their address"]
-        )
+        expect(form.errors[:address_line_1]).to eq(["Enter the first line of their address"])
       end
     end
 

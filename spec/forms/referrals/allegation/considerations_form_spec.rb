@@ -9,9 +9,7 @@ RSpec.describe Referrals::Allegation::ConsiderationsForm, type: :model do
 
     let(:allegation_consideration_details) { nil }
 
-    let(:form) do
-      described_class.new(referral:, allegation_consideration_details:)
-    end
+    let(:form) { described_class.new(referral:, allegation_consideration_details:) }
 
     context "with no allegation consideration details" do
       before { save }

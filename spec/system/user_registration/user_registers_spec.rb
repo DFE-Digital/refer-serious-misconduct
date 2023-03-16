@@ -69,10 +69,7 @@ RSpec.feature "User registration" do
 
   def then_i_should_see_the_otp_page
     expect(page).to have_content "Check your email"
-    expect(page).to have_link(
-      "request another confirmation code",
-      href: new_user_session_path(new_referral: true)
-    )
+    expect(page).to have_link("request another confirmation code", href: new_user_session_path(new_referral: true))
   end
 
   def when_i_request_another_confirmation_code
@@ -88,9 +85,7 @@ RSpec.feature "User registration" do
 
   def then_i_see_an_error_screen
     expect(page).to have_content "You need to request another confirmation code"
-    expect(page).to have_current_path(
-      retry_user_sign_in_path(error: :exhausted, new_referral: true)
-    )
+    expect(page).to have_current_path(retry_user_sign_in_path(error: :exhausted, new_referral: true))
   end
 
   def when_i_provide_the_expected_otp

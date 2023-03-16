@@ -134,33 +134,25 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_personal_email_address_page
-    expect(page).to have_current_path(
-      edit_referral_contact_details_email_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_email_path(@referral))
     expect(page).to have_title("Do you know their email address?")
     expect(page).to have_content("Do you know their email address?")
   end
 
   def then_i_see_the_contact_number_page
-    expect(page).to have_current_path(
-      edit_referral_contact_details_telephone_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_telephone_path(@referral))
     expect(page).to have_title("Do you know their phone number?")
     expect(page).to have_content("Do you know their phone number?")
   end
 
   def then_i_see_the_home_address_known_page
-    expect(page).to have_current_path(
-      edit_referral_contact_details_address_known_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_address_known_path(@referral))
     expect(page).to have_title("Do you know their home address?")
     expect(page).to have_content("Do you know their home address?")
   end
 
   def then_i_see_the_home_address_page
-    expect(page).to have_current_path(
-      edit_referral_contact_details_address_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_address_path(@referral))
     expect(page).to have_title("Their home address")
     expect(page).to have_content("Their home address")
   end
@@ -179,9 +171,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_an_invalid_email_error
-    expect(page).to have_content(
-      "Enter an email address in the correct format, like name@example.com"
-    )
+    expect(page).to have_content("Enter an email address in the correct format, like name@example.com")
   end
 
   def when_i_select_yes_with_a_valid_email
@@ -199,9 +189,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_an_invalid_phone_number_error
-    expect(page).to have_content(
-      "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
-    )
+    expect(page).to have_content("Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192")
   end
 
   def when_i_select_yes_with_a_valid_phone_number
@@ -239,9 +227,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_check_answers_page
-    expect(page).to have_current_path(
-      edit_referral_contact_details_check_answers_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_contact_details_check_answers_path(@referral))
     expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Contact details")
   end
@@ -250,31 +236,19 @@ RSpec.feature "Contact details", type: :system do
     expect_summary_row(
       key: "Email address",
       value: "name@example.com",
-      change_link:
-        edit_referral_contact_details_email_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_contact_details_email_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Phone number",
       value: "07700 900 982",
-      change_link:
-        edit_referral_contact_details_telephone_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_contact_details_telephone_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Home address",
       value: "1428 Elm Street\nLondon\nNW1 4NP",
-      change_link:
-        edit_referral_contact_details_address_path(
-          @referral,
-          return_to: current_path
-        )
+      change_link: edit_referral_contact_details_address_path(@referral, return_to: current_path)
     )
   end
 
@@ -283,30 +257,19 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    expect_task_row(
-      section: "About the teacher",
-      item_position: 2,
-      name: "Contact details",
-      tag: status
-    )
+    expect_task_row(section: "About the teacher", item_position: 2, name: "Contact details", tag: status)
   end
 
   def and_i_click_the_change_email_link
-    within(page.find(".govuk-summary-list__row", text: "Email address")) do
-      click_link "Change"
-    end
+    within(page.find(".govuk-summary-list__row", text: "Email address")) { click_link "Change" }
   end
 
   def and_i_click_the_change_phone_link
-    within(page.find(".govuk-summary-list__row", text: "Phone number")) do
-      click_link "Change"
-    end
+    within(page.find(".govuk-summary-list__row", text: "Phone number")) { click_link "Change" }
   end
 
   def and_i_click_the_change_address_link
-    within(page.find(".govuk-summary-list__row", text: "Home address")) do
-      click_link "Change"
-    end
+    within(page.find(".govuk-summary-list__row", text: "Home address")) { click_link "Change" }
   end
 
   def when_i_click_change_address

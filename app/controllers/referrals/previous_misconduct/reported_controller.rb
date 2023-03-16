@@ -6,17 +6,12 @@ module Referrals
       end
 
       def update
-        @reported_form =
-          ReportedForm.new(
-            reported_form_params.merge(referral: current_referral)
-          )
+        @reported_form = ReportedForm.new(reported_form_params.merge(referral: current_referral))
         if @reported_form.save
           if current_referral.previous_misconduct_reported?
             redirect_to next_page
           else
-            redirect_to edit_referral_previous_misconduct_check_answers_path(
-                          current_referral
-                        )
+            redirect_to edit_referral_previous_misconduct_check_answers_path(current_referral)
           end
         else
           render :edit
@@ -26,19 +21,11 @@ module Referrals
       private
 
       def reported_form_params
-        params.require(:referrals_previous_misconduct_reported_form).permit(
-          :previous_misconduct_reported
-        )
+        params.require(:referrals_previous_misconduct_reported_form).permit(:previous_misconduct_reported)
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :previous_misconduct,
-          :detailed_account
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :previous_misconduct, :detailed_account]
       end
 
       def next_page

@@ -34,9 +34,7 @@ RSpec.feature "Manage referrals and staff" do
     expect(page).to have_content("Summary")
     within("#summary") do
       expect(page).to have_content(Referral.last.id)
-      expect(page).to have_content(
-        Referral.last.created_at.to_fs(:day_month_year_time)
-      )
+      expect(page).to have_content(Referral.last.created_at.to_fs(:day_month_year_time))
     end
   end
 

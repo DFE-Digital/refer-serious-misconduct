@@ -10,8 +10,7 @@ class ChangePreviousMisconductFields < ActiveRecord::Migration[7.0]
       end
 
       dir.down do
-        t.datetime :previous_misconduct_details_incomplete_at,
-                   if_not_exists: true
+        t.datetime :previous_misconduct_details_incomplete_at, if_not_exists: true
         t.datetime :previous_misconduct_deferred_at, if_not_exists: true
         t.datetime :previous_misconduct_completed_at, if_not_exists: true
         t.remove :previous_misconduct_format, if_exists: true

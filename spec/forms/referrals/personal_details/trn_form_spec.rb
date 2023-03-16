@@ -25,9 +25,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn_known]).to eq(
-          ["Select yes if you know their TRN"]
-        )
+        expect(trn_form.errors[:trn_known]).to eq(["Select yes if you know their TRN"])
       end
     end
 
@@ -87,9 +85,7 @@ RSpec.describe Referrals::PersonalDetails::TrnForm, type: :model do
 
       it "adds an error" do
         save
-        expect(trn_form.errors[:trn]).to eq(
-          ["Enter a TRN in the correct format"]
-        )
+        expect(trn_form.errors[:trn]).to eq(["Enter a TRN in the correct format"])
       end
     end
   end

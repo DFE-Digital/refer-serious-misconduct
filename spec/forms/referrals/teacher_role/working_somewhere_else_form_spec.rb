@@ -20,9 +20,7 @@ RSpec.describe Referrals::TeacherRole::WorkingSomewhereElseForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:working_somewhere_else]).to eq(
-          ["Select yes if they’re employed somewhere else"]
-        )
+        expect(form.errors[:working_somewhere_else]).to eq(["Select yes if they’re employed somewhere else"])
       end
     end
   end
@@ -32,9 +30,7 @@ RSpec.describe Referrals::TeacherRole::WorkingSomewhereElseForm, type: :model do
       let(:working_somewhere_else) { "yes" }
 
       it "updates the working_somewhere_else to yes" do
-        expect { form.save }.to change(referral, :working_somewhere_else).from(
-          nil
-        ).to("yes")
+        expect { form.save }.to change(referral, :working_somewhere_else).from(nil).to("yes")
       end
     end
 
@@ -42,9 +38,7 @@ RSpec.describe Referrals::TeacherRole::WorkingSomewhereElseForm, type: :model do
       let(:working_somewhere_else) { "no" }
 
       it "updates the working_somewhere_else to no" do
-        expect { form.save }.to change(referral, :working_somewhere_else).from(
-          nil
-        ).to("no")
+        expect { form.save }.to change(referral, :working_somewhere_else).from(nil).to("no")
       end
     end
 
@@ -52,9 +46,7 @@ RSpec.describe Referrals::TeacherRole::WorkingSomewhereElseForm, type: :model do
       let(:working_somewhere_else) { "not_sure" }
 
       it "updates the working_somewhere_else to not_sure" do
-        expect { form.save }.to change(referral, :working_somewhere_else).from(
-          nil
-        ).to("not_sure")
+        expect { form.save }.to change(referral, :working_somewhere_else).from(nil).to("not_sure")
       end
     end
   end

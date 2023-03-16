@@ -25,10 +25,7 @@ module Referrals
       def save
         return false unless valid?
 
-        referral.update(
-          ni_number_known:,
-          ni_number: ni_number_known ? ni_number : nil
-        )
+        referral.update(ni_number_known:, ni_number: ni_number_known ? ni_number : nil)
       end
     end
   end

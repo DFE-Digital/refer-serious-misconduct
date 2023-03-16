@@ -11,9 +11,7 @@ gem "devise_invitable"
 gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.7.0"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
-gem "govuk_feature_flags",
-    git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
-    tag: "v1.0.1"
+gem "govuk_feature_flags", git: "https://github.com/DFE-Digital/govuk_feature_flags.git", tag: "v1.0.1"
 gem "govuk_markdown", "~> 2.0"
 gem "jsbundling-rails"
 gem "logstop"

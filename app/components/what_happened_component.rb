@@ -11,15 +11,8 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: [
-              :edit,
-              referral.routing_scope,
-              referral,
-              :allegation,
-              :details
-            ],
-            visually_hidden_text:
-              "how you want to give details about the allegation"
+            href: [:edit, referral.routing_scope, referral, :allegation, :details],
+            visually_hidden_text: "how you want to give details about the allegation"
           }
         ],
         key: {
@@ -33,14 +26,7 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: [
-              :edit,
-              referral.routing_scope,
-              referral,
-              :allegation,
-              :details,
-              { return_to: }
-            ],
+            href: [:edit, referral.routing_scope, referral, :allegation, :details, { return_to: }],
             visually_hidden_text: "description of the allegation"
           }
         ],
@@ -55,14 +41,7 @@ class WhatHappenedComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: [
-              :edit,
-              referral.routing_scope,
-              referral,
-              :allegation,
-              :dbs,
-              { return_to: }
-            ],
+            href: [:edit, referral.routing_scope, referral, :allegation, :dbs, { return_to: }],
             visually_hidden_text: "if you have told DBS"
           }
         ],
@@ -79,8 +58,6 @@ class WhatHappenedComponent < ViewComponent::Base
   end
 
   def return_to
-    polymorphic_path(
-      [:edit, referral.routing_scope, referral, :allegation, :check_answers]
-    )
+    polymorphic_path([:edit, referral.routing_scope, referral, :allegation, :check_answers])
   end
 end

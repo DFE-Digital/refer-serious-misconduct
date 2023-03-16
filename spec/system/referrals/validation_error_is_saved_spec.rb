@@ -1,7 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "User triggers a validation error which gets saved",
-              type: :system do
+RSpec.feature "User triggers a validation error which gets saved", type: :system do
   include CommonSteps
 
   scenario "happy path" do
@@ -40,8 +39,6 @@ RSpec.feature "User triggers a validation error which gets saved",
 
   def and_the_validation_errors_are_saved
     expect(ValidationError.count).to eq(1)
-    expect(ValidationError.first.form_object).to eq(
-      "Referrals::PersonalDetails::NameForm"
-    )
+    expect(ValidationError.first.form_object).to eq("Referrals::PersonalDetails::NameForm")
   end
 end

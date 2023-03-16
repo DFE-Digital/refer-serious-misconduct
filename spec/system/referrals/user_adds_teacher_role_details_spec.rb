@@ -265,29 +265,19 @@ RSpec.feature "Teacher role", type: :system do
   # Page URL/Title
 
   def then_i_see_the_employed_status_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_employment_status_path(@referral)
-    )
-    expect(page).to have_title(
-      "Are they still employed at the organisation where the alleged misconduct took place?"
-    )
-    expect(page).to have_content(
-      "Are they still employed at the organisation where the alleged misconduct took place?"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_employment_status_path(@referral))
+    expect(page).to have_title("Are they still employed at the organisation where the alleged misconduct took place?")
+    expect(page).to have_content("Are they still employed at the organisation where the alleged misconduct took place?")
   end
 
   def then_i_see_the_job_title_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_job_title_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_job_title_path(@referral))
     expect(page).to have_title("Their job title")
     expect(page).to have_content("Their job title")
   end
 
   def then_i_see_the_same_organisation_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_same_organisation_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_same_organisation_path(@referral))
     expect(page).to have_title(
       "Were they employed at the same organisation as you at the time of the alleged misconduct?"
     )
@@ -297,101 +287,63 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_the_organisation_address_known_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_organisation_address_known_path(@referral)
-    )
-    expect(page).to have_title(
-      "Do you know the name and address of the organisation?"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_organisation_address_known_path(@referral))
+    expect(page).to have_title("Do you know the name and address of the organisation?")
     expect(page).to have_content(
       "Do you know the name and address of the organisation where the alleged misconduct took place?"
     )
   end
 
   def then_i_see_the_organisation_address_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_organisation_address_path(@referral)
-    )
-    expect(page).to have_title(
-      "Name and address of the organisation where the alleged misconduct took place"
-    )
-    expect(page).to have_content(
-      "Name and address of the organisation where the alleged misconduct took place"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_organisation_address_path(@referral))
+    expect(page).to have_title("Name and address of the organisation where the alleged misconduct took place")
+    expect(page).to have_content("Name and address of the organisation where the alleged misconduct took place")
   end
 
   def then_i_see_the_duties_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_duties_path(@referral)
-    )
-    expect(page).to have_title(
-      "How do you want to give details about their main duties?"
-    )
-    expect(page).to have_content(
-      "How do you want to give details about their main duties?"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_duties_path(@referral))
+    expect(page).to have_title("How do you want to give details about their main duties?")
+    expect(page).to have_content("How do you want to give details about their main duties?")
   end
 
   def then_i_see_the_job_start_date_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_start_date_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_start_date_path(@referral))
     expect(page).to have_title("Do you know when they started the job?")
     expect(page).to have_content("Do you know when they started the job?")
   end
 
   def then_i_see_the_job_end_date_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_end_date_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_end_date_path(@referral))
     expect(page).to have_title("Do you know when they left the job?")
     expect(page).to have_content("Do you know when they left the job?")
   end
 
   def then_i_see_the_reason_leaving_role_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_reason_leaving_role_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_reason_leaving_role_path(@referral))
     expect(page).to have_title("Reason they left the job")
     expect(page).to have_content("Reason they left the job")
   end
 
   def then_i_see_the_working_somewhere_else_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_working_somewhere_else_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_working_somewhere_else_path(@referral))
     expect(page).to have_title("Are they employed somewhere else?")
     expect(page).to have_content("Are they employed somewhere else?")
   end
 
   def then_i_see_the_work_location_known_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_work_location_known_path(@referral)
-    )
-    expect(page).to have_title(
-      "Do you know the name and address of the organisation where they’re employed?"
-    )
-    expect(page).to have_content(
-      "Do you know the name and address of the organisation where they’re employed?"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_work_location_known_path(@referral))
+    expect(page).to have_title("Do you know the name and address of the organisation where they’re employed?")
+    expect(page).to have_content("Do you know the name and address of the organisation where they’re employed?")
   end
 
   def then_i_see_the_work_location_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_work_location_path(@referral)
-    )
-    expect(page).to have_title(
-      "Name and address of the organisation where they’re employed"
-    )
-    expect(page).to have_content(
-      "Name and address of the organisation where they’re employed"
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_work_location_path(@referral))
+    expect(page).to have_title("Name and address of the organisation where they’re employed")
+    expect(page).to have_content("Name and address of the organisation where they’re employed")
   end
 
   def then_i_see_the_check_answers_page
-    expect(page).to have_current_path(
-      edit_referral_teacher_role_check_answers_path(@referral)
-    )
+    expect(page).to have_current_path(edit_referral_teacher_role_check_answers_path(@referral))
     expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Check and confirm your answers")
   end
@@ -443,8 +395,7 @@ RSpec.feature "Teacher role", type: :system do
     fill_in "Month", with: "1"
     fill_in "Year", with: "1990"
   end
-  alias_method :and_i_fill_out_the_role_end_date_fields,
-               :and_i_fill_out_the_role_start_date_fields
+  alias_method :and_i_fill_out_the_role_end_date_fields, :and_i_fill_out_the_role_start_date_fields
 
   def when_i_fill_in_the_job_title_field
     fill_in "Their job title", with: "Teacher"
@@ -464,25 +415,17 @@ RSpec.feature "Teacher role", type: :system do
   # File uploads
 
   def and_i_attach_a_job_description_file
-    attach_file(
-      "Upload file",
-      File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf"))
-    )
+    attach_file("Upload file", File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf")))
   end
 
   def and_i_attach_a_second_job_description_file
-    attach_file(
-      "Upload new file",
-      File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf"))
-    )
+    attach_file("Upload new file", File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf")))
   end
 
   # Validation errors
 
   def then_i_see_employment_status_field_validation_errors
-    expect(page).to have_content(
-      "Select whether they’re still employed where the alleged misconduct took place"
-    )
+    expect(page).to have_content("Select whether they’re still employed where the alleged misconduct took place")
   end
 
   def then_i_see_reason_leaving_role_field_validation_errors
@@ -490,9 +433,7 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_role_start_date_known_field_validation_errors
-    expect(page).to have_content(
-      "Select yes if you know when they started the job"
-    )
+    expect(page).to have_content("Select yes if you know when they started the job")
   end
 
   def then_i_see_role_start_date_field_validation_errors
@@ -500,9 +441,7 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_role_end_date_field_validation_errors
-    expect(page).to have_content(
-      "Select yes if you know when they left the job"
-    )
+    expect(page).to have_content("Select yes if you know when they left the job")
   end
 
   def then_i_see_job_title_field_validation_errors
@@ -516,30 +455,22 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_organisation_address_known_field_validation_errors
-    expect(page).to have_content(
-      "Select yes if you know the name and address of the organisation"
-    )
+    expect(page).to have_content("Select yes if you know the name and address of the organisation")
   end
 
   def then_i_see_organisation_address_fields_validation_errors
     expect(page).to have_content("Enter the organisation name")
-    expect(page).to have_content(
-      "Enter the first line of the organisation's address"
-    )
+    expect(page).to have_content("Enter the first line of the organisation's address")
     expect(page).to have_content("Enter a town or city for the organisation")
     expect(page).to have_content("Enter a postcode for the organisation")
   end
 
   def then_i_see_duties_format_field_validation_errors
-    expect(page).to have_content(
-      "Select how you want to give details about their main duties"
-    )
+    expect(page).to have_content("Select how you want to give details about their main duties")
   end
 
   def then_i_see_duties_upload_field_validation_errors
-    expect(page).to have_content(
-      "Select a file containing a description of their main duties"
-    )
+    expect(page).to have_content("Select a file containing a description of their main duties")
   end
 
   def then_i_see_duties_details_field_validation_errors
@@ -547,9 +478,7 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_working_somewhere_else_field_validation_errors
-    expect(page).to have_content(
-      "Select yes if they’re employed somewhere else"
-    )
+    expect(page).to have_content("Select yes if they’re employed somewhere else")
   end
 
   def then_i_see_work_location_field_validation_errors
@@ -580,11 +509,6 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    expect_task_row(
-      section: "About the teacher",
-      item_position: 3,
-      name: "About their role",
-      tag: status
-    )
+    expect_task_row(section: "About the teacher", item_position: 3, name: "About their role", tag: status)
   end
 end

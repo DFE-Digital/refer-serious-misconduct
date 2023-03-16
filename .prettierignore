@@ -24,10 +24,8 @@ Procfile
 Procfile.*
 app/assets/builds
 bin/dev
-config/routes.rb
 data
 db/*.sqlite3
-db/schema.rb
 log
 public/assets
 storage

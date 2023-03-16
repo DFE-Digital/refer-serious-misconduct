@@ -6,10 +6,7 @@ module Referrals
 
       attr_accessor :reason_leaving_role
 
-      validates :reason_leaving_role,
-                inclusion: {
-                  in: %w[resigned dismissed retired unknown]
-                }
+      validates :reason_leaving_role, inclusion: { in: %w[resigned dismissed retired unknown] }
 
       def save
         return false if invalid?

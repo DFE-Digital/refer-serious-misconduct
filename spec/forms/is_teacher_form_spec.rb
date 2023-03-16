@@ -6,11 +6,7 @@ RSpec.describe IsTeacherForm, type: :model do
 
     it { is_expected.to validate_presence_of(:eligibility_check) }
 
-    specify do
-      expect(form).to validate_inclusion_of(:is_teacher).in_array(
-        %w[yes no not_sure]
-      )
-    end
+    specify { expect(form).to validate_inclusion_of(:is_teacher).in_array(%w[yes no not_sure]) }
   end
 
   describe "#valid?" do

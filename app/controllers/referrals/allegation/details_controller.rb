@@ -11,10 +11,7 @@ module Referrals
       end
 
       def update
-        @allegation_details_form =
-          DetailsForm.new(
-            allegation_details_params.merge(referral: current_referral)
-          )
+        @allegation_details_form = DetailsForm.new(allegation_details_params.merge(referral: current_referral))
 
         if @allegation_details_form.save
           redirect_to next_page
@@ -34,13 +31,7 @@ module Referrals
       end
 
       def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :allegation,
-          :dbs
-        ]
+        [:edit, current_referral.routing_scope, current_referral, :allegation, :dbs]
       end
     end
   end

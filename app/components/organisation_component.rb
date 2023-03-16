@@ -14,14 +14,7 @@ class OrganisationComponent < ViewComponent::Base
         actions: [
           {
             text: "Change",
-            href: [
-              :edit,
-              referral.routing_scope,
-              referral,
-              :organisation,
-              :address,
-              { return_to: }
-            ],
+            href: [:edit, referral.routing_scope, referral, :organisation, :address, { return_to: }],
             visually_hidden_text: "your organisation"
           }
         ],
@@ -38,8 +31,6 @@ class OrganisationComponent < ViewComponent::Base
   end
 
   def return_to
-    polymorphic_path(
-      [:edit, referral.routing_scope, referral, :organisation, :check_answers]
-    )
+    polymorphic_path([:edit, referral.routing_scope, referral, :organisation, :check_answers])
   end
 end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     },
     path: "",
     path_names: {
-      sign_in:  "manage/sign-in",
+      sign_in: "manage/sign-in",
       sign_out: "manage/sign-out"
     }
   )
@@ -41,9 +41,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(
-    -> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
-  ) do
+  constraints(-> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }) do
     get "/start", to: "pages#start"
     get "/users/registrations/exists", to: "users/existing_registration#new"
     post "/users/registrations/exists", to: "users/existing_registration#create"
@@ -56,8 +54,7 @@ Rails.application.routes.draw do
     post "/is-a-teacher", to: "is_teacher#create"
     get "/unsupervised-teaching", to: "unsupervised_teaching#new"
     post "/unsupervised-teaching", to: "unsupervised_teaching#create"
-    get "/no-jurisdiction-unsupervised",
-        to: "pages#no_jurisdiction_unsupervised"
+    get "/no-jurisdiction-unsupervised", to: "pages#no_jurisdiction_unsupervised"
     get "/teaching-in-england", to: "teaching_in_england#new"
     post "/teaching-in-england", to: "teaching_in_england#create"
     get "/no-jurisdiction", to: "pages#no_jurisdiction"
@@ -68,32 +65,18 @@ Rails.application.routes.draw do
     get "/complete", to: "pages#complete"
   end
 
-  constraints(
-    -> { !FeatureFlags::FeatureFlag.active?(:eligibility_screener) }
-  ) do
-    get "/",
-        to:
-          redirect(
-            "https://www.gov.uk/government/publications/teacher-misconduct-referral-form",
-            status: 307
-          )
+  constraints(-> { !FeatureFlags::FeatureFlag.active?(:eligibility_screener) }) do
+    get "/", to: redirect("https://www.gov.uk/government/publications/teacher-misconduct-referral-form", status: 307)
   end
 
   root to: "pages#start"
 
-  resources :public_referrals,
-            except: %i[index show],
-            path: "public-referrals" do
+  resources :public_referrals, except: %i[index show], path: "public-referrals" do
     scope module: :public_referrals do
       constraints(RouteConstraints::PublicConstraint.new) do
-
         namespace :referrer do
-          resource :name,
-            only: %i[edit update],
-            controller: :name
-          resource :phone,
-            only: %i[edit update],
-            controller: :phone
+          resource :name, only: %i[edit update], controller: :name
+          resource :phone, only: %i[edit update], controller: :phone
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
@@ -110,9 +93,7 @@ Rails.application.routes.draw do
           resource :start, only: %i[edit update], controller: :start
           resource :upload, only: %i[edit update], controller: :upload
           resource :uploaded, only: %i[edit update], controller: :uploaded
-          resource :check_answers,
-                   only: %i[edit update],
-                   controller: :check_answers
+          resource :check_answers, only: %i[edit update], controller: :check_answers
         end
 
         namespace :allegation do
@@ -122,10 +103,7 @@ Rails.application.routes.draw do
         end
 
         namespace :teacher_role, path: "teacher-role" do
-          resource :job_title,
-                   path: "job-title",
-                   only: %i[edit update],
-                   controller: :job_title
+          resource :job_title, path: "job-title", only: %i[edit update], controller: :job_title
           resource :duties, only: %i[edit update]
           resource :organisation_address_known,
                    path: "organisation-address-known",
@@ -157,42 +135,28 @@ Rails.application.routes.draw do
         end
 
         namespace :referrer do
-          resource :name,
-                  only: %i[edit update],
-                  controller: :name
-          resource :job_title,
-                  only: %i[edit update],
-                  path: "job-title",
-                  controller: :job_title
-          resource :phone,
-                  only: %i[edit update],
-                  controller: :phone
+          resource :name, only: %i[edit update], controller: :name
+          resource :job_title, only: %i[edit update], path: "job-title", controller: :job_title
+          resource :phone, only: %i[edit update], controller: :phone
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
         namespace :organisation do
-          resource :address,
-                  only: %i[edit update],
-                  controller: :address
+          resource :address, only: %i[edit update], controller: :address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
         namespace :contact_details, path: "contact-details" do
           resource :email, only: %i[edit update], controller: :email
           resource :telephone, only: %i[edit update], controller: :telephone
-          resource :address_known,
-                   only: %i[edit update],
-                   controller: :address_known
+          resource :address_known, only: %i[edit update], controller: :address_known
           resource :address, only: %i[edit update], controller: :address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
         namespace :previous_misconduct, path: "previous-misconduct" do
           resource :reported, only: %i[edit update], controller: :reported
-          resource :detailed_account,
-                   path: "detailed-account",
-                   only: %i[edit update],
-                   controller: :detailed_account
+          resource :detailed_account, path: "detailed-account", only: %i[edit update], controller: :detailed_account
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
@@ -203,22 +167,10 @@ Rails.application.routes.draw do
         end
 
         namespace :teacher_role, path: "teacher-role" do
-          resource :start_date,
-                   path: "start-date",
-                   only: %i[edit update],
-                   controller: :start_date
-          resource :employment_status,
-                   path: "employment-status",
-                   only: %i[edit update],
-                   controller: :employment_status
-          resource :job_title,
-                   path: "job-title",
-                   only: %i[edit update],
-                   controller: :job_title
-          resource :same_organisation,
-                   path: "same-organisation",
-                   only: %i[edit update],
-                   controller: :same_organisation
+          resource :start_date, path: "start-date", only: %i[edit update], controller: :start_date
+          resource :employment_status, path: "employment-status", only: %i[edit update], controller: :employment_status
+          resource :job_title, path: "job-title", only: %i[edit update], controller: :job_title
+          resource :same_organisation, path: "same-organisation", only: %i[edit update], controller: :same_organisation
           resource :duties, only: %i[edit update]
           resource :working_somewhere_else,
                    path: "working-somewhere-else",
@@ -228,10 +180,7 @@ Rails.application.routes.draw do
                    path: "work-location-known",
                    only: %i[edit update],
                    controller: :work_location_known
-          resource :work_location,
-                   path: "work-location",
-                   only: %i[edit update],
-                   controller: :work_location
+          resource :work_location, path: "work-location", only: %i[edit update], controller: :work_location
           resource :organisation_address_known,
                    path: "organisation-address-known",
                    only: %i[edit update],
@@ -240,10 +189,7 @@ Rails.application.routes.draw do
                    path: "organisation-address",
                    only: %i[edit update],
                    controller: :organisation_address
-          resource :end_date,
-                   path: "end-date",
-                   only: %i[edit update],
-                   controller: :end_date
+          resource :end_date, path: "end-date", only: %i[edit update], controller: :end_date
           resource :reason_leaving_role,
                    path: "reason-leaving-role",
                    only: %i[edit update],
@@ -273,7 +219,7 @@ Rails.application.routes.draw do
   namespace :support_interface, path: "/support" do
     root to: redirect("/support/eligibility-checks")
     resources :staff, only: %i[index destroy] do
-      get '/delete', on: :member, to: "staff#delete"
+      get "/delete", on: :member, to: "staff#delete"
     end
     resources :staff_permissions, only: %i[edit update]
     resources :staff_invitations, only: %i[edit update]

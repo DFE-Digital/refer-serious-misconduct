@@ -23,11 +23,7 @@ module Referrals
 
         @evidences =
           evidence_uploads.compact_blank.map do |upload|
-            ::ReferralEvidence.new(
-              filename: upload.original_filename,
-              document: upload,
-              referral:
-            )
+            ::ReferralEvidence.new(filename: upload.original_filename, document: upload, referral:)
           end
 
         if referral.evidences.size + evidences.size > MAX_FILES

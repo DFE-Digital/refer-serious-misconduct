@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.describe "Support" do
   include CommonSteps
 
-  scenario "a staff user with permissions can visit the support interface",
-           type: :system do
+  scenario "a staff user with permissions can visit the support interface", type: :system do
     given_the_service_is_open
     given_an_eligibility_check_exists
     and_the_eligibility_screener_is_enabled
@@ -35,9 +34,7 @@ RSpec.describe "Support" do
 
   def then_i_see_the_eligibility_checks_page
     expect(page).to have_current_path(support_interface_eligibility_checks_path)
-    expect(page).to have_title(
-      "Eligibility Checks - Refer serious misconduct by a teacher"
-    )
+    expect(page).to have_title("Eligibility Checks - Refer serious misconduct by a teacher")
     expect(page).to have_content("Eligibility Checks")
     expect(page).to have_content("1 of 1")
   end

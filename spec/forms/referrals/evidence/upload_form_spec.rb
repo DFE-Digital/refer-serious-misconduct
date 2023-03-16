@@ -37,9 +37,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
       let(:evidence_uploads) { nil }
 
       it "adds an error" do
-        expect(upload_form.errors[:evidence_uploads]).to eq(
-          ["Select evidence to upload"]
-        )
+        expect(upload_form.errors[:evidence_uploads]).to eq(["Select evidence to upload"])
       end
     end
 
@@ -48,9 +46,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
 
       it "adds an error" do
         expect(upload_form.errors[:evidence_uploads]).to eq(
-          [
-            "The selected file must be of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
-          ]
+          ["The selected file must be of valid type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"]
         )
       end
     end
@@ -60,9 +56,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
         upload_form.evidence_uploads = [fixture_file_upload("upload.txt")]
         expect { upload_form.save }.to change(referral.evidences, :size).by(1)
         expect(referral.evidences.size).to eq(3)
-        expect(referral.evidences.map(&:filename)).to eq(
-          %w[upload1.pdf upload2.pdf upload.txt]
-        )
+        expect(referral.evidences.map(&:filename)).to eq(%w[upload1.pdf upload2.pdf upload.txt])
       end
 
       it "validates that the maximum number of files is not exceeded" do
@@ -78,9 +72,7 @@ RSpec.describe Referrals::Evidence::UploadForm, type: :model do
           fixture_file_upload("upload.txt")
         ]
         expect(upload_form.save).to be false
-        expect(upload_form.errors[:evidence_uploads]).to eq(
-          ["You can only upload 10 files"]
-        )
+        expect(upload_form.errors[:evidence_uploads]).to eq(["You can only upload 10 files"])
       end
     end
   end

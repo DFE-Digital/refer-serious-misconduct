@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
-  scenario "Case worker with manage_referrals permission views an employer referral",
-           type: :system do
+  scenario "Case worker with manage_referrals permission views an employer referral", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -35,9 +34,7 @@ RSpec.feature "Manage referrals" do
     expect(page).to have_content("Summary")
     within("#summary") do
       expect(page).to have_content(Referral.last.id)
-      expect(page).to have_content(
-        Referral.last.created_at.to_fs(:day_month_year_time)
-      )
+      expect(page).to have_content(Referral.last.created_at.to_fs(:day_month_year_time))
     end
   end
 
@@ -62,13 +59,9 @@ RSpec.feature "Manage referrals" do
       expect(page).to have_content("Example City")
       expect(page).to have_content("AB1 2CD")
       expect(page).to have_content("Job start date")
-      expect(page).to have_content(
-        @referral.role_start_date.to_fs(:long_ordinal_uk)
-      )
+      expect(page).to have_content(@referral.role_start_date.to_fs(:long_ordinal_uk))
       expect(page).to have_content("Job end date")
-      expect(page).to have_content(
-        @referral.role_end_date.to_fs(:long_ordinal_uk)
-      )
+      expect(page).to have_content(@referral.role_end_date.to_fs(:long_ordinal_uk))
       expect(page).to have_content("Reason they left the job")
       expect(page).to have_content("Dismissed")
     end
@@ -90,9 +83,7 @@ RSpec.feature "Manage referrals" do
     within("#allegation_details") do
       expect(page).to have_content("Allegation details")
       expect(page).to have_content("They were rude to a child")
-      expect(page).to have_content(
-        "Have you told the Disclosure and Barring Service (DBS)?"
-      )
+      expect(page).to have_content("Have you told the Disclosure and Barring Service (DBS)?")
       expect(page).to have_content("Yes")
     end
   end

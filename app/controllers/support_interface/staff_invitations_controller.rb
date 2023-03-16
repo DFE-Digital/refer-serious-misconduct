@@ -19,10 +19,7 @@ module SupportInterface
     private
 
     def staff_params
-      params.require(:support_interface_staff_permissions_form).permit(
-        :manage_referrals,
-        :view_support
-      )
+      params.require(:support_interface_staff_permissions_form).permit(:manage_referrals, :view_support)
     end
   end
 end

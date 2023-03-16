@@ -30,12 +30,7 @@ RSpec.feature "Referral route constraints", type: :system do
 
   def and_i_have_two_different_types_of_referral
     @employer_referral = create(:referral, user: @user)
-    @public_referral =
-      create(
-        :referral,
-        user: @user,
-        eligibility_check: create(:eligibility_check, :public)
-      )
+    @public_referral = create(:referral, user: @user, eligibility_check: create(:eligibility_check, :public))
 
     visit root_path
   end

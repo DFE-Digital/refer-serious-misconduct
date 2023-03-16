@@ -4,9 +4,7 @@ RSpec.describe User, type: :model do
   describe "#latest_referral" do
     subject { user.latest_referral }
 
-    let!(:expected_referral) do
-      create(:referral, user:, created_at: 1.hour.from_now)
-    end
+    let!(:expected_referral) { create(:referral, user:, created_at: 1.hour.from_now) }
     let(:user) { create(:user) }
 
     before do
@@ -21,9 +19,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "#after_failed_otp_authentication" do
-    subject(:after_failed_otp_authentication) do
-      user.after_failed_otp_authentication
-    end
+    subject(:after_failed_otp_authentication) { user.after_failed_otp_authentication }
 
     let(:user) { create(:user, secret_key: "some_key", otp_guesses: 3) }
 
@@ -39,9 +35,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "#after_successful_otp_authentication" do
-    subject(:after_successful_otp_authentication) do
-      user.after_successful_otp_authentication
-    end
+    subject(:after_successful_otp_authentication) { user.after_successful_otp_authentication }
 
     let(:user) { create(:user, secret_key: "some_key", otp_guesses: 3) }
 

@@ -4,8 +4,7 @@ class Users::ExistingRegistrationController < ApplicationController
   end
 
   def create
-    @registration_exists_form =
-      RegistrationExistsForm.new(registration_exists_form_params)
+    @registration_exists_form = RegistrationExistsForm.new(registration_exists_form_params)
 
     if @registration_exists_form.valid?
       if @registration_exists_form.registration_exists?

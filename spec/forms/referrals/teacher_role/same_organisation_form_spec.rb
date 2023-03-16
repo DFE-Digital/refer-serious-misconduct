@@ -21,9 +21,7 @@ RSpec.describe Referrals::TeacherRole::SameOrganisationForm, type: :model do
 
       it "adds an error" do
         expect(form.errors[:same_organisation]).to eq(
-          [
-            "Select yes if they worked at the same organisation as you at the time of the alleged misconduct"
-          ]
+          ["Select yes if they worked at the same organisation as you at the time of the alleged misconduct"]
         )
       end
     end
@@ -34,9 +32,7 @@ RSpec.describe Referrals::TeacherRole::SameOrganisationForm, type: :model do
       let(:same_organisation) { true }
 
       it "updates the same_organisation to true" do
-        expect { form.save }.to change(referral, :same_organisation).from(
-          nil
-        ).to(true)
+        expect { form.save }.to change(referral, :same_organisation).from(nil).to(true)
       end
     end
 
@@ -44,9 +40,7 @@ RSpec.describe Referrals::TeacherRole::SameOrganisationForm, type: :model do
       let(:same_organisation) { false }
 
       it "updates the same_organisation to false" do
-        expect { form.save }.to change(referral, :same_organisation).from(
-          nil
-        ).to(false)
+        expect { form.save }.to change(referral, :same_organisation).from(nil).to(false)
       end
     end
   end

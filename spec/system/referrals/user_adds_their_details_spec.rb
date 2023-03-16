@@ -89,20 +89,13 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_am_on_the_your_name_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer/name/edit",
-      ignore_query: true
-    )
-    expect(page).to have_title(
-      "Your name - Your details - Refer serious misconduct by a teacher in England - GOV.UK"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/name/edit", ignore_query: true)
+    expect(page).to have_title("Your name - Your details - Refer serious misconduct by a teacher in England - GOV.UK")
     expect(page).to have_content("Your name")
   end
 
   def then_i_see_the_job_title_page
-    expect(page).to have_current_path(
-      "/referrals/#{Referral.last.id}/referrer/job-title/edit"
-    )
+    expect(page).to have_current_path("/referrals/#{Referral.last.id}/referrer/job-title/edit")
     expect(page).to have_title(
       "Your job title - Your details - Refer serious misconduct by a teacher in England - GOV.UK"
     )
@@ -132,12 +125,8 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer/check-answers/edit"
-    )
-    expect(page).to have_title(
-      "Your details - Refer serious misconduct by a teacher in England - GOV.UK"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/check-answers/edit")
+    expect(page).to have_title("Your details - Refer serious misconduct by a teacher in England - GOV.UK")
     expect(page).to have_content("Your details")
   end
 
@@ -146,9 +135,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_see_the_what_is_your_phone_number_page
-    expect(page).to have_current_path(
-      "/referrals/#{@referral.id}/referrer/phone/edit"
-    )
+    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/phone/edit")
     expect(page).to have_title(
       "Your phone number - Your details - Refer serious misconduct by a teacher in England - GOV.UK"
     )

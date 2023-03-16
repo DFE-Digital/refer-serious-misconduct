@@ -5,8 +5,7 @@ module StoreUserLocation
   included { before_action :store_user_location!, if: :storable_location? }
 
   def storable_location?
-    request.get? && is_navigational_format? && !devise_controller? &&
-      !request.xhr?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
 
   def store_user_location!

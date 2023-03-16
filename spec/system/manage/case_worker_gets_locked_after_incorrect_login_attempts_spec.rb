@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
-  scenario "Case worker gets locked after incorrect login attempts",
-           type: :system do
+  scenario "Case worker gets locked after incorrect login attempts", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -48,9 +47,7 @@ RSpec.feature "Manage referrals" do
                :when_i_try_to_login_as_a_case_worker_with_incorrect_credentials
 
   def then_i_see_an_error_message_for_invalid_credentials
-    expect(
-      page
-    ).to have_content "You entered an incorrect email address or password."
+    expect(page).to have_content "You entered an incorrect email address or password."
   end
 
   def when_i_try_three_more_times
@@ -58,15 +55,11 @@ RSpec.feature "Manage referrals" do
   end
 
   def then_i_see_an_error_message_for_invalid_credentials
-    expect(
-      page
-    ).to have_content "You entered an incorrect email address or password."
+    expect(page).to have_content "You entered an incorrect email address or password."
   end
 
   def then_i_see_an_error_message_for_last_attempt
-    expect(
-      page
-    ).to have_content "You entered an incorrect email address or password - you have " \
+    expect(page).to have_content "You entered an incorrect email address or password - you have " \
                    "1 more attempt before your account is locked for 15 minutes."
   end
 

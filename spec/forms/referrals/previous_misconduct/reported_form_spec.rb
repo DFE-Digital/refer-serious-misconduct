@@ -25,9 +25,7 @@ RSpec.describe Referrals::PreviousMisconduct::ReportedForm, type: :model do
     subject(:save) { form.save }
 
     let(:referral) { build(:referral) }
-    let(:form) do
-      described_class.new(referral:, previous_misconduct_reported: "true")
-    end
+    let(:form) { described_class.new(referral:, previous_misconduct_reported: "true") }
 
     it "saves the Referral" do
       save

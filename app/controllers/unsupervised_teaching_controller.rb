@@ -5,9 +5,7 @@ class UnsupervisedTeachingController < EligibilityScreenerController
 
   def create
     @unsupervised_teaching_form =
-      UnsupervisedTeachingForm.new(
-        unsupervised_teaching_form_params.merge(eligibility_check:)
-      )
+      UnsupervisedTeachingForm.new(unsupervised_teaching_form_params.merge(eligibility_check:))
 
     if @unsupervised_teaching_form.save
       if eligibility_check.unsupervised_teaching?

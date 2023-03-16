@@ -3,11 +3,7 @@ class EligibilityCheck < ApplicationRecord
 
   validates :reporting_as, presence: true
 
-  enum reporting_as: {
-         employer: "employer",
-         public: "public"
-       },
-       _prefix: "reporting_as"
+  enum reporting_as: { employer: "employer", public: "public" }, _prefix: "reporting_as"
 
   scope :complete, -> { where(serious_misconduct: "yes") }
   scope :group_by_day, -> { group("date_trunc('day', created_at)") }
@@ -20,12 +16,9 @@ class EligibilityCheck < ApplicationRecord
         }
   scope :ineligible,
         -> {
-          where(unsupervised_teaching: "no").or(
-            where(serious_misconduct: "no")
-          ).or(where(teaching_in_england: "no"))
+          where(unsupervised_teaching: "no").or(where(serious_misconduct: "no")).or(where(teaching_in_england: "no"))
         }
-  scope :previous_7_days,
-        -> { where(created_at: 1.week.ago.beginning_of_day..) }
+  scope :previous_7_days, -> { where(created_at: 1.week.ago.beginning_of_day..) }
 
   def is_teacher?
     %w[yes].include?(is_teacher)

@@ -26,7 +26,6 @@ class PagesController < ApplicationController
   private
 
   def eligibility_check
-    @eligibility_check ||=
-      EligibilityCheck.find_by(id: session[:eligibility_check_id])
+    @eligibility_check ||= EligibilityCheck.find_by(id: session[:eligibility_check_id])
   end
 end

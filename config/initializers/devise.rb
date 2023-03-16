@@ -24,8 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender =
-    "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   config.mailer = "DeviseMailer"
@@ -331,10 +330,7 @@ Devise.setup do |config|
     manager.strategies.add(:staff_http_basic_auth, StaffHttpBasicAuthStrategy)
     manager.default_strategies(scope: :staff).unshift :staff_http_basic_auth
 
-    manager.strategies.add(
-      :otp_authenticatable,
-      Devise::Strategies::OtpAuthenticatable
-    )
+    manager.strategies.add(:otp_authenticatable, Devise::Strategies::OtpAuthenticatable)
     manager.default_strategies(scope: :user).unshift(:otp_authenticatable)
   end
 

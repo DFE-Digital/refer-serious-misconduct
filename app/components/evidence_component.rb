@@ -17,11 +17,7 @@ class EvidenceComponent < ViewComponent::Base
       actions: [
         {
           text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :evidence_start],
-              return_to: return_to_path
-            ),
+          href: polymorphic_path([:edit, referral.routing_scope, referral, :evidence_start], return_to: return_to_path),
           visually_hidden_text: "if you have anything to upload"
         }
       ],
@@ -42,10 +38,7 @@ class EvidenceComponent < ViewComponent::Base
         {
           text: "Change",
           href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :evidence_uploaded],
-              return_to: return_to_path
-            ),
+            polymorphic_path([:edit, referral.routing_scope, referral, :evidence_uploaded], return_to: return_to_path),
           visually_hidden_text: "uploaded evidence"
         }
       ],
@@ -65,10 +58,7 @@ class EvidenceComponent < ViewComponent::Base
       referral.evidences.map do |evidence|
         concat(
           tag.li(class: "govuk-!-margin-bottom-0") do
-            govuk_link_to(
-              evidence.filename,
-              rails_blob_path(evidence.document, disposition: "attachment")
-            )
+            govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment"))
           end
         )
       end

@@ -5,28 +5,18 @@ class ReferralsController < Referrals::BaseController
 
   def new
     new_referral =
-      Referral.find_or_create_by!(
-        user_id: current_user.id,
-        eligibility_check_id: session.delete(:eligibility_check_id)
-      )
+      Referral.find_or_create_by!(user_id: current_user.id, eligibility_check_id: session.delete(:eligibility_check_id))
 
-    if new_referral.persisted?
-      UserMailer.referral_link(new_referral).deliver_later
-    end
+    UserMailer.referral_link(new_referral).deliver_later if new_referral.persisted?
 
     redirect_to [:edit, new_referral.routing_scope, new_referral]
   end
 
   def create
     new_referral =
-      Referral.create!(
-        user_id: current_user.id,
-        eligibility_check_id: session.delete(:eligibility_check_id)
-      )
+      Referral.create!(user_id: current_user.id, eligibility_check_id: session.delete(:eligibility_check_id))
 
-    if new_referral.persisted?
-      UserMailer.referral_link(new_referral).deliver_later
-    end
+    UserMailer.referral_link(new_referral).deliver_later if new_referral.persisted?
 
     redirect_to [:edit, new_referral.routing_scope, new_referral]
   end
@@ -53,9 +43,7 @@ class ReferralsController < Referrals::BaseController
   helper_method :referral
 
   def check_referral_form_feature_flag_enabled
-    unless FeatureFlags::FeatureFlag.active?(:referral_form)
-      redirect_to start_path
-    end
+    redirect_to start_path unless FeatureFlags::FeatureFlag.active?(:referral_form)
   end
 
   def redirect_to_screener_if_no_id_in_session

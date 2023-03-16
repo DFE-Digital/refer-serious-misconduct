@@ -10,23 +10,14 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
     let(:duties_format) { nil }
     let(:duties_details) { nil }
     let(:duties_upload) { nil }
-    let(:form) do
-      described_class.new(
-        referral:,
-        duties_details:,
-        duties_format:,
-        duties_upload:
-      )
-    end
+    let(:form) { described_class.new(referral:, duties_details:, duties_format:, duties_upload:) }
 
     context "with no duties format" do
       it { is_expected.to be_falsey }
 
       it "adds an error" do
         save
-        expect(form.errors[:duties_format]).to eq(
-          ["Select how you want to give details about their main duties"]
-        )
+        expect(form.errors[:duties_format]).to eq(["Select how you want to give details about their main duties"])
       end
     end
 
@@ -37,9 +28,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:duties_upload]).to eq(
-          ["Select a file containing a description of their main duties"]
-        )
+        expect(form.errors[:duties_upload]).to eq(["Select a file containing a description of their main duties"])
       end
     end
 
@@ -67,9 +56,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:duties_details]).to eq(
-          ["Enter a description of their main duties"]
-        )
+        expect(form.errors[:duties_details]).to eq(["Enter a description of their main duties"])
       end
     end
 
@@ -85,9 +72,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
       end
 
       context "when there is an existing upload" do
-        before do
-          referral.duties_upload.attach(fixture_file_upload("upload1.pdf"))
-        end
+        before { referral.duties_upload.attach(fixture_file_upload("upload1.pdf")) }
 
         it "has the attached file" do
           expect(referral.duties_upload).to be_attached

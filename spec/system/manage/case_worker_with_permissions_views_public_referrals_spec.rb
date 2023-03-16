@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
-  scenario "Case worker with permissions views public referrals",
-           type: :system do
+  scenario "Case worker with permissions views public referrals", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
@@ -27,9 +26,7 @@ RSpec.feature "Manage referrals" do
   def then_i_can_see_the_referrals_page
     expect(page).to have_content "Referrals (30)"
     expect(page).to have_content "Jane Smith"
-    expect(page).to have_content Referral.first.created_at.to_fs(
-                   :day_month_year_time
-                 )
+    expect(page).to have_content Referral.first.created_at.to_fs(:day_month_year_time)
   end
 
   def and_i_can_see_pagination_for_submitted_claims

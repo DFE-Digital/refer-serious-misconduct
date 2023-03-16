@@ -4,8 +4,7 @@ require "rails_helper"
 RSpec.feature "Test users" do
   include CommonSteps
 
-  scenario "Staff user with basic auth is not authorized to create test users",
-           type: :system do
+  scenario "Staff user with basic auth is not authorized to create test users", type: :system do
     given_the_service_is_open
     and_staff_http_basic_is_active
     and_the_referral_form_feature_is_active

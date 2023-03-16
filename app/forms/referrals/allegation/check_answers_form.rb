@@ -10,8 +10,7 @@ module Referrals
       attr_reader :allegation_details_complete
 
       def allegation_details_complete=(value)
-        @allegation_details_complete =
-          ActiveModel::Type::Boolean.new.cast(value)
+        @allegation_details_complete = ActiveModel::Type::Boolean.new.cast(value)
       end
 
       def save
@@ -19,9 +18,7 @@ module Referrals
       end
 
       def allegation_not_incomplete
-        if referral.allegation_format == "incomplete"
-          errors.add(:base, :allegation_incomplete)
-        end
+        errors.add(:base, :allegation_incomplete) if referral.allegation_format == "incomplete"
       end
     end
   end

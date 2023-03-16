@@ -17,31 +17,16 @@ class ContactDetailsComponent < ViewComponent::Base
   end
 
   def path_for(part)
-    [
-      :edit,
-      referral.routing_scope,
-      referral,
-      :contact_details,
-      part,
-      { return_to: }
-    ]
+    [:edit, referral.routing_scope, referral, :contact_details, part, { return_to: }]
   end
 
   def return_to
-    polymorphic_path(
-      [:edit, referral.routing_scope, referral, :contact_details_check_answers]
-    )
+    polymorphic_path([:edit, referral.routing_scope, referral, :contact_details_check_answers])
   end
 
   def email_known_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:email),
-          visually_hidden_text: "if you know their email address"
-        }
-      ],
+      actions: [{ text: "Change", href: path_for(:email), visually_hidden_text: "if you know their email address" }],
       key: {
         text: "Do you know their email address?"
       },
@@ -53,13 +38,7 @@ class ContactDetailsComponent < ViewComponent::Base
 
   def email_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:email),
-          visually_hidden_text: "email address"
-        }
-      ],
+      actions: [{ text: "Change", href: path_for(:email), visually_hidden_text: "email address" }],
       key: {
         text: "Email address"
       },
@@ -71,13 +50,7 @@ class ContactDetailsComponent < ViewComponent::Base
 
   def phone_number_known_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:telephone),
-          visually_hidden_text: "if you know their phone number"
-        }
-      ],
+      actions: [{ text: "Change", href: path_for(:telephone), visually_hidden_text: "if you know their phone number" }],
       key: {
         text: "Do you know their phone number?"
       },
@@ -89,13 +62,7 @@ class ContactDetailsComponent < ViewComponent::Base
 
   def phone_number_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:telephone),
-          visually_hidden_text: "phone number"
-        }
-      ],
+      actions: [{ text: "Change", href: path_for(:telephone), visually_hidden_text: "phone number" }],
       key: {
         text: "Phone number"
       },
@@ -108,11 +75,7 @@ class ContactDetailsComponent < ViewComponent::Base
   def address_known_row
     {
       actions: [
-        {
-          text: "Change",
-          href: path_for(:address_known),
-          visually_hidden_text: "if you know their home address"
-        }
+        { text: "Change", href: path_for(:address_known), visually_hidden_text: "if you know their home address" }
       ],
       key: {
         text: "Do you know their home address?"
@@ -125,13 +88,7 @@ class ContactDetailsComponent < ViewComponent::Base
 
   def address_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:address),
-          visually_hidden_text: "home address"
-        }
-      ],
+      actions: [{ text: "Change", href: path_for(:address), visually_hidden_text: "home address" }],
       key: {
         text: "Home address"
       },

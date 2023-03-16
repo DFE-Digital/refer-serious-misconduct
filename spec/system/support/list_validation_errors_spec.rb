@@ -22,8 +22,6 @@ RSpec.feature "Validation Errors" do
   end
 
   def then_i_see_the_validation_errors
-    expect(page).to have_text(
-      @validation_error.form_object.demodulize.underscore.humanize
-    )
+    expect(page).to have_text(@validation_error.form_object.demodulize.underscore.humanize)
   end
 end
