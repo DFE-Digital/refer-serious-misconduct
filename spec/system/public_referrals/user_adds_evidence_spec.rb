@@ -30,6 +30,22 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
 
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
+    and_i_change_anything_to_upload_to_no
+    and_i_click_save_and_continue
+    and_i_visit_uploaded_files
+    then_the_list_of_the_uploaded_files_should_be_empty
+
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
+    and_i_change_anything_to_upload_to_yes
+    when_i_choose_yes_to_uploading_evidence
+    and_i_click_save_and_continue
+    when_i_upload_evidence_files
+    and_i_click_save_and_continue
+    then_i_see_a_list_of_the_uploaded_files
+
     when_i_have_more_evidence_to_upload
     and_i_click_save_and_continue
     then_i_am_asked_to_upload_evidence_files
@@ -237,4 +253,26 @@ RSpec.feature "Evidence", type: :system do
     end
   end
   alias_method :then_the_evidence_section_state_is, :and_the_evidence_section_state_is
+
+  def and_i_change_anything_to_upload_to_no
+    click_on "Change if you have anything to upload"
+    choose "No", visible: false
+  end
+
+  def and_i_change_anything_to_upload_to_yes
+    click_on "Change"
+    choose "Yes", visible: false
+  end
+
+  def and_i_visit_uploaded_files
+    visit edit_public_referral_evidence_uploaded_path(@referral)
+  end
+
+  def then_the_list_of_the_uploaded_files_should_be_empty
+    expect(page).to have_content("Uploaded evidence")
+    within(".govuk-summary-list") do
+      expect(page).not_to have_link("upload1.pdf")
+      expect(page).not_to have_link("upload2.pdf")
+    end
+  end
 end
