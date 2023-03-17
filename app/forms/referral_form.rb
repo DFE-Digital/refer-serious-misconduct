@@ -141,10 +141,11 @@ class ReferralForm
         section.items.append(
           ReferralSectionItem.new(
             I18n.t("referral_form.evidence_and_supporting_information"),
-            path_for_section_status(
+            path_for_evidence_section_status(
               check_answers?(referral.evidence_details_complete),
               polymorphic_path([:edit, referral.routing_scope, referral, :evidence_start]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_check_answers])
+              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_check_answers]),
+              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_uploaded])
             ),
             section_status(referral.evidence_details_complete)
           )
@@ -162,5 +163,15 @@ class ReferralForm
 
   def path_for_section_status(check_answers, start_path, check_answers_path)
     check_answers ? check_answers_path : start_path
+  end
+
+  def path_for_evidence_section_status(check_answers, start_path, check_answers_path, evidence_upload_path)
+    if check_answers
+      check_answers_path
+    elsif referral.evidences.any?
+      evidence_upload_path
+    else
+      start_path
+    end
   end
 end
