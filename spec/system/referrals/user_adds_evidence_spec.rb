@@ -30,6 +30,22 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
 
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
+    and_i_change_anything_to_upload_to_no
+    and_i_click_save_and_continue
+    and_i_visit_uploaded_files
+    then_the_list_of_the_uploaded_files_should_be_empty
+
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
+    and_i_change_anything_to_upload_to_yes
+    and_i_choose_yes_to_uploading_evidence
+    and_i_click_save_and_continue
+    and_i_upload_evidence_files
+    and_i_click_save_and_continue
+    then_i_see_a_list_of_the_uploaded_files
+
     when_i_click_save_and_continue
     then_i_see_uploaded_evidence_form_validation_errors
 
@@ -42,7 +58,7 @@ RSpec.feature "Evidence", type: :system do
     then_i_see_a_list_of_the_uploaded_files
 
     when_i_visit_the_referral
-    when_i_edit_the_evidence
+    and_i_edit_the_evidence
     then_i_see_a_list_of_the_uploaded_files
 
     when_i_have_no_more_evidence_to_upload
@@ -85,6 +101,7 @@ RSpec.feature "Evidence", type: :system do
   def when_i_edit_the_evidence
     within(all(".app-task-list__section")[2]) { click_on "Evidence and supporting information" }
   end
+  alias_method :and_i_edit_the_evidence, :when_i_edit_the_evidence
 
   def then_i_am_asked_if_i_have_evidence_to_upload
     expect(page).to have_content("Evidence and supporting information")
@@ -97,6 +114,7 @@ RSpec.feature "Evidence", type: :system do
   def when_i_choose_yes_to_uploading_evidence
     choose "Yes", visible: false
   end
+  alias_method :and_i_choose_yes_to_uploading_evidence, :when_i_choose_yes_to_uploading_evidence
 
   def when_i_choose_no_to_uploading_evidence
     choose "No", visible: false
@@ -117,6 +135,7 @@ RSpec.feature "Evidence", type: :system do
       [Rails.root.join("spec/fixtures/files/upload2.pdf"), Rails.root.join("spec/fixtures/files/upload1.pdf")]
     )
   end
+  alias_method :and_i_upload_evidence_files, :when_i_upload_evidence_files
 
   def then_i_see_a_list_of_the_uploaded_files
     expect(page).to have_content("Uploaded evidence")
@@ -244,7 +263,25 @@ RSpec.feature "Evidence", type: :system do
   end
   alias_method :then_the_evidence_section_state_is, :and_the_evidence_section_state_is
 
-  def when_i_visit_the_uploaded_evidence_start_page
+  def and_i_change_anything_to_upload_to_no
+    click_on "Change if you have anything to upload"
+    choose "No", visible: false
+  end
+
+  def and_i_change_anything_to_upload_to_yes
+    click_on "Change"
+    choose "Yes", visible: false
+  end
+
+  def and_i_visit_uploaded_files
     visit edit_referral_evidence_uploaded_path(@referral)
+  end
+
+  def then_the_list_of_the_uploaded_files_should_be_empty
+    expect(page).to have_content("Uploaded evidence")
+    within(".govuk-summary-list") do
+      expect(page).not_to have_link("upload1.pdf")
+      expect(page).not_to have_link("upload2.pdf")
+    end
   end
 end

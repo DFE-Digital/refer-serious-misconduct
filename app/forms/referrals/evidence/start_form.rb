@@ -15,7 +15,7 @@ module Referrals
       def save
         return false if invalid?
 
-        referral.update(has_evidence:)
+        referral.update(has_evidence:).tap { |result| referral.evidences.destroy_all if result && !has_evidence }
       end
     end
   end
