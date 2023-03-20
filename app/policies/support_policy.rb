@@ -1,55 +1,59 @@
 class SupportPolicy < ApplicationPolicy
   def index?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.view_support?
   end
 
   def create?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.view_support?
   end
 
   def edit?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.view_support?
   end
 
   def update?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.view_support?
   end
 
   def delete?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    false
+    return user.view_support? unless record.is_a?(Staff)
+
+    user.id != record.id
   end
 
   def destroy?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    return user.view_support? unless record.is_a?(Staff)
+
+    user.id != record.id
   end
 
   def authenticate?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    false
+    user.view_support?
   end
 
   def activate?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    false
+    user.view_support?
   end
 
   def deactivate?
-    return user.view_support? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    false
+    user.view_support?
   end
 end

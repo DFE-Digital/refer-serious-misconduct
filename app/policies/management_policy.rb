@@ -1,13 +1,13 @@
 class ManagementPolicy < ApplicationPolicy
   def index?
-    return user.manage_referrals? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.manage_referrals?
   end
 
   def show?
-    return user.manage_referrals? if user.is_a?(Staff)
+    return false if user.is_a?(AnonymousSupportUser)
 
-    super
+    user.manage_referrals?
   end
 end
