@@ -1,55 +1,37 @@
 class SupportPolicy < ApplicationPolicy
   def index?
-    return user.view_support? if user.is_a?(Staff)
-
-    super
+    user.view_support?
   end
 
   def create?
-    return user.view_support? if user.is_a?(Staff)
-
-    super
+    user.view_support?
   end
 
   def edit?
-    return user.view_support? if user.is_a?(Staff)
-
-    super
+    user.view_support?
   end
 
   def update?
-    return user.view_support? if user.is_a?(Staff)
-
-    super
+    user.view_support?
   end
 
   def delete?
-    return user.view_support? if user.is_a?(Staff)
-
-    false
+    user.view_support?
   end
 
   def destroy?
-    return user.view_support? if user.is_a?(Staff)
-
-    super
+    user.view_support?
   end
 
   def authenticate?
-    return user.view_support? if user.is_a?(Staff)
-
-    false
+    user.view_support?
   end
 
   def activate?
-    return user.view_support? if user.is_a?(Staff)
-
-    false
+    user.view_support?
   end
 
   def deactivate?
-    return user.view_support? if user.is_a?(Staff)
-
-    false
+    user.view_support?
   end
 end
