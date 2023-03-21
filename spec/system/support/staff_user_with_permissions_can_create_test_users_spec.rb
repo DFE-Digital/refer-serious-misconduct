@@ -39,7 +39,7 @@ RSpec.feature "Test users" do
 
   def then_the_user_is_created
     @user = User.last
-    expect(page).to have_content "User #{@user.email} created"
+    expect(page).to have_content "User created for #{@user.email}"
   end
 
   def when_i_click_sign_in_for_that_user

@@ -30,7 +30,7 @@ RSpec.feature "Staff actions" do
   end
 
   def and_i_see_the_notification_message
-    expect(page).to have_content("Your account is not activated yet.")
+    expect(page).to have_content("Your account is not activated yet")
   end
 
   def then_i_get_redirected_to_manage_sign_in_page

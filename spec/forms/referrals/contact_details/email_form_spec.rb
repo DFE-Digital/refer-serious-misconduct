@@ -43,7 +43,7 @@ RSpec.describe Referrals::ContactDetails::EmailForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:email_address]).to eq(["The email address must have no more than 256 characters."])
+        expect(form.errors[:email_address]).to eq(["The email address must have no more than 256 characters"])
       end
     end
 

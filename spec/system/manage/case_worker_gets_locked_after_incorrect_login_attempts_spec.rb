@@ -47,7 +47,7 @@ RSpec.feature "Manage referrals" do
                :when_i_try_to_login_as_a_case_worker_with_incorrect_credentials
 
   def then_i_see_an_error_message_for_invalid_credentials
-    expect(page).to have_content "You entered an incorrect email address or password."
+    expect(page).to have_content "You entered an incorrect email address or password"
   end
 
   def when_i_try_three_more_times
@@ -55,17 +55,17 @@ RSpec.feature "Manage referrals" do
   end
 
   def then_i_see_an_error_message_for_invalid_credentials
-    expect(page).to have_content "You entered an incorrect email address or password."
+    expect(page).to have_content "You entered an incorrect email address or password"
   end
 
   def then_i_see_an_error_message_for_last_attempt
     expect(page).to have_content "You entered an incorrect email address or password - you have " \
-                   "1 more attempt before your account is locked for 15 minutes."
+                   "1 more attempt to sign in before your account is locked for 15 minutes"
   end
 
   def then_i_see_that_my_account_is_locked_for_15_minutes
     expect(page).to have_content "You cannot sign in for 15 minutes because " \
-                   "you entered an incorrect email address or password 5 times."
+                   "you entered an incorrect email address or password 5 times"
   end
 
   def when_15_minutes_pass

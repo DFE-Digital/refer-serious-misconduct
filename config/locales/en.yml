@@ -7,7 +7,6 @@ en:
     url: https://refer-serious-misconduct.education.gov.uk
 
   notification_banner:
-    info: Information
     warning: Warning
     success: Success
   referral_form:
@@ -133,7 +132,7 @@ en:
               inclusion: Select yes if you know their email address
             email_address:
               blank: Enter their email address
-              too_long: "The email address must have no more than %{count} characters."
+              too_long: "The email address must have no more than %{count} characters"
               invalid: Enter an email address in the correct format, like name@example.com
         "referrals/contact_details/telephone_form":
           attributes:
