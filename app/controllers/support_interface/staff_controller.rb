@@ -13,7 +13,11 @@ module SupportInterface
 
       staff.archive
 
-      flash[:info] = (staff.save ? "User deleted" : "User could not be deleted")
+      if staff.save
+        flash[:success] = "User deleted"
+      else
+        flash[:warning] = "User could not be deleted"
+      end
 
       redirect_to support_interface_staff_index_path
     end

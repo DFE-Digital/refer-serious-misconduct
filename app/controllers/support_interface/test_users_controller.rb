@@ -9,7 +9,7 @@ module SupportInterface
 
     def create
       user = User.create!(email: "#{SecureRandom.hex(5)}@example.com")
-      flash[:success] = "User #{user.email} created"
+      flash[:success] = "User created for #{user.email}"
       redirect_to support_interface_test_users_path
     end
 
@@ -23,7 +23,7 @@ module SupportInterface
 
     def redirect_unless_test_environment
       unless HostingEnvironment.test_environment?
-        flash[:warning] = "Test users can only be accessed on test environments"
+        flash[:warning] = "Test users can only be accessed on test environments."
         redirect_to support_interface_root_path
       end
     end
