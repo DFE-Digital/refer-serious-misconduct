@@ -28,6 +28,7 @@ gem "rotp"
 gem "rubyzip"
 gem "sentry-rails"
 gem "sidekiq", "< 7"
+gem "sidekiq-cron"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "uk_postcode"
 

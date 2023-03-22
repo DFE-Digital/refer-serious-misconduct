@@ -12,10 +12,9 @@ class Referral < ApplicationRecord
   has_many :evidences, -> { order(:created_at) }, class_name: "ReferralEvidence", dependent: :destroy
 
   scope :employer, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :employer }) }
-
   scope :member_of_public, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :public }) }
-
   scope :submitted, -> { where.not(submitted_at: nil) }
+  scope :stale_drafts, -> { where(submitted_at: nil).where("created_at < ?", 90.days.ago) }
 
   delegate :name, to: :referrer, prefix: true, allow_nil: true
 
