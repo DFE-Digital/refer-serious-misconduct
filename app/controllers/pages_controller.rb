@@ -4,6 +4,8 @@ class PagesController < ApplicationController
   end
 
   def you_should_know
+    return redirect_to(start_path) if eligibility_check.nil?
+
     @continue_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)
         if !current_user
