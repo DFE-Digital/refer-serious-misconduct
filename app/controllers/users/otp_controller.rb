@@ -65,7 +65,7 @@ class Users::OtpController < DeviseController
   end
 
   def user_params
-    params.require(:user).permit(:uuid, :otp, :email)
+    params.require(:user).permit(:uuid, :otp, :email).tap { |p| p[:otp].strip! }
   end
 
   def new_referral
