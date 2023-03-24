@@ -22,4 +22,12 @@ class UserMailer < ApplicationMailer
 
     view_mail_refer(mailer_options:)
   end
+
+  def draft_referral_reminder(referral)
+    @link = polymorphic_url([:edit, referral.routing_scope, referral])
+    @user = referral.user
+    mailer_options = { to: @user.email, subject: "Your referral will be deleted in 7 days" }
+
+    view_mail_refer(mailer_options:)
+  end
 end

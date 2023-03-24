@@ -176,3 +176,8 @@ shared:
     - details
     - created_at
     - updated_at
+  :reminder_emails:
+    - id
+    - referral_id
+    - created_at
+    - updated_at

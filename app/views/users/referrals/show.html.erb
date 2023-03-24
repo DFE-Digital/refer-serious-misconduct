@@ -7,7 +7,10 @@
       <div class="govuk-grid-column-two-thirds">
         <span class="govuk-caption-l">Your referral</span>
         <h1 class="govuk-heading-l"><%= current_referral.referrer_name %></h1>
-        <p class="govuk-!-margin-bottom-8">You sent this referral on <%= current_referral.submitted_at.to_fs(:day_month_year_time) %>.</p>
+
+        <% if current_referral.submitted? %>
+          <p class="govuk-!-margin-bottom-8">You sent this referral on <%= current_referral.submitted_at.to_fs(:day_month_year_time) %>.</p>
+        <% end %>
 
         <% if current_referral.from_employer? %>
           <%= render "referrals/shared/review" %>
