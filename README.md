@@ -170,6 +170,18 @@ Set `BIGQUERY_DISABLE` to `false` as it defaults to `true` in the development en
 
 [Read more about setting up BigQuery](docs/set-up-analytics.md).
 
+### Log Aggregration
+
+[Semantic Logger](https://logger.rocketjob.io/rails.html) is used to generate
+single-line logs. In production environments, when `RAILS_LOG_TO_STDOUT` is
+enabled, this is configured to output JSON logs. These logs are then sent to Logstash.
+
+### Logstash
+
+We send the logs to [Logstash](https://www.elastic.co/logstash/) and they are visible
+on the [Logit](https://logit.io/) dashboard. To enable that you need to setup `LOGSTASH_HOST`
+and `LOGSTASH_PORT` variables.
+
 ### Docker
 
 To run the application locally in production mode (to test that the container
