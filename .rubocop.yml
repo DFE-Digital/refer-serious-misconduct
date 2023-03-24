@@ -31,6 +31,10 @@ RSpec/InstanceVariable:
   Exclude:
     - spec/system/**/*
 
+RSpec/AnyInstance:
+  Exclude:
+    - spec/logs/formatters/log_stash_formatter_spec.rb
+
 Style/NumericLiterals:
   Exclude:
     - db/schema.rb
