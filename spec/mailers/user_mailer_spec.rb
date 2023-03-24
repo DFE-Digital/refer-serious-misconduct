@@ -74,4 +74,29 @@ RSpec.describe UserMailer, type: :mailer do
       end
     end
   end
+
+  describe ".draft_referral_reminder" do
+    subject(:email) { described_class.draft_referral_reminder(referral) }
+
+    let(:user) { create(:user) }
+    let(:referral) { create(:referral, user_id: user.id) }
+
+    it "sends a referral link to the user" do
+      expect(email.to).to include user.email
+    end
+
+    it "includes the referral link in the email body" do
+      expect(email.body).to include(edit_referral_url(referral))
+    end
+
+    it "includes the correct deletion date" do
+      expect(email.body).to include(7.days.from_now.strftime("%d %B %Y"))
+    end
+
+    it "sets the subject" do
+      expect(email.subject).to eq "Your referral will be deleted in 7 days"
+    end
+
+    it_behaves_like "email with `Get help` section"
+  end
 end

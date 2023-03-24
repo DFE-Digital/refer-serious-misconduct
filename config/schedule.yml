@@ -1,3 +1,7 @@
 delete_draft_referrals:
   cron: "every day at midnight"
   class: "DeleteDraftReferralsJob"
+
+draft_referral_reminder:
+  cron: "every day at 9 am"
+  class: "DraftReferralsReminderJob"

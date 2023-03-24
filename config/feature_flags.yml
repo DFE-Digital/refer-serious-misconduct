@@ -21,3 +21,7 @@ feature_flags:
     description: Allow signing in as a staff user using HTTP Basic
       authentication. This is useful before staff users have been created, but
       should otherwise be inactive.
+  send_reminder_email:
+    author: Sebastian Zaremba
+    description: Send the reminder emails 7 days before deletion for unsubmitted
+      referrals that weren't updated in 83 days.

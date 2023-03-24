@@ -1,0 +1,11 @@
+Your referral of serious misconduct by a teacher has not been updated in a while.
+
+It’ll be deleted in 7 days on <%= 7.days.from_now.to_fs(:day_month_and_year) %>.
+
+If you would like to keep your referral, you must make changes or complete it.
+
+Complete your referral:
+
+<%= @link %>
+
+<%= render "shared/mailers/get_help" %>

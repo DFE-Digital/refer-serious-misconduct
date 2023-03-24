@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe DeleteDraftReferralsJob, type: :job do
   before do
-    create_list(:referral, 3, created_at: 91.days.ago)
+    create_list(:referral, 3, updated_at: 91.days.ago)
     create_list(:referral, 2)
-    create_list(:referral, 2, :submitted, created_at: 91.days.ago)
+    create_list(:referral, 2, :submitted, updated_at: 91.days.ago)
   end
 
   describe "running the job" do
