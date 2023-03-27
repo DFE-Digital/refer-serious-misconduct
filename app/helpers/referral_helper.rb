@@ -89,11 +89,46 @@ module ReferralHelper
     value.nil? && not_answered || value && yes || noo
   end
 
-  def nullable_value_to_s(value, not_answered = "Not answered")
-    value.nil? && not_answered || value
+  def nullable_value_to_s(value, not_answered = "Not answered", yes = "Yes", no = "No") # rubocop:disable Naming/MethodParameterName
+    return not_answered if value.nil?
+
+    case value
+    when true
+      yes
+    when false
+      no
+    else
+      value
+    end
   end
 
   def return_to_path
     request.path.ends_with?("/check-answers") ? "#{request.path}/edit" : request.path
+  end
+
+  def summary_rows(rows)
+    rows.map { |row| summary_row(**row) }
+  end
+
+  def summary_row(path:, label:, value:, visually_hidden_text: nil)
+    {
+      actions: summary_row_actions(path:, label:, visually_hidden_text:),
+      key: {
+        text: label
+      },
+      value: {
+        text: nullable_value_to_s(value.presence)
+      }
+    }
+  end
+
+  def summary_row_actions(path:, label:, visually_hidden_text: nil)
+    return [] unless path
+
+    visually_hidden_text = label.downcase if visually_hidden_text.blank?
+    expanded_path = path.is_a?(Symbol) ? [:edit, referral.routing_scope, referral, path] : path
+    href = polymorphic_path(expanded_path, return_to: return_to_path)
+
+    [{ text: "Change", href:, visually_hidden_text: }]
   end
 end

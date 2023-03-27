@@ -14,7 +14,7 @@ class SummaryCardComponent < ViewComponent::Base
       row.tap do |r|
         next if r[:key].in? ignore_editable
 
-        r.delete(:action) unless editable
+        r.delete(:actions) unless editable
       end
     end
   end
