@@ -121,4 +121,14 @@ RSpec.describe LogStashFormatter do
       expect(formatter.hash[:hosting_environment]).to eq(ENV["HOSTING_ENVIRONMENT_NAME"])
     end
   end
+
+  describe "#format_add_host_domain" do
+    let(:log) { info_level_log }
+
+    it "adds the host domain" do
+      formatter.format_add_host_domain
+
+      expect(formatter.hash[:host]).to eq(ENV["HOSTING_DOMAIN"])
+    end
+  end
 end
