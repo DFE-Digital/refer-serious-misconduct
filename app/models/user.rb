@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   after_commit :reload_uuid, on: :create
 
+  validates :email, valid_for_notify: true
+
   def reload_uuid
     self[:uuid] = self.class.where(id:).pick(:uuid)
   end

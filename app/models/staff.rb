@@ -12,7 +12,7 @@ class Staff < ApplicationRecord
     validate_on_invite: true
   )
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, valid_for_notify: true
   validate :password_complexity
   validate :permissions_are_valid
 
