@@ -9,6 +9,7 @@ module Users
     end
 
     def show
+      redirect_to :not_found unless current_referral.submitted?
     end
 
     def current_referral

@@ -26,6 +26,9 @@ RSpec.feature "User accounts" do
     then_i_am_signed_in
     and_i_see_the_referrals_page
     and_i_can_continue_the_referral_in_progress
+
+    when_i_access_the_unsubmitted_referral_page_directly
+    then_i_am_redirected_to_the_404_page
   end
 
   private
@@ -105,5 +108,13 @@ RSpec.feature "User accounts" do
   def and_i_can_continue_the_referral_in_progress
     click_on "Complete referral"
     expect(page).to have_current_path(edit_referral_path(@user.referral_in_progress))
+  end
+
+  def when_i_access_the_unsubmitted_referral_page_directly
+    visit users_referral_path(@user.referral_in_progress)
+  end
+
+  def then_i_am_redirected_to_the_404_page
+    expect(page).to have_content "Page not found"
   end
 end
