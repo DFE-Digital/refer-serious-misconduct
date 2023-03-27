@@ -1,3 +1,5 @@
+return unless defined?(SemanticLogger)
+
 class LogStashFormatter < SemanticLogger::Formatters::Raw
   def format_add_type
     hash[:type] = "rails"
