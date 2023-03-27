@@ -7,6 +7,10 @@ class LogStashFormatter < SemanticLogger::Formatters::Raw
     hash[:hosting_environment] = ENV["HOSTING_ENVIRONMENT_NAME"]
   end
 
+  def format_add_host_domain
+    hash[:host] = ENV["HOSTING_DOMAIN"]
+  end
+
   # Place a more readable version of the exception into the message field.
   def format_exception
     exception_message = hash.dig(:exception, :message)
@@ -31,6 +35,7 @@ class LogStashFormatter < SemanticLogger::Formatters::Raw
 
     format_add_type
     format_add_hosting_env
+    format_add_host_domain
     format_exception
     format_stacktrace
 
