@@ -1,3 +1,5 @@
+return if Rails.env.development?
+
 class LogStashFormatter < SemanticLogger::Formatters::Raw
   def format_add_type
     hash[:type] = "rails"

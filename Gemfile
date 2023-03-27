@@ -25,8 +25,6 @@ gem "puma", "~> 6.1"
 gem "pundit", "~> 2.3"
 gem "rack-attack"
 gem "rails", "~> 7.0.4"
-# Semantic Logger makes logs pretty, also needed for logit integration
-gem "rails_semantic_logger"
 gem "rotp"
 gem "rubyzip"
 gem "sentry-rails"
@@ -63,4 +61,9 @@ group :test do
   gem "cuprite"
   gem "rspec"
   gem "shoulda-matchers"
+end
+
+group :production, :test do
+  # Semantic Logger makes logs pretty, also needed for logit integration
+  gem "rails_semantic_logger"
 end
