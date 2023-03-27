@@ -14,6 +14,9 @@ RSpec.feature "User registration" do
     and_i_complete_the_eligibility_screener
     then_i_should_see_sign_up_page
 
+    when_i_submit_an_invalid_email_address
+    then_i_should_see_the_sign_up_page_with_an_error
+
     when_i_submit_my_email
     then_i_should_see_the_otp_page
     and_event_tracking_is_working
@@ -62,8 +65,18 @@ RSpec.feature "User registration" do
     expect(page).to have_current_path(new_user_session_path(new_referral: true))
   end
 
+  def when_i_submit_an_invalid_email_address
+    fill_in "Your email address", with: "test@email"
+    click_on "Continue"
+  end
+
+  def then_i_should_see_the_sign_up_page_with_an_error
+    expect(page).to have_content "Your email address"
+    expect(page).to have_content "Enter an email address in the correct format, like name@example.com"
+  end
+
   def when_i_submit_my_email
-    fill_in "user-email-field", with: "test@example.com"
+    fill_in "Your email address", with: "test@example.com"
     click_on "Continue"
   end
 
