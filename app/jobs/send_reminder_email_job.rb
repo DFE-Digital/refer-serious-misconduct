@@ -11,7 +11,7 @@ class SendReminderEmailJob < ApplicationJob
   private
 
   def send_reminder_email(referral)
-    UserMailer.draft_referral_reminder(referral).deliver_later
+    UserMailer.draft_referral_reminder(referral).deliver_now
   end
 
   def record_reminder(referral)
