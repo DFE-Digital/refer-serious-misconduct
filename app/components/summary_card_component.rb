@@ -1,8 +1,16 @@
 class SummaryCardComponent < ViewComponent::Base
-  def initialize(rows:, editable: true, ignore_editable: [])
+  attr_reader :section, :review
+
+  def initialize(rows:, section:, review: false, editable: true, ignore_editable: [])
     super
     rows = transform_hash(rows) if rows.is_a?(Hash)
     @rows = rows_including_actions_if_editable(rows, editable, ignore_editable)
+    @section = section
+    @review = review
+  end
+
+  def show_as_incomplete?
+    review ? section.incomplete? : section.questions_incomplete?
   end
 
   private

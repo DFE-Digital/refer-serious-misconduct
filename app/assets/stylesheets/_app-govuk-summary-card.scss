@@ -43,6 +43,16 @@
   .govuk-summary-list {
     margin-bottom: 0;
   }
+
+  &.app-inset-text--incomplete-section {
+    border-left: 5px solid #1d70b8;
+    padding: 15px 0 15px 15px;
+
+    .app-instruction-text {
+      color: #1d70b8;
+      font-weight: bold;
+    }
+  }
 }
 
 .app-govuk-summary-card--large-title .app-govuk-summary-card__title {

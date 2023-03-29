@@ -2,11 +2,16 @@ class AboutYouComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
 
-  attr_accessor :referral, :user
+  attr_accessor :referral, :user, :section
 
   delegate :referrer, to: :referral
 
   def rows
+    complete_rows = section.complete_rows(all_rows)
+    complete_rows.insert(1, summary_row(**email_row))
+  end
+
+  def all_rows
     summary_rows [name_row, email_row, job_title_row, phone_row].compact
   end
 

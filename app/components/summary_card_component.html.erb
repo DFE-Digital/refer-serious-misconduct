@@ -1,5 +1,10 @@
-<section class="app-govuk-summary-card">
+<%= tag.section class: class_names("app-govuk-summary-card", "app-inset-text--incomplete-section" => show_as_incomplete?) do %>
   <div class="app-govuk-summary-card__body">
     <%= govuk_summary_list(rows:, classes: ["govuk-!-margin-bottom-6"],) %>
   </div>
-</section>
+
+  <% if show_as_incomplete? %>
+    <p class="app-instruction-text">You must complete your details before you can send your referral</p>
+    <%= govuk_button_link_to "Complete your details", section.next_path %>
+  <% end %>
+<% end %>
