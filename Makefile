@@ -47,7 +47,7 @@ production:
 	$(eval AZURE_BACKUP_STORAGE_CONTAINER_NAME=rsm)
 	$(eval NAME_ENV=${DEPLOY_ENV})
 	$(eval RESOURCE_ENV=${ENV_SHORT})
-	$(eval CONSOLE_OPTIONS=--sandbox)
+	$(eval CONSOLE_OPTIONS=--sandbox )
 
 .PHONY: review-init
 review-init:
@@ -164,4 +164,4 @@ az-console: set-azure-account
 	az container exec \
 		--name=${RESOURCE_NAME_PREFIX}-rsm-${NAME_ENV}-wkr-cg \
 		--resource-group=${RESOURCE_NAME_PREFIX}-rsm-${RESOURCE_ENV}-rg \
-		--exec-command="bundle exec rails c ${CONSOLE_OPTIONS}"
+		--exec-command="bundle exec rails c ${CONSOLE_OPTIONS}-- --noautocomplete"
