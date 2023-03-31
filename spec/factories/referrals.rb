@@ -131,7 +131,17 @@ FactoryBot.define do
     trait :previous_misconduct_employer do
       previous_misconduct_complete { true }
       previous_misconduct_reported { "true" }
+      previous_misconduct_format { "details" }
       previous_misconduct_details { "They were rude to a child" }
+    end
+
+    trait :previous_misconduct_employer_upload do
+      previous_misconduct_complete { true }
+      previous_misconduct_reported { "true" }
+      previous_misconduct_format { "upload" }
+      previous_misconduct_upload do
+        Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/upload1.pdf"), "application/pdf")
+      end
     end
 
     trait :evidence do

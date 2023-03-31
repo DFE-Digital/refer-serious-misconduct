@@ -1,63 +1,38 @@
 class PreviousMisconductComponent < ViewComponent::Base
   include ActiveModel::Model
   include ApplicationHelper
-  include ComponentHelper
   include ReferralHelper
 
   attr_accessor :referral
 
   def rows
-    items = [
-      {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :previous_misconduct, :reported, { return_to: }],
-            visually_hidden_text: "if there has been any previous misconduct"
-          }
-        ],
-        key: {
-          text: "Has there been any previous misconduct?"
-        },
-        value: {
-          text: nullable_value_to_s(humanize_three_way_choice(referral.previous_misconduct_reported))
-        }
-      }
-    ]
-    if referral.previous_misconduct_reported?
-      items << {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :previous_misconduct, :detailed_account, { return_to: }],
-            visually_hidden_text: "how you want to give details about previous allegations"
-          }
-        ],
-        key: {
-          text: "How do you want to give details about previous allegations?"
-        },
-        value: {
-          text: detail_type
-        }
-      }
-      items << {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :previous_misconduct, :detailed_account, { return_to: }],
-            visually_hidden_text: "detailed account"
-          }
-        ],
-        key: {
-          text: "Detailed account"
-        },
-        value: {
-          text: report
-        }
-      }
-    end
+    summary_rows [previous_misconduct_reported_row, detailed_account_type_row, detailed_account_report_row].compact
+  end
 
-    referral.submitted? ? remove_actions(items) : items
+  def previous_misconduct_reported_row
+    {
+      label: "Has there been any previous misconduct?",
+      visually_hidden_text: "if there has been any previous misconduct",
+      value: humanize_three_way_choice(referral.previous_misconduct_reported),
+      path: :previous_misconduct_reported
+    }
+  end
+
+  def detailed_account_type_row
+    return unless referral.previous_misconduct_reported?
+
+    {
+      label: "How do you want to give details about previous allegations?",
+      visually_hidden_text: "how you want to give details about previous allegations",
+      value: detail_type,
+      path: :previous_misconduct_detailed_account
+    }
+  end
+
+  def detailed_account_report_row
+    return unless referral.previous_misconduct_reported?
+
+    { label: "Detailed account", value: report, path: :previous_misconduct_detailed_account }
   end
 
   def report
