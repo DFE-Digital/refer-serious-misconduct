@@ -18,13 +18,11 @@ RSpec.describe ReferralHelper, type: :helper do
       it "returns a hash with the correct values" do
         expect(helper_method).to eq(
           {
-            actions: [
-              {
-                text: "Change",
-                href: "/referrals/#{referral.id}/referrer/name/edit?return_to=",
-                visually_hidden_text: "label"
-              }
-            ],
+            actions: {
+              text: "Change",
+              href: "/referrals/#{referral.id}/referrer/name/edit?return_to=",
+              visually_hidden_text: "label"
+            },
             key: {
               text: "label"
             },
@@ -44,7 +42,7 @@ RSpec.describe ReferralHelper, type: :helper do
       end
 
       it "returns a hash with the correct values" do
-        expect(helper_method).to eq({ actions: [], key: { text: "label" }, value: { text: "value" } })
+        expect(helper_method).to eq({ actions: {}, key: { text: "label" }, value: { text: "value" } })
       end
     end
   end
