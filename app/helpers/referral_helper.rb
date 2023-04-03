@@ -123,12 +123,12 @@ module ReferralHelper
   end
 
   def summary_row_actions(path:, label:, visually_hidden_text: nil)
-    return [] unless path
+    return {} unless path
 
     visually_hidden_text = label.downcase if visually_hidden_text.blank?
     expanded_path = path.is_a?(Symbol) ? [:edit, referral.routing_scope, referral, path] : path
     href = polymorphic_path(expanded_path, return_to: return_to_path)
 
-    [{ text: "Change", href:, visually_hidden_text: }]
+    { text: "Change", href:, visually_hidden_text: }
   end
 end
