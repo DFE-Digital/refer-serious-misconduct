@@ -6,240 +6,115 @@ class PersonalDetailsComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    items = [name_row, any_other_name_row]
-
-    items.push(other_name_row) if referral.name_has_changed?
-
-    if referral.from_employer?
-      items.push(date_of_birth_known_row)
-      items.push(date_of_birth_row) if referral.age_known?
-      items.push(ni_number_known_row)
-      items.push(ni_number_row) if referral.ni_number_known?
-      items.push(trn_known_row)
-      items.push(trn_row) if referral.trn_known?
-      items.push(qts_row)
-    end
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   name_row,
+                   known_by_other_name_row,
+                   other_name_row,
+                   date_of_birth_known_row,
+                   date_of_birth_row,
+                   ni_number_known_row,
+                   ni_number_row,
+                   trn_known_row,
+                   trn_row,
+                   qts_row
+                 ].compact
   end
 
-  def any_other_name_row
+  def known_by_other_name_row
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "if you know them by any other name"
-        }
-      ],
-      key: {
-        text: "Do you know them by any other name?"
-      },
-      value: {
-        text: nullable_value_to_s(referral.name_has_changed&.humanize)
-      }
+      label: "Do you know them by any other name?",
+      value: referral.name_has_changed&.humanize,
+      path: :personal_details_name
     }
   end
 
   def name_row
-    {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "their name"
-        }
-      ],
-      key: {
-        text: "Their name"
-      },
-      value: {
-        text: nullable_value_to_s("#{referral.first_name} #{referral.last_name}".presence)
-      }
-    }
+    { label: "Their name", value: "#{referral.first_name} #{referral.last_name}", path: :personal_details_name }
   end
 
   def other_name_row
+    return unless referral.name_has_changed?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_name],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "other name"
-        }
-      ],
-      key: {
-        text: "Other name"
-      },
-      value: {
-        text: referral.previous_name
-      }
+      label: "Other name",
+      value: referral.previous_name,
+      path: :personal_details_name,
+      visually_hidden_text: "if you know them by any other name"
     }
   end
 
   def date_of_birth_row
-    {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_age],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "date of birth"
-        }
-      ],
-      key: {
-        text: "Date of birth"
-      },
-      value: {
-        text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
-      }
-    }
+    return unless referral.from_employer?
+    return unless referral.age_known?
+
+    { label: "Date of birth", value: referral.date_of_birth&.to_fs(:long_ordinal_uk), path: :personal_details_age }
   end
 
   def date_of_birth_known_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_age],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "if you know their date of birth"
-        }
-      ],
-      key: {
-        text: "Do you know their date of birth"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.age_known)
-      }
+      label: "Do you know their date of birth?",
+      value: referral.age_known,
+      path: :personal_details_age,
+      visually_hidden_text: "if you know their date of birth"
     }
   end
 
   def trn_known_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_trn],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "if you know their teacher reference number (TRN)"
-        }
-      ],
-      key: {
-        text: "Do you know their teacher reference number (TRN)?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.trn_known)
-      }
+      label: "Do you know their teacher reference number (TRN)?",
+      value: referral.trn_known,
+      path: :personal_details_trn,
+      visually_hidden_text: "if you know their teacher reference number (TRN)"
     }
   end
 
   def trn_row
+    return unless referral.from_employer?
+    return unless referral.trn_known?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_trn],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "teacher reference number (TRN)"
-        }
-      ],
-      key: {
-        text: "TRN"
-      },
-      value: {
-        text: referral.trn
-      }
+      label: "TRN",
+      value: referral.trn,
+      path: :personal_details_trn,
+      visually_hidden_text: "teacher reference number (TRN)"
     }
   end
 
   def qts_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_qts],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "if they have qualified teacher status (QTS)"
-        }
-      ],
-      key: {
-        text: "Do they have qualified teacher status (QTS)?"
-      },
-      value: {
-        text: nullable_value_to_s(referral.has_qts&.humanize)
-      }
+      label: "Do they have qualified teacher status (QTS)?",
+      value: referral.has_qts&.humanize,
+      path: :personal_details_qts,
+      visually_hidden_text: "if they have qualified teacher status (QTS)"
     }
   end
 
   def ni_number_known_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_ni_number],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "if you know their National Insurance number"
-        }
-      ],
-      key: {
-        text: "Do you know their National Insurance number?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.ni_number_known)
-      }
+      label: "Do you know their National Insurance number?",
+      value: referral.ni_number_known,
+      path: :personal_details_ni_number,
+      visually_hidden_text: "if you know their National Insurance number"
     }
   end
 
   def ni_number_row
+    return unless referral.from_employer?
+    return unless referral.ni_number_known?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href:
-            polymorphic_path(
-              [:edit, referral.routing_scope, referral, :personal_details_ni_number],
-              return_to: return_to_path
-            ),
-          visually_hidden_text: "National Insurance number"
-        }
-      ],
-      key: {
-        text: "National Insurance number"
-      },
-      value: {
-        text: referral.ni_number
-      }
+      label: "National Insurance number",
+      value: referral.ni_number,
+      path: :personal_details_ni_number,
+      visually_hidden_text: "National Insurance number"
     }
   end
 end
