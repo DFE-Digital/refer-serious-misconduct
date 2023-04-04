@@ -66,7 +66,12 @@ Rails.application.routes.draw do
   end
 
   constraints(-> { !FeatureFlags::FeatureFlag.active?(:eligibility_screener) }) do
-    get "/", to: redirect("https://www.gov.uk/government/publications/teacher-misconduct-referral-form", status: 307)
+    get "/",
+        to:
+          redirect(
+            "https://www.gov.uk/government/publications/teacher-misconduct-referral-form",
+            status: 307
+          )
   end
 
   root to: "pages#start"
@@ -156,7 +161,10 @@ Rails.application.routes.draw do
 
         namespace :previous_misconduct, path: "previous-misconduct" do
           resource :reported, only: %i[edit update], controller: :reported
-          resource :detailed_account, path: "detailed-account", only: %i[edit update], controller: :detailed_account
+          resource :detailed_account,
+                   path: "detailed-account",
+                   only: %i[edit update],
+                   controller: :detailed_account
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
@@ -168,9 +176,15 @@ Rails.application.routes.draw do
 
         namespace :teacher_role, path: "teacher-role" do
           resource :start_date, path: "start-date", only: %i[edit update], controller: :start_date
-          resource :employment_status, path: "employment-status", only: %i[edit update], controller: :employment_status
+          resource :employment_status,
+                   path: "employment-status",
+                   only: %i[edit update],
+                   controller: :employment_status
           resource :job_title, path: "job-title", only: %i[edit update], controller: :job_title
-          resource :same_organisation, path: "same-organisation", only: %i[edit update], controller: :same_organisation
+          resource :same_organisation,
+                   path: "same-organisation",
+                   only: %i[edit update],
+                   controller: :same_organisation
           resource :duties, only: %i[edit update]
           resource :working_somewhere_else,
                    path: "working-somewhere-else",
@@ -180,7 +194,10 @@ Rails.application.routes.draw do
                    path: "work-location-known",
                    only: %i[edit update],
                    controller: :work_location_known
-          resource :work_location, path: "work-location", only: %i[edit update], controller: :work_location
+          resource :work_location,
+                   path: "work-location",
+                   only: %i[edit update],
+                   controller: :work_location
           resource :organisation_address_known,
                    path: "organisation-address-known",
                    only: %i[edit update],

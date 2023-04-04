@@ -2,5 +2,7 @@
 module AuthenticateUser
   extend ActiveSupport::Concern
 
-  included { before_action :authenticate_user!, if: -> { FeatureFlags::FeatureFlag.active?(:referral_form) } }
+  included do
+    before_action :authenticate_user!, if: -> { FeatureFlags::FeatureFlag.active?(:referral_form) }
+  end
 end

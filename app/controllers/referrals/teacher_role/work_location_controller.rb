@@ -13,7 +13,8 @@ module Referrals
       end
 
       def update
-        @work_location_form = WorkLocationForm.new(work_location_params.merge(referral: current_referral))
+        @work_location_form =
+          WorkLocationForm.new(work_location_params.merge(referral: current_referral))
 
         if @work_location_form.save
           redirect_to next_page

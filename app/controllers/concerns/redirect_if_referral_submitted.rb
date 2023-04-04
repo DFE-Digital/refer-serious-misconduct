@@ -2,7 +2,9 @@
 module RedirectIfReferralSubmitted
   extend ActiveSupport::Concern
 
-  included { before_action { redirect_if_referral_submitted(current_referral) if current_referral } }
+  included do
+    before_action { redirect_if_referral_submitted(current_referral) if current_referral }
+  end
 
   def redirect_if_referral_submitted(referral)
     return unless referral.submitted? && controller_name != "confirmation"

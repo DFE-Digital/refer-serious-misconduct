@@ -9,7 +9,11 @@ module Referrals
                     :work_town_or_city,
                     :work_postcode
 
-      validates :work_organisation_name, :work_address_line_1, :work_town_or_city, :work_postcode, presence: true
+      validates :work_organisation_name,
+                :work_address_line_1,
+                :work_town_or_city,
+                :work_postcode,
+                presence: true
       validate :postcode_is_valid, if: -> { work_postcode.present? }
 
       def save

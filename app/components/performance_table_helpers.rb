@@ -3,7 +3,8 @@ module PerformanceTableHelpers
     if attributes[:total].zero?
       ""
     else
-      percentage = number_to_percentage(100 * attributes[numerator_key].fdiv(attributes[:total]), precision: 0)
+      percentage =
+        number_to_percentage(100 * attributes[numerator_key].fdiv(attributes[:total]), precision: 0)
       "(#{percentage})"
     end
   end

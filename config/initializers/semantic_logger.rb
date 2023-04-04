@@ -61,9 +61,12 @@ if ENV["LOGSTASH_HOST"] && ENV["LOGSTASH_PORT"]
 
   log_stash =
     LogStashLogger.new(
-      { host: ENV["LOGSTASH_HOST"], port: ENV["LOGSTASH_PORT"], type: :tcp, ssl_enable: true }.merge(
-        customize_event: fix_payload
-      )
+      {
+        host: ENV["LOGSTASH_HOST"],
+        port: ENV["LOGSTASH_PORT"],
+        type: :tcp,
+        ssl_enable: true
+      }.merge(customize_event: fix_payload)
     )
   SemanticLogger.add_appender(logger: log_stash, level: :info, formatter: LogStashFormatter.new)
 end

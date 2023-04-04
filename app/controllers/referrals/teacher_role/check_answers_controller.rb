@@ -8,7 +8,9 @@ module Referrals
 
       def update
         @teacher_role_check_answers_form =
-          CheckAnswersForm.new(teacher_role_check_answers_form_params.merge(referral: current_referral))
+          CheckAnswersForm.new(
+            teacher_role_check_answers_form_params.merge(referral: current_referral)
+          )
         if @teacher_role_check_answers_form.save
           redirect_to next_page
         else

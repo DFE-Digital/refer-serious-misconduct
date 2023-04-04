@@ -19,7 +19,9 @@ RSpec.describe Referrals::TeacherRole::EndDateForm, type: :model do
 
       it "adds an error" do
         valid
-        expect(form.errors[:role_end_date_known]).to eq(["Select yes if you know when they left the job"])
+        expect(form.errors[:role_end_date_known]).to eq(
+          ["Select yes if you know when they left the job"]
+        )
       end
     end
   end

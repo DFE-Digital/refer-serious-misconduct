@@ -3,7 +3,10 @@ module Referrals
     class NiNumberController < Referrals::BaseController
       def edit
         @ni_number_form =
-          NiNumberForm.new(ni_number: current_referral.ni_number, ni_number_known: current_referral.ni_number_known)
+          NiNumberForm.new(
+            ni_number: current_referral.ni_number,
+            ni_number_known: current_referral.ni_number_known
+          )
       end
 
       def update
@@ -18,7 +21,10 @@ module Referrals
       private
 
       def ni_number_form_params
-        params.require(:referrals_personal_details_ni_number_form).permit(:ni_number, :ni_number_known)
+        params.require(:referrals_personal_details_ni_number_form).permit(
+          :ni_number,
+          :ni_number_known
+        )
       end
 
       def next_path

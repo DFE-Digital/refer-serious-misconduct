@@ -23,7 +23,8 @@ module EnforceQuestionOrder
   end
 
   def unsaved_eligibility_check_after_start?
-    (eligibility_check.nil? || eligibility_check.new_record?) && request.path != questions.first[:path]
+    (eligibility_check.nil? || eligibility_check.new_record?) &&
+      request.path != questions.first[:path]
   end
 
   def questions
@@ -40,7 +41,11 @@ module EnforceQuestionOrder
         needs_answer: !eligibility_check.is_teacher?,
         answered: unsupervised_teaching_answered?
       },
-      { path: teaching_in_england_path, needs_answer: true, answered: teaching_in_england_answered? },
+      {
+        path: teaching_in_england_path,
+        needs_answer: true,
+        answered: teaching_in_england_answered?
+      },
       { path: serious_misconduct_path, needs_answer: true, answered: serious_misconduct_answered? }
     ]
   end

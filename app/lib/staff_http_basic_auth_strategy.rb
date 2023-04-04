@@ -40,6 +40,9 @@ class StaffHttpBasicAuthStrategy < Warden::Strategies::Base
   end
 
   def valid_comparison?(correct_value, given_value)
-    ActiveSupport::SecurityUtils.secure_compare(Digest::SHA256.hexdigest(given_value), correct_value)
+    ActiveSupport::SecurityUtils.secure_compare(
+      Digest::SHA256.hexdigest(given_value),
+      correct_value
+    )
   end
 end

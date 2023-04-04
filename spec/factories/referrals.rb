@@ -140,7 +140,10 @@ FactoryBot.define do
       previous_misconduct_reported { "true" }
       previous_misconduct_format { "upload" }
       previous_misconduct_upload do
-        Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/upload1.pdf"), "application/pdf")
+        Rack::Test::UploadedFile.new(
+          Rails.root.join("spec/fixtures/files/upload1.pdf"),
+          "application/pdf"
+        )
       end
     end
 

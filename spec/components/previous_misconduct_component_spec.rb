@@ -6,7 +6,9 @@ RSpec.describe PreviousMisconductComponent, type: :component do
   let(:referrer) { referral.referrer }
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
   let(:row_values) { component.rows.map { |row| row.dig(:value, :text) }.map(&:strip) }
-  let(:row_values_sanitized) { row_values.map { |value| ActionView::Base.full_sanitizer.sanitize(value) } }
+  let(:row_values_sanitized) do
+    row_values.map { |value| ActionView::Base.full_sanitizer.sanitize(value) }
+  end
   let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
 
   before { render_inline(component) }
@@ -23,7 +25,9 @@ RSpec.describe PreviousMisconductComponent, type: :component do
     end
 
     it "renders the change links" do
-      expect(row_links).to eq(["/referrals/#{referral.id}/previous-misconduct/reported/edit?return_to=%2F"])
+      expect(row_links).to eq(
+        ["/referrals/#{referral.id}/previous-misconduct/reported/edit?return_to=%2F"]
+      )
     end
   end
 
@@ -41,7 +45,9 @@ RSpec.describe PreviousMisconductComponent, type: :component do
     end
 
     it "renders the values" do
-      expect(row_values_sanitized).to eq(["Yes", "Describe the allegation", "They were rude to a child"])
+      expect(row_values_sanitized).to eq(
+        ["Yes", "Describe the allegation", "They were rude to a child"]
+      )
     end
 
     it "renders the change links" do

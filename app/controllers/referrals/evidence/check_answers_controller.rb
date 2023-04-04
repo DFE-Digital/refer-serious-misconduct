@@ -5,11 +5,14 @@ module Referrals
 
       def edit
         @evidence_check_answers_form =
-          CheckAnswersForm.new(evidence_details_complete: current_referral.evidence_details_complete)
+          CheckAnswersForm.new(
+            evidence_details_complete: current_referral.evidence_details_complete
+          )
       end
 
       def update
-        @evidence_check_answers_form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
+        @evidence_check_answers_form =
+          CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
 
         if @evidence_check_answers_form.save
           redirect_to([:edit, current_referral.routing_scope, current_referral])

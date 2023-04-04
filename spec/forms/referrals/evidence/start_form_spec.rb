@@ -21,7 +21,9 @@ RSpec.describe Referrals::Evidence::StartForm, type: :model do
 
       it "adds an error" do
         save
-        expect(start_form.errors[:has_evidence]).to eq(["Select yes if you have evidence to upload"])
+        expect(start_form.errors[:has_evidence]).to eq(
+          ["Select yes if you have evidence to upload"]
+        )
       end
     end
   end

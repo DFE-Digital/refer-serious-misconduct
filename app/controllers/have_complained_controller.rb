@@ -4,7 +4,8 @@ class HaveComplainedController < EligibilityScreenerController
   end
 
   def create
-    @have_complained_form = HaveComplainedForm.new(have_complained_form_params.merge(eligibility_check:))
+    @have_complained_form =
+      HaveComplainedForm.new(have_complained_form_params.merge(eligibility_check:))
 
     if @have_complained_form.save
       eligibility_check.complained? ? redirect_to_next_question : redirect_to(no_complaint_path)

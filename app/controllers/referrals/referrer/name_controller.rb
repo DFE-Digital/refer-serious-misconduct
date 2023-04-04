@@ -6,7 +6,8 @@ module Referrals
       end
 
       def update
-        @referrer_name_form = Referrals::Referrer::NameForm.new(name_params.merge(referral: current_referral))
+        @referrer_name_form =
+          Referrals::Referrer::NameForm.new(name_params.merge(referral: current_referral))
         if @referrer_name_form.save
           redirect_to next_page
         else

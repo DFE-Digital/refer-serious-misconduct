@@ -6,7 +6,11 @@ class PreviousMisconductComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    summary_rows [previous_misconduct_reported_row, detailed_account_type_row, detailed_account_report_row].compact
+    summary_rows [
+                   previous_misconduct_reported_row,
+                   detailed_account_type_row,
+                   detailed_account_report_row
+                 ].compact
   end
 
   def previous_misconduct_reported_row
@@ -45,7 +49,9 @@ class PreviousMisconductComponent < ViewComponent::Base
       )
     end
 
-    return simple_format(referral.previous_misconduct_details) if referral.previous_misconduct_details.present?
+    if referral.previous_misconduct_details.present?
+      return simple_format(referral.previous_misconduct_details)
+    end
 
     "Not answered"
   end

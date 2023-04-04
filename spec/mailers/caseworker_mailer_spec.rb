@@ -7,7 +7,9 @@ RSpec.describe CaseworkerMailer, type: :mailer do
     let(:referral) { create(:referral, :personal_details_public, :submitted) }
 
     it "includes the required information" do
-      expect(email.body).to include "John Smith has been referred for serious misconduct by a teacher"
+      expect(
+        email.body
+      ).to include "John Smith has been referred for serious misconduct by a teacher"
     end
 
     it "includes the manage referral URL" do
@@ -21,7 +23,9 @@ RSpec.describe CaseworkerMailer, type: :mailer do
     describe "to email address" do
       context "when the GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL is set" do
         before do
-          allow(ENV).to receive(:[]).with("GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL").and_return("test@example.com")
+          allow(ENV).to receive(:[]).with("GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL").and_return(
+            "test@example.com"
+          )
         end
 
         it "sets the to address to the GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL" do
@@ -30,7 +34,9 @@ RSpec.describe CaseworkerMailer, type: :mailer do
       end
 
       context "when the GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL is not set" do
-        before { allow(ENV).to receive(:[]).with("GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL").and_return(nil) }
+        before do
+          allow(ENV).to receive(:[]).with("GOVUK_NOTIFY_MISCONDUCT_TEACHER_EMAIL").and_return(nil)
+        end
 
         it "sets the to address to misconduct.teacher@education.gov.uk" do
           expect(email.to).to eq ["misconduct.teacher@education.gov.uk"]

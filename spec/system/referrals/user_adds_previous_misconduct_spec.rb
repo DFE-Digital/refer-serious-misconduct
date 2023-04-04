@@ -114,15 +114,22 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def then_i_see_the_previous_misconduct_details_page
-    expect(page).to have_current_path(edit_referral_previous_misconduct_detailed_account_path(@referral))
+    expect(page).to have_current_path(
+      edit_referral_previous_misconduct_detailed_account_path(@referral)
+    )
   end
 
   def then_i_see_the_previous_misconduct_reported_page
-    expect(page).to have_current_path(edit_referral_previous_misconduct_reported_path(@referral), ignore_query: true)
+    expect(page).to have_current_path(
+      edit_referral_previous_misconduct_reported_path(@referral),
+      ignore_query: true
+    )
     expect(page).to have_title(
       "Has there been any previous misconduct, disciplinary action or complaints? - Previous allegations"
     )
-    expect(page).to have_content("Has there been any previous misconduct, disciplinary action or complaints?")
+    expect(page).to have_content(
+      "Has there been any previous misconduct, disciplinary action or complaints?"
+    )
   end
 
   def then_i_see_the_missing_details_error
@@ -180,7 +187,10 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
   def when_i_click_change_previous_misconduct_details_link
     within(
-      page.find(".govuk-summary-list__row", text: "How do you want to give details about previous allegations?")
+      page.find(
+        ".govuk-summary-list__row",
+        text: "How do you want to give details about previous allegations?"
+      )
     ) { click_link "Change" }
   end
 

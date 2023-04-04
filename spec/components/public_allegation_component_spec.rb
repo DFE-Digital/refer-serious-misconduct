@@ -8,7 +8,9 @@ RSpec.describe PublicAllegationComponent, type: :component do
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
   let(:row_values) { component.rows.map { |row| row.dig(:value, :text) }.map(&:strip) }
-  let(:row_values_sanitized) { row_values.map { |value| ActionView::Base.full_sanitizer.sanitize(value) } }
+  let(:row_values_sanitized) do
+    row_values.map { |value| ActionView::Base.full_sanitizer.sanitize(value) }
+  end
   let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
   let(:allegation_format) { nil }
   let(:allegation_details) { nil }
@@ -58,14 +60,19 @@ RSpec.describe PublicAllegationComponent, type: :component do
     let(:allegation_details) { "They were rude to a child" }
 
     it "renders the correct values" do
-      expect(row_values_sanitized).to eq(["Describe the allegation", "They were rude to a child", "Not answered"])
+      expect(row_values_sanitized).to eq(
+        ["Describe the allegation", "They were rude to a child", "Not answered"]
+      )
     end
   end
 
   context "with an upload" do
     let(:allegation_format) { "upload" }
     let(:allegation_upload) do
-      Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/upload1.pdf"), "application/pdf")
+      Rack::Test::UploadedFile.new(
+        Rails.root.join("spec/fixtures/files/upload1.pdf"),
+        "application/pdf"
+      )
     end
 
     it "renders the correct values" do
@@ -77,7 +84,9 @@ RSpec.describe PublicAllegationComponent, type: :component do
     let(:allegation_consideration_details) { "Please take into consideration" }
 
     it "renders the correct values" do
-      expect(row_values_sanitized).to eq(["Not answered", "Not answered", "Please take into consideration"])
+      expect(row_values_sanitized).to eq(
+        ["Not answered", "Not answered", "Please take into consideration"]
+      )
     end
   end
 end

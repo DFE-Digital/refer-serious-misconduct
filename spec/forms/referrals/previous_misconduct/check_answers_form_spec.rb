@@ -22,7 +22,9 @@ RSpec.describe Referrals::PreviousMisconduct::CheckAnswersForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:previous_misconduct_complete]).to eq(["Select yes if you’ve completed this section"])
+        expect(form.errors[:previous_misconduct_complete]).to eq(
+          ["Select yes if you’ve completed this section"]
+        )
       end
     end
   end

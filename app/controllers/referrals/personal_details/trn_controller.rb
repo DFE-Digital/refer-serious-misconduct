@@ -2,7 +2,8 @@ module Referrals
   module PersonalDetails
     class TrnController < Referrals::BaseController
       def edit
-        @personal_details_trn_form = TrnForm.new(trn: current_referral.trn, trn_known: current_referral.trn_known)
+        @personal_details_trn_form =
+          TrnForm.new(trn: current_referral.trn, trn_known: current_referral.trn_known)
       end
 
       def update

@@ -4,10 +4,15 @@ class TeachingInEnglandController < EligibilityScreenerController
   end
 
   def create
-    @teaching_in_england_form = TeachingInEnglandForm.new(teaching_in_england_form_params.merge(eligibility_check:))
+    @teaching_in_england_form =
+      TeachingInEnglandForm.new(teaching_in_england_form_params.merge(eligibility_check:))
 
     if @teaching_in_england_form.save
-      eligibility_check.teaching_in_england? ? redirect_to_next_question : redirect_to(no_jurisdiction_path)
+      if eligibility_check.teaching_in_england?
+        redirect_to_next_question
+      else
+        redirect_to(no_jurisdiction_path)
+      end
     else
       render :new
     end

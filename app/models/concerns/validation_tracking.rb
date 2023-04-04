@@ -9,7 +9,9 @@ module ValidationTracking
   end
 
   def validation_error_details
-    errors.messages.map { |field, messages| [field, { messages:, value: filtered_field_value(field) }] }
+    errors.messages.map do |field, messages|
+      [field, { messages:, value: filtered_field_value(field) }]
+    end
   end
 
   def filtered_field_value(field)

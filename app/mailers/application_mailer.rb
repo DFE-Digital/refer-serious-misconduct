@@ -15,7 +15,9 @@ class ApplicationMailer < Mail::Notify::Mailer
   end
 
   def set_action_mailer_manage_key
-    ActionMailer::Base.notify_settings[:api_key] = ENV.fetch("GOVUK_NOTIFY_MANAGE_SERIOUS_MISCONDUCT_API_KEY")
+    ActionMailer::Base.notify_settings[:api_key] = ENV.fetch(
+      "GOVUK_NOTIFY_MANAGE_SERIOUS_MISCONDUCT_API_KEY"
+    )
   end
 
   def set_action_mailer_refer_key

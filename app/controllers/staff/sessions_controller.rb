@@ -23,7 +23,9 @@ class Staff::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     stored_location = stored_location_for(resource)
 
-    return URI.parse(stored_location).path if stored_location.present? && stored_location.exclude?(manage_sign_in_path)
+    if stored_location.present? && stored_location.exclude?(manage_sign_in_path)
+      return URI.parse(stored_location).path
+    end
 
     if current_staff.manage_referrals?
       manage_interface_referrals_path

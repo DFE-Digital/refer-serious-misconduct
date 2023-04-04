@@ -10,7 +10,11 @@ RSpec.describe Referrals::TeacherRole::EmploymentStatusForm, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:referral) }
 
-    specify { expect(form).to validate_inclusion_of(:employment_status).in_array(%w[employed suspended left_role]) }
+    specify do
+      expect(form).to validate_inclusion_of(:employment_status).in_array(
+        %w[employed suspended left_role]
+      )
+    end
   end
 
   describe "#valid?" do

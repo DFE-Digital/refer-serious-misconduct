@@ -34,7 +34,9 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
     if TEST_ENVIRONMENTS.include?(hosting_environment_name)
       expect(page).to have_content("Do you have an account?")
     else
-      expect(page).to have_content "Are you making a referral as an employer or member of the public?"
+      expect(
+        page
+      ).to have_content "Are you making a referral as an employer or member of the public?"
     end
   end
 

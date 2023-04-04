@@ -90,7 +90,9 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_employer_or_public_question
     expect(page).to have_current_path("/referral-type")
     expect(page).to have_title("Are you making a referral as an employer or member of the public?")
-    expect(page).to have_content("Are you making a referral as an employer or member of the public?")
+    expect(page).to have_content(
+      "Are you making a referral as an employer or member of the public?"
+    )
   end
 
   def then_i_see_the_have_you_complained_page
@@ -108,7 +110,9 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
-    expect(page).to have_title("Who the allegation is about - Refer serious misconduct by a teacher in England")
+    expect(page).to have_title(
+      "Who the allegation is about - Refer serious misconduct by a teacher in England"
+    )
     expect(page).to have_content("Who the allegation is about")
   end
 
@@ -131,7 +135,9 @@ RSpec.feature "Eligibility screener", type: :system do
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
-    expect(page).to have_content("You cannot use this service to refer someone who is not a teacher")
+    expect(page).to have_content(
+      "You cannot use this service to refer someone who is not a teacher"
+    )
   end
 
   def then_i_see_the_not_serious_misconduct_page
@@ -150,13 +156,18 @@ RSpec.feature "Eligibility screener", type: :system do
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
-    expect(page).to have_content("Were they employed in England at the time the alleged misconduct took place?")
+    expect(page).to have_content(
+      "Were they employed in England at the time the alleged misconduct took place?"
+    )
   end
 
   def then_i_see_the_you_should_complain_page
     expect(page).to have_current_path("/no-complaint")
     expect(page).to have_title(
-      ["Consider making a complaint first", "Refer serious misconduct by a teacher in England"].join(" - ")
+      [
+        "Consider making a complaint first",
+        "Refer serious misconduct by a teacher in England"
+      ].join(" - ")
     )
     expect(page).to have_content("Consider making a complaint first")
   end
@@ -171,7 +182,9 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def then_i_see_the_serious_misconduct_question
     expect(page).to have_current_path("/serious-misconduct")
-    expect(page).to have_title("What the allegation is about - Refer serious misconduct by a teacher in England")
+    expect(page).to have_title(
+      "What the allegation is about - Refer serious misconduct by a teacher in England"
+    )
     expect(page).to have_content("What the allegation is about")
   end
 

@@ -13,7 +13,8 @@ RSpec.describe EvidenceComponent, type: :component do
     it "renders the has evidence row" do
       expect(page).to have_css("dt", text: "Do you have anything to upload?")
       expect(page).to have_css("dd", text: "No")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/evidence/start/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/evidence/start/edit?return_to=%2F"
     end
 
     it "doesn't render the evidence row" do
@@ -33,7 +34,8 @@ RSpec.describe EvidenceComponent, type: :component do
       expect(page).to have_css("dd", text: "Yes")
       expect(page).to have_css("dt", text: "Uploaded evidence")
       expect(page).to have_css("dd", text: "Yes")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/evidence/uploaded/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/evidence/uploaded/edit?return_to=%2F"
     end
   end
 end

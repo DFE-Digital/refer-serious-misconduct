@@ -40,7 +40,9 @@ RSpec.describe DateValidator do
   end
 
   context "with valid worded params" do
-    let(:date_params) { { "the_date(1i)" => "1990", "the_date(2i)" => "September", "the_date(3i)" => "seven" } }
+    let(:date_params) do
+      { "the_date(1i)" => "1990", "the_date(2i)" => "September", "the_date(3i)" => "seven" }
+    end
 
     it { is_expected.to be_valid }
   end
@@ -52,13 +54,17 @@ RSpec.describe DateValidator do
     end
 
     context "with valid date params" do
-      let(:date_params) { { "the_date(1i)" => "1990", "the_date(2i)" => "12", "the_date(3i)" => "25" } }
+      let(:date_params) do
+        { "the_date(1i)" => "1990", "the_date(2i)" => "12", "the_date(3i)" => "25" }
+      end
 
       it { is_expected.to be_valid }
     end
 
     context "with min age date of birth params" do
-      let(:date_params) { { "the_date(1i)" => 15.years.ago.year, "the_date(2i)" => "12", "the_date(3i)" => "25" } }
+      let(:date_params) do
+        { "the_date(1i)" => 15.years.ago.year, "the_date(2i)" => "12", "the_date(3i)" => "25" }
+      end
 
       it { is_expected.to be_invalid }
     end
@@ -71,19 +77,25 @@ RSpec.describe DateValidator do
     end
 
     context "with valid date params" do
-      let(:date_params) { { "the_date(1i)" => "1990", "the_date(2i)" => "12", "the_date(3i)" => "25" } }
+      let(:date_params) do
+        { "the_date(1i)" => "1990", "the_date(2i)" => "12", "the_date(3i)" => "25" }
+      end
 
       it { is_expected.to be_valid }
     end
 
     context "with date params in future" do
-      let(:date_params) { { "the_date(1i)" => 1.year.since.year, "the_date(2i)" => "12", "the_date(3i)" => "25" } }
+      let(:date_params) do
+        { "the_date(1i)" => 1.year.since.year, "the_date(2i)" => "12", "the_date(3i)" => "25" }
+      end
 
       it { is_expected.to be_invalid }
     end
 
     context "with year before 1920" do
-      let(:date_params) { { "the_date(1i)" => "1899", "the_date(2i)" => "12", "the_date(3i)" => "25" } }
+      let(:date_params) do
+        { "the_date(1i)" => "1899", "the_date(2i)" => "12", "the_date(3i)" => "25" }
+      end
 
       it { is_expected.to be_invalid }
     end

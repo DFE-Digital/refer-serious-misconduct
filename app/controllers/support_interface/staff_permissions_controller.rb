@@ -2,7 +2,10 @@ module SupportInterface
   class StaffPermissionsController < SupportInterfaceController
     def edit
       @staff_permissions_form =
-        StaffPermissionsForm.new(view_support: staff.view_support, manage_referrals: staff.manage_referrals)
+        StaffPermissionsForm.new(
+          view_support: staff.view_support,
+          manage_referrals: staff.manage_referrals
+        )
     end
 
     def update
@@ -19,7 +22,10 @@ module SupportInterface
     private
 
     def staff_params
-      params.require(:support_interface_staff_permissions_form).permit(:manage_referrals, :view_support)
+      params.require(:support_interface_staff_permissions_form).permit(
+        :manage_referrals,
+        :view_support
+      )
     end
 
     def staff

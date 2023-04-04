@@ -7,7 +7,14 @@ module ManageInterface
 
     def rows
       rows = [
-        { key: { text: "How do you want to give details about the allegation?" }, value: { text: details_format } },
+        {
+          key: {
+            text: "How do you want to give details about the allegation?"
+          },
+          value: {
+            text: details_format
+          }
+        },
         { key: { text: "Allegation details" }, value: { text: allegation_details(referral) } }
       ]
 

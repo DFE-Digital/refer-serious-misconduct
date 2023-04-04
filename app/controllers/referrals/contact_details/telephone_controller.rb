@@ -3,7 +3,10 @@ module Referrals
     class TelephoneController < Referrals::BaseController
       def edit
         @contact_details_telephone_form =
-          TelephoneForm.new(phone_known: current_referral.phone_known, phone_number: current_referral.phone_number)
+          TelephoneForm.new(
+            phone_known: current_referral.phone_known,
+            phone_number: current_referral.phone_number
+          )
       end
 
       def update
@@ -19,7 +22,10 @@ module Referrals
       private
 
       def contact_details_telephone_form_params
-        params.require(:referrals_contact_details_telephone_form).permit(:phone_known, :phone_number)
+        params.require(:referrals_contact_details_telephone_form).permit(
+          :phone_known,
+          :phone_number
+        )
       end
 
       def next_path

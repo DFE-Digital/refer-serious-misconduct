@@ -21,11 +21,19 @@ module Referrals
       private
 
       def reported_form_params
-        params.require(:referrals_previous_misconduct_reported_form).permit(:previous_misconduct_reported)
+        params.require(:referrals_previous_misconduct_reported_form).permit(
+          :previous_misconduct_reported
+        )
       end
 
       def next_path
-        [:edit, current_referral.routing_scope, current_referral, :previous_misconduct, :detailed_account]
+        [
+          :edit,
+          current_referral.routing_scope,
+          current_referral,
+          :previous_misconduct,
+          :detailed_account
+        ]
       end
 
       def next_page

@@ -7,7 +7,15 @@ module Referrals
       attr_reader :trn_known, :trn
 
       validates :trn_known, inclusion: { in: [true, false] }
-      validates :trn, presence: true, length: { is: 7 }, numericality: { only_numeric: true }, if: -> { trn_known }
+      validates :trn,
+                presence: true,
+                length: {
+                  is: 7
+                },
+                numericality: {
+                  only_numeric: true
+                },
+                if: -> { trn_known }
 
       def trn_known=(value)
         @trn_known = ActiveModel::Type::Boolean.new.cast(value)

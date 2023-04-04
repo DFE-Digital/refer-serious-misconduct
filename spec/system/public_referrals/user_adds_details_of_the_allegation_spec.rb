@@ -98,7 +98,8 @@ RSpec.feature "Details of the allegation", type: :system do
     expect_summary_row(
       key: "Details about how this complaint has been considered",
       value: "considered stuff",
-      change_link: edit_public_referral_allegation_considerations_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_considerations_path(@referral, return_to: current_path)
     )
   end
 
@@ -124,9 +125,12 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def when_i_click_change_allegation_details_link
-    within(page.find(".govuk-summary-list__row", text: "How do you want to give details about the allegation?")) do
-      click_link "Change"
-    end
+    within(
+      page.find(
+        ".govuk-summary-list__row",
+        text: "How do you want to give details about the allegation?"
+      )
+    ) { click_link "Change" }
   end
 
   def and_i_choose_upload
@@ -134,7 +138,10 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def and_i_attach_an_allegation_file
-    attach_file("Upload file", File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf")))
+    attach_file(
+      "Upload file",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf"))
+    )
   end
 
   def then_i_can_see_the_allegation_file_in_the_summary

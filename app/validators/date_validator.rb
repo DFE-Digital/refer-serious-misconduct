@@ -28,9 +28,11 @@ class DateValidator < ActiveModel::EachValidator
     end
 
     date_fields =
-      [date_params["#{attribute}(1i)"], date_params["#{attribute}(2i)"], date_params["#{attribute}(3i)"]].map do |f|
-        f&.to_s&.strip
-      end
+      [
+        date_params["#{attribute}(1i)"],
+        date_params["#{attribute}(2i)"],
+        date_params["#{attribute}(3i)"]
+      ].map { |f| f&.to_s&.strip }
 
     # Use a struct instead of a date object to maintain what the user typed in,
     # and not transform the fields into other data types like integers that

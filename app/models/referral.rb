@@ -9,14 +9,20 @@ class Referral < ApplicationRecord
   has_one_attached :duties_upload
   has_one_attached :pdf
 
-  has_many :evidences, -> { order(:created_at) }, class_name: "ReferralEvidence", dependent: :destroy
+  has_many :evidences,
+           -> { order(:created_at) },
+           class_name: "ReferralEvidence",
+           dependent: :destroy
   has_many :reminder_emails
 
-  scope :employer, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :employer }) }
-  scope :member_of_public, -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :public }) }
+  scope :employer,
+        -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :employer }) }
+  scope :member_of_public,
+        -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :public }) }
   scope :submitted, -> { where.not(submitted_at: nil) }
   scope :stale_drafts, -> { where(submitted_at: nil).where("updated_at < ?", 90.days.ago) }
-  scope :stale_drafts_reminder, -> { where(submitted_at: nil).where("updated_at <= ?", 83.days.ago) }
+  scope :stale_drafts_reminder,
+        -> { where(submitted_at: nil).where("updated_at <= ?", 83.days.ago) }
 
   delegate :name, to: :referrer, prefix: true, allow_nil: true
 

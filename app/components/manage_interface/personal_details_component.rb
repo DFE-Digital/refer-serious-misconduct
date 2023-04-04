@@ -13,7 +13,14 @@ module ManageInterface
 
       if referral.name_has_changed == "no"
         rows.push(
-          { key: { text: "Do you know them by any other name?" }, value: { text: referral.name_has_changed.humanize } }
+          {
+            key: {
+              text: "Do you know them by any other name?"
+            },
+            value: {
+              text: referral.name_has_changed.humanize
+            }
+          }
         )
       elsif referral.previous_name.present?
         rows.push({ key: { text: "Other name" }, value: { text: referral.previous_name } })
@@ -24,7 +31,16 @@ module ManageInterface
       if !referral.age_known
         rows.push({ key: { text: "Do you know their date of birth?" }, value: { text: "No" } })
       else
-        rows.push({ key: { text: "Date of birth" }, value: { text: referral.date_of_birth&.to_fs(:long_ordinal_uk) } })
+        rows.push(
+          {
+            key: {
+              text: "Date of birth"
+            },
+            value: {
+              text: referral.date_of_birth&.to_fs(:long_ordinal_uk)
+            }
+          }
+        )
       end
 
       if !referral.email_known
@@ -46,19 +62,41 @@ module ManageInterface
       end
 
       if !referral.ni_number_known
-        rows.push({ key: { text: "Do you know their National Insurance number?" }, value: { text: "No" } })
+        rows.push(
+          { key: { text: "Do you know their National Insurance number?" }, value: { text: "No" } }
+        )
       else
-        rows.push({ key: { text: "National Insurance number" }, value: { text: referral.ni_number } })
+        rows.push(
+          { key: { text: "National Insurance number" }, value: { text: referral.ni_number } }
+        )
       end
 
       if referral.trn.blank?
-        rows.push({ key: { text: "Do you know their teacher reference number (TRN)?" }, value: { text: "No" } })
+        rows.push(
+          {
+            key: {
+              text: "Do you know their teacher reference number (TRN)?"
+            },
+            value: {
+              text: "No"
+            }
+          }
+        )
       else
-        rows.push({ key: { text: "Teacher reference number (TRN)?" }, value: { text: referral.trn } })
+        rows.push(
+          { key: { text: "Teacher reference number (TRN)?" }, value: { text: referral.trn } }
+        )
       end
 
       rows.push(
-        { key: { text: "Do they have qualified teacher status?" }, value: { text: referral.has_qts&.humanize } }
+        {
+          key: {
+            text: "Do they have qualified teacher status?"
+          },
+          value: {
+            text: referral.has_qts&.humanize
+          }
+        }
       )
       rows
     end

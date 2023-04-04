@@ -149,7 +149,9 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_the_organisation_address_known_page
-    expect(page).to have_current_path(edit_public_referral_teacher_role_organisation_address_known_path(@referral))
+    expect(page).to have_current_path(
+      edit_public_referral_teacher_role_organisation_address_known_path(@referral)
+    )
     expect(page).to have_title("Do you know the name and address of the organisation?")
     expect(page).to have_content(
       "Do you know the name and address of the organisation where the alleged misconduct took place?"
@@ -157,13 +159,21 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def then_i_see_the_organisation_address_page
-    expect(page).to have_current_path(edit_public_referral_teacher_role_organisation_address_path(@referral))
-    expect(page).to have_title("Name and address of the organisation where the alleged misconduct took place")
-    expect(page).to have_content("Name and address of the organisation where the alleged misconduct took place")
+    expect(page).to have_current_path(
+      edit_public_referral_teacher_role_organisation_address_path(@referral)
+    )
+    expect(page).to have_title(
+      "Name and address of the organisation where the alleged misconduct took place"
+    )
+    expect(page).to have_content(
+      "Name and address of the organisation where the alleged misconduct took place"
+    )
   end
 
   def then_i_see_the_check_answers_page
-    expect(page).to have_current_path(edit_public_referral_teacher_role_check_answers_path(@referral))
+    expect(page).to have_current_path(
+      edit_public_referral_teacher_role_check_answers_path(@referral)
+    )
     expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Check and confirm your answers")
   end
@@ -216,11 +226,17 @@ RSpec.feature "Teacher role", type: :system do
   # File uploads
 
   def and_i_attach_a_job_description_file
-    attach_file("Upload file", File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf")))
+    attach_file(
+      "Upload file",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload1.pdf"))
+    )
   end
 
   def and_i_attach_a_second_job_description_file
-    attach_file("Upload new file", File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf")))
+    attach_file(
+      "Upload new file",
+      File.absolute_path(Rails.root.join("spec/fixtures/files/upload2.pdf"))
+    )
   end
 
   # Validation errors
@@ -267,6 +283,11 @@ RSpec.feature "Teacher role", type: :system do
   end
 
   def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    expect_task_row(section: "About the teacher", item_position: 2, name: "About their role", tag: status)
+    expect_task_row(
+      section: "About the teacher",
+      item_position: 2,
+      name: "About their role",
+      tag: status
+    )
   end
 end

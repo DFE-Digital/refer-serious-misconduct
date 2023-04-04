@@ -48,7 +48,9 @@ RSpec.describe Referrals::TeacherRole::OrganisationAddressForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:organisation_address_line_1]).to eq(["Enter the first line of the organisation's address"])
+        expect(form.errors[:organisation_address_line_1]).to eq(
+          ["Enter the first line of the organisation's address"]
+        )
       end
     end
 
@@ -58,7 +60,9 @@ RSpec.describe Referrals::TeacherRole::OrganisationAddressForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:organisation_town_or_city]).to eq(["Enter a town or city for the organisation"])
+        expect(form.errors[:organisation_town_or_city]).to eq(
+          ["Enter a town or city for the organisation"]
+        )
       end
     end
 

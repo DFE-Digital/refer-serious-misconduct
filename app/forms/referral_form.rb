@@ -29,7 +29,9 @@ class ReferralForm
   private
 
   def sections_valid
-    errors.add(:base, :all_sections_complete) unless sections.map(&:items).flatten.map(&:status).uniq == [:completed]
+    unless sections.map(&:items).flatten.map(&:status).uniq == [:completed]
+      errors.add(:base, :all_sections_complete)
+    end
   end
 
   def about_you_section
@@ -55,7 +57,9 @@ class ReferralForm
               path_for_section_status(
                 check_answers?(referral.organisation&.complete),
                 polymorphic_path([:edit, referral.routing_scope, referral, :organisation_address]),
-                polymorphic_path([:edit, referral.routing_scope, referral, :organisation, :check_answers])
+                polymorphic_path(
+                  [:edit, referral.routing_scope, referral, :organisation, :check_answers]
+                )
               ),
               section_status(referral.organisation&.complete)
             )
@@ -74,7 +78,9 @@ class ReferralForm
             path_for_section_status(
               check_answers?(referral.personal_details_complete),
               polymorphic_path([:edit, referral.routing_scope, referral, :personal_details_name]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :personal_details, :check_answers])
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :personal_details, :check_answers]
+              )
             ),
             section_status(referral.personal_details_complete)
           )
@@ -87,7 +93,9 @@ class ReferralForm
               path_for_section_status(
                 check_answers?(referral.contact_details_complete),
                 polymorphic_path([:edit, referral.routing_scope, referral, :contact_details_email]),
-                polymorphic_path([:edit, referral.routing_scope, referral, :contact_details, :check_answers])
+                polymorphic_path(
+                  [:edit, referral.routing_scope, referral, :contact_details, :check_answers]
+                )
               ),
               section_status(referral.contact_details_complete)
             )
@@ -99,8 +107,12 @@ class ReferralForm
             I18n.t("referral_form.about_their_role"),
             path_for_section_status(
               check_answers?(referral.teacher_role_complete),
-              polymorphic_path([:edit, referral.routing_scope, referral, :teacher_role, :job_title]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :teacher_role, :check_answers])
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :teacher_role, :job_title]
+              ),
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :teacher_role, :check_answers]
+              )
             ),
             section_status(referral.teacher_role_complete)
           )
@@ -118,7 +130,9 @@ class ReferralForm
             path_for_section_status(
               check_answers?(referral.allegation_details_complete),
               polymorphic_path([:edit, referral.routing_scope, referral, :allegation_details]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :allegation, :check_answers])
+              polymorphic_path(
+                [:edit, referral.routing_scope, referral, :allegation, :check_answers]
+              )
             ),
             section_status(referral.allegation_details_complete)
           )
@@ -130,8 +144,12 @@ class ReferralForm
               I18n.t("referral_form.previous_allegations"),
               path_for_section_status(
                 check_answers?(referral.previous_misconduct_complete),
-                polymorphic_path([:edit, referral.routing_scope, referral, :previous_misconduct_reported]),
-                polymorphic_path([:edit, referral.routing_scope, referral, :previous_misconduct, :check_answers])
+                polymorphic_path(
+                  [:edit, referral.routing_scope, referral, :previous_misconduct_reported]
+                ),
+                polymorphic_path(
+                  [:edit, referral.routing_scope, referral, :previous_misconduct, :check_answers]
+                )
               ),
               section_status(referral.previous_misconduct_complete)
             )
@@ -165,7 +183,12 @@ class ReferralForm
     check_answers ? check_answers_path : start_path
   end
 
-  def path_for_evidence_section_status(check_answers, start_path, check_answers_path, evidence_upload_path)
+  def path_for_evidence_section_status(
+    check_answers,
+    start_path,
+    check_answers_path,
+    evidence_upload_path
+  )
     if check_answers
       check_answers_path
     elsif referral.evidences.any?

@@ -25,7 +25,8 @@ RSpec.describe ContactDetailsComponent, type: :component do
     it "renders the email known row" do
       expect(page).to have_css("dt", text: "Do you know their email address?")
       expect(page).to have_css("dd", text: "Yes")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/contact-details/email/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/contact-details/email/edit?return_to=%2F"
     end
 
     it "renders the referral email row" do
@@ -35,12 +36,15 @@ RSpec.describe ContactDetailsComponent, type: :component do
   end
 
   context "when the email is not known" do
-    let(:referral) { create(:referral, :contact_details_employer, email_known: false, email_address: nil) }
+    let(:referral) do
+      create(:referral, :contact_details_employer, email_known: false, email_address: nil)
+    end
 
     it "renders the email not known row" do
       expect(page).to have_css("dt", text: "Do you know their email address?")
       expect(page).to have_css("dd", text: "No")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/contact-details/email/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/contact-details/email/edit?return_to=%2F"
     end
   end
 
@@ -48,7 +52,8 @@ RSpec.describe ContactDetailsComponent, type: :component do
     it "renders the phone number known row" do
       expect(page).to have_css("dt", text: "Do you know their phone number?")
       expect(page).to have_css("dd", text: "Yes")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/contact-details/telephone/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/contact-details/telephone/edit?return_to=%2F"
     end
 
     it "renders the referral phone number row" do
@@ -58,12 +63,15 @@ RSpec.describe ContactDetailsComponent, type: :component do
   end
 
   context "when the phone number is not known" do
-    let(:referral) { create(:referral, :contact_details_employer, phone_known: false, phone_number: nil) }
+    let(:referral) do
+      create(:referral, :contact_details_employer, phone_known: false, phone_number: nil)
+    end
 
     it "renders the phone number not known row" do
       expect(page).to have_css("dt", text: "Do you know their phone number?")
       expect(page).to have_css("dd", text: "No")
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/contact-details/telephone/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/contact-details/telephone/edit?return_to=%2F"
     end
   end
 

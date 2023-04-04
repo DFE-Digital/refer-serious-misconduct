@@ -9,7 +9,8 @@ class PerformanceStats
       last_n_days.map do |day|
         percentiles = percentiles_by_day[day] || [0, 0, 0]
         date_string = day == Time.zone.today ? "Today" : day.to_fs(:weekday_day_and_month)
-        [date_string] + percentiles.map { |value| ActiveSupport::Duration.build(value.to_i).inspect }
+        [date_string] +
+          percentiles.map { |value| ActiveSupport::Duration.build(value.to_i).inspect }
       end
   end
 
@@ -45,9 +46,15 @@ class PerformanceStats
             .unscope(:group)
             .where(serious_misconduct: "yes")
             .pick(
-              Arel.sql("percentile_disc(0.90) within group (order by (updated_at - created_at) asc) as percentile_90"),
-              Arel.sql("percentile_disc(0.75) within group (order by (updated_at - created_at) asc) as percentile_75"),
-              Arel.sql("percentile_disc(0.50) within group (order by (updated_at - created_at) asc) as percentile_50")
+              Arel.sql(
+                "percentile_disc(0.90) within group (order by (updated_at - created_at) asc) as percentile_90"
+              ),
+              Arel.sql(
+                "percentile_disc(0.75) within group (order by (updated_at - created_at) asc) as percentile_75"
+              ),
+              Arel.sql(
+                "percentile_disc(0.50) within group (order by (updated_at - created_at) asc) as percentile_50"
+              )
             )
 
         (percentiles || [0, 0, 0]).map { |value| ActiveSupport::Duration.build(value.to_i).inspect }
@@ -101,9 +108,15 @@ class PerformanceStats
         .group("1")
         .pluck(
           Arel.sql("date_trunc('day', created_at) AS day"),
-          Arel.sql("percentile_disc(0.90) within group (order by (updated_at - created_at) asc) as percentile_90"),
-          Arel.sql("percentile_disc(0.75) within group (order by (updated_at - created_at) asc) as percentile_75"),
-          Arel.sql("percentile_disc(0.50) within group (order by (updated_at - created_at) asc) as percentile_50")
+          Arel.sql(
+            "percentile_disc(0.90) within group (order by (updated_at - created_at) asc) as percentile_90"
+          ),
+          Arel.sql(
+            "percentile_disc(0.75) within group (order by (updated_at - created_at) asc) as percentile_75"
+          ),
+          Arel.sql(
+            "percentile_disc(0.50) within group (order by (updated_at - created_at) asc) as percentile_50"
+          )
         )
         .each_with_object({}) { |row, hash| hash[row[0]] = row.slice(1, 3) }
   end
@@ -112,7 +125,9 @@ class PerformanceStats
     @sparse_request_counts_by_day ||=
       eligibility_checks
         .select(Arel.sql("date_trunc('day', created_at) AS day"), *arel_columns_for_request_counts)
-        .each_with_object({}) { |row, hash| hash[row["day"]] = row.attributes.except("id", "day").symbolize_keys }
+        .each_with_object({}) do |row, hash|
+          hash[row["day"]] = row.attributes.except("id", "day").symbolize_keys
+        end
   end
 
   def sparse_request_counts_by_month
@@ -123,9 +138,14 @@ class PerformanceStats
         EligibilityCheck
           .where(created_at: (start_date..))
           .group("date_trunc('month', created_at)")
-          .select(Arel.sql("date_trunc('month', created_at) AS month"), *arel_columns_for_request_counts)
+          .select(
+            Arel.sql("date_trunc('month', created_at) AS month"),
+            *arel_columns_for_request_counts
+          )
           .order(Arel.sql("date_trunc('month', created_at) desc"))
-          .each_with_object({}) { |row, hash| hash[row["month"]] = row.attributes.except("id", "month").symbolize_keys }
+          .each_with_object({}) do |row, hash|
+            hash[row["month"]] = row.attributes.except("id", "month").symbolize_keys
+          end
       end
   end
 end

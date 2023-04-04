@@ -13,7 +13,8 @@ module CommonSteps
   alias_method :when_i_have_an_existing_referral, :and_i_have_an_existing_referral
 
   def and_i_am_a_member_of_the_public_with_an_existing_referral
-    @referral = create(:referral, eligibility_check: create(:eligibility_check, :public), user: @user)
+    @referral =
+      create(:referral, eligibility_check: create(:eligibility_check, :public), user: @user)
   end
 
   def and_referral_forms_exist

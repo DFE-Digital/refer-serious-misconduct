@@ -61,7 +61,11 @@ class Users::OtpController < DeviseController
   def latest_referral_path(resource)
     latest_referral = resource.latest_referral
 
-    latest_referral.present? ? [:edit, latest_referral.routing_scope, latest_referral] : new_referral_path
+    if latest_referral.present?
+      [:edit, latest_referral.routing_scope, latest_referral]
+    else
+      new_referral_path
+    end
   end
 
   def user_params

@@ -69,7 +69,9 @@ RSpec.describe UserMailer, type: :mailer do
 
       it "uses the TRA Notify API key" do
         expect { email.deliver_now }.to(
-          change { ActionMailer::Base.notify_settings[:api_key] }.from("fake_key").to("govuk_notify_api_key")
+          change { ActionMailer::Base.notify_settings[:api_key] }.from("fake_key").to(
+            "govuk_notify_api_key"
+          )
         )
       end
     end

@@ -89,8 +89,13 @@ RSpec.feature "Employer Referral: About You", type: :system do
   end
 
   def then_i_am_on_the_your_name_page
-    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/name/edit", ignore_query: true)
-    expect(page).to have_title("Your name - Your details - Refer serious misconduct by a teacher in England - GOV.UK")
+    expect(page).to have_current_path(
+      "/referrals/#{@referral.id}/referrer/name/edit",
+      ignore_query: true
+    )
+    expect(page).to have_title(
+      "Your name - Your details - Refer serious misconduct by a teacher in England - GOV.UK"
+    )
     expect(page).to have_content("Your name")
   end
 
@@ -126,7 +131,9 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
   def then_i_see_the_referrer_check_your_answers_page
     expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/check-answers/edit")
-    expect(page).to have_title("Your details - Refer serious misconduct by a teacher in England - GOV.UK")
+    expect(page).to have_title(
+      "Your details - Refer serious misconduct by a teacher in England - GOV.UK"
+    )
     expect(page).to have_content("Your details")
   end
 
