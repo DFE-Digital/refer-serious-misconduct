@@ -8,7 +8,12 @@ module Referrals
       attr_reader :role_start_date_known
 
       validates :role_start_date_known, inclusion: { in: [true, false] }
-      validates :role_start_date, date: { not_future: true, past_century: true }, if: -> { role_start_date_known }
+      validates :role_start_date,
+                date: {
+                  not_future: true,
+                  past_century: true
+                },
+                if: -> { role_start_date_known }
 
       def role_start_date_known=(value)
         @role_start_date_known = ActiveModel::Type::Boolean.new.cast(value)

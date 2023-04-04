@@ -9,7 +9,14 @@ module ManageInterface
     def rows
       rows = [
         { key: { text: "Job title" }, value: { text: referral.job_title || "Not known" } },
-        { key: { text: "How where details about their main duties given?" }, value: { text: duties_format(referral) } },
+        {
+          key: {
+            text: "How where details about their main duties given?"
+          },
+          value: {
+            text: duties_format(referral)
+          }
+        },
         { key: { text: "Main duties" }, value: { text: duties_details(referral) } }
       ]
 
@@ -18,7 +25,8 @@ module ManageInterface
           rows.push(
             {
               key: {
-                text: "Do you know the name and address of the organisation where the alleged misconduct took place?"
+                text:
+                  "Do you know the name and address of the organisation where the alleged misconduct took place?"
               },
               value: {
                 text: "No"
@@ -45,7 +53,8 @@ module ManageInterface
         rows.push(
           {
             key: {
-              text: "Were they employed at the same organisation as you at the time of the alleged misconduct?"
+              text:
+                "Were they employed at the same organisation as you at the time of the alleged misconduct?"
             },
             value: {
               text: "No"
@@ -57,10 +66,19 @@ module ManageInterface
       end
 
       if !referral.role_start_date_known
-        rows.push({ key: { text: "Do you know when they started the job?" }, value: { text: "No" } })
+        rows.push(
+          { key: { text: "Do you know when they started the job?" }, value: { text: "No" } }
+        )
       else
         rows.push(
-          { key: { text: "Job start date" }, value: { text: referral.role_start_date&.to_fs(:long_ordinal_uk) } }
+          {
+            key: {
+              text: "Job start date"
+            },
+            value: {
+              text: referral.role_start_date&.to_fs(:long_ordinal_uk)
+            }
+          }
         )
       end
 
@@ -68,7 +86,8 @@ module ManageInterface
         rows.push(
           {
             key: {
-              text: "Are they still employed at the organisation where the alleged misconduct took place?"
+              text:
+                "Are they still employed at the organisation where the alleged misconduct took place?"
             },
             value: {
               text: "No"
@@ -79,15 +98,40 @@ module ManageInterface
         if !referral.role_end_date_known
           rows.push({ key: { text: "Do you know when they left the job?" }, value: { text: "No" } })
         else
-          rows.push({ key: { text: "Job end date" }, value: { text: referral.role_end_date&.to_fs(:long_ordinal_uk) } })
+          rows.push(
+            {
+              key: {
+                text: "Job end date"
+              },
+              value: {
+                text: referral.role_end_date&.to_fs(:long_ordinal_uk)
+              }
+            }
+          )
         end
 
         rows.push(
-          { key: { text: "Reason they left the job" }, value: { text: referral.reason_leaving_role&.humanize } }
+          {
+            key: {
+              text: "Reason they left the job"
+            },
+            value: {
+              text: referral.reason_leaving_role&.humanize
+            }
+          }
         )
 
         if working_somewhere_else != "Yes"
-          rows.push({ key: { text: "Are they employed somewhere else?" }, value: { text: working_somewhere_else } })
+          rows.push(
+            {
+              key: {
+                text: "Are they employed somewhere else?"
+              },
+              value: {
+                text: working_somewhere_else
+              }
+            }
+          )
         elsif !referral.work_location_known
           rows.push(
             {

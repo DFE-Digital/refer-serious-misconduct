@@ -11,7 +11,9 @@ RSpec.describe Referrals::TeacherRole::ReasonLeavingRoleForm, type: :model do
     it { is_expected.to validate_presence_of(:referral) }
 
     specify do
-      expect(form).to validate_inclusion_of(:reason_leaving_role).in_array(%w[resigned dismissed retired unknown])
+      expect(form).to validate_inclusion_of(:reason_leaving_role).in_array(
+        %w[resigned dismissed retired unknown]
+      )
     end
   end
 

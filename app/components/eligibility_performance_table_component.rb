@@ -16,7 +16,11 @@ class EligibilityPerformanceTableComponent < ViewComponent::Base
           )
           row.cell(header: true, text: "Complete")
           row.cell(header: true, text: "Screened out")
-          row.cell(header: true, text: "Did not finish", classes: "app-performance-table-column-divider")
+          row.cell(
+            header: true,
+            text: "Did not finish",
+            classes: "app-performance-table-column-divider"
+          )
           row.cell(header: true, text: "Total", classes: "govuk-!-padding-left-2")
         end
       end
@@ -33,7 +37,9 @@ class EligibilityPerformanceTableComponent < ViewComponent::Base
           end
         end
         body.row(classes: "app-performance-table-total-row") do |row|
-          row.cell(header: true, classes: "app-performance-table-column-divider") { "Total (#{since})" }
+          row.cell(header: true, classes: "app-performance-table-column-divider") do
+            "Total (#{since})"
+          end
           row.cell { number_with_percentage_cell(total_grouped_requests, :complete_count) }
           row.cell { number_with_percentage_cell(total_grouped_requests, :screened_out_count) }
           row.cell(classes: "app-performance-table-column-divider") do

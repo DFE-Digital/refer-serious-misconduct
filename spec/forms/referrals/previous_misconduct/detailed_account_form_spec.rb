@@ -8,7 +8,11 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm, type: :model 
 
     it { is_expected.to validate_presence_of(:referral) }
 
-    specify { expect(form).to validate_inclusion_of(:previous_misconduct_format).in_array(%w[details upload]) }
+    specify do
+      expect(form).to validate_inclusion_of(:previous_misconduct_format).in_array(
+        %w[details upload]
+      )
+    end
 
     it { is_expected.not_to validate_presence_of(:previous_misconduct_details) }
 
@@ -24,7 +28,9 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm, type: :model 
 
     let(:previous_misconduct_details) { "true" }
     let(:previous_misconduct_format) { "details" }
-    let(:form) { described_class.new(previous_misconduct_details:, previous_misconduct_format:, referral:) }
+    let(:form) do
+      described_class.new(previous_misconduct_details:, previous_misconduct_format:, referral:)
+    end
 
     it { is_expected.to be_truthy }
 
@@ -98,7 +104,9 @@ RSpec.describe Referrals::PreviousMisconduct::DetailedAccountForm, type: :model 
 
       it "adds an error" do
         save
-        expect(form.errors[:previous_misconduct_details]).to eq(["Enter a description of previous allegations"])
+        expect(form.errors[:previous_misconduct_details]).to eq(
+          ["Enter a description of previous allegations"]
+        )
       end
     end
 

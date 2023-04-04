@@ -10,7 +10,10 @@ class UserMailer < ApplicationMailer
   def referral_link(referral)
     @referral = referral
     @user = referral.user
-    mailer_options = { to: @user.email, subject: "Your referral of serious misconduct by a teacher" }
+    mailer_options = {
+      to: @user.email,
+      subject: "Your referral of serious misconduct by a teacher"
+    }
 
     view_mail_refer(mailer_options:)
   end
@@ -18,7 +21,10 @@ class UserMailer < ApplicationMailer
   def referral_submitted(referral)
     @link = users_referral_url(referral)
     @user = referral.user
-    mailer_options = { to: @user.email, subject: "Your referral of serious misconduct has been sent" }
+    mailer_options = {
+      to: @user.email,
+      subject: "Your referral of serious misconduct has been sent"
+    }
 
     view_mail_refer(mailer_options:)
   end

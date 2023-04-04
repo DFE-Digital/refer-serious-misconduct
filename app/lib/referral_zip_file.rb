@@ -34,7 +34,10 @@ class ReferralZipFile
 
         File.open(temp_attachment, "wb+") { |file| blob.download { |chunk| file.write(chunk) } }
 
-        zip.add("#{attachment.name}/#{attachment.record.id}-#{attachment.filename}", File.join(temp_attachment.path))
+        zip.add(
+          "#{attachment.name}/#{attachment.record.id}-#{attachment.filename}",
+          File.join(temp_attachment.path)
+        )
 
         temp_attachments << temp_attachment
       end

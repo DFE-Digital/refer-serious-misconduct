@@ -9,7 +9,9 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
 
     let(:allegation_details) { nil }
     let(:allegation_upload) { nil }
-    let(:form) { described_class.new(referral:, allegation_details:, allegation_format:, allegation_upload:) }
+    let(:form) do
+      described_class.new(referral:, allegation_details:, allegation_format:, allegation_upload:)
+    end
 
     context "with no allegation format" do
       let(:allegation_format) { nil }
@@ -19,7 +21,9 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:allegation_format]).to eq(["Select how you want to give details about the allegation"])
+        expect(form.errors[:allegation_format]).to eq(
+          ["Select how you want to give details about the allegation"]
+        )
       end
     end
 
@@ -31,7 +35,9 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:allegation_upload]).to eq(["Select a file containing details of your allegation"])
+        expect(form.errors[:allegation_upload]).to eq(
+          ["Select a file containing details of your allegation"]
+        )
       end
     end
 
@@ -64,7 +70,9 @@ RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
       it "adds an error" do
         save
         expect(form.errors[:allegation_upload]).to eq(
-          ["The selected file must be of type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"]
+          [
+            "The selected file must be of type (#{FileUploadValidator::CONTENT_TYPES.keys.sort.join(", ")})"
+          ]
         )
       end
     end

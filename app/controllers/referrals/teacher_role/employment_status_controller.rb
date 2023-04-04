@@ -2,11 +2,13 @@ module Referrals
   module TeacherRole
     class EmploymentStatusController < Referrals::BaseController
       def edit
-        @employment_status_form = EmploymentStatusForm.new(employment_status: current_referral.employment_status)
+        @employment_status_form =
+          EmploymentStatusForm.new(employment_status: current_referral.employment_status)
       end
 
       def update
-        @employment_status_form = EmploymentStatusForm.new(employment_status_params.merge(referral: current_referral))
+        @employment_status_form =
+          EmploymentStatusForm.new(employment_status_params.merge(referral: current_referral))
 
         if @employment_status_form.save
           redirect_to next_page
@@ -30,7 +32,9 @@ module Referrals
       end
 
       def next_page
-        return next_path if @employment_status_form.referral.saved_changes? && current_referral.left_role?
+        if @employment_status_form.referral.saved_changes? && current_referral.left_role?
+          return next_path
+        end
 
         super
       end

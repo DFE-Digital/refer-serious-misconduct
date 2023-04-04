@@ -3,7 +3,9 @@ module Referrals
     class CheckAnswersController < Referrals::BaseController
       def edit
         @personal_details_check_answers_form =
-          CheckAnswersForm.new(personal_details_complete: current_referral.personal_details_complete)
+          CheckAnswersForm.new(
+            personal_details_complete: current_referral.personal_details_complete
+          )
       end
 
       def update
@@ -24,7 +26,9 @@ module Referrals
       end
 
       def check_answers_params
-        params.fetch(:referrals_personal_details_check_answers_form, {}).permit(:personal_details_complete)
+        params.fetch(:referrals_personal_details_check_answers_form, {}).permit(
+          :personal_details_complete
+        )
       end
     end
   end

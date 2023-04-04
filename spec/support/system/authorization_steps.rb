@@ -34,7 +34,10 @@ module AuthorizationSteps
   end
 
   def when_i_am_authorized_with_basic_auth_as_a_case_worker
-    page.driver.basic_authorize(ENV.fetch("SUPPORT_USERNAME", "test"), ENV.fetch("SUPPORT_PASSWORD", "test"))
+    page.driver.basic_authorize(
+      ENV.fetch("SUPPORT_USERNAME", "test"),
+      ENV.fetch("SUPPORT_PASSWORD", "test")
+    )
   end
   alias_method :and_i_am_authorized_with_basic_auth_as_a_case_worker,
                :when_i_am_authorized_with_basic_auth_as_a_case_worker

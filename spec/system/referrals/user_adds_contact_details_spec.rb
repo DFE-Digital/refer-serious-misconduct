@@ -171,7 +171,9 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_an_invalid_email_error
-    expect(page).to have_content("Enter an email address in the correct format, like name@example.com")
+    expect(page).to have_content(
+      "Enter an email address in the correct format, like name@example.com"
+    )
   end
 
   def when_i_select_yes_with_a_valid_email
@@ -189,7 +191,9 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_an_invalid_phone_number_error
-    expect(page).to have_content("Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192")
+    expect(page).to have_content(
+      "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+    )
   end
 
   def when_i_select_yes_with_a_valid_phone_number
@@ -257,7 +261,12 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
-    expect_task_row(section: "About the teacher", item_position: 2, name: "Contact details", tag: status)
+    expect_task_row(
+      section: "About the teacher",
+      item_position: 2,
+      name: "Contact details",
+      tag: status
+    )
   end
 
   def and_i_click_the_change_email_link

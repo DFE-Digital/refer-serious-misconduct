@@ -11,7 +11,8 @@ module Referrals
       end
 
       def update
-        @detailed_account_form = DetailedAccountForm.new(detailed_account_form_params.merge(referral: current_referral))
+        @detailed_account_form =
+          DetailedAccountForm.new(detailed_account_form_params.merge(referral: current_referral))
         if @detailed_account_form.save
           redirect_to next_page
         else

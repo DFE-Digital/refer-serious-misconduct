@@ -17,7 +17,9 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:duties_format]).to eq(["Select how you want to give details about their main duties"])
+        expect(form.errors[:duties_format]).to eq(
+          ["Select how you want to give details about their main duties"]
+        )
       end
     end
 
@@ -28,7 +30,9 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
 
       it "adds an error" do
         save
-        expect(form.errors[:duties_upload]).to eq(["Select a file containing a description of their main duties"])
+        expect(form.errors[:duties_upload]).to eq(
+          ["Select a file containing a description of their main duties"]
+        )
       end
     end
 

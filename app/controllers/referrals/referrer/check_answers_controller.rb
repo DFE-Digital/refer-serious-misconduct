@@ -3,7 +3,8 @@ module Referrals
     class CheckAnswersController < BaseController
       def edit
         @referrer = current_referral.referrer
-        @check_answers_form = CheckAnswersForm.new(referrer: @referrer, complete: @referrer.complete)
+        @check_answers_form =
+          CheckAnswersForm.new(referrer: @referrer, complete: @referrer.complete)
       end
 
       def update

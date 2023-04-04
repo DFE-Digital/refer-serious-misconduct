@@ -19,7 +19,8 @@ RSpec.describe OrganisationComponent, type: :component do
       expect(page).to have_css("dd", text: organisation.city)
       expect(page).to have_css("dd", text: organisation.postcode)
 
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/organisation/address/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/organisation/address/edit?return_to=%2F"
     end
   end
 end

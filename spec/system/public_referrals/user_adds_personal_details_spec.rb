@@ -70,7 +70,8 @@ RSpec.feature "Personal details", type: :system do
     expect_summary_row(
       key: "Their name",
       value: "Jane Smith",
-      change_link: edit_public_referral_personal_details_name_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_personal_details_name_path(@referral, return_to: current_path)
     )
 
     expect(page).to have_content("Have you completed this section?")

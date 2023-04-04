@@ -9,7 +9,10 @@ class FlashMessageComponent < ViewComponent::Base
   end
 
   def message_key
-    key = flash.keys.detect { |k| ALLOWED_PRIMARY_KEYS.include?(k) || DEVISE_PRIMARY_KEYS.keys.include?(k) }
+    key =
+      flash.keys.detect do |k|
+        ALLOWED_PRIMARY_KEYS.include?(k) || DEVISE_PRIMARY_KEYS.keys.include?(k)
+      end
     DEVISE_PRIMARY_KEYS[key] || key
   end
 

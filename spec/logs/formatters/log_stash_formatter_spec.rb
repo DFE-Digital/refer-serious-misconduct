@@ -81,7 +81,9 @@ RSpec.describe LogStashFormatter do
       it "does adds the error message under the `message` key in the log" do
         formatter.format_exception
 
-        expect(formatter.hash[:message]).to eq('Exception occured: No route matches [GET] "/users/referralsss/15"')
+        expect(formatter.hash[:message]).to eq(
+          'Exception occured: No route matches [GET] "/users/referralsss/15"'
+        )
       end
     end
   end
@@ -93,10 +95,15 @@ RSpec.describe LogStashFormatter do
       formatter.format_stacktrace
 
       expect(formatter.hash[:exception]).to eq(
-        { name: "ActionController::RoutingError", message: "No route matches [GET] \"/users/referralsss/15\"" }
+        {
+          name: "ActionController::RoutingError",
+          message: "No route matches [GET] \"/users/referralsss/15\""
+        }
       )
 
-      expect(formatter.hash[:stacktrace]).to eq(["stack trace line 1", "stack trace line 2", "stack trace line 3"])
+      expect(formatter.hash[:stacktrace]).to eq(
+        ["stack trace line 1", "stack trace line 2", "stack trace line 3"]
+      )
 
       expect(formatter.hash[:exception][:stack_trace]).to be_nil
     end

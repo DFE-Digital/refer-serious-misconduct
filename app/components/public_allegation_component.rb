@@ -22,7 +22,11 @@ class PublicAllegationComponent < ViewComponent::Base
   end
 
   def allegation_details_description_row
-    { label: "Description of the allegation", value: allegation_details(referral), path: :allegation_details }
+    {
+      label: "Description of the allegation",
+      value: allegation_details(referral),
+      path: :allegation_details
+    }
   end
 
   def allegation_details_considerations_row

@@ -29,7 +29,11 @@ class PersonalDetailsComponent < ViewComponent::Base
   end
 
   def name_row
-    { label: "Their name", value: "#{referral.first_name} #{referral.last_name}", path: :personal_details_name }
+    {
+      label: "Their name",
+      value: "#{referral.first_name} #{referral.last_name}",
+      path: :personal_details_name
+    }
   end
 
   def other_name_row
@@ -47,7 +51,11 @@ class PersonalDetailsComponent < ViewComponent::Base
     return unless referral.from_employer?
     return unless referral.age_known?
 
-    { label: "Date of birth", value: referral.date_of_birth&.to_fs(:long_ordinal_uk), path: :personal_details_age }
+    {
+      label: "Date of birth",
+      value: referral.date_of_birth&.to_fs(:long_ordinal_uk),
+      path: :personal_details_age
+    }
   end
 
   def date_of_birth_known_row

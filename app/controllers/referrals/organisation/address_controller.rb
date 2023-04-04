@@ -6,7 +6,8 @@ module Referrals
       end
 
       def update
-        @organisation_address_form = AddressForm.new(organisation_address_form_params.merge(referral: current_referral))
+        @organisation_address_form =
+          AddressForm.new(organisation_address_form_params.merge(referral: current_referral))
         if @organisation_address_form.save
           redirect_to next_page
         else
@@ -17,7 +18,13 @@ module Referrals
       private
 
       def organisation_address_form_params
-        params.require(:referrals_organisation_address_form).permit(:city, :name, :postcode, :street_1, :street_2)
+        params.require(:referrals_organisation_address_form).permit(
+          :city,
+          :name,
+          :postcode,
+          :street_1,
+          :street_2
+        )
       end
 
       def next_path

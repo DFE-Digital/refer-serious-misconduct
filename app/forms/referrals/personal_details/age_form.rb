@@ -8,7 +8,13 @@ module Referrals
       attr_reader :age_known
 
       validates :age_known, inclusion: { in: [true, false] }
-      validates :date_of_birth, date: { above_16: true, not_future: true, past_century: true }, if: -> { age_known }
+      validates :date_of_birth,
+                date: {
+                  above_16: true,
+                  not_future: true,
+                  past_century: true
+                },
+                if: -> { age_known }
 
       def age_known=(value)
         @age_known = ActiveModel::Type::Boolean.new.cast(value)

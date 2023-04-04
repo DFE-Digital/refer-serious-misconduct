@@ -14,6 +14,10 @@ class OrganisationComponent < ViewComponent::Base
   private
 
   def organisation_row
-    { label: "Your organisation", value: organisation_address(organisation), path: :organisation_address }
+    {
+      label: "Your organisation",
+      value: organisation_address(organisation),
+      path: :organisation_address
+    }
   end
 end

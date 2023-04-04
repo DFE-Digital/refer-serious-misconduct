@@ -27,7 +27,9 @@ class FileUploadValidator < ActiveModel::EachValidator
     uploaded_files = [uploaded_files] unless uploaded_files.is_a?(Array)
     uploaded_files.compact_blank!
 
-    record.errors.add(attribute, :file_count, max_files: MAX_FILES) if uploaded_files.size > MAX_FILES
+    if uploaded_files.size > MAX_FILES
+      record.errors.add(attribute, :file_count, max_files: MAX_FILES)
+    end
 
     uploaded_files.each do |uploaded_file|
       next if uploaded_file.nil?
@@ -47,7 +49,11 @@ class FileUploadValidator < ActiveModel::EachValidator
       extension = File.extname(uploaded_file.original_filename).downcase
 
       if !CONTENT_TYPES.values.include?(content_type) || !CONTENT_TYPES.keys.include?(extension)
-        record.errors.add(attribute, :invalid_content_type, valid_types: CONTENT_TYPES.keys.sort.join(", "))
+        record.errors.add(
+          attribute,
+          :invalid_content_type,
+          valid_types: CONTENT_TYPES.keys.sort.join(", ")
+        )
         break
       elsif CONTENT_TYPES[extension] != content_type
         record.errors.add attribute, :mismatch_content_type

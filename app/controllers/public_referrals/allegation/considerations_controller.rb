@@ -27,7 +27,9 @@ module PublicReferrals
       private
 
       def allegation_considerations_params
-        params.require(:referrals_allegation_considerations_form).permit(:allegation_consideration_details)
+        params.require(:referrals_allegation_considerations_form).permit(
+          :allegation_consideration_details
+        )
       end
 
       def next_path

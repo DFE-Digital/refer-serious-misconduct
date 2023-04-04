@@ -19,7 +19,9 @@ class Staff < ApplicationRecord
   scope :active, -> { where(deleted_at: nil) }
 
   def password_complexity
-    return if password.blank? || password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
+    if password.blank? || password =~ /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
+      return
+    end
 
     errors.add(:password, :password_complexity)
   end

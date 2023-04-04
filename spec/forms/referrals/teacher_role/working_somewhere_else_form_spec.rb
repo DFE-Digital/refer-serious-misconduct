@@ -20,7 +20,9 @@ RSpec.describe Referrals::TeacherRole::WorkingSomewhereElseForm, type: :model do
       it { is_expected.to be_falsy }
 
       it "adds an error" do
-        expect(form.errors[:working_somewhere_else]).to eq(["Select yes if they’re employed somewhere else"])
+        expect(form.errors[:working_somewhere_else]).to eq(
+          ["Select yes if they’re employed somewhere else"]
+        )
       end
     end
   end

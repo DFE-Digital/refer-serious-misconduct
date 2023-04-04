@@ -32,7 +32,10 @@ class EvidenceComponent < ViewComponent::Base
       referral.evidences.map do |evidence|
         concat(
           tag.li(class: "govuk-!-margin-bottom-0") do
-            govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment"))
+            govuk_link_to(
+              evidence.filename,
+              rails_blob_path(evidence.document, disposition: "attachment")
+            )
           end
         )
       end

@@ -128,7 +128,10 @@ RSpec.feature "Evidence", type: :system do
   def when_i_upload_evidence_files
     attach_file(
       "Upload files",
-      [Rails.root.join("spec/fixtures/files/upload2.pdf"), Rails.root.join("spec/fixtures/files/upload1.pdf")]
+      [
+        Rails.root.join("spec/fixtures/files/upload2.pdf"),
+        Rails.root.join("spec/fixtures/files/upload1.pdf")
+      ]
     )
   end
 
@@ -247,7 +250,9 @@ RSpec.feature "Evidence", type: :system do
   def and_the_evidence_section_state_is(state)
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[1]) do
-        expect(find(".app-task-list__task-name a").text).to eq("Evidence and supporting information")
+        expect(find(".app-task-list__task-name a").text).to eq(
+          "Evidence and supporting information"
+        )
         expect(find(".app-task-list__tag").text).to eq(state.to_s.upcase)
       end
     end

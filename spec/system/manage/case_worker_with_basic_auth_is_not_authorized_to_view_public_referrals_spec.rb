@@ -4,7 +4,8 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
-  scenario "Case worker with basic auth is not authorized to view public referrals", type: :system do
+  scenario "Case worker with basic auth is not authorized to view public referrals",
+           type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active

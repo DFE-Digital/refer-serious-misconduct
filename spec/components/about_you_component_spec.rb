@@ -13,12 +13,15 @@ RSpec.describe AboutYouComponent, type: :component do
     let(:referral) { create(:referral, :complete) }
 
     it "renders rows in the right order" do
-      expect(row_labels).to eq(["Your name", "Your email address", "Your job title", "Your phone number"])
+      expect(row_labels).to eq(
+        ["Your name", "Your email address", "Your job title", "Your phone number"]
+      )
     end
 
     it "renders the name row" do
       expect(page).to have_css("dd", text: referrer.name)
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/referrer/name/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/referrer/name/edit?return_to=%2F"
     end
 
     it "renders the email row" do
@@ -27,12 +30,14 @@ RSpec.describe AboutYouComponent, type: :component do
 
     it "renders the job title row" do
       expect(page).to have_css("dd", text: referrer.job_title)
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/referrer/job-title/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/referrer/job-title/edit?return_to=%2F"
     end
 
     it "renders the phone row" do
       expect(page).to have_css("dd", text: referrer.phone)
-      expect(page).to have_link "Change", href: "/referrals/#{referral.id}/referrer/phone/edit?return_to=%2F"
+      expect(page).to have_link "Change",
+                href: "/referrals/#{referral.id}/referrer/phone/edit?return_to=%2F"
     end
   end
 
@@ -45,7 +50,8 @@ RSpec.describe AboutYouComponent, type: :component do
 
     it "doesn't render the job title row" do
       expect(page).not_to have_css("dd", text: referrer.job_title)
-      expect(page).not_to have_link "Change", href: "/referrals/#{referral.id}/referrer/job-title/edit?return_to=%2F"
+      expect(page).not_to have_link "Change",
+                href: "/referrals/#{referral.id}/referrer/job-title/edit?return_to=%2F"
     end
   end
 end

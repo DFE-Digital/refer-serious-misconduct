@@ -24,7 +24,9 @@ RSpec.describe RenderPdfJob do
     end
 
     before do
-      allow(ActionController::Base.helpers).to receive(:asset_path).with("main.css").and_return("/1234-main.css")
+      allow(ActionController::Base.helpers).to receive(:asset_path).with("main.css").and_return(
+        "/1234-main.css"
+      )
       allow(ActionController::Base.helpers).to receive(:asset_path).with("tra_logo.png").and_return(
         "/images/1234-tra_logo.png"
       )

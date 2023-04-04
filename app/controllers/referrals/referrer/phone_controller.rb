@@ -7,7 +7,9 @@ module Referrals
 
       def update
         @referrer_phone_form =
-          Referrals::Referrer::PhoneForm.new(referrer_phone_form_params.merge(referral: current_referral))
+          Referrals::Referrer::PhoneForm.new(
+            referrer_phone_form_params.merge(referral: current_referral)
+          )
         if @referrer_phone_form.save
           redirect_to next_page
         else
@@ -26,7 +28,9 @@ module Referrals
       end
 
       def previous_path
-        polymorphic_path([:edit, current_referral.routing_scope, current_referral, :referrer_job_title])
+        polymorphic_path(
+          [:edit, current_referral.routing_scope, current_referral, :referrer_job_title]
+        )
       end
       helper_method :previous_path
     end

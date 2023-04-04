@@ -57,7 +57,11 @@ module ReferralHelper
   def allegation_details(referral)
     case referral.allegation_format
     when "details"
-      referral.allegation_details.present? ? simple_format(referral.allegation_details) : "Incomplete"
+      if referral.allegation_details.present?
+        simple_format(referral.allegation_details)
+      else
+        "Incomplete"
+      end
     when "upload"
       if referral.allegation_upload.attached?
         govuk_link_to(

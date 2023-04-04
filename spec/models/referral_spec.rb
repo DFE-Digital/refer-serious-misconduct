@@ -12,7 +12,9 @@ RSpec.describe Referral, type: :model do
     subject { described_class.employer }
 
     let(:employer_referral) { create(:referral) }
-    let(:public_referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
+    let(:public_referral) do
+      create(:referral, eligibility_check: create(:eligibility_check, :public))
+    end
 
     it { is_expected.to eq [employer_referral] }
   end
@@ -21,7 +23,9 @@ RSpec.describe Referral, type: :model do
     subject { described_class.member_of_public }
 
     let(:employer_referral) { create(:referral) }
-    let(:public_referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
+    let(:public_referral) do
+      create(:referral, eligibility_check: create(:eligibility_check, :public))
+    end
 
     it { is_expected.to eq [public_referral] }
   end

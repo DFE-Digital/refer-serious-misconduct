@@ -93,7 +93,10 @@ RSpec.feature "Allegation", type: :system do
   def then_i_am_asked_to_confirm_the_allegation_details
     expect(page).to have_content("Check and confirm your answers")
 
-    expect_summary_row(key: "How do you want to give details about the allegation?", value: "Describe the allegation")
+    expect_summary_row(
+      key: "How do you want to give details about the allegation?",
+      value: "Describe the allegation"
+    )
 
     expect_summary_row(
       key: "Description of the allegation",
