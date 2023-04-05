@@ -121,7 +121,7 @@ module ReferralHelper
         text: label
       },
       value: {
-        text: nullable_value_to_s(value.presence)
+        text: nullable_value_to_s(value)
       }
     }
   end
