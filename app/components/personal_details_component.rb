@@ -24,6 +24,7 @@ class PersonalDetailsComponent < ViewComponent::Base
     {
       label: "Do you know them by any other name?",
       value: referral.name_has_changed&.humanize,
+      visually_hidden_text: "if you know them by any other name",
       path: :personal_details_name
     }
   end
@@ -39,12 +40,7 @@ class PersonalDetailsComponent < ViewComponent::Base
   def other_name_row
     return unless referral.name_has_changed?
 
-    {
-      label: "Other name",
-      value: referral.previous_name,
-      path: :personal_details_name,
-      visually_hidden_text: "if you know them by any other name"
-    }
+    { label: "Other name", value: referral.previous_name, path: :personal_details_name }
   end
 
   def date_of_birth_row

@@ -103,7 +103,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
 
     it "renders the date of birth known row" do
       expect(row_labels[2]).to eq("Do you know their date of birth?")
-      expect(row_values_sanitized[2]).to eq("Not answered")
+      expect(row_values_sanitized[2]).to eq("No")
       expect(row_links[2]).to eq(
         "/referrals/#{referral.id}/personal-details/age/edit?return_to=%2F"
       )
@@ -139,7 +139,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
 
     it "renders the trn known row" do
       expect(row_labels[4]).to eq("Do you know their teacher reference number (TRN)?")
-      expect(row_values_sanitized[4]).to eq("Not answered")
+      expect(row_values_sanitized[4]).to eq("No")
       expect(row_links[4]).to eq(
         "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
       )
@@ -177,7 +177,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
 
     it "renders the national insurance number known row" do
       expect(row_labels[3]).to eq("Do you know their National Insurance number?")
-      expect(row_values_sanitized[3]).to eq("Not answered")
+      expect(row_values_sanitized[3]).to eq("No")
       expect(row_links[3]).to eq(
         "/referrals/#{referral.id}/personal-details/ni_number/edit?return_to=%2F"
       )

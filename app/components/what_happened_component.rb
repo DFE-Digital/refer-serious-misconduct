@@ -6,58 +6,38 @@ class WhatHappenedComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    items = [
-      {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :allegation, :details],
-            visually_hidden_text: "how you want to give details about the allegation"
-          }
-        ],
-        key: {
-          text: "How do you want to give details about the allegation?"
-        },
-        value: {
-          text: allegation_details_format(referral)
-        }
-      },
-      {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :allegation, :details, { return_to: }],
-            visually_hidden_text: "description of the allegation"
-          }
-        ],
-        key: {
-          text: "Description of the allegation"
-        },
-        value: {
-          text: allegation_details(referral)
-        }
-      },
-      {
-        actions: [
-          {
-            text: "Change",
-            href: [:edit, referral.routing_scope, referral, :allegation, :dbs, { return_to: }],
-            visually_hidden_text: "if you have told DBS"
-          }
-        ],
-        key: {
-          text: "Have you told DBS?"
-        },
-        value: {
-          text: nullable_boolean_to_s(referral.dbs_notified)
-        }
-      }
-    ]
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   details_about_allegation_format_row,
+                   details_about_allegation_row,
+                   dbs_notified_row
+                 ].compact
   end
 
-  def return_to
-    polymorphic_path([:edit, referral.routing_scope, referral, :allegation, :check_answers])
+  private
+
+  def details_about_allegation_format_row
+    {
+      label: "How do you want to give details about the allegation?",
+      visually_hidden_text: "how you want to give details about the allegation",
+      value: allegation_details_format(referral),
+      path: :allegation_details
+    }
+  end
+
+  def details_about_allegation_row
+    {
+      label: "Description of the allegation",
+      value: allegation_details(referral),
+      path: :allegation_details
+    }
+  end
+
+  def dbs_notified_row
+    {
+      label: "Have you told DBS?",
+      visually_hidden_text: "if you have told DBS",
+      value: referral.dbs_notified,
+      path: :allegation_dbs
+    }
   end
 end
