@@ -13,7 +13,7 @@ class Referral < ApplicationRecord
            -> { order(:created_at) },
            class_name: "ReferralEvidence",
            dependent: :destroy
-  has_many :reminder_emails
+  has_many :reminder_emails, dependent: :destroy
 
   scope :employer,
         -> { joins(:eligibility_check).where(eligibility_check: { reporting_as: :employer }) }
