@@ -95,13 +95,14 @@ FactoryBot.define do
       employment_status { "left_role" }
       job_title { "Teacher" }
       reason_leaving_role { "dismissed" }
-      role_end_date { 1.month.ago }
+      role_end_date { Time.zone.local(2023, 3, 10) }
       role_end_date_known { true }
-      role_start_date { 1.year.ago }
+      role_start_date { Time.zone.local(2022, 4, 10) }
       role_start_date_known { true }
       same_organisation { true }
       teacher_role_complete { true }
       work_address_line_1 { "2 Different Street" }
+      work_address_line_2 { "Same Road" }
       work_location_known { true }
       work_organisation_name { "Different School" }
       work_postcode { "AB1 2CD" }
@@ -115,6 +116,7 @@ FactoryBot.define do
       job_title { "Teacher" }
       organisation_address_known { true }
       organisation_address_line_1 { "1 Example Street" }
+      organisation_address_line_2 { "Different Road" }
       organisation_name { "Example School" }
       organisation_postcode { "AB1 2CD" }
       organisation_town_or_city { "Example Town" }

@@ -7,28 +7,24 @@ class TheirRoleComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    items = [job_title_row, role_duties_row, role_duties_description_row]
-
-    items << same_organisation_row if referral.from_employer?
-
-    unless referral.same_organisation?
-      items << organisation_address_known_row
-      items << organisation_address_row if referral.organisation_address_known
-    end
-
-    items << start_date_known_row if referral.from_employer?
-    items << start_date_row if referral.role_start_date_known
-    items << employment_status_row if referral.from_employer?
-
-    if referral.left_role?
-      items << end_date_known_row
-      items << end_date_row if referral.role_end_date_known
-      items << reason_leaving_role_row
-      items << working_somewhere_else_row
-
-      items << work_location_known_row if referral.working_somewhere_else?
-      items << work_location_row if referral.work_location_known?
-    end
+    items =
+      summary_rows [
+                     job_title_row,
+                     role_duties_row,
+                     role_duties_description_row,
+                     same_organisation_row,
+                     organisation_address_known_row,
+                     organisation_address_row,
+                     start_date_known_row,
+                     start_date_row,
+                     employment_status_row,
+                     end_date_known_row,
+                     end_date_row,
+                     reason_leaving_role_row,
+                     working_somewhere_else_row,
+                     work_location_known_row,
+                     work_location_row
+                   ].compact
 
     referral.submitted? ? remove_actions(items) : items
   end
@@ -36,267 +32,158 @@ class TheirRoleComponent < ViewComponent::Base
   private
 
   def job_title_row
-    {
-      actions: [
-        { text: "Change", href: path_for(:job_title), visually_hidden_text: "their job title" }
-      ],
-      key: {
-        text: "Their job title"
-      },
-      value: {
-        text: nullable_value_to_s(referral.job_title)
-      }
-    }
+    { label: "Their job title", value: referral.job_title, path: :teacher_role_job_title }
   end
 
   def role_duties_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:duties),
-          visually_hidden_text: "how you want to give details about their main duties"
-        }
-      ],
-      key: {
-        text: "How do you want to give details about their main duties?"
-      },
-      value: {
-        text: duties_format(referral)
-      }
+      label: "How do you want to give details about their main duties?",
+      value: duties_format(referral),
+      path: :teacher_role_duties,
+      visually_hidden_text: "how you want to give details about their main duties"
     }
   end
 
   def role_duties_description_row
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:duties),
-          visually_hidden_text: "description of their role"
-        }
-      ],
-      key: {
-        text: "Description of their role"
-      },
-      value: {
-        text: duties_details(referral)
-      }
+      label: "Description of their role",
+      value: duties_details(referral),
+      path: :teacher_role_duties
     }
   end
 
   def same_organisation_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:same_organisation),
-          visually_hidden_text:
-            "if they were employed at the same organisation as you at the time of the alleged misconduct"
-        }
-      ],
-      key: {
-        text:
-          "Were they employed at the same organisation as you at the time of the alleged misconduct?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.same_organisation)
-      }
+      label:
+        "Were they employed at the same organisation as you at the time of the alleged misconduct?",
+      value: referral.same_organisation,
+      path: :teacher_role_same_organisation,
+      visually_hidden_text:
+        "if they were employed at the same organisation as you at the time of the alleged misconduct"
     }
   end
 
   def organisation_address_known_row
+    return unless referral.from_employer?
+    return if referral.same_organisation.nil? || referral.same_organisation?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:organisation_address_known),
-          visually_hidden_text:
-            "if you know the name and address of the organisation where the alleged misconduct took place"
-        }
-      ],
-      key: {
-        text:
-          "Do you know the name and address of the organisation where the alleged misconduct took place?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.organisation_address_known)
-      }
+      label:
+        "Do you know the name and address of the organisation where the alleged misconduct took place?",
+      value: referral.organisation_address_known,
+      path: :teacher_role_organisation_address_known,
+      visually_hidden_text:
+        "if you know the name and address of the organisation where the alleged misconduct took place"
     }
   end
 
   def organisation_address_row
+    return unless referral.from_employer?
+    return if referral.same_organisation? || !referral.organisation_address_known
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:organisation_address),
-          visually_hidden_text:
-            "name and address of the organisation where the alleged misconduct took place"
-        }
-      ],
-      key: {
-        text: "Name and address of the organisation where the alleged misconduct took place"
-      },
-      value: {
-        text: referral_organisation_address(referral)
-      }
+      label: "Name and address of the organisation where the alleged misconduct took place",
+      value: referral_organisation_address(referral),
+      path: :teacher_role_organisation_address
     }
   end
 
   def start_date_known_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:start_date),
-          visually_hidden_text: "if you know when they started the job"
-        }
-      ],
-      key: {
-        text: "Do you know when they started the job?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.role_start_date_known)
-      }
+      label: "Do you know when they started the job?",
+      value: referral.role_start_date_known,
+      path: :teacher_role_start_date,
+      visually_hidden_text: "if you know when they started the job"
     }
   end
 
   def start_date_row
+    return unless referral.from_employer? && referral.role_start_date_known
+
     {
-      actions: [
-        { text: "Change", href: path_for(:start_date), visually_hidden_text: "job start date" }
-      ],
-      key: {
-        text: "Job start date"
-      },
-      value: {
-        text: referral.role_start_date&.to_fs(:long_ordinal_uk)
-      }
+      label: "Job start date",
+      value: referral.role_start_date&.to_fs(:long_ordinal_uk),
+      path: :teacher_role_start_date
     }
   end
 
   def employment_status_row
+    return unless referral.from_employer?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:employment_status),
-          visually_hidden_text:
-            "if are they still employed at the organisation where the alleged misconduct took place"
-        }
-      ],
-      key: {
-        text: "Are they still employed at the organisation where the alleged misconduct took place?"
-      },
-      value: {
-        text: employment_status(referral)
-      }
+      label: "Are they still employed at the organisation where the alleged misconduct took place?",
+      value: employment_status(referral),
+      path: :teacher_role_employment_status,
+      visually_hidden_text:
+        "if are they still employed at the organisation where the alleged misconduct took place"
     }
   end
 
   def end_date_known_row
+    return unless referral.left_role?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:end_date),
-          visually_hidden_text: "if you know when they left the job"
-        }
-      ],
-      key: {
-        text: "Do you know when they left the job?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.role_end_date_known)
-      }
+      label: "Do you know when they left the job?",
+      value: referral.role_end_date_known,
+      path: :teacher_role_end_date,
+      visually_hidden_text: "if you know when they left the job"
     }
   end
 
   def end_date_row
+    return unless referral.left_role? && referral.role_end_date_known
+
     {
-      actions: [
-        { text: "Change", href: path_for(:end_date), visually_hidden_text: "job end date" }
-      ],
-      key: {
-        text: "Job end date"
-      },
-      value: {
-        text: referral.role_end_date&.to_fs(:long_ordinal_uk)
-      }
+      label: "Job end date",
+      value: referral.role_end_date&.to_fs(:long_ordinal_uk),
+      path: :teacher_role_end_date
     }
   end
 
   def reason_leaving_role_row
+    return unless referral.left_role?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:reason_leaving_role),
-          visually_hidden_text: "reason they left the job"
-        }
-      ],
-      key: {
-        text: "Reason they left the job"
-      },
-      value: {
-        text: reason_leaving_role
-      }
+      label: "Reason they left the job",
+      value: reason_leaving_role,
+      path: :teacher_role_reason_leaving_role
     }
   end
 
   def working_somewhere_else_row
+    return unless referral.left_role?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:working_somewhere_else),
-          visually_hidden_text: "if they are they employed somewhere else"
-        }
-      ],
-      key: {
-        text: "Are they employed somewhere else?"
-      },
-      value: {
-        text: working_somewhere_else
-      }
+      label: "Are they employed somewhere else?",
+      value: working_somewhere_else,
+      path: :teacher_role_working_somewhere_else,
+      visually_hidden_text: "if they are they employed somewhere else"
     }
   end
 
   def work_location_known_row
+    return unless referral.left_role? && referral.working_somewhere_else?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:work_location_known),
-          visually_hidden_text:
-            "if you know the name and address of the organisation where they’re employed"
-        }
-      ],
-      key: {
-        text: "Do you know the name and address of the organisation where they’re employed?"
-      },
-      value: {
-        text: nullable_boolean_to_s(referral.work_location_known)
-      }
+      label: "Do you know the name and address of the organisation where they’re employed?",
+      value: referral.work_location_known,
+      path: :teacher_role_work_location_known,
+      visually_hidden_text:
+        "if you know the name and address of the organisation where they’re employed"
     }
   end
 
   def work_location_row
+    return unless referral.left_role? && referral.work_location_known?
+
     {
-      actions: [
-        {
-          text: "Change",
-          href: path_for(:work_location),
-          visually_hidden_text: "name and address of the organisation where they’re employed"
-        }
-      ],
-      key: {
-        text: "Name and address of the organisation where they’re employed"
-      },
-      value: {
-        text: nullable_value_to_s(teaching_address(referral).presence)
-      }
+      label: "Name and address of the organisation where they’re employed",
+      value: teaching_address(referral).presence,
+      path: :teacher_role_work_location
     }
   end
 
