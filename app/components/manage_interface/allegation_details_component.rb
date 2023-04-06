@@ -2,53 +2,55 @@ module ManageInterface
   class AllegationDetailsComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
+    include ComponentHelper
 
     attr_accessor :referral
 
     def rows
-      rows = [
-        {
-          key: {
-            text: "How do you want to give details about the allegation?"
-          },
-          value: {
-            text: details_format
-          }
-        },
-        { key: { text: "Allegation details" }, value: { text: allegation_details(referral) } }
-      ]
-
-      if referral.from_member_of_public?
-        rows.push(
-          {
-            key: {
-              text: "Details about how this complaint has been considered"
-            },
-            value: {
-              text: simple_format(referral.allegation_consideration_details)
-            }
-          }
-        )
-      end
-
-      return rows unless referral.from_employer?
-
-      rows.push(
-        {
-          key: {
-            text: "Have you told the Disclosure and Barring Service (DBS)?"
-          },
-          value: {
-            text: referral.dbs_notified ? "Yes" : "No"
-          }
-        }
-      )
-
-      rows
+      summary_rows [
+                     allegation_details_format_row,
+                     allegation_details_row,
+                     complain_consideration_row,
+                     told_dbs_row
+                   ].compact
     end
 
     def title
       "Allegation details"
+    end
+
+    private
+
+    def allegation_details_format_row
+      {
+        label: "How do you want to give details about the allegation?",
+        value: details_format,
+        path: nil
+      }
+    end
+
+    def allegation_details_row
+      { label: "Allegation details", value: allegation_details(referral), path: nil }
+    end
+
+    def complain_consideration_row
+      return unless referral.from_member_of_public?
+
+      {
+        label: "Details about how this complaint has been considered",
+        value: simple_format(referral.allegation_consideration_details),
+        path: nil
+      }
+    end
+
+    def told_dbs_row
+      return unless referral.from_employer?
+
+      {
+        label: "Have you told the Disclosure and Barring Service (DBS)?",
+        value: referral.dbs_notified,
+        path: nil
+      }
     end
 
     def details_format
