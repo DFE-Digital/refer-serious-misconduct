@@ -169,7 +169,9 @@ RSpec.feature "Eligibility screener", type: :system do
         "Refer serious misconduct by a teacher in England"
       ].join(" - ")
     )
-    expect(page).to have_content("Consider making a complaint first")
+    expect(page).to have_content(
+      "Your allegation is unlikely to be investigated because you have not made a complaint"
+    )
   end
 
   def then_i_see_the_you_should_know_page
@@ -227,7 +229,7 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def when_i_press_continue_without_complaint
-    click_on "Continue without an informal complaint"
+    click_on "continue to refer serious misconduct without making a complaint"
   end
 
   def when_i_visit_the_service

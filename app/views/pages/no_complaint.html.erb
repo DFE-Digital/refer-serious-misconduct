@@ -3,25 +3,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Consider making a complaint first</h1>
-    <p class="govuk-body">Before referring a teacher, first consider making a complaint to:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>
-        the school
-      </li>
-      <li>
-        the school governors
-      </li>
-      <li>
-        your local council
-      </li>
-    </ul>
-    <p class="govuk-body">
-      View guidance about <%= link_to "how to make an informal complaint", "https://www.gov.uk/report-teacher-misconduct" %></a>.
-    </p>
+    <h1 class="govuk-heading-l">Your allegation is unlikely to be investigated because you have not made a complaint</h1>
+    <p class="govuk-body">To make a complaint, contact the school.</p>
+    <p class="govuk-body">If you’re not satisfied that your complaint to the school has been resolved, contact the board of governors or <%= link_to "contact the council", "https://www.gov.uk/find-local-council
+    " %>.</p>
 
-    <p class="govuk-body">You can still refer a teacher without making an informal complaint. Your allegation may not be investigated unless you have made a complaint first.</p>
-
-    <%= govuk_button_link_to "Continue without an informal complaint", is_a_teacher_path %>
+    <p class="govuk-body">You can <%= link_to "continue to refer serious misconduct without making a complaint", is_a_teacher_path %>.</p>
   </div>
 </div>
