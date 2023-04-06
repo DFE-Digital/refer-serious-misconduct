@@ -22,7 +22,11 @@ module Referrals
         referrer.update(phone:)
       end
 
-      delegate :referrer, to: :referral, allow_nil: true
+      private
+
+      def referrer
+        @referrer ||= referral&.referrer || referral&.build_referrer
+      end
     end
   end
 end
