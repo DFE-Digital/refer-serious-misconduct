@@ -12,7 +12,7 @@ module ManageInterface
     private
 
     def evidence_row
-      { label: "Is there anything to upload?", value: "No", path: nil }
+      { label: "Is there anything to upload?", value: "No" }
     end
   end
 end

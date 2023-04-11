@@ -114,7 +114,7 @@ module ReferralHelper
     rows.map { |row| summary_row(**row) }
   end
 
-  def summary_row(path:, label:, value:, visually_hidden_text: nil)
+  def summary_row(label:, value:, path: nil, visually_hidden_text: nil)
     {
       actions: summary_row_actions(path:, label:, visually_hidden_text:),
       key: {
@@ -126,7 +126,7 @@ module ReferralHelper
     }
   end
 
-  def summary_row_actions(path:, label:, visually_hidden_text: nil)
+  def summary_row_actions(label:, path: nil, visually_hidden_text: nil)
     return {} unless path
 
     visually_hidden_text = label.downcase if visually_hidden_text.blank?

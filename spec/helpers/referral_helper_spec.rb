@@ -35,7 +35,7 @@ RSpec.describe ReferralHelper, type: :helper do
     end
 
     context "when called without a path" do
-      let(:row) { { path: nil, label: "label", value: "value" } }
+      let(:row) { { label: "label", value: "value" } }
 
       it "returns a hash with the correct keys" do
         expect(helper_method.keys).to eq %i[actions key value]

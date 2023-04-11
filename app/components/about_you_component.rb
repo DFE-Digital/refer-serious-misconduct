@@ -20,7 +20,7 @@ class AboutYouComponent < ViewComponent::Base
   end
 
   def email_row
-    { label: "Your email address", value: user.email, path: nil }
+    { label: "Your email address", value: user.email }
   end
 
   def job_title_row

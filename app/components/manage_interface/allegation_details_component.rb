@@ -22,15 +22,11 @@ module ManageInterface
     private
 
     def allegation_details_format_row
-      {
-        label: "How do you want to give details about the allegation?",
-        value: details_format,
-        path: nil
-      }
+      { label: "How do you want to give details about the allegation?", value: details_format }
     end
 
     def allegation_details_row
-      { label: "Allegation details", value: allegation_details(referral), path: nil }
+      { label: "Allegation details", value: allegation_details(referral) }
     end
 
     def complain_consideration_row
@@ -38,8 +34,7 @@ module ManageInterface
 
       {
         label: "Details about how this complaint has been considered",
-        value: simple_format(referral.allegation_consideration_details),
-        path: nil
+        value: simple_format(referral.allegation_consideration_details)
       }
     end
 
@@ -48,8 +43,7 @@ module ManageInterface
 
       {
         label: "Have you told the Disclosure and Barring Service (DBS)?",
-        value: referral.dbs_notified,
-        path: nil
+        value: referral.dbs_notified
       }
     end
 
