@@ -17,7 +17,7 @@ module ManageInterface
     private
 
     def organisation_row
-      { label: "Organisation", value: teaching_address(referral), path: nil }
+      { label: "Organisation", value: teaching_address(referral) }
     end
   end
 end
