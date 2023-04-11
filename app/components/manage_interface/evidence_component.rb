@@ -6,9 +6,13 @@ module ManageInterface
     attr_accessor :referral
 
     def rows
-      unless referral.has_evidence
-        [{ key: { text: "Is there anything to upload?" }, value: { text: "No" } }]
-      end
+      summary_rows [evidence_row] unless referral.has_evidence
+    end
+
+    private
+
+    def evidence_row
+      { label: "Is there anything to upload?", value: "No", path: nil }
     end
   end
 end
