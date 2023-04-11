@@ -6,11 +6,14 @@ class WhatHappenedComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    summary_rows [
-                   details_about_allegation_format_row,
-                   details_about_allegation_row,
-                   dbs_notified_row
-                 ].compact
+    items =
+      summary_rows [
+                     details_about_allegation_format_row,
+                     details_about_allegation_row,
+                     dbs_notified_row
+                   ].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

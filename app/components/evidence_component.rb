@@ -1,11 +1,14 @@
 class EvidenceComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    summary_rows [anything_to_upload_row, evidence_row].compact
+    items = summary_rows [anything_to_upload_row, evidence_row].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

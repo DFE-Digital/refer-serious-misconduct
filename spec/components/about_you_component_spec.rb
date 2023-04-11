@@ -6,6 +6,7 @@ RSpec.describe AboutYouComponent, type: :component do
   let(:user) { referral.user }
   let(:referrer) { referral.referrer }
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
+  let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
 
   before { render_inline(component) }
 
@@ -52,6 +53,14 @@ RSpec.describe AboutYouComponent, type: :component do
       expect(page).not_to have_css("dd", text: referrer.job_title)
       expect(page).not_to have_link "Change",
                 href: "/referrals/#{referral.id}/referrer/job-title/edit?return_to=%2F"
+    end
+  end
+
+  context "when referral is submitted" do
+    let(:referral) { create(:referral, :submitted) }
+
+    it "does not have any action links" do
+      expect(row_links.compact).to be_empty
     end
   end
 end
