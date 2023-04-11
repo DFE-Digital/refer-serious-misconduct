@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe WhatHappenedComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
-  let(:referral) { create(:referral, :employer_complete) }
+  let(:referral) { create(:referral, :employer_complete, submitted_at: nil) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
   let(:row_values) { component.rows.map { |row| row.dig(:value, :text) }.map(&:strip) }
@@ -38,5 +38,13 @@ RSpec.describe WhatHappenedComponent, type: :component do
         "/referrals/#{referral.id}/allegation/dbs/edit?return_to=%2F"
       ]
     )
+  end
+
+  context "when referral is submitted" do
+    let(:referral) { create(:referral, :submitted) }
+
+    it "does not have any action links" do
+      expect(row_links.compact).to be_empty
+    end
   end
 end

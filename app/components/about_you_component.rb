@@ -1,13 +1,16 @@
 class AboutYouComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral, :user
 
   delegate :referrer, to: :referral
 
   def rows
-    summary_rows [name_row, email_row, job_title_row, phone_row].compact
+    items = summary_rows [name_row, email_row, job_title_row, phone_row].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

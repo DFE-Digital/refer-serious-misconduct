@@ -2,13 +2,16 @@ class OrganisationComponent < ViewComponent::Base
   include ActiveModel::Model
   include AddressHelper
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   delegate :organisation, to: :referral
 
   def rows
-    summary_rows [organisation_row].compact
+    items = summary_rows [organisation_row].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe PersonalDetailsComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
-  let(:referral) { create(:referral, :employer_complete) }
+  let(:referral) { create(:referral, :employer, :personal_details_employer) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
   let(:row_values) { component.rows.map { |row| row.dig(:value, :text) }.map(&:strip) }
@@ -34,7 +34,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when not known by other name" do
-    let(:referral) { create(:referral, :employer_complete, name_has_changed: "no") }
+    let(:referral) { create(:referral, :employer, name_has_changed: "no") }
 
     it "renders the known name row" do
       expect(row_labels[1]).to eq("Do you know them by any other name?")
@@ -50,9 +50,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when known by other name" do
-    let(:referral) do
-      create(:referral, :employer_complete, name_has_changed: "yes", previous_name: "T")
-    end
+    let(:referral) { create(:referral, :employer, name_has_changed: "yes", previous_name: "T") }
 
     it "renders the known name row" do
       expect(row_labels[1]).to eq("Do you know them by any other name?")
@@ -73,12 +71,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
 
   context "when date of birth is known" do
     let(:referral) do
-      create(
-        :referral,
-        :contact_details_employer,
-        age_known: true,
-        date_of_birth: Date.new(1990, 1, 1)
-      )
+      create(:referral, :employer, age_known: true, date_of_birth: Date.new(1990, 1, 1))
     end
 
     it "renders the date of birth known row" do
@@ -99,7 +92,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when date of birth is not known" do
-    let(:referral) { create(:referral, :contact_details_employer, age_known: false) }
+    let(:referral) { create(:referral, :employer, age_known: false) }
 
     it "renders the date of birth known row" do
       expect(row_labels[2]).to eq("Do you know their date of birth?")
@@ -115,7 +108,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when trn is known" do
-    let(:referral) { create(:referral, :contact_details_employer, trn_known: true, trn: "4567814") }
+    let(:referral) { create(:referral, :employer, trn_known: true, trn: "4567814") }
 
     it "renders the trn known row" do
       expect(row_labels[4]).to eq("Do you know their teacher reference number (TRN)?")
@@ -135,7 +128,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when trn is not known" do
-    let(:referral) { create(:referral, :contact_details_employer, trn_known: false) }
+    let(:referral) { create(:referral, :employer, trn_known: false) }
 
     it "renders the trn known row" do
       expect(row_labels[4]).to eq("Do you know their teacher reference number (TRN)?")
@@ -151,9 +144,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when national insurance number is known" do
-    let(:referral) do
-      create(:referral, :contact_details_employer, ni_number_known: true, ni_number: "SC234568")
-    end
+    let(:referral) { create(:referral, :employer, ni_number_known: true, ni_number: "SC234568") }
 
     it "renders the national insurance number known row" do
       expect(row_labels[3]).to eq("Do you know their National Insurance number?")
@@ -173,7 +164,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when national insurance number is not known" do
-    let(:referral) { create(:referral, :contact_details_employer, ni_number_known: false) }
+    let(:referral) { create(:referral, :employer, ni_number_known: false) }
 
     it "renders the national insurance number known row" do
       expect(row_labels[3]).to eq("Do you know their National Insurance number?")
@@ -195,10 +186,18 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when the referral is a public one" do
-    let(:referral) { create(:referral, :public_complete) }
+    let(:referral) { create(:referral, :public) }
 
     it "renders a limited number of questions" do
       expect(row_labels).to eq(["Their name", "Do you know them by any other name?"])
+    end
+  end
+
+  context "when referral is submitted" do
+    let(:referral) { create(:referral, :submitted) }
+
+    it "does not have any action links" do
+      expect(row_links.compact).to be_empty
     end
   end
 end

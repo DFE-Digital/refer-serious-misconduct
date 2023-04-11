@@ -1,15 +1,19 @@
 class PublicAllegationComponent < ViewComponent::Base
   include ActiveModel::Model
   include ReferralHelper
+  include ComponentHelper
 
   attr_accessor :referral
 
   def rows
-    summary_rows [
-                   allegation_details_format_row,
-                   allegation_details_description_row,
-                   allegation_details_considerations_row
-                 ].compact
+    items =
+      summary_rows [
+                     allegation_details_format_row,
+                     allegation_details_description_row,
+                     allegation_details_considerations_row
+                   ].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   def allegation_details_format_row

@@ -89,4 +89,23 @@ RSpec.describe PublicAllegationComponent, type: :component do
       )
     end
   end
+
+  context "when referral is submitted" do
+    let(:referral) do
+      create(
+        :referral,
+        :complete,
+        :submitted,
+        :public,
+        allegation_format:,
+        allegation_details:,
+        allegation_upload:,
+        allegation_consideration_details:
+      )
+    end
+
+    it "does not have any action links" do
+      expect(row_links.compact).to be_empty
+    end
+  end
 end

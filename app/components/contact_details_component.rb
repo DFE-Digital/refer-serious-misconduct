@@ -7,14 +7,17 @@ class ContactDetailsComponent < ViewComponent::Base
   attr_accessor :referral
 
   def rows
-    summary_rows [
-                   email_known_row,
-                   email_row,
-                   phone_number_known_row,
-                   phone_number_row,
-                   address_known_row,
-                   address_row
-                 ].compact
+    items =
+      summary_rows [
+                     email_known_row,
+                     email_row,
+                     phone_number_known_row,
+                     phone_number_row,
+                     address_known_row,
+                     address_row
+                   ].compact
+
+    referral.submitted? ? remove_actions(items) : items
   end
 
   private

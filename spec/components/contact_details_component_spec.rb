@@ -5,6 +5,7 @@ RSpec.describe ContactDetailsComponent, type: :component do
 
   let(:referral) { create(:referral, :contact_details_employer) }
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
+  let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
 
   before { render_inline(component) }
 
@@ -99,6 +100,14 @@ RSpec.describe ContactDetailsComponent, type: :component do
     it "renders the home address not known row" do
       expect(page).to have_css("dt", text: "Do you know their home address?")
       expect(page).to have_css("dd", text: "No")
+    end
+  end
+
+  context "when referral is submitted" do
+    let(:referral) { create(:referral, :submitted) }
+
+    it "does not have any action links" do
+      expect(row_links.compact).to be_empty
     end
   end
 end
