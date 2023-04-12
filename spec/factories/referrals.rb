@@ -65,6 +65,8 @@ FactoryBot.define do
     trait :personal_details_public do
       first_name { "John" }
       last_name { "Smith" }
+      name_has_changed { "no" }
+      has_qts { "yes" }
       personal_details_complete { true }
     end
 
@@ -73,6 +75,9 @@ FactoryBot.define do
       first_name { "John" }
       has_qts { "yes" }
       last_name { "Smith" }
+      name_has_changed { "no" }
+      ni_number_known { true }
+      ni_number { "XH 25 91 97 C" }
       personal_details_complete { true }
       trn { "1234567" }
     end

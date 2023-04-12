@@ -21,6 +21,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
         "Do you know them by any other name?",
         "Do you know their date of birth?",
         "Do you know their National Insurance number?",
+        "National Insurance number",
         "Do you know their teacher reference number (TRN)?",
         "Do they have qualified teacher status (QTS)?"
       ]
@@ -180,9 +181,9 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   it "renders the qts row" do
-    expect(row_labels[5]).to eq("Do they have qualified teacher status (QTS)?")
-    expect(row_values_sanitized[5]).to eq("Yes")
-    expect(row_links[5]).to eq("/referrals/#{referral.id}/personal-details/qts/edit?return_to=%2F")
+    expect(row_labels[6]).to eq("Do they have qualified teacher status (QTS)?")
+    expect(row_values_sanitized[6]).to eq("Yes")
+    expect(row_links[6]).to eq("/referrals/#{referral.id}/personal-details/qts/edit?return_to=%2F")
   end
 
   context "when the referral is a public one" do
