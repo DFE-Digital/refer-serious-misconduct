@@ -1,39 +1,57 @@
 module ManageInterface
   class ReferrerDetailsComponent < ViewComponent::Base
     include ActiveModel::Model
+    include ReferralHelper
     include AddressHelper
 
     attr_accessor :referral
 
     def rows
-      rows = [
-        { key: { text: "First name" }, value: { text: referrer.first_name } },
-        { key: { text: "Last name" }, value: { text: referrer.last_name } }
-      ]
-      if referral.from_employer?
-        rows.push({ key: { text: "Job title" }, value: { text: referrer.job_title } })
-      end
-      rows.push({ key: { text: "Type" }, value: { text: referral_type } })
-      rows.push({ key: { text: "Email address" }, value: { text: user.email } })
-      rows.push({ key: { text: "Phone number" }, value: { text: referrer.phone } })
-      if referral.from_employer?
-        rows.push(
-          {
-            key: {
-              text: "Employer"
-            },
-            value: {
-              text: organisation_address(referral.organisation)
-            }
-          }
-        )
-      end
-
-      rows
+      summary_rows [
+                     first_name_row,
+                     last_name_row,
+                     job_title_row,
+                     type_row,
+                     email_row,
+                     phone_row,
+                     organisation_row
+                   ].compact
     end
 
     def title
       "Referrer details"
+    end
+
+    def first_name_row
+      { label: "First name", value: referrer.first_name }
+    end
+
+    def last_name_row
+      { label: "Last name", value: referrer.last_name }
+    end
+
+    def job_title_row
+      return unless referral.from_employer?
+
+      { label: "Job title", value: referrer.job_title }
+    end
+
+    def type_row
+      { label: "Type", value: referral_type }
+    end
+
+    def email_row
+      { label: "Email address", value: user.email }
+    end
+
+    def phone_row
+      { label: "Phone number", value: referrer.phone }
+    end
+
+    def organisation_row
+      return unless referral.from_employer?
+
+      { label: "Employer", value: organisation_address(referral.organisation) }
     end
 
     def referral_type
