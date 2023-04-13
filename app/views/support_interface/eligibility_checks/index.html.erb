@@ -1,11 +1,15 @@
 <% content_for :page_title, 'Eligibility Checks' %>
 
 <h1 class="govuk-heading-l">
-  Eligibility Checks
+  Eligibility checks
   <span class="govuk-caption-l">
     Ordered by last updated, showing <%= "#{[100, EligibilityCheck.count].min} of #{EligibilityCheck.count}" %> total
   </span>
 </h1>
+
+<p>
+  <%= govuk_link_to("Download CSV", support_interface_eligibility_checks_path(format: :csv)) %>
+</p>
 
 <% @eligibility_checks.each do |eligibility_check| %>
   <h2 class="govuk-heading-m">Eligibility Check #<%= eligibility_check.id %></h2>
