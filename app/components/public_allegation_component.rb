@@ -40,21 +40,4 @@ class PublicAllegationComponent < ViewComponent::Base
       path: :allegation_considerations
     }
   end
-
-  def allegation_check_answers_form
-    @allegation_check_answers_form ||= Referrals::Allegation::CheckAnswersForm.new(referral:)
-  end
-
-  def file_upload?
-    referral.allegation_format == "upload"
-  end
-
-  def details_described?
-    referral.allegation_format == "details"
-  end
-
-  def file_link
-    upload = referral.allegation_upload
-    govuk_link_to(upload.filename, rails_blob_path(upload, disposition: "attachment"))
-  end
 end
