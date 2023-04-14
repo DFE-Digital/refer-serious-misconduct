@@ -16,14 +16,16 @@
 
 require "simplecov"
 
-SimpleCov.start "rails" do
-  minimum_coverage 90
+if ARGV.grep(/smoke_spec\.rb/).empty?
+  SimpleCov.start "rails" do
+    minimum_coverage 90
 
-  add_filter "db/migrate"
-  add_group "Components", "app/components"
+    add_filter "db/migrate"
+    add_group "Components", "app/components"
 
-  enable_coverage :branch
-  primary_coverage :branch
+    enable_coverage :branch
+    primary_coverage :branch
+  end
 end
 
 RSpec.configure do |config|
