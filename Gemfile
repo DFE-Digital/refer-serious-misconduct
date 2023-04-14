@@ -63,6 +63,7 @@ group :test do
   gem "cuprite"
   gem "rspec"
   gem "shoulda-matchers"
+  gem "simplecov", require: false
 end
 
 group :production, :test do

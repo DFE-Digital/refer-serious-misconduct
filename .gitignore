@@ -36,3 +36,5 @@ tmp/pids/*
 !tmp/pids/.keep
 
 .cache
+
+coverage/*

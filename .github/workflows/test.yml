@@ -44,3 +44,9 @@ jobs:
 
       - name: Run tests
         run: bin/rails spec
+
+      - name: Test coverage report
+        uses: aki77/simplecov-report-action@v1
+        with:
+          failedThreshold: 90
+          token: ${{ secrets.GITHUB_TOKEN }}

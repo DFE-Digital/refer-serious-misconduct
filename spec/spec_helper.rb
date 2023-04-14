@@ -13,6 +13,19 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require "simplecov"
+
+SimpleCov.start "rails" do
+  minimum_coverage 90
+
+  add_filter "db/migrate"
+  add_group "Components", "app/components"
+
+  enable_coverage :branch
+  primary_coverage :branch
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
