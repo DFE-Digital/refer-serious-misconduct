@@ -1,51 +1,19 @@
 <% content_for :page_title, 'Eligibility Checks' %>
 
-<h1 class="govuk-heading-l">
-  Eligibility checks
-  <span class="govuk-caption-l">
-    Ordered by last updated, showing <%= "#{[100, EligibilityCheck.count].min} of #{EligibilityCheck.count}" %> total
-  </span>
-</h1>
-
-<p>
-  <%= govuk_link_to("Download CSV", support_interface_eligibility_checks_path(format: :csv)) %>
-</p>
-
-<% @eligibility_checks.each do |eligibility_check| %>
-  <h2 class="govuk-heading-m">Eligibility Check #<%= eligibility_check.id %></h2>
-  <%= govuk_summary_list do |summary_list|
-    summary_list.row do |row|
-      row.key(text: 'Created at')
-      row.value(text: eligibility_check.created_at)
-    end
-
-    summary_list.row do |row|
-      row.key(text: 'Updated at')
-      row.value(text: eligibility_check.updated_at)
-    end
-
-    summary_list.row do |row|
-      row.key(text: 'Reporting as')
-      row.value(text: eligibility_check.reporting_as&.titleize)
-    end
-
-    unless eligibility_check.reporting_as_employer?
-      summary_list.row do |row|
-        row.key(text: 'Made an Informal Complaint')
-        row.value(text: eligibility_check.complained? ? 'Yes' : 'No')
-      end
-    end
-
-    summary_list.row do |row|
-      row.key(text: 'Teaching in England')
-      row.value(text: eligibility_check.teaching_in_england&.titleize)
-    end
-
-    summary_list.row do |row|
-      row.key(text: 'Serious misconduct')
-      row.value(text: eligibility_check.serious_misconduct&.titleize)
-    end
-  end %>
-<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">
+      Eligibility checks (<%= EligibilityCheck.count %>)
+    </h1>
+    <p>
+      <%= govuk_link_to("Download CSV", support_interface_eligibility_checks_path(format: :csv)) %>
+    </p>
+    <div class="app-list">
+      <% @eligibility_checks.each do |eligibility_check| %>
+        <%= render SupportInterface::EligibilityCheckComponent.new(eligibility_check:) %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <%= govuk_pagination(pagy: @pagy) %>
