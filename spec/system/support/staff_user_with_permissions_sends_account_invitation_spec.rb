@@ -46,7 +46,7 @@ RSpec.feature "Staff invitations" do
     fill_in "staff-email-field", with: "test@example.org"
     fill_in "staff-password-field", with: "Example123!"
 
-    click_button "Log in"
+    click_button "Sign in"
   end
 
   def when_i_visit_the_staff_invitation_page

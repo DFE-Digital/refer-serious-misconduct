@@ -26,7 +26,7 @@ RSpec.feature "Staff actions" do
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
 
-    click_on "Log in"
+    click_on "Sign in"
   end
 
   def and_i_see_the_notification_message
