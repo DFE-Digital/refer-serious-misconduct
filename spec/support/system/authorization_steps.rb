@@ -15,7 +15,7 @@ module AuthorizationSteps
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
 
-    click_on "Log in"
+    click_on "Sign in"
   end
 
   def when_i_login_as_a_case_worker_with_support_permissions_only
@@ -26,7 +26,7 @@ module AuthorizationSteps
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
 
-    click_on "Log in"
+    click_on "Sign in"
   end
 
   def when_i_visit_staff_sign_in_page

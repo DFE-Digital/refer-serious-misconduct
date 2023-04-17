@@ -41,7 +41,7 @@ RSpec.feature "Manage referrals" do
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "test"
 
-    click_on "Log in"
+    click_on "Sign in"
   end
   alias_method :and_i_try_to_login_as_a_case_worker_with_incorrect_credentials,
                :when_i_try_to_login_as_a_case_worker_with_incorrect_credentials
@@ -76,7 +76,7 @@ RSpec.feature "Manage referrals" do
     fill_in "Email", with: "test@example.org"
     fill_in "Password", with: "Example123!"
 
-    click_on "Log in"
+    click_on "Sign in"
   end
   alias_method :and_i_try_to_login_as_a_case_worker_with_correct_credentials,
                :when_i_try_to_login_as_a_case_worker_with_correct_credentials
