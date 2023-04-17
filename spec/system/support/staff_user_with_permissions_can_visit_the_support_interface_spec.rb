@@ -35,8 +35,7 @@ RSpec.describe "Support" do
   def then_i_see_the_eligibility_checks_page
     expect(page).to have_current_path(support_interface_eligibility_checks_path)
     expect(page).to have_title("Eligibility Checks - Refer serious misconduct by a teacher")
-    expect(page).to have_content("Eligibility Checks")
-    expect(page).to have_content("1 of 1")
+    expect(page).to have_content("Eligibility checks (1)")
   end
 
   def then_i_see_the_feature_page
