@@ -1,7 +1,7 @@
 module SupportInterface
   class StaffController < SupportInterfaceController
     def index
-      @staff = Staff.active.order(:email)
+      @pagy, @staff = pagy(Staff.active.order(:email))
     end
 
     def delete
