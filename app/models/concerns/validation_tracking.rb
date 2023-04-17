@@ -1,8 +1,13 @@
 module ValidationTracking
   extend ActiveSupport::Concern
+  include ActiveModel::Attributes
   include ActiveModel::Validations::Callbacks
 
-  included { after_validation :track_validation_error, if: -> { errors.any? } }
+  included do
+    after_validation :track_validation_error, if: -> { validation_tracking && errors.any? }
+
+    attribute :validation_tracking, :boolean, default: true
+  end
 
   def track_validation_error
     ValidationError.create!(form_object: self.class.name, details: validation_error_details.to_h)

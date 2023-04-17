@@ -25,7 +25,7 @@ RSpec.describe ReferralForm do
       let(:referral) { create(:referral) }
 
       it "returns employer form section items" do
-        labels = sections.flat_map(&:items).pluck(:label)
+        labels = sections.flat_map(&:items).map(&:label)
         expect(labels).to eq(
           [
             "Your details",
@@ -45,7 +45,7 @@ RSpec.describe ReferralForm do
       let(:referral) { create(:referral, eligibility_check: create(:eligibility_check, :public)) }
 
       it "returns public form section items" do
-        labels = sections.flat_map(&:items).pluck(:label)
+        labels = sections.flat_map(&:items).map(&:label)
         expect(labels).to eq(
           [
             "Your details",

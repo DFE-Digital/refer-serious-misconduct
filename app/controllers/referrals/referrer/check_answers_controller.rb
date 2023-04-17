@@ -1,29 +1,37 @@
 module Referrals
   module Referrer
     class CheckAnswersController < BaseController
+      before_action :set_referrer
+
       def edit
-        @referrer = current_referral.referrer
         @check_answers_form =
-          CheckAnswersForm.new(referrer: @referrer, complete: @referrer.complete)
+          CheckAnswersForm.new(
+            referral: current_referral,
+            referrer: @referrer,
+            complete: @referrer.complete
+          )
       end
 
       def update
         @check_answers_form =
           CheckAnswersForm.new(
-            complete: referrer_params[:complete],
-            referrer: current_referral.referrer,
-            referral: current_referral
+            referral: current_referral,
+            referrer: @referrer,
+            complete: referrer_params[:complete]
           )
 
         if @check_answers_form.save
           redirect_to next_page
         else
-          @referrer = current_referral.referrer
           render :edit
         end
       end
 
       private
+
+      def set_referrer
+        @referrer = current_referral.referrer
+      end
 
       def referrer_params
         params.require(:referrals_referrer_check_answers_form).permit(:complete)

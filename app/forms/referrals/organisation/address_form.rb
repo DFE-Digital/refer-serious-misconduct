@@ -12,6 +12,10 @@ module Referrals
 
       validate :postcode_is_valid, if: -> { postcode.present? }
 
+      def slug
+        "organisation_address"
+      end
+
       def city
         @city ||= organisation&.city
       end
