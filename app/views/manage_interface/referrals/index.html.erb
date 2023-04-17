@@ -5,19 +5,7 @@
     <h1 class="govuk-heading-l">Referrals (<%= @referrals_count %>)</h1>
     <div class="app-list">
       <% @referrals.each do |referral| %>
-        <div class="app-list__item">
-          <h2 class="govuk-heading-m">
-            <%= govuk_link_to "#{referral.first_name} #{referral.last_name}", manage_interface_referral_path(referral.id) %>
-          </h2>
-
-          <%= govuk_summary_list(
-            classes: ["govuk-summary-list--no-border"],
-            rows: [
-              { key: { text: "Referral date" }, value: { text: referral.submitted_at.to_fs(:day_month_year_time)} },
-              { key: { text: "Referrer" }, value: { text: referral.referrer_name } }
-            ])
-          %>
-        </div>
+        <%= render ManageInterface::ReferralComponent.new(referral:) %>
       <% end %>
     </div>
   </div>

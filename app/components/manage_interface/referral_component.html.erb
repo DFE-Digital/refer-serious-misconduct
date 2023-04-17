@@ -1,0 +1,6 @@
+<div class="app-list__item">
+  <h2 class="govuk-heading-m">
+    <%= govuk_link_to title, manage_interface_referral_path(referral.id) %>
+  </h2>
+  <%= govuk_summary_list(actions: false, classes: ["govuk-summary-list--no-border"], rows:) %>
+</div>
