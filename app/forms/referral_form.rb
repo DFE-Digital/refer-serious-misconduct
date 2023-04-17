@@ -22,50 +22,30 @@ class ReferralForm
     referral.submit
   end
 
-  def sections
+  def items
     [about_you_section, about_the_person_you_are_referring_section, the_allegation_section]
   end
+  alias_method :sections, :items
 
   private
 
   def sections_valid
-    unless sections.map(&:items).flatten.map(&:status).uniq == [:completed]
-      errors.add(:base, :all_sections_complete)
-    end
+    validity =
+      items.all? do |item|
+        # TODO: Remove || clause when incomplete section is fully merged
+        item.is_a?(Referrals::SectionGroup) && item.complete? ||
+          item.items.map(&:status).uniq == [:completed]
+      end
+    errors.add(:base, :all_sections_complete) unless validity
   end
 
   def about_you_section
-    ReferralSection
-      .new(1, I18n.t("referral_form.about_you"))
-      .tap do |section|
-        section.items = [
-          ReferralSectionItem.new(
-            I18n.t("referral_form.your_details"),
-            path_for_section_status(
-              check_answers?(referral.referrer&.complete),
-              polymorphic_path([:edit, referral.routing_scope, referral, :referrer_name]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :referrer, :check_answers])
-            ),
-            section_status(referral.referrer&.complete)
-          )
-        ]
+    items = [
+      Referrals::Sections::ReferrerSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::OrganisationSection.new(referral:)
+    ].compact_blank
 
-        if referral.from_employer?
-          section.items.append(
-            ReferralSectionItem.new(
-              I18n.t("referral_form.your_organisation"),
-              path_for_section_status(
-                check_answers?(referral.organisation&.complete),
-                polymorphic_path([:edit, referral.routing_scope, referral, :organisation_address]),
-                polymorphic_path(
-                  [:edit, referral.routing_scope, referral, :organisation, :check_answers]
-                )
-              ),
-              section_status(referral.organisation&.complete)
-            )
-          )
-        end
-      end
+    Referrals::SectionGroup.new(slug: "about_you", items:)
   end
 
   def about_the_person_you_are_referring_section

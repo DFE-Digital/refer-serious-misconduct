@@ -6,9 +6,15 @@
     <% items.each do |item| %>
       <li class="app-task-list__item">
         <span class="app-task-list__task-name">
-          <a href="<%= item.path %>" aria-describedby="<%= item.label.parameterize %>"><%= item.label %></a>
+          <%= link_to item.label, item.path, aria: { describedby: item.label.parameterize } %>
         </span>
-        <% tag_css = item.status != :completed ? " govuk-tag--grey" : "" -%>
+
+        <% # TODO: Remove conditional when incomplete section is fully merged %>
+        <% if item.is_a?(Referrals::Section) %>
+          <% tag_css = item.incomplete? ? " govuk-tag--grey" : "" -%>
+        <% else %>
+          <% tag_css = item.status != :completed ? " govuk-tag--grey" : "" -%>
+        <% end %>
         <strong class="govuk-tag app-task-list__tag<%= tag_css %>" id="<%= item.label.parameterize %>">
           <%= I18n.t("referral_form.statuses.#{item.status}") %>
         </strong>

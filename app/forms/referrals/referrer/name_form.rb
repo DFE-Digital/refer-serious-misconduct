@@ -8,6 +8,10 @@ module Referrals
       validates :first_name, presence: true
       validates :last_name, presence: true
 
+      def slug
+        "referrer_name"
+      end
+
       def first_name
         @first_name ||= referrer&.first_name
       end

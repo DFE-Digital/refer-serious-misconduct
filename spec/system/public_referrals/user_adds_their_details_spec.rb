@@ -86,17 +86,6 @@ RSpec.feature "Public Referral: About You", type: :system do
     expect(page).to have_content("Your details")
   end
 
-  def then_i_am_on_the_your_name_page
-    expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/referrer/name/edit",
-      ignore_query: true
-    )
-    expect(page).to have_title(
-      "Your name - Your details - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("Your name")
-  end
-
   def then_i_see_the_phone_number_prefilled
     expect(page).to have_field("Your phone number", with: "01234567890")
   end
@@ -111,25 +100,8 @@ RSpec.feature "Public Referral: About You", type: :system do
     expect(page).to have_field("Last name", with: "Doe")
   end
 
-  def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/referrer/check-answers/edit"
-    )
-    expect(page).to have_title("Your details - Refer serious misconduct by a teacher in England")
-    expect(page).to have_content("Your details")
-    expect(page).to have_content("Check and confirm your answers")
-  end
-
   def then_i_see_the_phone_error_message
     expect(page).to have_content("Enter your phone number")
-  end
-
-  def then_i_see_the_what_is_your_phone_number_page
-    expect(page).to have_current_path("/public-referrals/#{@referral.id}/referrer/phone/edit")
-    expect(page).to have_title(
-      "Your phone number - Your details - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("Your phone number")
   end
 
   def then_i_see_your_details_flagged_as_complete
