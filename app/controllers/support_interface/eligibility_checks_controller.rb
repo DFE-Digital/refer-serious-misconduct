@@ -3,7 +3,7 @@ module SupportInterface
   class EligibilityChecksController < SupportInterfaceController
     def index
       respond_to do |format|
-        format.html { @eligibility_checks = EligibilityCheck.order(updated_at: :desc).limit(100) }
+        format.html { @pagy, @eligibility_checks = pagy(EligibilityCheck.order(updated_at: :desc)) }
         format.csv { stream_csv }
       end
     end
