@@ -21,4 +21,9 @@ FactoryBot.define do
   trait :can_manage_referrals do
     manage_referrals { true }
   end
+
+  trait :random do
+    email { "#{SecureRandom.hex(5)}@example.com" }
+    password { "Example123!" }
+  end
 end

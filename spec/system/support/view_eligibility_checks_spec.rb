@@ -5,10 +5,12 @@ RSpec.feature "View eligibility checks" do
 
   scenario "visiting the eligibility checks page", type: :system do
     given_the_service_is_open
+    and_eligibility_checks_exist
 
     when_i_login_as_a_case_worker_with_support_permissions_only
     and_i_visit_the_eligibility_checks_page
     then_i_see_the_eligibility_checks
+    and_i_see_pagination
 
     when_i_click_the_download_csv_link
     there_are_no_errors
