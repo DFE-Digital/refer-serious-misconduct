@@ -22,6 +22,15 @@ module CommonSteps
     create_list(:referral, 20)
   end
 
+  def and_eligibility_checks_exist
+    create_list(:eligibility_check, 20, :public)
+    create_list(:eligibility_check, 20)
+  end
+
+  def and_there_are_staff_users
+    create_list(:staff, 30, :random)
+  end
+
   def and_i_visit_the_referral
     visit edit_referral_path(@referral)
   end
@@ -70,6 +79,11 @@ module CommonSteps
   def then_i_see_check_answers_form_validation_errors
     expect(page).to have_content("Select yes if you’ve completed this section")
   end
+
+  def then_i_see_pagination
+    within(".govuk-pagination") { expect(page).to have_content "Next" }
+  end
+  alias_method :and_i_see_pagination, :then_i_see_pagination
 
   def and_i_see_personal_details_flagged_as_incomplete
     within(".app-task-list__item", text: "Personal details") do

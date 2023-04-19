@@ -6,10 +6,12 @@ RSpec.feature "Test users" do
 
   scenario "Staff user with permissions can create test users", type: :system do
     given_the_service_is_open
+    and_there_are_staff_users
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
     when_i_login_as_a_case_worker_with_support_permissions_only
     then_i_see_the_staff_index
+    and_i_see_pagination
 
     when_i_visit_staff_sign_in_page
     then_i_see_the_staff_index
