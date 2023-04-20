@@ -23,6 +23,10 @@ module Referrals
         referral.email_address = email_known ? email_address : nil
         referral.save
       end
+
+      def slug
+        "contact_details_email"
+      end
     end
   end
 end

@@ -49,55 +49,15 @@ class ReferralForm
   end
 
   def about_the_person_you_are_referring_section
-    ReferralSection
-      .new(2, I18n.t("referral_form.about_the_person_you_are_referring"))
-      .tap do |section|
-        section.items = [
-          ReferralSectionItem.new(
-            I18n.t("referral_form.personal_details"),
-            path_for_section_status(
-              check_answers?(referral.personal_details_complete),
-              polymorphic_path([:edit, referral.routing_scope, referral, :personal_details_name]),
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :personal_details, :check_answers]
-              )
-            ),
-            section_status(referral.personal_details_complete)
-          )
-        ]
+    items = [Referrals::Sections::ReferralPersonalDetailsSection.new(referral:)]
 
-        if referral.from_employer?
-          section.items.append(
-            ReferralSectionItem.new(
-              I18n.t("referral_form.contact_details"),
-              path_for_section_status(
-                check_answers?(referral.contact_details_complete),
-                polymorphic_path([:edit, referral.routing_scope, referral, :contact_details_email]),
-                polymorphic_path(
-                  [:edit, referral.routing_scope, referral, :contact_details, :check_answers]
-                )
-              ),
-              section_status(referral.contact_details_complete)
-            )
-          )
-        end
+    if referral.from_employer?
+      items.append(Referrals::Sections::ReferralContactDetailsSection.new(referral:))
+    end
 
-        section.items.append(
-          ReferralSectionItem.new(
-            I18n.t("referral_form.about_their_role"),
-            path_for_section_status(
-              check_answers?(referral.teacher_role_complete),
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :teacher_role, :job_title]
-              ),
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :teacher_role, :check_answers]
-              )
-            ),
-            section_status(referral.teacher_role_complete)
-          )
-        )
-      end
+    items.append(Referrals::Sections::ReferralAboutTheirRoleSection.new(referral:))
+
+    Referrals::SectionGroup.new(slug: "about_the_person_you_are_referring", items:)
   end
 
   def the_allegation_section
