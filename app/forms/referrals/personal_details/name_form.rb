@@ -14,6 +14,10 @@ module Referrals
 
         referral.update(first_name:, last_name:, name_has_changed:, previous_name:)
       end
+
+      def slug
+        "personal_details_name"
+      end
     end
   end
 end

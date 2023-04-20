@@ -16,6 +16,10 @@ module Referrals
 
         referral.update(address_known:)
       end
+
+      def slug
+        "contact_details_email"
+      end
     end
   end
 end
