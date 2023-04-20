@@ -17,7 +17,12 @@
       <p>Check your spam and trash folder if you cannot find the email.</p>
       <p>You can also <%= link_to "request another confirmation code", new_user_session_path(new_referral:) %>.</p>
 
-      <%= f.govuk_text_field :otp, size: "m", label: { text: "Confirmation code", class: "govuk-label--s" }, class: "govuk-!-width-one-quarter" %>
+      <%= f.govuk_text_field :otp,
+        size: "m",
+        label: { text: "Confirmation code", class: "govuk-label--s" },
+        class: "govuk-!-width-one-quarter",
+        autocomplete: "off"
+      %>
 
       <%= f.govuk_submit "Continue" %>
     <% end %>
