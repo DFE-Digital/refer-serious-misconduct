@@ -7,6 +7,10 @@ module Referrals
 
       validates :previous_misconduct_reported, inclusion: { in: %w[true false not_sure] }
 
+      def slug
+        "previous_misconduct_reported"
+      end
+
       def previous_misconduct_reported
         @previous_misconduct_reported || referral&.previous_misconduct_reported
       end

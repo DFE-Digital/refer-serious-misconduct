@@ -8,6 +8,10 @@ module Referrals
 
       validates :has_evidence, inclusion: { in: [true, false] }
 
+      def slug
+        "evidence_start"
+      end
+
       def has_evidence=(value)
         @has_evidence = ActiveModel::Type::Boolean.new.cast(value)
       end

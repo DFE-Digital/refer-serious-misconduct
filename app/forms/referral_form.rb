@@ -101,54 +101,13 @@ class ReferralForm
   end
 
   def the_allegation_section
-    ReferralSection
-      .new(3, I18n.t("referral_form.the_allegation"))
-      .tap do |section|
-        section.items = [
-          ReferralSectionItem.new(
-            I18n.t("referral_form.details_of_the_allegation"),
-            path_for_section_status(
-              check_answers?(referral.allegation_details_complete),
-              polymorphic_path([:edit, referral.routing_scope, referral, :allegation_details]),
-              polymorphic_path(
-                [:edit, referral.routing_scope, referral, :allegation, :check_answers]
-              )
-            ),
-            section_status(referral.allegation_details_complete)
-          )
-        ]
+    items = [
+      Referrals::Sections::AllegationSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::PreviousMisconductSection.new(referral:),
+      Referrals::Sections::EvidenceSection.new(referral:)
+    ].compact_blank
 
-        if referral.from_employer?
-          section.items.append(
-            ReferralSectionItem.new(
-              I18n.t("referral_form.previous_allegations"),
-              path_for_section_status(
-                check_answers?(referral.previous_misconduct_complete),
-                polymorphic_path(
-                  [:edit, referral.routing_scope, referral, :previous_misconduct_reported]
-                ),
-                polymorphic_path(
-                  [:edit, referral.routing_scope, referral, :previous_misconduct, :check_answers]
-                )
-              ),
-              section_status(referral.previous_misconduct_complete)
-            )
-          )
-        end
-
-        section.items.append(
-          ReferralSectionItem.new(
-            I18n.t("referral_form.evidence_and_supporting_information"),
-            path_for_evidence_section_status(
-              check_answers?(referral.evidence_details_complete),
-              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_start]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_check_answers]),
-              polymorphic_path([:edit, referral.routing_scope, referral, :evidence_uploaded])
-            ),
-            section_status(referral.evidence_details_complete)
-          )
-        )
-      end
+    Referrals::SectionGroup.new(slug: "the_allegation", items:)
   end
 
   def check_answers?(complete)

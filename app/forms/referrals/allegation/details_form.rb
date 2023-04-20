@@ -13,6 +13,10 @@ module Referrals
 
       attr_accessor :allegation_details, :allegation_format, :allegation_upload
 
+      def slug
+        "allegation_details"
+      end
+
       def save
         return false if invalid?
 
