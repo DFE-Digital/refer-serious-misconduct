@@ -18,16 +18,16 @@
   </div>
 
   <%= govuk_summary_list do |summary_list|
-    summary_list.row do |row|
-      row.key { "Created at" }
-      row.value { staff.created_at.to_fs(:day_month_year_time) }
+    summary_list.with_row do |row|
+      row.with_key { "Created at" }
+      row.with_value { staff.created_at.to_fs(:day_month_year_time) }
     end
 
     if staff.created_by_invite?
-      summary_list.row do |row|
-        row.key { "Invitation status" }
+      summary_list.with_row do |row|
+        row.with_key { "Invitation status" }
 
-        row.value do
+        row.with_value do
           if staff.invitation_accepted?
              govuk_tag(text: "Accepted", colour: "green")
           else
@@ -36,24 +36,24 @@
         end
       end
 
-      summary_list.row do |row|
-        row.key { "Invited at" }
-        row.value { staff.invitation_sent_at.to_fs(:day_month_year_time) }
+      summary_list.with_row do |row|
+        row.with_key { "Invited at" }
+        row.with_value { staff.invitation_sent_at.to_fs(:day_month_year_time) }
       end
     end
 
-    summary_list.row do |row|
-      row.key { "Last signed in at" }
-      row.value { staff.last_sign_in_at.to_s }
+    summary_list.with_row do |row|
+      row.with_key { "Last signed in at" }
+      row.with_value { staff.last_sign_in_at.to_s }
     end
 
     permissions = []
     permissions << "view support" if staff.view_support?
     permissions << "manage referrals" if staff.manage_referrals?
 
-    summary_list.row do |row|
-      row.key { "Permissions" }
-      row.value { simple_format(permissions.join("<br>")) }
+    summary_list.with_row do |row|
+      row.with_key { "Permissions" }
+      row.with_value { simple_format(permissions.join("<br>")) }
     end
   end %>
 <% end %>

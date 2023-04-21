@@ -27,72 +27,72 @@ module ApplicationHelper
       case current_namespace
       when "manage", "staff"
         if current_staff # TODO: replace with case worker user type
-          header.navigation_item(
+          header.with_navigation_item(
             active: current_page?(main_app.manage_interface_referrals_path),
             href: main_app.manage_interface_referrals_path,
             text: "Referrals"
           )
           if current_staff.view_support?
-            header.navigation_item(
+            header.with_navigation_item(
               active: current_page?(main_app.support_interface_validation_errors_path),
               href: main_app.support_interface_validation_errors_path,
               text: "Validation Errors"
             )
-            header.navigation_item(
+            header.with_navigation_item(
               active: current_page?(main_app.support_interface_eligibility_checks_path),
               href: main_app.support_interface_eligibility_checks_path,
               text: "Eligibility Checks"
             )
-            header.navigation_item(
+            header.with_navigation_item(
               active: current_page?(main_app.support_interface_feature_flags_path),
               href: main_app.support_interface_feature_flags_path,
               text: "Features"
             )
-            header.navigation_item(
+            header.with_navigation_item(
               active: request.path.start_with?("/support/staff"),
               text: "Staff",
               href: main_app.support_interface_staff_index_path
             )
             if HostingEnvironment.test_environment?
-              header.navigation_item(
+              header.with_navigation_item(
                 active: request.path.start_with?(main_app.support_interface_test_users_path),
                 text: "Test Users",
                 href: main_app.support_interface_test_users_path
               )
             end
           end
-          header.navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
+          header.with_navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
         end
       when "support"
         if current_staff.manage_referrals?
-          header.navigation_item(
+          header.with_navigation_item(
             active: current_page?(main_app.manage_interface_referrals_path),
             href: main_app.manage_interface_referrals_path,
             text: "Referrals"
           )
         end
-        header.navigation_item(
+        header.with_navigation_item(
           active: current_page?(main_app.support_interface_validation_errors_path),
           href: main_app.support_interface_validation_errors_path,
           text: "Validation Errors"
         )
-        header.navigation_item(
+        header.with_navigation_item(
           active: current_page?(main_app.support_interface_eligibility_checks_path),
           href: main_app.support_interface_eligibility_checks_path,
           text: "Eligibility Checks"
         )
-        header.navigation_item(
+        header.with_navigation_item(
           active: current_page?(main_app.support_interface_feature_flags_path),
           href: main_app.support_interface_feature_flags_path,
           text: "Features"
         )
-        header.navigation_item(
+        header.with_navigation_item(
           active: request.path.start_with?("/support/staff"),
           text: "Staff",
           href: main_app.support_interface_staff_index_path
         )
         if HostingEnvironment.test_environment?
-          header.navigation_item(
+          header.with_navigation_item(
             active: request.path.start_with?(main_app.support_interface_test_users_path),
             text: "Test Users",
             href: main_app.support_interface_test_users_path
@@ -100,14 +100,14 @@ module ApplicationHelper
         end
 
         if current_staff
-          header.navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
+          header.with_navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
         end
       else
         if FeatureFlags::FeatureFlag.active?(:referral_form)
           if current_user
-            header.navigation_item(href: main_app.users_sign_out_path, text: "Sign out")
+            header.with_navigation_item(href: main_app.users_sign_out_path, text: "Sign out")
           else
-            header.navigation_item(href: main_app.new_user_session_path, text: "Sign in")
+            header.with_navigation_item(href: main_app.new_user_session_path, text: "Sign in")
           end
         end
       end
