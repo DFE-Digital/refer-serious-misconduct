@@ -33,11 +33,7 @@ class PersonalDetailsComponent < ViewComponent::Base
   end
 
   def name_row
-    {
-      label: "Their name",
-      value: "#{referral.first_name} #{referral.last_name}",
-      path: :personal_details_name
-    }
+    { label: "Their name", value: full_name, path: :personal_details_name }
   end
 
   def other_name_row
@@ -123,5 +119,13 @@ class PersonalDetailsComponent < ViewComponent::Base
       path: :personal_details_ni_number,
       visually_hidden_text: "National Insurance number"
     }
+  end
+
+  private
+
+  def full_name
+    return unless referral.first_name.present? && referral.last_name.present?
+
+    [referral.first_name, referral.last_name].join(" ")
   end
 end
