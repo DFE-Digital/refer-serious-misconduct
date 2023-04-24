@@ -10,12 +10,12 @@ class ContactDetailsComponent < ViewComponent::Base
     items =
       summary_rows [
                      email_known_row,
-                     email_row,
+                     referral.email_known? && email_row,
                      phone_number_known_row,
-                     phone_number_row,
+                     referral.phone_known? && phone_number_row,
                      address_known_row,
-                     address_row
-                   ].compact
+                     referral.address_known? && address_row
+                   ].compact_blank
 
     referral.submitted? ? remove_actions(items) : items
   end
@@ -32,11 +32,7 @@ class ContactDetailsComponent < ViewComponent::Base
   end
 
   def email_row
-    {
-      label: "Email address",
-      value: referral.email_known ? referral.email_address : "Not known",
-      path: :contact_details_email
-    }
+    { label: "Email address", value: referral.email_address, path: :contact_details_email }
   end
 
   def phone_number_known_row

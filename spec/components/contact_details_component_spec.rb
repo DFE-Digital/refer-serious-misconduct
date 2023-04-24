@@ -47,6 +47,10 @@ RSpec.describe ContactDetailsComponent, type: :component do
       expect(page).to have_link "Change",
                 href: "/referrals/#{referral.id}/contact-details/email/edit?return_to=%2F"
     end
+
+    it "does not render the referral email row" do
+      expect(page).not_to have_css("dt", text: "Email address")
+    end
   end
 
   context "when the phone number is known" do
@@ -74,6 +78,10 @@ RSpec.describe ContactDetailsComponent, type: :component do
       expect(page).to have_link "Change",
                 href: "/referrals/#{referral.id}/contact-details/telephone/edit?return_to=%2F"
     end
+
+    it "does not render the referral phone number row" do
+      expect(page).not_to have_css("dt", text: "Phone number")
+    end
   end
 
   context "when the home address is known" do
@@ -100,6 +108,10 @@ RSpec.describe ContactDetailsComponent, type: :component do
     it "renders the home address not known row" do
       expect(page).to have_css("dt", text: "Do you know their home address?")
       expect(page).to have_css("dd", text: "No")
+    end
+
+    it "does not render the home address row" do
+      expect(page).not_to have_css("dt", text: "Home address")
     end
   end
 

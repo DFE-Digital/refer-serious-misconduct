@@ -50,6 +50,8 @@ module AddressHelper
   private
 
   def address_fields_to_html(address)
+    return unless address.any?
+
     address.compact_blank.join("<br />").html_safe
   end
 end

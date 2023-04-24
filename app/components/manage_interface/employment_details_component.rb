@@ -25,7 +25,7 @@ module ManageInterface
     private
 
     def job_title_row
-      { label: "Job title", value: referral.job_title || "Not known" }
+      { label: "Job title", value: referral.job_title }
     end
 
     def details_about_main_duties_row
