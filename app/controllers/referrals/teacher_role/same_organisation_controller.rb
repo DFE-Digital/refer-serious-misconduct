@@ -11,7 +11,7 @@ module Referrals
           SameOrganisationForm.new(same_organisation_params.merge(referral: current_referral))
 
         if @same_organisation_form.save
-          redirect_to next_page
+          redirect_to @same_organisation_form.next_path
         else
           render :edit
         end
@@ -21,28 +21,6 @@ module Referrals
 
       def same_organisation_params
         params.require(:referrals_teacher_role_same_organisation_form).permit(:same_organisation)
-      end
-
-      def next_path
-        if current_referral.same_organisation?
-          [:edit, current_referral.routing_scope, current_referral, :teacher_role, :start_date]
-        else
-          [
-            :edit,
-            current_referral.routing_scope,
-            current_referral,
-            :teacher_role,
-            :organisation_address_known
-          ]
-        end
-      end
-
-      def next_page
-        if @same_organisation_form.referral.saved_changes? && !current_referral.same_organisation
-          return next_path
-        end
-
-        super
       end
     end
   end

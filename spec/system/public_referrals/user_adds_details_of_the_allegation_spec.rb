@@ -23,6 +23,12 @@ RSpec.feature "Details of the allegation", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_how_the_complaint_has_been_considered
 
+    # Check answers redirection after first question
+    when_i_visit_the_referral
+    when_i_edit_details_of_the_allegation
+    then_i_see_the_allegation_check_your_answers_page
+
+    when_i_click_on_change_how_the_complaint_has_been_considered
     when_i_click_save_and_continue
     then_i_see_the_allegation_considerations_form_validation_errors
 
@@ -46,12 +52,17 @@ RSpec.feature "Details of the allegation", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_public_referral_summary
     and_the_allegation_section_is_incomplete
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Details of the allegation", "allegation")
 
-    when_i_edit_details_of_the_allegation
+    when_i_click_on_complete_section("Details of the allegation")
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_public_referral_summary
     and_the_allegation_section_is_complete
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Details of the allegation")
   end
 
   private
@@ -154,5 +165,20 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_can_see_the_allegation_file
     expect(page).to have_content("upload1.pdf (4.98KB)")
+  end
+
+  def then_i_see_the_allegation_check_your_answers_page
+    expect(page).to have_current_path(
+      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/allegation/check-answers/edit"
+    )
+    expect(page).to have_title(
+      "Check and confirm your answers - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("The allegation")
+    expect(page).to have_content("Check and confirm your answers")
+  end
+
+  def when_i_click_on_change_how_the_complaint_has_been_considered
+    click_on "Change details about how this complaint has been considered"
   end
 end

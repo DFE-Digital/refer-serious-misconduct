@@ -14,7 +14,7 @@ module Referrals
         @detailed_account_form =
           DetailedAccountForm.new(detailed_account_form_params.merge(referral: current_referral))
         if @detailed_account_form.save
-          redirect_to next_page
+          redirect_to @detailed_account_form.next_path
         else
           render :edit
         end
@@ -28,10 +28,6 @@ module Referrals
           :previous_misconduct_details,
           :previous_misconduct_upload
         )
-      end
-
-      def next_path
-        edit_referral_previous_misconduct_check_answers_path(current_referral)
       end
     end
   end

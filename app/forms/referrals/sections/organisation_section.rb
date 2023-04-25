@@ -16,6 +16,10 @@ module Referrals
       def label
         I18n.t("referral_form.your_organisation")
       end
+
+      def view_component(**args)
+        OrganisationComponent.new(referral:, **args)
+      end
     end
   end
 end

@@ -20,6 +20,10 @@ module Referrals
       def allegation_not_incomplete
         errors.add(:base, :allegation_incomplete) if referral.allegation_format == "incomplete"
       end
+
+      def section_class
+        Referrals::Sections::AllegationSection
+      end
     end
   end
 end

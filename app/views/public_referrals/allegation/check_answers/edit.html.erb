@@ -10,17 +10,7 @@
 
       <h1 class="govuk-heading-l">Check and confirm your answers</h1>
 
-      <%= render PublicAllegationComponent.new(referral: current_referral) %>
-
-      <%= f.govuk_radio_buttons_fieldset(
-        :allegation_details_complete,
-        legend: { text: "Have you completed this section?", size: "m" },
-        hint: { text: "You can still make changes to a completed section" },
-      ) do %>
-      <%= f.govuk_radio_button :allegation_details_complete, "true", label: { text: "Yes, I’ve completed this section" }, link_errors: true %>
-      <%= f.govuk_radio_button :allegation_details_complete, "false", label: { text: "No, I’ll come back to it later" } %>
+      <%= render partial: 'referrals/shared/check_answers', locals: { f:, complete_field_name: :allegation_details_complete } %>
     <% end %>
-    <%= f.govuk_submit "Save and continue" %>
-  <% end %>
   </div>
 </div>

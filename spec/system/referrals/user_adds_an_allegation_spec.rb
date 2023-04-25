@@ -23,6 +23,12 @@ RSpec.feature "Allegation", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_if_i_have_notified_dbs
 
+    # Check answers redirection after first question
+    when_i_visit_the_referral
+    when_i_edit_the_allegation
+    then_i_see_the_allegation_check_your_answers_page
+
+    when_i_click_on_change_notified_dbs
     when_i_click_save_and_continue
     then_i_see_dbs_form_validation_errors
 
@@ -51,12 +57,17 @@ RSpec.feature "Allegation", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
     and_the_allegation_section_is_incomplete
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Details of the allegation", "allegation")
 
-    when_i_edit_the_allegation
+    when_i_click_on_complete_section("Details of the allegation")
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
     and_the_allegation_section_is_complete
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Details of the allegation")
   end
 
   private
@@ -132,6 +143,10 @@ RSpec.feature "Allegation", type: :system do
     click_on "Change description of the allegation"
   end
 
+  def when_i_click_on_change_notified_dbs
+    click_on "Change if you have told DBS"
+  end
+
   def when_i_choose_upload_the_allegation
     choose "Upload file", visible: false
   end
@@ -150,5 +165,16 @@ RSpec.feature "Allegation", type: :system do
 
   def when_i_upload_the_allegation
     attach_file("Upload file", [Rails.root.join("spec/fixtures/files/upload1.pdf")])
+  end
+
+  def then_i_see_the_allegation_check_your_answers_page
+    expect(page).to have_current_path(
+      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/allegation/check-answers/edit"
+    )
+    expect(page).to have_title(
+      "Check and confirm your answers - The allegation - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("The allegation")
+    expect(page).to have_content("Check and confirm your answers")
   end
 end

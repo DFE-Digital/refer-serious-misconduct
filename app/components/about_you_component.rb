@@ -28,4 +28,8 @@ class AboutYouComponent < ViewComponent::Base
   def phone_row
     { label: "Your phone number", value: referrer&.phone, path: :referrer_phone }
   end
+
+  def section
+    Referrals::Sections::ReferrerSection.new(referral:)
+  end
 end

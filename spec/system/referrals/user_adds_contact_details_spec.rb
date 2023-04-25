@@ -30,9 +30,15 @@ RSpec.feature "Contact details", type: :system do
     # Email address unknown
     when_i_select_no
     and_i_click_save_and_continue
+    then_i_see_the_contact_number_page
+
+    # Check answers redirection after first question
+    when_i_visit_the_referral
+    and_i_click_on_contact_details
+    then_i_see_the_check_your_answers_page("Contact details")
 
     # Email address known
-    when_i_go_back
+    when_i_click_change_if_you_know_their_email_address
     when_i_select_yes_with_a_valid_email
     and_i_click_save_and_continue
     then_i_see_the_contact_number_page
@@ -90,10 +96,20 @@ RSpec.feature "Contact details", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_completed_error
 
-    when_i_select_yes
+    when_i_select_no
     and_i_click_save_and_continue
-    then_i_get_redirected_to_the_referral_summary
-    then_i_see_the_status_section_in_the_referral_summary
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Contact details", "contact_details")
+
+    when_i_click_on_complete_section("Contact details")
+    and_i_choose_complete
+    and_i_click_save_and_continue
+    then_i_see_the_referral_summary
+
+    and_the_section_is_complete("Contact details")
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Contact details")
 
     # Not completed
     when_i_visit_the_check_answers_page
@@ -283,5 +299,9 @@ RSpec.feature "Contact details", type: :system do
 
   def when_i_click_change_address
     click_link "Change if you know their home address"
+  end
+
+  def when_i_click_change_if_you_know_their_email_address
+    click_link "Change if you know their email address"
   end
 end

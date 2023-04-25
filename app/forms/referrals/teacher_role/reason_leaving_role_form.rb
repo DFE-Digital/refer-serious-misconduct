@@ -13,6 +13,10 @@ module Referrals
 
         referral.update(reason_leaving_role:)
       end
+
+      def slug
+        "teacher_role_reason_leaving_role"
+      end
     end
   end
 end

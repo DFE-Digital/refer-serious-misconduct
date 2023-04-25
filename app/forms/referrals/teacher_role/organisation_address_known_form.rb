@@ -13,6 +13,10 @@ module Referrals
 
         referral.update(organisation_address_known:)
       end
+
+      def slug
+        "teacher_role_organisation_address_known"
+      end
     end
   end
 end

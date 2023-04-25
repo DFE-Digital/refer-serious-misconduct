@@ -23,6 +23,10 @@ module Referrals
 
         referral.update(ni_number_known:, ni_number: ni_number_known ? ni_number : nil)
       end
+
+      def slug
+        "personal_details_ni_number"
+      end
     end
   end
 end

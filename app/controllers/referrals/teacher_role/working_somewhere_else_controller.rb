@@ -15,7 +15,7 @@ module Referrals
           )
 
         if @working_somewhere_else_form.save
-          redirect_to next_page
+          redirect_to @working_somewhere_else_form.next_path
         else
           render :edit
         end
@@ -27,29 +27,6 @@ module Referrals
         params.require(:referrals_teacher_role_working_somewhere_else_form).permit(
           :working_somewhere_else
         )
-      end
-
-      def next_path
-        if current_referral.working_somewhere_else?
-          [
-            :edit,
-            current_referral.routing_scope,
-            current_referral,
-            :teacher_role,
-            :work_location_known
-          ]
-        else
-          [:edit, current_referral.routing_scope, current_referral, :teacher_role, :check_answers]
-        end
-      end
-
-      def next_page
-        if @working_somewhere_else_form.referral.saved_changes? &&
-             current_referral.working_somewhere_else
-          return next_path
-        end
-
-        super
       end
     end
   end

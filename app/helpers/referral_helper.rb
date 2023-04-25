@@ -111,7 +111,11 @@ module ReferralHelper
   end
 
   def summary_rows(rows)
-    rows.map { |row| summary_row(**row) }
+    if rows.is_a?(Hash)
+      rows.transform_values { |value| summary_rows(value) }
+    else
+      rows.compact_blank.map { |row| summary_row(**row) }
+    end
   end
 
   def summary_row(label:, value:, path: nil, visually_hidden_text: nil)

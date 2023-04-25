@@ -9,6 +9,17 @@ module ValidationTracking
     attribute :validation_tracking, :boolean, default: true
   end
 
+  def valid_without_tracking?
+    without_tracking { valid? }
+  end
+
+  def without_tracking
+    self.validation_tracking = false
+    yield
+  ensure
+    self.validation_tracking = true
+  end
+
   def track_validation_error
     ValidationError.create!(form_object: self.class.name, details: validation_error_details.to_h)
   end
@@ -29,6 +40,7 @@ module ValidationTracking
 
   def value_for_field(field)
     return "base" if field == :base
+    return field.to_s.delete("section.") if field.to_s.start_with?("section.")
 
     public_send(field)
   end

@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe SummaryCardComponent, type: :component do
   let(:referral) { create(:referral, :complete) }
+  let(:section) { Referrals::Sections::ReferrerSection.new(referral:) }
   let(:rows) do
     [
       {
@@ -24,7 +25,7 @@ RSpec.describe SummaryCardComponent, type: :component do
   let(:row_links) { component.rows.map { |row| row.dig(:actions, 0, :href) } }
 
   context "when editable is true" do
-    subject(:component) { described_class.new(rows:) }
+    subject(:component) { described_class.new(rows:, section:) }
 
     before { render_inline(component) }
 
@@ -39,7 +40,7 @@ RSpec.describe SummaryCardComponent, type: :component do
   end
 
   context "when editable is false" do
-    subject(:component) { described_class.new(rows:, editable: false) }
+    subject(:component) { described_class.new(rows:, section:, editable: false) }
 
     it "does not have any action links" do
       expect(row_links.compact).to be_empty

@@ -25,10 +25,6 @@ RSpec.feature "A member of the public submits a referral", type: :system do
 
   private
 
-  def and_i_click_review_and_send
-    click_on "Review and send"
-  end
-
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path(public_referral_review_path(@referral))
     expect(page).to have_title("Check details and send referral")

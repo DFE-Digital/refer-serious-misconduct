@@ -14,6 +14,10 @@ module Referrals
         referral.update(dbs_notified:)
         true
       end
+
+      def slug
+        "allegation_dbs"
+      end
     end
   end
 end

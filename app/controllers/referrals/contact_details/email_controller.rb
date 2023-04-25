@@ -13,7 +13,7 @@ module Referrals
         @contact_details_email_form =
           EmailForm.new(contact_details_email_form_params.merge(referral: current_referral))
         if @contact_details_email_form.save
-          redirect_to next_page
+          redirect_to @contact_details_email_form.next_path
         else
           render :edit
         end
@@ -23,10 +23,6 @@ module Referrals
 
       def contact_details_email_form_params
         params.require(:referrals_contact_details_email_form).permit(:email_known, :email_address)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :contact_details, :telephone]
       end
     end
   end

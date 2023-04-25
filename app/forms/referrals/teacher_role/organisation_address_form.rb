@@ -29,6 +29,10 @@ module Referrals
         )
       end
 
+      def slug
+        "teacher_role_organisation_address"
+      end
+
       private
 
       def postcode_is_valid

@@ -19,4 +19,8 @@ class OrganisationComponent < ViewComponent::Base
       path: :organisation_address
     }
   end
+
+  def section
+    Referrals::Sections::OrganisationSection.new(referral:)
+  end
 end

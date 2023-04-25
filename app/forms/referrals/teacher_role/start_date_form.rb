@@ -20,6 +20,10 @@ module Referrals
 
         referral.update(role_start_date:, role_start_date_known:)
       end
+
+      def slug
+        "teacher_role_start_date"
+      end
     end
   end
 end

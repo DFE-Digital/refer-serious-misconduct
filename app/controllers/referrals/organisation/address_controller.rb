@@ -9,7 +9,7 @@ module Referrals
         @organisation_address_form =
           AddressForm.new(organisation_address_form_params.merge(referral: current_referral))
         if @organisation_address_form.save
-          redirect_to next_page
+          redirect_to @organisation_address_form.next_path
         else
           render :edit
         end
@@ -25,10 +25,6 @@ module Referrals
           :street_1,
           :street_2
         )
-      end
-
-      def next_path
-        edit_referral_organisation_check_answers_path(current_referral)
       end
     end
   end

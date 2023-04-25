@@ -4,10 +4,10 @@ module Referrals
       def items
         [
           Referrer::NameForm.new(referral:),
-          Referrer::JobTitleForm.new(referral:),
+          referral.from_employer? && Referrer::JobTitleForm.new(referral:),
           Referrer::PhoneForm.new(referral:),
           Referrer::CheckAnswersForm.new(referral:)
-        ]
+        ].compact_blank
       end
 
       def slug
@@ -20,6 +20,10 @@ module Referrals
 
       def label
         I18n.t("referral_form.your_details")
+      end
+
+      def view_component(**args)
+        AboutYouComponent.new(referral:, **args)
       end
     end
   end

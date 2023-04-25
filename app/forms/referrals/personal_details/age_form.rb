@@ -4,7 +4,7 @@ module Referrals
     class AgeForm
       include ReferralFormSection
 
-      attr_accessor :date_params, :referral
+      attr_accessor :date_params
       attr_referral :age_known, :date_of_birth
 
       validates :age_known, inclusion: { in: [true, false] }
@@ -24,6 +24,10 @@ module Referrals
         attrs.merge!(date_of_birth: nil) unless age_known
 
         referral.update(attrs)
+      end
+
+      def slug
+        "personal_details_age"
       end
     end
   end

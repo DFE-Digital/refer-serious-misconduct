@@ -16,7 +16,7 @@ module Referrals
           )
 
         if @personal_details_age_form.save
-          redirect_to next_page
+          redirect_to @personal_details_age_form.next_path
         else
           render :edit
         end
@@ -34,10 +34,6 @@ module Referrals
           "date_of_birth(2i)",
           "date_of_birth(3i)"
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :personal_details, :ni_number]
       end
     end
   end

@@ -16,7 +16,7 @@ module Referrals
           )
 
         if @role_start_date_form.save
-          redirect_to next_page
+          redirect_to @role_start_date_form.next_path
         else
           render :edit
         end
@@ -34,10 +34,6 @@ module Referrals
           "role_start_date(2i)",
           "role_start_date(1i)"
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :employment_status]
       end
 
       def back_link

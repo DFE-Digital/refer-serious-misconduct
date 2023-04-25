@@ -27,6 +27,10 @@ RSpec.feature "Personal details", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_to_confirm_their_personal_details
 
+    when_i_visit_the_referral
+    when_i_edit_personal_details
+    then_i_see_the_check_your_answers_page("Personal details")
+
     and_i_click_save_and_continue
     then_i_see_confirmation_validation_errors
 
@@ -35,10 +39,17 @@ RSpec.feature "Personal details", type: :system do
     then_i_see_the_public_referral_summary
     and_i_see_personal_details_flagged_as_incomplete
 
-    when_i_click_on_personal_details
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Personal details", "personal_details")
+
+    when_i_click_on_complete_section("Personal details")
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_completed_section_in_the_referral_summary
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Personal details")
   end
 
   private

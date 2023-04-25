@@ -18,8 +18,20 @@ module Referrals
       raise NotImplementedError, "You must define slug in #{self.class}"
     end
 
+    def view_component(user:)
+      raise NotImplementedError, "You must define view_component in #{self.class}"
+    end
+
+    def section
+      self
+    end
+
     def label
       I18n.t("referral_form.#{slug}")
+    end
+
+    def error_id
+      "referral-form-section-#{slug.dasherize}-field-error"
     end
 
     def start_path
@@ -31,11 +43,11 @@ module Referrals
     end
 
     def path
-      complete_question_answered? ? check_answers_path : start_path
+      started? ? check_answers_path : start_path
     end
 
     def next_path
-      items.find(&:incomplete?).path
+      items.find(&:incomplete?)&.path || path
     end
 
     def status
@@ -58,9 +70,12 @@ module Referrals
       items.first.complete?
     end
 
-    # TODO: Remove this method once we've migrated to the new section structure
-    def complete_question_answered?
-      !complete?.nil?
+    def complete_rows(rows)
+      if rows.is_a?(Hash)
+        rows.filter_map { |k, v| v if items[k].complete? }.flatten
+      else
+        rows.select.with_index { |_i, idx| items[idx].complete? }
+      end
     end
   end
 end

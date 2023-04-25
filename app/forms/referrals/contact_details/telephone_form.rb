@@ -20,6 +20,10 @@ module Referrals
         referral.phone_number = phone_known ? phone_number : nil
         referral.save
       end
+
+      def slug
+        "contact_details_telephone"
+      end
     end
   end
 end

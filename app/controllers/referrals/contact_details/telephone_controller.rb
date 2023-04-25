@@ -13,7 +13,7 @@ module Referrals
         @contact_details_telephone_form =
           TelephoneForm.new(contact_details_telephone_form_params.merge(referral: current_referral))
         if @contact_details_telephone_form.save
-          redirect_to next_page
+          redirect_to @contact_details_telephone_form.next_path
         else
           render :edit
         end
@@ -26,10 +26,6 @@ module Referrals
           :phone_known,
           :phone_number
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :contact_details, :address_known]
       end
     end
   end

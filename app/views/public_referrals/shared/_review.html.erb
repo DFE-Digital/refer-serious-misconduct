@@ -1,26 +1,13 @@
-<div class="app-review-panel">
-  <h2 class="govuk-heading-m govuk-!-font-size-27">About you</h2>
+<% @referral_form.items.each do |section_group| %>
+  <div class="app-review-panel">
+    <h2 class="govuk-heading-m govuk-!-font-size-27"><%= section_group.label %></h2>
 
-  <h3 class="govuk-heading-m">Your details</h3>
-  <%= render AboutYouComponent.new(referral: current_referral, user: current_user) %>
-</div>
+    <% section_group.items.each do |section| %>
+      <%= tag.h3 id: section.error_id, class: "govuk-heading-m" do %>
+        <%= section.label %>
+      <% end %>
 
-<div class="app-review-panel">
-  <h2 class="govuk-heading-m govuk-!-font-size-27">About the teacher</h2>
-
-  <h3 class="govuk-heading-m">Personal details</h3>
-  <%= render PersonalDetailsComponent.new(referral: current_referral) %>
-
-  <h3 class="govuk-heading-m">About their role</h3>
-  <%= render TheirRoleComponent.new(referral: current_referral) %>
-</div>
-
-<div class="app-review-panel">
-  <h2 class="govuk-heading-m govuk-!-font-size-27">The allegation</h2>
-
-  <h3 class="govuk-heading-m">Allegation details</h3>
-  <%= render PublicAllegationComponent.new(referral: current_referral) %>
-
-  <h3 class="govuk-heading-m">Evidence and supporting information</h3>
-  <%= render EvidenceComponent.new(referral: current_referral) %>
-</div>
+      <%= render section.view_component user: current_user, referral_form_invalid: !@referral_form.valid_without_tracking? %>
+    <% end %>
+  </div>
+<% end %>
