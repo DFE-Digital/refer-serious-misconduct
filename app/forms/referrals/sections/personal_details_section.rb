@@ -1,6 +1,6 @@
 module Referrals
   module Sections
-    class ReferralPersonalDetailsSection < Section
+    class PersonalDetailsSection < Section
       def items
         items = [Referrals::PersonalDetails::NameForm.new(referral:)]
 
@@ -24,6 +24,10 @@ module Referrals
 
       def label
         I18n.t("referral_form.personal_details")
+      end
+
+      def view_component(**args)
+        PersonalDetailsComponent.new(referral:, **args)
       end
     end
   end

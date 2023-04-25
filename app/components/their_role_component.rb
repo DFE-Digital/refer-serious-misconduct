@@ -182,14 +182,6 @@ class TheirRoleComponent < ViewComponent::Base
     }
   end
 
-  def path_for(part)
-    [:edit, referral.routing_scope, referral, :teacher_role, part, { return_to: }]
-  end
-
-  def return_to
-    polymorphic_path([:edit, referral.routing_scope, referral, :teacher_role, :check_answers])
-  end
-
   def reason_leaving_role
     return "I'm not sure" if referral.reason_leaving_role&.to_sym == :unknown
 
@@ -200,5 +192,9 @@ class TheirRoleComponent < ViewComponent::Base
     return "I'm not sure" if referral.working_somewhere_else&.to_sym == :not_sure
 
     referral.working_somewhere_else&.humanize.presence || "Not answered"
+  end
+
+  def section
+    Referrals::Sections::TeacherRoleSection.new(referral:)
   end
 end

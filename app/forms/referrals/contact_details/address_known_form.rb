@@ -3,9 +3,12 @@ module Referrals
     class AddressKnownForm
       include ReferralFormSection
 
-      attr_reader :address_known
-
       validates :address_known, inclusion: { in: [true, false] }
+
+      def address_known
+        return @address_known if defined?(@address_known)
+        @address_known = referral&.address_known
+      end
 
       def address_known=(value)
         @address_known = ActiveModel::Type::Boolean.new.cast(value)
@@ -18,7 +21,7 @@ module Referrals
       end
 
       def slug
-        "contact_details_email"
+        "contact_details_address_known"
       end
     end
   end

@@ -3,8 +3,7 @@ module Referrals
     class TelephoneForm
       include ReferralFormSection
 
-      attr_accessor :phone_number
-      attr_reader :phone_known
+      attr_writer :phone_number
 
       validates :phone_known, inclusion: { in: [true, false] }
       validates :phone_number, presence: true, if: -> { phone_known }
@@ -14,8 +13,17 @@ module Referrals
                 },
                 if: -> { phone_known && phone_number.present? }
 
+      def phone_known
+        return @phone_known if defined?(@phone_known)
+        @phone_known = referral&.phone_known
+      end
+
       def phone_known=(value)
         @phone_known = ActiveModel::Type::Boolean.new.cast(value)
+      end
+
+      def phone_number
+        @phone_number ||= referral&.phone_number
       end
 
       def save
@@ -24,6 +32,10 @@ module Referrals
         referral.phone_known = phone_known
         referral.phone_number = phone_known ? phone_number : nil
         referral.save
+      end
+
+      def slug
+        "contact_details_telephone"
       end
     end
   end

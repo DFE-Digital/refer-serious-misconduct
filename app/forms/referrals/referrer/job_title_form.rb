@@ -7,6 +7,10 @@ module Referrals
 
       validates :job_title, presence: true
 
+      def slug
+        "referrer_job_title"
+      end
+
       def job_title
         @job_title ||= referrer&.job_title
       end

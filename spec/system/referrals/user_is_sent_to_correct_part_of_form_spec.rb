@@ -25,11 +25,8 @@ RSpec.feature "User is sent to correct part of form", type: :system do
 
     when_i_visit_the_service
     and_i_click_on_your_details
-    then_i_am_on_the_your_name_page
+    then_i_see_the_referrer_check_your_answers_page
 
-    when_i_click_save_and_continue
-    and_i_click_save_and_continue
-    and_i_click_save_and_continue
     and_i_choose_no_come_back_later
     and_i_click_save_and_continue
 

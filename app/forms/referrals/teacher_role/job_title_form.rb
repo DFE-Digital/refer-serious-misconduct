@@ -4,9 +4,13 @@ module Referrals
     class JobTitleForm
       include ReferralFormSection
 
-      attr_accessor :job_title
+      attr_writer :job_title
 
       validates :job_title, presence: true
+
+      def job_title
+        @job_title ||= referral&.job_title
+      end
 
       def save
         return false if invalid?

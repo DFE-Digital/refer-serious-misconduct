@@ -4,8 +4,8 @@ module Referrals
     class EndDateForm
       include ReferralFormSection
 
-      attr_accessor :date_params, :referral, :role_end_date
-      attr_reader :role_end_date_known
+      attr_accessor :date_params, :referral
+      attr_writer :role_end_date
 
       validates :role_end_date_known, inclusion: { in: [true, false] }
       validates :role_end_date,
@@ -15,8 +15,17 @@ module Referrals
                 },
                 if: -> { role_end_date_known }
 
+      def role_end_date_known
+        return @role_end_date_known if defined?(@role_end_date_known)
+        @role_end_date_known = referral&.role_end_date_known
+      end
+
       def role_end_date_known=(value)
         @role_end_date_known = ActiveModel::Type::Boolean.new.cast(value)
+      end
+
+      def role_end_date
+        @role_end_date ||= referral&.role_end_date
       end
 
       def save

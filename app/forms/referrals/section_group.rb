@@ -5,6 +5,7 @@ module Referrals
 
     attribute :slug
     attribute :items, default: []
+    alias_method :sections, :items
 
     def label
       I18n.t("referral_form.#{slug}")

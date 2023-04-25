@@ -69,10 +69,6 @@ en:
           attributes:
             unsupervised_teaching:
               inclusion: Select if this person carries out unsupervised teaching work
-        referral_form:
-          attributes:
-            base:
-              all_sections_complete: Complete all sections of the referral
         "users/otp_form":
           attributes:
             otp:
@@ -365,6 +361,7 @@ en:
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
     missing_staff_permission: Select permissions
+    incomplete_section: You must complete %{section} before you can send your referral
 
   pundit:
     unauthorized: You do not have permission to view this page

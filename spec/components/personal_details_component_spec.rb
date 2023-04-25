@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe PersonalDetailsComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
-  let(:referral) { create(:referral, :employer, :personal_details_employer) }
+  let(:referral) { create(:referral, :complete, :employer, :personal_details_employer) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }
   let(:row_values) { component.rows.map { |row| row.dig(:value, :text) }.map(&:strip) }

@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
   def otp(user)
     @otp = Devise::Otp.derive_otp(user.secret_key)
-    Rails.logger.info "OTP: #{@otp}" if Rails.env.development?
+    Rails.logger.info "OTP: #{@otp} for email #{user.email}" if Rails.env.development?
     mailer_options = { to: user.email, subject: "#{@otp} is your confirmation code" }
 
     view_mail_refer(mailer_options:)

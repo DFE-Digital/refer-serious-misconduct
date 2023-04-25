@@ -55,4 +55,8 @@ class ContactDetailsComponent < ViewComponent::Base
   def address_row
     { label: "Home address", value: address(referral).presence, path: :contact_details_address }
   end
+
+  def section
+    Referrals::Sections::ContactDetailsSection.new(referral:)
+  end
 end

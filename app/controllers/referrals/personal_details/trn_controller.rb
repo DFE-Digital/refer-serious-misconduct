@@ -10,7 +10,7 @@ module Referrals
         @personal_details_trn_form = TrnForm.new(trn_params.merge(referral: current_referral))
 
         if @personal_details_trn_form.save
-          redirect_to next_page
+          redirect_to @personal_details_trn_form.next_path
         else
           render :edit
         end
@@ -20,10 +20,6 @@ module Referrals
 
       def trn_params
         params.require(:referrals_personal_details_trn_form).permit(:trn_known, :trn)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :personal_details, :qts]
       end
     end
   end

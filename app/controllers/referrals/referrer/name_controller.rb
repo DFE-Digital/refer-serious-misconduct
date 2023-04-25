@@ -9,7 +9,7 @@ module Referrals
         @referrer_name_form =
           Referrals::Referrer::NameForm.new(name_params.merge(referral: current_referral))
         if @referrer_name_form.save
-          redirect_to next_page
+          redirect_to @referrer_name_form.next_path
         else
           render :edit
         end
@@ -19,10 +19,6 @@ module Referrals
 
       def name_params
         params.require(:referrals_referrer_name_form).permit(:first_name, :last_name)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :referrer_job_title]
       end
 
       def previous_path

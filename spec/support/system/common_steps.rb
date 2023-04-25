@@ -102,6 +102,37 @@ module CommonSteps
   end
   alias_method :and_i_click_continue, :when_i_click_continue
 
+  def when_i_click_on_complete_your_details
+    click_link "Complete your details"
+  end
+  alias_method :and_i_click_on_complete_your_details, :when_i_click_on_complete_your_details
+
+  def when_i_click_review_and_send
+    click_on "Review and send"
+  end
+  alias_method :and_i_click_review_and_send, :when_i_click_review_and_send
+
+  def when_i_click_on_complete_section(section)
+    within(find("h3", text: section).sibling("section", match: :first)) do
+      click_link "Complete your details"
+    end
+  end
+
+  def then_i_see_the_section_completion_message(section)
+    within(find("h3", text: section).first(:xpath, "./following-sibling::section")) do |node|
+      expect(node[:class]).to match("app-inset-text--incomplete-section-error")
+      expect(page).to have_content(
+        "You must complete your details before you can send your referral"
+      )
+    end
+  end
+
+  def then_i_see_the_complete_section(section)
+    within(find("h3", text: section).sibling("section", match: :first)) do
+      expect(page).not_to have_content("Complete your details")
+    end
+  end
+
   def when_i_click_on_change_name
     click_on "Change your name"
   end

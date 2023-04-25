@@ -6,7 +6,10 @@ module Referrals
 
       validates :dbs_notified, inclusion: { in: [true, false] }
 
-      attr_reader :dbs_notified
+      def dbs_notified
+        return @dbs_notified if defined?(@dbs_notified)
+        @dbs_notified = referral&.dbs_notified
+      end
 
       def dbs_notified=(value)
         @dbs_notified = ActiveModel::Type::Boolean.new.cast(value)
@@ -17,6 +20,10 @@ module Referrals
 
         referral.update(dbs_notified:)
         true
+      end
+
+      def slug
+        "allegation_dbs"
       end
     end
   end

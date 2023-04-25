@@ -4,8 +4,6 @@ module Referrals
     class NiNumberForm
       include ReferralFormSection
 
-      attr_reader :ni_number_known, :ni_number
-
       validates :ni_number,
                 presence: true,
                 format: {
@@ -14,8 +12,17 @@ module Referrals
                 if: -> { ni_number_known }
       validates :ni_number_known, inclusion: { in: [true, false] }
 
+      def ni_number_known
+        return @ni_number_known if defined?(@ni_number_known)
+        @ni_number_known = referral&.ni_number_known
+      end
+
       def ni_number_known=(value)
         @ni_number_known = ActiveModel::Type::Boolean.new.cast(value)
+      end
+
+      def ni_number
+        @ni_number ||= referral&.ni_number&.gsub(/\s|-/, "")
       end
 
       def ni_number=(value)
@@ -26,6 +33,10 @@ module Referrals
         return false unless valid?
 
         referral.update(ni_number_known:, ni_number: ni_number_known ? ni_number : nil)
+      end
+
+      def slug
+        "personal_details_ni_number"
       end
     end
   end

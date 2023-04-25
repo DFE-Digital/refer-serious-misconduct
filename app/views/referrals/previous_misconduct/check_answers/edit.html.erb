@@ -11,14 +11,8 @@
         Check and confirm your answers
       </h1>
 
-      <%= render PreviousMisconductComponent.new(referral: current_referral) %>
-
-      <%= f.govuk_radio_buttons_fieldset :previous_misconduct_complete, hint: { text: 'You can still make changes to a completed section' }, legend: { size: 'm', text: 'Have you completed this section?' } do %>
-        <%= f.hidden_field :previous_misconduct_complete %>
-        <%= f.govuk_radio_button :previous_misconduct_complete, true, label: { text: "Yes, I’ve completed this section" }, link_errors: true %>
-        <%= f.govuk_radio_button :previous_misconduct_complete, false, label: { text: "No, I’ll come back to it later" } %>
-      <% end %>
-      <%= f.govuk_submit "Save and continue" %>
+      <%= render partial: 'referrals/shared/check_answers', locals: { f:, complete_field_name: :previous_misconduct_complete } %>
     <% end %>
   </div>
 </div>
+

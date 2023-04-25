@@ -17,7 +17,7 @@ module Referrals
           WorkLocationForm.new(work_location_params.merge(referral: current_referral))
 
         if @work_location_form.save
-          redirect_to next_page
+          redirect_to @work_location_form.next_path
         else
           render :edit
         end
@@ -33,10 +33,6 @@ module Referrals
           :work_town_or_city,
           :work_postcode
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :check_answers]
       end
     end
   end

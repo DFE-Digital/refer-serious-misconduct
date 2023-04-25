@@ -12,6 +12,10 @@ module Referrals
                 },
                 presence: true
 
+      def slug
+        "referrer_phone"
+      end
+
       def phone
         @phone ||= referrer&.phone
       end

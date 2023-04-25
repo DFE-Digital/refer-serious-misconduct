@@ -35,4 +35,8 @@ class PublicAllegationComponent < ViewComponent::Base
       path: :allegation_considerations
     }
   end
+
+  def section
+    Referrals::Sections::AllegationSection.new(referral:)
+  end
 end

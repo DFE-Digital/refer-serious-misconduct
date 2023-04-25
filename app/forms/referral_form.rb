@@ -30,13 +30,16 @@ class ReferralForm
   private
 
   def sections_valid
-    validity =
-      items.all? do |item|
-        # TODO: Remove || clause when incomplete section is fully merged
-        item.is_a?(Referrals::SectionGroup) && item.complete? ||
-          item.items.map(&:status).uniq == [:completed]
-      end
-    errors.add(:base, :all_sections_complete) unless validity
+    invalid_sections.each do |section|
+      errors.add(
+        "section.#{section.slug.to_sym}",
+        I18n.t("validation_errors.section_incomplete", section: section.label.downcase)
+      )
+    end
+  end
+
+  def invalid_sections
+    items.flat_map { |item| item.sections.select(&:incomplete?) }
   end
 
   def about_you_section
@@ -49,13 +52,11 @@ class ReferralForm
   end
 
   def about_the_person_you_are_referring_section
-    items = [Referrals::Sections::ReferralPersonalDetailsSection.new(referral:)]
-
-    if referral.from_employer?
-      items.append(Referrals::Sections::ReferralContactDetailsSection.new(referral:))
-    end
-
-    items.append(Referrals::Sections::ReferralAboutTheirRoleSection.new(referral:))
+    items = [
+      Referrals::Sections::PersonalDetailsSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::ContactDetailsSection.new(referral:),
+      Referrals::Sections::TeacherRoleSection.new(referral:)
+    ].compact_blank
 
     Referrals::SectionGroup.new(slug: "about_the_person_you_are_referring", items:)
   end

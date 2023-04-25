@@ -4,14 +4,11 @@ class WhatHappenedComponent < ViewComponent::Base
   include ComponentHelper
 
   def rows
-    items =
-      summary_rows [
-                     details_about_allegation_format_row,
-                     details_about_allegation_row,
-                     dbs_notified_row
-                   ].compact
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   details_about_allegation_format_row,
+                   details_about_allegation_row,
+                   referral.from_employer? && dbs_notified_row
+                 ].compact_blank
   end
 
   private
@@ -40,5 +37,9 @@ class WhatHappenedComponent < ViewComponent::Base
       value: referral.dbs_notified,
       path: :allegation_dbs
     }
+  end
+
+  def section
+    Referrals::Sections::AllegationSection.new(referral:)
   end
 end

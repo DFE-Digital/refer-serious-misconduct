@@ -18,7 +18,7 @@ module PublicReferrals
           )
 
         if @allegation_considerations_form.save
-          redirect_to next_page
+          redirect_to @allegation_considerations_form.next_path
         else
           render :edit
         end
@@ -30,10 +30,6 @@ module PublicReferrals
         params.require(:referrals_allegation_considerations_form).permit(
           :allegation_consideration_details
         )
-      end
-
-      def next_path
-        edit_public_referral_allegation_check_answers_path(current_referral)
       end
     end
   end

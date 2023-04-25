@@ -22,6 +22,10 @@ module Referrals
       def label
         I18n.t("referral_form.evidence_and_supporting_information")
       end
+
+      def view_component(**args)
+        EvidenceComponent.new(referral:, **args)
+      end
     end
   end
 end

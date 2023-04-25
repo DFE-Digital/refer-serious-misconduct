@@ -12,7 +12,7 @@ module Referrals
             contact_details_address_known_form_params.merge(referral: current_referral)
           )
         if @contact_details_address_known_form.save
-          redirect_to next_page
+          redirect_to @contact_details_address_known_form.next_path
         else
           render :edit
         end
@@ -22,14 +22,6 @@ module Referrals
 
       def contact_details_address_known_form_params
         params.require(:referrals_contact_details_address_known_form).permit(:address_known)
-      end
-
-      def next_page
-        if current_referral.address_known
-          return :edit, current_referral.routing_scope, current_referral, :contact_details, :address
-        end
-
-        [:edit, current_referral.routing_scope, current_referral, :contact_details, :check_answers]
       end
     end
   end

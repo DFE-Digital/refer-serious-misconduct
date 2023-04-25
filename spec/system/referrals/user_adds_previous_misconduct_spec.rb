@@ -61,6 +61,8 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     and_i_see_previous_misconduct_flagged_as_incomplete
 
     when_i_go_back
+    when_i_click_change_previous_misconduct_details_link
+    when_i_click_save_and_continue
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_referral_summary

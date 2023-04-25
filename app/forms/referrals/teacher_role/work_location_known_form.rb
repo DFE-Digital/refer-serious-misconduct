@@ -4,9 +4,12 @@ module Referrals
     class WorkLocationKnownForm
       include ReferralFormSection
 
-      attr_reader :work_location_known
-
       validates :work_location_known, inclusion: { in: [true, false] }
+
+      def work_location_known
+        return @work_location_known if defined?(@work_location_known)
+        @work_location_known = referral&.work_location_known
+      end
 
       def work_location_known=(value)
         @work_location_known = ActiveModel::Type::Boolean.new.cast(value)
@@ -16,6 +19,10 @@ module Referrals
         return false if invalid?
 
         referral.update(work_location_known:)
+      end
+
+      def slug
+        "teacher_role_work_location_known"
       end
     end
   end

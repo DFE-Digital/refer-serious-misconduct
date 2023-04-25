@@ -9,7 +9,7 @@ module Referrals
         @allegation_dbs_form = DbsForm.new(allegation_dbs_params.merge(referral: current_referral))
 
         if @allegation_dbs_form.save
-          redirect_to next_page
+          redirect_to @allegation_dbs_form.next_path
         else
           render :edit
         end
@@ -19,10 +19,6 @@ module Referrals
 
       def allegation_dbs_params
         params.fetch(:referrals_allegation_dbs_form, {}).permit(:dbs_notified)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :allegation, :check_answers]
       end
     end
   end

@@ -56,6 +56,7 @@ RSpec.feature "Evidence", type: :system do
 
     and_i_visit_the_public_referral
     when_i_edit_the_evidence
+    when_i_click_change_uploaded_evidence
     then_i_see_a_list_of_the_uploaded_files
 
     when_i_have_no_more_evidence_to_upload
@@ -88,6 +89,9 @@ RSpec.feature "Evidence", type: :system do
     and_the_evidence_section_state_is(:incomplete)
 
     when_i_edit_the_evidence
+    when_i_click_change_uploaded_evidence
+    when_i_have_no_more_evidence_to_upload
+    and_i_click_save_and_continue
     and_i_choose_to_confirm
     and_i_click_save_and_continue
     then_the_evidence_section_state_is(:completed)

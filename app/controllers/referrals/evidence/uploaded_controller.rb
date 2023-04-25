@@ -10,7 +10,7 @@ module Referrals
       def update
         @uploaded_form = UploadedForm.new(more_evidence_params.merge(referral: current_referral))
 
-        if @uploaded_form.valid?
+        if @uploaded_form.valid?(:update)
           subsection = (@uploaded_form.more_evidence? ? :evidence_upload : :evidence_check_answers)
 
           redirect_to([:edit, current_referral.routing_scope, current_referral, subsection])

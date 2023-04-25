@@ -12,7 +12,7 @@ module Referrals
       def update
         @ni_number_form = NiNumberForm.new(ni_number_form_params.merge(referral: current_referral))
         if @ni_number_form.save
-          redirect_to next_page
+          redirect_to @ni_number_form.next_path
         else
           render :edit
         end
@@ -25,10 +25,6 @@ module Referrals
           :ni_number,
           :ni_number_known
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :personal_details, :trn]
       end
     end
   end

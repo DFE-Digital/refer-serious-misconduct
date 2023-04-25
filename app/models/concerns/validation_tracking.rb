@@ -29,6 +29,7 @@ module ValidationTracking
 
   def value_for_field(field)
     return "base" if field == :base
+    return field.to_s.delete("section.") if field.to_s.start_with?("section.")
 
     public_send(field)
   end
