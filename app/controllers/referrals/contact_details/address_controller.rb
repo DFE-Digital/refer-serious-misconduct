@@ -16,7 +16,7 @@ module Referrals
         @contact_details_address_form =
           AddressForm.new(contact_details_address_form_params.merge(referral: current_referral))
         if @contact_details_address_form.save
-          redirect_to next_page
+          redirect_to @contact_details_address_form.next_path
         else
           render :edit
         end
@@ -32,10 +32,6 @@ module Referrals
           :postcode,
           :country
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :contact_details, :check_answers]
       end
     end
   end

@@ -4,9 +4,10 @@ module Referrals
       def items
         [
           Referrals::PreviousMisconduct::ReportedForm.new(referral:),
-          Referrals::PreviousMisconduct::DetailedAccountForm.new(referral:),
+          referral.previous_misconduct_reported? &&
+            Referrals::PreviousMisconduct::DetailedAccountForm.new(referral:),
           Referrals::PreviousMisconduct::CheckAnswersForm.new(referral:)
-        ]
+        ].compact_blank
       end
 
       def slug
@@ -19,6 +20,10 @@ module Referrals
 
       def label
         I18n.t("referral_form.previous_allegations")
+      end
+
+      def view_component(**args)
+        PreviousMisconductComponent.new(referral:, **args)
       end
     end
   end

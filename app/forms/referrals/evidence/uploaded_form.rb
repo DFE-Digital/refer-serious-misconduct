@@ -7,7 +7,7 @@ module Referrals
 
       attr_accessor :more_evidence
 
-      validates :more_evidence, inclusion: { in: %w[yes no] }
+      validates :more_evidence, inclusion: { in: %w[yes no] }, on: :update
 
       def slug
         "evidence_uploaded"

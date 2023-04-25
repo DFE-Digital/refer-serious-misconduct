@@ -40,4 +40,8 @@ class EvidenceComponent < ViewComponent::Base
       end
     end
   end
+
+  def section
+    Referrals::Sections::EvidenceSection.new(referral:)
+  end
 end

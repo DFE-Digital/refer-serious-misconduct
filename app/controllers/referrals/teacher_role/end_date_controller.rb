@@ -16,7 +16,7 @@ module Referrals
           )
 
         if @role_end_date_form.save
-          redirect_to next_page
+          redirect_to @role_end_date_form.next_path
         else
           render :edit
         end
@@ -34,20 +34,6 @@ module Referrals
           "role_end_date(2i)",
           "role_end_date(1i)"
         )
-      end
-
-      def next_path
-        if current_referral.left_role?
-          [
-            :edit,
-            current_referral.routing_scope,
-            current_referral,
-            :teacher_role,
-            :reason_leaving_role
-          ]
-        else
-          [:edit, current_referral.routing_scope, current_referral, :teacher_role, :check_answers]
-        end
       end
     end
   end

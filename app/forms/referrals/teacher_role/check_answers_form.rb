@@ -16,6 +16,10 @@ module Referrals
 
         referral.update(teacher_role_complete:)
       end
+
+      def section_class
+        Referrals::Sections::TeacherRoleSection
+      end
     end
   end
 end

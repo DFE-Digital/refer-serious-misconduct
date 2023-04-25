@@ -14,7 +14,7 @@ module Referrals
       end
 
       def slug
-        "contact_details_email"
+        "contact_details_address_known"
       end
     end
   end

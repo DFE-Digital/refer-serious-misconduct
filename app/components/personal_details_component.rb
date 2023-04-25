@@ -116,6 +116,10 @@ class PersonalDetailsComponent < ViewComponent::Base
     }
   end
 
+  def section
+    Referrals::Sections::PersonalDetailsSection.new(referral:)
+  end
+
   private
 
   def full_name

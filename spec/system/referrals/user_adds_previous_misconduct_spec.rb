@@ -32,8 +32,13 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_previous_misconduct_details_page
 
+    when_i_visit_the_referral
+    when_i_click_on_previous_misconduct
+    then_i_see_the_check_your_answers_page("Previous allegations", "previous-misconduct")
+
+    when_i_click_change_previous_misconduct_reported
     when_i_click_save_and_continue
-    then_i_see_the_missing_details_error
+    then_i_see_the_previous_misconduct_details_page
 
     when_i_enter_details_as_text
     and_i_click_save_and_continue
@@ -61,10 +66,19 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
     and_i_see_previous_misconduct_flagged_as_incomplete
 
     when_i_go_back
+    when_i_click_change_previous_misconduct_details_link
+
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Previous allegations", "previous_misconduct")
+
+    when_i_click_on_complete_section("Previous allegations")
     and_i_choose_complete
     and_i_click_save_and_continue
-    then_i_see_the_referral_summary
     and_i_see_previous_misconduct_flagged_as_complete
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Previous allegations")
   end
 
   private

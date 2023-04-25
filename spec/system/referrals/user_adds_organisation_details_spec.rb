@@ -21,6 +21,10 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     and_i_click_save_and_continue
     then_i_am_on_the_organisation_details_page
 
+    when_i_visit_the_referral
+    when_i_edit_your_organisation
+    then_i_see_the_check_your_answers_page("Your organisation", "organisation")
+
     when_i_click_change_your_organisation
     then_i_am_on_the_organisation_address_page
     and_i_see_the_name_prefilled
@@ -37,14 +41,24 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     then_i_am_on_the_referral_summary_page
     and_i_see_your_organisation_flagged_as_incomplete
 
-    when_i_go_back
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Your organisation", "organisation")
+
+    when_i_click_on_complete_section("Your organisation")
     and_i_choose_complete
     and_i_click_save_and_continue
-    then_i_am_on_the_referral_summary_page
-    and_i_see_your_organisation_flagged_as_complete
+    then_i_see_the_completed_section_in_the_referral_summary
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Your organisation")
   end
 
   private
+
+  def when_i_edit_your_organisation
+    within(all(".app-task-list__section")[0]) { click_on "Your organisation" }
+  end
 
   def and_i_choose_complete
     choose "Yes, I’ve completed this section", visible: false
@@ -154,5 +168,14 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def when_i_go_back
     page.go_back
+  end
+
+  def then_i_see_the_completed_section_in_the_referral_summary
+    within(all(".app-task-list__section")[0]) do
+      within(all(".app-task-list__item")[1]) do
+        expect(find(".app-task-list__task-name a").text).to eq("Your organisation")
+        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+      end
+    end
   end
 end

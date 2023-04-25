@@ -9,7 +9,7 @@ module Referrals
         @job_title_form = JobTitleForm.new(job_title_params.merge(referral: current_referral))
 
         if @job_title_form.save
-          redirect_to next_page
+          redirect_to @job_title_form.next_path
         else
           render :edit
         end
@@ -19,10 +19,6 @@ module Referrals
 
       def job_title_params
         params.require(:referrals_teacher_role_job_title_form).permit(:job_title)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :duties]
       end
     end
   end

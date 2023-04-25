@@ -30,6 +30,11 @@ RSpec.feature "Evidence", type: :system do
     and_i_click_save_and_continue
     then_i_see_a_list_of_the_uploaded_files
 
+    when_i_visit_the_referral
+    when_i_edit_the_evidence
+    then_i_see_the_check_your_answers_page("Evidence and supporting information", "evidence")
+
+    when_i_click_on_change_evidence
     when_i_have_no_more_evidence_to_upload
     and_i_click_save_and_continue
     and_i_change_anything_to_upload_to_no
@@ -56,6 +61,7 @@ RSpec.feature "Evidence", type: :system do
 
     and_i_visit_the_public_referral
     when_i_edit_the_evidence
+    when_i_click_change_uploaded_evidence
     then_i_see_a_list_of_the_uploaded_files
 
     when_i_have_no_more_evidence_to_upload
@@ -88,9 +94,21 @@ RSpec.feature "Evidence", type: :system do
     and_the_evidence_section_state_is(:incomplete)
 
     when_i_edit_the_evidence
-    and_i_choose_to_confirm
+    when_i_click_change_uploaded_evidence
+    when_i_have_no_more_evidence_to_upload
     and_i_click_save_and_continue
-    then_the_evidence_section_state_is(:completed)
+
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Evidence and supporting information", "evidence")
+
+    when_i_click_on_complete_section("Evidence and supporting information")
+    and_i_choose_complete
+    and_i_click_save_and_continue
+    and_the_evidence_section_state_is(:completed)
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Evidence and supporting information")
   end
 
   private
@@ -279,5 +297,9 @@ RSpec.feature "Evidence", type: :system do
       expect(page).not_to have_link("upload1.pdf")
       expect(page).not_to have_link("upload2.pdf")
     end
+  end
+
+  def when_i_click_on_change_evidence
+    click_on "Change if you have anything to upload"
   end
 end

@@ -13,6 +13,10 @@ module Referrals
 
         referral.update(allegation_consideration_details:)
       end
+
+      def slug
+        "allegation_considerations"
+      end
     end
   end
 end

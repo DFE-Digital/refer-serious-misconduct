@@ -55,10 +55,6 @@ class PreviousMisconductComponent < ViewComponent::Base
     "Not answered"
   end
 
-  def return_to
-    polymorphic_path([:edit, referral.routing_scope, referral, :previous_misconduct_check_answers])
-  end
-
   def detail_type
     case referral.previous_misconduct_format
     when "details"
@@ -68,5 +64,9 @@ class PreviousMisconductComponent < ViewComponent::Base
     else
       "Not answered"
     end
+  end
+
+  def section
+    Referrals::Sections::PreviousMisconductSection.new(referral:)
   end
 end

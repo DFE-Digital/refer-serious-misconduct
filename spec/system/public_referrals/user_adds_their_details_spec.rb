@@ -19,12 +19,17 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_what_is_your_phone_number_page
 
+    when_i_visit_the_referral
+    and_i_click_on_your_details
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
+
+    when_i_click_on_change_phone_number
     when_i_click_save_and_continue
     then_i_see_the_phone_error_message
 
     when_i_enter_my_phone_number
     and_i_click_save_and_continue
-    then_i_see_the_referrer_check_your_answers_page
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_save_and_continue
@@ -44,10 +49,17 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_click_on_change_phone_number
     then_i_see_the_phone_number_prefilled
 
-    when_i_click_save_and_continue
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Your details", "referrer")
+
+    when_i_click_on_complete_section("Your details")
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_your_details_flagged_as_complete
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Your details")
   end
 
   private
@@ -109,5 +121,9 @@ RSpec.feature "Public Referral: About You", type: :system do
       status_tag = find(".app-task-list__tag")
       expect(status_tag.text).to match(/^COMPLETE/)
     end
+  end
+
+  def when_i_click_on_change_phone_number
+    click_on "Change your phone number"
   end
 end

@@ -21,6 +21,10 @@ module Referrals
 
         errors.add(:postcode, :invalid)
       end
+
+      def slug
+        "contact_details_address"
+      end
     end
   end
 end

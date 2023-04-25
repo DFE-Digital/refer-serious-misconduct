@@ -11,7 +11,7 @@ module Referrals
           ReasonLeavingRoleForm.new(reason_leaving_role_params.merge(referral: current_referral))
 
         if @reason_leaving_role_form.save
-          redirect_to next_page
+          redirect_to @reason_leaving_role_form.next_path
         else
           render :edit
         end
@@ -23,16 +23,6 @@ module Referrals
         params.require(:referrals_teacher_role_reason_leaving_role_form).permit(
           :reason_leaving_role
         )
-      end
-
-      def next_path
-        [
-          :edit,
-          current_referral.routing_scope,
-          current_referral,
-          :teacher_role,
-          :working_somewhere_else
-        ]
       end
     end
   end

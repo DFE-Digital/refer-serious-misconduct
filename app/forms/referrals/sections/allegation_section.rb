@@ -22,6 +22,14 @@ module Referrals
       def label
         I18n.t("referral_form.details_of_the_allegation")
       end
+
+      def view_component(**args)
+        if referral.from_member_of_public?
+          PublicAllegationComponent.new(referral:, **args)
+        else
+          WhatHappenedComponent.new(referral:, **args)
+        end
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ module Referrals
           WorkLocationKnownForm.new(work_location_known_params.merge(referral: current_referral))
 
         if @work_location_known_form.save
-          redirect_to next_page
+          redirect_to @work_location_known_form.next_path
         else
           render :edit
         end
@@ -23,22 +23,6 @@ module Referrals
         params.require(:referrals_teacher_role_work_location_known_form).permit(
           :work_location_known
         )
-      end
-
-      def next_path
-        if current_referral.work_location_known?
-          [:edit, current_referral.routing_scope, current_referral, :teacher_role, :work_location]
-        else
-          [:edit, current_referral.routing_scope, current_referral, :teacher_role, :check_answers]
-        end
-      end
-
-      def next_page
-        if @work_location_known_form.referral.saved_changes? && current_referral.work_location_known
-          return next_path
-        end
-
-        super
       end
     end
   end

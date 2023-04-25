@@ -10,15 +10,11 @@ module ReferralFormSection
     validates :referral, presence: true
 
     def slug
-      raise NotImplementedError, "You must define slug in #{self.class}"
+      self.class.to_s.split("::")[1..].join.remove("Form").underscore.to_sym
     end
 
     def complete?
-      # We don't want to track validation errors when checking if a section is complete
-      self.validation_tracking = false
-      result = valid?
-      self.validation_tracking = true
-      result
+      valid_without_tracking?
     end
 
     def incomplete?
@@ -27,6 +23,25 @@ module ReferralFormSection
 
     def path
       [:edit, referral.routing_scope, referral, slug.to_sym]
+    end
+
+    def section
+      section_class.new(referral:)
+    end
+
+    def next_path
+      check_answers? ? [:edit, referral.routing_scope, referral] : section.next_path
+    end
+
+    def check_answers?
+      self.class.to_s.include? "CheckAnswers"
+    end
+
+    def section_class
+      class_name = "Referrals::Sections::#{self.class.to_s.split("::").second}Section"
+      class_name.constantize
+    rescue NameError
+      raise NotImplementedError, "Section class #{class_name} not found for #{self.class}"
     end
 
     def valid_upload_classes

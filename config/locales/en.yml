@@ -69,10 +69,6 @@ en:
           attributes:
             unsupervised_teaching:
               inclusion: Select if this person carries out unsupervised teaching work
-        referral_form:
-          attributes:
-            base:
-              all_sections_complete: Complete all sections of the referral
         "users/otp_form":
           attributes:
             otp:
@@ -365,6 +361,15 @@ en:
   validation_errors:
     email_address_format: Enter an email address in the correct format, like name@example.com
     missing_staff_permission: Select permissions
+    incomplete_section:
+      referrer: You must complete your details before you can send your referral
+      organisation: You must complete your organisation before you can send your referral
+      personal_details: You must complete personal details before you can send your referral
+      contact_details: You must complete contact details before you can send your referral
+      teacher_role: You must complete details about the role before you can send your referral
+      allegation: You must complete allegation details before you can send your referral
+      previous_misconduct: You must complete previous misconduct details before you can send your referral
+      evidence: You must complete evidence and supporting information before you can send your referral
 
   pundit:
     unauthorized: You do not have permission to view this page

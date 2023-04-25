@@ -16,9 +16,6 @@ RSpec.feature "Teacher role", type: :system do
     and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
 
     when_i_edit_teacher_role_details
-
-    # Their job title
-
     then_i_see_the_job_title_page
 
     when_i_click_save_and_continue
@@ -26,11 +23,13 @@ RSpec.feature "Teacher role", type: :system do
 
     when_i_fill_in_the_job_title_field
     and_i_click_save_and_continue
-
-    # How do you want to give details about their main duties?
-
     then_i_see_the_duties_page
 
+    when_i_visit_the_referral
+    when_i_edit_teacher_role_details
+    then_i_see_the_check_your_answers_page("About their role", "teacher-role")
+
+    when_i_click_on_change_their_duties_format
     when_i_click_save_and_continue
     then_i_see_duties_format_field_validation_errors
 
@@ -105,15 +104,17 @@ RSpec.feature "Teacher role", type: :system do
     then_i_see_the_public_referral_summary
     and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
 
-    # Check answers back link
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("About their role", "teacher_role")
 
-    when_i_visit_the_check_answers_page
-    and_i_click_back
-    then_i_see_the_public_referral_summary
+    when_i_click_on_complete_section("About their role")
+    and_i_choose_complete
+    and_i_click_save_and_continue
+    then_i_see_the_completed_section_in_the_referral_summary
 
-    # Edit teacher role details
-    when_i_edit_teacher_role_details
-    then_i_see_the_check_answers_page
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("About their role")
   end
 
   private
@@ -289,5 +290,18 @@ RSpec.feature "Teacher role", type: :system do
       name: "About their role",
       tag: status
     )
+  end
+
+  def when_i_click_on_change_their_duties_format
+    click_on "Change how you want to give details about their main duties"
+  end
+
+  def then_i_see_the_completed_section_in_the_referral_summary
+    within(all(".app-task-list__section")[1]) do
+      within(all(".app-task-list__item")[1]) do
+        expect(find(".app-task-list__task-name a").text).to eq("About their role")
+        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+      end
+    end
   end
 end

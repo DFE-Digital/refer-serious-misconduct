@@ -38,7 +38,12 @@ module Referrals
         if previous_misconduct_upload.present? && previous_misconduct_format != "upload"
           referral.previous_misconduct_upload.purge
         end
+
         referral.update(attrs)
+      end
+
+      def slug
+        "previous_misconduct_detailed_account"
       end
     end
   end

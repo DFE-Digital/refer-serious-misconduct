@@ -24,10 +24,6 @@ RSpec.feature "User submits a referral", type: :system do
 
   private
 
-  def and_i_click_review_and_send
-    click_on "Review and send"
-  end
-
   def and_i_have_an_incomplete_referral
     @referral = create(:referral, user: @user)
   end
@@ -69,7 +65,7 @@ RSpec.feature "User submits a referral", type: :system do
 
   def when_i_have_a_complete_referral
     @referral.update(attributes_for(:referral, :complete))
-    create(:organisation, complete: true, referral: @referral)
-    create(:referrer, complete: true, referral: @referral)
+    create(:organisation, :complete, referral: @referral)
+    create(:referrer, :complete, referral: @referral)
   end
 end

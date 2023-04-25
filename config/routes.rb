@@ -98,7 +98,10 @@ Rails.application.routes.draw do
           resource :start, only: %i[edit update], controller: :start
           resource :upload, only: %i[edit update], controller: :upload
           resource :uploaded, only: %i[edit update], controller: :uploaded
-          resource :check_answers, only: %i[edit update], controller: :check_answers
+          resource :check_answers,
+                   path: "check-answers",
+                   only: %i[edit update],
+                   controller: :check_answers
         end
 
         namespace :allegation do

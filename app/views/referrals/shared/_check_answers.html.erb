@@ -1,0 +1,12 @@
+<%= render f.object.section.view_component user: current_user %>
+
+<% if f.object.section.questions_complete? %>
+  <%= f.hidden_field complete_field_name %>
+
+  <%= f.govuk_radio_buttons_fieldset complete_field_name, hint: { text: 'You can still make changes to a completed section' }, legend: { size: 'm', text: 'Have you completed this section?' } do %>
+    <%= f.govuk_radio_button complete_field_name, 'true', label: { text: "Yes, I’ve completed this section" }, link_errors: true %>
+    <%= f.govuk_radio_button complete_field_name, 'false', label: { text: "No, I’ll come back to it later" } %>
+  <% end %>
+
+  <%= f.govuk_submit "Save and continue" %>
+<% end %>

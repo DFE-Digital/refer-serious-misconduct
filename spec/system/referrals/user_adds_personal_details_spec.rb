@@ -27,7 +27,11 @@ RSpec.feature "Personal details", type: :system do
     and_i_click_save_and_continue
     then_i_am_asked_their_date_of_birth
 
-    when_i_click_back
+    when_i_visit_the_referral
+    when_i_edit_personal_details
+    then_i_see_the_check_your_answers_page("Personal details")
+
+    when_i_click_on_change_their_name
     and_i_am_asked_their_name
     and_i_click_save_and_continue
     then_i_am_asked_their_date_of_birth
@@ -93,9 +97,17 @@ RSpec.feature "Personal details", type: :system do
     when_i_click_on_personal_details
     then_i_am_asked_to_confirm_their_personal_details
 
-    when_i_choose_complete
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Personal details", "personal_details")
+
+    when_i_click_on_complete_section("Personal details")
+    and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_the_completed_section_in_the_referral_summary
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Personal details")
   end
 
   private
@@ -226,5 +238,9 @@ RSpec.feature "Personal details", type: :system do
 
   def when_i_fill_in_the_national_insurance_number
     fill_in "National Insurance number", with: "QQ 12 34 56 C", visible: false
+  end
+
+  def when_i_click_on_change_their_name
+    click_on "Change their name"
   end
 end

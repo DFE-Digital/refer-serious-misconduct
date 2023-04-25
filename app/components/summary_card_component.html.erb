@@ -1,5 +1,10 @@
-<section class="app-govuk-summary-card">
+<%= tag.section class: class_names("app-govuk-summary-card", "app-inset-text--incomplete-section govuk-inset-text" => show_as_incomplete? || error, "app-inset-text--incomplete-section-error" => error && !review) do %>
   <div class="app-govuk-summary-card__body">
     <%= govuk_summary_list(rows:, classes: ["govuk-!-margin-bottom-6"],) %>
   </div>
-</section>
+
+  <% if show_as_incomplete? || error %>
+    <p class="app-instruction-text"><%= I18n.t("validation_errors.incomplete_section.#{section.slug}") %></p>
+    <%= govuk_button_link_to "Complete your details", section.next_path %>
+  <% end %>
+<% end %>

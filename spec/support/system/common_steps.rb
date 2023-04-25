@@ -32,7 +32,7 @@ module CommonSteps
   end
 
   def and_i_visit_the_referral
-    visit edit_referral_path(@referral)
+    visit polymorphic_path([:edit, @referral.routing_scope, @referral])
   end
   alias_method :when_i_visit_the_referral, :and_i_visit_the_referral
 
@@ -102,6 +102,64 @@ module CommonSteps
   end
   alias_method :and_i_click_continue, :when_i_click_continue
 
+  def when_i_click_on_complete_your_details
+    click_link "Complete your details"
+  end
+  alias_method :and_i_click_on_complete_your_details, :when_i_click_on_complete_your_details
+
+  def when_i_click_review_and_send
+    click_on "Review and send"
+  end
+  alias_method :and_i_click_review_and_send, :when_i_click_review_and_send
+
+  def when_i_click_on_complete_section(section)
+    within(find("h3", text: section).first(:xpath, "./following-sibling::section")) do
+      click_link "Complete your details"
+    end
+  end
+
+  def then_i_see_the_section_completion_message(section, slug)
+    within(find("h3", text: section).first(:xpath, "./following-sibling::section")) do |node|
+      expect(node[:class]).to match("app-inset-text--incomplete-section")
+      expect(page).to have_content(I18n.t("validation_errors.incomplete_section.#{slug}"))
+    end
+  end
+
+  def then_i_see_the_section_completion_error(section, slug)
+    within(find("h3", text: section).first(:xpath, "./following-sibling::section")) do |node|
+      expect(node[:class]).to match("app-inset-text--incomplete-section-error")
+      expect(page).to have_content(I18n.t("validation_errors.incomplete_section.#{slug}"))
+    end
+  end
+
+  def then_i_see_the_complete_section(section)
+    within(find("h3", text: section).first(:xpath, "./following-sibling::section")) do
+      expect(page).not_to have_content("Complete your details")
+    end
+  end
+
+  def then_i_see_the_check_your_answers_page(section, slug = nil)
+    slug ||= section.parameterize
+
+    expect(page).to have_current_path(
+      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/#{slug}/check-answers/edit"
+    )
+    expect(page).to have_title("#{section} - Refer serious misconduct by a teacher in England")
+    expect(page).to have_content(section.to_s)
+    expect(page).to have_content("Check and confirm your answers")
+  end
+
+  def and_the_section_is_complete(section)
+    within(".app-task-list") do
+      within(
+        find(".app-task-list__task-name", text: section).first(
+          :xpath,
+          "./following-sibling::strong"
+        )
+      ) { expect(page).to have_content("COMPLETED") }
+    end
+  end
+
   def when_i_click_on_change_name
     click_on "Change your name"
   end
@@ -153,14 +211,5 @@ module CommonSteps
       "Your phone number - Your details - Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content("Your phone number")
-  end
-
-  def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/referrer/check-answers/edit"
-    )
-    expect(page).to have_title("Your details - Refer serious misconduct by a teacher in England")
-    expect(page).to have_content("Your details")
-    expect(page).to have_content("Check and confirm your answers")
   end
 end

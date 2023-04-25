@@ -14,7 +14,7 @@ module Referrals
         @duties_form = DutiesForm.new(duties_params.merge(referral: current_referral))
 
         if @duties_form.save
-          redirect_to next_page
+          redirect_to @duties_form.next_path
         else
           render :edit
         end
@@ -28,10 +28,6 @@ module Referrals
           :duties_details,
           :duties_upload
         )
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral, :teacher_role, :same_organisation]
       end
     end
   end

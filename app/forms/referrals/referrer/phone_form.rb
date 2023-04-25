@@ -12,6 +12,10 @@ module Referrals
                 },
                 presence: true
 
+      def slug
+        "referrer_phone"
+      end
+
       def save
         return false unless valid?
 

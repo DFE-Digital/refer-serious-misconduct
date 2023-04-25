@@ -15,7 +15,7 @@ module Referrals
             teacher_role_check_answers_form_params.merge(referral: current_referral)
           )
         if @teacher_role_check_answers_form.save
-          redirect_to next_page
+          redirect_to @teacher_role_check_answers_form.next_path
         else
           render :edit
         end
@@ -25,10 +25,6 @@ module Referrals
 
       def teacher_role_check_answers_form_params
         params.require(:referrals_teacher_role_check_answers_form).permit(:teacher_role_complete)
-      end
-
-      def next_path
-        [:edit, current_referral.routing_scope, current_referral]
       end
     end
   end

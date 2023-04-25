@@ -19,6 +19,12 @@ RSpec.feature "Employer Referral: About You", type: :system do
     and_i_click_save_and_continue
     then_i_see_the_job_title_page
 
+    # Check answers redirection after first question
+    when_i_visit_the_referral
+    and_i_click_on_your_details
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
+
+    when_i_click_on_change_title
     when_i_click_save_and_continue
     then_i_see_the_job_title_error_message
 
@@ -31,7 +37,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
     when_i_enter_my_phone_number
     when_i_click_save_and_continue
-    then_i_see_the_referrer_check_your_answers_page
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_save_and_continue
@@ -52,21 +58,29 @@ RSpec.feature "Employer Referral: About You", type: :system do
     then_i_see_the_name_prefilled
 
     when_i_click_save_and_continue
-    then_i_see_the_referrer_check_your_answers_page
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
 
     when_i_click_on_change_title
     then_i_see_the_job_title_prefilled
 
     when_i_click_save_and_continue
-    then_i_see_the_referrer_check_your_answers_page
+    then_i_see_the_check_your_answers_page("Your details", "referrer")
 
     when_i_click_on_change_phone_number
     then_i_see_the_phone_number_prefilled
 
-    when_i_click_save_and_continue
+    # Complete the section
+    when_i_visit_the_referral
+    and_i_click_review_and_send
+    then_i_see_the_section_completion_message("Your details", "referrer")
+
+    when_i_click_on_complete_section("Your details")
     and_i_choose_complete
     and_i_click_save_and_continue
     then_i_see_your_details_flagged_as_complete
+
+    when_i_click_review_and_send
+    then_i_see_the_complete_section("Your details")
   end
 
   private
@@ -127,14 +141,6 @@ RSpec.feature "Employer Referral: About You", type: :system do
   def then_i_see_the_name_prefilled
     expect(page).to have_field("First name", with: "John")
     expect(page).to have_field("Last name", with: "Doe")
-  end
-
-  def then_i_see_the_referrer_check_your_answers_page
-    expect(page).to have_current_path("/referrals/#{@referral.id}/referrer/check-answers/edit")
-    expect(page).to have_title(
-      "Your details - Refer serious misconduct by a teacher in England - GOV.UK"
-    )
-    expect(page).to have_content("Your details")
   end
 
   def then_i_see_the_phone_error_message

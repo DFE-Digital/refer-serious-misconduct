@@ -9,6 +9,8 @@ module Users
     end
 
     def show
+      @referral_form = ReferralForm.new(referral: current_referral)
+
       redirect_to :not_found unless current_referral.submitted?
     end
 

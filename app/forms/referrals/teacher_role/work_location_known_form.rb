@@ -13,6 +13,10 @@ module Referrals
 
         referral.update(work_location_known:)
       end
+
+      def slug
+        "teacher_role_work_location_known"
+      end
     end
   end
 end
