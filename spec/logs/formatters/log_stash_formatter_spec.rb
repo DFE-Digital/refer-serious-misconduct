@@ -47,7 +47,7 @@ RSpec.describe LogStashFormatter do
       name: "Rails",
       exception: {
         name: "ActionController::RoutingError",
-        message: "No route matches [GET] \"/users/referralsss/15\"",
+        message: "No route matches [GET] \"/users/referrals/15\"",
         stack_trace: [
           "stack trace line 1",
           "stack trace line 2",
@@ -82,7 +82,7 @@ RSpec.describe LogStashFormatter do
         formatter.format_exception
 
         expect(formatter.hash[:message]).to eq(
-          'Exception occured: No route matches [GET] "/users/referralsss/15"'
+          'Exception occurred: No route matches [GET] "/users/referrals/15"'
         )
       end
     end
@@ -97,7 +97,7 @@ RSpec.describe LogStashFormatter do
       expect(formatter.hash[:exception]).to eq(
         {
           name: "ActionController::RoutingError",
-          message: "No route matches [GET] \"/users/referralsss/15\""
+          message: "No route matches [GET] \"/users/referrals/15\""
         }
       )
 

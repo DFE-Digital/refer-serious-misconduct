@@ -74,7 +74,4 @@ Rails.application.configure do
           end
         end
     )
-
-  # Limit logs to 50MB
-  config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 50.megabytes)
 end
