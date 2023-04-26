@@ -16,7 +16,7 @@ class LogStashFormatter < SemanticLogger::Formatters::Raw
   # Place a more readable version of the exception into the message field.
   def format_exception
     exception_message = hash.dig(:exception, :message)
-    hash[:message] = "Exception occured: #{exception_message}" if exception_message.present?
+    hash[:message] = "Exception occurred: #{exception_message}" if exception_message.present?
   end
 
   def format_stacktrace
