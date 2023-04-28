@@ -5,12 +5,9 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :employment_status
+      attr_referral :employment_status
 
       validates :employment_status, inclusion: { in: %w[employed suspended left_role] }
-
-      def employment_status
-        @employment_status ||= referral&.employment_status
-      end
 
       def save
         return false if invalid?

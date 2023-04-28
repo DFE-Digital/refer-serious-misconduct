@@ -9,6 +9,12 @@ module Referrals
                   :work_town_or_city,
                   :work_postcode
 
+      attr_referral :work_organisation_name,
+                    :work_address_line_1,
+                    :work_address_line_2,
+                    :work_town_or_city,
+                    :work_postcode
+
       validates :work_organisation_name,
                 :work_address_line_1,
                 :work_town_or_city,

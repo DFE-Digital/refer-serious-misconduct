@@ -4,6 +4,7 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :name, :street_1, :street_2, :city, :postcode
+      attr_organisation :name, :street_1, :street_2, :city, :postcode
 
       validates :name, presence: true
       validates :street_1, presence: true
@@ -16,28 +17,8 @@ module Referrals
         "organisation_address"
       end
 
-      def city
-        @city ||= organisation&.city
-      end
-
-      def name
-        @name ||= organisation&.name
-      end
-
       def organisation
         @organisation ||= referral&.organisation || referral&.build_organisation
-      end
-
-      def postcode
-        @postcode ||= organisation&.postcode
-      end
-
-      def street_1
-        @street_1 ||= organisation&.street_1
-      end
-
-      def street_2
-        @street_2 ||= organisation&.street_2
       end
 
       def save

@@ -9,6 +9,11 @@ module Referrals
                   :organisation_address_line_2,
                   :organisation_town_or_city,
                   :organisation_postcode
+      attr_referral :organisation_name,
+                    :organisation_address_line_1,
+                    :organisation_address_line_2,
+                    :organisation_town_or_city,
+                    :organisation_postcode
 
       validates :organisation_name,
                 :organisation_address_line_1,
@@ -16,26 +21,6 @@ module Referrals
                 :organisation_postcode,
                 presence: true
       validate :postcode_is_valid, if: -> { organisation_postcode.present? }
-
-      def organisation_name
-        @organisation_name ||= referral&.organisation_name
-      end
-
-      def organisation_address_line_1
-        @organisation_address_line_1 ||= referral&.organisation_address_line_1
-      end
-
-      def organisation_address_line_2
-        @organisation_address_line_2 ||= referral&.organisation_address_line_2
-      end
-
-      def organisation_town_or_city
-        @organisation_town_or_city ||= referral&.organisation_town_or_city
-      end
-
-      def organisation_postcode
-        @organisation_postcode ||= referral&.organisation_postcode
-      end
 
       def save
         return false if invalid?

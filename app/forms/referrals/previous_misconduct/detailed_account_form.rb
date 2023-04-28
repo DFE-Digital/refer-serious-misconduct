@@ -6,6 +6,9 @@ module Referrals
       attr_writer :previous_misconduct_format,
                   :previous_misconduct_details,
                   :previous_misconduct_upload
+      attr_referral :previous_misconduct_format,
+                    :previous_misconduct_details,
+                    :previous_misconduct_upload
 
       validates :previous_misconduct_format, inclusion: { in: %w[details upload] }
       validates :previous_misconduct_details,
@@ -20,18 +23,6 @@ module Referrals
       validates :previous_misconduct_upload,
                 file_upload: true,
                 if: -> { previous_misconduct_format == "upload" }
-
-      def previous_misconduct_format
-        @previous_misconduct_format ||= referral&.previous_misconduct_format
-      end
-
-      def previous_misconduct_details
-        @previous_misconduct_details ||= referral&.previous_misconduct_details
-      end
-
-      def previous_misconduct_upload
-        @previous_misconduct_upload ||= referral&.previous_misconduct_upload
-      end
 
       def save
         return false unless valid?

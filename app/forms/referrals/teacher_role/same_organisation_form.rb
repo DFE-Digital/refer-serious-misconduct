@@ -4,12 +4,9 @@ module Referrals
     class SameOrganisationForm
       include ReferralFormSection
 
-      validates :same_organisation, inclusion: { in: [true, false] }
+      attr_referral :same_organisation
 
-      def same_organisation
-        return @same_organisation if defined?(@same_organisation)
-        @same_organisation = referral&.same_organisation
-      end
+      validates :same_organisation, inclusion: { in: [true, false] }
 
       def same_organisation=(value)
         @same_organisation = ActiveModel::Type::Boolean.new.cast(value)

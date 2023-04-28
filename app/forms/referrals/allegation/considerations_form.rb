@@ -7,10 +7,7 @@ module Referrals
       validates :allegation_consideration_details, presence: true
 
       attr_writer :allegation_consideration_details
-
-      def allegation_consideration_details
-        @allegation_consideration_details ||= referral&.allegation_consideration_details
-      end
+      attr_referral :allegation_consideration_details
 
       def save
         return false if invalid?

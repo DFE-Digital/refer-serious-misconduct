@@ -25,7 +25,7 @@ module Referrals
       end
 
       def trn
-        @trn ||= referral&.trn&.strip
+        @trn ||= referral&.trn
       end
 
       def trn=(value)

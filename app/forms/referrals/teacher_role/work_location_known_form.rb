@@ -4,12 +4,9 @@ module Referrals
     class WorkLocationKnownForm
       include ReferralFormSection
 
-      validates :work_location_known, inclusion: { in: [true, false] }
+      attr_referral :work_location_known
 
-      def work_location_known
-        return @work_location_known if defined?(@work_location_known)
-        @work_location_known = referral&.work_location_known
-      end
+      validates :work_location_known, inclusion: { in: [true, false] }
 
       def work_location_known=(value)
         @work_location_known = ActiveModel::Type::Boolean.new.cast(value)

@@ -5,12 +5,9 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :job_title
+      attr_referral :job_title
 
       validates :job_title, presence: true
-
-      def job_title
-        @job_title ||= referral&.job_title
-      end
 
       def save
         return false if invalid?

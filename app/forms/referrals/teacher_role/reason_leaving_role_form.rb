@@ -5,12 +5,9 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :reason_leaving_role
+      attr_referral :reason_leaving_role
 
       validates :reason_leaving_role, inclusion: { in: %w[resigned dismissed retired unknown] }
-
-      def reason_leaving_role
-        @reason_leaving_role ||= referral&.reason_leaving_role
-      end
 
       def save
         return false if invalid?

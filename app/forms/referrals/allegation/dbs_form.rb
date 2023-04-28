@@ -5,11 +5,7 @@ module Referrals
       include ReferralFormSection
 
       validates :dbs_notified, inclusion: { in: [true, false] }
-
-      def dbs_notified
-        return @dbs_notified if defined?(@dbs_notified)
-        @dbs_notified = referral&.dbs_notified
-      end
+      attr_referral :dbs_notified
 
       def dbs_notified=(value)
         @dbs_notified = ActiveModel::Type::Boolean.new.cast(value)

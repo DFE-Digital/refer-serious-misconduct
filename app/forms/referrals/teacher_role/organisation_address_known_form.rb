@@ -4,12 +4,9 @@ module Referrals
     class OrganisationAddressKnownForm
       include ReferralFormSection
 
-      validates :organisation_address_known, inclusion: { in: [true, false] }
+      attr_referral :organisation_address_known
 
-      def organisation_address_known
-        return @organisation_address_known if defined?(@organisation_address_known)
-        @organisation_address_known = referral&.organisation_address_known
-      end
+      validates :organisation_address_known, inclusion: { in: [true, false] }
 
       def organisation_address_known=(value)
         @organisation_address_known = ActiveModel::Type::Boolean.new.cast(value)

@@ -4,29 +4,10 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :address_line_1, :address_line_2, :town_or_city, :postcode, :country
+      attr_referral :address_line_1, :address_line_2, :town_or_city, :postcode, :country
 
       validates :address_line_1, :town_or_city, :postcode, presence: true
       validate :postcode_is_valid, if: -> { postcode.present? }
-
-      def address_line_1
-        @address_line_1 ||= referral&.address_line_1
-      end
-
-      def address_line_2
-        @address_line_2 ||= referral&.address_line_2
-      end
-
-      def town_or_city
-        @town_or_city ||= referral&.town_or_city
-      end
-
-      def postcode
-        @postcode ||= referral&.postcode
-      end
-
-      def country
-        @country ||= referral&.country
-      end
 
       def save
         return false unless valid?

@@ -5,6 +5,7 @@ module Referrals
       include ReferralFormSection
 
       attr_writer :duties_details, :duties_format, :duties_upload
+      attr_referral :duties_details, :duties_format, :duties_upload
 
       validates :duties_format, inclusion: { in: %w[details upload] }
       validates :duties_details, presence: true, if: -> { duties_format == "details" }
@@ -12,18 +13,6 @@ module Referrals
                 presence: true,
                 if: -> { duties_format == "upload" && !referral.duties_upload.attached? }
       validates :duties_upload, file_upload: true, if: -> { duties_format == "upload" }
-
-      def duties_format
-        @duties_format ||= referral&.duties_format
-      end
-
-      def duties_details
-        @duties_details ||= referral&.duties_details
-      end
-
-      def duties_upload
-        @duties_upload ||= referral&.duties_upload
-      end
 
       def save
         return false if invalid?
