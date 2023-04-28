@@ -4,29 +4,24 @@ class TheirRoleComponent < ViewComponent::Base
   include AddressHelper
   include ComponentHelper
 
-  attr_accessor :referral
-
   def rows
-    items =
-      summary_rows [
-                     job_title_row,
-                     role_duties_row,
-                     role_duties_description_row,
-                     same_organisation_row,
-                     organisation_address_known_row,
-                     organisation_address_row,
-                     start_date_known_row,
-                     start_date_row,
-                     employment_status_row,
-                     end_date_known_row,
-                     end_date_row,
-                     reason_leaving_role_row,
-                     working_somewhere_else_row,
-                     work_location_known_row,
-                     work_location_row
-                   ].compact
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   job_title_row,
+                   role_duties_row,
+                   role_duties_description_row,
+                   same_organisation_row,
+                   organisation_address_known_row,
+                   organisation_address_row,
+                   start_date_known_row,
+                   start_date_row,
+                   employment_status_row,
+                   end_date_known_row,
+                   end_date_row,
+                   reason_leaving_role_row,
+                   working_somewhere_else_row,
+                   work_location_known_row,
+                   work_location_row
+                 ].compact
   end
 
   private

@@ -4,8 +4,6 @@ module ManageInterface
     include ReferralHelper
     include ComponentHelper
 
-    attr_accessor :referral
-
     def rows
       summary_rows [
                      allegation_details_format_row,

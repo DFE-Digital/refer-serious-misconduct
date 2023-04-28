@@ -4,17 +4,12 @@ class PreviousMisconductComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  attr_accessor :referral
-
   def rows
-    items =
-      summary_rows [
-                     previous_misconduct_reported_row,
-                     detailed_account_type_row,
-                     detailed_account_report_row
-                   ].compact
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   previous_misconduct_reported_row,
+                   detailed_account_type_row,
+                   detailed_account_report_row
+                 ].compact
   end
 
   def previous_misconduct_reported_row

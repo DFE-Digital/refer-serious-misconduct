@@ -1,4 +1,6 @@
 class SummaryCardComponent < ViewComponent::Base
+  attr_reader :rows
+
   def initialize(rows:, editable: true, ignore_editable: [])
     super
     rows = transform_hash(rows) if rows.is_a?(Hash)
@@ -7,7 +9,7 @@ class SummaryCardComponent < ViewComponent::Base
 
   private
 
-  attr_reader :rows, :ignore_editable
+  attr_reader :ignore_editable
 
   def rows_including_actions_if_editable(rows, editable, ignore_editable)
     rows.map do |row|

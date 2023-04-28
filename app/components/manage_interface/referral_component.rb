@@ -4,8 +4,6 @@ module ManageInterface
     include ReferralHelper
     include ComponentHelper
 
-    attr_accessor :referral
-
     def rows
       items = summary_rows [submitted_at, referrer_row].compact
       remove_actions(items)
