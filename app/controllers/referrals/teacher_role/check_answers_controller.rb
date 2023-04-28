@@ -3,7 +3,10 @@ module Referrals
     class CheckAnswersController < Referrals::BaseController
       def edit
         @teacher_role_check_answers_form =
-          CheckAnswersForm.new(teacher_role_complete: current_referral.teacher_role_complete)
+          CheckAnswersForm.new(
+            referral: current_referral,
+            teacher_role_complete: current_referral.teacher_role_complete
+          )
       end
 
       def update

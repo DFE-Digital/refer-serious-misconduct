@@ -6,6 +6,7 @@ module Referrals
       def edit
         @evidence_check_answers_form =
           CheckAnswersForm.new(
+            referral: current_referral,
             evidence_details_complete: current_referral.evidence_details_complete
           )
       end

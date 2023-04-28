@@ -4,6 +4,7 @@ module Referrals
       def edit
         @allegation_check_answers_form =
           CheckAnswersForm.new(
+            referral: current_referral,
             allegation_details_complete: current_referral.allegation_details_complete
           )
       end

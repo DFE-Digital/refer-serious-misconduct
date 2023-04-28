@@ -4,6 +4,7 @@ module Referrals
       def edit
         @previous_misconduct_check_answers_form =
           CheckAnswersForm.new(
+            referral: current_referral,
             previous_misconduct_complete: current_referral.previous_misconduct_complete
           )
       end
