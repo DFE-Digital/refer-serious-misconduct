@@ -104,6 +104,8 @@ module ManageInterface
     end
 
     def has_qts_row
+      return unless referral.from_employer?
+
       { label: "Do they have qualified teacher status?", value: referral.has_qts&.humanize }
     end
   end
