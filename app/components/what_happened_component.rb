@@ -3,8 +3,6 @@ class WhatHappenedComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  attr_accessor :referral
-
   def rows
     items =
       summary_rows [

@@ -87,13 +87,5 @@ RSpec.describe PreviousMisconductComponent, type: :component do
         )
       end
     end
-
-    context "when referral is submitted" do
-      let(:referral) { create(:referral, :submitted) }
-
-      it "does not have any action links" do
-        expect(row_links.compact).to be_empty
-      end
-    end
   end
 end

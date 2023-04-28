@@ -4,20 +4,15 @@ class ContactDetailsComponent < ViewComponent::Base
   include ComponentHelper
   include ReferralHelper
 
-  attr_accessor :referral
-
   def rows
-    items =
-      summary_rows [
-                     email_known_row,
-                     referral.email_known? && email_row,
-                     phone_number_known_row,
-                     referral.phone_known? && phone_number_row,
-                     address_known_row,
-                     referral.address_known? && address_row
-                   ].compact_blank
-
-    referral.submitted? ? remove_actions(items) : items
+    summary_rows [
+                   email_known_row,
+                   referral.email_known? && email_row,
+                   phone_number_known_row,
+                   referral.phone_known? && phone_number_row,
+                   address_known_row,
+                   referral.address_known? && address_row
+                 ].compact_blank
   end
 
   private

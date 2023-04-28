@@ -193,12 +193,4 @@ RSpec.describe PersonalDetailsComponent, type: :component do
       expect(row_labels).to eq(["Their name", "Do you know them by any other name?"])
     end
   end
-
-  context "when referral is submitted" do
-    let(:referral) { create(:referral, :submitted) }
-
-    it "does not have any action links" do
-      expect(row_links.compact).to be_empty
-    end
-  end
 end
