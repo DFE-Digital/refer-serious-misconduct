@@ -137,18 +137,11 @@ RSpec.describe ManageInterface::PersonalDetailsComponent, type: :component do
     let(:referral) { create(:referral, :public_complete) }
 
     it "renders the correct labels" do
-      expect(row_labels).to eq(
-        [
-          "First name",
-          "Last name",
-          "Do you know them by any other name?",
-          "Do they have qualified teacher status?"
-        ]
-      )
+      expect(row_labels).to eq(["First name", "Last name", "Do you know them by any other name?"])
     end
 
     it "renders the correct values" do
-      expect(row_values).to eq(%w[John Smith No Yes])
+      expect(row_values).to eq(%w[John Smith No])
     end
   end
 end

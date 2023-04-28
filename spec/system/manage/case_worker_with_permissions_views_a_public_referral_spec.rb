@@ -46,7 +46,6 @@ RSpec.feature "Manage referrals" do
     within("#personal_details") do
       expect(page).to have_content("John")
       expect(page).to have_content("Smith")
-      expect(page).to have_content("Do they have qualified teacher status?")
     end
   end
 
