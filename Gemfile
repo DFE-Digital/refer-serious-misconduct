@@ -30,7 +30,7 @@ gem "rails", "~> 7.0.4"
 gem "rotp"
 gem "rubyzip"
 gem "sentry-rails"
-gem "sidekiq", "< 7"
+gem "sidekiq", "< 8"
 gem "sidekiq-cron"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "uk_postcode"
