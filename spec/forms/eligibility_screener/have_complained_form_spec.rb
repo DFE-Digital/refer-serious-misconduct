@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe HaveComplainedForm, type: :model do
+RSpec.describe EligibilityScreener::HaveComplainedForm, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:eligibility_check) }
   end

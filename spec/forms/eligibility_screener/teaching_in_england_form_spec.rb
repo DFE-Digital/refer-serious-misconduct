@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TeachingInEnglandForm, type: :model do
+RSpec.describe EligibilityScreener::TeachingInEnglandForm, type: :model do
   describe "validations" do
     subject(:form) { described_class.new }
 

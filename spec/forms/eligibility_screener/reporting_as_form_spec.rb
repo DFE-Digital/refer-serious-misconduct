@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ReportingAsForm, type: :model do
+RSpec.describe EligibilityScreener::ReportingAsForm, type: :model do
   it { is_expected.to validate_presence_of(:eligibility_check) }
   it { is_expected.to validate_presence_of(:reporting_as) }
 
