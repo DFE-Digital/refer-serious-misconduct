@@ -41,31 +41,31 @@ en:
           attributes:
             declaration_agreed:
               accepted: You must agree to the declaration
-        have_complained_form:
-          attributes:
-            complained:
-              inclusion: Select yes if you’ve already made a complaint to the school, school governors or your local council
-        is_teacher_form:
-          attributes:
-            is_teacher:
-              inclusion: Select yes if the allegation is about a teacher
-        registration_exists_form:
+        registration_exists_form":
           attributes:
             registration_exists:
               inclusion: Select yes if you have an account
-        reporting_as_form:
+        "eligibility_screener/have_complained_form":
+          attributes:
+            complained:
+              inclusion: Select yes if you’ve already made a complaint to the school, school governors or your local council
+        "eligibility_screener/is_teacher_form":
+          attributes:
+            is_teacher:
+              inclusion: Select yes if the allegation is about a teacher
+        "eligibility_screener/reporting_as_form":
           attributes:
             reporting_as:
               blank: Select if you’re making a referral as an employer or member of public
-        serious_misconduct_form:
+        "eligibility_screener/serious_misconduct_form":
           attributes:
             serious_misconduct:
               inclusion: Select yes if the allegation involves serious misconduct
-        teaching_in_england_form:
+        "eligibility_screener/teaching_in_england_form":
           attributes:
             teaching_in_england:
               inclusion: Select yes if they were employed in England at the time the alleged misconduct took place
-        unsupervised_teaching_form:
+        "eligibility_screener/unsupervised_teaching_form":
           attributes:
             unsupervised_teaching:
               inclusion: Select if this person carries out unsupervised teaching work
