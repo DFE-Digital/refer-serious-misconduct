@@ -4,7 +4,6 @@ module Referrals
     class WorkingSomewhereElseForm
       include ReferralFormSection
 
-      attr_writer :working_somewhere_else
       attr_referral :working_somewhere_else
 
       validates :working_somewhere_else, inclusion: { in: %w[yes no not_sure] }

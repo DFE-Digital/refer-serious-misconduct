@@ -32,6 +32,18 @@ RSpec.describe CustomAttrs do
         expect(email_known).to eq(true)
         expect(email_address).to eq("test@example.com")
       end
+
+      context "when updating the values" do
+        before do
+          test_class.email_known = "false"
+          test_class.email_address = "  example@test.com  "
+        end
+
+        it "returns the referral's updated values" do
+          expect(email_known).to eq(false)
+          expect(email_address).to eq("example@test.com")
+        end
+      end
     end
   end
 
@@ -56,6 +68,18 @@ RSpec.describe CustomAttrs do
         expect(name).to eq("Org")
         expect(street_1).to eq("High Street")
       end
+
+      context "when updating the values" do
+        before do
+          test_class.name = "Org 2"
+          test_class.street_1 = "Low Street"
+        end
+
+        it "returns the organisation's updated values" do
+          expect(name).to eq("Org 2")
+          expect(street_1).to eq("Low Street")
+        end
+      end
     end
   end
 
@@ -79,6 +103,18 @@ RSpec.describe CustomAttrs do
       it "returns the referrer's values" do
         expect(first_name).to eq("John")
         expect(last_name).to eq("Doe")
+      end
+
+      context "when updating the values" do
+        before do
+          test_class.first_name = "Jane"
+          test_class.last_name = "Doey"
+        end
+
+        it "returns the referral's updated values" do
+          expect(first_name).to eq("Jane")
+          expect(last_name).to eq("Doey")
+        end
       end
     end
   end

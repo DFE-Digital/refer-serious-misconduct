@@ -3,7 +3,6 @@ module Referrals
     class NameForm
       include ReferralFormSection
 
-      attr_writer :first_name, :last_name
       attr_referrer :first_name, :last_name
 
       validates :first_name, presence: true

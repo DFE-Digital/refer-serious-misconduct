@@ -3,7 +3,6 @@ module Referrals
     class PhoneForm
       include ReferralFormSection
 
-      attr_writer :phone
       attr_referrer :phone
 
       validates :phone,

@@ -3,7 +3,6 @@ module Referrals
     class TelephoneForm
       include ReferralFormSection
 
-      attr_writer :phone_number
       attr_referral :phone_known, :phone_number
 
       validates :phone_known, inclusion: { in: [true, false] }
@@ -13,10 +12,6 @@ module Referrals
                   with: /\A(\+44\s?)?(?:\d\s?){10,11}\z/
                 },
                 if: -> { phone_known && phone_number.present? }
-
-      def phone_known=(value)
-        @phone_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false unless valid?

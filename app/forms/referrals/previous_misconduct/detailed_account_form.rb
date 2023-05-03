@@ -3,9 +3,6 @@ module Referrals
     class DetailedAccountForm
       include ReferralFormSection
 
-      attr_writer :previous_misconduct_format,
-                  :previous_misconduct_details,
-                  :previous_misconduct_upload
       attr_referral :previous_misconduct_format,
                     :previous_misconduct_details,
                     :previous_misconduct_upload

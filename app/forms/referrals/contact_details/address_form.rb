@@ -3,7 +3,6 @@ module Referrals
     class AddressForm
       include ReferralFormSection
 
-      attr_writer :address_line_1, :address_line_2, :town_or_city, :postcode, :country
       attr_referral :address_line_1, :address_line_2, :town_or_city, :postcode, :country
 
       validates :address_line_1, :town_or_city, :postcode, presence: true

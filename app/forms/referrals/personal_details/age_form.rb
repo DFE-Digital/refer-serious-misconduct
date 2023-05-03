@@ -5,7 +5,6 @@ module Referrals
       include ReferralFormSection
 
       attr_accessor :date_params, :referral
-      attr_writer :date_of_birth
       attr_referral :age_known, :date_of_birth
 
       validates :age_known, inclusion: { in: [true, false] }
@@ -16,10 +15,6 @@ module Referrals
                   past_century: true
                 },
                 if: -> { age_known }
-
-      def age_known=(value)
-        @age_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false if invalid?

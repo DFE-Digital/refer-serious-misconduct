@@ -8,10 +8,6 @@ module Referrals
 
       validates :same_organisation, inclusion: { in: [true, false] }
 
-      def same_organisation=(value)
-        @same_organisation = ActiveModel::Type::Boolean.new.cast(value)
-      end
-
       def save
         return false if invalid?
 

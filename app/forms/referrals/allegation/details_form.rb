@@ -11,7 +11,6 @@ module Referrals
                 if: -> { allegation_format == "upload" && !referral.allegation_upload.attached? }
       validates :allegation_upload, file_upload: true, if: -> { allegation_format == "upload" }
 
-      attr_writer :allegation_details, :allegation_format, :allegation_upload
       attr_referral :allegation_details, :allegation_format, :allegation_upload
 
       def slug

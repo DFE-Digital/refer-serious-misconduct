@@ -4,7 +4,6 @@ module Referrals
     class DutiesForm
       include ReferralFormSection
 
-      attr_writer :duties_details, :duties_format, :duties_upload
       attr_referral :duties_details, :duties_format, :duties_upload
 
       validates :duties_format, inclusion: { in: %w[details upload] }

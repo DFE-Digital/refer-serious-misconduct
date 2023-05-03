@@ -11,6 +11,17 @@ module CustomAttrs
     klass.extend(ClassMethods)
   end
 
+  def self.process_type(value, type)
+    case type
+    when :boolean
+      ActiveModel::Type::Boolean.new.cast(value)
+    when :string
+      value&.strip
+    else
+      value
+    end
+  end
+
   module ClassMethods
     def attr_referral(*args)
       attr_object(:referral, *args)
@@ -27,6 +38,7 @@ module CustomAttrs
     def attr_object(obj, *args)
       args.each do |attr_name|
         inst_variable_name = "@#{attr_name}".to_sym
+
         define_method(attr_name) do
           var = instance_variable_get(inst_variable_name)
 
@@ -35,6 +47,11 @@ module CustomAttrs
           attr_value = try(obj).try(attr_name)
           instance_variable_set(inst_variable_name, attr_value)
           attr_value
+        end
+
+        define_method("#{attr_name}=") do |value|
+          type = obj.to_s.classify.constantize.column_for_attribute(attr_name).type
+          instance_variable_set(inst_variable_name, CustomAttrs.process_type(value, type))
         end
       end
     end

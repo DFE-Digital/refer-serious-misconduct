@@ -3,7 +3,6 @@ module Referrals
     class EmailForm
       include ReferralFormSection
 
-      attr_writer :email_address
       attr_referral :email_known, :email_address
 
       validates :email_known, inclusion: { in: [true, false] }
@@ -11,10 +10,6 @@ module Referrals
       validates :email_address,
                 valid_for_notify: true,
                 if: -> { email_known && email_address.present? }
-
-      def email_known=(value)
-        @email_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false unless valid?

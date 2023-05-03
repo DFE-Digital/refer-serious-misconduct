@@ -8,10 +8,6 @@ module Referrals
 
       validates :work_location_known, inclusion: { in: [true, false] }
 
-      def work_location_known=(value)
-        @work_location_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
-
       def save
         return false if invalid?
 

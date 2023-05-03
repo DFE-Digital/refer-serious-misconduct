@@ -3,7 +3,6 @@ module Referrals
     class AddressForm
       include ReferralFormSection
 
-      attr_writer :name, :street_1, :street_2, :city, :postcode
       attr_organisation :name, :street_1, :street_2, :city, :postcode
 
       validates :name, presence: true

@@ -4,11 +4,6 @@ module Referrals
     class OrganisationAddressForm
       include ReferralFormSection
 
-      attr_writer :organisation_name,
-                  :organisation_address_line_1,
-                  :organisation_address_line_2,
-                  :organisation_town_or_city,
-                  :organisation_postcode
       attr_referral :organisation_name,
                     :organisation_address_line_1,
                     :organisation_address_line_2,

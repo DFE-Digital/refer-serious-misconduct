@@ -14,10 +14,6 @@ module Referrals
                 if: -> { ni_number_known }
       validates :ni_number_known, inclusion: { in: [true, false] }
 
-      def ni_number_known=(value)
-        @ni_number_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
-
       def ni_number=(value)
         @ni_number = value&.gsub(/\s|-/, "")
       end
