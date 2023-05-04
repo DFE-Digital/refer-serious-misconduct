@@ -4,8 +4,8 @@ module Referrals
     class StartDateForm
       include ReferralFormSection
 
-      attr_accessor :date_params, :role_start_date
-      attr_reader :role_start_date_known
+      attr_accessor :date_params
+      attr_referral :role_start_date_known, :role_start_date
 
       validates :role_start_date_known, inclusion: { in: [true, false] }
       validates :role_start_date,
@@ -14,10 +14,6 @@ module Referrals
                   past_century: true
                 },
                 if: -> { role_start_date_known }
-
-      def role_start_date_known=(value)
-        @role_start_date_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false if invalid?

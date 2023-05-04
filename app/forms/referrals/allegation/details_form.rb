@@ -11,7 +11,7 @@ module Referrals
                 if: -> { allegation_format == "upload" && !referral.allegation_upload.attached? }
       validates :allegation_upload, file_upload: true, if: -> { allegation_format == "upload" }
 
-      attr_accessor :allegation_details, :allegation_format, :allegation_upload
+      attr_referral :allegation_details, :allegation_format, :allegation_upload
 
       def slug
         "allegation_details"
@@ -27,7 +27,9 @@ module Referrals
           referral.allegation_upload.purge
           attrs.merge!(allegation_details:)
         when "upload"
-          attrs.merge!(allegation_details: nil, allegation_upload:) if allegation_upload.present?
+          if allegation_upload.present? && valid_upload_classes.member?(allegation_upload.class)
+            attrs.merge!(allegation_details: nil, allegation_upload:)
+          end
         end
 
         referral.update(attrs)

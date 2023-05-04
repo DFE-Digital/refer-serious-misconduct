@@ -2,6 +2,7 @@ module ReferralFormSection
   extend ActiveSupport::Concern
   include ActiveModel::Model
   include ValidationTracking
+  include CustomAttrs
 
   included do
     attr_accessor :referral
@@ -26,6 +27,10 @@ module ReferralFormSection
 
     def path
       [:edit, referral.routing_scope, referral, slug.to_sym]
+    end
+
+    def valid_upload_classes
+      [ActionDispatch::Http::UploadedFile, Rack::Test::UploadedFile]
     end
   end
 end

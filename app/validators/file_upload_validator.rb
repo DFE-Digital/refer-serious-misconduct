@@ -33,6 +33,7 @@ class FileUploadValidator < ActiveModel::EachValidator
 
     uploaded_files.each do |uploaded_file|
       next if uploaded_file.nil?
+      next if uploaded_file.is_a? ActiveStorage::Attached::One
 
       if uploaded_file.size > MAX_FILE_SIZE
         record.errors.add(attribute, :file_size_too_big, max_allowed_file_size:)

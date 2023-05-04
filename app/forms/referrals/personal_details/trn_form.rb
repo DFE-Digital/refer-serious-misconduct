@@ -4,7 +4,7 @@ module Referrals
     class TrnForm
       include ReferralFormSection
 
-      attr_reader :trn_known, :trn
+      attr_referral :trn_known, :trn
 
       validates :trn_known, inclusion: { in: [true, false] }
       validates :trn,
@@ -16,14 +16,6 @@ module Referrals
                   only_numeric: true
                 },
                 if: -> { trn_known }
-
-      def trn_known=(value)
-        @trn_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
-
-      def trn=(value)
-        @trn = value&.strip
-      end
 
       def save
         referral.update(trn_known:, trn: trn_known ? trn : nil) if valid?
