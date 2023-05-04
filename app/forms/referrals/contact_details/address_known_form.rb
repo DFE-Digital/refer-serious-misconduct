@@ -3,13 +3,9 @@ module Referrals
     class AddressKnownForm
       include ReferralFormSection
 
-      attr_reader :address_known
+      attr_referral :address_known
 
       validates :address_known, inclusion: { in: [true, false] }
-
-      def address_known=(value)
-        @address_known = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false unless valid?

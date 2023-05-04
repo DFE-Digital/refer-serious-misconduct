@@ -3,7 +3,7 @@ module Referrals
     class PhoneForm
       include ReferralFormSection
 
-      attr_writer :phone
+      attr_referrer :phone
 
       validates :phone,
                 format: {
@@ -12,17 +12,11 @@ module Referrals
                 },
                 presence: true
 
-      def phone
-        @phone ||= referrer&.phone
-      end
-
       def save
         return false unless valid?
 
         referrer.update(phone:)
       end
-
-      private
 
       def referrer
         @referrer ||= referral&.referrer || referral&.build_referrer

@@ -4,7 +4,7 @@ module Referrals
     class QtsForm
       include ReferralFormSection
 
-      attr_accessor :has_qts
+      attr_referral :has_qts
 
       validates :has_qts, inclusion: { in: %w[yes no not_sure] }
 

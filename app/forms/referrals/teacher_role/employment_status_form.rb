@@ -4,7 +4,7 @@ module Referrals
     class EmploymentStatusForm
       include ReferralFormSection
 
-      attr_accessor :employment_status
+      attr_referral :employment_status
 
       validates :employment_status, inclusion: { in: %w[employed suspended left_role] }
 

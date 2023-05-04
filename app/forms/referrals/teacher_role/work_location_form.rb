@@ -3,7 +3,7 @@ module Referrals
     class WorkLocationForm
       include ReferralFormSection
 
-      attr_accessor :work_organisation_name,
+      attr_referral :work_organisation_name,
                     :work_address_line_1,
                     :work_address_line_2,
                     :work_town_or_city,

@@ -6,11 +6,7 @@ module Referrals
 
       validates :dbs_notified, inclusion: { in: [true, false] }
 
-      attr_reader :dbs_notified
-
-      def dbs_notified=(value)
-        @dbs_notified = ActiveModel::Type::Boolean.new.cast(value)
-      end
+      attr_referral :dbs_notified
 
       def save
         return false if invalid?

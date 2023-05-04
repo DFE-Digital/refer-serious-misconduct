@@ -3,7 +3,7 @@ module Referrals
     class NameForm
       include ReferralFormSection
 
-      attr_accessor :first_name, :last_name, :name_has_changed, :previous_name
+      attr_referral :first_name, :last_name, :name_has_changed, :previous_name
 
       validates :first_name, :last_name, presence: true
       validates :name_has_changed, inclusion: { in: %w[yes no] }
