@@ -29,7 +29,7 @@ module ManageInterface
     end
 
     def details_about_main_duties_row
-      { label: "How where details about their main duties given?", value: duties_format(referral) }
+      { label: "How were details about their main duties given?", value: duties_format(referral) }
     end
 
     def main_duties_row
