@@ -18,7 +18,7 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
   end
 
   it "renders the details about their main duties" do
-    expect(row_labels[1]).to eq("How where details about their main duties given?")
+    expect(row_labels[1]).to eq("How were details about their main duties given?")
     expect(row_values_sanitized[1]).to eq("Describe their main duties")
   end
 
