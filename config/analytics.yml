@@ -129,6 +129,7 @@ shared:
     - unsupervised_teaching
     - is_teacher
     - complained
+    - recently_complained
   :users:
     - id
     - email

@@ -24,12 +24,25 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_the_you_should_complain_page
     when_i_press_continue_without_complaint
+
     then_i_see_the_is_a_teacher_page
 
     when_i_go_back
     when_i_go_back
     when_i_choose_yes_i_have_complained
     when_i_press_continue
+    then_i_see_the_recently_complained_page
+
+    when_i_choose_no
+    when_i_press_continue
+    then_i_see_the_is_a_teacher_page
+
+    when_i_go_back
+    when_i_choose_yes
+    when_i_press_continue
+    then_i_see_the_have_recently_complained_page
+
+    when_i_click_on_continue_without_waiting_for_the_school_to_resolve_your_complaint
     then_i_see_the_is_a_teacher_page
 
     when_i_press_continue
@@ -240,5 +253,17 @@ RSpec.feature "Eligibility screener", type: :system do
 
     expect(page).to have_current_path edit_public_referral_path(referral)
     expect(referral).to be_from_member_of_public
+  end
+
+  def then_i_see_the_recently_complained_page
+    expect(page).to have_current_path recently_complained_path
+  end
+
+  def then_i_see_the_have_recently_complained_page
+    expect(page).to have_current_path have_recently_complained_path
+  end
+
+  def when_i_click_on_continue_without_waiting_for_the_school_to_resolve_your_complaint
+    click_on "Continue without waiting for the school to resolve your complaint"
   end
 end

@@ -35,6 +35,11 @@ module EnforceQuestionOrder
         needs_answer: eligibility_check.reporting_as_public?,
         answered: complained_answered?
       },
+      {
+        path: recently_complained_path,
+        needs_answer: eligibility_check.reporting_as_public? && eligibility_check.complained?,
+        answered: recently_complained_answered?
+      },
       { path: is_a_teacher_path, needs_answer: true, answered: is_a_teacher_answered? },
       {
         path: unsupervised_teaching_path,
@@ -72,6 +77,10 @@ module EnforceQuestionOrder
 
   def complained_answered?
     !eligibility_check.complained.nil?
+  end
+
+  def recently_complained_answered?
+    !eligibility_check.recently_complained.nil?
   end
 
   def unsupervised_teaching_answered?

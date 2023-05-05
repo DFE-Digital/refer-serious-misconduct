@@ -1,0 +1,18 @@
+<% content_for :page_title, "#{'Error: ' if @recently_complained_form.errors.any?}Have you already made a complaint to the school, school governors or your local council?" %>
+<% content_for :back_link_url, url_for(:back) %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @recently_complained_form, url: recently_complained_url, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_collection_radio_buttons(
+          :recently_complained,
+          [OpenStruct.new(label: "Yes", value: true), OpenStruct.new(label: "No", value: false)],
+          :value,
+          :label,
+          legend: { tag: "h1", size: "l", text: "Did you make the complaint to the school within the last 4 weeks?" },
+        ) %>
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>
