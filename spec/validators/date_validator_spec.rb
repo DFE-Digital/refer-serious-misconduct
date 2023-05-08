@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe DateValidator do
-  def stub_validatable_class(name, options: true)
-    stub_const(name, Class.new).class_eval do
-      include ActiveModel::Validations
-      attr_accessor :date_params, :the_date
-      validates :the_date, date: options
-    end
+def stub_validatable_class(name, options: true)
+  stub_const(name, Class.new).class_eval do
+    include ActiveModel::Validations
+    attr_accessor :date_params, :the_date
+    validates :the_date, date: options
   end
+end
 
+RSpec.describe DateValidator do
   subject(:model) do
     stub_validatable_class("Validatable")
     Validatable.new
@@ -117,6 +117,30 @@ RSpec.describe DateValidator do
       let(:date_params) { nil }
 
       it { is_expected.to be_valid }
+    end
+  end
+
+  context "with date already set on the attribute" do
+    let(:date_params) { nil }
+
+    context "with no date params" do
+      subject(:model) do
+        stub_validatable_class("ReqValidatable", options: { required: true })
+
+        ReqValidatable.new.tap { |obj| obj.the_date = Date.new(2021, 12, 25) }
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context "with past_century option" do
+      subject(:model) do
+        stub_validatable_class("ReqValidatable", options: { required: true, past_century: true })
+
+        ReqValidatable.new.tap { |obj| obj.the_date = Date.new(1899, 12, 25) }
+      end
+
+      it { is_expected.to be_invalid }
     end
   end
 end
