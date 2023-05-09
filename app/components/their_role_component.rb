@@ -61,8 +61,9 @@ class TheirRoleComponent < ViewComponent::Base
   end
 
   def organisation_address_known_row
-    return unless referral.from_employer?
-    return if referral.same_organisation.nil? || referral.same_organisation?
+    if referral.from_employer? && referral.same_organisation.nil? || referral.same_organisation?
+      return
+    end
 
     {
       label:
@@ -75,7 +76,6 @@ class TheirRoleComponent < ViewComponent::Base
   end
 
   def organisation_address_row
-    return unless referral.from_employer?
     return if referral.same_organisation? || !referral.organisation_address_known
 
     {

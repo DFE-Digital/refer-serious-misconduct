@@ -224,14 +224,22 @@ RSpec.describe TheirRoleComponent, type: :component do
         [
           "Their job title",
           "How do you want to give details about their main duties?",
-          "Description of their role"
+          "Description of their role",
+          "Do you know the name and address of the organisation where the alleged misconduct took place?",
+          "Name and address of the organisation where the alleged misconduct took place"
         ]
       )
     end
 
     it "renders the values" do
       expect(row_values).to eq(
-        ["Teacher", "Describe their main duties", "<p>Teaching children in year 2</p>"]
+        [
+          "Teacher",
+          "Describe their main duties",
+          "<p>Teaching children in year 2</p>",
+          "Yes",
+          "Example School<br />1 Example Street<br />Different Road<br />Example Town<br />AB1 2CD"
+        ]
       )
     end
 
@@ -240,7 +248,9 @@ RSpec.describe TheirRoleComponent, type: :component do
         [
           "/public-referrals/#{referral.id}/teacher-role/job-title/edit?return_to=%2F",
           "/public-referrals/#{referral.id}/teacher-role/duties/edit?return_to=%2F",
-          "/public-referrals/#{referral.id}/teacher-role/duties/edit?return_to=%2F"
+          "/public-referrals/#{referral.id}/teacher-role/duties/edit?return_to=%2F",
+          "/public-referrals/#{referral.id}/teacher-role/organisation-address-known/edit?return_to=%2F",
+          "/public-referrals/#{referral.id}/teacher-role/organisation-address/edit?return_to=%2F"
         ]
       )
     end
