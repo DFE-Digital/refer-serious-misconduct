@@ -1,18 +1,12 @@
-<% content_for :page_title, 'You need to report this misconduct somewhere else' %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :page_title, "Your allegation is unlikely to be investigated because it is not serious misconduct" %>
+<% content_for :back_link_url, serious_misconduct_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">You need to report this misconduct somewhere else</h1>
+    <h1 class="govuk-heading-l">Your allegation is unlikely to be investigated because it is not serious misconduct</h1>
 
     <p class="govuk_body">
-      Cases relating to minor misconduct or a teacher’s performance or competence will not be investigated.
+      If you’re not satisfied that your complaint to the school has been resolved, contact the board of governors or <%= link_to "contact the council", "https://www.gov.uk/find-local-council" %>.</p>
     </p>
-    <p class="govuk_body">You need to:</p>
-    <ol class="govuk-list govuk-list--number">
-      <li>talk to the school or sixth-form college first to try to solve the problem.</li>
-      <li>contact the school’s board of governors or contact the council if you’re not happy with the response.</li>
-    </ol>
-    <p class="govuk_body">You’ll need to provide proof to support your complaint.</p>
   </div>
 </div>
