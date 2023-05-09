@@ -141,11 +141,10 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def then_i_see_the_not_serious_misconduct_page
+    title = "Your allegation is unlikely to be investigated because it is not serious misconduct"
     expect(page).to have_current_path("/not-serious-misconduct")
-    expect(page).to have_title(
-      "You need to report this misconduct somewhere else - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("You need to report this misconduct somewhere else")
+    expect(page).to have_title("#{title} - Refer serious misconduct by a teacher in England")
+    expect(page).to have_content(title)
   end
 
   def then_i_see_the_teaching_in_england_page
@@ -185,9 +184,9 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_serious_misconduct_question
     expect(page).to have_current_path("/serious-misconduct")
     expect(page).to have_title(
-      "What the allegation is about - Refer serious misconduct by a teacher in England"
+      "Check that your allegation involves serious misconduct - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What the allegation is about")
+    expect(page).to have_content("Check that your allegation involves serious misconduct")
   end
 
   def then_i_see_the_unsupervised_teaching_page
