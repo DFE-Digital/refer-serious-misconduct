@@ -7,16 +7,14 @@ module SupportInterface
     attr_accessor :eligibility_check
 
     def rows
-      items =
-        summary_rows [
-                       date_started_row,
-                       date_updated_row,
-                       reporting_as_row,
-                       made_an_informal_complaint_row,
-                       teaching_in_england_row,
-                       serious_misconduct_row
-                     ].compact
-      remove_actions(items)
+      summary_rows [
+                     date_started_row,
+                     date_updated_row,
+                     reporting_as_row,
+                     made_an_informal_complaint_row,
+                     teaching_in_england_row,
+                     serious_misconduct_row
+                   ].compact
     end
 
     def title

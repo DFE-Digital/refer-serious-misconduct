@@ -5,8 +5,7 @@ module ManageInterface
     include ComponentHelper
 
     def rows
-      items = summary_rows [submitted_at, referrer_row].compact
-      remove_actions(items)
+      summary_rows [submitted_at, referrer_row].compact
     end
 
     def title
