@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @have_complained_form.errors.any?}Have you already made a complaint to the school, school governors or your local council?" %>
-<% content_for :back_link_url, url_for(:back) %>
+<% content_for :back_link_url, previous_question_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

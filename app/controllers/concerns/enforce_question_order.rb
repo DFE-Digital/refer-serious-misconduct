@@ -66,6 +66,10 @@ module EnforceQuestionOrder
     questions[(requested_question_index + 1)..].find { |q| q[:needs_answer] }
   end
 
+  def previous_question
+    questions[..(requested_question_index - 1)].reverse.find { |q| q[:needs_answer] }
+  end
+
   def referral_type_answered?
     !eligibility_check.reporting_as.nil?
   end

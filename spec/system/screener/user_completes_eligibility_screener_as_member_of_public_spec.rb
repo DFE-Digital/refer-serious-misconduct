@@ -27,7 +27,6 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_the_is_a_teacher_page
 
     when_i_go_back
-    when_i_go_back
     when_i_choose_yes_i_have_complained
     when_i_press_continue
     then_i_see_the_is_a_teacher_page
