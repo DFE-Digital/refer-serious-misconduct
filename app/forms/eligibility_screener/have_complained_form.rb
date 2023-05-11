@@ -1,16 +1,8 @@
 module EligibilityScreener
-  class HaveComplainedForm
-    include ActiveModel::Model
+  class HaveComplainedForm < EligibilityScreenerForm
+    attr_eligibility_check :complained
 
-    attr_accessor :eligibility_check
-    attr_reader :complained
-
-    validates :eligibility_check, presence: true
     validates :complained, inclusion: { in: [true, false] }
-
-    def complained=(value)
-      @complained = ActiveModel::Type::Boolean.new.cast(value)
-    end
 
     def save
       return false unless valid?

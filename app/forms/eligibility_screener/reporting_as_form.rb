@@ -1,10 +1,7 @@
 module EligibilityScreener
-  class ReportingAsForm
-    include ActiveModel::Model
+  class ReportingAsForm < EligibilityScreenerForm
+    attr_eligibility_check :reporting_as
 
-    attr_accessor :eligibility_check, :reporting_as
-
-    validates :eligibility_check, presence: true
     validates :reporting_as, presence: true
 
     def save

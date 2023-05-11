@@ -3,10 +3,11 @@ require "rails_helper"
 class TestClass
   include CustomAttrs
 
-  attr_accessor :referral, :referrer, :organisation
+  attr_accessor :referral, :referrer, :organisation, :eligibility_check
   attr_referral :email_known, :email_address
   attr_organisation :name, :street_1
   attr_referrer :first_name, :last_name
+  attr_eligibility_check :serious_misconduct
 end
 
 RSpec.describe CustomAttrs do
@@ -114,6 +115,34 @@ RSpec.describe CustomAttrs do
         it "returns the referral's updated values" do
           expect(first_name).to eq("Jane")
           expect(last_name).to eq("Doey")
+        end
+      end
+    end
+  end
+
+  describe ".attr_eligibility_check" do
+    let(:serious_misconduct) { test_class.serious_misconduct }
+
+    context "when the class doesn't have an eligibility_check object" do
+      it "returns nil" do
+        expect(serious_misconduct).to eq(nil)
+      end
+    end
+
+    context "when the class has an eligibility_check object" do
+      let(:eligibility_check) { build(:eligibility_check, :complete) }
+
+      before { test_class.eligibility_check = eligibility_check }
+
+      it "returns the eligibility_check's values" do
+        expect(serious_misconduct).to eq("yes")
+      end
+
+      context "when updating the values" do
+        before { test_class.serious_misconduct = "No" }
+
+        it "returns the eligibility_check's updated values" do
+          expect(serious_misconduct).to eq("No")
         end
       end
     end

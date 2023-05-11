@@ -16,7 +16,7 @@ module CustomAttrs
     when :boolean
       ActiveModel::Type::Boolean.new.cast(value)
     when :string
-      value&.strip
+      value.is_a?(String) ? value&.strip : value
     else
       value
     end
@@ -33,6 +33,10 @@ module CustomAttrs
 
     def attr_referrer(*args)
       attr_object(:referrer, *args)
+    end
+
+    def attr_eligibility_check(*args)
+      attr_object(:eligibility_check, *args)
     end
 
     def attr_object(obj, *args)

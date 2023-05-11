@@ -1,10 +1,7 @@
 module EligibilityScreener
-  class SeriousMisconductForm
-    include ActiveModel::Model
+  class SeriousMisconductForm < EligibilityScreenerForm
+    attr_eligibility_check :serious_misconduct
 
-    attr_accessor :eligibility_check, :serious_misconduct
-
-    validates :eligibility_check, presence: true
     validates :serious_misconduct, inclusion: { in: %w[yes no not_sure] }
 
     def save

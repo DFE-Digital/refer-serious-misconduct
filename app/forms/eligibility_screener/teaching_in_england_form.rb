@@ -1,10 +1,7 @@
 module EligibilityScreener
-  class TeachingInEnglandForm
-    include ActiveModel::Model
+  class TeachingInEnglandForm < EligibilityScreenerForm
+    attr_eligibility_check :teaching_in_england
 
-    attr_accessor :eligibility_check, :teaching_in_england
-
-    validates :eligibility_check, presence: true
     validates :teaching_in_england, inclusion: { in: %w[yes no not_sure] }
 
     def save

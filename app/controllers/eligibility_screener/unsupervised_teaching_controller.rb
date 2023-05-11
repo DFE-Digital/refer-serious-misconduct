@@ -1,7 +1,8 @@
 module EligibilityScreener
   class UnsupervisedTeachingController < EligibilityScreenerController
     def new
-      @unsupervised_teaching_form = EligibilityScreener::UnsupervisedTeachingForm.new
+      @unsupervised_teaching_form =
+        EligibilityScreener::UnsupervisedTeachingForm.new(eligibility_check:)
     end
 
     def create
