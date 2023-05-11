@@ -1,10 +1,7 @@
 module EligibilityScreener
-  class IsTeacherForm
-    include ActiveModel::Model
+  class IsTeacherForm < EligibilityScreenerForm
+    attr_eligibility_check :is_teacher
 
-    attr_accessor :eligibility_check, :is_teacher
-
-    validates :eligibility_check, presence: true
     validates :is_teacher, inclusion: { in: %w[yes no not_sure] }
 
     def save

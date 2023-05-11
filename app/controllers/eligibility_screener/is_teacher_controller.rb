@@ -1,7 +1,7 @@
 module EligibilityScreener
   class IsTeacherController < EligibilityScreenerController
     def new
-      @is_teacher_form = EligibilityScreener::IsTeacherForm.new
+      @is_teacher_form = EligibilityScreener::IsTeacherForm.new(eligibility_check:)
     end
 
     def create

@@ -1,10 +1,7 @@
 module EligibilityScreener
-  class UnsupervisedTeachingForm
-    include ActiveModel::Model
+  class UnsupervisedTeachingForm < EligibilityScreenerForm
+    attr_eligibility_check :unsupervised_teaching
 
-    attr_accessor :eligibility_check, :unsupervised_teaching
-
-    validates :eligibility_check, presence: true
     validates :unsupervised_teaching, inclusion: { in: %w[yes no not_sure] }
 
     def save
