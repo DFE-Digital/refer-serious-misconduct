@@ -52,6 +52,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set KV environment variables
+        shell: bash
+        env:
+          TFVARS: workspace_variables/${{ github.event.inputs.environment }}.tfvars.json
+        working-directory: terraform
+        run: |
+          DEV_TFVARS=workspace_variables/dev.tfvars.json
+          KEY_VAULT_NAME=$(jq -r '.key_vault_name' $DEV_TFVARS)
+
+          echo "key_vault_name=$KEY_VAULT_NAME" >> $GITHUB_ENV
+
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id: get_monitoring_secret
+        with:
+          keyvault: ${{ env.key_vault_name }}
+          secret: MONITORING
+          key: SLACK_WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: ./.github/actions/deploy-environment
         id: deploy
         with:
@@ -74,6 +98,18 @@ jobs:
           environment: review
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
+
+      - name: Notify Slack channel on job failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: CI Deployment
+          SLACK_TITLE: Deployment of refer-serious-misconduct to review failed
+          SLACK_MESSAGE: |
+            Deployment of refer-serious-misconduct to review failed
+          SLACK_WEBHOOK: ${{ steps.get_monitoring_secret.outputs.SLACK_WEBHOOK }}
+          SLACK_COLOR: failure
+          SLACK_FOOTER: Sent from deploy job in deploy workflow
 
   set_matrix:
     name: Set deployment matrix
@@ -135,6 +171,44 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set KV environment variables
+        shell: bash
+        env:
+          TFVARS: workspace_variables/${{ github.event.inputs.environment }}.tfvars.json
+        working-directory: terraform
+        run: |
+          KEY_VAULT_NAME=$(jq -r '.key_vault_name' $TFVARS)
+          echo "key_vault_name=$KEY_VAULT_NAME" >> $GITHUB_ENV
+
+      - name: Notify Slack channel on job failure
+        # if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: CI Deployment
+          SLACK_TITLE: Deployment of refer-serious-misconduct to production failed
+          SLACK_MESSAGE: |
+            Deployment of refer-serious-misconduct to production failed
+          SLACK_WEBHOOK: ${{ steps.get_monitoring_secret.outputs.SLACK_WEBHOOK }}
+          SLACK_COLOR: failure
+          SLACK_FOOTER: Sent from deploy job in deploy workflow
+
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id: get_monitoring_secret
+        with:
+          keyvault: ${{ env.key_vault_name }}
+          secret: MONITORING
+          key: SLACK_WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - id: fail
+      #   run: exit 1
+      #   shell: bash
 
       - uses: ./.github/actions/deploy-environment
         id: deploy
