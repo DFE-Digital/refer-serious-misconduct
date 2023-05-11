@@ -4,6 +4,11 @@ class EligibilityScreenerController < ApplicationController
 
   before_action { redirect_if_feature_flag_inactive(:eligibility_screener) }
 
+  def previous_question_path
+    previous_question&.dig(:path) || start_path
+  end
+  helper_method :previous_question_path
+
   private
 
   # Eligibility check is saved in the form objects
