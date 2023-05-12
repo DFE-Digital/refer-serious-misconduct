@@ -38,7 +38,7 @@ RSpec.describe ManageInterface::ReferrerDetailsComponent, type: :component do
           "Employer",
           "test@example.com",
           "01234567890",
-          "Example School1 Example StreetExample CityAB1 2CD"
+          "Example School1 Example StreetExample CityW1 1AA"
         ]
       )
     end

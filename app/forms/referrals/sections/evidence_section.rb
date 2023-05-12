@@ -3,8 +3,8 @@ module Referrals
     class EvidenceSection < Section
       def items
         [
-          referral.evidences.none? && Referrals::Evidence::StartForm.new(referral:),
-          referral.evidences.none? && referral.has_evidence &&
+          Referrals::Evidence::StartForm.new(referral:),
+          referral.evidences.none? && referral.has_evidence? &&
             Referrals::Evidence::UploadForm.new(referral:),
           referral.has_evidence && Referrals::Evidence::UploadedForm.new(referral:),
           Referrals::Evidence::CheckAnswersForm.new(referral:)

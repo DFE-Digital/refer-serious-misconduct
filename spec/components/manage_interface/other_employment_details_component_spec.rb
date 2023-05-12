@@ -18,7 +18,7 @@ RSpec.describe ManageInterface::OtherEmploymentDetailsComponent, type: :componen
 
   it "renders the correct values" do
     expect(row_values_sanitized).to eq(
-      ["Different School2 Different StreetSame RoadExample TownAB1 2CD"]
+      ["Different School2 Different StreetSame RoadExample TownW1 1AA"]
     )
   end
 end

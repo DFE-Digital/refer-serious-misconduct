@@ -7,7 +7,7 @@ FactoryBot.define do
       complete { true }
       street_1 { "1 Example Street" }
       city { "Example City" }
-      postcode { "AB1 2CD" }
+      postcode { "W1 1AA" }
     end
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe ManageInterface::PersonalDetailsComponent, type: :component do
           "First name",
           "Last name",
           "Do you know them by any other name?",
-          "Do you know their date of birth?",
+          "Date of birth",
           "Email address",
           "Phone number",
           "Address",
@@ -37,11 +37,11 @@ RSpec.describe ManageInterface::PersonalDetailsComponent, type: :component do
           "John",
           "Smith",
           "No",
-          "No",
+          "15 May 1993",
           "test@example.com",
           "01234567890",
-          "1 Example StreetExample TownAB1 2CD",
-          "XH 25 91 97 C",
+          "1 Example StreetExample TownW1 1AA",
+          "XH259197C",
           "1234567",
           "Yes"
         ]

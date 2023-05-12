@@ -8,7 +8,7 @@ RSpec.describe Organisation, type: :model do
 
     context "when the address fields are all present" do
       let(:organisation) do
-        build(:organisation, street_1: "Street", city: "London", postcode: "AB1 2CD")
+        build(:organisation, street_1: "Street", city: "London", postcode: "W1 1AA")
       end
 
       it { is_expected.to be_truthy }

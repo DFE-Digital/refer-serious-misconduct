@@ -37,8 +37,6 @@ module ManageInterface
     end
 
     def organisation_address_where_misconduct_occurred_row
-      return unless referral.from_member_of_public?
-
       if referral.organisation_address_known
         {
           label: "Name and address of the organisation where the alleged misconduct took place",

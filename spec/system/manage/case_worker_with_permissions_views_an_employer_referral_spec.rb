@@ -55,10 +55,12 @@ RSpec.feature "Manage referrals" do
       expect(page).to have_content("Job title")
       expect(page).to have_content("Teacher")
       expect(page).to have_content("Main duties")
-      expect(page).to have_content("Organisation")
+      expect(page).to have_content(
+        "Name and address of the organisation where the alleged misconduct took place"
+      )
       expect(page).to have_content("1 Example Street")
-      expect(page).to have_content("Example City")
-      expect(page).to have_content("AB1 2CD")
+      expect(page).to have_content("Example Town")
+      expect(page).to have_content("W1 1AA")
       expect(page).to have_content("Job start date")
       expect(page).to have_content(@referral.role_start_date.to_fs(:long_ordinal_uk))
       expect(page).to have_content("Job end date")
@@ -75,7 +77,7 @@ RSpec.feature "Manage referrals" do
       expect(page).to have_content("Different School")
       expect(page).to have_content("2 Different Street")
       expect(page).to have_content("Example Town")
-      expect(page).to have_content("AB1 2CD")
+      expect(page).to have_content("W1 1AA")
     end
   end
 
@@ -119,7 +121,7 @@ RSpec.feature "Manage referrals" do
       expect(page).to have_content("Example School")
       expect(page).to have_content("1 Example Street")
       expect(page).to have_content("Example City")
-      expect(page).to have_content("AB1 2CD")
+      expect(page).to have_content("W1 1AA")
     end
   end
 
