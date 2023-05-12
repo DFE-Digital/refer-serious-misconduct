@@ -6,11 +6,7 @@ module Referrals
 
       validates :evidence_details_complete, inclusion: { in: [true, false] }
 
-      attr_reader :evidence_details_complete
-
-      def evidence_details_complete=(value)
-        @evidence_details_complete = ActiveModel::Type::Boolean.new.cast(value)
-      end
+      attr_referral :evidence_details_complete
 
       def save
         return false if invalid?
