@@ -4,14 +4,10 @@ module Referrals
       include ReferralFormSection
 
       attr_accessor :referrer
-      attr_reader :complete
+      attr_referrer :complete
 
       validates :complete, inclusion: { in: [true, false] }
       validates :referrer, presence: true
-
-      def complete=(value)
-        @complete = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false unless valid?

@@ -7,11 +7,7 @@ module Referrals
       validates :allegation_details_complete, inclusion: { in: [true, false] }
       validate :allegation_not_incomplete
 
-      attr_reader :allegation_details_complete
-
-      def allegation_details_complete=(value)
-        @allegation_details_complete = ActiveModel::Type::Boolean.new.cast(value)
-      end
+      attr_referral :allegation_details_complete
 
       def save
         referral.update(allegation_details_complete:) if valid?

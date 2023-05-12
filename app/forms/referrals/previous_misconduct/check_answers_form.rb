@@ -3,13 +3,9 @@ module Referrals
     class CheckAnswersForm
       include ReferralFormSection
 
-      attr_reader :previous_misconduct_complete
+      attr_referral :previous_misconduct_complete
 
       validates :previous_misconduct_complete, inclusion: { in: [true, false] }
-
-      def previous_misconduct_complete=(value)
-        @previous_misconduct_complete = ActiveModel::Type::Boolean.new.cast(value)
-      end
 
       def save
         return false unless valid?
