@@ -3,7 +3,7 @@ class EvidenceComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  def rows
+  def all_rows
     summary_rows [anything_to_upload_row, evidence_row].compact
   end
 

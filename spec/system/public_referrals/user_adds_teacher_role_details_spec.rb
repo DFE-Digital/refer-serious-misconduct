@@ -29,7 +29,7 @@ RSpec.feature "Teacher role", type: :system do
     when_i_edit_teacher_role_details
     then_i_see_the_check_your_answers_page("About their role", "teacher-role")
 
-    when_i_click_on_change_their_duties_format
+    when_i_click_on_complete_your_details
     when_i_click_save_and_continue
     then_i_see_duties_format_field_validation_errors
 

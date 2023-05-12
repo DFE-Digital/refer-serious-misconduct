@@ -3,19 +3,16 @@ class PersonalDetailsComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  def rows
-    summary_rows [
-                   name_row,
-                   known_by_other_name_row,
-                   other_name_row,
-                   date_of_birth_known_row,
-                   date_of_birth_row,
-                   ni_number_known_row,
-                   ni_number_row,
-                   trn_known_row,
-                   trn_row,
-                   qts_row
-                 ].compact
+  def all_rows
+    summary_rows(
+      [
+        [name_row, known_by_other_name_row, other_name_row],
+        [date_of_birth_known_row, date_of_birth_row],
+        [ni_number_known_row, ni_number_row],
+        [trn_known_row, trn_row],
+        [qts_row]
+      ].map(&:compact).select(&:present?)
+    )
   end
 
   def known_by_other_name_row

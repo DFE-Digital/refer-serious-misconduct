@@ -23,7 +23,7 @@ RSpec.feature "Public Referral: About You", type: :system do
     and_i_click_on_your_details
     then_i_see_the_check_your_answers_page("Your details", "referrer")
 
-    when_i_click_on_change_phone_number
+    when_i_click_on_complete_your_details
     when_i_click_save_and_continue
     then_i_see_the_phone_error_message
 

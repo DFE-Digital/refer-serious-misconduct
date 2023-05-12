@@ -6,8 +6,8 @@ class OrganisationComponent < ViewComponent::Base
 
   delegate :organisation, to: :referral
 
-  def rows
-    summary_rows [organisation_row].compact
+  def all_rows
+    summary_rows [organisation_row]
   end
 
   private

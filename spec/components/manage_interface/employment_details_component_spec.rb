@@ -27,26 +27,13 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     expect(row_values_sanitized[2]).to eq("Teaching children in year 2")
   end
 
-  context "when the referral is not from a member of public" do
-    let(:referral) { create(:referral, :employer_complete) }
-
-    it "does not render the organisation address where the misconduct occurred" do
-      expect(row_labels).not_to include(
-        "Name and address of the organisation where the alleged misconduct took place"
-      )
-      expect(row_labels).not_to include(
-        "Do you know the name and address of the organisation where the alleged misconduct took place?"
-      )
-    end
-  end
-
   context "when the organisation address where misconduct took place is known" do
     it "renders the organisation address" do
       expect(row_labels[3]).to eq(
         "Name and address of the organisation where the alleged misconduct took place"
       )
       expect(row_values_sanitized[3]).to eq(
-        "Example School1 Example StreetDifferent RoadExample TownAB1 2CD"
+        "Example School1 Example StreetDifferent RoadExample TownW1 1AA"
       )
     end
   end
@@ -94,8 +81,10 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     let(:referral) { create(:referral, :employer_complete) }
 
     it "renders the address of organisation" do
-      expect(row_labels[3]).to eq("Organisation")
-      expect(row_values_sanitized[3]).to eq("Example School1 Example StreetExample CityAB1 2CD")
+      expect(row_labels[4]).to eq(
+        "Were they employed at the same organisation as you at the time of the alleged misconduct?"
+      )
+      expect(row_values_sanitized[4]).to eq("No")
     end
   end
 
@@ -103,10 +92,10 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     let(:referral) { create(:referral, :employer_complete, same_organisation: false) }
 
     it "renders 'Were they employed at the same organisation as you at the time of the alleged misconduct?'" do
-      expect(row_labels[3]).to eq(
+      expect(row_labels[4]).to eq(
         "Were they employed at the same organisation as you at the time of the alleged misconduct?"
       )
-      expect(row_values_sanitized[3]).to eq("No")
+      expect(row_values_sanitized[4]).to eq("No")
     end
   end
 
@@ -114,8 +103,8 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     let(:referral) { create(:referral, :employer_complete) }
 
     it "renders the job start date" do
-      expect(row_labels[4]).to eq("Job start date")
-      expect(row_values_sanitized[4]).to eq("10 April 2022")
+      expect(row_labels[5]).to eq("Job start date")
+      expect(row_values_sanitized[5]).to eq("10 April 2022")
     end
   end
 
@@ -123,8 +112,8 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     let(:referral) { create(:referral, :employer_complete, role_start_date_known: false) }
 
     it "renders 'Do you know when they started the job?'" do
-      expect(row_labels[4]).to eq("Do you know when they started the job?")
-      expect(row_values_sanitized[4]).to eq("No")
+      expect(row_labels[5]).to eq("Do you know when they started the job?")
+      expect(row_values_sanitized[5]).to eq("No")
     end
   end
 
@@ -149,15 +138,15 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
     let(:referral) { create(:referral, :employer_complete, employment_status: "left_role") }
 
     it "renders 'Are they still employed at the organisation where the alleged misconduct took place?'" do
-      expect(row_labels[5]).to eq(
+      expect(row_labels[6]).to eq(
         "Are they still employed at the organisation where the alleged misconduct took place?"
       )
-      expect(row_values_sanitized[5]).to eq("No")
+      expect(row_values_sanitized[6]).to eq("No")
     end
 
     it "renders the role end date is date is known" do
-      expect(row_labels[6]).to eq("Job end date")
-      expect(row_values_sanitized[6]).to eq("10 March 2023")
+      expect(row_labels[7]).to eq("Job end date")
+      expect(row_values_sanitized[7]).to eq("10 March 2023")
     end
 
     context "when the end date is not known" do
@@ -171,14 +160,14 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
       end
 
       it "renders 'Do you know when they left the job?'" do
-        expect(row_labels[6]).to eq("Do you know when they left the job?")
-        expect(row_values_sanitized[6]).to eq("No")
+        expect(row_labels[7]).to eq("Do you know when they left the job?")
+        expect(row_values_sanitized[7]).to eq("No")
       end
     end
 
     it "renders the reason for leaving" do
-      expect(row_labels[7]).to eq("Reason they left the job")
-      expect(row_values_sanitized[7]).to eq("Dismissed")
+      expect(row_labels[8]).to eq("Reason they left the job")
+      expect(row_values_sanitized[8]).to eq("Dismissed")
     end
 
     context "when referrer does not know for fact if referral works somewhere else" do
@@ -192,8 +181,8 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
       end
 
       it "renders 'Are they employed somewhere else?'" do
-        expect(row_labels[8]).to eq("Are they employed somewhere else?")
-        expect(row_values_sanitized[8]).to eq("I'm not sure")
+        expect(row_labels[9]).to eq("Are they employed somewhere else?")
+        expect(row_values_sanitized[9]).to eq("I'm not sure")
       end
     end
 
@@ -209,10 +198,10 @@ RSpec.describe ManageInterface::EmploymentDetailsComponent, type: :component do
       end
 
       it "renders 'Are they employed somewhere else?'" do
-        expect(row_labels[8]).to eq(
+        expect(row_labels[9]).to eq(
           "Do you know the name and address of the organisation where they’re employed?"
         )
-        expect(row_values_sanitized[8]).to eq("No")
+        expect(row_values_sanitized[9]).to eq("No")
       end
     end
   end

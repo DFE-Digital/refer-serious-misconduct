@@ -12,6 +12,7 @@ require "sidekiq/testing"
 require "support/devise"
 require "dfe/analytics/testing"
 require "dfe/analytics/rspec/matchers"
+require "super_diff/rspec-rails"
 
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, timeout: 10, process_timeout: 30, window_size: [1200, 800])
@@ -94,4 +95,9 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+SuperDiff.configure do |config|
+  config.key_enabled = false
+  config.diff_elision_enabled = true
 end

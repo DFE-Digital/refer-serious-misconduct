@@ -4,12 +4,13 @@ class PreviousMisconductComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  def rows
-    summary_rows [
-                   previous_misconduct_reported_row,
-                   detailed_account_type_row,
-                   detailed_account_report_row
-                 ].compact
+  def all_rows
+    summary_rows(
+      [
+        [previous_misconduct_reported_row],
+        [detailed_account_type_row, detailed_account_report_row]
+      ].map(&:compact).select(&:present?)
+    )
   end
 
   def previous_misconduct_reported_row

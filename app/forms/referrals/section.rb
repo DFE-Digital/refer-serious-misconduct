@@ -71,10 +71,10 @@ module Referrals
     end
 
     def complete_rows(rows)
-      if rows.is_a?(Hash)
-        rows.filter_map { |k, v| v if items[k].complete? }.flatten
+      if rows&.first.is_a?(Array)
+        rows.filter_map.with_index { |row_group, idx| row_group if items[idx].complete? }.flatten
       else
-        rows.select.with_index { |_i, idx| items[idx].complete? }
+        rows.select.with_index { |_i, idx| items[idx]&.complete? }
       end
     end
   end

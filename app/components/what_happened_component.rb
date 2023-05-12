@@ -3,12 +3,12 @@ class WhatHappenedComponent < ViewComponent::Base
   include ReferralHelper
   include ComponentHelper
 
-  def rows
-    summary_rows [
-                   details_about_allegation_format_row,
-                   details_about_allegation_row,
-                   referral.from_employer? && dbs_notified_row
-                 ].compact_blank
+  def all_rows
+    summary_rows(
+      [[details_about_allegation_format_row, details_about_allegation_row], [dbs_notified_row]].map(
+        &:compact
+      ).select(&:present?)
+    )
   end
 
   private
@@ -31,6 +31,8 @@ class WhatHappenedComponent < ViewComponent::Base
   end
 
   def dbs_notified_row
+    return unless referral.from_employer?
+
     {
       label: "Have you told DBS?",
       visually_hidden_text: "if you have told DBS",

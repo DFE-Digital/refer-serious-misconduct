@@ -20,9 +20,11 @@ RSpec.describe PersonalDetailsComponent, type: :component do
         "Their name",
         "Do you know them by any other name?",
         "Do you know their date of birth?",
+        "Date of birth",
         "Do you know their National Insurance number?",
         "National Insurance number",
         "Do you know their teacher reference number (TRN)?",
+        "TRN",
         "Do they have qualified teacher status (QTS)?"
       ]
     )
@@ -35,7 +37,9 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when not known by other name" do
-    let(:referral) { create(:referral, :employer, name_has_changed: "no") }
+    let(:referral) do
+      create(:referral, :employer, :personal_details_employer, name_has_changed: "no")
+    end
 
     it "renders the known name row" do
       expect(row_labels[1]).to eq("Do you know them by any other name?")
@@ -51,7 +55,15 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when known by other name" do
-    let(:referral) { create(:referral, :employer, name_has_changed: "yes", previous_name: "T") }
+    let(:referral) do
+      create(
+        :referral,
+        :employer,
+        :personal_details_employer,
+        name_has_changed: "yes",
+        previous_name: "T"
+      )
+    end
 
     it "renders the known name row" do
       expect(row_labels[1]).to eq("Do you know them by any other name?")
@@ -72,7 +84,13 @@ RSpec.describe PersonalDetailsComponent, type: :component do
 
   context "when date of birth is known" do
     let(:referral) do
-      create(:referral, :employer, age_known: true, date_of_birth: Date.new(1990, 1, 1))
+      create(
+        :referral,
+        :employer,
+        :personal_details_employer,
+        age_known: true,
+        date_of_birth: Date.new(1990, 1, 1)
+      )
     end
 
     it "renders the date of birth known row" do
@@ -93,7 +111,7 @@ RSpec.describe PersonalDetailsComponent, type: :component do
   end
 
   context "when date of birth is not known" do
-    let(:referral) { create(:referral, :employer, age_known: false) }
+    let(:referral) { create(:referral, :employer, :personal_details_employer, age_known: false) }
 
     it "renders the date of birth known row" do
       expect(row_labels[2]).to eq("Do you know their date of birth?")
@@ -108,69 +126,35 @@ RSpec.describe PersonalDetailsComponent, type: :component do
     end
   end
 
-  context "when trn is known" do
-    let(:referral) { create(:referral, :employer, trn_known: true, trn: "4567814") }
-
-    it "renders the trn known row" do
-      expect(row_labels[4]).to eq("Do you know their teacher reference number (TRN)?")
-      expect(row_values_sanitized[4]).to eq("Yes")
-      expect(row_links[4]).to eq(
-        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
-      )
-    end
-
-    it "renders the trn row" do
-      expect(row_labels[5]).to eq("TRN")
-      expect(row_values_sanitized[5]).to eq(referral.trn)
-      expect(row_links[5]).to eq(
-        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
-      )
-    end
-  end
-
-  context "when trn is not known" do
-    let(:referral) { create(:referral, :employer, trn_known: false) }
-
-    it "renders the trn known row" do
-      expect(row_labels[4]).to eq("Do you know their teacher reference number (TRN)?")
-      expect(row_values_sanitized[4]).to eq("No")
-      expect(row_links[4]).to eq(
-        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
-      )
-    end
-
-    it "does not render the trn row" do
-      expect(row_labels[5]).not_to eq("TRN")
-    end
-  end
-
   context "when national insurance number is known" do
-    let(:referral) { create(:referral, :employer, ni_number_known: true, ni_number: "SC234568") }
+    let(:referral) { create(:referral, :employer, :personal_details_employer) }
 
     it "renders the national insurance number known row" do
-      expect(row_labels[3]).to eq("Do you know their National Insurance number?")
-      expect(row_values_sanitized[3]).to eq("Yes")
-      expect(row_links[3]).to eq(
+      expect(row_labels[4]).to eq("Do you know their National Insurance number?")
+      expect(row_values_sanitized[4]).to eq("Yes")
+      expect(row_links[4]).to eq(
         "/referrals/#{referral.id}/personal-details/ni_number/edit?return_to=%2F"
       )
     end
 
     it "renders the national insurance number row" do
-      expect(row_labels[4]).to eq("National Insurance number")
-      expect(row_values_sanitized[4]).to eq(referral.ni_number)
-      expect(row_links[4]).to eq(
+      expect(row_labels[5]).to eq("National Insurance number")
+      expect(row_values_sanitized[5]).to eq(referral.ni_number)
+      expect(row_links[5]).to eq(
         "/referrals/#{referral.id}/personal-details/ni_number/edit?return_to=%2F"
       )
     end
   end
 
   context "when national insurance number is not known" do
-    let(:referral) { create(:referral, :employer, ni_number_known: false) }
+    let(:referral) do
+      create(:referral, :employer, :personal_details_employer, ni_number_known: false)
+    end
 
     it "renders the national insurance number known row" do
-      expect(row_labels[3]).to eq("Do you know their National Insurance number?")
-      expect(row_values_sanitized[3]).to eq("No")
-      expect(row_links[3]).to eq(
+      expect(row_labels[4]).to eq("Do you know their National Insurance number?")
+      expect(row_values_sanitized[4]).to eq("No")
+      expect(row_links[4]).to eq(
         "/referrals/#{referral.id}/personal-details/ni_number/edit?return_to=%2F"
       )
     end
@@ -180,14 +164,56 @@ RSpec.describe PersonalDetailsComponent, type: :component do
     end
   end
 
-  it "renders the qts row" do
-    expect(row_labels[6]).to eq("Do they have qualified teacher status (QTS)?")
-    expect(row_values_sanitized[6]).to eq("Yes")
-    expect(row_links[6]).to eq("/referrals/#{referral.id}/personal-details/qts/edit?return_to=%2F")
+  context "when trn is known" do
+    let(:referral) do
+      create(:referral, :employer, :personal_details_employer, trn_known: true, trn: "4567814")
+    end
+
+    it "renders the trn known row" do
+      expect(row_labels[6]).to eq("Do you know their teacher reference number (TRN)?")
+      expect(row_values_sanitized[6]).to eq("Yes")
+      expect(row_links[6]).to eq(
+        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
+      )
+    end
+
+    it "renders the trn row" do
+      expect(row_labels[7]).to eq("TRN")
+      expect(row_values_sanitized[7]).to eq(referral.trn)
+      expect(row_links[7]).to eq(
+        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
+      )
+    end
+  end
+
+  context "when trn is not known" do
+    let(:referral) { create(:referral, :employer, :personal_details_employer, trn_known: false) }
+
+    it "renders the trn known row" do
+      expect(row_labels[6]).to eq("Do you know their teacher reference number (TRN)?")
+      expect(row_values_sanitized[6]).to eq("No")
+      expect(row_links[6]).to eq(
+        "/referrals/#{referral.id}/personal-details/trn/edit?return_to=%2F"
+      )
+    end
+
+    it "does not render the trn row" do
+      expect(row_labels[7]).not_to eq("TRN")
+    end
+  end
+
+  context "when qts is known" do
+    it "renders the qts row" do
+      expect(row_labels[8]).to eq("Do they have qualified teacher status (QTS)?")
+      expect(row_values_sanitized[8]).to eq("Yes")
+      expect(row_links[8]).to eq(
+        "/referrals/#{referral.id}/personal-details/qts/edit?return_to=%2F"
+      )
+    end
   end
 
   context "when the referral is a public one" do
-    let(:referral) { create(:referral, :public) }
+    let(:referral) { create(:referral, :public, :personal_details_public) }
 
     it "renders a limited number of questions" do
       expect(row_labels).to eq(["Their name", "Do you know them by any other name?"])

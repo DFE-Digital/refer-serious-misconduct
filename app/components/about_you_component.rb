@@ -6,6 +6,14 @@ class AboutYouComponent < ViewComponent::Base
   delegate :referrer, to: :referral
 
   def rows
+    complete_rows.tap { |rows| rows.insert(complete_rows.any? ? 1 : 0, summary_row(**email_row)) }
+  end
+
+  def complete_rows
+    section.complete_rows(all_rows - [summary_row(**email_row)])
+  end
+
+  def all_rows
     summary_rows [name_row, email_row, job_title_row, phone_row].compact
   end
 

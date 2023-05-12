@@ -10,6 +10,8 @@ FactoryBot.define do
       personal_details_complete { true }
       teacher_role_complete { true }
       previous_misconduct_complete { true }
+      has_evidence { false }
+      previous_misconduct_reported { "false" }
 
       after(:create) do |referral|
         create(:organisation, :complete, referral:)
@@ -71,27 +73,29 @@ FactoryBot.define do
     end
 
     trait :personal_details_employer do
-      date_of_birth { 30.years.ago }
+      age_known { true }
+      date_of_birth { Time.zone.local(1993, 5, 15) }
       first_name { "John" }
       has_qts { "yes" }
       last_name { "Smith" }
       name_has_changed { "no" }
       ni_number_known { true }
-      ni_number { "XH 25 91 97 C" }
+      ni_number { "XH259197C" }
       personal_details_complete { true }
+      trn_known { true }
       trn { "1234567" }
     end
 
     trait :contact_details_employer do
       address_known { true }
-      address_line_1 { "1 Example Street" }
       contact_details_complete { true }
       email_address { "test@example.com" }
       email_known { true }
       phone_known { true }
       phone_number { "01234567890" }
-      postcode { "AB1 2CD" }
+      address_line_1 { "1 Example Street" }
       town_or_city { "Example Town" }
+      postcode { "W1 1AA" }
     end
 
     trait :teacher_role_employer do
@@ -104,13 +108,19 @@ FactoryBot.define do
       role_end_date_known { true }
       role_start_date { Time.zone.local(2022, 4, 10) }
       role_start_date_known { true }
-      same_organisation { true }
+      same_organisation { false }
+      organisation_address_known { true }
+      organisation_address_line_1 { "1 Example Street" }
+      organisation_address_line_2 { "Different Road" }
+      organisation_name { "Example School" }
+      organisation_postcode { "W1 1AA" }
+      organisation_town_or_city { "Example Town" }
       teacher_role_complete { true }
       work_address_line_1 { "2 Different Street" }
       work_address_line_2 { "Same Road" }
       work_location_known { true }
       work_organisation_name { "Different School" }
-      work_postcode { "AB1 2CD" }
+      work_postcode { "W1 1AA" }
       work_town_or_city { "Example Town" }
       working_somewhere_else { "yes" }
     end
@@ -123,7 +133,7 @@ FactoryBot.define do
       organisation_address_line_1 { "1 Example Street" }
       organisation_address_line_2 { "Different Road" }
       organisation_name { "Example School" }
-      organisation_postcode { "AB1 2CD" }
+      organisation_postcode { "W1 1AA" }
       organisation_town_or_city { "Example Town" }
       teacher_role_complete { true }
     end

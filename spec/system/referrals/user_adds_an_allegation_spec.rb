@@ -28,7 +28,7 @@ RSpec.feature "Allegation", type: :system do
     when_i_edit_the_allegation
     then_i_see_the_allegation_check_your_answers_page
 
-    when_i_click_on_change_notified_dbs
+    when_i_click_on_complete_your_details
     when_i_click_save_and_continue
     then_i_see_dbs_form_validation_errors
 

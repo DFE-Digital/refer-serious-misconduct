@@ -21,7 +21,7 @@ RSpec.describe PreviousMisconductComponent, type: :component do
     end
 
     it "renders the values" do
-      expect(row_values).to eq(["Not answered"])
+      expect(row_values).to eq(["No"])
     end
 
     it "renders the change links" do
