@@ -10,7 +10,7 @@
         <%= govuk_button_link_to "Complete referral", [:edit, @referral_in_progress.routing_scope, @referral_in_progress] %>
       <% end %>
     <% else %>
-      <%= govuk_button_link_to "Start new referral", new_referral_path %>
+      <%= govuk_button_link_to "Start new referral", referral_type_path %>
     <% end %>
 
     <% if @referrals_submitted.any? %>

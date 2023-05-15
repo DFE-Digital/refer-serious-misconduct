@@ -37,4 +37,15 @@ class EligibilityCheck < ApplicationRecord
   def unsupervised_teaching?
     %w[yes not_sure].include?(unsupervised_teaching)
   end
+
+  def clear_answers!
+    unless reporting_as.nil?
+      update!(
+        is_teacher: nil,
+        serious_misconduct: nil,
+        teaching_in_england: nil,
+        unsupervised_teaching: nil
+      )
+    end
+  end
 end
