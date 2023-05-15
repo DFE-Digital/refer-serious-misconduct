@@ -88,4 +88,18 @@ RSpec.describe EligibilityCheck, type: :model do
       it { is_expected.to be_truthy }
     end
   end
+
+  describe "#clear_answers!" do
+    let(:eligibility_check) { create(:eligibility_check, :complete, :not_unsupervised) }
+
+    before { eligibility_check.clear_answers! }
+
+    it "clears the answers" do
+      expect(eligibility_check.reporting_as).not_to be_nil
+      expect(eligibility_check.is_teacher).to be_nil
+      expect(eligibility_check.serious_misconduct).to be_nil
+      expect(eligibility_check.teaching_in_england).to be_nil
+      expect(eligibility_check.unsupervised_teaching).to be_nil
+    end
+  end
 end
