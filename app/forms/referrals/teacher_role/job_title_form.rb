@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class JobTitleForm
-      include ReferralFormSection
-
+    class JobTitleForm < FormItem
       attr_referral :job_title
 
       validates :job_title, presence: true

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class WorkLocationKnownForm
-      include ReferralFormSection
-
+    class WorkLocationKnownForm < FormItem
       attr_referral :work_location_known
 
       validates :work_location_known, inclusion: { in: [true, false] }

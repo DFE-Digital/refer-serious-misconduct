@@ -1,8 +1,6 @@
 module Referrals
   module TeacherRole
-    class WorkLocationForm
-      include ReferralFormSection
-
+    class WorkLocationForm < FormItem
       attr_referral :work_organisation_name,
                     :work_address_line_1,
                     :work_address_line_2,

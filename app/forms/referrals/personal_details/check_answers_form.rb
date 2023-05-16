@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module PersonalDetails
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       validates :personal_details_complete, inclusion: { in: [true, false] }
 
       attr_referral :personal_details_complete

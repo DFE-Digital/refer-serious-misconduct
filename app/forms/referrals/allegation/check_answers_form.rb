@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Allegation
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       validates :allegation_details_complete, inclusion: { in: [true, false] }
       validate :allegation_not_incomplete
 

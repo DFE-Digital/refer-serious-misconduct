@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module PersonalDetails
-    class NiNumberForm
-      include ReferralFormSection
-
+    class NiNumberForm < FormItem
       attr_referral :ni_number_known, :ni_number
 
       validates :ni_number,

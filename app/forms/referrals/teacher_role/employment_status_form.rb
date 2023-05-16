@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class EmploymentStatusForm
-      include ReferralFormSection
-
+    class EmploymentStatusForm < FormItem
       attr_referral :employment_status
 
       validates :employment_status, inclusion: { in: %w[employed suspended left_role] }

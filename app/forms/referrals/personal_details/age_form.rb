@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module PersonalDetails
-    class AgeForm
-      include ReferralFormSection
-
+    class AgeForm < FormItem
       attr_accessor :date_params
       attr_referral :age_known, :date_of_birth
 

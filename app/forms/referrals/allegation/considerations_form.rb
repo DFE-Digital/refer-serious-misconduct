@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Allegation
-    class ConsiderationsForm
-      include ReferralFormSection
-
+    class ConsiderationsForm < FormItem
       validates :allegation_consideration_details, presence: true
 
       attr_referral :allegation_consideration_details

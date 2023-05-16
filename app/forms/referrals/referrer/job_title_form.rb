@@ -1,8 +1,6 @@
 module Referrals
   module Referrer
-    class JobTitleForm
-      include ReferralFormSection
-
+    class JobTitleForm < FormItem
       attr_referrer :job_title
 
       validates :job_title, presence: true

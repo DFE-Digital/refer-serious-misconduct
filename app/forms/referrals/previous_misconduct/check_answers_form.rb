@@ -1,8 +1,6 @@
 module Referrals
   module PreviousMisconduct
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       attr_referral :previous_misconduct_complete
 
       validates :previous_misconduct_complete, inclusion: { in: [true, false] }

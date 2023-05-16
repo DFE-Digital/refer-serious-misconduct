@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module PersonalDetails
-    class QtsForm
-      include ReferralFormSection
-
+    class QtsForm < FormItem
       attr_referral :has_qts
 
       validates :has_qts, inclusion: { in: %w[yes no not_sure] }

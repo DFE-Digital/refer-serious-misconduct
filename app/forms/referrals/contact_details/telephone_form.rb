@@ -1,8 +1,6 @@
 module Referrals
   module ContactDetails
-    class TelephoneForm
-      include ReferralFormSection
-
+    class TelephoneForm < FormItem
       attr_referral :phone_known, :phone_number
 
       validates :phone_known, inclusion: { in: [true, false] }

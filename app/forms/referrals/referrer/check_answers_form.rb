@@ -1,8 +1,6 @@
 module Referrals
   module Referrer
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       attr_accessor :referrer
       attr_referrer :complete
 

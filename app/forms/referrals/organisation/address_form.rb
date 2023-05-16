@@ -1,8 +1,6 @@
 module Referrals
   module Organisation
-    class AddressForm
-      include ReferralFormSection
-
+    class AddressForm < FormItem
       attr_organisation :name, :street_1, :street_2, :city, :postcode
 
       validates :name, presence: true

@@ -1,8 +1,6 @@
 module Referrals
   module PersonalDetails
-    class NameForm
-      include ReferralFormSection
-
+    class NameForm < FormItem
       attr_referral :first_name, :last_name, :name_has_changed, :previous_name
 
       validates :first_name, :last_name, presence: true

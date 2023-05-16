@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Allegation
-    class DetailsForm
-      include ReferralFormSection
-
+    class DetailsForm < FormItem
       validates :allegation_format, inclusion: { in: %w[details upload] }
       validates :allegation_details, presence: true, if: -> { allegation_format == "details" }
       validates :allegation_upload,

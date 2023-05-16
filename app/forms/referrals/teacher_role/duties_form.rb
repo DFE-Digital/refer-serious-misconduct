@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class DutiesForm
-      include ReferralFormSection
-
+    class DutiesForm < FormItem
       attr_referral :duties_details, :duties_format, :duties_upload
 
       validates :duties_format, inclusion: { in: %w[details upload] }

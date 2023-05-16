@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Evidence
-    class UploadForm
-      include ReferralFormSection
-
+    class UploadForm < FormItem
       MAX_FILES = FileUploadValidator::MAX_FILES
 
       validate :evidence_selected

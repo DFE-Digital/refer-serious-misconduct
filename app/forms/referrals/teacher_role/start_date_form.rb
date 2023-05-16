@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class StartDateForm
-      include ReferralFormSection
-
+    class StartDateForm < FormItem
       attr_accessor :date_params
       attr_referral :role_start_date_known, :role_start_date
 

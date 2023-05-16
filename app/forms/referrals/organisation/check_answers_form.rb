@@ -1,8 +1,6 @@
 module Referrals
   module Organisation
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       attr_organisation :complete
 
       validates :complete, inclusion: { in: [true, false] }
