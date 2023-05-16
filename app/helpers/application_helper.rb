@@ -118,10 +118,6 @@ module ApplicationHelper
     { "true" => "Yes", "false" => "No", "not_sure" => "I’m not sure" }[choice]
   end
 
-  def return_to_session_or(url)
-    session[:return_to] || url
-  end
-
   def service_name
     return t("service.manage") if %w[manage support staff].include?(current_namespace)
 
