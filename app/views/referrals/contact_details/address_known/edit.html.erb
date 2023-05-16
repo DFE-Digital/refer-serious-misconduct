@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{"Error: " if @contact_details_address_known_form.errors.any?}Do you know their home address? - Contact details" %>
-<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_telephone])) %>
+<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :contact_details_telephone]) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

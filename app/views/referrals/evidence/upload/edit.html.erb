@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @evidence_upload_form.errors.any?}Upload evidence and supporting information" %>
-<% content_for :back_link_url, return_to_session_or(polymorphic_path([:edit, current_referral.routing_scope, current_referral, :evidence_start])) %>
+<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :evidence_start]) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">

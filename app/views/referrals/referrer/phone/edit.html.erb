@@ -1,5 +1,5 @@
 <% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}Your phone number - Your details" %>
-<% content_for :back_link_url, return_to_session_or(previous_path) %>
+<% content_for :back_link_url, previous_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
