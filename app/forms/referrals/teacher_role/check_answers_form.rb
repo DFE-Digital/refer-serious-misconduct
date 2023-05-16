@@ -1,8 +1,6 @@
 module Referrals
   module TeacherRole
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       attr_referral :teacher_role_complete
 
       validates :teacher_role_complete, inclusion: { in: [true, false] }

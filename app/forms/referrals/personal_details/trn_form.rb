@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module PersonalDetails
-    class TrnForm
-      include ReferralFormSection
-
+    class TrnForm < FormItem
       attr_referral :trn_known, :trn
 
       validates :trn_known, inclusion: { in: [true, false] }

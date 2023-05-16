@@ -1,8 +1,6 @@
 module Referrals
   module Referrer
-    class PhoneForm
-      include ReferralFormSection
-
+    class PhoneForm < FormItem
       attr_referrer :phone
 
       validates :phone,

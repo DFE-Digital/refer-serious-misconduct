@@ -1,8 +1,6 @@
 module Referrals
   module ContactDetails
-    class CheckAnswersForm
-      include ReferralFormSection
-
+    class CheckAnswersForm < FormItem
       attr_referral :contact_details_complete
 
       validates :contact_details_complete, inclusion: { in: [true, false] }

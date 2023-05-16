@@ -1,8 +1,6 @@
 module Referrals
   module PreviousMisconduct
-    class DetailedAccountForm
-      include ReferralFormSection
-
+    class DetailedAccountForm < FormItem
       attr_referral :previous_misconduct_format,
                     :previous_misconduct_details,
                     :previous_misconduct_upload

@@ -1,8 +1,6 @@
 module Referrals
   module ContactDetails
-    class EmailForm
-      include ReferralFormSection
-
+    class EmailForm < FormItem
       attr_referral :email_known, :email_address
 
       validates :email_known, inclusion: { in: [true, false] }

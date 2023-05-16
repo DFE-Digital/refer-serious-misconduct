@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class OrganisationAddressForm
-      include ReferralFormSection
-
+    class OrganisationAddressForm < FormItem
       attr_referral :organisation_name,
                     :organisation_address_line_1,
                     :organisation_address_line_2,

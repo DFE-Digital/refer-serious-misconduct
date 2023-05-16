@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Evidence
-    class StartForm
-      include ReferralFormSection
-
+    class StartForm < FormItem
       attr_referral :has_evidence
 
       validates :has_evidence, inclusion: { in: [true, false] }

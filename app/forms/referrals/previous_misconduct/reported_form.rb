@@ -1,8 +1,6 @@
 module Referrals
   module PreviousMisconduct
-    class ReportedForm
-      include ReferralFormSection
-
+    class ReportedForm < FormItem
       attr_referral :previous_misconduct_reported
 
       validates :previous_misconduct_reported, inclusion: { in: %w[true false not_sure] }

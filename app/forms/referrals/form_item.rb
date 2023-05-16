@@ -1,10 +1,10 @@
-module ReferralFormSection
-  extend ActiveSupport::Concern
-  include ActiveModel::Model
-  include ValidationTracking
-  include CustomAttrs
+module Referrals
+  class FormItem
+    include ActiveModel::Model
+    include ActiveModel::Validations
+    include ValidationTracking
+    include CustomAttrs
 
-  included do
     attr_accessor :referral
 
     validates :referral, presence: true

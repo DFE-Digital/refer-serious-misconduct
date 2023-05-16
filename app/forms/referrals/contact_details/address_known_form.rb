@@ -1,8 +1,6 @@
 module Referrals
   module ContactDetails
-    class AddressKnownForm
-      include ReferralFormSection
-
+    class AddressKnownForm < FormItem
       attr_referral :address_known
 
       validates :address_known, inclusion: { in: [true, false] }

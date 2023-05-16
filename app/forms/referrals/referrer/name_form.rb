@@ -1,8 +1,6 @@
 module Referrals
   module Referrer
-    class NameForm
-      include ReferralFormSection
-
+    class NameForm < FormItem
       attr_referrer :first_name, :last_name
 
       validates :first_name, presence: true

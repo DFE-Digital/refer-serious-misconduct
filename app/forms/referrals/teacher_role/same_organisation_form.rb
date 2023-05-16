@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class SameOrganisationForm
-      include ReferralFormSection
-
+    class SameOrganisationForm < FormItem
       attr_referral :same_organisation
 
       validates :same_organisation, inclusion: { in: [true, false] }

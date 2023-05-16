@@ -6,10 +6,6 @@ class ReferralForm
 
   attr_accessor :referral
 
-  # TODO: Replace these with something reading from :referral model fields
-  ReferralSection = Struct.new(:number, :label, :items)
-  ReferralSectionItem = Struct.new(:label, :path, :status)
-
   validate :sections_valid
 
   def save
@@ -69,32 +65,5 @@ class ReferralForm
     ].compact_blank
 
     Referrals::SectionGroup.new(slug: "the_allegation", items:)
-  end
-
-  def check_answers?(complete)
-    !complete.nil?
-  end
-
-  def section_status(complete)
-    complete ? :completed : :incomplete
-  end
-
-  def path_for_section_status(check_answers, start_path, check_answers_path)
-    check_answers ? check_answers_path : start_path
-  end
-
-  def path_for_evidence_section_status(
-    check_answers,
-    start_path,
-    check_answers_path,
-    evidence_upload_path
-  )
-    if check_answers
-      check_answers_path
-    elsif referral.evidences.any?
-      evidence_upload_path
-    else
-      start_path
-    end
   end
 end

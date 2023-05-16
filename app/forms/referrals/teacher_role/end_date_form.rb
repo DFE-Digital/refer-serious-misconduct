@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module TeacherRole
-    class EndDateForm
-      include ReferralFormSection
-
+    class EndDateForm < FormItem
       attr_accessor :date_params, :referral
       attr_referral :role_end_date_known, :role_end_date
 

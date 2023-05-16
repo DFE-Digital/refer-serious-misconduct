@@ -1,8 +1,6 @@
 module Referrals
   module ContactDetails
-    class AddressForm
-      include ReferralFormSection
-
+    class AddressForm < FormItem
       attr_referral :address_line_1, :address_line_2, :town_or_city, :postcode, :country
 
       validates :address_line_1, :town_or_city, :postcode, presence: true

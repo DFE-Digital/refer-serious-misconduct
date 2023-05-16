@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module Referrals
   module Allegation
-    class DbsForm
-      include ReferralFormSection
-
+    class DbsForm < FormItem
       validates :dbs_notified, inclusion: { in: [true, false] }
 
       attr_referral :dbs_notified
