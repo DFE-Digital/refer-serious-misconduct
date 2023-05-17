@@ -35,19 +35,6 @@ module Referrals
           "role_start_date(1i)"
         )
       end
-
-      def back_link
-        polymorphic_path(
-          [
-            :edit,
-            current_referral.routing_scope,
-            current_referral,
-            :teacher_role,
-            :same_organisation
-          ]
-        )
-      end
-      helper_method :back_link
     end
   end
 end

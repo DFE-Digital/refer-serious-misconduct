@@ -29,7 +29,7 @@ module Referrals
         )
       end
 
-      def back_link
+      def previous_path
         polymorphic_path(
           [
             :edit,
@@ -40,7 +40,7 @@ module Referrals
           ]
         )
       end
-      helper_method :back_link
+      helper_method :previous_path
     end
   end
 end
