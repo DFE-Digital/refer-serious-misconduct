@@ -10,7 +10,10 @@ RSpec.feature "User accounts" do
     and_the_referral_form_feature_is_active
 
     when_i_visit_the_root_page
-    and_choose_continue_referral
+    when_i_click_continue
+    then_i_see_an_error_about_not_choosing_an_option
+
+    when_i_choose_continue_referral
     then_i_should_see_the_sign_in_page
 
     when_i_submit_my_email
@@ -62,10 +65,15 @@ RSpec.feature "User accounts" do
     visit root_path
   end
 
+  def then_i_see_an_error_about_not_choosing_an_option
+    expect(page).to have_content "Select yes if you have an account"
+  end
+
   def and_choose_continue_referral
     choose "Yes, sign in and continue making a referral", visible: false
     click_on "Continue"
   end
+  alias_method :when_i_choose_continue_referral, :and_choose_continue_referral
 
   def and_i_submit_my_email
     fill_in "user-email-field", with: "test@example.com"
