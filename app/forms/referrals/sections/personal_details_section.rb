@@ -2,16 +2,18 @@ module Referrals
   module Sections
     class PersonalDetailsSection < Section
       def items
-        items = [Referrals::PersonalDetails::NameForm.new(referral:)]
+        [].tap do |items|
+          items << Referrals::PersonalDetails::NameForm.new(referral:)
 
-        if referral.from_employer?
-          items.append(Referrals::PersonalDetails::AgeForm.new(referral:))
-          items.append(Referrals::PersonalDetails::NiNumberForm.new(referral:))
-          items.append(Referrals::PersonalDetails::TrnForm.new(referral:))
-          items.append(Referrals::PersonalDetails::QtsForm.new(referral:))
+          if referral.from_employer?
+            items << Referrals::PersonalDetails::AgeForm.new(referral:)
+            items << Referrals::PersonalDetails::NiNumberForm.new(referral:)
+            items << Referrals::PersonalDetails::TrnForm.new(referral:)
+            items << Referrals::PersonalDetails::QtsForm.new(referral:)
+          end
+
+          items << Referrals::PersonalDetails::CheckAnswersForm.new(referral:)
         end
-
-        items.append(Referrals::PersonalDetails::CheckAnswersForm.new(referral:))
       end
 
       def slug
