@@ -41,7 +41,7 @@ en:
           attributes:
             declaration_agreed:
               accepted: You must agree to the declaration
-        registration_exists_form":
+        registration_exists_form:
           attributes:
             registration_exists:
               inclusion: Select yes if you have an account
