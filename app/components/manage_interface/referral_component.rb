@@ -2,7 +2,8 @@ module ManageInterface
   class ReferralComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
-    include ComponentHelper
+
+    attr_accessor :referral
 
     def rows
       summary_rows [submitted_at, referrer_row].compact

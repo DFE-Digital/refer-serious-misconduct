@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PreviousMisconductComponent, type: :component do
+RSpec.describe Referrals::PreviousMisconductComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:referrer) { referral.referrer }

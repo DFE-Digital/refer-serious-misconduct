@@ -2,9 +2,8 @@ module SupportInterface
   class EligibilityCheckComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
-    include ComponentHelper
 
-    attr_accessor :eligibility_check
+    attr_accessor :referral, :eligibility_check
 
     def rows
       summary_rows [
