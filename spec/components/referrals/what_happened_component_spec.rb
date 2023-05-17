@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe WhatHappenedComponent, type: :component do
+RSpec.describe Referrals::WhatHappenedComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:referral) { create(:referral, :employer_complete, submitted_at: nil) }

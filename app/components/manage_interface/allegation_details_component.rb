@@ -2,7 +2,8 @@ module ManageInterface
   class AllegationDetailsComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
-    include ComponentHelper
+
+    attr_accessor :referral
 
     def rows
       summary_rows [
