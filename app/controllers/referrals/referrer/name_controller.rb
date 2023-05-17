@@ -20,11 +20,6 @@ module Referrals
       def name_params
         params.require(:referrals_referrer_name_form).permit(:first_name, :last_name)
       end
-
-      def previous_path
-        polymorphic_path([:edit, current_referral.routing_scope, current_referral])
-      end
-      helper_method :previous_path
     end
   end
 end
