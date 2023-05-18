@@ -194,20 +194,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Notify Slack channel on job failure
-        # if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_USERNAME: CI Deployment
-          SLACK_TITLE: Deployment of refer-serious-misconduct to production failed
-          SLACK_MESSAGE: Deployment of refer-serious-misconduct to production failed
-          SLACK_WEBHOOK: ${{ steps.get_monitoring_secret.outputs.SLACK_WEBHOOK }}
-          SLACK_COLOR: failure
-          SLACK_FOOTER: Sent from deploy job in deploy workflow
-
-      # - id: fail
-      #   run: exit 1
-      #   shell: bash
+      - id: fail
+        run: exit 1
+        shell: bash
 
       - uses: ./.github/actions/deploy-environment
         id: deploy
@@ -216,3 +205,14 @@ jobs:
           image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Notify Slack channel on job failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_USERNAME: CI Deployment
+          SLACK_TITLE: Deployment of refer-serious-misconduct to production failed
+          SLACK_MESSAGE: Deployment of refer-serious-misconduct to production failed
+          SLACK_WEBHOOK: ${{ steps.get_monitoring_secret.outputs.SLACK_WEBHOOK }}
+          SLACK_COLOR: failure
+          SLACK_FOOTER: Sent from deploy job in deploy workflow
