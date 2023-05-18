@@ -194,10 +194,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: fail
-        run: exit 1
-        shell: bash
-
       - uses: ./.github/actions/deploy-environment
         id: deploy
         with:
