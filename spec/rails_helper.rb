@@ -15,7 +15,12 @@ require "dfe/analytics/rspec/matchers"
 require "super_diff/rspec-rails"
 
 Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, timeout: 10, process_timeout: 30, window_size: [1200, 800])
+  Capybara::Cuprite::Driver.new(
+    app,
+    timeout: 10,
+    process_timeout: ENV.fetch("CUPRITE_TIMEOUT", 30),
+    window_size: [1200, 800]
+  )
 end
 Capybara.default_driver = :cuprite
 Capybara.javascript_driver = :cuprite
