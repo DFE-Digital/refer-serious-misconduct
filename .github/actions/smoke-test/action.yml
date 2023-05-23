@@ -43,4 +43,5 @@ runs:
         GOVUK_NOTIFY_API_KEY: ${{ steps.keyvault-yaml-secret.outputs.GOVUK_NOTIFY_API_KEY }}
         SUPPORT_USERNAME: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_USERNAME }}
         SUPPORT_PASSWORD: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_PASSWORD }}
+        CUPRITE_TIMEOUT: 60
       shell: bash
