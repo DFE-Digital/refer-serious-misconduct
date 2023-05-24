@@ -28,6 +28,11 @@
                 %>
               </div>
             <% else %>
+              <% if current_referral.allegation_format == "upload" %>
+                <p>
+                  Previous uploaded file was suspected malware. File removed.
+                </p>
+              <% end %>
               <%= f.govuk_file_field :allegation_upload,
                 label: { text: "Upload file", size: "s" },
                 hint: { text: "Must be smaller than #{max_allowed_file_size}" }

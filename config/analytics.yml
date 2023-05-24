@@ -14,6 +14,7 @@ shared:
     - byte_size
     - checksum
     - created_at
+    - malware_scan_result
   :active_storage_attachments:
     - id
     - name

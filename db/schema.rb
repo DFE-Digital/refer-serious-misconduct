@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_02_162542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -21,9 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index %w[record_type record_id name blob_id],
-            name: "index_active_storage_attachments_uniqueness",
-            unique: true
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -41,9 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
   create_table "active_storage_variant_records", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
-    t.index %w[blob_id variation_digest],
-            name: "index_active_storage_variant_records_uniqueness",
-            unique: true
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "eligibility_checks", force: :cascade do |t|
@@ -171,7 +168,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
     t.bigint "referral_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["referral_id"], name: "index_reminder_emails_on_referral_id"
+    t.index ["referral_id"], name: "index_reminder_emails_on_referrals_id"
   end
 
   create_table "staff", force: :cascade do |t|
@@ -209,7 +206,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
     t.index ["email"], name: "index_staff_on_email", unique: true
     t.index ["invitation_token"], name: "index_staff_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_staff_on_invited_by_id"
-    t.index %w[invited_by_type invited_by_id], name: "index_staff_on_invited_by"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_staff_on_invited_by"
     t.index ["reset_password_token"], name: "index_staff_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_staff_on_unlock_token", unique: true
   end
@@ -246,5 +243,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
   add_foreign_key "referrals", "eligibility_checks"
   add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
-  add_foreign_key "reminder_emails", "referrals", column: "referral_id"
+  add_foreign_key "reminder_emails", "referrals"
 end

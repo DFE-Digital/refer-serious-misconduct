@@ -18,7 +18,11 @@
               File <%= idx + 1 %>
             </dt>
             <dd class="govuk-summary-list__value">
-              <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+              <% if evidence.document.attached? >
+                <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+              <% else %>
+                <%= evidence.filename was suspected malware. File removed. %>
+              <% end %>
             </dd>
             <dd class="govuk-summary-list__actions">
               <%= govuk_link_to(referral_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
