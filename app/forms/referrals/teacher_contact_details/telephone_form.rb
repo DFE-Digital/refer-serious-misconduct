@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class TelephoneForm < FormItem
       attr_referral :phone_known, :phone_number
 
@@ -17,10 +17,6 @@ module Referrals
         referral.phone_known = phone_known
         referral.phone_number = phone_known ? phone_number : nil
         referral.save
-      end
-
-      def slug
-        "contact_details_telephone"
       end
     end
   end

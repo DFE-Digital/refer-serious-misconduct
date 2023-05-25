@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Referrals::Allegation::DetailsForm, type: :model do
+RSpec.describe Referrals::AllegationDetails::DetailsForm, type: :model do
   let(:referral) { build(:referral) }
 
   describe "#save" do

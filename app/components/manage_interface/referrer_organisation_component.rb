@@ -1,5 +1,5 @@
 module ManageInterface
-  class OtherEmploymentDetailsComponent < ViewComponent::Base
+  class ReferrerOrganisationComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
     include AddressHelper

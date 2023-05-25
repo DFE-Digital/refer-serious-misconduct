@@ -37,7 +37,7 @@ RSpec.feature "Referral route constraints", type: :system do
   end
 
   def when_i_edit_a_public_referral_via_an_employer_path
-    visit edit_referral_personal_details_name_path(@public_referral)
+    visit edit_referral_teacher_personal_details_name_path(@public_referral)
   end
 
   def then_i_get_an_error
@@ -45,11 +45,11 @@ RSpec.feature "Referral route constraints", type: :system do
   end
 
   def when_i_edit_an_employer_referral_via_a_public_path
-    visit edit_public_referral_personal_details_name_path(@employer_referral)
+    visit edit_public_referral_teacher_personal_details_name_path(@employer_referral)
   end
 
   def when_the_referral_type_and_path_are_consistent
-    visit edit_public_referral_personal_details_name_path(@public_referral)
+    visit edit_public_referral_teacher_personal_details_name_path(@public_referral)
   end
 
   def then_i_do_not_get_an_error

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::PersonalDetailsComponent, type: :component do
+RSpec.describe Referrals::TeacherPersonalDetailsComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:referral) { create(:referral, :complete, :employer, :personal_details_employer) }

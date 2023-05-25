@@ -19,19 +19,19 @@
     <% end %>
 
     <%= render ManageInterface::ReferralSummaryComponent.new(referral: @referral) %>
-    <%= render ManageInterface::PersonalDetailsComponent.new(referral: @referral) %>
-    <%= render ManageInterface::EmploymentDetailsComponent.new(referral: @referral) %>
+    <%= render ManageInterface::TeacherPersonalDetailsComponent.new(referral: @referral) %>
+    <%= render ManageInterface::TeacherRoleComponent.new(referral: @referral) %>
 
     <% if @referral.work_location_known? %>
-      <%= render ManageInterface::OtherEmploymentDetailsComponent.new(referral: @referral) %>
+      <%= render ManageInterface::ReferrerOrganisationComponent.new(referral: @referral) %>
     <% end %>
 
     <%= render ManageInterface::AllegationDetailsComponent.new(referral: @referral) %>
 
-    <%= render ManageInterface::EvidenceComponent.new(referral: @referral) %>
+    <%= render ManageInterface::AllegationEvidenceComponent.new(referral: @referral) %>
 
     <% if @referral.from_employer? %>
-      <%= render ManageInterface::PreviousAllegationDetailsComponent.new(referral: @referral) %>
+      <%= render ManageInterface::AllegationPreviousComponent.new(referral: @referral) %>
     <% end %>
 
     <%= render ManageInterface::ReferrerDetailsComponent.new(referral: @referral) %>

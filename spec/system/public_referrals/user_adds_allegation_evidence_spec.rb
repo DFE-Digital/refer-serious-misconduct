@@ -32,7 +32,10 @@ RSpec.feature "Evidence", type: :system do
 
     when_i_visit_the_referral
     when_i_edit_the_evidence
-    then_i_see_the_check_your_answers_page("Evidence and supporting information", "evidence")
+    then_i_see_the_check_your_answers_page(
+      "Evidence and supporting information",
+      "allegation_evidence"
+    )
 
     when_i_click_on_change_evidence
     when_i_have_no_more_evidence_to_upload
@@ -100,7 +103,10 @@ RSpec.feature "Evidence", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Evidence and supporting information", "evidence")
+    then_i_see_the_section_completion_message(
+      "Evidence and supporting information",
+      "allegation_evidence"
+    )
 
     when_i_click_on_complete_section("Evidence and supporting information")
     and_i_choose_complete
@@ -208,13 +214,15 @@ RSpec.feature "Evidence", type: :system do
     expect_summary_row(
       key: "Do you have anything to upload?",
       value: "Yes",
-      change_link: edit_public_referral_evidence_start_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_evidence_start_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Uploaded evidence",
       value: "upload2.pdf\nupload.txt",
-      change_link: edit_public_referral_evidence_uploaded_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_evidence_uploaded_path(@referral, return_to: current_path)
     )
   end
 
@@ -288,7 +296,7 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def and_i_visit_uploaded_files
-    visit edit_public_referral_evidence_uploaded_path(@referral)
+    visit edit_public_referral_allegation_evidence_uploaded_path(@referral)
   end
 
   def then_the_list_of_the_uploaded_files_should_be_empty

@@ -1,5 +1,5 @@
 module Referrals
-  module Evidence
+  module AllegationEvidence
     class UploadController < Referrals::BaseController
       include ReferralHelper
 
@@ -11,7 +11,9 @@ module Referrals
         @evidence_upload_form = UploadForm.new(upload_params.merge(referral: current_referral))
 
         if @evidence_upload_form.save
-          redirect_to([:edit, current_referral.routing_scope, current_referral, :evidence_uploaded])
+          redirect_to(
+            [:edit, current_referral.routing_scope, current_referral, :allegation_evidence_uploaded]
+          )
         else
           render :edit
         end
@@ -20,7 +22,7 @@ module Referrals
       private
 
       def upload_params
-        params.require(:referrals_evidence_upload_form).permit(evidence_uploads: [])
+        params.require(:referrals_allegation_evidence_upload_form).permit(evidence_uploads: [])
       end
     end
   end

@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class NameForm < FormItem
       attr_referral :first_name, :last_name, :name_has_changed, :previous_name
 
@@ -11,10 +11,6 @@ module Referrals
         return false if invalid?
 
         referral.update(first_name:, last_name:, name_has_changed:, previous_name:)
-      end
-
-      def slug
-        "personal_details_name"
       end
     end
   end

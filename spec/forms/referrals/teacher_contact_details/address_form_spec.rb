@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::ContactDetails::AddressForm, type: :model do
+RSpec.describe Referrals::TeacherContactDetails::AddressForm, type: :model do
   let(:referral) { create(:referral) }
   let(:form) { described_class.new(params) }
 

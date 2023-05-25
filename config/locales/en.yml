@@ -9,22 +9,24 @@ en:
   notification_banner:
     warning: Warning
     success: Success
+
   referral_form:
     heading: Your referral
     about_you: About you
-    your_details: Your details
-    your_organisation: Your organisation
+    referrer_details: Your details
+    referrer_organisation: Your organisation
     about_the_person_you_are_referring: About the teacher
-    personal_details: Personal details
-    contact_details: Contact details
+    teacher_personal_details: Personal details
+    teacher_contact_details: Contact details
     teacher_role: About their role
     the_allegation: The allegation
-    details_of_the_allegation: Details of the allegation
-    previous_allegations: Previous allegations
-    evidence_and_supporting_information: Evidence and supporting information
+    allegation_details: Details of the allegation
+    allegation_previous: Previous allegations
+    allegation_evidence: Evidence and supporting information
     statuses:
       incomplete: Incomplete
       completed: Completed
+
   users:
     retry:
       expired:
@@ -75,7 +77,7 @@ en:
               too_short: "Security code must have 6 numbers"
               too_long: "Security code must have 6 numbers"
               blank: "Enter a security code in the correct format"
-        "referrals/personal_details/age_form":
+        "referrals/teacher_personal_details/age_form":
           attributes:
             date_of_birth:
               blank: Enter their date of birth
@@ -89,14 +91,14 @@ en:
               incomplete_year: Year must include 4 numbers
             age_known:
               inclusion: Select yes if you know their date of birth
-        "referrals/personal_details/ni_number_form":
+        "referrals/teacher_personal_details/ni_number_form":
           attributes:
             ni_number_known:
               inclusion: Select yes if you know their National Insurance number
             ni_number:
               blank: Enter their National Insurance number
               invalid: Enter a National Insurance number in the correct format
-        "referrals/personal_details/name_form":
+        "referrals/teacher_personal_details/name_form":
           attributes:
             first_name:
               blank: Enter their first name
@@ -106,7 +108,7 @@ en:
               inclusion: Select yes if you know them by any other name
             previous_name:
               blank: Enter their other name
-        "referrals/personal_details/trn_form":
+        "referrals/teacher_personal_details/trn_form":
           attributes:
             trn_known:
               inclusion: Select yes if you know their TRN
@@ -114,15 +116,15 @@ en:
               blank: Enter TRN
               wrong_length: TRN must be 7 digits
               not_a_number: Enter a TRN in the correct format
-        "referrals/personal_details/qts_form":
+        "referrals/teacher_personal_details/qts_form":
           attributes:
             has_qts:
               inclusion: Select yes if they have QTS
-        "referrals/personal_details/check_answers_form":
+        "referrals/teacher_personal_details/check_answers_form":
           attributes:
             personal_details_complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/contact_details/email_form":
+        "referrals/teacher_contact_details/email_form":
           attributes:
             email_known:
               inclusion: Select yes if you know their email address
@@ -130,14 +132,14 @@ en:
               blank: Enter their email address
               too_long: "The email address must have no more than %{count} characters"
               invalid: Enter an email address in the correct format, like name@example.com
-        "referrals/contact_details/telephone_form":
+        "referrals/teacher_contact_details/telephone_form":
           attributes:
             phone_known:
               inclusion: Select yes if you know their phone number
             phone_number:
               blank: Enter their phone number
               invalid: Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
-        "referrals/contact_details/address_form":
+        "referrals/teacher_contact_details/address_form":
           attributes:
             address_line_1:
               blank: Enter the first line of their address
@@ -146,11 +148,11 @@ en:
             postcode:
               blank: Enter the postcode
               invalid: Enter a real postcode
-        "referrals/contact_details/address_known_form":
+        "referrals/teacher_contact_details/address_known_form":
           attributes:
             address_known:
               inclusion: Select yes if you know their home address
-        "referrals/contact_details/check_answers_form":
+        "referrals/teacher_contact_details/check_answers_form":
           attributes:
             contact_details_complete:
               inclusion: Select yes if you’ve completed this section
@@ -245,26 +247,26 @@ en:
           attributes:
             teacher_role_complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/referrer/job_title_form":
+        "referrals/referrer_details/job_title_form":
           attributes:
             job_title:
               blank: Enter your job title
-        "referrals/referrer/phone_form":
+        "referrals/referrer_details/phone_form":
           attributes:
             phone:
               blank: Enter your phone number
               invalid: Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
-        "referrals/referrer/name_form":
+        "referrals/referrer_details/name_form":
           attributes:
             first_name:
               blank: Enter your first name
             last_name:
               blank: Enter your last name
-        "referrals/referrer/check_answers_form":
+        "referrals/referrer_details/check_answers_form":
           attributes:
             complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/organisation/address_form":
+        "referrals/referrer_organisation/address_form":
           attributes:
             name:
               blank: Enter the organisation name
@@ -275,15 +277,15 @@ en:
             postcode:
               blank: Enter the postcode of your organisation
               invalid: Enter a real postcode
-        "referrals/organisation/check_answers_form":
+        "referrals/referrer_organisation/check_answers_form":
           attributes:
             complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/previous_misconduct/check_answers_form":
+        "referrals/allegation_previous/check_answers_form":
           attributes:
             previous_misconduct_complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/previous_misconduct/detailed_account_form":
+        "referrals/allegation_previous/detailed_account_form":
           attributes:
             previous_misconduct_details:
               blank: Enter a description of previous allegations
@@ -294,11 +296,11 @@ en:
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
-        "referrals/previous_misconduct/reported_form":
+        "referrals/allegation_previous/reported_form":
           attributes:
             previous_misconduct_reported:
               inclusion: Let us know if there has been any previous misconduct, disciplinary action or complaints
-        "referrals/allegation/details_form":
+        "referrals/allegation_details/details_form":
           attributes:
             allegation_format:
               inclusion: Select how you want to give details about the allegation
@@ -309,20 +311,20 @@ en:
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
-        "referrals/allegation/dbs_form":
+        "referrals/allegation_details/dbs_form":
           attributes:
             dbs_notified:
               inclusion: Select yes if you’ve told DBS about this case
-        "referrals/allegation/check_answers_form":
+        "referrals/allegation_details/check_answers_form":
           attributes:
             allegation_details_complete:
               inclusion: Select yes if you’ve completed this section
           allegation_incomplete: Give details of the allegation
-        "referrals/evidence/start_form":
+        "referrals/allegation_evidence/start_form":
           attributes:
             has_evidence:
               inclusion: Select yes if you have evidence to upload
-        "referrals/evidence/upload_form":
+        "referrals/allegation_evidence/upload_form":
           attributes:
             evidence_uploads:
               blank: Select evidence to upload
@@ -330,15 +332,15 @@ en:
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
               file_count: You can only upload %{max_files} files
-        "referrals/evidence/uploaded_form":
+        "referrals/allegation_evidence/uploaded_form":
           attributes:
             more_evidence:
               inclusion: Select yes if you have more evidence to upload
-        "referrals/evidence/check_answers_form":
+        "referrals/allegation_evidence/check_answers_form":
           attributes:
             evidence_details_complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/allegation/considerations_form":
+        "referrals/allegation_details/considerations_form":
           attributes:
             allegation_consideration_details:
               blank: Enter details of how the complaint was considered
@@ -362,13 +364,13 @@ en:
     email_address_format: Enter an email address in the correct format, like name@example.com
     missing_staff_permission: Select permissions
     incomplete_section:
-      referrer: You must complete your details before you can send your referral
+      referrer_details: You must complete your details before you can send your referral
       organisation: You must complete your organisation before you can send your referral
-      personal_details: You must complete personal details before you can send your referral
-      contact_details: You must complete contact details before you can send your referral
+      teacher_personal_details: You must complete personal details before you can send your referral
+      teacher_contact_details: You must complete contact details before you can send your referral
       teacher_role: You must complete details about the role before you can send your referral
       allegation: You must complete allegation details before you can send your referral
-      previous_misconduct: You must complete previous misconduct details before you can send your referral
+      allegation_previous: You must complete previous misconduct details before you can send your referral
       evidence: You must complete evidence and supporting information before you can send your referral
 
   pundit:

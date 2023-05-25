@@ -1,5 +1,5 @@
 module Referrals
-  class WhatHappenedComponent < ReferralFormBaseComponent
+  class AllegationDetailsComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows(
         [
@@ -16,7 +16,7 @@ module Referrals
         label: "How do you want to give details about the allegation?",
         visually_hidden_text: "how you want to give details about the allegation",
         value: allegation_details_format(referral),
-        path: :allegation_details
+        path: :details
       }
     end
 
@@ -24,7 +24,7 @@ module Referrals
       {
         label: "Description of the allegation",
         value: allegation_details(referral),
-        path: :allegation_details
+        path: :details
       }
     end
 
@@ -35,12 +35,12 @@ module Referrals
         label: "Have you told DBS?",
         visually_hidden_text: "if you have told DBS",
         value: referral.dbs_notified,
-        path: :allegation_dbs
+        path: :dbs
       }
     end
 
     def section
-      Referrals::Sections::AllegationSection.new(referral:)
+      Referrals::Sections::AllegationDetailsSection.new(referral:)
     end
   end
 end

@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class AddressKnownForm < FormItem
       attr_referral :address_known
 
@@ -9,10 +9,6 @@ module Referrals
         return false unless valid?
 
         referral.update(address_known:)
-      end
-
-      def slug
-        "contact_details_address_known"
       end
     end
   end

@@ -1,5 +1,5 @@
 module Referrals
-  module Allegation
+  module AllegationDetails
     class DbsController < Referrals::BaseController
       def edit
         @allegation_dbs_form = DbsForm.new(dbs_notified: current_referral.dbs_notified)
@@ -18,7 +18,7 @@ module Referrals
       private
 
       def allegation_dbs_params
-        params.fetch(:referrals_allegation_dbs_form, {}).permit(:dbs_notified)
+        params.fetch(:referrals_allegation_details_dbs_form, {}).permit(:dbs_notified)
       end
     end
   end

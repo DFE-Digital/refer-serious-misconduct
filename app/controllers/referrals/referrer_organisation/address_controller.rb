@@ -1,5 +1,5 @@
 module Referrals
-  module Organisation
+  module ReferrerOrganisation
     class AddressController < BaseController
       def edit
         @organisation_address_form = AddressForm.new(referral: current_referral)
@@ -18,7 +18,7 @@ module Referrals
       private
 
       def organisation_address_form_params
-        params.require(:referrals_organisation_address_form).permit(
+        params.require(:referrals_referrer_organisation_address_form).permit(
           :city,
           :name,
           :postcode,

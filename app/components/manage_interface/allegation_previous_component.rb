@@ -1,5 +1,5 @@
 module ManageInterface
-  class PreviousAllegationDetailsComponent < ViewComponent::Base
+  class AllegationPreviousComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
     include ApplicationHelper

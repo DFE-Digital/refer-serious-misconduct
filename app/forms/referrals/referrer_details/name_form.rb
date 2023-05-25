@@ -1,14 +1,10 @@
 module Referrals
-  module Referrer
+  module ReferrerDetails
     class NameForm < FormItem
       attr_referrer :first_name, :last_name
 
       validates :first_name, presence: true
       validates :last_name, presence: true
-
-      def slug
-        "referrer_name"
-      end
 
       def save
         return false unless valid?

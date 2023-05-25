@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class EmailForm < FormItem
       attr_referral :email_known, :email_address
 
@@ -15,10 +15,6 @@ module Referrals
         referral.email_known = email_known
         referral.email_address = email_known ? email_address : nil
         referral.save
-      end
-
-      def slug
-        "contact_details_email"
       end
     end
   end

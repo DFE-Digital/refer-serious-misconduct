@@ -29,7 +29,7 @@ RSpec.feature "Personal details", type: :system do
 
     when_i_visit_the_referral
     when_i_edit_personal_details
-    then_i_see_the_check_your_answers_page("Personal details")
+    then_i_see_the_check_your_answers_page("Personal details", "teacher_personal_details")
 
     when_i_click_on_change_their_name
     and_i_am_asked_their_name
@@ -99,7 +99,7 @@ RSpec.feature "Personal details", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Personal details", "personal_details")
+    then_i_see_the_section_completion_message("Personal details", "teacher_personal_details")
 
     when_i_click_on_complete_section("Personal details")
     and_i_choose_complete
@@ -181,26 +181,30 @@ RSpec.feature "Personal details", type: :system do
     expect_summary_row(
       key: "Their name",
       value: "Jane Smith",
-      change_link: edit_referral_personal_details_name_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_personal_details_name_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Date of birth",
       value: "17 January 1990",
-      change_link: edit_referral_personal_details_age_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_personal_details_age_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "TRN",
       value: "9912345",
-      change_link: edit_referral_personal_details_trn_path(@referral, return_to: current_path),
+      change_link:
+        edit_referral_teacher_personal_details_trn_path(@referral, return_to: current_path),
       exact_text: true
     )
 
     expect_summary_row(
       key: "Do they have qualified teacher status (QTS)?",
       value: "Yes",
-      change_link: edit_referral_personal_details_qts_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_personal_details_qts_path(@referral, return_to: current_path)
     )
 
     expect(page).to have_content("Have you completed this section?")

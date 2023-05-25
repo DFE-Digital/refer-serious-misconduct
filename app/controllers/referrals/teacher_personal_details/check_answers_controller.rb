@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class CheckAnswersController < Referrals::BaseController
       def edit
         @personal_details_check_answers_form =
@@ -23,7 +23,7 @@ module Referrals
       private
 
       def check_answers_params
-        params.fetch(:referrals_personal_details_check_answers_form, {}).permit(
+        params.fetch(:referrals_teacher_personal_details_check_answers_form, {}).permit(
           :personal_details_complete
         )
       end

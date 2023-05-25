@@ -1,13 +1,9 @@
 module Referrals
-  module Referrer
+  module ReferrerDetails
     class JobTitleForm < FormItem
       attr_referrer :job_title
 
       validates :job_title, presence: true
-
-      def slug
-        "referrer_job_title"
-      end
 
       def save
         return false unless valid?

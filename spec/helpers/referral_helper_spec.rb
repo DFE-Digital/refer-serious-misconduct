@@ -9,7 +9,11 @@ RSpec.describe ReferralHelper, type: :helper do
       let(:referrer) { referral.referrer }
       let(:referral) { create(:referral, :complete) }
 
-      let(:row) { { path: :referrer_name, label: "label", value: "value" } }
+      let(:row) { { path: :name, label: "label", value: "value" } }
+
+      let(:section) do
+        instance_double(Referrals::Sections::ReferrerDetailsSection, slug: :referrer_details)
+      end
 
       it "returns a hash with the correct keys" do
         expect(helper_method.keys).to eq %i[actions key value]

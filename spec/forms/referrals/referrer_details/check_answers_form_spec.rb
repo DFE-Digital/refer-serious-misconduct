@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::Referrer::CheckAnswersForm, type: :model do
+RSpec.describe Referrals::ReferrerDetails::CheckAnswersForm, type: :model do
   describe "validations" do
     subject(:form) { described_class.new(referrer:) }
 

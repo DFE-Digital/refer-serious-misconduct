@@ -1,5 +1,5 @@
 module Referrals
-  class OrganisationComponent < ReferralFormBaseComponent
+  class ReferrerOrganisationComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows [organisation_row]
     end
@@ -7,15 +7,11 @@ module Referrals
     private
 
     def organisation_row
-      {
-        label: "Your organisation",
-        value: organisation_address(organisation),
-        path: :organisation_address
-      }
+      { label: "Your organisation", value: organisation_address(organisation), path: :address }
     end
 
     def section
-      Referrals::Sections::OrganisationSection.new(referral:)
+      Referrals::Sections::ReferrerOrganisationSection.new(referral:)
     end
   end
 end

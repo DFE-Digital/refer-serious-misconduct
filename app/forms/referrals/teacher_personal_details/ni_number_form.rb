@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class NiNumberForm < FormItem
       attr_referral :ni_number_known, :ni_number
 
@@ -20,10 +20,6 @@ module Referrals
         return false unless valid?
 
         referral.update(ni_number_known:, ni_number: ni_number_known ? ni_number : nil)
-      end
-
-      def slug
-        "personal_details_ni_number"
       end
     end
   end

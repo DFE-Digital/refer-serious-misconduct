@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Referrals::PersonalDetails::CheckAnswersForm, type: :model do
+RSpec.describe Referrals::TeacherPersonalDetails::CheckAnswersForm, type: :model do
   describe "#save" do
     subject(:save) { check_answers_form.save }
 

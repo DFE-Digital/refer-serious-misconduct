@@ -1,5 +1,5 @@
 module Referrals
-  module Referrer
+  module ReferrerDetails
     class PhoneForm < FormItem
       attr_referrer :phone
 
@@ -9,10 +9,6 @@ module Referrals
                   if: -> { phone&.present? }
                 },
                 presence: true
-
-      def slug
-        "referrer_phone"
-      end
 
       def save
         return false unless valid?

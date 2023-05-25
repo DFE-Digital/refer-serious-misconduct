@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class TrnController < Referrals::BaseController
       def edit
         @personal_details_trn_form =
@@ -19,7 +19,7 @@ module Referrals
       private
 
       def trn_params
-        params.require(:referrals_personal_details_trn_form).permit(:trn_known, :trn)
+        params.require(:referrals_teacher_personal_details_trn_form).permit(:trn_known, :trn)
       end
     end
   end

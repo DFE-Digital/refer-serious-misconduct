@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::ContactDetails::AddressKnownForm, type: :model do
+RSpec.describe Referrals::TeacherContactDetails::AddressKnownForm, type: :model do
   it { is_expected.to validate_presence_of(:referral) }
 
   describe "#save" do

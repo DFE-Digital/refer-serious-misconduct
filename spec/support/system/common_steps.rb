@@ -139,10 +139,10 @@ module CommonSteps
   end
 
   def then_i_see_the_check_your_answers_page(section, slug = nil)
-    slug ||= section.parameterize
+    slug ||= section.parameterize.underscore
 
     expect(page).to have_current_path(
-      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/#{slug}/check-answers/edit"
+      polymorphic_path([:edit, @referral.routing_scope, @referral, slug.to_sym, :check_answers])
     )
     expect(page).to have_title("#{section} - Refer serious misconduct by a teacher in England")
     expect(page).to have_content(section.to_s)

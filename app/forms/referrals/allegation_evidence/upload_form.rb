@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Evidence
+  module AllegationEvidence
     class UploadForm < FormItem
       MAX_FILES = FileUploadValidator::MAX_FILES
 

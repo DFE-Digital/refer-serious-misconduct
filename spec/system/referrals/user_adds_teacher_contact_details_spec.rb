@@ -35,7 +35,7 @@ RSpec.feature "Contact details", type: :system do
     # Check answers redirection after first question
     when_i_visit_the_referral
     and_i_click_on_contact_details
-    then_i_see_the_check_your_answers_page("Contact details")
+    then_i_see_the_check_your_answers_page("Contact details", "teacher_contact_details")
 
     # Email address known
     when_i_click_change_if_you_know_their_email_address
@@ -99,7 +99,7 @@ RSpec.feature "Contact details", type: :system do
     when_i_select_no
     and_i_click_save_and_continue
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Contact details", "contact_details")
+    then_i_see_the_section_completion_message("Contact details", "teacher_contact_details")
 
     when_i_click_on_complete_section("Contact details")
     and_i_choose_complete
@@ -138,7 +138,7 @@ RSpec.feature "Contact details", type: :system do
   private
 
   def when_i_visit_the_check_answers_page
-    visit edit_referral_contact_details_check_answers_path(@referral)
+    visit edit_referral_teacher_contact_details_check_answers_path(@referral)
   end
 
   def and_i_click_on_contact_details
@@ -150,25 +150,29 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_personal_email_address_page
-    expect(page).to have_current_path(edit_referral_contact_details_email_path(@referral))
+    expect(page).to have_current_path(edit_referral_teacher_contact_details_email_path(@referral))
     expect(page).to have_title("Do you know their email address?")
     expect(page).to have_content("Do you know their email address?")
   end
 
   def then_i_see_the_contact_number_page
-    expect(page).to have_current_path(edit_referral_contact_details_telephone_path(@referral))
+    expect(page).to have_current_path(
+      edit_referral_teacher_contact_details_telephone_path(@referral)
+    )
     expect(page).to have_title("Do you know their phone number?")
     expect(page).to have_content("Do you know their phone number?")
   end
 
   def then_i_see_the_home_address_known_page
-    expect(page).to have_current_path(edit_referral_contact_details_address_known_path(@referral))
+    expect(page).to have_current_path(
+      edit_referral_teacher_contact_details_address_known_path(@referral)
+    )
     expect(page).to have_title("Do you know their home address?")
     expect(page).to have_content("Do you know their home address?")
   end
 
   def then_i_see_the_home_address_page
-    expect(page).to have_current_path(edit_referral_contact_details_address_path(@referral))
+    expect(page).to have_current_path(edit_referral_teacher_contact_details_address_path(@referral))
     expect(page).to have_title("Their home address")
     expect(page).to have_content("Their home address")
   end
@@ -247,7 +251,9 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def then_i_see_the_check_answers_page
-    expect(page).to have_current_path(edit_referral_contact_details_check_answers_path(@referral))
+    expect(page).to have_current_path(
+      edit_referral_teacher_contact_details_check_answers_path(@referral)
+    )
     expect(page).to have_title("Check and confirm your answers")
     expect(page).to have_content("Contact details")
   end
@@ -256,19 +262,22 @@ RSpec.feature "Contact details", type: :system do
     expect_summary_row(
       key: "Email address",
       value: "name@example.com",
-      change_link: edit_referral_contact_details_email_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_contact_details_email_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Phone number",
       value: "07700 900 982",
-      change_link: edit_referral_contact_details_telephone_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_contact_details_telephone_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Home address",
       value: "1428 Elm Street\nLondon\nNW1 4NP",
-      change_link: edit_referral_contact_details_address_path(@referral, return_to: current_path)
+      change_link:
+        edit_referral_teacher_contact_details_address_path(@referral, return_to: current_path)
     )
   end
 

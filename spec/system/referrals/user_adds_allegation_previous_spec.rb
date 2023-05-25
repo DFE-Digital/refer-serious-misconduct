@@ -34,7 +34,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
     when_i_visit_the_referral
     when_i_click_on_previous_misconduct
-    then_i_see_the_check_your_answers_page("Previous allegations", "previous-misconduct")
+    then_i_see_the_check_your_answers_page("Previous allegations", "allegation_previous")
 
     when_i_click_change_previous_misconduct_reported
     when_i_click_save_and_continue
@@ -70,7 +70,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Previous allegations", "previous_misconduct")
+    then_i_see_the_section_completion_message("Previous allegations", "allegation_previous")
 
     when_i_click_on_complete_section("Previous allegations")
     and_i_choose_complete
@@ -129,13 +129,13 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
 
   def then_i_see_the_previous_misconduct_details_page
     expect(page).to have_current_path(
-      edit_referral_previous_misconduct_detailed_account_path(@referral)
+      edit_referral_allegation_previous_detailed_account_path(@referral)
     )
   end
 
   def then_i_see_the_previous_misconduct_reported_page
     expect(page).to have_current_path(
-      edit_referral_previous_misconduct_reported_path(@referral),
+      edit_referral_allegation_previous_reported_path(@referral),
       ignore_query: true
     )
     expect(page).to have_title(

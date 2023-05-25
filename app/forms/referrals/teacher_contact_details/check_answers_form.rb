@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class CheckAnswersForm < FormItem
       attr_referral :contact_details_complete
 

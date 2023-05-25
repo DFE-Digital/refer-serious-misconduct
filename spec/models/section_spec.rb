@@ -3,7 +3,7 @@ require "rails_helper"
 module Referrals
   class TestSection < Section
     def items
-      [Organisation::AddressForm.new(referral:)]
+      [ReferrerOrganisation::AddressForm.new(referral:)]
     end
 
     def complete?
@@ -35,7 +35,12 @@ module Referrals
       subject(:start_path) { section.start_path }
 
       it "returns the path for the first item" do
-        expect(start_path).to eq [:edit, referral.routing_scope, referral, :organisation_address]
+        expect(start_path).to eq [
+             :edit,
+             referral.routing_scope,
+             referral,
+             :referrer_organisation_address
+           ]
       end
     end
 
@@ -78,7 +83,7 @@ module Referrals
       subject(:next_path) { section.next_path }
 
       it "returns the path for the next incomplete item" do
-        expect(next_path).to eq [:edit, nil, referral, :organisation_address]
+        expect(next_path).to eq [:edit, nil, referral, :referrer_organisation_address]
       end
     end
 
@@ -88,9 +93,9 @@ module Referrals
       it "returns true if all items except last are complete" do
         allow(section).to receive(:items).and_return(
           [
-            instance_double(Organisation::AddressForm, complete?: true),
-            instance_double(Organisation::AddressForm, complete?: true),
-            instance_double(Organisation::AddressForm, complete?: false)
+            instance_double(ReferrerOrganisation::AddressForm, complete?: true),
+            instance_double(ReferrerOrganisation::AddressForm, complete?: true),
+            instance_double(ReferrerOrganisation::AddressForm, complete?: false)
           ]
         )
         expect(questions_complete?).to be true
@@ -99,9 +104,9 @@ module Referrals
       it "returns false if any item except last is incomplete" do
         allow(section).to receive(:items).and_return(
           [
-            instance_double(Organisation::AddressForm, complete?: true),
-            instance_double(Organisation::AddressForm, complete?: false),
-            instance_double(Organisation::AddressForm, complete?: false)
+            instance_double(ReferrerOrganisation::AddressForm, complete?: true),
+            instance_double(ReferrerOrganisation::AddressForm, complete?: false),
+            instance_double(ReferrerOrganisation::AddressForm, complete?: false)
           ]
         )
         expect(questions_complete?).to be false

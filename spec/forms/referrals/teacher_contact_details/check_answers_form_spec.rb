@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::ContactDetails::CheckAnswersForm, type: :model do
+RSpec.describe Referrals::TeacherContactDetails::CheckAnswersForm, type: :model do
   let(:referral) { create(:referral) }
   let(:form) { described_class.new(referral:, contact_details_complete:) }
   let(:contact_details_complete) { true }

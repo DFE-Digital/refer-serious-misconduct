@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class EmailController < Referrals::BaseController
       def edit
         @contact_details_email_form =
@@ -22,7 +22,10 @@ module Referrals
       private
 
       def contact_details_email_form_params
-        params.require(:referrals_contact_details_email_form).permit(:email_known, :email_address)
+        params.require(:referrals_teacher_contact_details_email_form).permit(
+          :email_known,
+          :email_address
+        )
       end
     end
   end

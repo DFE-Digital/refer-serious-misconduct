@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 module Referrals
-  module Evidence
+  module AllegationEvidence
     class StartForm < FormItem
       attr_referral :has_evidence
 
       validates :has_evidence, inclusion: { in: [true, false] }
-
-      def slug
-        "evidence_start"
-      end
 
       def save
         return false if invalid?

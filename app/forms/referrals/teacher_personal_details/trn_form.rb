@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class TrnForm < FormItem
       attr_referral :trn_known, :trn
 
@@ -17,10 +17,6 @@ module Referrals
 
       def save
         referral.update(trn_known:, trn: trn_known ? trn : nil) if valid?
-      end
-
-      def slug
-        "personal_details_trn"
       end
     end
   end

@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class AgeController < Referrals::BaseController
       def edit
         @personal_details_age_form =
@@ -25,11 +25,11 @@ module Referrals
       private
 
       def age_params
-        params.require(:referrals_personal_details_age_form).permit(:age_known)
+        params.require(:referrals_teacher_personal_details_age_form).permit(:age_known)
       end
 
       def date_of_birth_params
-        params.require(:referrals_personal_details_age_form).permit(
+        params.require(:referrals_teacher_personal_details_age_form).permit(
           "date_of_birth(1i)",
           "date_of_birth(2i)",
           "date_of_birth(3i)"

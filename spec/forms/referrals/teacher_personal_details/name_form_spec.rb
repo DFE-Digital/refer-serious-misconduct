@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::PersonalDetails::NameForm do
+RSpec.describe Referrals::TeacherPersonalDetails::NameForm do
   describe "#save" do
     subject(:save) { form.save }
 

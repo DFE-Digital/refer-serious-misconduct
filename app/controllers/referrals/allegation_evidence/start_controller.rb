@@ -1,5 +1,5 @@
 module Referrals
-  module Evidence
+  module AllegationEvidence
     class StartController < Referrals::BaseController
       include ReferralHelper
 
@@ -11,11 +11,16 @@ module Referrals
         @evidence_start_form = StartForm.new(start_params.merge(referral: current_referral))
 
         if @evidence_start_form.save
-          redirect_path = [:edit, current_referral.routing_scope, current_referral]
+          redirect_path = [
+            :edit,
+            current_referral.routing_scope,
+            current_referral,
+            :allegation_evidence
+          ]
           if @evidence_start_form.has_evidence
-            redirect_path.push(:evidence_upload)
+            redirect_path.push(:upload)
           else
-            redirect_path.push(:evidence_check_answers)
+            redirect_path.push(:check_answers)
           end
           redirect_to redirect_path
         else
@@ -26,7 +31,7 @@ module Referrals
       private
 
       def start_params
-        params.fetch(:referrals_evidence_start_form, {}).permit(:has_evidence)
+        params.fetch(:referrals_allegation_evidence_start_form, {}).permit(:has_evidence)
       end
     end
   end

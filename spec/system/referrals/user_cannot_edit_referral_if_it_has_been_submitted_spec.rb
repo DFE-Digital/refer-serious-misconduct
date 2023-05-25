@@ -25,7 +25,7 @@ RSpec.feature "Submitted referral", type: :system do
   end
 
   def when_i_access_a_public_submitted_referral_edit_page
-    visit edit_referral_personal_details_name_path(@public_referral)
+    visit edit_referral_teacher_personal_details_name_path(@public_referral)
   end
 
   def then_i_get_redirected_to_the_public_referral_page
@@ -34,7 +34,7 @@ RSpec.feature "Submitted referral", type: :system do
   end
 
   def when_i_access_an_employer_submitted_referral_edit_page
-    visit edit_public_referral_personal_details_name_path(@employer_referral)
+    visit edit_public_referral_teacher_personal_details_name_path(@employer_referral)
   end
 
   def then_i_get_redirected_to_the_employer_referral_page

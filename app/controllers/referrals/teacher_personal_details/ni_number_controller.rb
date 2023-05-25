@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class NiNumberController < Referrals::BaseController
       def edit
         @ni_number_form =
@@ -21,7 +21,7 @@ module Referrals
       private
 
       def ni_number_form_params
-        params.require(:referrals_personal_details_ni_number_form).permit(
+        params.require(:referrals_teacher_personal_details_ni_number_form).permit(
           :ni_number,
           :ni_number_known
         )

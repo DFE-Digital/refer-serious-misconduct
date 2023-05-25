@@ -1,5 +1,5 @@
 module ManageInterface
-  class PersonalDetailsComponent < ViewComponent::Base
+  class TeacherPersonalDetailsComponent < ViewComponent::Base
     include ActiveModel::Model
     include ReferralHelper
     include AddressHelper

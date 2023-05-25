@@ -58,7 +58,7 @@ RSpec.feature "Allegation", type: :system do
     then_i_see_the_referral_summary
     and_the_allegation_section_is_incomplete
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Details of the allegation", "allegation")
+    then_i_see_the_section_completion_message("Details of the allegation", "allegation_details")
 
     when_i_click_on_complete_section("Details of the allegation")
     and_i_choose_complete
@@ -112,13 +112,13 @@ RSpec.feature "Allegation", type: :system do
     expect_summary_row(
       key: "Description of the allegation",
       value: "Something something something",
-      change_link: edit_referral_allegation_details_path(@referral, return_to: current_path)
+      change_link: edit_referral_allegation_details_details_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Have you told DBS?",
       value: "Yes",
-      change_link: edit_referral_allegation_dbs_path(@referral, return_to: current_path)
+      change_link: edit_referral_allegation_details_dbs_path(@referral, return_to: current_path)
     )
   end
 
@@ -169,7 +169,9 @@ RSpec.feature "Allegation", type: :system do
 
   def then_i_see_the_allegation_check_your_answers_page
     expect(page).to have_current_path(
-      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/allegation/check-answers/edit"
+      polymorphic_path(
+        [:edit, @referral.routing_scope, @referral, :allegation_details, :check_answers]
+      )
     )
     expect(page).to have_title(
       "Check and confirm your answers - The allegation - Refer serious misconduct by a teacher in England"

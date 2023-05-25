@@ -1,5 +1,5 @@
 module Referrals
-  module Referrer
+  module ReferrerDetails
     class CheckAnswersForm < FormItem
       attr_accessor :referrer
       attr_referrer :complete

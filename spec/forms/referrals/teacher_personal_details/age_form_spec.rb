@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Referrals::PersonalDetails::AgeForm, type: :model do
+RSpec.describe Referrals::TeacherPersonalDetails::AgeForm, type: :model do
   let(:age_known) { "false" }
   let(:date_params) { {} }
   let(:form) { described_class.new(referral:, age_known:, date_params:) }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Allegation
+  module AllegationDetails
     class DbsForm < FormItem
       validates :dbs_notified, inclusion: { in: [true, false] }
 
@@ -11,10 +11,6 @@ module Referrals
 
         referral.update(dbs_notified:)
         true
-      end
-
-      def slug
-        "allegation_dbs"
       end
     end
   end

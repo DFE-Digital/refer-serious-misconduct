@@ -1,5 +1,5 @@
 module Referrals
-  module Organisation
+  module ReferrerOrganisation
     class CheckAnswersController < BaseController
       def edit
         @organisation = current_referral.organisation || current_referral.build_organisation
@@ -22,7 +22,7 @@ module Referrals
       private
 
       def organisation_params
-        params.require(:referrals_organisation_check_answers_form).permit(:complete)
+        params.require(:referrals_referrer_organisation_check_answers_form).permit(:complete)
       end
     end
   end

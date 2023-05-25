@@ -1,13 +1,9 @@
 module Referrals
-  module PreviousMisconduct
+  module AllegationPrevious
     class ReportedForm < FormItem
       attr_referral :previous_misconduct_reported
 
       validates :previous_misconduct_reported, inclusion: { in: %w[true false not_sure] }
-
-      def slug
-        "previous_misconduct_reported"
-      end
 
       def save
         return false unless valid?

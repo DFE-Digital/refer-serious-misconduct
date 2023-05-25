@@ -40,8 +40,8 @@ class ReferralForm
 
   def about_you_section
     items = [
-      Referrals::Sections::ReferrerSection.new(referral:),
-      referral.from_employer? && Referrals::Sections::OrganisationSection.new(referral:)
+      Referrals::Sections::ReferrerDetailsSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::ReferrerOrganisationSection.new(referral:)
     ].compact_blank
 
     Referrals::SectionGroup.new(slug: "about_you", items:)
@@ -49,8 +49,8 @@ class ReferralForm
 
   def about_the_person_you_are_referring_section
     items = [
-      Referrals::Sections::PersonalDetailsSection.new(referral:),
-      referral.from_employer? && Referrals::Sections::ContactDetailsSection.new(referral:),
+      Referrals::Sections::TeacherPersonalDetailsSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::TeacherContactDetailsSection.new(referral:),
       Referrals::Sections::TeacherRoleSection.new(referral:)
     ].compact_blank
 
@@ -59,9 +59,9 @@ class ReferralForm
 
   def the_allegation_section
     items = [
-      Referrals::Sections::AllegationSection.new(referral:),
-      referral.from_employer? && Referrals::Sections::PreviousMisconductSection.new(referral:),
-      Referrals::Sections::EvidenceSection.new(referral:)
+      Referrals::Sections::AllegationDetailsSection.new(referral:),
+      referral.from_employer? && Referrals::Sections::AllegationPreviousSection.new(referral:),
+      Referrals::Sections::AllegationEvidenceSection.new(referral:)
     ].compact_blank
 
     Referrals::SectionGroup.new(slug: "the_allegation", items:)

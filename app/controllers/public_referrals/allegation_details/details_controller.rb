@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module PublicReferrals
-  module Allegation
-    class DetailsController < Referrals::Allegation::DetailsController
+  module AllegationDetails
+    class DetailsController < Referrals::AllegationDetails::DetailsController
     end
   end
 end

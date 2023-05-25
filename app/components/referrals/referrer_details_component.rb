@@ -1,5 +1,5 @@
 module Referrals
-  class AboutYouComponent < ReferralFormBaseComponent
+  class ReferrerDetailsComponent < ReferralFormBaseComponent
     def rows
       complete_rows.tap { |rows| rows.insert(complete_rows.any? ? 1 : 0, summary_row(**email_row)) }
     end
@@ -15,7 +15,7 @@ module Referrals
     private
 
     def name_row
-      { label: "Your name", value: referrer&.name, path: :referrer_name }
+      { label: "Your name", value: referrer&.name, path: :name }
     end
 
     def email_row
@@ -25,15 +25,15 @@ module Referrals
     def job_title_row
       return unless referral.from_employer?
 
-      { label: "Your job title", value: referrer&.job_title, path: :referrer_job_title }
+      { label: "Your job title", value: referrer&.job_title, path: :job_title }
     end
 
     def phone_row
-      { label: "Your phone number", value: referrer&.phone, path: :referrer_phone }
+      { label: "Your phone number", value: referrer&.phone, path: :phone }
     end
 
     def section
-      Referrals::Sections::ReferrerSection.new(referral:)
+      Referrals::Sections::ReferrerDetailsSection.new(referral:)
     end
   end
 end

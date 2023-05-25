@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Evidence
+  module AllegationEvidence
     class CheckAnswersForm < FormItem
       validates :evidence_details_complete, inclusion: { in: [true, false] }
 

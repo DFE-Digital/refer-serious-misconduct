@@ -47,13 +47,12 @@ RSpec.feature "Details of the allegation", type: :system do
 
     when_i_click_save_and_continue
     then_i_see_check_answers_form_validation_errors
-
     when_i_choose_no_come_back_later
     and_i_click_save_and_continue
     then_i_see_the_public_referral_summary
     and_the_allegation_section_is_incomplete
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Details of the allegation", "allegation")
+    then_i_see_the_section_completion_message("Details of the allegation", "allegation_details")
 
     when_i_click_on_complete_section("Details of the allegation")
     and_i_choose_complete
@@ -97,20 +96,25 @@ RSpec.feature "Details of the allegation", type: :system do
     expect_summary_row(
       key: "How do you want to give details about the allegation?",
       value: "Describe the allegation",
-      change_link: edit_public_referral_allegation_details_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_details_details_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Description of the allegation",
       value: "Something something something",
-      change_link: edit_public_referral_allegation_details_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_details_details_path(@referral, return_to: current_path)
     )
 
     expect_summary_row(
       key: "Details about how this complaint has been considered",
       value: "considered stuff",
       change_link:
-        edit_public_referral_allegation_considerations_path(@referral, return_to: current_path)
+        edit_public_referral_allegation_details_considerations_path(
+          @referral,
+          return_to: current_path
+        )
     )
   end
 
@@ -159,7 +163,8 @@ RSpec.feature "Details of the allegation", type: :system do
     expect_summary_row(
       key: "Description of the allegation",
       value: "upload1.pdf",
-      change_link: edit_public_referral_allegation_details_path(@referral, return_to: current_path)
+      change_link:
+        edit_public_referral_allegation_details_details_path(@referral, return_to: current_path)
     )
   end
 
@@ -169,7 +174,9 @@ RSpec.feature "Details of the allegation", type: :system do
 
   def then_i_see_the_allegation_check_your_answers_page
     expect(page).to have_current_path(
-      "/#{@referral.routing_scope && "public-"}referrals/#{@referral.id}/allegation/check-answers/edit"
+      polymorphic_path(
+        [:edit, @referral.routing_scope, @referral, :allegation_details, :check_answers]
+      )
     )
     expect(page).to have_title(
       "Check and confirm your answers - Refer serious misconduct by a teacher in England"

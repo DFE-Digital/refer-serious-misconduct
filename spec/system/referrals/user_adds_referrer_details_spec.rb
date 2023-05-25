@@ -22,7 +22,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     # Check answers redirection after first question
     when_i_visit_the_referral
     and_i_click_on_your_details
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
 
     when_i_click_on_complete_your_details
     when_i_click_save_and_continue
@@ -37,7 +37,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
 
     when_i_enter_my_phone_number
     when_i_click_save_and_continue
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_save_and_continue
@@ -58,13 +58,13 @@ RSpec.feature "Employer Referral: About You", type: :system do
     then_i_see_the_name_prefilled
 
     when_i_click_save_and_continue
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
 
     when_i_click_on_change_title
     then_i_see_the_job_title_prefilled
 
     when_i_click_save_and_continue
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
 
     when_i_click_on_change_phone_number
     then_i_see_the_phone_number_prefilled
@@ -72,7 +72,7 @@ RSpec.feature "Employer Referral: About You", type: :system do
     # Complete the section
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Your details", "referrer")
+    then_i_see_the_section_completion_message("Your details", "referrer_details")
 
     when_i_click_on_complete_section("Your details")
     and_i_choose_complete
