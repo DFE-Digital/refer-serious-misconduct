@@ -1,5 +1,5 @@
 module Referrals
-  module Referrer
+  module ReferrerDetails
     class CheckAnswersController < BaseController
       before_action :set_referrer
 
@@ -34,7 +34,7 @@ module Referrals
       end
 
       def referrer_params
-        params.require(:referrals_referrer_check_answers_form).permit(:complete)
+        params.require(:referrals_referrer_details_check_answers_form).permit(:complete)
       end
     end
   end

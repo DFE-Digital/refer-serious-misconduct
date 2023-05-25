@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class CheckAnswersController < Referrals::BaseController
       def edit
         @contact_details_check_answers_form =
@@ -24,7 +24,7 @@ module Referrals
       private
 
       def contact_details_check_answers_form_params
-        params.require(:referrals_contact_details_check_answers_form).permit(
+        params.require(:referrals_teacher_contact_details_check_answers_form).permit(
           :contact_details_complete
         )
       end

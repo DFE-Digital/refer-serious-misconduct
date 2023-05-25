@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Allegation
+  module AllegationDetails
     class DetailsForm < FormItem
       validates :allegation_format, inclusion: { in: %w[details upload] }
       validates :allegation_details, presence: true, if: -> { allegation_format == "details" }
@@ -10,10 +10,6 @@ module Referrals
       validates :allegation_upload, file_upload: true, if: -> { allegation_format == "upload" }
 
       attr_referral :allegation_details, :allegation_format, :allegation_upload
-
-      def slug
-        "allegation_details"
-      end
 
       def save
         return false if invalid?

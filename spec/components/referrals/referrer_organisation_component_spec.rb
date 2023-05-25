@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::OrganisationComponent, type: :component do
+RSpec.describe Referrals::ReferrerOrganisationComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }

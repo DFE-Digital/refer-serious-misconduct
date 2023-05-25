@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @personal_details_name_form, url: [current_referral.routing_scope, current_referral, :personal_details, :name], method: :put do |f| %>
+    <%= form_with model: @personal_details_name_form, url: [current_referral.routing_scope, current_referral, :teacher_personal_details, :name], method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Personal details</span>

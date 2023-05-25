@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @allegation_considerations_form, url: public_referral_allegation_considerations_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @allegation_considerations_form, url: public_referral_allegation_details_considerations_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
       <span class="govuk-caption-l">The allegation</span>
       <h1 class="govuk-heading-l">How this complaint has been considered</h1>

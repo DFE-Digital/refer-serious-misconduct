@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe SummaryCardComponent, type: :component do
   let(:referral) { create(:referral, :complete) }
-  let(:section) { Referrals::Sections::ReferrerSection.new(referral:) }
+  let(:section) { Referrals::Sections::ReferrerDetailsSection.new(referral:) }
   let(:rows) do
     [
       {
         actions: [
           {
             text: "Change",
-            href: "/referrals/89/referrer/name/edit?return_to=%2Freferrals%2F89%2Freview",
+            href: "/referrals/89/referrer_details/name/edit?return_to=%2Freferrals%2F89%2Freview",
             visually_hidden_text: "your name"
           }
         ],
@@ -34,7 +34,8 @@ RSpec.describe SummaryCardComponent, type: :component do
       expect(page).to have_css("dt", text: "Your name")
       expect(page).to have_css("dd", text: "Joe Bloggs")
       expect(page).to have_link "Change",
-                href: "/referrals/89/referrer/name/edit?return_to=%2Freferrals%2F89%2Freview"
+                href:
+                  "/referrals/89/referrer_details/name/edit?return_to=%2Freferrals%2F89%2Freview"
       expect(page).to have_css("span.govuk-visually-hidden", text: "your name")
     end
   end

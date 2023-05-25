@@ -15,7 +15,7 @@ module Referrals
     end
 
     def slug
-      raise NotImplementedError, "You must define slug in #{self.class}"
+      self.class.to_s.split("::").last.remove("Section").underscore.to_sym
     end
 
     def view_component(user:)
@@ -31,7 +31,7 @@ module Referrals
     end
 
     def error_id
-      "referral-form-section-#{slug.dasherize}-field-error"
+      "referral-form-section-#{slug.to_s.dasherize}-field-error"
     end
 
     def start_path

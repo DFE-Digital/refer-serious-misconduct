@@ -29,7 +29,7 @@ RSpec.feature "Personal details", type: :system do
 
     when_i_visit_the_referral
     when_i_edit_personal_details
-    then_i_see_the_check_your_answers_page("Personal details")
+    then_i_see_the_check_your_answers_page("Personal details", "teacher_personal_details")
 
     and_i_click_save_and_continue
     then_i_see_confirmation_validation_errors
@@ -41,7 +41,7 @@ RSpec.feature "Personal details", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Personal details", "personal_details")
+    then_i_see_the_section_completion_message("Personal details", "teacher_personal_details")
 
     when_i_click_on_complete_section("Personal details")
     and_i_choose_complete
@@ -82,7 +82,7 @@ RSpec.feature "Personal details", type: :system do
       key: "Their name",
       value: "Jane Smith",
       change_link:
-        edit_public_referral_personal_details_name_path(@referral, return_to: current_path)
+        edit_public_referral_teacher_personal_details_name_path(@referral, return_to: current_path)
     )
 
     expect(page).to have_content("Have you completed this section?")

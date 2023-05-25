@@ -1,9 +1,9 @@
 module PublicReferrals
-  module Referrer
-    class PhoneController < Referrals::Referrer::PhoneController
+  module ReferrerDetails
+    class PhoneController < Referrals::ReferrerDetails::PhoneController
       def previous_path
         polymorphic_path(
-          [:edit, current_referral.routing_scope, current_referral, :referrer, :name]
+          [:edit, current_referral.routing_scope, current_referral, :referrer_details, :name]
         )
       end
     end

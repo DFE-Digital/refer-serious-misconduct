@@ -1,30 +1,22 @@
 module Referrals
   module Sections
-    class EvidenceSection < Section
+    class AllegationEvidenceSection < Section
       def items
         [
-          Referrals::Evidence::StartForm.new(referral:),
+          Referrals::AllegationEvidence::StartForm.new(referral:),
           referral.evidences.none? && referral.has_evidence? &&
-            Referrals::Evidence::UploadForm.new(referral:),
-          referral.has_evidence && Referrals::Evidence::UploadedForm.new(referral:),
-          Referrals::Evidence::CheckAnswersForm.new(referral:)
+            Referrals::AllegationEvidence::UploadForm.new(referral:),
+          referral.has_evidence && Referrals::AllegationEvidence::UploadedForm.new(referral:),
+          Referrals::AllegationEvidence::CheckAnswersForm.new(referral:)
         ].compact_blank
-      end
-
-      def slug
-        "evidence"
       end
 
       def complete?
         referral.evidence_details_complete
       end
 
-      def label
-        I18n.t("referral_form.evidence_and_supporting_information")
-      end
-
       def view_component(**args)
-        EvidenceComponent.new(referral:, **args)
+        AllegationEvidenceComponent.new(referral:, **args)
       end
     end
   end

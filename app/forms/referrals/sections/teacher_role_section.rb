@@ -41,16 +41,12 @@ module Referrals
         end
       end
 
-      def slug
-        "teacher_role"
-      end
-
       def complete?
         referral.teacher_role_complete
       end
 
       def view_component(**args)
-        TheirRoleComponent.new(referral:, **args)
+        TeacherRoleComponent.new(referral:, **args)
       end
     end
   end

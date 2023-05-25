@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class AgeForm < FormItem
       attr_accessor :date_params
       attr_referral :age_known, :date_of_birth
@@ -22,10 +22,6 @@ module Referrals
         attrs.merge!(date_of_birth: nil) unless age_known
 
         referral.update(attrs)
-      end
-
-      def slug
-        "personal_details_age"
       end
     end
   end

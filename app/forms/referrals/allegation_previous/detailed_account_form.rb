@@ -1,5 +1,5 @@
 module Referrals
-  module PreviousMisconduct
+  module AllegationPrevious
     class DetailedAccountForm < FormItem
       attr_referral :previous_misconduct_format,
                     :previous_misconduct_details,
@@ -38,10 +38,6 @@ module Referrals
         end
 
         referral.update(attrs)
-      end
-
-      def slug
-        "previous_misconduct_detailed_account"
       end
     end
   end

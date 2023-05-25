@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ManageInterface::PersonalDetailsComponent, type: :component do
+RSpec.describe ManageInterface::TeacherPersonalDetailsComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }

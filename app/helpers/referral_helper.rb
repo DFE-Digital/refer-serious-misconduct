@@ -134,7 +134,12 @@ module ReferralHelper
     return {} unless path
 
     visually_hidden_text = label.downcase if visually_hidden_text.blank?
-    expanded_path = path.is_a?(Symbol) ? [:edit, referral.routing_scope, referral, path] : path
+    expanded_path =
+      if path.is_a?(Symbol)
+        [:edit, referral.routing_scope, referral, [section.slug, path].map(&:to_s).join("_").to_sym]
+      else
+        path
+      end
     href = polymorphic_path(expanded_path, return_to: return_to_path)
 
     { text: "Change", href:, visually_hidden_text: }

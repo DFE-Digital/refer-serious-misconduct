@@ -7,5 +7,5 @@
     <h1 class="govuk-heading-l">How your personal details will be&nbsp;used</h1>
     <p>If your case is investigated, your name will be shared with the teacher you’re referring and their employer. The teacher has a right to know who referred them.</p>
     <p>Your contact details will not be shared. These will only be used to contact you about this case.</p>
-    <%= govuk_button_link_to "Continue", polymorphic_path([:edit, current_referral.routing_scope, current_referral, :referrer_name]) %>
+    <%= govuk_button_link_to "Continue", polymorphic_path([:edit, current_referral.routing_scope, current_referral, :referrer_details, :name]) %>
 </div>

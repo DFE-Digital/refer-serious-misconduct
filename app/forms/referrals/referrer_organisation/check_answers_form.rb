@@ -1,5 +1,5 @@
 module Referrals
-  module Organisation
+  module ReferrerOrganisation
     class CheckAnswersForm < FormItem
       attr_organisation :complete
 

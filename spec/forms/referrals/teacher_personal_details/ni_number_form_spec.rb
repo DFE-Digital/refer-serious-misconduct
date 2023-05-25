@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Referrals::PersonalDetails::NiNumberForm, type: :model do
+RSpec.describe Referrals::TeacherPersonalDetails::NiNumberForm, type: :model do
   context "when ni_number_known is true" do
     subject { described_class.new(ni_number_known: "true") }
 

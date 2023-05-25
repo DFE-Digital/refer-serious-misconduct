@@ -1,5 +1,5 @@
 module Referrals
-  class ContactDetailsComponent < ReferralFormBaseComponent
+  class TeacherContactDetailsComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows(
         [
@@ -20,14 +20,14 @@ module Referrals
         label: "Do you know their email address?",
         value: referral.email_known,
         visually_hidden_text: "if you know their email address",
-        path: :contact_details_email
+        path: :email
       }
     end
 
     def email_row
       return unless referral.from_employer? && referral.email_known?
 
-      { label: "Email address", value: referral.email_address, path: :contact_details_email }
+      { label: "Email address", value: referral.email_address, path: :email }
     end
 
     def phone_number_known_row
@@ -35,14 +35,14 @@ module Referrals
         label: "Do you know their phone number?",
         value: referral.phone_known,
         visually_hidden_text: "if you know their phone number",
-        path: :contact_details_telephone
+        path: :telephone
       }
     end
 
     def phone_number_row
       return unless referral.phone_known?
 
-      { label: "Phone number", value: referral.phone_number, path: :contact_details_telephone }
+      { label: "Phone number", value: referral.phone_number, path: :telephone }
     end
 
     def address_known_row
@@ -50,18 +50,18 @@ module Referrals
         label: "Do you know their home address?",
         value: referral.address_known?,
         visually_hidden_text: "if you know their home address",
-        path: :contact_details_address_known
+        path: :address_known
       }
     end
 
     def address_row
       return unless referral.address_known?
 
-      { label: "Home address", value: address(referral).presence, path: :contact_details_address }
+      { label: "Home address", value: address(referral).presence, path: :address }
     end
 
     def section
-      Referrals::Sections::ContactDetailsSection.new(referral:)
+      Referrals::Sections::TeacherContactDetailsSection.new(referral:)
     end
   end
 end

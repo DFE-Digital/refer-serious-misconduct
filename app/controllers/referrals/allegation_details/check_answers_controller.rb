@@ -1,5 +1,5 @@
 module Referrals
-  module Allegation
+  module AllegationDetails
     class CheckAnswersController < Referrals::BaseController
       def edit
         @allegation_check_answers_form =
@@ -23,7 +23,7 @@ module Referrals
       private
 
       def check_answers_params
-        params.fetch(:referrals_allegation_check_answers_form, {}).permit(
+        params.fetch(:referrals_allegation_details_check_answers_form, {}).permit(
           :allegation_details_complete
         )
       end

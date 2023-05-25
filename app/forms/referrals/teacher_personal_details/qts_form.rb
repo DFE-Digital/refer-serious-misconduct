@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class QtsForm < FormItem
       attr_referral :has_qts
 
@@ -12,10 +12,6 @@ module Referrals
 
       def save
         referral.update(has_qts:) if valid?
-      end
-
-      def slug
-        "personal_details_qts"
       end
     end
   end

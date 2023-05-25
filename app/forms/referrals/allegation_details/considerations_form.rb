@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Allegation
+  module AllegationDetails
     class ConsiderationsForm < FormItem
       validates :allegation_consideration_details, presence: true
 
@@ -10,10 +10,6 @@ module Referrals
         return false if invalid?
 
         referral.update(allegation_consideration_details:)
-      end
-
-      def slug
-        "allegation_considerations"
       end
     end
   end

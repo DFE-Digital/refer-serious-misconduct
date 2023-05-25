@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class TelephoneController < Referrals::BaseController
       def edit
         @contact_details_telephone_form =
@@ -22,7 +22,7 @@ module Referrals
       private
 
       def contact_details_telephone_form_params
-        params.require(:referrals_contact_details_telephone_form).permit(
+        params.require(:referrals_teacher_contact_details_telephone_form).permit(
           :phone_known,
           :phone_number
         )

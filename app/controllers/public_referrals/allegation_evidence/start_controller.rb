@@ -1,6 +1,6 @@
 module PublicReferrals
-  module Evidence
-    class StartController < Referrals::Evidence::StartController
+  module AllegationEvidence
+    class StartController < Referrals::AllegationEvidence::StartController
     end
   end
 end

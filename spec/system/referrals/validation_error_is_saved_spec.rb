@@ -39,6 +39,6 @@ RSpec.feature "User triggers a validation error which gets saved", type: :system
 
   def and_the_validation_errors_are_saved
     expect(ValidationError.count).to eq(1)
-    expect(ValidationError.first.form_object).to eq("Referrals::PersonalDetails::NameForm")
+    expect(ValidationError.first.form_object).to eq("Referrals::TeacherPersonalDetails::NameForm")
   end
 end

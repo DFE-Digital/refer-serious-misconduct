@@ -23,25 +23,25 @@
           <%= render ManageInterface::ReferralSummaryComponent.new(referral:) %>
         </div>
         <div class="no-break">
-          <%= render ManageInterface::PersonalDetailsComponent.new(referral:) %>
+          <%= render ManageInterface::TeacherPersonalDetailsComponent.new(referral:) %>
         </div>
         <div class="no-break">
-          <%= render ManageInterface::EmploymentDetailsComponent.new(referral:) %>
+          <%= render ManageInterface::TeacherRoleComponent.new(referral:) %>
         </div>
         <% if referral.work_location_known? %>
           <div class="no-break">
-            <%= render ManageInterface::OtherEmploymentDetailsComponent.new(referral:) %>
+            <%= render ManageInterface::ReferrerOrganisationComponent.new(referral:) %>
           </div>
         <% end %>
         <div class="no-break">
           <%= render ManageInterface::AllegationDetailsComponent.new(referral:) %>
         </div>
         <div class="no-break">
-          <%= render ManageInterface::EvidenceComponent.new(referral:) %>
+          <%= render ManageInterface::AllegationEvidenceComponent.new(referral:) %>
         </div>
         <% if referral.from_employer? %>
           <div class="no-break">
-            <%= render ManageInterface::PreviousAllegationDetailsComponent.new(referral:) %>
+            <%= render ManageInterface::AllegationPreviousComponent.new(referral:) %>
           </div>
         <% end %>
         <div class="no-break">

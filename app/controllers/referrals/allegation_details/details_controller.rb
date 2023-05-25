@@ -1,5 +1,5 @@
 module Referrals
-  module Allegation
+  module AllegationDetails
     class DetailsController < Referrals::BaseController
       def edit
         @allegation_details_form =
@@ -24,7 +24,7 @@ module Referrals
       private
 
       def allegation_details_params
-        params.require(:referrals_allegation_details_form).permit(
+        params.require(:referrals_allegation_details_details_form).permit(
           :allegation_format,
           :allegation_details,
           :allegation_upload

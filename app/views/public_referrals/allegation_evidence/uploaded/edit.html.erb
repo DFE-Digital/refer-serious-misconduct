@@ -1,9 +1,9 @@
 <% content_for :page_title, "Uploaded evidence" %>
-<% content_for :back_link_url, edit_public_referral_evidence_upload_path(current_referral) %>
+<% content_for :back_link_url, edit_public_referral_allegation_evidence_upload_path(current_referral) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop ">
-    <%= form_with model: @uploaded_form, url: public_referral_evidence_uploaded_path(current_referral), method: :put do |f| %>
+    <%= form_with model: @uploaded_form, url: public_referral_allegation_evidence_uploaded_path(current_referral), method: :put do |f| %>
       <%= f.govuk_error_summary %>
 
       <span class="govuk-caption-l">Evidence and supporting information</span>
@@ -21,7 +21,7 @@
               <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
             </dd>
             <dd class="govuk-summary-list__actions">
-              <%= govuk_link_to(public_referral_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
+              <%= govuk_link_to(public_referral_allegation_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>
                 Delete<span class="govuk-visually-hidden"> <%= evidence.filename %></span>
               <% end %>
             </dd>

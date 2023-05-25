@@ -23,7 +23,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
     when_i_visit_the_referral
     when_i_edit_your_organisation
-    then_i_see_the_check_your_answers_page("Your organisation", "organisation")
+    then_i_see_the_check_your_answers_page("Your organisation", "referrer_organisation")
 
     when_i_click_change_your_organisation
     then_i_am_on_the_organisation_address_page
@@ -43,7 +43,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Your organisation", "organisation")
+    then_i_see_the_section_completion_message("Your organisation", "referrer_organisation")
 
     when_i_click_on_complete_section("Your organisation")
     and_i_choose_complete

@@ -1,5 +1,5 @@
 module Referrals
-  class PreviousMisconductComponent < ReferralFormBaseComponent
+  class AllegationPreviousComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows(
         [
@@ -16,7 +16,7 @@ module Referrals
         label: "Has there been any previous misconduct?",
         visually_hidden_text: "if there has been any previous misconduct",
         value: humanize_three_way_choice(referral.previous_misconduct_reported),
-        path: :previous_misconduct_reported
+        path: :reported
       }
     end
 
@@ -27,14 +27,14 @@ module Referrals
         label: "How do you want to give details about previous allegations?",
         visually_hidden_text: "how you want to give details about previous allegations",
         value: detail_type,
-        path: :previous_misconduct_detailed_account
+        path: :detailed_account
       }
     end
 
     def detailed_account_report_row
       return unless referral.previous_misconduct_reported?
 
-      { label: "Detailed account", value: report, path: :previous_misconduct_detailed_account }
+      { label: "Detailed account", value: report, path: :detailed_account }
     end
 
     def report
@@ -66,7 +66,7 @@ module Referrals
     end
 
     def section
-      Referrals::Sections::PreviousMisconductSection.new(referral:)
+      Referrals::Sections::AllegationPreviousSection.new(referral:)
     end
   end
 end

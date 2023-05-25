@@ -1,5 +1,5 @@
 module Referrals
-  module ContactDetails
+  module TeacherContactDetails
     class AddressController < Referrals::BaseController
       def edit
         @contact_details_address_form =
@@ -25,7 +25,7 @@ module Referrals
       private
 
       def contact_details_address_form_params
-        params.require(:referrals_contact_details_address_form).permit(
+        params.require(:referrals_teacher_contact_details_address_form).permit(
           :address_line_1,
           :address_line_2,
           :town_or_city,

@@ -1,5 +1,5 @@
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class NameController < Referrals::BaseController
       def edit
         @personal_details_name_form =
@@ -24,7 +24,7 @@ module Referrals
       private
 
       def name_params
-        params.require(:referrals_personal_details_name_form).permit(
+        params.require(:referrals_teacher_personal_details_name_form).permit(
           :first_name,
           :last_name,
           :name_has_changed,

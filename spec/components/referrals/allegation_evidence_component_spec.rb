@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::EvidenceComponent, type: :component do
+RSpec.describe Referrals::AllegationEvidenceComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }

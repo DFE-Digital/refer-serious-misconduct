@@ -79,22 +79,22 @@ Rails.application.routes.draw do
   resources :public_referrals, except: %i[index show], path: "public-referrals" do
     scope module: :public_referrals do
       constraints(RouteConstraints::PublicConstraint.new) do
-        namespace :referrer do
+        namespace :referrer_details, path: "referrer" do
           resource :name, only: %i[edit update], controller: :name
           resource :phone, only: %i[edit update], controller: :phone
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :personal_details, path: "personal-details" do
+        namespace :teacher_personal_details, path: "personal-details" do
           resource :name, only: %i[edit update], controller: :name
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        resources :evidence, only: [] do
-          get "/delete", to: "evidence/check_answers#delete"
-          delete "/", to: "evidence/check_answers#destroy", as: :destroy
+        resources :allegation_evidence, path: "evidence", only: [] do
+          get "/delete", to: "allegation_evidence/check_answers#delete"
+          delete "/", to: "allegation_evidence/check_answers#destroy", as: :destroy
         end
-        namespace :evidence do
+        namespace :allegation_evidence, path: "evidence" do
           resource :start, only: %i[edit update], controller: :start
           resource :upload, only: %i[edit update], controller: :upload
           resource :uploaded, only: %i[edit update], controller: :uploaded
@@ -104,7 +104,7 @@ Rails.application.routes.draw do
                    controller: :check_answers
         end
 
-        namespace :allegation do
+        namespace :allegation_details, path: "allegation" do
           resource :details, only: %i[edit update]
           resource :considerations, only: %i[edit update]
           resource :check_answers, path: "check-answers", only: %i[edit update]
@@ -133,7 +133,7 @@ Rails.application.routes.draw do
   resources :referrals, except: %i[index show] do
     scope module: :referrals do
       constraints(RouteConstraints::EmployerConstraint.new) do
-        namespace :personal_details, path: "personal-details" do
+        namespace :teacher_personal_details, path: "personal-details" do
           resource :name, only: %i[edit update], controller: :name
           resource :age, only: %i[edit update], controller: :age
           resource :ni_number, only: %i[edit update], controller: :ni_number
@@ -142,19 +142,19 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :referrer do
+        namespace :referrer_details, path: "referrer" do
           resource :name, only: %i[edit update], controller: :name
           resource :job_title, only: %i[edit update], path: "job-title", controller: :job_title
           resource :phone, only: %i[edit update], controller: :phone
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :organisation do
+        namespace :referrer_organisation, path: "organisation" do
           resource :address, only: %i[edit update], controller: :address
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :contact_details, path: "contact-details" do
+        namespace :teacher_contact_details, path: "contact-details" do
           resource :email, only: %i[edit update], controller: :email
           resource :telephone, only: %i[edit update], controller: :telephone
           resource :address_known, only: %i[edit update], controller: :address_known
@@ -162,7 +162,7 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :previous_misconduct, path: "previous-misconduct" do
+        namespace :allegation_previous, path: "previous-misconduct" do
           resource :reported, only: %i[edit update], controller: :reported
           resource :detailed_account,
                    path: "detailed-account",
@@ -171,7 +171,7 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :allegation do
+        namespace :allegation_details, path: "allegation" do
           resource :details, only: %i[edit update]
           resource :dbs, only: %i[edit update]
           resource :check_answers, path: "check-answers", only: %i[edit update]
@@ -217,11 +217,11 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        resources :evidence, only: [] do
-          get "/delete", to: "evidence/check_answers#delete", as: :delete
-          delete "/", to: "evidence/check_answers#destroy", as: :destroy
+        resources :allegation_evidence, path: "evidence", only: [] do
+          get "/delete", to: "allegation_evidence/check_answers#delete", as: :delete
+          delete "/", to: "allegation_evidence/check_answers#destroy", as: :destroy
         end
-        namespace :evidence do
+        namespace :allegation_evidence, path: "evidence" do
           resource :start, only: %i[edit update], controller: :start
           resource :upload, only: %i[edit update], controller: :upload
           resource :uploaded, only: %i[edit update], controller: :uploaded

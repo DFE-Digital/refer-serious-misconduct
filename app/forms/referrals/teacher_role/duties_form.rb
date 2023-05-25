@@ -25,10 +25,6 @@ module Referrals
         referral.duties_upload.purge unless duties_upload.blank? && duties_format == "upload"
         referral.update(attrs)
       end
-
-      def slug
-        "teacher_role_duties"
-      end
     end
   end
 end

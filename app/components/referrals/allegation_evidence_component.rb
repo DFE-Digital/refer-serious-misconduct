@@ -1,5 +1,5 @@
 module Referrals
-  class EvidenceComponent < ReferralFormBaseComponent
+  class AllegationEvidenceComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows [anything_to_upload_row, evidence_row].compact
     end
@@ -11,14 +11,14 @@ module Referrals
         label: "Do you have anything to upload?",
         visually_hidden_text: "if you have anything to upload",
         value: referral.has_evidence,
-        path: :evidence_start
+        path: :start
       }
     end
 
     def evidence_row
       return unless referral.has_evidence?
 
-      { label: "Uploaded evidence", value: evidence_text, path: :evidence_uploaded }
+      { label: "Uploaded evidence", value: evidence_text, path: :uploaded }
     end
 
     def evidence_text
@@ -39,7 +39,7 @@ module Referrals
     end
 
     def section
-      Referrals::Sections::EvidenceSection.new(referral:)
+      Referrals::Sections::AllegationEvidenceSection.new(referral:)
     end
   end
 end

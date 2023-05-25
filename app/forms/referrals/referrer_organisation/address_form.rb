@@ -1,5 +1,5 @@
 module Referrals
-  module Organisation
+  module ReferrerOrganisation
     class AddressForm < FormItem
       attr_organisation :name, :street_1, :street_2, :city, :postcode
 
@@ -9,10 +9,6 @@ module Referrals
       validates :postcode, presence: true
 
       validate :postcode_is_valid, if: -> { postcode.present? }
-
-      def slug
-        "organisation_address"
-      end
 
       def organisation
         @organisation ||= referral&.organisation || referral&.build_organisation

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module PersonalDetails
+  module TeacherPersonalDetails
     class CheckAnswersForm < FormItem
       validates :personal_details_complete, inclusion: { in: [true, false] }
 

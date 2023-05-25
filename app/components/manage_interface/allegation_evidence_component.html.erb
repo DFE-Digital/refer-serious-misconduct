@@ -1,6 +1,6 @@
 <div class="app-panel" id="evidence">
   <h2 class="govuk-heading-m">Evidence and supporting information</h2>
-  <%= govuk_summary_list(rows: ManageInterface::EvidenceComponent.new(referral:).rows) %>
+  <%= govuk_summary_list(rows: ManageInterface::AllegationEvidenceComponent.new(referral:).rows) %>
   <% if referral.evidences.any? %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">

@@ -15,7 +15,7 @@ module Referrals
         label: "How do you want to give details about the allegation?",
         visually_hidden_text: "how you want to give details about the allegation",
         value: allegation_details_format(referral),
-        path: :allegation_details
+        path: :details
       }
     end
 
@@ -23,7 +23,7 @@ module Referrals
       {
         label: "Description of the allegation",
         value: allegation_details(referral),
-        path: :allegation_details
+        path: :details
       }
     end
 
@@ -32,12 +32,12 @@ module Referrals
         label: "Details about how this complaint has been considered",
         value:
           simple_format(nullable_value_to_s(referral.allegation_consideration_details.presence)),
-        path: :allegation_considerations
+        path: :considerations
       }
     end
 
     def section
-      Referrals::Sections::AllegationSection.new(referral:)
+      Referrals::Sections::AllegationDetailsSection.new(referral:)
     end
   end
 end

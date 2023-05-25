@@ -1,6 +1,6 @@
 module PublicReferrals
-  module PersonalDetails
-    class NameController < Referrals::PersonalDetails::NameController
+  module TeacherPersonalDetails
+    class NameController < Referrals::TeacherPersonalDetails::NameController
     end
   end
 end

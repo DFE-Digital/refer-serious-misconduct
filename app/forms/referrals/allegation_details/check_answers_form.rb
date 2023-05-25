@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Referrals
-  module Allegation
+  module AllegationDetails
     class CheckAnswersForm < FormItem
       validates :allegation_details_complete, inclusion: { in: [true, false] }
       validate :allegation_not_incomplete
@@ -16,7 +16,7 @@ module Referrals
       end
 
       def section_class
-        Referrals::Sections::AllegationSection
+        Referrals::Sections::AllegationDetailsSection
       end
     end
   end

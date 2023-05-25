@@ -21,7 +21,7 @@ RSpec.feature "Public Referral: About You", type: :system do
 
     when_i_visit_the_referral
     and_i_click_on_your_details
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
 
     when_i_click_on_complete_your_details
     when_i_click_save_and_continue
@@ -29,7 +29,7 @@ RSpec.feature "Public Referral: About You", type: :system do
 
     when_i_enter_my_phone_number
     and_i_click_save_and_continue
-    then_i_see_the_check_your_answers_page("Your details", "referrer")
+    then_i_see_the_check_your_answers_page("Your details", "referrer_details")
     and_i_see_my_answers_on_the_referrer_check_your_answers_page
 
     when_i_click_save_and_continue
@@ -51,7 +51,7 @@ RSpec.feature "Public Referral: About You", type: :system do
 
     when_i_visit_the_referral
     and_i_click_review_and_send
-    then_i_see_the_section_completion_message("Your details", "referrer")
+    then_i_see_the_section_completion_message("Your details", "referrer_details")
 
     when_i_click_on_complete_section("Your details")
     and_i_choose_complete
@@ -91,7 +91,7 @@ RSpec.feature "Public Referral: About You", type: :system do
 
   def then_i_am_on_the_your_details_your_name_page
     expect(page).to have_current_path(
-      "/public-referrals/#{@referral.id}/referrer/name/edit",
+      "/public-referrals/#{@referral.id}/referrer_details/name/edit",
       ignore_query: true
     )
     expect(page).to have_title("Your name")

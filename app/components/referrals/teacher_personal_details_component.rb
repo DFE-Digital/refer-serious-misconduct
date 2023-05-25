@@ -1,5 +1,5 @@
 module Referrals
-  class PersonalDetailsComponent < ReferralFormBaseComponent
+  class TeacherPersonalDetailsComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows(
         [
@@ -19,29 +19,25 @@ module Referrals
         label: "Do you know them by any other name?",
         value: referral.name_has_changed&.humanize,
         visually_hidden_text: "if you know them by any other name",
-        path: :personal_details_name
+        path: :name
       }
     end
 
     def name_row
-      { label: "Their name", value: referral.name, path: :personal_details_name }
+      { label: "Their name", value: referral.name, path: :name }
     end
 
     def other_name_row
       return unless referral.name_has_changed?
 
-      { label: "Other name", value: referral.previous_name, path: :personal_details_name }
+      { label: "Other name", value: referral.previous_name, path: :name }
     end
 
     def date_of_birth_row
       return unless referral.from_employer?
       return unless referral.age_known?
 
-      {
-        label: "Date of birth",
-        value: referral.date_of_birth&.to_fs(:long_ordinal_uk),
-        path: :personal_details_age
-      }
+      { label: "Date of birth", value: referral.date_of_birth&.to_fs(:long_ordinal_uk), path: :age }
     end
 
     def date_of_birth_known_row
@@ -50,7 +46,7 @@ module Referrals
       {
         label: "Do you know their date of birth?",
         value: referral.age_known,
-        path: :personal_details_age,
+        path: :age,
         visually_hidden_text: "if you know their date of birth"
       }
     end
@@ -61,7 +57,7 @@ module Referrals
       {
         label: "Do you know their teacher reference number (TRN)?",
         value: referral.trn_known,
-        path: :personal_details_trn,
+        path: :trn,
         visually_hidden_text: "if you know their teacher reference number (TRN)"
       }
     end
@@ -73,7 +69,7 @@ module Referrals
       {
         label: "TRN",
         value: referral.trn,
-        path: :personal_details_trn,
+        path: :trn,
         visually_hidden_text: "teacher reference number (TRN)"
       }
     end
@@ -84,7 +80,7 @@ module Referrals
       {
         label: "Do they have qualified teacher status (QTS)?",
         value: referral.has_qts&.humanize,
-        path: :personal_details_qts,
+        path: :qts,
         visually_hidden_text: "if they have qualified teacher status (QTS)"
       }
     end
@@ -95,7 +91,7 @@ module Referrals
       {
         label: "Do you know their National Insurance number?",
         value: referral.ni_number_known,
-        path: :personal_details_ni_number,
+        path: :ni_number,
         visually_hidden_text: "if you know their National Insurance number"
       }
     end
@@ -107,13 +103,13 @@ module Referrals
       {
         label: "National Insurance number",
         value: referral.ni_number,
-        path: :personal_details_ni_number,
+        path: :ni_number,
         visually_hidden_text: "National Insurance number"
       }
     end
 
     def section
-      Referrals::Sections::PersonalDetailsSection.new(referral:)
+      Referrals::Sections::TeacherPersonalDetailsSection.new(referral:)
     end
   end
 end
