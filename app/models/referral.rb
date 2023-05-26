@@ -1,10 +1,12 @@
 class Referral < ApplicationRecord
+  include Uploadable
+
   belongs_to :eligibility_check, dependent: :destroy
   belongs_to :user
 
   has_one :organisation, dependent: :destroy
   has_one :referrer, dependent: :destroy
-  has_one_attached :allegation_upload
+  # has_one_attached :allegation_upload
   has_one_attached :previous_misconduct_upload
   has_one_attached :duties_upload
   has_one_attached :pdf
@@ -25,6 +27,10 @@ class Referral < ApplicationRecord
         -> { where(submitted_at: nil).where("updated_at <= ?", 83.days.ago) }
 
   delegate :name, to: :referrer, prefix: true, allow_nil: true
+
+  def allegation_upload
+    uploads.find_by(section: "allegation").try(:attachment)
+  end
 
   def submit
     self.declaration = DeclarationRenderer.new.render

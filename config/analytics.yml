@@ -181,3 +181,10 @@ shared:
     - referral_id
     - created_at
     - updated_at
+  :uploads:
+    - id
+    - section
+    - uploadable_type
+    - uploadable_id
+    - created_at
+    - updated_at

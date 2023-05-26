@@ -14,7 +14,6 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
   let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
   let(:allegation_format) { nil }
   let(:allegation_details) { nil }
-  let(:allegation_upload) { nil }
   let(:allegation_consideration_details) { nil }
 
   let(:referral) do
@@ -24,7 +23,6 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
       :public,
       allegation_format:,
       allegation_details:,
-      allegation_upload:,
       allegation_consideration_details:
     )
   end
@@ -74,6 +72,8 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
         "application/pdf"
       )
     end
+
+    before { referral.uploads.create(section: "allegation", attachment: allegation_upload) }
 
     it "renders the correct values" do
       expect(row_values_sanitized).to eq(["Upload file", "upload1.pdf", "Not answered"])

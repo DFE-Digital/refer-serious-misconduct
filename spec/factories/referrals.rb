@@ -56,7 +56,13 @@ FactoryBot.define do
       allegation_format { "upload" }
       duties_format { "upload" }
 
-      allegation_upload { Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf") }
+      after(:create) do |referral|
+        referral.uploads.create(
+          section: "allegation",
+          attachment: Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf")
+        )
+      end
+
       duties_upload { Rack::Test::UploadedFile.new("spec/fixtures/files/upload2.pdf") }
     end
 
