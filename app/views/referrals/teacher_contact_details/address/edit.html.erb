@@ -1,13 +1,13 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_address_form.errors.any?}Their home address - Contact details" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_contact_details_address_known]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @contact_details_address_form, url: [current_referral.routing_scope, current_referral, :teacher_contact_details_address], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">Contact details</span>
-      <h1 class="govuk-heading-l">Their home address</h1>
+      <span class="govuk-caption-l"><%= section_label %></span>
+      <h1 class="govuk-heading-l"><%= form_label %></h1>
 
       <%= f.govuk_text_field :address_line_1, label: { size: 'm', text: "Address line 1" } %>
       <%= f.govuk_text_field :address_line_2, label: { size: 'm', text: "Address line 2 (optional)" } %>

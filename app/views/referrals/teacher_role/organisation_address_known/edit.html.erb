@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @organisation_address_known_form.errors.any?}Do you know the name and address of the organisation? - About their role" %>
-<% content_for :back_link_url, previous_path %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @organisation_address_known_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :organisation_address_known], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">About their role</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <%= f.govuk_radio_buttons_fieldset :organisation_address_known,
-        legend: { text: "Do you know the name and address of the organisation where the alleged misconduct took place?", tag: 'h1', size: "l" } do %>
+        legend: { text: form_label, tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :organisation_address_known %>
         <%= f.govuk_radio_button :organisation_address_known, true, label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :organisation_address_known, false, label: { text: "No" } %>

@@ -2,18 +2,19 @@ module Referrals
   module TeacherContactDetails
     class TelephoneController < Referrals::BaseController
       def edit
-        @contact_details_telephone_form =
+        @form =
           TelephoneForm.new(
+            referral: current_referral,
             phone_known: current_referral.phone_known,
             phone_number: current_referral.phone_number
           )
       end
 
       def update
-        @contact_details_telephone_form =
+        @form =
           TelephoneForm.new(contact_details_telephone_form_params.merge(referral: current_referral))
-        if @contact_details_telephone_form.save
-          redirect_to @contact_details_telephone_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

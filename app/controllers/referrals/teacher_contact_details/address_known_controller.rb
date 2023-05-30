@@ -2,17 +2,20 @@ module Referrals
   module TeacherContactDetails
     class AddressKnownController < Referrals::BaseController
       def edit
-        @contact_details_address_known_form =
-          AddressKnownForm.new(address_known: current_referral.address_known)
+        @form =
+          AddressKnownForm.new(
+            referral: current_referral,
+            address_known: current_referral.address_known
+          )
       end
 
       def update
-        @contact_details_address_known_form =
+        @form =
           AddressKnownForm.new(
             contact_details_address_known_form_params.merge(referral: current_referral)
           )
-        if @contact_details_address_known_form.save
-          redirect_to @contact_details_address_known_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

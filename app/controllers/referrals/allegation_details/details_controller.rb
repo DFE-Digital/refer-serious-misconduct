@@ -2,8 +2,9 @@ module Referrals
   module AllegationDetails
     class DetailsController < Referrals::BaseController
       def edit
-        @allegation_details_form =
+        @form =
           DetailsForm.new(
+            referral: current_referral,
             allegation_details: current_referral.allegation_details,
             allegation_format: current_referral.allegation_format,
             allegation_upload_file: current_referral.allegation_upload_file
@@ -11,11 +12,10 @@ module Referrals
       end
 
       def update
-        @allegation_details_form =
-          DetailsForm.new(allegation_details_params.merge(referral: current_referral))
+        @form = DetailsForm.new(allegation_details_params.merge(referral: current_referral))
 
-        if @allegation_details_form.save
-          redirect_to @allegation_details_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

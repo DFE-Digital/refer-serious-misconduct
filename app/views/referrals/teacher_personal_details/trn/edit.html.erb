@@ -1,15 +1,16 @@
-<% content_for :page_title, "#{'Error: ' if @personal_details_trn_form.errors.any?}Do you know their teacher reference number (TRN)? - Personal details" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_personal_details, :ni_number]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @personal_details_trn_form, url: [current_referral.routing_scope, current_referral, :teacher_personal_details_trn], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">Personal details</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(
           :trn_known,
-          legend: { size: "l", text: "Do you know their teacher reference number (TRN)?" },
+          legend: { size: "l", text: form_label },
           hint: { text: "A TRN is 7 digits long, for example 4567814."},
         ) do %>
           <%= f.govuk_radio_button :trn_known, "true", label: { text: "Yes" }, link_errors: true do %>

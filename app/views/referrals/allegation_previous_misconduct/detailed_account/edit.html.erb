@@ -1,12 +1,12 @@
-<% content_for :page_title, "#{'Error: ' if @detailed_account_form.errors.any?}Give a detailed account of previous allegations - Previous allegations" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :allegation_previous_misconduct_reported]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @detailed_account_form, url: [current_referral.routing_scope, current_referral, :allegation_previous_misconduct, :detailed_account], method: :patch do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
-      <span class="govuk-caption-l">Previous allegations</span>
-      <h1 class="govuk-heading-l">Detailed account of previous allegations</h1>
+      <span class="govuk-caption-l"><%= section_label %></span>
+      <h1 class="govuk-heading-l"><%= form_label %></h1>
       <p class="govuk-body">Provide details of:</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>dates and locations</li>

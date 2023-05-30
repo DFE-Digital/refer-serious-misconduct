@@ -1,12 +1,12 @@
-<% content_for :page_title, "#{'Error: ' if @referrer_phone_form.errors.any?}Your phone number - Your details" %>
-<% content_for :back_link_url, previous_path %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @referrer_phone_form, url: [current_referral.routing_scope, current_referral, :referrer_details, :phone], method: :patch do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">Your details</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <%= f.govuk_text_field :phone, type: :tel, autocomplete: :tel, label: { tag: 'h1', size: 'l', text: "Your phone number" }, hint: { text: 'It’ll only be used to contact you about your referral' }, class: 'govuk-input--width-20' %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>

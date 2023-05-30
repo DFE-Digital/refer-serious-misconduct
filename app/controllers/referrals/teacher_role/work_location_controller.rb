@@ -2,8 +2,9 @@ module Referrals
   module TeacherRole
     class WorkLocationController < Referrals::BaseController
       def edit
-        @work_location_form =
+        @form =
           WorkLocationForm.new(
+            referral: current_referral,
             work_organisation_name: current_referral.work_organisation_name,
             work_address_line_1: current_referral.work_address_line_1,
             work_address_line_2: current_referral.work_address_line_2,
@@ -13,11 +14,10 @@ module Referrals
       end
 
       def update
-        @work_location_form =
-          WorkLocationForm.new(work_location_params.merge(referral: current_referral))
+        @form = WorkLocationForm.new(work_location_params.merge(referral: current_referral))
 
-        if @work_location_form.save
-          redirect_to @work_location_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

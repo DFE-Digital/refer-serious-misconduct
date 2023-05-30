@@ -2,16 +2,19 @@ module Referrals
   module TeacherRole
     class WorkLocationKnownController < Referrals::BaseController
       def edit
-        @work_location_known_form =
-          WorkLocationKnownForm.new(work_location_known: current_referral.work_location_known)
+        @form =
+          WorkLocationKnownForm.new(
+            referral: current_referral,
+            work_location_known: current_referral.work_location_known
+          )
       end
 
       def update
-        @work_location_known_form =
+        @form =
           WorkLocationKnownForm.new(work_location_known_params.merge(referral: current_referral))
 
-        if @work_location_known_form.save
-          redirect_to @work_location_known_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

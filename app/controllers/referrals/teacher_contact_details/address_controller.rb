@@ -2,8 +2,9 @@ module Referrals
   module TeacherContactDetails
     class AddressController < Referrals::BaseController
       def edit
-        @contact_details_address_form =
+        @form =
           AddressForm.new(
+            referral: current_referral,
             address_line_1: current_referral.address_line_1,
             address_line_2: current_referral.address_line_2,
             town_or_city: current_referral.town_or_city,
@@ -13,10 +14,10 @@ module Referrals
       end
 
       def update
-        @contact_details_address_form =
+        @form =
           AddressForm.new(contact_details_address_form_params.merge(referral: current_referral))
-        if @contact_details_address_form.save
-          redirect_to @contact_details_address_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

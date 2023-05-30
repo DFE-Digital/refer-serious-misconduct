@@ -4,16 +4,19 @@ module Referrals
       include ReferralHelper
 
       def edit
-        @evidence_upload_form = UploadForm.new(referral: current_referral)
+        @form = UploadForm.new(referral: current_referral)
       end
 
       def update
-        @evidence_upload_form = UploadForm.new(upload_params.merge(referral: current_referral))
+        @form = UploadForm.new(upload_params.merge(referral: current_referral))
 
-        if @evidence_upload_form.save
-          redirect_to(
-            [:edit, current_referral.routing_scope, current_referral, :allegation_evidence_uploaded]
-          )
+        if @form.save
+          redirect_to [
+                        :edit,
+                        current_referral.routing_scope,
+                        current_referral,
+                        :allegation_evidence_uploaded
+                      ]
         else
           render :edit
         end

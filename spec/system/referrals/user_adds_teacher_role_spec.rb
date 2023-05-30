@@ -295,7 +295,9 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_current_path(
       edit_referral_teacher_role_organisation_address_known_path(@referral)
     )
-    expect(page).to have_title("Do you know the name and address of the organisation?")
+    expect(page).to have_title(
+      "Do you know the name and address of the organisation where the alleged misconduct took place?"
+    )
     expect(page).to have_content(
       "Do you know the name and address of the organisation where the alleged misconduct took place?"
     )

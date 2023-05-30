@@ -178,10 +178,8 @@ RSpec.feature "Details of the allegation", type: :system do
         [:edit, @referral.routing_scope, @referral, :allegation_details, :check_answers]
       )
     )
-    expect(page).to have_title(
-      "Check and confirm your answers - Refer serious misconduct by a teacher in England"
-    )
-    expect(page).to have_content("The allegation")
+    expect(page).to have_title("Check and confirm your answers - Details of the allegation")
+    expect(page).to have_content("Details of the allegation")
     expect(page).to have_content("Check and confirm your answers")
   end
 

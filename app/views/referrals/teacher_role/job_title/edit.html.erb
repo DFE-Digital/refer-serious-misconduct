@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @job_title_form.errors.any?}Their job title - About their role" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @job_title_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :job_title], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">About their role</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <%= f.govuk_text_field :job_title,
-        label: { text: "Their job title", tag: 'h1', size: "l" },
+        label: { text: form_label, tag: 'h1', size: "l" },
         hint: { text: "For example, ‘Teacher’" }
       %>
       <%= f.govuk_submit "Save and continue" %>

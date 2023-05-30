@@ -24,7 +24,7 @@ module Referrals
       subject(:label) { section.label }
 
       it "returns the correct label from the translation file" do
-        allow(I18n).to receive(:t).with("referral_form.test_section").and_return(
+        allow(I18n).to receive(:t).with("referral_form.sections.test_section").and_return(
           "Test Section Label"
         )
         expect(label).to eq "Test Section Label"
@@ -39,7 +39,8 @@ module Referrals
              :edit,
              referral.routing_scope,
              referral,
-             :referrer_organisation_address
+             :referrer_organisation,
+             :address
            ]
       end
     end
@@ -83,7 +84,7 @@ module Referrals
       subject(:next_path) { section.next_path }
 
       it "returns the path for the next incomplete item" do
-        expect(next_path).to eq [:edit, nil, referral, :referrer_organisation_address]
+        expect(next_path).to eq [:edit, nil, referral, :referrer_organisation, :address]
       end
     end
 

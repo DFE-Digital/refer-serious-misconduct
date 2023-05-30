@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @allegation_details_form.errors.any?}How do you want to give details about the allegation? - The allegation" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @allegation_details_form, url: [current_referral.routing_scope, current_referral, :allegation_details, :details], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">The allegation</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "l", text: "How do you want to give details about the allegation?", tag: 'h1' }) do %>
+        <%= f.govuk_radio_buttons_fieldset(:allegation_format, legend: { size: "l", text: form_label, tag: 'h1' }) do %>
           <%= f.govuk_radio_button :allegation_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
             <% if current_referral.allegation_upload %>
               <div class="app-uploaded-file">
