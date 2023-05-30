@@ -4,24 +4,21 @@ module Referrals
       include ReferralHelper
 
       def edit
-        @evidence_start_form = StartForm.new(has_evidence: current_referral.has_evidence)
+        @form =
+          StartForm.new(referral: current_referral, has_evidence: current_referral.has_evidence)
       end
 
       def update
-        @evidence_start_form = StartForm.new(start_params.merge(referral: current_referral))
+        @form = StartForm.new(start_params.merge(referral: current_referral))
 
-        if @evidence_start_form.save
+        if @form.save
           redirect_path = [
             :edit,
             current_referral.routing_scope,
             current_referral,
             :allegation_evidence
           ]
-          if @evidence_start_form.has_evidence
-            redirect_path.push(:upload)
-          else
-            redirect_path.push(:check_answers)
-          end
+          @form.has_evidence ? redirect_path.push(:upload) : redirect_path.push(:check_answers)
           redirect_to redirect_path
         else
           render :edit

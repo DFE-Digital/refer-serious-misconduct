@@ -2,7 +2,7 @@ module Referrals
   module AllegationDetails
     class CheckAnswersController < Referrals::BaseController
       def edit
-        @allegation_check_answers_form =
+        @form =
           CheckAnswersForm.new(
             referral: current_referral,
             allegation_details_complete: current_referral.allegation_details_complete
@@ -10,11 +10,10 @@ module Referrals
       end
 
       def update
-        @allegation_check_answers_form =
-          CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
+        @form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
 
-        if @allegation_check_answers_form.save
-          redirect_to [:edit, current_referral.routing_scope, current_referral]
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

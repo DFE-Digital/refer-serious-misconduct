@@ -4,7 +4,7 @@ module Referrals
       before_action :set_referrer
 
       def edit
-        @check_answers_form =
+        @form =
           CheckAnswersForm.new(
             referral: current_referral,
             referrer: @referrer,
@@ -13,15 +13,15 @@ module Referrals
       end
 
       def update
-        @check_answers_form =
+        @form =
           CheckAnswersForm.new(
             referral: current_referral,
             referrer: @referrer,
             complete: referrer_params[:complete]
           )
 
-        if @check_answers_form.save
-          redirect_to @check_answers_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

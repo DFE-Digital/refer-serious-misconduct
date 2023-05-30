@@ -2,8 +2,9 @@ module Referrals
   module TeacherRole
     class OrganisationAddressController < Referrals::BaseController
       def edit
-        @organisation_address_form =
+        @form =
           OrganisationAddressForm.new(
+            referral: current_referral,
             organisation_name: current_referral.organisation_name,
             organisation_address_line_1: current_referral.organisation_address_line_1,
             organisation_address_line_2: current_referral.organisation_address_line_2,
@@ -13,11 +14,11 @@ module Referrals
       end
 
       def update
-        @organisation_address_form =
+        @form =
           OrganisationAddressForm.new(organisation_address_params.merge(referral: current_referral))
 
-        if @organisation_address_form.save
-          redirect_to @organisation_address_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

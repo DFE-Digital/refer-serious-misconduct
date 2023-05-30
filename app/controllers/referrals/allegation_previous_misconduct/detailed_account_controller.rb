@@ -2,8 +2,9 @@ module Referrals
   module AllegationPreviousMisconduct
     class DetailedAccountController < Referrals::BaseController
       def edit
-        @detailed_account_form =
+        @form =
           DetailedAccountForm.new(
+            referral: current_referral,
             previous_misconduct_format: current_referral.previous_misconduct_format,
             previous_misconduct_details: current_referral.previous_misconduct_details,
             previous_misconduct_upload_file: current_referral.previous_misconduct_upload_file
@@ -11,10 +12,10 @@ module Referrals
       end
 
       def update
-        @detailed_account_form =
+        @form =
           DetailedAccountForm.new(detailed_account_form_params.merge(referral: current_referral))
-        if @detailed_account_form.save
-          redirect_to @detailed_account_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

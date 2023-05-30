@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @duties_form.errors.any?}How do you want to give details about their main duties? - About their role" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :job_title]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @duties_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :duties], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">About their role</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <div class="govuk-form-group">
-        <%= f.govuk_radio_buttons_fieldset(:duties_format, legend: { text: "How do you want to give details about their main duties?", tag: 'h1', size: "l" }) do %>
+        <%= f.govuk_radio_buttons_fieldset(:duties_format, legend: { text: form_label, tag: 'h1', size: "l" }) do %>
           <%= f.govuk_radio_button :duties_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
             <% if current_referral.duties_upload %>
               <div class="app-uploaded-file">

@@ -4,7 +4,7 @@ module Referrals
       include ReferralHelper
 
       def edit
-        @evidence_check_answers_form =
+        @form =
           CheckAnswersForm.new(
             referral: current_referral,
             evidence_details_complete: current_referral.evidence_details_complete
@@ -12,21 +12,22 @@ module Referrals
       end
 
       def update
-        @evidence_check_answers_form =
-          CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
+        @form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
 
-        if @evidence_check_answers_form.save
-          redirect_to([:edit, current_referral.routing_scope, current_referral])
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end
       end
 
       def delete
+        @form = CheckAnswersForm.new(referral: current_referral)
       end
 
       def destroy
-        filename = evidence.file.filename
+        @form = CheckAnswersForm.new(referral: current_referral)
+        filename = evidence.filename
         evidence.destroy
 
         subsection =

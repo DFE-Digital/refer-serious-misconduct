@@ -1,13 +1,13 @@
-<% content_for :page_title, "Uploaded evidence - Evidence and supporting information" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :allegation_evidence_upload]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @uploaded_form, url: referral_allegation_evidence_uploaded_path(current_referral), method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">Evidence and supporting information</span>
-      <h1 class="govuk-heading-l">Uploaded evidence</h1>
+      <span class="govuk-caption-l"><%= section_label %></span>
+      <h1 class="govuk-heading-l"><%= form_label %></h1>
 
       <h2 class="govuk-heading-m">Files added</h2>
 

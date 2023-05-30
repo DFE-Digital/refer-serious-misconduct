@@ -2,7 +2,7 @@ module Referrals
   module TeacherPersonalDetails
     class CheckAnswersController < Referrals::BaseController
       def edit
-        @personal_details_check_answers_form =
+        @form =
           CheckAnswersForm.new(
             referral: current_referral,
             personal_details_complete: current_referral.personal_details_complete
@@ -10,11 +10,10 @@ module Referrals
       end
 
       def update
-        @personal_details_check_answers_form =
-          CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
+        @form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
 
-        if @personal_details_check_answers_form.save
-          redirect_to @personal_details_check_answers_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

@@ -8,7 +8,7 @@ module Referrals
     alias_method :sections, :items
 
     def label
-      I18n.t("referral_form.#{slug}")
+      I18n.t("referral_form.section_groups.#{slug}")
     end
 
     def complete?

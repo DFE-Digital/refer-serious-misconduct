@@ -2,14 +2,13 @@ module Referrals
   module ReferrerOrganisation
     class AddressController < BaseController
       def edit
-        @organisation_address_form = AddressForm.new(referral: current_referral)
+        @form = AddressForm.new(referral: current_referral)
       end
 
       def update
-        @organisation_address_form =
-          AddressForm.new(organisation_address_form_params.merge(referral: current_referral))
-        if @organisation_address_form.save
-          redirect_to @organisation_address_form.next_path
+        @form = AddressForm.new(organisation_address_form_params.merge(referral: current_referral))
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

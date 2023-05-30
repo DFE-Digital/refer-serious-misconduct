@@ -2,8 +2,9 @@ module Referrals
   module TeacherRole
     class DutiesController < Referrals::BaseController
       def edit
-        @duties_form =
+        @form =
           DutiesForm.new(
+            referral: current_referral,
             duties_details: current_referral.duties_details,
             duties_format: current_referral.duties_format,
             duties_upload_file: current_referral.duties_upload_file
@@ -11,10 +12,10 @@ module Referrals
       end
 
       def update
-        @duties_form = DutiesForm.new(duties_params.merge(referral: current_referral))
+        @form = DutiesForm.new(duties_params.merge(referral: current_referral))
 
-        if @duties_form.save
-          redirect_to @duties_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

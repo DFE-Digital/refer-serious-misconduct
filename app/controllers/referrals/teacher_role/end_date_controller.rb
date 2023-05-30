@@ -2,21 +2,22 @@ module Referrals
   module TeacherRole
     class EndDateController < Referrals::BaseController
       def edit
-        @role_end_date_form =
+        @form =
           EndDateForm.new(
+            referral: current_referral,
             role_end_date_known: current_referral.role_end_date_known,
             role_end_date: current_referral.role_end_date
           )
       end
 
       def update
-        @role_end_date_form =
+        @form =
           EndDateForm.new(
             role_params.merge(date_params: end_date_params, referral: current_referral)
           )
 
-        if @role_end_date_form.save
-          redirect_to @role_end_date_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

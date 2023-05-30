@@ -1,13 +1,13 @@
-<% content_for :page_title, "#{"Error: " if @contact_details_email_form.errors.any?}Do you know their email address? - Contact details" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @contact_details_email_form, url: referral_teacher_contact_details_email_url, method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">Contact details</span>
-      <%= f.govuk_radio_buttons_fieldset :email_known, legend: { tag: 'h1', size: 'l', text: "Do you know their email address?" }  do %>
+      <span class="govuk-caption-l"><%= section_label %></span>
+      <%= f.govuk_radio_buttons_fieldset :email_known, legend: { tag: 'h1', size: 'l', text: form_label }  do %>
         <%= f.hidden_field :email_known %>
         <%= f.govuk_radio_button :email_known, true, label: { text: "Yes" }, link_errors: true do %>
           <%= f.govuk_text_field :email_address, label: { text: "Email address", size: 's' } %>

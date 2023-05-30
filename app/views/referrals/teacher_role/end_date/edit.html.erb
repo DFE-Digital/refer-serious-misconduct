@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @role_end_date_form.errors.any?}Do you know when they left the job? - About their role" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :employment_status]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @role_end_date_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :end_date], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">About their role</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <%= f.govuk_radio_buttons_fieldset :role_end_date_known,
-        legend: { text: "Do you know when they left the job?", tag: 'h1', size: "l" } do %>
+        legend: { text: form_label, tag: 'h1', size: "l" } do %>
         <%= f.hidden_field :role_end_date_known %>
         <%= f.govuk_radio_button :role_end_date_known, true, label: { text: "Yes" }, link_errors: true do %>
           <%= f.govuk_date_field :role_end_date,

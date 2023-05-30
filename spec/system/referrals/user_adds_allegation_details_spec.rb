@@ -174,9 +174,9 @@ RSpec.feature "Allegation", type: :system do
       )
     )
     expect(page).to have_title(
-      "Check and confirm your answers - The allegation - Refer serious misconduct by a teacher in England"
+      "Check and confirm your answers - Details of the allegation - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("The allegation")
+    expect(page).to have_content("Details of the allegation")
     expect(page).to have_content("Check and confirm your answers")
   end
 end

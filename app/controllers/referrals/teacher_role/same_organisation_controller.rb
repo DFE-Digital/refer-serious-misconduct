@@ -2,16 +2,18 @@ module Referrals
   module TeacherRole
     class SameOrganisationController < Referrals::BaseController
       def edit
-        @same_organisation_form =
-          SameOrganisationForm.new(same_organisation: current_referral.same_organisation)
+        @form =
+          SameOrganisationForm.new(
+            referral: current_referral,
+            same_organisation: current_referral.same_organisation
+          )
       end
 
       def update
-        @same_organisation_form =
-          SameOrganisationForm.new(same_organisation_params.merge(referral: current_referral))
+        @form = SameOrganisationForm.new(same_organisation_params.merge(referral: current_referral))
 
-        if @same_organisation_form.save
-          redirect_to @same_organisation_form.next_path
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

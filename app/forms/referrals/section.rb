@@ -27,7 +27,7 @@ module Referrals
     end
 
     def label
-      I18n.t("referral_form.#{slug}")
+      I18n.t("referral_form.sections.#{slug}")
     end
 
     def error_id
@@ -48,6 +48,10 @@ module Referrals
 
     def next_path
       items.find(&:incomplete?)&.path || path
+    end
+
+    def previous_path
+      items.reverse.find(&:complete?)&.path || [:edit, referral.routing_scope, referral]
     end
 
     def status

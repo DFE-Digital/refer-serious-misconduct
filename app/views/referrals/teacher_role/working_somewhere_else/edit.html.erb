@@ -1,14 +1,14 @@
-<% content_for :page_title, "#{'Error: ' if @working_somewhere_else_form.errors.any?}Are they employed somewhere else? - About their role" %>
-<% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :teacher_role, :reason_leaving_role]) %>
+<% content_for :page_title, page_title %>
+<% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <%= form_with model: @working_somewhere_else_form, url: [current_referral.routing_scope, current_referral, :teacher_role, :working_somewhere_else], method: :put do |f| %>
+    <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
-      <span class="govuk-caption-l">About their role</span>
+      <span class="govuk-caption-l"><%= section_label %></span>
       <%= f.govuk_radio_buttons_fieldset :working_somewhere_else,
-        legend: { size: "l", text: "Are they employed somewhere else?" } do %>
+        legend: { size: "l", text: form_label } do %>
         <%= f.hidden_field :working_somewhere_else %>
         <%= f.govuk_radio_button :working_somewhere_else, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :working_somewhere_else, "no", label: { text: "No" } %>

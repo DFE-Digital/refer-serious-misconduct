@@ -2,13 +2,13 @@ module Referrals
   module AllegationPreviousMisconduct
     class ReportedController < Referrals::BaseController
       def edit
-        @reported_form = ReportedForm.new(referral: current_referral)
+        @form = ReportedForm.new(referral: current_referral)
       end
 
       def update
-        @reported_form = ReportedForm.new(reported_form_params.merge(referral: current_referral))
-        if @reported_form.save
-          redirect_to @reported_form.next_path
+        @form = ReportedForm.new(reported_form_params.merge(referral: current_referral))
+        if @form.save
+          redirect_to @form.next_path
         else
           render :edit
         end

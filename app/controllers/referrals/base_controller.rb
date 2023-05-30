@@ -21,13 +21,18 @@ module Referrals
     end
     helper_method :current_referral
 
-    def next_page
-      next_path
+    def back_link_url
+      polymorphic_path(form.previous_path)
     end
+    helper_method :back_link_url
 
-    # Overwrite this method with the path of the next page in the journey
-    def next_path
-      root_path
-    end
+    delegate :page_title, :section_label, :form_path, to: :form
+    helper_method :page_title, :section_label, :form_path
+
+    delegate :label, to: :form, prefix: true
+    helper_method :form_label
+
+    attr_reader :form
+    helper_method :form
   end
 end
