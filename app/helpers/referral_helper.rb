@@ -48,7 +48,7 @@ module ReferralHelper
     when "details"
       referral.allegation_details.present? ? "Describe the allegation" : "Incomplete"
     when "upload"
-      referral.allegation_upload ? "Upload file" : "Incomplete"
+      referral.allegation_attachment ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
@@ -63,10 +63,10 @@ module ReferralHelper
         "Incomplete"
       end
     when "upload"
-      if referral.allegation_upload
+      if referral.allegation_attachment
         govuk_link_to(
-          referral.allegation_upload.filename,
-          rails_blob_path(referral.allegation_upload, disposition: "attachment")
+          referral.allegation_upload.name,
+          rails_blob_path(referral.allegation_attachment, disposition: "attachment")
         )
       else
         "Incomplete"

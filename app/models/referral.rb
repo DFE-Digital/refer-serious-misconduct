@@ -11,6 +11,17 @@ class Referral < ApplicationRecord
   has_one_attached :duties_upload
   has_one_attached :pdf
 
+  # has_one :allegation_upload, -> { where(section: :allegation) }, class_name: "Upload", dependent: :destroy, foreign_key: :uploadable_id
+  # has_one :previous_misconduct_upload, -> { where(section: :previous_misconduct) }, class_name: "Upload", dependent: :destroy, foreign_key: :uploadable_id
+  # has_one :duties_upload, -> { where(section: :duties) }, class_name: "Upload", dependent: :destroy, foreign_key: :uploadable_id
+  # has_one :pdf, -> { where(section: :pdf) }, class_name: "Upload", dependent: :destroy, foreign_key: :uploadable_id
+
+  # def allegation_attachment
+  #   allegation_upload&.attachment
+  # end
+
+  has_one_uploaded :allegation
+
   has_many :evidences,
            -> { order(:created_at) },
            class_name: "ReferralEvidence",
@@ -27,10 +38,6 @@ class Referral < ApplicationRecord
         -> { where(submitted_at: nil).where("updated_at <= ?", 83.days.ago) }
 
   delegate :name, to: :referrer, prefix: true, allow_nil: true
-
-  def allegation_upload
-    uploads.find_by(section: "allegation").try(:attachment)
-  end
 
   def submit
     self.declaration = DeclarationRenderer.new.render

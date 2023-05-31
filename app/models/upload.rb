@@ -9,4 +9,8 @@ class Upload < ApplicationRecord
          previous_misconduct: "previous_misconduct",
          evidence: "evidence"
        }
+
+  def name
+    attachment.filename.to_s
+  end
 end
