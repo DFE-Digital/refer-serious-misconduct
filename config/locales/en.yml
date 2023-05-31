@@ -365,13 +365,13 @@ en:
     missing_staff_permission: Select permissions
     incomplete_section:
       referrer_details: You must complete your details before you can send your referral
-      organisation: You must complete your organisation before you can send your referral
+      referrer_organisation: You must complete your organisation before you can send your referral
       teacher_personal_details: You must complete personal details before you can send your referral
       teacher_contact_details: You must complete contact details before you can send your referral
       teacher_role: You must complete details about the role before you can send your referral
-      allegation: You must complete allegation details before you can send your referral
+      allegation_details: You must complete allegation details before you can send your referral
       allegation_previous_misconduct: You must complete previous misconduct details before you can send your referral
-      evidence: You must complete evidence and supporting information before you can send your referral
+      allegation_evidence: You must complete evidence and supporting information before you can send your referral
 
   pundit:
     unauthorized: You do not have permission to view this page
