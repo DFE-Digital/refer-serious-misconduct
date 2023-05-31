@@ -1,5 +1,5 @@
 module Referrals
-  class AllegationPreviousComponent < ReferralFormBaseComponent
+  class AllegationPreviousMisconductComponent < ReferralFormBaseComponent
     def all_rows
       summary_rows(
         [
@@ -66,7 +66,7 @@ module Referrals
     end
 
     def section
-      Referrals::Sections::AllegationPreviousSection.new(referral:)
+      Referrals::Sections::AllegationPreviousMisconductSection.new(referral:)
     end
   end
 end

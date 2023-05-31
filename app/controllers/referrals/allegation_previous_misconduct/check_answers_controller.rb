@@ -1,5 +1,5 @@
 module Referrals
-  module AllegationPrevious
+  module AllegationPreviousMisconduct
     class CheckAnswersController < Referrals::BaseController
       def edit
         @previous_misconduct_check_answers_form =
@@ -23,7 +23,7 @@ module Referrals
       private
 
       def previous_misconduct_params
-        params.require(:referrals_allegation_previous_check_answers_form).permit(
+        params.require(:referrals_allegation_previous_misconduct_check_answers_form).permit(
           :previous_misconduct_complete
         )
       end

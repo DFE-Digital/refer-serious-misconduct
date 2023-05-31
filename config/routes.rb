@@ -162,7 +162,7 @@ Rails.application.routes.draw do
           resource :check_answers, path: "check-answers", only: %i[edit update]
         end
 
-        namespace :allegation_previous, path: "previous-misconduct" do
+        namespace :allegation_previous_misconduct, path: "previous-misconduct" do
           resource :reported, only: %i[edit update], controller: :reported
           resource :detailed_account,
                    path: "detailed-account",

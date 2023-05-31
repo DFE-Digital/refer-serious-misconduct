@@ -1,5 +1,5 @@
 module Referrals
-  module AllegationPrevious
+  module AllegationPreviousMisconduct
     class ReportedForm < FormItem
       attr_referral :previous_misconduct_reported
 

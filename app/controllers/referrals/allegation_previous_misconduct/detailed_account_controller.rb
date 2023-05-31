@@ -1,5 +1,5 @@
 module Referrals
-  module AllegationPrevious
+  module AllegationPreviousMisconduct
     class DetailedAccountController < Referrals::BaseController
       def edit
         @detailed_account_form =
@@ -23,7 +23,7 @@ module Referrals
       private
 
       def detailed_account_form_params
-        params.require(:referrals_allegation_previous_detailed_account_form).permit(
+        params.require(:referrals_allegation_previous_misconduct_detailed_account_form).permit(
           :previous_misconduct_format,
           :previous_misconduct_details,
           :previous_misconduct_upload

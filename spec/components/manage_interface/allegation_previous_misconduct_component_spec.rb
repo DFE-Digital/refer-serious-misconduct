@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ManageInterface::AllegationPreviousComponent, type: :component do
+RSpec.describe ManageInterface::AllegationPreviousMisconductComponent, type: :component do
   subject(:component) { described_class.new(referral:) }
 
   let(:row_labels) { component.rows.map { |row| row.dig(:key, :text) } }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::AllegationPrevious::CheckAnswersForm, type: :model do
+RSpec.describe Referrals::AllegationPreviousMisconduct::CheckAnswersForm, type: :model do
   let(:referral) { create(:referral) }
   let(:form) { described_class.new(referral:, previous_misconduct_complete:) }
   let(:previous_misconduct_complete) { true }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Referrals::AllegationPrevious::DetailedAccountForm, type: :model do
+RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, type: :model do
   let(:referral) { build(:referral) }
 
   describe "validations" do

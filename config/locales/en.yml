@@ -21,7 +21,7 @@ en:
     teacher_role: About their role
     the_allegation: The allegation
     allegation_details: Details of the allegation
-    allegation_previous: Previous allegations
+    allegation_previous_misconduct: Previous allegations
     allegation_evidence: Evidence and supporting information
     statuses:
       incomplete: Incomplete
@@ -281,11 +281,11 @@ en:
           attributes:
             complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/allegation_previous/check_answers_form":
+        "referrals/allegation_previous_misconduct/check_answers_form":
           attributes:
             previous_misconduct_complete:
               inclusion: Select yes if you’ve completed this section
-        "referrals/allegation_previous/detailed_account_form":
+        "referrals/allegation_previous_misconduct/detailed_account_form":
           attributes:
             previous_misconduct_details:
               blank: Enter a description of previous allegations
@@ -296,7 +296,7 @@ en:
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
               file_size_too_big: The selected file must be smaller than %{max_allowed_file_size}
-        "referrals/allegation_previous/reported_form":
+        "referrals/allegation_previous_misconduct/reported_form":
           attributes:
             previous_misconduct_reported:
               inclusion: Let us know if there has been any previous misconduct, disciplinary action or complaints
@@ -370,7 +370,7 @@ en:
       teacher_contact_details: You must complete contact details before you can send your referral
       teacher_role: You must complete details about the role before you can send your referral
       allegation: You must complete allegation details before you can send your referral
-      allegation_previous: You must complete previous misconduct details before you can send your referral
+      allegation_previous_misconduct: You must complete previous misconduct details before you can send your referral
       evidence: You must complete evidence and supporting information before you can send your referral
 
   pundit:
