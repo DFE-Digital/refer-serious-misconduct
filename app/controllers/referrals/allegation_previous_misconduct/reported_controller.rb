@@ -1,5 +1,5 @@
 module Referrals
-  module AllegationPrevious
+  module AllegationPreviousMisconduct
     class ReportedController < Referrals::BaseController
       def edit
         @reported_form = ReportedForm.new(referral: current_referral)
@@ -17,7 +17,7 @@ module Referrals
       private
 
       def reported_form_params
-        params.require(:referrals_allegation_previous_reported_form).permit(
+        params.require(:referrals_allegation_previous_misconduct_reported_form).permit(
           :previous_misconduct_reported
         )
       end

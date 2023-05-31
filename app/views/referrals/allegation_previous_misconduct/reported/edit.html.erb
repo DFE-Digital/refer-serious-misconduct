@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @reported_form, url: [current_referral.routing_scope, current_referral, :allegation_previous_reported], method: :patch do |f| %>
+    <%= form_with model: @reported_form, url: [current_referral.routing_scope, current_referral, :allegation_previous_misconduct_reported], method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
       <h1 class="govuk-heading-l">Previous allegations</h1>

@@ -60,7 +60,8 @@ class ReferralForm
   def the_allegation_section
     items = [
       Referrals::Sections::AllegationDetailsSection.new(referral:),
-      referral.from_employer? && Referrals::Sections::AllegationPreviousSection.new(referral:),
+      referral.from_employer? &&
+        Referrals::Sections::AllegationPreviousMisconductSection.new(referral:),
       Referrals::Sections::AllegationEvidenceSection.new(referral:)
     ].compact_blank
 

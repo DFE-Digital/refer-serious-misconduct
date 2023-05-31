@@ -1,5 +1,5 @@
 module Referrals
-  module AllegationPrevious
+  module AllegationPreviousMisconduct
     class CheckAnswersForm < FormItem
       attr_referral :previous_misconduct_complete
 
