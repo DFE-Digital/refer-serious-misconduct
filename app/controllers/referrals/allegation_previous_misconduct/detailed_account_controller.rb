@@ -6,7 +6,7 @@ module Referrals
           DetailedAccountForm.new(
             previous_misconduct_format: current_referral.previous_misconduct_format,
             previous_misconduct_details: current_referral.previous_misconduct_details,
-            previous_misconduct_upload: current_referral.previous_misconduct_upload
+            previous_misconduct_upload_file: current_referral.previous_misconduct_upload_file
           )
       end
 
@@ -26,7 +26,7 @@ module Referrals
         params.require(:referrals_allegation_previous_misconduct_detailed_account_form).permit(
           :previous_misconduct_format,
           :previous_misconduct_details,
-          :previous_misconduct_upload
+          :previous_misconduct_upload_file
         )
       end
     end

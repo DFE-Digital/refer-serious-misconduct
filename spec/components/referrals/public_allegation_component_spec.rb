@@ -14,7 +14,6 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
   let(:row_links) { component.rows.map { |row| row.dig(:actions, :href) } }
   let(:allegation_format) { nil }
   let(:allegation_details) { nil }
-  let(:allegation_upload) { nil }
   let(:allegation_consideration_details) { nil }
 
   let(:referral) do
@@ -24,7 +23,6 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
       :public,
       allegation_format:,
       allegation_details:,
-      allegation_upload:,
       allegation_consideration_details:
     )
   end
@@ -68,11 +66,16 @@ RSpec.describe Referrals::PublicAllegationComponent, type: :component do
 
   context "with an upload" do
     let(:allegation_format) { "upload" }
-    let(:allegation_upload) do
+    let(:allegation_upload_file) do
       Rack::Test::UploadedFile.new(
         Rails.root.join("spec/fixtures/files/upload1.pdf"),
         "application/pdf"
       )
+    end
+
+    before do
+      referral.uploads.create(section: "allegation", file: allegation_upload_file)
+      referral.reload
     end
 
     it "renders the correct values" do

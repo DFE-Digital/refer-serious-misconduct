@@ -187,7 +187,7 @@ en:
               inclusion: Select how you want to give details about their main duties
             duties_details:
               blank: Enter a description of their main duties
-            duties_upload:
+            duties_upload_file:
               blank: Select a file containing a description of their main duties
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
@@ -291,7 +291,7 @@ en:
               blank: Enter a description of previous allegations
             previous_misconduct_format:
               inclusion: Select how you want to give details about previous allegations
-            previous_misconduct_upload:
+            previous_misconduct_upload_file:
               blank: Select a file containing details of previous allegations
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents
@@ -306,7 +306,7 @@ en:
               inclusion: Select how you want to give details about the allegation
             allegation_details:
               blank: Enter details of the allegation
-            allegation_upload:
+            allegation_upload_file:
               blank: Select a file containing details of your allegation
               invalid_content_type: The selected file must be of type (%{valid_types})
               mismatch_content_type: The selected file does not match its contents

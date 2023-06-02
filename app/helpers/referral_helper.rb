@@ -6,7 +6,7 @@ module ReferralHelper
     when "details"
       referral.duties_details.present? ? "Describe their main duties" : "Incomplete"
     when "upload"
-      referral.duties_upload.attached? ? "Upload file" : "Incomplete"
+      referral.duties_upload_file ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
@@ -17,10 +17,10 @@ module ReferralHelper
     when "details"
       referral.duties_details.present? ? simple_format(referral.duties_details) : "Incomplete"
     when "upload"
-      if referral.duties_upload.attached?
+      if referral.duties_upload_file
         govuk_link_to(
-          referral.duties_upload.filename,
-          rails_blob_path(referral.duties_upload, disposition: "attachment")
+          referral.duties_upload.name,
+          rails_blob_path(referral.duties_upload_file, disposition: "attachment")
         )
       else
         "Incomplete"
@@ -48,7 +48,7 @@ module ReferralHelper
     when "details"
       referral.allegation_details.present? ? "Describe the allegation" : "Incomplete"
     when "upload"
-      referral.allegation_upload.attached? ? "Upload file" : "Incomplete"
+      referral.allegation_upload_file ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
@@ -63,10 +63,10 @@ module ReferralHelper
         "Incomplete"
       end
     when "upload"
-      if referral.allegation_upload.attached?
+      if referral.allegation_upload_file
         govuk_link_to(
-          referral.allegation_upload.filename,
-          rails_blob_path(referral.allegation_upload, disposition: "attachment")
+          referral.allegation_upload.name,
+          rails_blob_path(referral.allegation_upload_file, disposition: "attachment")
         )
       else
         "Incomplete"
@@ -76,11 +76,22 @@ module ReferralHelper
     end
   end
 
+  def previous_allegation_details_format(referral)
+    case referral.previous_misconduct_format
+    when "details"
+      referral.previous_misconduct_details.present? ? "Describe the allegation" : "Incomplete"
+    when "upload"
+      referral.previous_misconduct_upload_file ? "Upload file" : "Incomplete"
+    else
+      "Not answered"
+    end
+  end
+
   def previous_allegation_details(referral)
-    if referral.previous_misconduct_upload.attached?
+    if referral.previous_misconduct_upload_file
       govuk_link_to(
-        referral.previous_misconduct_upload.filename,
-        rails_blob_path(referral.previous_misconduct_upload, disposition: "attachment")
+        referral.previous_misconduct_upload.name,
+        rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
       )
     elsif referral.previous_misconduct_details.present?
       simple_format(referral.previous_misconduct_details)

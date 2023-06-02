@@ -3,9 +3,6 @@ require "rails_helper"
 RSpec.describe Referral, type: :model do
   it { is_expected.to have_one(:organisation).dependent(:destroy) }
   it { is_expected.to have_one(:referrer).dependent(:destroy) }
-  it { is_expected.to have_one_attached(:previous_misconduct_upload) }
-  it { is_expected.to have_one_attached(:allegation_upload) }
-  it { is_expected.to have_one_attached(:duties_upload) }
   it { is_expected.to have_one_attached(:pdf) }
 
   describe ".employer" do

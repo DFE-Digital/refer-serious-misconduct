@@ -6,7 +6,7 @@ module Referrals
           DutiesForm.new(
             duties_details: current_referral.duties_details,
             duties_format: current_referral.duties_format,
-            duties_upload: current_referral.duties_upload
+            duties_upload_file: current_referral.duties_upload_file
           )
       end
 
@@ -26,7 +26,7 @@ module Referrals
         params.require(:referrals_teacher_role_duties_form).permit(
           :duties_format,
           :duties_details,
-          :duties_upload
+          :duties_upload_file
         )
       end
     end

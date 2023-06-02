@@ -6,7 +6,7 @@ module Referrals
           DetailsForm.new(
             allegation_details: current_referral.allegation_details,
             allegation_format: current_referral.allegation_format,
-            allegation_upload: current_referral.allegation_upload
+            allegation_upload_file: current_referral.allegation_upload_file
           )
       end
 
@@ -27,7 +27,7 @@ module Referrals
         params.require(:referrals_allegation_details_details_form).permit(
           :allegation_format,
           :allegation_details,
-          :allegation_upload
+          :allegation_upload_file
         )
       end
     end
