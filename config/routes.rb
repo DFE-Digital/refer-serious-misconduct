@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   constraints(-> { FeatureFlags::FeatureFlag.active?(:eligibility_screener) }) do
     get "/start", to: "pages#start"
+    get "/start-govuk", to: "pages#start"
     get "/users/registrations/exists", to: "users/existing_registration#new"
     post "/users/registrations/exists", to: "users/existing_registration#create"
     get "/referral-type", to: "eligibility_screener/referral_type#new"
