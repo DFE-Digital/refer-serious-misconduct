@@ -8,7 +8,7 @@ module Referrals
       validates :duties_details, presence: true, if: -> { duties_format == "details" }
       validates :duties_upload_file,
                 presence: true,
-                if: -> { duties_format == "upload" && !referral.duties_upload }
+                if: -> { duties_format == "upload" && !referral.duties_upload_file&.attached? }
       validates :duties_upload_file, file_upload: true, if: -> { duties_format == "upload" }
 
       def save

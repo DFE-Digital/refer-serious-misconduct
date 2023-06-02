@@ -10,7 +10,7 @@
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:duties_format, legend: { text: form_label, tag: 'h1', size: "l" }) do %>
           <%= f.govuk_radio_button :duties_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
-            <% if current_referral.duties_upload %>
+            <% if current_referral.duties_upload_file&.attached? %>
               <div class="app-uploaded-file">
                 <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
                     Currently uploaded file
