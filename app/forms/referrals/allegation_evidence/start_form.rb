@@ -11,7 +11,7 @@ module Referrals
 
         referral
           .update(has_evidence:)
-          .tap { |result| referral.evidences.destroy_all if result && !has_evidence }
+          .tap { |result| referral.evidence_uploads.destroy_all if result && !has_evidence }
       end
     end
   end

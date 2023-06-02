@@ -6,7 +6,7 @@ module ReferralHelper
     when "details"
       referral.duties_details.present? ? "Describe their main duties" : "Incomplete"
     when "upload"
-      referral.duties_upload_file ? "Upload file" : "Incomplete"
+      referral.duties_upload ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
@@ -17,7 +17,7 @@ module ReferralHelper
     when "details"
       referral.duties_details.present? ? simple_format(referral.duties_details) : "Incomplete"
     when "upload"
-      if referral.duties_upload_file
+      if referral.duties_upload
         govuk_link_to(
           referral.duties_upload.name,
           rails_blob_path(referral.duties_upload_file, disposition: "attachment")
@@ -48,7 +48,7 @@ module ReferralHelper
     when "details"
       referral.allegation_details.present? ? "Describe the allegation" : "Incomplete"
     when "upload"
-      referral.allegation_upload_file ? "Upload file" : "Incomplete"
+      referral.allegation_upload ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
@@ -63,7 +63,7 @@ module ReferralHelper
         "Incomplete"
       end
     when "upload"
-      if referral.allegation_upload_file
+      if referral.allegation_upload
         govuk_link_to(
           referral.allegation_upload.name,
           rails_blob_path(referral.allegation_upload_file, disposition: "attachment")
@@ -81,14 +81,14 @@ module ReferralHelper
     when "details"
       referral.previous_misconduct_details.present? ? "Describe the allegation" : "Incomplete"
     when "upload"
-      referral.previous_misconduct_upload_file ? "Upload file" : "Incomplete"
+      referral.previous_misconduct_upload ? "Upload file" : "Incomplete"
     else
       "Not answered"
     end
   end
 
   def previous_allegation_details(referral)
-    if referral.previous_misconduct_upload_file
+    if referral.previous_misconduct_upload
       govuk_link_to(
         referral.previous_misconduct_upload.name,
         rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")

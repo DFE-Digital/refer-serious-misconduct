@@ -8,7 +8,6 @@ module Referrals
       validates :evidence_uploads, file_upload: true
 
       attr_accessor :evidence_uploads
-      attr_reader :evidences
 
       def evidence_selected
         return if evidence_uploads&.any?(&:present?)
@@ -19,17 +18,15 @@ module Referrals
       def save
         return false if invalid?
 
-        @evidences =
-          evidence_uploads.compact_blank.map do |upload|
-            ::ReferralEvidence.new(filename: upload.original_filename, document: upload, referral:)
-          end
-
-        if referral.evidences.size + evidences.size > MAX_FILES
+        if referral.evidence_uploads.size + evidence_uploads.compact_blank.size > MAX_FILES
           errors.add(:evidence_uploads, :file_count, max_files: MAX_FILES)
           return false
         end
 
-        referral.evidences << evidences.sort_by(&:filename)
+        evidence_uploads
+          .compact_blank
+          .sort_by(&:original_filename)
+          .map { |upload| referral.uploads.create!(section: "evidence", file: upload) }
       end
     end
   end

@@ -12,8 +12,7 @@ module Referrals
       validates :previous_misconduct_upload_file,
                 presence: true,
                 if: -> {
-                  previous_misconduct_format == "upload" &&
-                    !referral.previous_misconduct_upload_file
+                  previous_misconduct_format == "upload" && !referral.previous_misconduct_upload
                 }
       validates :previous_misconduct_upload_file,
                 file_upload: true,

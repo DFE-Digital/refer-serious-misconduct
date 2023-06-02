@@ -1,11 +1,11 @@
-<% content_for :page_title, "Are you sure you want to delete #{evidence.filename} - Evidence and supporting information" %>
+<% content_for :page_title, "Are you sure you want to delete #{evidence.file.filename} - Evidence and supporting information" %>
 <% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral, :allegation_evidence_uploaded]) %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">
       <span class="govuk-caption-l">Evidence and supporting information</span>
-      Confirm that you want to delete <%= evidence.filename %>?
+      Confirm that you want to delete <%= evidence.file.filename %>?
     </h1>
 
     <%= govuk_button_to(

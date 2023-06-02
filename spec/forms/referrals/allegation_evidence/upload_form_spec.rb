@@ -15,22 +15,25 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
       ]
     end
 
-    before { save }
-
-    it "saves all uploaded files" do
-      expect(referral.reload.evidences.count).to eq(2)
+    before do
+      save
+      referral.reload
     end
 
-    it "creates a ReferralEvidence" do
-      expect(referral.evidences.first).to be_a(ReferralEvidence)
+    it "saves all uploaded files" do
+      expect(referral.evidence_uploads.count).to eq(2)
+    end
+
+    it "creates an Upload" do
+      expect(referral.evidence_uploads.first).to be_a(Upload)
     end
 
     it "attaches the evidence" do
-      expect(referral.evidences.first.document).to be_attached
+      expect(referral.evidence_uploads.first.file).to be_attached
     end
 
     it "sets the correct filename" do
-      expect(referral.evidences.first.filename).to eq("upload1.pdf")
+      expect(referral.evidence_uploads.first.name).to eq("upload1.pdf")
     end
 
     context "with no values" do
@@ -56,9 +59,9 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
     context "with multiple uploads" do
       it "appends to existing referral evidence" do
         upload_form.evidence_uploads = [fixture_file_upload("upload.txt")]
-        expect { upload_form.save }.to change(referral.evidences, :size).by(1)
-        expect(referral.evidences.size).to eq(3)
-        expect(referral.evidences.map(&:filename)).to eq(%w[upload1.pdf upload2.pdf upload.txt])
+        expect { upload_form.save }.to change(referral.evidence_uploads, :size).by(1)
+        expect(referral.evidence_uploads.size).to eq(3)
+        expect(referral.evidence_uploads.map(&:name)).to eq(%w[upload1.pdf upload2.pdf upload.txt])
       end
 
       it "validates that the maximum number of files is not exceeded" do

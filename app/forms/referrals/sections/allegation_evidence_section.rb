@@ -4,7 +4,7 @@ module Referrals
       def items
         [
           Referrals::AllegationEvidence::StartForm.new(referral:),
-          referral.evidences.none? && referral.has_evidence? &&
+          referral.evidence_uploads.none? && referral.has_evidence? &&
             Referrals::AllegationEvidence::UploadForm.new(referral:),
           referral.has_evidence && Referrals::AllegationEvidence::UploadedForm.new(referral:),
           Referrals::AllegationEvidence::CheckAnswersForm.new(referral:)
