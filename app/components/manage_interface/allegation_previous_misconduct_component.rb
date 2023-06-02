@@ -38,7 +38,7 @@ module ManageInterface
     end
 
     def detail_type
-      return "Upload file" if referral.previous_misconduct_upload.attached?
+      return "Upload file" if referral.previous_misconduct_upload_file
 
       "Describe the allegation"
     end

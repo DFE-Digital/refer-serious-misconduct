@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, type: :model do
-  let(:referral) { build(:referral) }
+  let(:referral) { create(:referral) }
 
   describe "validations" do
     subject(:form) { described_class.new(referral:) }
@@ -46,13 +46,13 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
 
     let(:previous_misconduct_format) { nil }
     let(:previous_misconduct_details) { nil }
-    let(:previous_misconduct_upload) { nil }
+    let(:previous_misconduct_upload_file) { nil }
     let(:form) do
       described_class.new(
         referral:,
         previous_misconduct_details:,
         previous_misconduct_format:,
-        previous_misconduct_upload:
+        previous_misconduct_upload_file:
       )
     end
 
@@ -74,7 +74,7 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
 
       it "adds an error" do
         save
-        expect(form.errors[:previous_misconduct_upload]).to eq(
+        expect(form.errors[:previous_misconduct_upload_file]).to eq(
           ["Select a file containing details of previous allegations"]
         )
       end
@@ -82,13 +82,13 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
 
     context "with upload format and file" do
       let(:previous_misconduct_format) { "upload" }
-      let(:previous_misconduct_upload) { fixture_file_upload("upload1.pdf") }
+      let(:previous_misconduct_upload_file) { fixture_file_upload("upload1.pdf") }
 
       it { is_expected.to be_truthy }
 
       it "associates the upload with the referral" do
         save
-        expect(referral.previous_misconduct_upload).to be_attached
+        expect(referral.previous_misconduct_upload_file).to be_attached
       end
 
       it "updates details on the referral" do
@@ -111,6 +111,7 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
     end
 
     context "with details format and details" do
+      let(:previous_misconduct_upload_file) { fixture_file_upload("upload1.pdf") }
       let(:previous_misconduct_format) { "details" }
       let(:previous_misconduct_details) { "Something something" }
 
@@ -122,10 +123,15 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
       end
 
       context "when there is an existing upload" do
-        before { referral.previous_misconduct_upload.attach(fixture_file_upload("upload1.pdf")) }
+        before do
+          referral.uploads.create!(
+            section: "previous_misconduct",
+            file: previous_misconduct_upload_file
+          )
+        end
 
         it "has the attached file" do
-          expect(referral.previous_misconduct_upload).to be_attached
+          expect(referral.previous_misconduct_upload_file).to be_attached
         end
 
         it "updates details on the referral" do
@@ -135,7 +141,7 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
 
         it "purges the attached file" do
           save
-          expect(referral.previous_misconduct_upload).not_to be_attached
+          expect(referral.previous_misconduct_upload_file).to be_nil
         end
       end
     end

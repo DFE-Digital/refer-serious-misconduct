@@ -4,10 +4,30 @@ class Referral < ApplicationRecord
 
   has_one :organisation, dependent: :destroy
   has_one :referrer, dependent: :destroy
-  has_one_attached :allegation_upload
-  has_one_attached :previous_misconduct_upload
-  has_one_attached :duties_upload
   has_one_attached :pdf
+
+  has_many :uploads, as: :uploadable
+
+  has_one :allegation_upload,
+          -> { where(section: "allegation").order(created_at: :desc) },
+          class_name: "Upload",
+          foreign_key: :uploadable_id,
+          dependent: :destroy
+  delegate :file, to: :allegation_upload, prefix: true, allow_nil: true
+
+  has_one :duties_upload,
+          -> { where(section: "duties").order(created_at: :desc) },
+          class_name: "Upload",
+          foreign_key: :uploadable_id,
+          dependent: :destroy
+  delegate :file, to: :duties_upload, prefix: true, allow_nil: true
+
+  has_one :previous_misconduct_upload,
+          -> { where(section: "previous_misconduct").order(created_at: :desc) },
+          class_name: "Upload",
+          foreign_key: :uploadable_id,
+          dependent: :destroy
+  delegate :file, to: :previous_misconduct_upload, prefix: true, allow_nil: true
 
   has_many :evidences,
            -> { order(:created_at) },

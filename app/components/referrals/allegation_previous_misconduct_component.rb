@@ -26,7 +26,7 @@ module Referrals
       {
         label: "How do you want to give details about previous allegations?",
         visually_hidden_text: "how you want to give details about previous allegations",
-        value: detail_type,
+        value: previous_allegation_details_format(referral),
         path: :detailed_account
       }
     end
@@ -38,11 +38,11 @@ module Referrals
     end
 
     def report
-      if referral.previous_misconduct_upload.attached?
+      if referral.previous_misconduct_upload_file
         return(
           govuk_link_to(
-            referral.previous_misconduct_upload.filename,
-            rails_blob_path(referral.previous_misconduct_upload, disposition: "attachment")
+            referral.previous_misconduct_upload.name,
+            rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
           )
         )
       end
@@ -52,17 +52,6 @@ module Referrals
       end
 
       "Not answered"
-    end
-
-    def detail_type
-      case referral.previous_misconduct_format
-      when "details"
-        referral.previous_misconduct_details.present? ? "Describe the allegation" : "Incomplete"
-      when "upload"
-        referral.previous_misconduct_upload.attached? ? "Upload file" : "Incomplete"
-      else
-        "Not answered"
-      end
     end
 
     def section

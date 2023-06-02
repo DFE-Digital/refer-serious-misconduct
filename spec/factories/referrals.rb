@@ -56,8 +56,17 @@ FactoryBot.define do
       allegation_format { "upload" }
       duties_format { "upload" }
 
-      allegation_upload { Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf") }
-      duties_upload { Rack::Test::UploadedFile.new("spec/fixtures/files/upload2.pdf") }
+      after(:create) do |referral|
+        referral.uploads.create(
+          section: "allegation",
+          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf")
+        )
+
+        referral.uploads.create(
+          section: "duties",
+          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload2.pdf")
+        )
+      end
     end
 
     trait :with_pdf do
@@ -156,10 +165,11 @@ FactoryBot.define do
       previous_misconduct_complete { true }
       previous_misconduct_reported { "true" }
       previous_misconduct_format { "upload" }
-      previous_misconduct_upload do
-        Rack::Test::UploadedFile.new(
-          Rails.root.join("spec/fixtures/files/upload1.pdf"),
-          "application/pdf"
+
+      after(:create) do |referral|
+        referral.uploads.create(
+          section: "previous_misconduct",
+          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf", "application/pdf")
         )
       end
     end
