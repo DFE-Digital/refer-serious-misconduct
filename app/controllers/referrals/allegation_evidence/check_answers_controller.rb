@@ -26,13 +26,12 @@ module Referrals
       end
 
       def destroy
-        filename = evidence.filename
-        evidence.document.purge
+        filename = evidence.file.filename
         evidence.destroy
 
         subsection =
           (
-            if current_referral.evidences.any?
+            if current_referral.evidence_uploads.any?
               :allegation_evidence_uploaded
             else
               :allegation_evidence_upload
@@ -43,7 +42,7 @@ module Referrals
       end
 
       def evidence
-        @evidence ||= current_referral.evidences.find(params[:allegation_evidence_id])
+        @evidence ||= current_referral.evidence_uploads.find(params[:allegation_evidence_id])
       end
       helper_method :evidence
 

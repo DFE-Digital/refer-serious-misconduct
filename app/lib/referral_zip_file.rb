@@ -59,6 +59,6 @@ class ReferralZipFile
       referral.pdf
     ].compact
 
-    files + referral.evidences.map(&:document)
+    files + referral.evidence_uploads.map(&:file)
   end
 end

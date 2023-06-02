@@ -17,7 +17,7 @@
       <div class="govuk-form-group">
         <%= f.govuk_radio_buttons_fieldset(:previous_misconduct_format, legend: { size: "m", text: "How do you want to give details about previous allegations?" }) do %>
           <%= f.govuk_radio_button :previous_misconduct_format, "upload", label: { text: "Upload file" }, link_errors: true do %>
-            <% if current_referral.previous_misconduct_upload_file %>
+            <% if current_referral.previous_misconduct_upload %>
               <div class="app-uploaded-file">
                 <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
                     Currently uploaded file

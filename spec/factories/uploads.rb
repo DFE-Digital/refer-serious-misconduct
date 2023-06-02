@@ -13,5 +13,11 @@ FactoryBot.define do
       uploadable_type { "Referral" }
       section { "duties" }
     end
+
+    trait :evidence do
+      association :uploadable, factory: :referral
+      uploadable_type { "Referral" }
+      section { "evidence" }
+    end
   end
 end

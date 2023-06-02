@@ -1,15 +1,15 @@
 <div class="app-panel" id="evidence">
   <h2 class="govuk-heading-m">Evidence and supporting information</h2>
   <%= govuk_summary_list(rows: ManageInterface::AllegationEvidenceComponent.new(referral:).rows) %>
-  <% if referral.evidences.any? %>
+  <% if referral.evidence_uploads.any? %>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Uploaded files</dt>
           <dd class="govuk-summary-list__value">
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-              <% referral.evidences.map do |evidence| %>
+              <% referral.evidence_uploads.map do |evidence_upload| %>
                 <li class="govuk-!-margin-bottom-0">
-                  <%= govuk_link_to(evidence.filename, rails_blob_path(evidence.document, disposition: "attachment")) %>
+                  <%= govuk_link_to(evidence_upload.name, rails_blob_path(evidence_upload.file, disposition: "attachment")) %>
                 </li>
               <% end %>
             </ul>

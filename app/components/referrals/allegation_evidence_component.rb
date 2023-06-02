@@ -22,15 +22,15 @@ module Referrals
     end
 
     def evidence_text
-      return "Not answered" if referral.evidences.empty?
+      return "Not answered" if referral.evidence_uploads.empty?
 
       tag.ul(class: "govuk-list govuk-list--bullet govuk-!-margin-bottom-0") do
-        referral.evidences.map do |evidence|
+        referral.evidence_uploads.map do |evidence_upload|
           concat(
             tag.li(class: "govuk-!-margin-bottom-0") do
               govuk_link_to(
-                evidence.filename,
-                rails_blob_path(evidence.document, disposition: "attachment")
+                evidence_upload.name,
+                rails_blob_path(evidence_upload.file, disposition: "attachment")
               )
             end
           )

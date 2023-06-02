@@ -29,10 +29,12 @@ class Referral < ApplicationRecord
           dependent: :destroy
   delegate :file, to: :previous_misconduct_upload, prefix: true, allow_nil: true
 
-  has_many :evidences,
-           -> { order(:created_at) },
-           class_name: "ReferralEvidence",
+  has_many :evidence_uploads,
+           -> { where(section: "evidence") },
+           class_name: "Upload",
+           foreign_key: :uploadable_id,
            dependent: :destroy
+
   has_many :reminder_emails, dependent: :destroy
 
   scope :employer,

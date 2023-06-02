@@ -204,17 +204,17 @@ RSpec.feature "Evidence", type: :system do
     expect_summary_row(key: "Uploaded evidence", value: "upload1.pdf\nupload2.pdf\nupload.txt")
     expect(page).to have_link(
       "upload1.pdf",
-      href: rails_blob_path(@referral.evidences.first.document, disposition: "attachment")
+      href: rails_blob_path(@referral.evidence_uploads.first.file, disposition: "attachment")
     )
 
     expect(page).to have_link(
       "upload2.pdf",
-      href: rails_blob_path(@referral.evidences.second.document, disposition: "attachment")
+      href: rails_blob_path(@referral.evidence_uploads.second.file, disposition: "attachment")
     )
 
     expect(page).to have_link(
       "upload.txt",
-      href: rails_blob_path(@referral.evidences.last.document, disposition: "attachment")
+      href: rails_blob_path(@referral.evidence_uploads.last.file, disposition: "attachment")
     )
   end
 

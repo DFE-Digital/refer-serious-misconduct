@@ -38,7 +38,7 @@ module Referrals
     end
 
     def report
-      if referral.previous_misconduct_upload_file
+      if referral.previous_misconduct_upload
         return(
           govuk_link_to(
             referral.previous_misconduct_upload.name,

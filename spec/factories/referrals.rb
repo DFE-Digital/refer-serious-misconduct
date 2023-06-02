@@ -178,7 +178,12 @@ FactoryBot.define do
       evidence_details_complete { true }
       has_evidence { true }
 
-      after(:create) { |referral| create(:referral_evidence, referral:) }
+      after(:create) do |referral|
+        referral.uploads.create(
+          section: "evidence",
+          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf", "application/pdf")
+        )
+      end
     end
   end
 end
