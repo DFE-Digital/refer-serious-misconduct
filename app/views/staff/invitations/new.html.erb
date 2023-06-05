@@ -9,7 +9,7 @@
 
       <%= f.govuk_text_field :email, label: { text: "Email address", size: "m" } %>
 
-      <%= f.govuk_check_boxes_fieldset :permissions, legend: { text: "Permissions", size: "m" } do %>
+      <%= f.govuk_check_boxes_fieldset :permissions, multiple: false, legend: { text: "Permissions", size: "m" } do %>
         <%= f.govuk_check_box :view_support, 1, multiple: false,  label: { text: "view support" } %>
         <%= f.govuk_check_box :manage_referrals, 1, multiple: false, label: { text: "manage referrals" } %>
       <% end %>

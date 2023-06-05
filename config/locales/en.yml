@@ -36,6 +36,11 @@ en:
         heading: You need to request another confirmation code
         body: This is because you entered an incorrect code 5 times.
 
+  staff:
+    omniauth_callbacks:
+      azure_activedirectory_v2:
+        failure: "There was a problem signing you in. Please try again."
+
   activemodel:
     errors:
       models:

@@ -10,6 +10,7 @@
 
       <%= f.govuk_submit "Sign in" %>
     <% end %>
+
+    <%= govuk_button_to "Sign in with Active Directory", omniauth_authorize_path(:staff, :azure_activedirectory_v2), method: :post, data: { turbo: "false" } %>
   </div>
 </div>
-

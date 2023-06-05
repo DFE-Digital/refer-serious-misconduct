@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       invitations: "staff/invitations",
       passwords: "staff/passwords",
       sessions: "staff/sessions",
-      unlocks: "staff/unlocks"
+      unlocks: "staff/unlocks",
+      omniauth_callbacks: "staff/omniauth_callbacks"
     },
     path: "",
     path_names: {

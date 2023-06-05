@@ -234,6 +234,7 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
+    hashie (5.0.0)
     html-attributes-utils (1.0.0)
       activesupport (>= 6.1.4.4)
     httpclient (2.8.3)
@@ -278,6 +279,7 @@ GEM
     minitest (5.18.0)
     msgpack (1.6.0)
     multi_json (1.15.0)
+    multi_xml (0.6.0)
     multipart-post (2.3.0)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
@@ -296,7 +298,26 @@ GEM
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
     okcomputer (1.18.4)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-azure-activedirectory-v2 (2.0.1)
+      omniauth-oauth2 (~> 1.8)
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     optimist (3.0.1)
     orm_adapter (0.5.0)
     os (1.1.4)
@@ -328,6 +349,8 @@ GEM
     rack (2.2.7)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
+    rack-protection (3.0.6)
+      rack
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.5)
@@ -464,6 +487,9 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     solargraph (0.48.0)
       backport (~> 1.2)
       benchmark
@@ -506,6 +532,7 @@ GEM
     uber (0.1.0)
     uk_postcode (2.1.8)
     unicode-display_width (2.4.2)
+    version_gem (1.1.2)
     view_component (3.0.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -553,6 +580,8 @@ DEPENDENCIES
   logstop
   mail-notify
   okcomputer (~> 1.18)
+  omniauth-azure-activedirectory-v2 (~> 2.0)
+  omniauth-rails_csrf_protection (~> 1.0)
   pagy
   pg (~> 1.5)
   prettier_print
