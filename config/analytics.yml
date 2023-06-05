@@ -189,3 +189,4 @@ shared:
     - uploadable_id
     - created_at
     - updated_at
+    - malware_scan_result

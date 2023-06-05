@@ -18,7 +18,7 @@
                 <p>
                   <%= govuk_link_to(
                     "#{current_referral.duties_upload.filename} (#{file_size(current_referral.duties_upload_file)})",
-                    rails_blob_path(current_referral.duties_upload_file, disposition: "attachment")
+                    file_upload_path(current_referral.duties_upload)
                     )
                   %>
                 </p>

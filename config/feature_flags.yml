@@ -25,3 +25,8 @@ feature_flags:
     author: Sebastian Zaremba
     description: Send the reminder emails 7 days before deletion for unsubmitted
       referrals that weren't updated in 83 days.
+  malware_scan:
+    author: Sebastian Zaremba
+    description: >
+      Fetch malware scan results for uploaded files.
+      This flag should only be active for environments where malware scanning is enabled.
