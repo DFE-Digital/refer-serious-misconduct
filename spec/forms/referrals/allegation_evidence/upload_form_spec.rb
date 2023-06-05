@@ -33,7 +33,7 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
     end
 
     it "sets the correct filename" do
-      expect(referral.evidence_uploads.first.name).to eq("upload1.pdf")
+      expect(referral.evidence_uploads.first.filename).to eq("upload1.pdf")
     end
 
     context "with no values" do
@@ -61,7 +61,9 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
         upload_form.evidence_uploads = [fixture_file_upload("upload.txt")]
         expect { upload_form.save }.to change(referral.evidence_uploads, :size).by(1)
         expect(referral.evidence_uploads.size).to eq(3)
-        expect(referral.evidence_uploads.map(&:name)).to eq(%w[upload1.pdf upload2.pdf upload.txt])
+        expect(referral.evidence_uploads.map(&:filename)).to eq(
+          %w[upload1.pdf upload2.pdf upload.txt]
+        )
       end
 
       it "validates that the maximum number of files is not exceeded" do

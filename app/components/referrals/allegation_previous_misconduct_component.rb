@@ -42,7 +42,7 @@ module Referrals
         return(
           govuk_link_to(
             referral.previous_misconduct_upload.filename,
-            rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
+            file_upload_path(referral.previous_misconduct_upload)
           )
         )
       end

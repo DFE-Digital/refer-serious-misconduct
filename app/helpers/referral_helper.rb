@@ -18,10 +18,7 @@ module ReferralHelper
       referral.duties_details.present? ? simple_format(referral.duties_details) : "Incomplete"
     when "upload"
       if referral.duties_upload
-        govuk_link_to(
-          referral.duties_upload.filename,
-          rails_blob_path(referral.duties_upload_file, disposition: "attachment")
-        )
+        govuk_link_to(referral.duties_upload.filename, file_upload_path(referral.duties_upload))
       else
         "Incomplete"
       end
@@ -66,7 +63,7 @@ module ReferralHelper
       if referral.allegation_upload
         govuk_link_to(
           referral.allegation_upload.filename,
-          rails_blob_path(referral.allegation_upload_file, disposition: "attachment")
+          file_upload_path(referral.allegation_upload)
         )
       else
         "Incomplete"
@@ -91,7 +88,7 @@ module ReferralHelper
     if referral.previous_misconduct_upload
       govuk_link_to(
         referral.previous_misconduct_upload.filename,
-        rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
+        file_upload_path(referral.previous_misconduct_upload)
       )
     elsif referral.previous_misconduct_details.present?
       simple_format(referral.previous_misconduct_details)
@@ -154,5 +151,18 @@ module ReferralHelper
     href = polymorphic_path(expanded_path, return_to: return_to_path)
 
     { text: "Change", href:, visually_hidden_text: }
+  end
+
+  def file_upload_path(upload)
+    if FeatureFlags::FeatureFlag.active?(:malware_scan)
+      if upload.scan_result_pending? || upload.scan_result_error?
+        return malware_scan_pending_path(upload.id)
+      end
+      return malware_scan_suspect_path(upload.id) if upload.scan_result_suspect?
+    end
+
+    return unless upload.file.attached?
+
+    rails_blob_path(upload.file, disposition: :attachment, only_path: true)
   end
 end

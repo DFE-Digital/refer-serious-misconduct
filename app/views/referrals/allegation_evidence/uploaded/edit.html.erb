@@ -18,7 +18,7 @@
               File <%= idx + 1 %>
             </dt>
             <dd class="govuk-summary-list__value">
-              <%= govuk_link_to(evidence.name, rails_blob_path(evidence.file, disposition: "attachment")) %>
+              <%= govuk_link_to(evidence.filename, file_upload_path(evidence)) %>
             </dd>
             <dd class="govuk-summary-list__actions">
               <%= govuk_link_to(referral_allegation_evidence_delete_path(current_referral, evidence, return_to: request.url)) do %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_25_101522) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_104919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -221,6 +221,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_101522) do
     t.bigint "uploadable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "malware_scan_result", default: "pending", null: false
     t.index %w[uploadable_type uploadable_id], name: "index_uploads_on_uploadable"
   end
 

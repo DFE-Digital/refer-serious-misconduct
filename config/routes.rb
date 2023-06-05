@@ -264,6 +264,9 @@ Rails.application.routes.draw do
     resources :referrals, only: %i[index show]
   end
 
+  get "malware-scan/:upload_id/pending", to: "malware_scan#pending", as: :malware_scan_pending
+  get "malware-scan/:upload_id/suspect", to: "malware_scan#suspect", as: :malware_scan_suspect
+
   get "/accessibility", to: "static#accessibility"
   get "/cookies", to: "static#cookies"
   get "/privacy", to: "static#privacy"

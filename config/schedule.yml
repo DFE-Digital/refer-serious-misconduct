@@ -5,3 +5,7 @@ delete_draft_referrals:
 draft_referral_reminder:
   cron: "every day at 9 am"
   class: "DraftReferralsReminderJob"
+
+fetch_malware_scan_results:
+  cron: "*/30 * * * *"
+  class: FetchMalwareScanResultsJob
