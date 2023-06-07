@@ -31,11 +31,12 @@ class ReferralZipFile
 
         blob = attachment.blob
         temp_attachment = Tempfile.new(blob.filename.sanitized)
+        zip_folder = attachment.record.is_a?(Upload) ? attachment.record.section : "pdf"
 
         File.open(temp_attachment, "wb+") { |file| blob.download { |chunk| file.write(chunk) } }
 
         zip.add(
-          "#{attachment.name}/#{attachment.record.id}-#{attachment.filename}",
+          "#{zip_folder}/#{attachment.record.id}-#{attachment.filename}",
           File.join(temp_attachment.path)
         )
 
