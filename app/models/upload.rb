@@ -1,4 +1,6 @@
 class Upload < ApplicationRecord
+  after_create_commit :save_filename
+
   belongs_to :uploadable, polymorphic: true
   has_one_attached :file, dependent: :purge_later
   validates :file, presence: true
@@ -12,5 +14,9 @@ class Upload < ApplicationRecord
 
   def name
     file.filename.to_s
+  end
+
+  def save_filename
+    update(filename: file.filename.to_s)
   end
 end

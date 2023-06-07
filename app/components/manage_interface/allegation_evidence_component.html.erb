@@ -9,7 +9,7 @@
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
               <% referral.evidence_uploads.map do |evidence_upload| %>
                 <li class="govuk-!-margin-bottom-0">
-                  <%= govuk_link_to(evidence_upload.name, rails_blob_path(evidence_upload.file, disposition: "attachment")) %>
+                  <%= govuk_link_to(evidence_upload.filename, rails_blob_path(evidence_upload.file, disposition: "attachment")) %>
                 </li>
               <% end %>
             </ul>

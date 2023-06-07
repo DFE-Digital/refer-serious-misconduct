@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :upload do
+    association :uploadable, factory: :referral
+
     file { Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf") }
 
     trait :allegation do

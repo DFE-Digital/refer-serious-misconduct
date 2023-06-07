@@ -184,6 +184,7 @@ shared:
   :uploads:
     - id
     - section
+    - filename
     - uploadable_type
     - uploadable_id
     - created_at

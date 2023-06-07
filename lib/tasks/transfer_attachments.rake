@@ -8,7 +8,7 @@ task transfer_attachments: :environment do
 
     ActiveRecord::Base.transaction do
       attachments.each do |attachment|
-        upload = attachment.record.uploads.new(section:)
+        upload = attachment.record.uploads.new(section:, filename: attachment.filename.to_s)
         upload.save(validate: false)
         attachment.update(record: upload, record_type: "Upload", name: "file")
       end
@@ -19,7 +19,11 @@ task transfer_attachments: :environment do
 
   ActiveRecord::Base.transaction do
     attachments.each do |attachment|
-      upload = attachment.record.referral.uploads.new(section: "evidence")
+      upload =
+        attachment.record.referral.uploads.new(
+          section: "evidence",
+          filename: attachment.filename.to_s
+        )
       upload.save(validate: false)
       attachment.update(record: upload, record_type: "Upload", name: "file")
     end
