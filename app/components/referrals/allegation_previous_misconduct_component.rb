@@ -41,7 +41,7 @@ module Referrals
       if referral.previous_misconduct_upload
         return(
           govuk_link_to(
-            referral.previous_misconduct_upload.name,
+            referral.previous_misconduct_upload.filename,
             rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
           )
         )

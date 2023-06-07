@@ -216,6 +216,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_25_101522) do
 
   create_table "uploads", force: :cascade do |t|
     t.string "section", null: false
+    t.string "filename", null: false, default: ""
     t.string "uploadable_type"
     t.bigint "uploadable_id"
     t.datetime "created_at", null: false

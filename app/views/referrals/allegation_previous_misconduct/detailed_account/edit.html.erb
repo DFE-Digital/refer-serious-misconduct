@@ -24,7 +24,7 @@
                 </h2>
                 <p>
                   <%= govuk_link_to(
-                    "#{current_referral.previous_misconduct_upload.name} (#{file_size(current_referral.previous_misconduct_upload_file)})",
+                    "#{current_referral.previous_misconduct_upload.filename} (#{file_size(current_referral.previous_misconduct_upload_file)})",
                     rails_blob_path(current_referral.previous_misconduct_upload_file, disposition: "attachment")
                     )
                   %>

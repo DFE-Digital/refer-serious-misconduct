@@ -19,7 +19,7 @@ module ReferralHelper
     when "upload"
       if referral.duties_upload
         govuk_link_to(
-          referral.duties_upload.name,
+          referral.duties_upload.filename,
           rails_blob_path(referral.duties_upload_file, disposition: "attachment")
         )
       else
@@ -65,7 +65,7 @@ module ReferralHelper
     when "upload"
       if referral.allegation_upload
         govuk_link_to(
-          referral.allegation_upload.name,
+          referral.allegation_upload.filename,
           rails_blob_path(referral.allegation_upload_file, disposition: "attachment")
         )
       else
@@ -90,7 +90,7 @@ module ReferralHelper
   def previous_allegation_details(referral)
     if referral.previous_misconduct_upload
       govuk_link_to(
-        referral.previous_misconduct_upload.name,
+        referral.previous_misconduct_upload.filename,
         rails_blob_path(referral.previous_misconduct_upload_file, disposition: "attachment")
       )
     elsif referral.previous_misconduct_details.present?

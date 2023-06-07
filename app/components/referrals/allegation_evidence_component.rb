@@ -29,7 +29,7 @@ module Referrals
           concat(
             tag.li(class: "govuk-!-margin-bottom-0") do
               govuk_link_to(
-                evidence_upload.name,
+                evidence_upload.filename,
                 rails_blob_path(evidence_upload.file, disposition: "attachment")
               )
             end
