@@ -9,6 +9,8 @@ class Staff < ApplicationRecord
     :timeoutable,
     :trackable,
     :validatable,
+    :omniauthable,
+    omniauth_providers: [:azure_activedirectory_v2],
     validate_on_invite: true
   )
 

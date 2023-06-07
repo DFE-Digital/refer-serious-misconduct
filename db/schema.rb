@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_115841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -205,6 +205,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
     t.boolean "view_support", default: false
     t.boolean "manage_referrals", default: false
     t.datetime "deleted_at", precision: nil
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_staff_on_confirmation_token", unique: true
     t.index ["email"], name: "index_staff_on_email", unique: true
     t.index ["invitation_token"], name: "index_staff_on_invitation_token", unique: true
@@ -246,5 +248,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_092509) do
   add_foreign_key "referrals", "eligibility_checks"
   add_foreign_key "referrals", "users"
   add_foreign_key "referrers", "referrals"
-  add_foreign_key "reminder_emails", "referrals", column: "referral_id"
+  add_foreign_key "reminder_emails", "referrals"
 end

@@ -270,6 +270,23 @@ The Chromium version available inside Alpine needs to be kept in sync with the p
 [Alpine lastest chromium versions](https://pkgs.alpinelinux.org/packages?name=chromium&branch=edge&repo=&arch=&maintainer=)
 [Puppeteer releases](https://github.com/puppeteer/puppeteer/releases)
 
+### OAuth Active Directory Single Sign On
+
+OAuth based Active Directory Sign in is available for Manage.
+
+See [this guide](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-app-types#web-apps) for a high-level overview
+
+We followed [this guide](https://blog.corsego.com/microsoft-azure-omniauth) to set it up
+
+To test the flow you can add an app registration in the azure portal as per the the guide above and add the Client ID and secret to `.env.development.local` as per `.env.development`
+
+Step by step this is how the flow should work:
+
+1. On the manage sign in `manage/sign-in` click the SSO sign in button which POSTs to `/auth/azure_activedirectory_v2` this hits `staff/omniauth_callbacks#passthru` which is an endpoint in the devise gem
+1. That then redirects to login.microsoftonline.com which asks the user to sign in to AD and authorise the app
+1. MS then redirects us to `/auth/azure_activedirectory_v2/callback` which hits `app/controllers/staff/omniauth_callbacks_controller.rb` with the users data
+1. We check a user already exists in the db with that email and sign them in if so
+
 ## Licence
 
 [MIT Licence](LICENCE).
