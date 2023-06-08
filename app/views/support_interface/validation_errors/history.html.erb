@@ -1,0 +1,31 @@
+<% content_for :page_title, "Validation Errors for #{humanized_form_object(@form_object)} - #{@attribute.underscore.titleize.gsub('.', ' ')}" %>
+<% content_for :back_link_url, support_interface_validation_errors_path %>
+
+<h1 class="govuk-heading-l">Validation errors for <%= humanized_form_object(@form_object) %> - <%= @attribute.underscore.titleize.gsub('.', ' ') %></h1>
+
+<table class="govuk-table" summary="Attribute error">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Value</th>
+      <th scope="col" class="govuk-table__header">Messages</th>
+      <th scope="col" class="govuk-table__header govuk-table__header--numeric">Created at</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+  <% @errors_with_attribute_extracted.each do |error| %>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <% if error.value %>
+          "<%= error.value.to_s %>"
+        <% end %>
+      </td>
+      <td class="govuk-table__cell">
+        <%= simple_format error.messages&.join("\n") %>
+      </td>
+      <td class="govuk-table__cell govuk-table__header--numeric">
+        <%= error.created_at.to_fs(:day_month_year_time) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

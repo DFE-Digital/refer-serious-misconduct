@@ -246,7 +246,9 @@ Rails.application.routes.draw do
     resources :test_users, only: %i[index create] do
       put "/authenticate", on: :member, to: "test_users#authenticate"
     end
-    resources :validation_errors, only: %i[index]
+    resources :validation_errors, only: %i[index] do
+      get :history, on: :collection
+    end
 
     mount FeatureFlags::Engine => "/features"
 

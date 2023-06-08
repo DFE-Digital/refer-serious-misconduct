@@ -13,7 +13,7 @@ class ReferralForm
   end
 
   def submit
-    return false if !valid? || referral.submitted?
+    return false if !valid_without_tracking? || referral.submitted?
 
     referral.submit
   end

@@ -47,10 +47,6 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     expect(page).to have_content("You must agree to the declaration")
   end
 
-  def then_i_see_the_missing_sections_error
-    expect(page).to have_content("Complete all sections of the referral")
-  end
-
   def when_i_click_send_referral
     click_on "Agree and send referral"
   end
