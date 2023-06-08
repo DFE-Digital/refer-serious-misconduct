@@ -10,8 +10,8 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
     let(:evidence_uploads) do
       [
         "",
-        fixture_file_upload("spec/fixtures/files/upload2.pdf"),
-        fixture_file_upload("spec/fixtures/files/upload1.pdf")
+        fixture_file_upload("spec/fixtures/files/upload1.pdf"),
+        fixture_file_upload("spec/fixtures/files/upload2.pdf")
       ]
     end
 

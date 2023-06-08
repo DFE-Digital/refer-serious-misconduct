@@ -23,10 +23,9 @@ module Referrals
           return false
         end
 
-        evidence_uploads
-          .compact_blank
-          .sort_by(&:original_filename)
-          .map { |upload| referral.uploads.create!(section: "evidence", file: upload) }
+        evidence_uploads.compact_blank.map do |upload|
+          referral.uploads.create!(section: "evidence", file: upload)
+        end
       end
     end
   end
