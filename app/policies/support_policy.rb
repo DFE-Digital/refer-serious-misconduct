@@ -34,4 +34,8 @@ class SupportPolicy < ApplicationPolicy
   def deactivate?
     user.view_support?
   end
+
+  def history?
+    user.view_support?
+  end
 end

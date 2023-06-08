@@ -11,4 +11,16 @@ class ValidationError < ApplicationRecord
 
     distinct_errors.tally.sort_by { |_a, b| b }.reverse
   end
+
+  def self.extract_attribute_from_errors(errors, attribute)
+    errors.filter_map do |error|
+      if error.details[attribute]
+        OpenStruct.new(
+          created_at: error.created_at,
+          messages: error.details.dig(attribute, "messages"),
+          value: error.details.dig(attribute, "value")
+        )
+      end
+    end
+  end
 end

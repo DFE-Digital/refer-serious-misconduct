@@ -25,11 +25,10 @@ module ValidationTracking
   end
 
   def validation_error_details
-    errors.messages.map do |field, messages|
-      [field, { messages:, value: filtered_field_value(field) }]
-    end
+    errors.messages.map { |field, messages| [field, { messages:, value: value_for_field(field) }] }
   end
 
+  # Should we need to filter out any PII from the validation error details in future, we can do so here.
   def filtered_field_value(field)
     ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters).filter(
       field => value_for_field(field)
@@ -39,8 +38,8 @@ module ValidationTracking
   end
 
   def value_for_field(field)
-    return "base" if field == :base
-    return field.to_s.delete("section.") if field.to_s.start_with?("section.")
+    return if field == :base
+    return if field.to_s.start_with?("section.")
 
     public_send(field)
   end
