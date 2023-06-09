@@ -8,6 +8,10 @@ class Referral < ApplicationRecord
 
   has_many :uploads, as: :uploadable
 
+  # TODO: This is a temporary association to allow us to delete referrals that have been created
+  # but not submitted. Once we delete the referral_evidences table we can remove this association.
+  has_many :referral_evidences, dependent: :destroy
+
   has_one :allegation_upload,
           -> { where(section: "allegation").order(created_at: :desc) },
           class_name: "Upload",
