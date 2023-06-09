@@ -2,7 +2,6 @@
 require "spec_helper"
 require "capybara/rspec"
 require "capybara/cuprite"
-require "support/common"
 
 Capybara.javascript_driver = :cuprite
 Capybara.always_include_port = false
@@ -28,7 +27,7 @@ RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
   end
 
   def when_i_visit_the_service
-    retry_block(error: Ferrum::TimeoutError) { page.visit("#{ENV["HOSTING_DOMAIN"]}/start") }
+    page.visit("#{ENV["HOSTING_DOMAIN"]}/start")
   end
 
   def then_it_loads_successfully
