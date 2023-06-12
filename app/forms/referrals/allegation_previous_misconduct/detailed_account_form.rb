@@ -12,11 +12,16 @@ module Referrals
       validates :previous_misconduct_upload_file,
                 presence: true,
                 if: -> {
-                  previous_misconduct_format == "upload" && !referral.previous_misconduct_upload
+                  (
+                    previous_misconduct_format == "upload" && !referral.previous_misconduct_upload
+                  ) && !referral.previous_misconduct_upload&.scan_result_suspect?
                 }
       validates :previous_misconduct_upload_file,
                 file_upload: true,
-                if: -> { previous_misconduct_format == "upload" }
+                if: -> {
+                  previous_misconduct_format == "upload" &&
+                    !referral.previous_misconduct_upload&.scan_result_suspect?
+                }
 
       def save
         return false unless valid?
