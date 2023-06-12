@@ -7,9 +7,14 @@ module Referrals
       validates :allegation_upload_file,
                 presence: true,
                 if: -> {
-                  allegation_format == "upload" && !referral.allegation_upload_file&.attached?
+                  (allegation_format == "upload" && !referral.allegation_upload_file&.attached?) &&
+                    !referral.allegation_upload&.scan_result_suspect?
                 }
-      validates :allegation_upload_file, file_upload: true, if: -> { allegation_format == "upload" }
+      validates :allegation_upload_file,
+                file_upload: true,
+                if: -> {
+                  allegation_format == "upload" && !referral.allegation_upload&.scan_result_suspect?
+                }
 
       attr_referral :allegation_details, :allegation_format, :allegation_upload_file
 
