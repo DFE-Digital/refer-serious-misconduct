@@ -201,9 +201,7 @@ RSpec.feature "Evidence", type: :system do
   def then_i_am_asked_to_confirm_the_evidence_details
     expect(page).to have_content("Check and confirm your answers")
 
-    expect_summary_row(key: "Uploaded evidence", value: "upload1.pdf")
-    expect_summary_row(key: "Uploaded evidence", value: "upload2.pdf")
-    expect_summary_row(key: "Uploaded evidence", value: "upload.txt")
+    expect_summary_row(key: "Uploaded evidence", value: "upload1.pdf\nupload2.pdf\nupload.txt")
 
     expect(page).to have_link(
       "upload1.pdf",

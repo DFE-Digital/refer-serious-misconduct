@@ -34,7 +34,7 @@ class Referral < ApplicationRecord
   delegate :file, to: :previous_misconduct_upload, prefix: true, allow_nil: true
 
   has_many :evidence_uploads,
-           -> { where(section: "evidence") },
+           -> { where(section: "evidence").order(:created_at) },
            class_name: "Upload",
            foreign_key: :uploadable_id,
            dependent: :destroy
