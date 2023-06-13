@@ -36,7 +36,12 @@ runs:
         key: GOVUK_NOTIFY_API_KEY,SUPPORT_USERNAME,SUPPORT_PASSWORD
 
     # Run deployment smoke test
-    - run: bin/smoke
+    - uses: nick-fields/retry@v2.8.3
+      with:
+        max_attempts: 5
+        timeout_minutes: 3
+        command: bin/smoke
+        shell: bash
       env:
         HOSTING_DOMAIN: ${{ inputs.url }}
         HOSTING_ENVIRONMENT_NAME: ${{ inputs.environment }}
@@ -44,4 +49,3 @@ runs:
         SUPPORT_USERNAME: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_USERNAME }}
         SUPPORT_PASSWORD: ${{ steps.keyvault-yaml-secret.outputs.SUPPORT_PASSWORD }}
         CUPRITE_TIMEOUT: 60
-      shell: bash
