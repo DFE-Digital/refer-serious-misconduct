@@ -5,7 +5,7 @@
     "esbuild": "^0.18.1",
     "govuk-frontend": "4.6.0",
     "sass": "^1.63.3",
-    "puppeteer": "^20.5.0"
+    "puppeteer": "^20.6.0"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/main.scss:./app/assets/builds/main.css --no-source-map --load-path=node_modules --quiet-deps",
