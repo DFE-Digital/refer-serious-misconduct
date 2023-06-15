@@ -27,10 +27,10 @@ All environments have continuous deployment, the state of which can be inspected
 ## Dependencies
 
 - Ruby 3.x
-- Node.js 16.x
+- Node.js > 16.x
 - Yarn 1.22.x
 - PostgreSQL 13.x
-- Redis 6.x
+- Redis > 6.x
 
 ## Local development dependencies
 
