@@ -37,12 +37,6 @@ shared:
     - job_title
     - last_name
     - complete
-  :referral_evidences:
-    - id
-    - filename
-    - referral_id
-    - created_at
-    - updated_at
   :referrals:
     - id
     - created_at

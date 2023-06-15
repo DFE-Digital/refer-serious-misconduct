@@ -8,8 +8,6 @@
     - first_name
     - phone
     - last_name
-  :referral_evidences:
-    - filename
   :referrals:
     - first_name
     - last_name
