@@ -3,6 +3,9 @@
 # production: runs the actual app
 
 # Build builder image
+# WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED 
+# Get the version `apk list chromium` in the running image and then update package.json https://pptr.dev/chromium-support#
+# This is used for rendering PDFs
 FROM ruby:3.2.2-alpine as builder
 
 WORKDIR /app
