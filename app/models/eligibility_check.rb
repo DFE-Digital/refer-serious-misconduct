@@ -14,12 +14,6 @@ class EligibilityCheck < ApplicationRecord
             .or(where.not(unsupervised_teaching: "no"))
             .or(where.not(serious_misconduct: "no"))
         }
-  scope :ineligible,
-        -> {
-          where(unsupervised_teaching: "no").or(where(serious_misconduct: "no")).or(
-            where(teaching_in_england: "no")
-          )
-        }
   scope :previous_7_days, -> { where(created_at: 1.week.ago.beginning_of_day..) }
 
   def is_teacher?
