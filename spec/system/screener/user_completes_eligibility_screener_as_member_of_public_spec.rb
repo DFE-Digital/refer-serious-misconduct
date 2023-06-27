@@ -16,19 +16,6 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_a_validation_error
     when_i_choose_referring_as_public
     when_i_press_continue
-    then_i_see_the_have_you_complained_page
-
-    when_i_press_continue
-    then_i_see_a_validation_error
-    when_i_choose_no
-    when_i_press_continue
-    then_i_see_the_you_should_complain_page
-    when_i_press_continue_without_complaint
-    then_i_see_the_is_a_teacher_page
-
-    when_i_go_back
-    when_i_choose_yes_i_have_complained
-    when_i_press_continue
     then_i_see_the_is_a_teacher_page
 
     when_i_press_continue
@@ -91,19 +78,6 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_title("Are you making a referral as an employer or member of the public?")
     expect(page).to have_content(
       "Are you making a referral as an employer or member of the public?"
-    )
-  end
-
-  def then_i_see_the_have_you_complained_page
-    expect(page).to have_current_path("/have-you-complained")
-    expect(page).to have_title(
-      [
-        "Have you already made a complaint to the school, school governors or your local council?",
-        "Refer serious misconduct by a teacher in England"
-      ].join(" - ")
-    )
-    expect(page).to have_content(
-      "Have you already made a complaint to the school, school governors or your local council?"
     )
   end
 
@@ -212,10 +186,6 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_choose_yes
     choose "Yes", visible: false
-  end
-
-  def when_i_choose_yes_i_have_complained
-    choose "Yes, I’ve already made a complaint", visible: false
   end
 
   def when_i_go_back

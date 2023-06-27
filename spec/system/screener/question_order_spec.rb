@@ -60,10 +60,6 @@ RSpec.feature "Question order", type: :system do
 
   private
 
-  def then_i_see_the_have_you_complained_page
-    expect(page).to have_current_path("/have-you-complained")
-  end
-
   def then_i_see_the_is_a_teacher_page
     expect(page).to have_current_path("/is-a-teacher")
   end
@@ -135,10 +131,6 @@ RSpec.feature "Question order", type: :system do
 
   def when_i_visit_the_unsupervised_teaching_page
     visit unsupervised_teaching_path
-  end
-
-  def when_i_visit_the_have_you_complained_page
-    visit have_you_complained_path
   end
 
   def when_i_visit_the_is_a_teacher_page

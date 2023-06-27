@@ -30,11 +30,6 @@ module EnforceQuestionOrder
   def questions
     [
       { path: referral_type_path, needs_answer: true, answered: referral_type_answered? },
-      {
-        path: have_you_complained_path,
-        needs_answer: eligibility_check.reporting_as_public?,
-        answered: complained_answered?
-      },
       { path: is_a_teacher_path, needs_answer: true, answered: is_a_teacher_answered? },
       {
         path: unsupervised_teaching_path,
@@ -72,10 +67,6 @@ module EnforceQuestionOrder
 
   def referral_type_answered?
     !eligibility_check.reporting_as.nil?
-  end
-
-  def complained_answered?
-    !eligibility_check.complained.nil?
   end
 
   def unsupervised_teaching_answered?

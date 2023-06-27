@@ -92,10 +92,6 @@ en:
           attributes:
             registration_exists:
               inclusion: Select yes if you have an account
-        "eligibility_screener/have_complained_form":
-          attributes:
-            complained:
-              inclusion: Select yes if you’ve already made a complaint to the school, school governors or your local council
         "eligibility_screener/is_teacher_form":
           attributes:
             is_teacher:
