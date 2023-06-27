@@ -46,7 +46,11 @@ module EnforceQuestionOrder
   end
 
   def next_question_path
-    next_question&.dig(:path) || you_should_know_path
+    next_question&.dig(:path) || final_page_path
+  end
+
+  def final_page_path
+    eligibility_check.continue_with_referral? ? you_should_know_path : make_a_complaint_path
   end
 
   def all_previous_question_answered?
@@ -82,6 +86,6 @@ module EnforceQuestionOrder
   end
 
   def serious_misconduct_answered?
-    !eligibility_check.serious_misconduct.nil?
+    !eligibility_check.continue_with.nil?
   end
 end

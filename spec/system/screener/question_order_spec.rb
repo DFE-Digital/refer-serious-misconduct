@@ -53,7 +53,7 @@ RSpec.feature "Question order", type: :system do
     when_i_press_continue
     then_i_see_the_serious_misconduct_page
 
-    when_i_choose_yes
+    when_i_choose_refer_serious_misconduct
     when_i_press_continue
     then_i_see_the_you_should_know_page
   end
@@ -99,6 +99,10 @@ RSpec.feature "Question order", type: :system do
 
   def when_i_choose_yes
     choose "Yes", visible: false
+  end
+
+  def when_i_choose_refer_serious_misconduct
+    choose "Refer serious misconduct", visible: false
   end
 
   def when_i_press_continue

@@ -53,12 +53,11 @@ RSpec.feature "Eligibility screener", type: :system do
 
     when_i_press_continue
     then_i_see_a_validation_error
-    when_i_choose_not_sure
-    when_i_choose_no
+    when_i_choose_make_a_complaint
     when_i_press_continue
-    then_i_see_the_not_serious_misconduct_page
+    then_i_see_the_make_a_complaint_page
     when_i_go_back
-    when_i_choose_yes
+    when_i_choose_refer_serious_misconduct
     when_i_press_continue
     then_i_see_the_you_should_know_page
 
@@ -113,11 +112,12 @@ RSpec.feature "Eligibility screener", type: :system do
     )
   end
 
-  def then_i_see_the_not_serious_misconduct_page
-    title = "Your allegation is unlikely to be investigated because it is not serious misconduct"
-    expect(page).to have_current_path("/not-serious-misconduct")
-    expect(page).to have_title("#{title} - Refer serious misconduct by a teacher in England")
-    expect(page).to have_content(title)
+  def then_i_see_the_make_a_complaint_page
+    expect(page).to have_current_path("/make-a-complaint")
+    expect(page).to have_title(
+      "Make a complaint - Refer serious misconduct by a teacher in England"
+    )
+    expect(page).to have_content("Make a complaint")
   end
 
   def then_i_see_the_teaching_in_england_page
@@ -157,9 +157,11 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_serious_misconduct_question
     expect(page).to have_current_path("/serious-misconduct")
     expect(page).to have_title(
-      "Check that your allegation involves serious misconduct - Refer serious misconduct by a teacher in England"
+      "Check if you should make a complaint or refer the teacher for serious misconduct - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("Check that your allegation involves serious misconduct")
+    expect(page).to have_content(
+      "Check if you should make a complaint or refer the teacher for serious misconduct"
+    )
   end
 
   def then_i_see_the_unsupervised_teaching_page
@@ -182,6 +184,14 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_choose_referring_as_public
     choose "I’m referring as a member of the public", visible: false
+  end
+
+  def when_i_choose_make_a_complaint
+    choose "Make a complaint", visible: false
+  end
+
+  def when_i_choose_refer_serious_misconduct
+    choose "Refer serious misconduct", visible: false
   end
 
   def when_i_choose_yes

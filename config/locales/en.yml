@@ -102,8 +102,8 @@ en:
               blank: Select if you’re making a referral as an employer or member of public
         "eligibility_screener/serious_misconduct_form":
           attributes:
-            serious_misconduct:
-              inclusion: Select yes if the allegation involves serious misconduct
+            continue_with:
+              inclusion: Select if you want to continue with a complaint or a referral
         "eligibility_screener/teaching_in_england_form":
           attributes:
             teaching_in_england:

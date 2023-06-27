@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2023_06_27_134051) do
+>>>>>>> a29538c (Change question on serious misconduct page)
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -55,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
     t.string "unsupervised_teaching"
     t.string "is_teacher"
     t.boolean "complained"
+    t.string "continue_with"
   end
 
   create_table "feature_flags_features", force: :cascade do |t|

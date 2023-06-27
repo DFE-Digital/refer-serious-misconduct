@@ -26,8 +26,8 @@ class EligibilityCheck < ApplicationRecord
     %w[yes].include?(is_teacher)
   end
 
-  def serious_misconduct?
-    %w[yes not_sure].include?(serious_misconduct)
+  def continue_with_referral?
+    continue_with == "referral"
   end
 
   def teaching_in_england?
@@ -44,7 +44,8 @@ class EligibilityCheck < ApplicationRecord
         is_teacher: nil,
         serious_misconduct: nil,
         teaching_in_england: nil,
-        unsupervised_teaching: nil
+        unsupervised_teaching: nil,
+        continue_with: nil
       )
     end
   end
