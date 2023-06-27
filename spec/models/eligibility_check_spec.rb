@@ -23,25 +23,19 @@ RSpec.describe EligibilityCheck, type: :model do
     end
   end
 
-  describe "#serious_misconduct?" do
-    subject { described_class.new(serious_misconduct:).serious_misconduct? }
+  describe "#continue_with_referral?" do
+    subject { described_class.new(continue_with:).continue_with_referral? }
 
-    context "when the value is no" do
-      let(:serious_misconduct) { "no" }
+    context "when the value is 'referral'" do
+      let(:continue_with) { "referral" }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when the value is complaint" do
+      let(:continue_with) { "complaint" }
 
       it { is_expected.to be_falsey }
-    end
-
-    context "when the value is yes" do
-      let(:serious_misconduct) { "yes" }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when the value is not_sure" do
-      let(:serious_misconduct) { "not_sure" }
-
-      it { is_expected.to be_truthy }
     end
   end
 

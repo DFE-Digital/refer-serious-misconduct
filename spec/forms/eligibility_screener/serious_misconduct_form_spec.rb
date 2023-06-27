@@ -7,7 +7,7 @@ RSpec.describe EligibilityScreener::SeriousMisconductForm, type: :model do
     it { is_expected.to validate_presence_of(:eligibility_check) }
 
     specify do
-      expect(form).to validate_inclusion_of(:serious_misconduct).in_array(%w[yes no not_sure])
+      expect(form).to validate_inclusion_of(:continue_with).in_array(%w[referral complaint])
     end
   end
 
@@ -15,13 +15,13 @@ RSpec.describe EligibilityScreener::SeriousMisconductForm, type: :model do
     subject(:valid) { form.valid? }
 
     let(:eligibility_check) { EligibilityCheck.new }
-    let(:form) { described_class.new(eligibility_check:, serious_misconduct:) }
-    let(:serious_misconduct) { "yes" }
+    let(:form) { described_class.new(eligibility_check:, continue_with:) }
+    let(:continue_with) { "complaint" }
 
     it { is_expected.to be_truthy }
 
-    context "when serious_misconduct is blank" do
-      let(:serious_misconduct) { "" }
+    context "when continue_with is blank" do
+      let(:continue_with) { "" }
 
       it { is_expected.to be_falsy }
     end
@@ -31,11 +31,11 @@ RSpec.describe EligibilityScreener::SeriousMisconductForm, type: :model do
     subject(:save) { form.save }
 
     let(:eligibility_check) { EligibilityCheck.new }
-    let(:form) { described_class.new(eligibility_check:, serious_misconduct: "yes") }
+    let(:form) { described_class.new(eligibility_check:, continue_with: "referral") }
 
     it "saves the eligibility check" do
       save
-      expect(eligibility_check.serious_misconduct).to be_truthy
+      expect(eligibility_check.continue_with).to eq("referral")
     end
   end
 end

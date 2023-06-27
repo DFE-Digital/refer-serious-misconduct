@@ -35,7 +35,7 @@ RSpec.feature "Eligibility screener", type: :system do
     choose "I’m not sure", visible: false
     click_on "Continue"
 
-    choose "I’m not sure", visible: false
+    choose "Refer serious misconduct", visible: false
     click_on "Continue"
 
     # /you-should-know

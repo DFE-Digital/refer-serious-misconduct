@@ -1,11 +1,18 @@
-<% content_for :page_title, "#{'Error: ' if @serious_misconduct_form.errors.any?}Check that your allegation involves serious misconduct" %>
+<% content_for :page_title, "#{'Error: ' if @serious_misconduct_form.errors.any?}Check if you should make a complaint or refer the teacher for serious misconduct" %>
 <% content_for :back_link_url, previous_question_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @serious_misconduct_form, url: serious_misconduct_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
-      <h1 class="govuk-heading-l">Check that your allegation involves serious misconduct</h1>
+      <h1 class="govuk-heading-l">
+        Check if you should make a complaint or refer the teacher for serious
+        misconduct
+      </h1>
+      <p class="govuk_body">
+        The teacher could be prevented from teaching for life if they’re found
+        guilty of serious misconduct. This is known as a ‘prohibition order’.
+      </p>
       <p class="govuk_body">Examples of serious misconduct:</p>
       <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
         <li>violent behaviour</li>
@@ -16,14 +23,25 @@
         <li>a sexual or romantic relationship with a current or former pupil</li>
       </ul>
       <p class="govuk_body">
-        If your allegation is not serious misconduct, it will not be investigated. For example, cases of incompetence.
+        If you refer the teacher for something which is not serious misconduct,
+        it will not be investigated. You should make a complaint instead.
       </p>
 
-      <%= f.govuk_radio_buttons_fieldset :serious_misconduct, legend: { tag: 'h2', size: 'm', text: 'Does the allegation involve serious misconduct?' } do %>
-        <%= f.hidden_field :serious_misconduct %>
-        <%= f.govuk_radio_button :serious_misconduct, "yes", label: { text: "Yes" }, link_errors: true %>
-        <%= f.govuk_radio_button :serious_misconduct, "no", label: { text: "No" } %>
-        <%= f.govuk_radio_button :serious_misconduct, "not_sure", label: { text: "I’m not sure" } %>
+      <%= f.govuk_radio_buttons_fieldset :continue_with, legend: { tag: 'h2', size: 'm', text: 'How do you want to continue with your allegation?' } do %>
+        <%= f.hidden_field :continue_with %>
+        <%= f.govuk_radio_button(
+          :continue_with,
+          "complaint",
+          label: { text: "Make a complaint" },
+          hint: { text: "You can complain to the school and may be able to complain to other organisations including the Department for Education" },
+          link_errors: true
+          )%>
+        <%= f.govuk_radio_button(
+          :continue_with,
+          "referral",
+          label: { text: "Refer serious misconduct" },
+          hint: { text: "The teacher could be prevented from teaching for life" }
+          )%>
       <% end %>
       <%= f.govuk_submit %>
     <% end %>

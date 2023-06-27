@@ -52,10 +52,14 @@ RSpec.feature "User registration" do
     choose "I’m referring as an employer", visible: false
     click_on "Continue"
 
-    3.times do
-      choose "Yes", visible: false
-      click_on "Continue"
-    end
+    choose "Yes", visible: false
+    click_on "Continue"
+
+    choose "Yes", visible: false
+    click_on "Continue"
+
+    choose "Refer serious misconduct", visible: false
+    click_on "Continue"
 
     click_on "Continue"
   end
