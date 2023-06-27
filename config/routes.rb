@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     post "/serious-misconduct", to: "eligibility_screener/serious_misconduct#create"
     get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
     get "/you-should-know", to: "pages#you_should_know"
+    get "/make-a-complaint", to: "pages#make_a_complaint"
     get "/complete", to: "pages#complete"
   end
 
