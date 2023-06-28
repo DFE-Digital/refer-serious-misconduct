@@ -57,7 +57,7 @@ RSpec.feature "User registration" do
       click_on "Continue"
     end
 
-    click_on "Continue"
+    click_on "I understand and want to continue"
   end
 
   def then_i_should_see_sign_up_page
