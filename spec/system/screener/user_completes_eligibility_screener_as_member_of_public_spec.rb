@@ -49,7 +49,7 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_go_back
     when_i_choose_yes
     when_i_press_continue
-    then_i_see_the_serious_misconduct_question
+    then_i_see_the_complaint_or_referral_question
 
     when_i_press_continue
     then_i_see_a_validation_error
@@ -133,19 +133,6 @@ RSpec.feature "Eligibility screener", type: :system do
     )
   end
 
-  def then_i_see_the_you_should_complain_page
-    expect(page).to have_current_path("/no-complaint")
-    expect(page).to have_title(
-      [
-        "Consider making a complaint first",
-        "Refer serious misconduct by a teacher in England"
-      ].join(" - ")
-    )
-    expect(page).to have_content(
-      "Your allegation is unlikely to be investigated because you have not made a complaint"
-    )
-  end
-
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
@@ -154,8 +141,8 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_content("What completing this referral means for you")
   end
 
-  def then_i_see_the_serious_misconduct_question
-    expect(page).to have_current_path("/serious-misconduct")
+  def then_i_see_the_complaint_or_referral_question
+    expect(page).to have_current_path("/complaint-or-referral")
     expect(page).to have_title(
       "Check if you should make a complaint or refer the teacher for serious misconduct - Refer serious misconduct by a teacher in England"
     )
@@ -204,10 +191,6 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_press_continue
     click_on "Continue"
-  end
-
-  def when_i_press_continue_without_complaint
-    click_on "continue to refer serious misconduct without making a complaint"
   end
 
   def when_i_visit_the_service
