@@ -53,13 +53,11 @@ class ReferralZipFile
   end
 
   def attachments
-    files = [
-      referral.duties_upload_file,
-      referral.allegation_upload_file,
-      referral.previous_misconduct_upload_file,
-      referral.pdf
-    ].compact
+    attachable_uploads = referral.uploads.select(&:scan_result_clean?)
 
-    files + referral.evidence_uploads.map(&:file)
+    attachable_uploads
+      .map(&:file)
+      .select(&:attached?)
+      .tap { |files| files << referral.pdf if referral.pdf.present? }
   end
 end

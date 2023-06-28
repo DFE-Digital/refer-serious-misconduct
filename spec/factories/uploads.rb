@@ -21,5 +21,14 @@ FactoryBot.define do
       uploadable_type { "Referral" }
       section { "evidence" }
     end
+
+    trait :suspect do
+      file { nil }
+      malware_scan_result { "suspect" }
+    end
+
+    trait :pending do
+      malware_scan_result { "pending" }
+    end
   end
 end

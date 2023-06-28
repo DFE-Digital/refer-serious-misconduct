@@ -57,16 +57,21 @@ FactoryBot.define do
       duties_format { "upload" }
 
       after(:create) do |referral|
-        referral.uploads.create(
-          section: "allegation",
-          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf")
-        )
-
-        referral.uploads.create(
-          section: "duties",
-          file: Rack::Test::UploadedFile.new("spec/fixtures/files/upload2.pdf")
-        )
+        referral.uploads << build(:upload, :allegation, :clean)
+        referral.uploads << build(:upload, :duties, :clean)
       end
+    end
+
+    trait :with_suspect_attachment do
+      after(:create) { |referral| referral.uploads << build(:upload, :allegation, :suspect) }
+    end
+
+    trait :with_pending_attachment do
+      after(:create) { |referral| referral.uploads << build(:upload, :allegation, :pending) }
+    end
+
+    trait :with_clean_attachment do
+      after(:create) { |referral| referral.uploads << build(:upload, :allegation, :clean) }
     end
 
     trait :with_pdf do
