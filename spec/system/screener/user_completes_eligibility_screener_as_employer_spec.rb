@@ -29,7 +29,7 @@ RSpec.feature "Eligibility screener", type: :system do
 
     expect(
       page
-    ).to have_content "Confirm that you understand what will happen after you make a referral"
+    ).to have_content "What will happen after you refer the teacher for serious misconduct"
     click_on "I understand and want to continue"
     expect(page).to have_content "Your referral"
   end

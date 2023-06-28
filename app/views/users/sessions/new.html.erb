@@ -1,5 +1,5 @@
 <% content_for :page_title, new_referral? ? "Your email address" : "Sign in" %>
-<% content_for :back_link_url, root_path %>
+<% content_for :back_link_url, new_referral? ? you_should_know_path : root_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
