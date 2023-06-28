@@ -8,6 +8,14 @@ FactoryBot.define do
       serious_misconduct { "yes" }
     end
 
+    trait :serious_misconduct do
+      serious_misconduct { "yes" }
+    end
+
+    trait :continue_with_referral do
+      continue_with { "referral" }
+    end
+
     trait :not_unsupervised do
       is_teacher { "no" }
       unsupervised_teaching { "no" }
