@@ -1,13 +1,13 @@
 module EligibilityScreener
   class SeriousMisconductForm < EligibilityScreenerForm
-    attr_eligibility_check :continue_with
+    attr_eligibility_check :serious_misconduct
 
-    validates :continue_with, inclusion: { in: %w[referral complaint] }
+    validates :serious_misconduct, inclusion: { in: %w[yes no not_sure] }
 
     def save
       return false unless valid?
 
-      eligibility_check.continue_with = continue_with
+      eligibility_check.serious_misconduct = serious_misconduct
       eligibility_check.save
     end
   end

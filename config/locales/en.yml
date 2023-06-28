@@ -92,6 +92,10 @@ en:
           attributes:
             registration_exists:
               inclusion: Select yes if you have an account
+        "eligibility_screener/continue_with_form":
+          attributes:
+            continue_with:
+              inclusion: Select if you want to continue with a complaint or a referral
         "eligibility_screener/is_teacher_form":
           attributes:
             is_teacher:
@@ -102,8 +106,8 @@ en:
               blank: Select if you’re making a referral as an employer or member of public
         "eligibility_screener/serious_misconduct_form":
           attributes:
-            continue_with:
-              inclusion: Select if you want to continue with a complaint or a referral
+            serious_misconduct:
+              inclusion: Select yes if the allegation involves serious misconduct
         "eligibility_screener/teaching_in_england_form":
           attributes:
             teaching_in_england:

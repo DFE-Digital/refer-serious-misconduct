@@ -26,17 +26,10 @@ RSpec.feature "Eligibility screener", type: :system do
     choose "I’m referring as an employer", visible: false
     click_on "Continue"
 
-    choose "I’m not sure", visible: false
-    click_on "Continue"
-
-    choose "I’m not sure", visible: false
-    click_on "Continue"
-
-    choose "I’m not sure", visible: false
-    click_on "Continue"
-
-    choose "Refer serious misconduct", visible: false
-    click_on "Continue"
+    4.times do
+      choose "I’m not sure", visible: false
+      click_on "Continue"
+    end
 
     # /you-should-know
     click_on "Continue"

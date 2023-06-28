@@ -20,6 +20,10 @@ class EligibilityCheck < ApplicationRecord
     %w[yes].include?(is_teacher)
   end
 
+  def serious_misconduct?
+    %w[yes not_sure].include?(serious_misconduct)
+  end
+
   def continue_with_referral?
     continue_with == "referral"
   end

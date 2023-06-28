@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     get "/serious-misconduct", to: "eligibility_screener/serious_misconduct#new"
     post "/serious-misconduct", to: "eligibility_screener/serious_misconduct#create"
     get "/not-serious-misconduct", to: "pages#not_serious_misconduct"
+    get "/complaint-or-referral", to: "eligibility_screener/continue_with#new"
+    post "/complaint-or-referral", to: "eligibility_screener/continue_with#create"
     get "/you-should-know", to: "pages#you_should_know"
     get "/make-a-complaint", to: "pages#make_a_complaint"
     get "/complete", to: "pages#complete"

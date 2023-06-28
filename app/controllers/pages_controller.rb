@@ -6,6 +6,13 @@ class PagesController < ApplicationController
   def you_should_know
     return redirect_to(start_path) if eligibility_check.nil?
 
+    @previous_path =
+      if eligibility_check.reporting_as_public?
+        complaint_or_referral_path
+      else
+        serious_misconduct_path
+      end
+
     @continue_path =
       if FeatureFlags::FeatureFlag.active?(:referral_form)
         if !current_user

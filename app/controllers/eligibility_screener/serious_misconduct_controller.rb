@@ -11,7 +11,11 @@ module EligibilityScreener
         )
 
       if @serious_misconduct_form.save
-        redirect_to_next_question
+        if eligibility_check.serious_misconduct?
+          redirect_to(you_should_know_path)
+        else
+          redirect_to(not_serious_misconduct_path)
+        end
       else
         render :new
       end
@@ -20,7 +24,7 @@ module EligibilityScreener
     private
 
     def serious_misconduct_form_params
-      params.require(:eligibility_screener_serious_misconduct_form).permit(:continue_with)
+      params.require(:eligibility_screener_serious_misconduct_form).permit(:serious_misconduct)
     end
   end
 end
