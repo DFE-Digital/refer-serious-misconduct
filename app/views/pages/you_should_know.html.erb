@@ -1,23 +1,31 @@
-<% content_for :page_title, "What completing this referral means for you" %>
+<% content_for :page_title, "Confirm that you understand what will happen after you make a referral" %>
 <% content_for :back_link_url, @previous_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-l">What completing this referral means for you</h1>
+    <h1 class="govuk-heading-l">
+      Confirm that you understand what will happen after you make a referral
+    </h1>
+
     <p class="govuk_body">
-      If your allegation of serious misconduct is investigated, it could result in the person you’re referring being banned from teaching.
+      Your name and allegation will be shared with the teacher and their
+      employer. Your contact details will not be shared.
     </p>
 
     <p class="govuk_body">
-      You might need to attend a hearing of a professional conduct panel to give evidence, if the allegation reaches that stage.
+      You might need to give evidence at a hearing.
     </p>
 
     <p class="govuk_body">
-      Your name and the allegation will be shared with the person you’re referring, and any employer. Your contact details will not be shared.
+      If the teacher is found guilty of serious misconduct then they could be
+      prevented from teaching for life.
     </p>
 
-    <p class="govuk_body">Once a referral is submitted, it’ll be kept on file for up to 50 years.</p>
+    <p class="govuk_body">
+      If the teacher is not found guilty then they may still need to say that
+      they were referred for serious misconduct when they apply for a job.
+    </p>
 
-    <%= govuk_button_link_to 'Continue', @continue_path, classes: 'govuk-!-margin-top-2 govuk-!-margin-bottom-9' %>
+    <%= govuk_button_link_to "I understand and want to continue", @continue_path, classes: 'govuk-!-margin-top-2 govuk-!-margin-bottom-9' %>
   </div>
 </div>
