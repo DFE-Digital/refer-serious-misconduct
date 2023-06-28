@@ -6,15 +6,8 @@ class EligibilityCheck < ApplicationRecord
   enum reporting_as: { employer: "employer", public: "public" }, _prefix: true
   enum continue_with: { complaint: "complaint", referral: "referral" }, _prefix: true
 
-  scope :complete, -> { where(serious_misconduct: "yes") }
+  scope :complete, -> { where(serious_misconduct: "yes").or(continue_with_referral) }
   scope :group_by_day, -> { group("date_trunc('day', created_at)") }
-  scope :incomplete,
-        -> {
-          where(is_teacher: nil)
-            .or(where.not(teaching_in_england: "no"))
-            .or(where.not(unsupervised_teaching: "no"))
-            .or(where.not(serious_misconduct: "no"))
-        }
   scope :previous_7_days, -> { where(created_at: 1.week.ago.beginning_of_day..) }
 
   def is_teacher?

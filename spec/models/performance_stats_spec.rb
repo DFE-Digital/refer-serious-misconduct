@@ -8,7 +8,8 @@ RSpec.describe PerformanceStats, type: :model do
 
     before do
       travel_to Time.zone.local(2022, 11, 22, 12, 0, 0)
-      create(:eligibility_check, :complete)
+      create(:eligibility_check, :serious_misconduct)
+      create(:eligibility_check, :continue_with_referral)
       create(:eligibility_check, :not_unsupervised)
       create(:eligibility_check)
       travel_to Time.zone.local(2022, 11, 29, 12, 0, 0)
@@ -28,7 +29,7 @@ RSpec.describe PerformanceStats, type: :model do
       end
 
       it "returns the complete count" do
-        expect(day.second[:complete_count]).to eq(1)
+        expect(day.second[:complete_count]).to eq(2)
       end
 
       it "returns the incomplete count" do
@@ -40,7 +41,7 @@ RSpec.describe PerformanceStats, type: :model do
       end
 
       it "returns the total" do
-        expect(day.second[:total]).to eq(3)
+        expect(day.second[:total]).to eq(4)
       end
     end
 

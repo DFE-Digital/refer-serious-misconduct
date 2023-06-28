@@ -79,15 +79,23 @@ class PerformanceStats
 
   def arel_columns_for_request_counts
     [
-      Arel.sql("sum(case when serious_misconduct = 'yes' then 1 else 0 end) as complete_count"),
       Arel.sql(
-        "sum(case when serious_misconduct = 'no' or teaching_in_england = 'no' or " \
-          "unsupervised_teaching = 'no' then 1 else 0 end) as screened_out_count"
+        "sum(case when serious_misconduct = 'yes' or " \
+          "continue_with = 'referral' " \
+          "then 1 else 0 end) as complete_count"
       ),
       Arel.sql(
-        "sum(case when serious_misconduct is null and (teaching_in_england is null or teaching_in_england " \
-          "<> 'no') and (unsupervised_teaching is null or unsupervised_teaching <> 'no')" \
-          " then 1 else 0 end) as incomplete_count"
+        "sum(case when serious_misconduct = 'no' or " \
+          "continue_with = 'complaint' or " \
+          "teaching_in_england = 'no' or " \
+          "unsupervised_teaching = 'no' " \
+          "then 1 else 0 end) as screened_out_count"
+      ),
+      Arel.sql(
+        "sum(case when (serious_misconduct is null and continue_with is null) and " \
+          "(teaching_in_england is null or teaching_in_england <> 'no') and " \
+          "(unsupervised_teaching is null or unsupervised_teaching <> 'no') " \
+          "then 1 else 0 end) as incomplete_count"
       ),
       Arel.sql("count(*) as total")
     ]
