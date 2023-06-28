@@ -92,7 +92,7 @@ RSpec.feature "User accounts" do
       click_on "Continue"
     end
 
-    click_on "Continue"
+    click_on "I understand and want to continue"
   end
 
   def and_i_sign_out
