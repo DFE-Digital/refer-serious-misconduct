@@ -26,7 +26,7 @@ describe ReferralZipFile do
       let(:referral) { create(:referral) }
 
       it "returns false" do
-        expect(referral_zip_file.has_attachments?).to be false
+        expect(referral_zip_file).not_to have_attachments
       end
     end
 
@@ -34,7 +34,7 @@ describe ReferralZipFile do
       let(:referral) { create(:referral, :with_attachments) }
 
       it "returns true" do
-        expect(referral_zip_file.has_attachments?).to be true
+        expect(referral_zip_file).to have_attachments
       end
     end
 
@@ -42,7 +42,23 @@ describe ReferralZipFile do
       let(:referral) { create(:referral, :with_pdf) }
 
       it "returns true" do
-        expect(referral_zip_file.has_attachments?).to be true
+        expect(referral_zip_file).to have_attachments
+      end
+    end
+
+    context "with suspect attachment" do
+      let(:referral) { create(:referral, :with_suspect_attachment) }
+
+      it "returns false" do
+        expect(referral_zip_file).not_to have_attachments
+      end
+    end
+
+    context "with pending attachment" do
+      let(:referral) { create(:referral, :with_pending_attachment) }
+
+      it "returns false" do
+        expect(referral_zip_file).not_to have_attachments
       end
     end
   end
