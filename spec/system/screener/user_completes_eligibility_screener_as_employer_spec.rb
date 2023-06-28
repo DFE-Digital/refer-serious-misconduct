@@ -27,8 +27,10 @@ RSpec.feature "Eligibility screener", type: :system do
       click_on "Continue"
     end
 
-    expect(page).to have_content "What completing this referral means for you"
-    click_on "Continue"
+    expect(
+      page
+    ).to have_content "Confirm that you understand what will happen after you make a referral"
+    click_on "I understand and want to continue"
     expect(page).to have_content "Your referral"
   end
 

@@ -61,7 +61,7 @@ RSpec.feature "Eligibility screener", type: :system do
     when_i_press_continue
     then_i_see_the_you_should_know_page
 
-    when_i_press_continue
+    when_i_press_i_understand
     then_i_have_started_a_member_of_public_referral
     and_event_tracking_is_working
   end
@@ -136,9 +136,11 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
-      "What completing this referral means for you - Refer serious misconduct by a teacher in England"
+      "Confirm that you understand what will happen after you make a referral - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("What completing this referral means for you")
+    expect(page).to have_content(
+      "Confirm that you understand what will happen after you make a referral"
+    )
   end
 
   def then_i_see_the_complaint_or_referral_question
@@ -191,6 +193,10 @@ RSpec.feature "Eligibility screener", type: :system do
 
   def when_i_press_continue
     click_on "Continue"
+  end
+
+  def when_i_press_i_understand
+    click_on "I understand and want to continue"
   end
 
   def when_i_visit_the_service

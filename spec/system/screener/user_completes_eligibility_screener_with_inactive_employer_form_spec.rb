@@ -32,7 +32,7 @@ RSpec.feature "Eligibility screener", type: :system do
     end
 
     # /you-should-know
-    click_on "Continue"
+    click_on "I understand and want to continue"
   end
 
   def then_i_see_links_to_the_referral_form_documents
