@@ -269,6 +269,11 @@ Rails.application.routes.draw do
   get "malware-scan/:upload_id/pending", to: "malware_scan#pending", as: :malware_scan_pending
   get "malware-scan/:upload_id/suspect", to: "malware_scan#suspect", as: :malware_scan_suspect
 
+  scope "/feedback" do
+    get "/" => "feedbacks#new", :as => :feedbacks
+    post "/" => "feedbacks#create"
+  end
+
   get "/accessibility", to: "static#accessibility"
   get "/cookies", to: "static#cookies"
   get "/privacy", to: "static#privacy"

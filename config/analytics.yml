@@ -190,3 +190,11 @@ shared:
     - created_at
     - updated_at
     - malware_scan_result
+  :feedbacks:
+    - id
+    - satisfaction_rating
+    - improvement_suggestion
+    - contact_permission_given
+    - email
+    - created_at
+    - updated_at
