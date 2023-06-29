@@ -23,7 +23,6 @@ FactoryBot.define do
     end
 
     trait :suspect do
-      file { nil }
       malware_scan_result { "suspect" }
     end
 

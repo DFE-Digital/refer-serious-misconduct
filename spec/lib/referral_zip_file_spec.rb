@@ -13,6 +13,47 @@ describe ReferralZipFile do
     end
   end
 
+  describe "zip file contents" do
+    let(:zip_path) { referral_zip_file.path }
+    let(:zip_contents) { Zip::File.open(zip_path) { |zip| zip.entries.map(&:name) } }
+
+    context "with a pdf" do
+      let(:referral) { create(:referral, :with_pdf) }
+
+      it "includes the pdf in the root" do
+        expect(zip_contents).to match_array("#{referral.id}-referral.pdf")
+      end
+    end
+
+    context "with a clean attachment" do
+      let(:referral) { create(:referral, :with_clean_attachment) }
+
+      it "includes the attachment in a folder named by section" do
+        expect(zip_contents).to match_array("allegation/#{referral.id}-upload1.pdf")
+      end
+    end
+
+    context "with a pending attachment" do
+      let(:referral) { create(:referral, :with_pending_attachment) }
+
+      it "includes a text file warning that the file is pending" do
+        attachment_filepath =
+          "allegation/#{referral.id}-upload1.pdf-file-being-checked-for-viruses.txt"
+        expect(zip_contents).to include(attachment_filepath)
+      end
+    end
+
+    context "with a suspect attachment" do
+      let(:referral) { create(:referral, :with_suspect_attachment) }
+
+      it "includes a text file warning that the file is suspect" do
+        attachment_filepath =
+          "allegation/#{referral.id}-upload1.pdf-file-removed-due-to-suspected-virus.txt"
+        expect(zip_contents).to include(attachment_filepath)
+      end
+    end
+  end
+
   describe "#name" do
     let(:referral) { create(:referral) }
 
@@ -50,7 +91,7 @@ describe ReferralZipFile do
       let(:referral) { create(:referral, :with_suspect_attachment) }
 
       it "returns false" do
-        expect(referral_zip_file).not_to have_attachments
+        expect(referral_zip_file).to have_attachments
       end
     end
 
@@ -58,7 +99,7 @@ describe ReferralZipFile do
       let(:referral) { create(:referral, :with_pending_attachment) }
 
       it "returns false" do
-        expect(referral_zip_file).not_to have_attachments
+        expect(referral_zip_file).to have_attachments
       end
     end
   end
