@@ -16,7 +16,7 @@ class ReferralZipFile
   end
 
   def has_attachments?
-    attachments.any?(&:attached?)
+    referral.uploads.any? || referral.pdf.present?
   end
 
   private
@@ -26,21 +26,19 @@ class ReferralZipFile
     temp_attachments = []
 
     Zip::File.open(temp_zip_file.path, create: true) do |zip|
-      attachments.each do |attachment|
-        next unless attachment.attached?
+      referral.uploads.each do |upload|
+        zip_file_path = "#{upload.section}/#{filename_for(upload:)}"
+        file = file_for(upload:)
+        zip.add(zip_file_path, File.join(file.path))
 
-        blob = attachment.blob
-        temp_attachment = Tempfile.new(blob.filename.sanitized)
-        zip_folder = attachment.record.is_a?(Upload) ? attachment.record.section : "pdf"
+        temp_attachments << file
+      end
 
-        File.open(temp_attachment, "wb+") { |file| blob.download { |chunk| file.write(chunk) } }
+      if referral.pdf.present?
+        file = pdf_from_referral
+        zip.add("#{referral.id}-referral.pdf", File.join(file.path))
 
-        zip.add(
-          "#{zip_folder}/#{attachment.record.id}-#{attachment.filename}",
-          File.join(temp_attachment.path)
-        )
-
-        temp_attachments << temp_attachment
+        temp_attachments << file
       end
     end
 
@@ -52,12 +50,31 @@ class ReferralZipFile
     temp_zip_file
   end
 
-  def attachments
-    attachable_uploads = referral.uploads.select(&:scan_result_clean?)
+  def filename_for(upload:)
+    base_filename = "#{referral.id}-#{upload.filename}"
+    return "#{base_filename}-file-removed-due-to-suspected-virus.txt" if upload.scan_result_suspect?
+    return "#{base_filename}-file-being-checked-for-viruses.txt" if upload.scan_result_pending?
 
-    attachable_uploads
-      .map(&:file)
-      .select(&:attached?)
-      .tap { |files| files << referral.pdf if referral.pdf.present? }
+    base_filename
+  end
+
+  def file_for(upload:)
+    temp_file_for(filename: filename_for(upload:)) do |file|
+      if upload.scan_result_clean? && upload.file.attached?
+        upload.file.blob.download { |chunk| file.write(chunk) }
+      else
+        file.write("file unavailable")
+      end
+    end
+  end
+
+  def pdf_from_referral
+    temp_file_for(filename: "referral.pdf") do |file|
+      referral.pdf.blob.download { |chunk| file.write(chunk) }
+    end
+  end
+
+  def temp_file_for(filename:, &block)
+    Tempfile.new(filename).tap { |temp_file| File.open(temp_file, "wb+", &block) }
   end
 end
