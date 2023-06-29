@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_104919) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
 
@@ -63,6 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_104919) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_feature_flags_features_on_name", unique: true
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "satisfaction_rating", null: false
+    t.text "improvement_suggestion", null: false
+    t.boolean "contact_permission_given", null: false
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "organisations", force: :cascade do |t|

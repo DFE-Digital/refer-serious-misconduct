@@ -393,6 +393,10 @@ en:
   activerecord:
     errors:
       models:
+        feedback:
+          attributes:
+            satisfaction_rating:
+              inclusion: Select how satisfied you are with the service
         user:
           attributes:
             email:
