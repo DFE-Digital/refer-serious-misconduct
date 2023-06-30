@@ -18,14 +18,15 @@ RSpec.feature "Feedback", type: :system do
     then_i_see_validation_errors
     when_i_fill_in_how_we_can_improve
     then_i_see_validation_errors
-
+    when_i_choose_no
     when_i_press_send_feedback
+    then_i_see_the_feedback_sent_page
   end
 
   private
 
   def and_i_click_on_feedback
-    click_on("feedback")
+    click_on "feedback"
   end
 
   def then_i_see_the_feedback_form
@@ -35,7 +36,7 @@ RSpec.feature "Feedback", type: :system do
   end
 
   def when_i_press_send_feedback
-    click_on("Send feedback")
+    click_on "Send feedback"
   end
 
   def then_i_see_validation_errors
@@ -48,5 +49,15 @@ RSpec.feature "Feedback", type: :system do
 
   def when_i_fill_in_how_we_can_improve
     fill_in "How can we improve the service?", with: "Make it better"
+  end
+
+  def when_i_choose_no
+    choose "No", visible: false
+  end
+
+  def then_i_see_the_feedback_sent_page
+    expect(page).to have_current_path("/feedback/confirmation")
+    expect(page).to have_title("Feedback sent")
+    expect(page).to have_content("Next steps")
   end
 end

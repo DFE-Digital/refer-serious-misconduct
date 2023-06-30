@@ -9,5 +9,5 @@ class Feedback < ApplicationRecord
 
   validates :satisfaction_rating, inclusion: { in: SATISFACTION_RATINGS }
   validates_presence_of :improvement_suggestion
-  validates_presence_of :contact_permission_given
+  validates :contact_permission_given, inclusion: { in: [true, false] }
 end
