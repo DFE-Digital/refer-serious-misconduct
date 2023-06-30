@@ -401,6 +401,8 @@ en:
               blank: Tell us how we can improve the service
             contact_permission_given:
               blank: Tell us whether we can contact you about your feedback
+            email:
+              blank: Enter an email address
         user:
           attributes:
             email:
