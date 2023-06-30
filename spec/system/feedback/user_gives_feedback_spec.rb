@@ -18,7 +18,9 @@ RSpec.feature "Feedback", type: :system do
     then_i_see_validation_errors
     when_i_fill_in_how_we_can_improve
     then_i_see_validation_errors
-    when_i_choose_no
+    when_i_choose_yes
+    then_i_see_validation_errors
+    when_i_enter_an_email
     when_i_press_send_feedback
     then_i_see_the_feedback_sent_page
   end
@@ -51,8 +53,12 @@ RSpec.feature "Feedback", type: :system do
     fill_in "How can we improve the service?", with: "Make it better"
   end
 
-  def when_i_choose_no
-    choose "No", visible: false
+  def when_i_choose_yes
+    choose "Yes", visible: false
+  end
+
+  def when_i_enter_an_email
+    fill_in "Email address", with: "my_email@example.com"
   end
 
   def then_i_see_the_feedback_sent_page
