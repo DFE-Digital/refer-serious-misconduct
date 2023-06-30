@@ -399,6 +399,8 @@ en:
               inclusion: Select how satisfied you are with the service
             improvement_suggestion:
               blank: Tell us how we can improve the service
+            contact_permission_given:
+              blank: Tell us whether we can contact you about your feedback
         user:
           attributes:
             email:

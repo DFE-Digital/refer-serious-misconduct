@@ -21,6 +21,13 @@
         <%= f.govuk_text_area :improvement_suggestion, label: { text: "How can we improve the service?", size: "m" } %>
       </div>
 
+      <%= f.govuk_radio_buttons_fieldset :contact_permission_given, legend: { size: "m", text: "Can we contact you about your feedback?" } do %>
+        <%= f.govuk_radio_button :contact_permission_given, 'true', label: { text: "Yes" }, link_errors: true do %>
+          <%= f.govuk_text_field :email, label: { text: "Email address", size: "s" } %>
+        <% end %>
+        <%= f.govuk_radio_button :contact_permission_given, 'false', label: { text: "No" } %>
+      <% end %>
+
       <%= f.govuk_submit "Send feedback" %>
     <% end %>
   </div>

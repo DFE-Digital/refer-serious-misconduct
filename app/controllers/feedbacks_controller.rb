@@ -9,6 +9,7 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new(feedback_params)
 
     if @feedback.save
+      redirect_to :confirmation
     else
       render(:new)
     end
@@ -17,6 +18,11 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:satisfaction_rating)
+    params.require(:feedback).permit(
+      :satisfaction_rating,
+      :improvement_suggestion,
+      :contact_permission_given,
+      :email
+    )
   end
 end
