@@ -15,6 +15,10 @@ RSpec.feature "Feedback", type: :system do
     when_i_press_send_feedback
     then_i_see_validation_errors
     when_i_choose_satisfied
+    then_i_see_validation_errors
+    when_i_fill_in_how_we_can_improve
+    then_i_see_validation_errors
+
     when_i_press_send_feedback
   end
 
@@ -39,6 +43,10 @@ RSpec.feature "Feedback", type: :system do
   end
 
   def when_i_choose_satisfied
-    choose("Satisfied", visible: false)
+    choose "Satisfied", visible: false
+  end
+
+  def when_i_fill_in_how_we_can_improve
+    fill_in "How can we improve the service?", with: "Make it better"
   end
 end
