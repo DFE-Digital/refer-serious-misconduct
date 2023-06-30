@@ -398,9 +398,9 @@ en:
             satisfaction_rating:
               inclusion: Select how satisfied you are with the service
             improvement_suggestion:
-              blank: Tell us how we can improve the service
+              blank: Enter how we can improve the service
             contact_permission_given:
-              blank: Tell us whether we can contact you about your feedback
+              blank: Select yes if we can contact you about your feedback
             email:
               blank: Enter an email address
         user:
