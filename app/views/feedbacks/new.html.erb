@@ -8,6 +8,7 @@
 
     <%= form_with model: @feedback do |f| %>
       <%= f.govuk_error_summary %>
+
       <%= f.govuk_collection_radio_buttons(
           :satisfaction_rating,
           satisfaction_rating_options(Feedback::SATISFACTION_RATINGS),
@@ -15,6 +16,10 @@
           :label,
           legend: { text: "How satisfied are you with the service?", size: "m" },
         ) %>
+
+      <div class="govuk-form-group">
+        <%= f.govuk_text_area :improvement_suggestion, label: { text: "How can we improve the service?", size: "m" } %>
+      </div>
 
       <%= f.govuk_submit "Send feedback" %>
     <% end %>

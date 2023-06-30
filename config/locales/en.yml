@@ -397,6 +397,8 @@ en:
           attributes:
             satisfaction_rating:
               inclusion: Select how satisfied you are with the service
+            improvement_suggestion:
+              blank: Tell us how we can improve the service
         user:
           attributes:
             email:
