@@ -400,7 +400,7 @@ en:
             improvement_suggestion:
               blank: Enter how we can improve the service
             contact_permission_given:
-              blank: Select yes if we can contact you about your feedback
+              inclusion: Select yes if we can contact you about your feedback
             email:
               blank: Enter an email address
         user:
