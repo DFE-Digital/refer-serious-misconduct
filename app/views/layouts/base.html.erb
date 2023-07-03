@@ -32,7 +32,7 @@
 
     <div class="govuk-width-container">
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>
-        This is a new service – your <%= govuk_link_to("feedback", feedbacks_path) %> will help us to improve it.
+        This is a new service – your <%= govuk_link_to("feedback", main_app.feedbacks_path) %> will help us to improve it.
       <% end %>
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <%= yield(:breadcrumbs) if content_for?(:breadcrumbs) %>

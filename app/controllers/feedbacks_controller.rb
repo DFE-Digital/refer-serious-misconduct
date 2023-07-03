@@ -11,7 +11,7 @@ class FeedbacksController < ApplicationController
     if @feedback.save
       redirect_to :confirmation
     else
-      render(:new)
+      render :new
     end
   end
 
