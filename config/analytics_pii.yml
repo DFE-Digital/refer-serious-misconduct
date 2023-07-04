@@ -44,3 +44,6 @@
     - email
   :staff:
     - email
+  :feedbacks:
+    - email
+    - feedback_suggestion
