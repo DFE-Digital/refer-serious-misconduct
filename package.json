@@ -12,7 +12,7 @@
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
   },
   "devDependencies": {
-    "@prettier/plugin-ruby": "^3.2.2",
+    "@prettier/plugin-ruby": "^4.0.0",
     "prettier": "^2.8.8"
   }
 }
