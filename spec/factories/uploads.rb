@@ -3,11 +3,11 @@ FactoryBot.define do
     association :uploadable, factory: :referral
 
     file { Rack::Test::UploadedFile.new("spec/fixtures/files/upload1.pdf") }
+    section { "allegation" }
 
     trait :allegation do
       association :uploadable, factory: :referral
       uploadable_type { "Referral" }
-      section { "allegation" }
     end
 
     trait :duties do
@@ -28,6 +28,10 @@ FactoryBot.define do
 
     trait :pending do
       malware_scan_result { "pending" }
+    end
+
+    trait :clean do
+      malware_scan_result { "clean" }
     end
   end
 end
