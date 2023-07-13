@@ -234,10 +234,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/performance", to: "performance#index"
-
   namespace :support_interface, path: "/support" do
     root to: redirect("/support/eligibility-checks")
+    get "/performance", to: "performance#index"
     resources :staff, only: %i[index destroy] do
       get "/delete", on: :member, to: "staff#delete"
     end
