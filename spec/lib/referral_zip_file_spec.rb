@@ -29,7 +29,7 @@ describe ReferralZipFile do
       let(:referral) { create(:referral, :with_clean_attachment) }
 
       it "includes the attachment in a folder named by section" do
-        expect(zip_contents).to match_array("allegation/#{referral.id}-upload1.pdf")
+        expect(zip_contents).to match_array("allegation/#{referral.id}-0-upload1.pdf")
       end
     end
 
@@ -38,7 +38,7 @@ describe ReferralZipFile do
 
       it "includes a text file warning that the file is pending" do
         attachment_filepath =
-          "allegation/#{referral.id}-upload1.pdf-file-being-checked-for-viruses.txt"
+          "allegation/#{referral.id}-0-upload1.pdf-file-being-checked-for-viruses.txt"
         expect(zip_contents).to include(attachment_filepath)
       end
     end
@@ -48,8 +48,22 @@ describe ReferralZipFile do
 
       it "includes a text file warning that the file is suspect" do
         attachment_filepath =
-          "allegation/#{referral.id}-upload1.pdf-file-removed-due-to-suspected-virus.txt"
+          "allegation/#{referral.id}-0-upload1.pdf-file-removed-due-to-suspected-virus.txt"
         expect(zip_contents).to include(attachment_filepath)
+      end
+    end
+
+    context "with multiple identically named files" do
+      let(:referral) { create(:referral) }
+
+      before do
+        referral.uploads << build(:upload, :clean)
+        referral.uploads << build(:upload, :clean)
+      end
+
+      it "disambiguates the names" do
+        expect(zip_contents).to include("allegation/#{referral.id}-0-upload1.pdf")
+        expect(zip_contents).to include("allegation/#{referral.id}-1-upload1.pdf")
       end
     end
   end

@@ -26,9 +26,9 @@ class ReferralZipFile
     temp_attachments = []
 
     Zip::File.open(temp_zip_file.path, create: true) do |zip|
-      referral.uploads.each do |upload|
-        zip_file_path = "#{upload.section}/#{filename_for(upload:)}"
-        file = file_for(upload:)
+      referral.uploads.each_with_index do |upload, index|
+        zip_file_path = "#{upload.section}/#{filename_for(upload:, index:)}"
+        file = file_for(upload:, index:)
         zip.add(zip_file_path, File.join(file.path))
 
         temp_attachments << file
@@ -50,16 +50,16 @@ class ReferralZipFile
     temp_zip_file
   end
 
-  def filename_for(upload:)
-    base_filename = "#{referral.id}-#{upload.filename}"
+  def filename_for(upload:, index:)
+    base_filename = "#{referral.id}-#{index}-#{upload.filename}"
     return "#{base_filename}-file-removed-due-to-suspected-virus.txt" if upload.scan_result_suspect?
     return "#{base_filename}-file-being-checked-for-viruses.txt" if upload.scan_result_pending?
 
     base_filename
   end
 
-  def file_for(upload:)
-    temp_file_for(filename: filename_for(upload:)) do |file|
+  def file_for(upload:, index:)
+    temp_file_for(filename: filename_for(upload:, index:)) do |file|
       if upload.scan_result_clean? && upload.file.attached?
         upload.file.blob.download { |chunk| file.write(chunk) }
       else
