@@ -41,7 +41,7 @@ jobs:
 
       - name: Check out the repo
         if: fromJson(steps.pwsh_check_expire.outputs.json_data).data.Alert
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: Azure/login@v1
         if: fromJson(steps.pwsh_check_expire.outputs.json_data).data.Alert

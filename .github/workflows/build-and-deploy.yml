@@ -31,7 +31,7 @@ jobs:
     outputs:
       image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: ./.github/actions/build-image
         id: build_image
@@ -50,7 +50,7 @@ jobs:
       name: review
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: ./.github/actions/deploy-environment
         id: deploy
@@ -106,7 +106,7 @@ jobs:
       url: ${{ steps.deploy.outputs.environment_url }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: ./.github/actions/deploy-environment
         id: deploy
@@ -134,7 +134,7 @@ jobs:
       url: ${{ steps.deploy.outputs.environment_url }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: ./.github/actions/deploy-environment
         id: deploy
@@ -153,7 +153,7 @@ jobs:
       ENVIRONMENT_NAME: ${{ needs.deploy_nonprod.outputs.environment_name || 'dev'  }}
     if: failure()
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set Environment variables
         shell: bash
