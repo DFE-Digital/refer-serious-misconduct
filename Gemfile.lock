@@ -308,7 +308,7 @@ GEM
       racc
     patience_diff (1.2.0)
       optimist (~> 3.0)
-    pg (1.5.3)
+    pg (1.5.4)
     prettier_print (1.2.1)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
