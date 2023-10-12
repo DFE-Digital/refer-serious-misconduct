@@ -4,7 +4,7 @@
   "dependencies": {
     "esbuild": "^0.19.2",
     "govuk-frontend": "4.7.0",
-    "sass": "^1.69.0",
+    "sass": "^1.69.3",
     "puppeteer": "20.0.0"
   },
   "scripts": {
