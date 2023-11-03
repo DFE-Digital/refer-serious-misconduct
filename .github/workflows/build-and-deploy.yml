@@ -87,7 +87,7 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             DEPLOYMENT_MATRIX="{ 'environment': ['${{ github.event.inputs.environment }}'] }"
           else
-            DEPLOYMENT_MATRIX="{ 'environment': ['test', 'preprod'] }"
+            DEPLOYMENT_MATRIX="{ 'environment': ['dev', 'test', 'preprod'] }"
           fi
           echo "deployment_matrix=$DEPLOYMENT_MATRIX" >> $GITHUB_OUTPUT
 
