@@ -229,10 +229,6 @@ GEM
     grover (1.1.5)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
-    haml (6.1.1)
-      temple (>= 0.8.2)
-      thor
-      tilt
     html-attributes-utils (1.0.0)
       activesupport (>= 6.1.4.4)
     httpclient (2.8.3)
@@ -364,7 +360,6 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.1.0)
-    rbs (3.1.0)
     redcarpet (3.6.0)
     redis (4.8.1)
     regexp_parser (2.8.3)
@@ -492,17 +487,6 @@ GEM
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
-    syntax_tree (6.2.0)
-      prettier_print (>= 1.2.0)
-    syntax_tree-haml (4.0.3)
-      haml (>= 5.2)
-      prettier_print (>= 1.2.1)
-      syntax_tree (>= 6.0.0)
-    syntax_tree-rbs (1.0.0)
-      prettier_print
-      rbs
-      syntax_tree (>= 2.0.1)
-    temple (0.10.2)
     thor (1.3.0)
     tilt (2.2.0)
     timeout (0.4.1)
@@ -582,9 +566,6 @@ DEPENDENCIES
   simplecov
   solargraph-rails
   super_diff (~> 0.10.0)
-  syntax_tree
-  syntax_tree-haml
-  syntax_tree-rbs
   tzinfo-data
   uk_postcode
   web-console
