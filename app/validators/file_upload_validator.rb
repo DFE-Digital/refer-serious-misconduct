@@ -2,7 +2,7 @@ class FileUploadValidator < ActiveModel::EachValidator
   include FileSizeHelper
 
   MAX_FILE_SIZE = 50.megabytes
-  MAX_FILES = 10
+  MAX_FILES = 20
 
   CONTENT_TYPES = {
     ".apng" => "image/apng",
