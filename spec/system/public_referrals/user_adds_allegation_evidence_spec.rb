@@ -343,9 +343,9 @@ RSpec.feature "Evidence", type: :system do
   def when_i_upload_the_maximum_number_of_files
     attach_file(
       "Upload files",
-      FileUploadValidator::MAX_FILES.times.map {
+      FileUploadValidator::MAX_FILES.times.map do
         Rails.root.join("spec/fixtures/files/upload1.pdf")
-      }
+      end
     )
   end
 

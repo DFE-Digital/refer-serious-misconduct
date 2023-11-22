@@ -99,21 +99,23 @@ RSpec.describe Referral, type: :model do
   end
 
   describe "#can_upload_more_evidence?" do
+    subject(:referral) { build(:referral) }
+
     context "when can upload more evidence" do
       it "returns true" do
-        expect(subject.can_upload_more_evidence?).to be_truthy
+        expect(referral).to be_can_upload_more_evidence
       end
     end
 
     context "when cannot upload more evidence" do
-      subject { create(:referral) }
+      subject(:referral) { create(:referral) }
 
       before do
-        create_list(:upload, FileUploadValidator::MAX_FILES, :evidence, uploadable: subject)
+        create_list(:upload, FileUploadValidator::MAX_FILES, :evidence, uploadable: referral)
       end
 
       it "returns false" do
-        expect(subject.can_upload_more_evidence?).to be_falsey
+        expect(referral).not_to be_can_upload_more_evidence
       end
     end
   end
