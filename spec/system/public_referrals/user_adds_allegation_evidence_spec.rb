@@ -5,6 +5,34 @@ RSpec.feature "Evidence", type: :system do
   include CommonSteps
   include SummaryListHelpers
 
+  scenario "A member of public uploads maximum number of evidence uploads" do
+    given_the_service_is_open
+    and_i_am_signed_in
+    and_the_referral_form_feature_is_active
+    and_i_am_a_member_of_the_public_with_an_existing_referral
+    and_i_visit_the_public_referral
+    then_i_see_the_public_referral_summary
+
+    when_i_edit_the_evidence
+    then_i_am_asked_if_i_have_evidence_to_upload
+
+    when_i_choose_yes_to_uploading_evidence
+    and_i_click_save_and_continue
+    then_i_am_asked_to_upload_evidence_files
+
+    when_i_upload_the_maximum_number_of_files
+    and_i_click_save_and_continue
+    then_i_see_a_list_of_max_uploaded_files
+    then_i_cannot_upload_another_file
+
+    when_i_click_save_and_continue
+    then_i_see_the_check_your_answers_page(
+      "Evidence and supporting information",
+      "allegation_evidence"
+    )
+    then_cannot_add_more_evidence
+  end
+
   scenario "A member of public adds evidence to referral" do
     given_the_service_is_open
     and_i_am_signed_in
@@ -310,5 +338,29 @@ RSpec.feature "Evidence", type: :system do
 
   def when_i_click_on_change_evidence
     click_on "Change if you have anything to upload"
+  end
+
+  def when_i_upload_the_maximum_number_of_files
+    attach_file(
+      "Upload files",
+      FileUploadValidator::MAX_FILES.times.map {
+        Rails.root.join("spec/fixtures/files/upload1.pdf")
+      }
+    )
+  end
+
+  def then_i_cannot_upload_another_file
+    expect(page).not_to have_content("Do you want to upload another file?")
+  end
+
+  def then_cannot_add_more_evidence
+    expect(page).not_to have_content("Add more evidence")
+  end
+
+  def then_i_see_a_list_of_max_uploaded_files
+    expect(page).to have_content("Uploaded evidence")
+    within(".govuk-summary-list") do
+      expect(page).to have_link("upload1.pdf", count: 20, href: /active_storage/)
+    end
   end
 end

@@ -11,11 +11,13 @@
         Check and confirm your answers
       </h1>
 
-      <%= govuk_button_link_to(
-        "Add more evidence",
-        edit_public_referral_allegation_evidence_upload_path(current_referral),
-        class: "govuk-button--secondary govuk-!-margin-bottom-8"
-      ) if current_referral.has_evidence %>
+      <% if current_referral.can_upload_more_evidence? %>
+        <%= govuk_button_link_to(
+          "Add more evidence",
+          edit_public_referral_allegation_evidence_upload_path(current_referral),
+          class: "govuk-button--secondary govuk-!-margin-bottom-8"
+        ) if current_referral.has_evidence %>
+      <% end %>
 
       <%= render partial: 'referrals/shared/check_answers', locals: { f:, complete_field_name: :evidence_details_complete } %>
     <% end %>
