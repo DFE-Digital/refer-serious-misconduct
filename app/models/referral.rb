@@ -93,4 +93,8 @@ class Referral < ApplicationRecord
   def submitted?
     submitted_at.present?
   end
+
+  def can_upload_more_evidence?
+    evidence_uploads.count < FileUploadValidator::MAX_FILES
+  end
 end
