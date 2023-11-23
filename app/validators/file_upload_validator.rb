@@ -9,18 +9,23 @@ class FileUploadValidator < ActiveModel::EachValidator
     ".avif" => "image/avif",
     ".doc" => "application/msword",
     ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".eml" => "message/rfc822",
     ".gif" => "image/gif",
     ".heic" => "image/heic",
     ".heif" => "image/heif",
     ".jpg" => "image/jpeg",
     ".jpeg" => "image/jpeg",
+    ".m4a" => "audio/mp4",
+    ".mov" => "video/quicktime",
     ".mp3" => "audio/mpeg",
     ".mp4" => "video/mp4",
-    ".mov" => "video/quicktime",
+    ".msg" => "application/x-ole-storage",
     ".pdf" => "application/pdf",
     ".png" => "image/png",
+    ".rtf" => "application/rtf",
     ".txt" => "text/plain",
-    ".webp" => "image/webp"
+    ".webp" => "image/webp",
+    ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   }.freeze
 
   def validate_each(record, attribute, uploaded_files)
