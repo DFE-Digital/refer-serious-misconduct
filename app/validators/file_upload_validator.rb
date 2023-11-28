@@ -1,7 +1,7 @@
 class FileUploadValidator < ActiveModel::EachValidator
   include FileSizeHelper
 
-  MAX_FILE_SIZE = 50.megabytes
+  MAX_FILE_SIZE = 100.megabytes
   MAX_FILES = 10
 
   CONTENT_TYPES = {
