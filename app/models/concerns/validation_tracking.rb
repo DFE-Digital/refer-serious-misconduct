@@ -41,6 +41,18 @@ module ValidationTracking
     return if field == :base
     return if field.to_s.start_with?("section.")
 
-    public_send(field)
+    value = public_send(field)
+
+    if value.instance_of?(Array)
+      value = value.map do |upload|
+        if upload.instance_of?(ActionDispatch::Http::UploadedFile)
+          UploadWrapper.new(upload:)
+        else
+          upload
+        end
+      end
+    end
+
+    value
   end
 end
