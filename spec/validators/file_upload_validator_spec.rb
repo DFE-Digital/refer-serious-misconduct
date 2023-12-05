@@ -1,17 +1,18 @@
 require "rails_helper"
 
 RSpec.describe FileUploadValidator do
-  subject(:model) { Validatable.new }
+  subject(:model) do
+    instance = klass.new
+    instance.files = files
+    instance
+  end
 
-  let(:files) { nil }
-
-  before do
-    stub_const("Validatable", Class.new).class_eval do
+  let(:klass) do
+    Class.new do
       include ActiveModel::Validations
       attr_accessor :files
       validates :files, file_upload: true
     end
-    model.files = files
   end
 
   context "with a valid file" do
@@ -60,9 +61,31 @@ RSpec.describe FileUploadValidator do
     it { is_expected.to be_invalid }
   end
 
-  it "supports common media and document file types" do
+  it "supports selected media and document file types" do
     expect(described_class::CONTENT_TYPES.keys).to eq(
-      %w[.apng .avif .doc .docx .gif .heic .heif .jpg .jpeg .mp3 .mp4 .mov .pdf .png .txt .webp]
+      %w[
+        .apng
+        .avif
+        .doc
+        .docx
+        .eml
+        .gif
+        .heic
+        .heif
+        .jpg
+        .jpeg
+        .m4a
+        .mov
+        .mp3
+        .mp4
+        .msg
+        .pdf
+        .png
+        .rtf
+        .txt
+        .webp
+        .xlsx
+      ]
     )
   end
 end
