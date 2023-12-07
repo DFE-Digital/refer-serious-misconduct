@@ -133,10 +133,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.19.5.tgz#faad84c41ba12e3a0acb52571df9bff37bee75f6"
   integrity sha512-czTrygUsB/jlM8qEW5MD8bgYU2Xg14lo6kBDXW6HdxKjh8M5PzETGiSHaz9MtbXBYDloHNUAUW2tMiKW4KM9Mw==
 
-"@prettier/plugin-ruby@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@prettier/plugin-ruby/-/plugin-ruby-4.0.2.tgz#55bc899d2265de09c1f48493324c269ecb95126c"
-  integrity sha512-TOGsMoOLF0BLwRozqtTB/w7HpDHotDSBPfLsMBpCjlMONLSoCWBF1NhZQjiioyLim7tCltzFrCqZp11WcrPOzA==
+"@prettier/plugin-ruby@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@prettier/plugin-ruby/-/plugin-ruby-4.0.3.tgz#5d916bd25a9c107b71782ede5383154233f30999"
+  integrity sha512-SrPEjTqqsCoDBJ3UlReLnKZFqE76o4TBOlsIwRCnqPiO7O3kvy8k5ETG0IiGcNf9wqXLSCRzZXsK4+0cb26SQQ==
 
 "@puppeteer/browsers@1.0.0":
   version "1.0.0"
