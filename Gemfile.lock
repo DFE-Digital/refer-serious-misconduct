@@ -308,7 +308,7 @@ GEM
       optimist (~> 3.0)
     pg (1.5.4)
     prettier_print (1.2.1)
-    propshaft (0.7.0)
+    propshaft (0.8.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
