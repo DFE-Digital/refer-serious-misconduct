@@ -15,7 +15,7 @@ RSpec.describe FileSizeHelper, type: :helper do
     subject { max_allowed_file_size }
 
     context "when called returns the max allowed file size human formatted with space removed" do
-      it { is_expected.to eq "50MB" }
+      it { is_expected.to eq "100MB" }
     end
   end
 end

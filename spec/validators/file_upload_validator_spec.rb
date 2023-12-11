@@ -36,7 +36,7 @@ RSpec.describe FileUploadValidator do
   context "with a large file" do
     let(:files) { fixture_file_upload("upload1.pdf", "application/pdf") }
 
-    before { allow(files).to receive(:size).and_return(51.megabytes) }
+    before { allow(files).to receive(:size).and_return(101.megabytes) }
 
     it { is_expected.to be_invalid }
   end
