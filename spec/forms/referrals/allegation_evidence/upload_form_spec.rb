@@ -67,19 +67,11 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
       end
 
       it "validates that the maximum number of files is not exceeded" do
-        upload_form.evidence_uploads = [
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
-          fixture_file_upload("upload.txt"),
+        upload_form.evidence_uploads = (described_class::MAX_FILES - 1).times.map do
           fixture_file_upload("upload.txt")
-        ]
+        end
         expect(upload_form.save).to be false
-        expect(upload_form.errors[:evidence_uploads]).to eq(["You can only upload 10 files"])
+        expect(upload_form.errors[:evidence_uploads]).to eq(["You can only upload 20 files"])
       end
     end
   end

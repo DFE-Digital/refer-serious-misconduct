@@ -43,19 +43,9 @@ RSpec.describe FileUploadValidator do
 
   context "with too many files" do
     let(:files) do
-      [
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
-        fixture_file_upload("upload1.pdf", "application/pdf"),
+      (described_class::MAX_FILES + 1).times.map do
         fixture_file_upload("upload1.pdf", "application/pdf")
-      ]
+      end
     end
 
     it { is_expected.to be_invalid }
