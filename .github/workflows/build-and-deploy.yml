@@ -59,7 +59,7 @@ jobs:
           image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          site_up_retries: 150
+          site_up_retries: 300
           startup_command: "sh /app/bin/start-review-app.sh"
 
       - name: Post URL to Pull Request comment
