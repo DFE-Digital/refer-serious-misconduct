@@ -11,7 +11,7 @@ module Referrals
                   is: 7
                 },
                 numericality: {
-                  only_numeric: true
+                  only_integer: true,
                 },
                 if: -> { trn_known }
 
