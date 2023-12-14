@@ -550,10 +550,6 @@ RSpec.feature "Teacher role", type: :system do
     )
   end
 
-  def when_i_click_on_change_their_duties_format
-    click_on "Change how you want to give details about their main duties"
-  end
-
   def then_i_see_the_completed_section_in_the_referral_summary
     within(all(".app-task-list__section")[1]) do
       within(all(".app-task-list__item")[2]) do
