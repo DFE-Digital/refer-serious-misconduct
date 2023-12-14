@@ -7,6 +7,7 @@ module PublicReferrals
         @form =
           Referrals::AllegationDetails::ConsiderationsForm.new(
             referral: current_referral,
+            changing:,
             allegation_consideration_details: current_referral.allegation_consideration_details
           )
       end
@@ -14,7 +15,10 @@ module PublicReferrals
       def update
         @form =
           Referrals::AllegationDetails::ConsiderationsForm.new(
-            allegation_considerations_params.merge(referral: current_referral)
+            allegation_considerations_params.merge(
+              referral: current_referral,
+              changing:,
+            )
           )
 
         if @form.save

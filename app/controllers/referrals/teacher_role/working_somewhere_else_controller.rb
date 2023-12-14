@@ -5,6 +5,7 @@ module Referrals
         @form =
           WorkingSomewhereElseForm.new(
             referral: current_referral,
+            changing:,
             working_somewhere_else: current_referral.working_somewhere_else
           )
       end
@@ -12,7 +13,10 @@ module Referrals
       def update
         @form =
           WorkingSomewhereElseForm.new(
-            working_somewhere_else_params.merge(referral: current_referral)
+            working_somewhere_else_params.merge(
+              referral: current_referral,
+              changing:,
+            )
           )
 
         if @form.save

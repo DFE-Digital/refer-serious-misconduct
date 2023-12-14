@@ -32,6 +32,10 @@ RSpec.feature "Personal details", type: :system do
     then_i_see_the_check_your_answers_page("Personal details", "teacher_personal_details")
 
     when_i_click_on_change_their_name
+    and_i_click_back
+    then_i_see_the_check_your_answers_page("Personal details", "teacher_personal_details")
+
+    when_i_click_on_change_their_name
     and_i_am_asked_their_name
     and_i_click_save_and_continue
     then_i_am_asked_their_date_of_birth

@@ -5,13 +5,19 @@ module Referrals
         @form =
           TrnForm.new(
             referral: current_referral,
+            changing:,
             trn: current_referral.trn,
             trn_known: current_referral.trn_known
           )
       end
 
       def update
-        @form = TrnForm.new(trn_params.merge(referral: current_referral))
+        @form = TrnForm.new(
+          trn_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

@@ -5,6 +5,7 @@ module Referrals
         @form =
           EndDateForm.new(
             referral: current_referral,
+            changing:,
             role_end_date_known: current_referral.role_end_date_known,
             role_end_date: current_referral.role_end_date
           )
@@ -13,7 +14,11 @@ module Referrals
       def update
         @form =
           EndDateForm.new(
-            role_params.merge(date_params: end_date_params, referral: current_referral)
+            role_params.merge(
+              date_params: end_date_params,
+              referral: current_referral,
+              changing:,
+            )
           )
 
         if @form.save

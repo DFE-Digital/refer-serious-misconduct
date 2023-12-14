@@ -2,11 +2,19 @@ module Referrals
   module AllegationPreviousMisconduct
     class ReportedController < Referrals::BaseController
       def edit
-        @form = ReportedForm.new(referral: current_referral)
+        @form = ReportedForm.new(
+          referral: current_referral,
+          changing:,
+        )
       end
 
       def update
-        @form = ReportedForm.new(reported_form_params.merge(referral: current_referral))
+        @form = ReportedForm.new(
+          reported_form_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
         if @form.save
           redirect_to @form.next_path
         else

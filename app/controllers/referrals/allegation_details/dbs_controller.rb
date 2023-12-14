@@ -2,11 +2,20 @@ module Referrals
   module AllegationDetails
     class DbsController < Referrals::BaseController
       def edit
-        @form = DbsForm.new(referral: current_referral, dbs_notified: current_referral.dbs_notified)
+        @form = DbsForm.new(
+          referral: current_referral,
+          changing:,
+          dbs_notified: current_referral.dbs_notified
+        )
       end
 
       def update
-        @form = DbsForm.new(allegation_dbs_params.merge(referral: current_referral))
+        @form = DbsForm.new(
+          allegation_dbs_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

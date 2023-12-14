@@ -5,13 +5,19 @@ module Referrals
         @form =
           ReasonLeavingRoleForm.new(
             referral: current_referral,
+            changing:,
             reason_leaving_role: current_referral.reason_leaving_role
           )
       end
 
       def update
         @form =
-          ReasonLeavingRoleForm.new(reason_leaving_role_params.merge(referral: current_referral))
+          ReasonLeavingRoleForm.new(
+            reason_leaving_role_params.merge(
+              referral: current_referral,
+              changing:,
+            )
+          )
 
         if @form.save
           redirect_to @form.next_path

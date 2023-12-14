@@ -5,6 +5,7 @@ module Referrals
         @form =
           NameForm.new(
             referral: current_referral,
+            changing:,
             first_name: current_referral.first_name,
             last_name: current_referral.last_name,
             name_has_changed: current_referral.name_has_changed,
@@ -13,7 +14,12 @@ module Referrals
       end
 
       def update
-        @form = NameForm.new(name_params.merge(referral: current_referral))
+        @form = NameForm.new(
+          name_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

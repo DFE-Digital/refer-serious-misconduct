@@ -2,12 +2,20 @@ module Referrals
   module ReferrerDetails
     class NameController < Referrals::BaseController
       def edit
-        @form = Referrals::ReferrerDetails::NameForm.new(referral: current_referral)
+        @form = Referrals::ReferrerDetails::NameForm.new(
+          referral: current_referral,
+          changing:,
+        )
       end
 
       def update
         @form =
-          Referrals::ReferrerDetails::NameForm.new(name_params.merge(referral: current_referral))
+          Referrals::ReferrerDetails::NameForm.new(
+            name_params.merge(
+              referral: current_referral,
+              changing:,
+            )
+          )
         if @form.save
           redirect_to @form.next_path
         else

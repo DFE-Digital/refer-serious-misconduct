@@ -5,11 +5,20 @@ module Referrals
 
       def edit
         @form =
-          StartForm.new(referral: current_referral, has_evidence: current_referral.has_evidence)
+          StartForm.new(
+            referral: current_referral,
+            changing:,
+            has_evidence: current_referral.has_evidence
+          )
       end
 
       def update
-        @form = StartForm.new(start_params.merge(referral: current_referral))
+        @form = StartForm.new(
+          start_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_path = [

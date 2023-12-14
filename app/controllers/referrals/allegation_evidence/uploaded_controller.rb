@@ -4,11 +4,19 @@ module Referrals
       include ReferralHelper
 
       def edit
-        @form = UploadedForm.new(referral: current_referral)
+        @form = UploadedForm.new(
+          referral: current_referral,
+          changing:,
+        )
       end
 
       def update
-        @form = UploadedForm.new(more_evidence_params.merge(referral: current_referral))
+        @form = UploadedForm.new(
+          more_evidence_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.valid?(:update)
           subsection =

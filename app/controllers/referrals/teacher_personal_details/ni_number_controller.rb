@@ -5,13 +5,19 @@ module Referrals
         @form =
           NiNumberForm.new(
             referral: current_referral,
+            changing:,
             ni_number: current_referral.ni_number,
             ni_number_known: current_referral.ni_number_known
           )
       end
 
       def update
-        @form = NiNumberForm.new(ni_number_form_params.merge(referral: current_referral))
+        @form = NiNumberForm.new(
+          ni_number_form_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
         if @form.save
           redirect_to @form.next_path
         else

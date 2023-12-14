@@ -2,11 +2,20 @@ module Referrals
   module TeacherRole
     class JobTitleController < Referrals::BaseController
       def edit
-        @form = JobTitleForm.new(referral: current_referral, job_title: current_referral.job_title)
+        @form = JobTitleForm.new(
+          referral: current_referral,
+          changing:,
+          job_title: current_referral.job_title,
+        )
       end
 
       def update
-        @form = JobTitleForm.new(job_title_params.merge(referral: current_referral))
+        @form = JobTitleForm.new(
+          job_title_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path
