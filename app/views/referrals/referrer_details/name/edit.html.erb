@@ -9,8 +9,8 @@
       <span class="govuk-caption-l"><%= section_label %></span>
       <h1 class="govuk-heading-l"><%= form_label %></h1>
 
-      <%= f.govuk_text_field :first_name, label: { size: 'm', text: "First name" }, hint: { text: "Or given name" } %>
-      <%= f.govuk_text_field :last_name, label: { size: 'm', text: "Last name" }, hint: { text: "Or family name" } %>
+      <%= f.govuk_text_field :first_name, autocomplete: "given-name", label: { size: 'm', text: "First name" }, hint: { text: "Or given name" } %>
+      <%= f.govuk_text_field :last_name, autocomplete: "family-name",  label: { size: 'm', text: "Last name" }, hint: { text: "Or family name" } %>
       <%= f.govuk_submit 'Save and continue' %>
     <% end %>
   </div>
