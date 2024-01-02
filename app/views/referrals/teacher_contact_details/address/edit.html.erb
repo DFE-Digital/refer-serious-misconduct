@@ -9,11 +9,11 @@
       <span class="govuk-caption-l"><%= section_label %></span>
       <h1 class="govuk-heading-l"><%= form_label %></h1>
 
-      <%= f.govuk_text_field :address_line_1, label: { size: 'm', text: "Address line 1" } %>
-      <%= f.govuk_text_field :address_line_2, label: { size: 'm', text: "Address line 2 (optional)" } %>
-      <%= f.govuk_text_field :town_or_city, label: { size: 'm', text: "Town or city" } %>
-      <%= f.govuk_text_field :postcode, label: { size: 'm', text: "Postcode" } %>
-      <%= f.govuk_text_field :country, label: { size: 'm', text: "Country (optional)" } %>
+      <%= f.govuk_text_field :address_line_1, autocomplete: "address-line1", label: { size: 'm', text: "Address line 1" } %>
+      <%= f.govuk_text_field :address_line_2, autocomplete: "address-line2", label: { size: 'm', text: "Address line 2 (optional)" } %>
+      <%= f.govuk_text_field :town_or_city, autocomplete: "address-level2" ,label: { size: 'm', text: "Town or city" } %>
+      <%= f.govuk_text_field :postcode, autocomplete: "postal-code", label: { size: 'm', text: "Postcode" } %>
+      <%= f.govuk_text_field :country, autocomplete: "country", label: { size: 'm', text: "Country (optional)" } %>
       <%= f.govuk_submit "Save and continue" %>
     <% end %>
   </div>

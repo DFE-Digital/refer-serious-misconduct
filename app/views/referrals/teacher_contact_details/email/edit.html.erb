@@ -10,7 +10,7 @@
       <%= f.govuk_radio_buttons_fieldset :email_known, legend: { tag: 'h1', size: 'l', text: form_label }  do %>
         <%= f.hidden_field :email_known %>
         <%= f.govuk_radio_button :email_known, true, label: { text: "Yes" }, link_errors: true do %>
-          <%= f.govuk_text_field :email_address, label: { text: "Email address", size: 's' } %>
+          <%= f.govuk_text_field :email_address, autocomplete: "email", label: { text: "Email address", size: 's' } %>
         <% end %>
         <%= f.govuk_radio_button :email_known, false, label: { text: "No" } %>
       <% end %>
