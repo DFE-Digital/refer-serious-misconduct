@@ -20,4 +20,12 @@ Sentry.init do |config|
     "ActionDispatch::Http::Parameters::ParseError",
     "Mime::Type::InvalidMimeType"
   ]
+
+  config.traces_sampler = lambda do |sampling_context|
+    rack_env = sampling_context[:env]
+
+    return 0.001 if rack_env['PATH_INFO'] =~ /health/
+
+    0.1
+  end
 end
