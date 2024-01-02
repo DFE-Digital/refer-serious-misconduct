@@ -5,6 +5,7 @@ module Referrals
         @form =
           WorkLocationForm.new(
             referral: current_referral,
+            changing:,
             work_organisation_name: current_referral.work_organisation_name,
             work_address_line_1: current_referral.work_address_line_1,
             work_address_line_2: current_referral.work_address_line_2,
@@ -14,7 +15,12 @@ module Referrals
       end
 
       def update
-        @form = WorkLocationForm.new(work_location_params.merge(referral: current_referral))
+        @form = WorkLocationForm.new(
+          work_location_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

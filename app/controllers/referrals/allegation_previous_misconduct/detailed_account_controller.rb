@@ -5,6 +5,7 @@ module Referrals
         @form =
           DetailedAccountForm.new(
             referral: current_referral,
+            changing:,
             previous_misconduct_format: current_referral.previous_misconduct_format,
             previous_misconduct_details: current_referral.previous_misconduct_details,
             previous_misconduct_upload_file: current_referral.previous_misconduct_upload_file
@@ -13,7 +14,12 @@ module Referrals
 
       def update
         @form =
-          DetailedAccountForm.new(detailed_account_form_params.merge(referral: current_referral))
+          DetailedAccountForm.new(
+            detailed_account_form_params.merge(
+              referral: current_referral,
+              changing:,
+            )
+          )
         if @form.save
           redirect_to @form.next_path
         else

@@ -5,6 +5,7 @@ module Referrals
         @form =
           AgeForm.new(
             referral: current_referral,
+            changing:,
             age_known: current_referral.age_known,
             date_of_birth: current_referral.date_of_birth
           )
@@ -13,7 +14,11 @@ module Referrals
       def update
         @form =
           AgeForm.new(
-            age_params.merge(date_params: date_of_birth_params, referral: current_referral)
+            age_params.merge(
+              date_params: date_of_birth_params,
+              referral: current_referral,
+              changing:,
+            )
           )
 
         if @form.save

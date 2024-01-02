@@ -5,14 +5,18 @@ module Referrals
         @form =
           OrganisationAddressKnownForm.new(
             referral: current_referral,
-            organisation_address_known: current_referral.organisation_address_known
+            changing:,
+            organisation_address_known: current_referral.organisation_address_known,
           )
       end
 
       def update
         @form =
           OrganisationAddressKnownForm.new(
-            organisation_address_known_params.merge(referral: current_referral)
+            organisation_address_known_params.merge(
+              referral: current_referral,
+              changing:,
+            )
           )
 
         if @form.save

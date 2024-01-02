@@ -5,12 +5,18 @@ module Referrals
         @form =
           SameOrganisationForm.new(
             referral: current_referral,
+            changing:,
             same_organisation: current_referral.same_organisation
           )
       end
 
       def update
-        @form = SameOrganisationForm.new(same_organisation_params.merge(referral: current_referral))
+        @form = SameOrganisationForm.new(
+          same_organisation_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

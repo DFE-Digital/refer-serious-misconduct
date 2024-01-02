@@ -5,6 +5,7 @@ module Referrals
         @form =
           AddressKnownForm.new(
             referral: current_referral,
+            changing:,
             address_known: current_referral.address_known
           )
       end
@@ -12,7 +13,10 @@ module Referrals
       def update
         @form =
           AddressKnownForm.new(
-            contact_details_address_known_form_params.merge(referral: current_referral)
+            contact_details_address_known_form_params.merge(
+              referral: current_referral,
+              changing:,
+            )
           )
         if @form.save
           redirect_to @form.next_path

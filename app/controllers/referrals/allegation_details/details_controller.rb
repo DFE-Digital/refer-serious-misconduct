@@ -5,6 +5,7 @@ module Referrals
         @form =
           DetailsForm.new(
             referral: current_referral,
+            changing:,
             allegation_details: current_referral.allegation_details,
             allegation_format: current_referral.allegation_format,
             allegation_upload_file: current_referral.allegation_upload_file
@@ -12,7 +13,12 @@ module Referrals
       end
 
       def update
-        @form = DetailsForm.new(allegation_details_params.merge(referral: current_referral))
+        @form = DetailsForm.new(
+          allegation_details_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

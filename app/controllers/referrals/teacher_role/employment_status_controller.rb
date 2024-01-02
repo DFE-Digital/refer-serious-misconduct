@@ -5,12 +5,18 @@ module Referrals
         @form =
           EmploymentStatusForm.new(
             referral: current_referral,
+            changing:,
             employment_status: current_referral.employment_status
           )
       end
 
       def update
-        @form = EmploymentStatusForm.new(employment_status_params.merge(referral: current_referral))
+        @form = EmploymentStatusForm.new(
+          employment_status_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

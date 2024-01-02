@@ -34,5 +34,9 @@ module Referrals
 
     attr_reader :form
     helper_method :form
+
+    def changing
+      params[:return_to].present?
+    end
   end
 end

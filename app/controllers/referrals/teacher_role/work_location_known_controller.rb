@@ -5,6 +5,7 @@ module Referrals
         @form =
           WorkLocationKnownForm.new(
             referral: current_referral,
+            changing:,
             work_location_known: current_referral.work_location_known
           )
       end

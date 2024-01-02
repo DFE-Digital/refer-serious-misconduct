@@ -4,11 +4,19 @@ module Referrals
       include ReferralHelper
 
       def edit
-        @form = UploadForm.new(referral: current_referral)
+        @form = UploadForm.new(
+          referral: current_referral,
+          changing:,
+        )
       end
 
       def update
-        @form = UploadForm.new(upload_params.merge(referral: current_referral))
+        @form = UploadForm.new(
+          upload_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to [

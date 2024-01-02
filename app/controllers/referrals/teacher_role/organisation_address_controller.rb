@@ -5,6 +5,7 @@ module Referrals
         @form =
           OrganisationAddressForm.new(
             referral: current_referral,
+            changing:,
             organisation_name: current_referral.organisation_name,
             organisation_address_line_1: current_referral.organisation_address_line_1,
             organisation_address_line_2: current_referral.organisation_address_line_2,
@@ -15,7 +16,12 @@ module Referrals
 
       def update
         @form =
-          OrganisationAddressForm.new(organisation_address_params.merge(referral: current_referral))
+          OrganisationAddressForm.new(
+            organisation_address_params.merge(
+              referral: current_referral,
+              changing:,
+            )
+          )
 
         if @form.save
           redirect_to @form.next_path

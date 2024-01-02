@@ -5,13 +5,19 @@ module Referrals
         @form =
           EmailForm.new(
             referral: current_referral,
+            changing:,
             email_known: current_referral.email_known,
             email_address: current_referral.email_address
           )
       end
 
       def update
-        @form = EmailForm.new(contact_details_email_form_params.merge(referral: current_referral))
+        @form = EmailForm.new(
+          contact_details_email_form_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
         if @form.save
           redirect_to @form.next_path
         else

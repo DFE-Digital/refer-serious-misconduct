@@ -12,7 +12,9 @@ module Referrals
       end
 
       def update
-        @form = CheckAnswersForm.new(check_answers_params.merge(referral: current_referral))
+        @form = CheckAnswersForm.new(
+          check_answers_params.merge(referral: current_referral)
+        )
 
         if @form.save
           redirect_to @form.next_path
@@ -22,11 +24,17 @@ module Referrals
       end
 
       def delete
-        @form = CheckAnswersForm.new(referral: current_referral)
+        @form = CheckAnswersForm.new(
+          changing:,
+          referral: current_referral
+        )
       end
 
       def destroy
-        @form = CheckAnswersForm.new(referral: current_referral)
+        @form = CheckAnswersForm.new(
+          changing:,
+          referral: current_referral
+        )
         filename = evidence.filename
         evidence.destroy
 

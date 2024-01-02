@@ -5,6 +5,7 @@ module Referrals
         @form =
           DutiesForm.new(
             referral: current_referral,
+            changing:,
             duties_details: current_referral.duties_details,
             duties_format: current_referral.duties_format,
             duties_upload_file: current_referral.duties_upload_file
@@ -12,7 +13,12 @@ module Referrals
       end
 
       def update
-        @form = DutiesForm.new(duties_params.merge(referral: current_referral))
+        @form = DutiesForm.new(
+          duties_params.merge(
+            referral: current_referral,
+            changing:,
+          )
+        )
 
         if @form.save
           redirect_to @form.next_path

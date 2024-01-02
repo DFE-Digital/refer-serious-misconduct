@@ -5,11 +5,15 @@ module Referrals
     include ValidationTracking
     include CustomAttrs
 
-    attr_accessor :referral
+    attr_accessor :referral, :changing
 
     validates :referral, presence: true
 
     delegate :label, to: :section, prefix: true
+
+    def changing?
+      changing
+    end
 
     def complete?
       valid_without_tracking?
@@ -21,6 +25,10 @@ module Referrals
 
     def path
       [:edit, referral.routing_scope, referral, section.slug, slug]
+    end
+
+    def check_answers_path
+      [:edit, referral.routing_scope, referral, section.slug, :check_answers]
     end
 
     def edit_path
@@ -40,7 +48,13 @@ module Referrals
     end
 
     def previous_path
-      check_answers? || first? ? edit_path : section.previous_path
+      if changing?
+        check_answers_path
+      elsif check_answers? || first?
+        edit_path
+      else
+        section.previous_path
+      end
     end
 
     def first?
