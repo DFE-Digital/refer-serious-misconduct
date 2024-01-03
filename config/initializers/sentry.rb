@@ -22,7 +22,7 @@ Sentry.init do |config|
   ]
 
   config.traces_sampler = lambda do |sampling_context|
-    rack_env = sampling_context[:env]
+    rack_env = sampling_context[:env] || {}
 
     return 0.001 if rack_env['PATH_INFO'] =~ /health/
 
