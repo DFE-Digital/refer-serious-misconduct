@@ -4,4 +4,6 @@ Complete your referral:
 
 <%= polymorphic_url([:edit, @referral.routing_scope, @referral]) %>
 
+Draft referrals will be deleted after 90 days of no activity. We’ll send you an email before deleting it.
+
 <%= render "shared/mailers/get_help" %>
