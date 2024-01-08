@@ -52,9 +52,6 @@ group :development do
   gem "rladr"
   gem "rubocop-govuk", require: false
   gem "solargraph-rails", require: false
-  gem "syntax_tree", require: false
-  gem "syntax_tree-haml", require: false
-  gem "syntax_tree-rbs", require: false
   gem "web-console"
 end
 
