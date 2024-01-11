@@ -1,93 +1,69 @@
-<% content_for :page_title, 'Accessibility statement' %>
+<% content_for :page_title, "Accessibility statement" %>
 
-# Accessibility statement for <%= t('service.name') %>
+# Accessibility statement
 
-This page only contains information about the <%= t('service.name') %>
-service, available at: <a href="<%= t('service.url') %>" class="govuk-link
-govuk-link--no-visited-state"><%= t('service.url') %> </a>
+This accessibility statement applies to Refer serious misconduct by a teacher in England.
 
-## Using this service
-
-This service is run by the Department for Education. We want as many people as
-possible to be able to use this service.
-
-For example, that means you should be able to:
+This service is run by the Department for Education. We want as many people as possible to be able to use this service. For example, that means you should be able to:
 
 - change colours, contrast levels and fonts
 - zoom in up to 300% without the text spilling off the screen
 - get from the start of the service to the end using just a keyboard
-- get from the start of the service to the end using speech recognition
-  software
-- listen to the service using a screen reader (including the most recent
-  versions of JAWS, NVDA and VoiceOver)
+- get from the start of the service to the end using speech recognition software
+- listen to the service using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
 
 We’ve also made the text in the service as simple as possible to understand.
 
-[AbilityNet](https://mcmw.abilitynet.org.uk/) has advice on making your device
-easier to use if you have a disability.
+<%= govuk_link_to "AbilityNet (opens in a new tab)", "https://mcmw.abilitynet.org.uk", target: "\_blank" %> has advice on making your device easier to use if you have a disability.
 
 ## How accessible this service is
 
-This service is fully compliant with [the Web Content Accessibility Guidelines
-version 2.2 AA standard](https://www.w3.org/TR/WCAG22/).
+We believe this service is fully accessible.
 
 ## Feedback and contact information
 
-If you have difficulty using this service, email: <a href="mailto:<%=
-t('service.email') %>" class="govuk-link govuk-link--no-visited-state"><%=
-t('service.email') %></a>
+If you need information on this service in a different format like accessible PDF, large print, easy read, audio recording or braille, email <%= govuk_mail_to t('service.email') %>.
 
-As part of providing this service, we may need to send you messages or
-documents. We'll ask you how you want us to send messages or documents to you,
-but contact us if you need them in a different format, for example, large print,
-audio recording or braille.
+We’ll consider your request and aim to get back to you in 5 working days.
 
 ## Reporting accessibility problems with this service
 
-We’re always looking to improve the accessibility of this service.
-
-If you find any problems that are not listed on this page or think we’re not
-meeting accessibility requirements, email: <a href="mailto:<%= t('service.email')
-%>" class="govuk-link govuk-link--no-visited-state"><%= t('service.email') %></a>
+We’re always looking to improve the accessibility of this service. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, email the details to <%= govuk_mail_to t('service.email') %>.
 
 ## Enforcement procedure
 
-The Equality and Human Rights Commission (EHRC) is responsible for enforcing
-the Public Sector Bodies (Websites and Mobile Applications) (No. 2)
-Accessibility Regulations 2018 (the ‘accessibility regulations’).
-
-If you’re not happy with how we respond to your complaint, contact [the
-Equality Advisory and Support Service
-(EASS)](https://www.equalityadvisoryservice.com/).
+The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‛accessibility regulations’). If you’re not happy with how we respond to your complaint, <%= govuk_link_to "contact the Equality Advisory and Support Service (opens in a new tab)", "https://www.equalityadvisoryservice.com/", target: "\_blank" %>.
 
 ## Technical information about this service’s accessibility
 
-The Department for Education is committed to making this service accessible, in
-accordance with the Public Sector Bodies (Websites and Mobile Applications)
-(No. 2) Accessibility Regulations 2018.
+The Department for Education is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
 
-### Compliance status
+## Compliance status
 
-This service is fully compliant with [the Web Content Accessibility Guidelines
-version 2.2 AA standard](https://www.w3.org/TR/WCAG22/).
+We believe this service is fully compliant with the <%= govuk_link_to "Web Content Accessibility Guidelines version 2.1 AA standard (opens in a new tab)", "https://www.w3.org/TR/WCAG21/", target: "\_blank" %>.
+
+## How we tested this service
+
+This service was manually tested by an internal team in December 2022 using the following accessibility testing tools:
+
+- Dragon NaturallySpeaking (V15.71)
+- JAWS (2022)
+- Edge (2022)
+
+Any issues identified have now been fixed.
 
 ## What we are doing to improve accessibility
 
-We’ll carry out ongoing internal audits to check the accessibility of this
-service as well as taking feedback from users.
+We’ll carry out ongoing internal audits to check the accessibility of this service as well as taking feedback from users.
 
-Any required changes will be planned into our continuous improvement work for
-this service.
+Any required changes will be planned into our continuous improvement work for this service.
 
-This accessibility statement will be updated based on any issues we identify or
-any changes we make to address any issues raised.
+This accessibility statement will be updated based on any issues we identify or any changes we make to address any issues raised.
 
-We're also planning a full accessibility audit on the service by the Digital
-Accessibility Centre (DAC) before March 2023.
+We plan for external experts to run a full accessibility check of the service in June 2024.
 
 ## Preparation of this accessibility statement
 
-This statement was prepared on Monday 21 November 2022. It was last reviewed on
-Monday 21 November 2022.
+This statement was prepared on Monday 21 November 2022. It was last reviewed on 9 January 2024.
 
-Last updated: Monday 21 November 2022
+Last updated: 10 January 2024
