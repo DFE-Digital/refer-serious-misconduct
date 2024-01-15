@@ -91,7 +91,7 @@ en:
         registration_exists_form:
           attributes:
             registration_exists:
-              inclusion: Select yes if you have an account
+              inclusion: Select yes if you've used this service before
         "eligibility_screener/continue_with_form":
           attributes:
             continue_with:
@@ -116,6 +116,26 @@ en:
           attributes:
             unsupervised_teaching:
               inclusion: Select if this person carries out unsupervised teaching work
+        "public_eligibility_screener/complained_to_school_form":
+          attributes:
+            complaint_status:
+              inclusion: Select whether you've complained to the school about the teacher
+        "public_eligibility_screener/allegation_form":
+          attributes:
+            serious_misconduct:
+              inclusion: Select whether your allegation involves any of the following
+        "public_eligibility_screener/is_teacher_form":
+          attributes:
+            is_teacher:
+              inclusion: Select yes if the allegation is about a teacher
+        "public_eligibility_screener/unsupervised_teaching_form":
+          attributes:
+            unsupervised_teaching:
+              inclusion: Select if this person carries out unsupervised teaching work
+        "public_eligibility_screener/teaching_in_england_form":
+          attributes:
+            teaching_in_england:
+              inclusion: Select yes if they were employed in England at the time the alleged misconduct took place
         "users/otp_form":
           attributes:
             otp:

@@ -124,6 +124,7 @@ shared:
     - is_teacher
     - complained
     - continue_with
+    - complaint_status
   :users:
     - id
     - email

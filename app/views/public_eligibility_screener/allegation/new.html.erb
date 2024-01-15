@@ -1,0 +1,23 @@
+<% content_for :page_title, (@allegation_form.errors.any? ? 'Error: ' : '') + "Does your allegation involve any of the following?" %>
+<% content_for :back_link_url, previous_question_path %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @allegation_form, url: what_allegation_involves_url, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+      <%= f.govuk_check_boxes_fieldset :serious_misconduct, legend: { tag: 'h1', size: 'l', text: "Does your allegation involve any of the following?"},hint: {text: "Select all that apply"} , include_hidden: false do %>
+          <%= f.govuk_check_box :serious_misconduct, :sexual_misconduct, label: { text: "Sexual misconduct" }, link_errors: true, hint: { text: "For example, a sexual relationship with a current or former pupil."} %>
+          <%= f.govuk_check_box :serious_misconduct, :violent_behaviour, label: { text: "Violent behaviour" } %>
+          <%= f.govuk_check_box :serious_misconduct, :serious_failure_to_protect_pupils, label: { text: "Serious failure to protect the safety and wellbeing of pupils" }, hint: { text: "For example, not reporting evidence of neglect or abuse." } %>
+          <%= f.govuk_check_box :serious_misconduct, :alcohol_or_drug_misuse, label: { text: "Alcohol or drug misuse" } %>
+          <%= f.govuk_check_box :serious_misconduct, :fraud_or_dishonesty, label: { text: "Fraud or serious dishonesty" }, hint: { text: "For example, misuse of school funds." } %>
+          <%= f.govuk_check_box :serious_misconduct, :discrimination_or_harassment, label: { text: "Discrimination or harassment" } %>
+          <%= f.govuk_check_box :serious_misconduct, :promoting_extreme_views, label: { text: "Promoting extreme political or religious views" } %>
+          <%= f.govuk_check_box :serious_misconduct, :criminal_offense, label: { text: "A serious criminal offence" } %>
+          <%= f.govuk_check_box_divider %>
+          <%= f.govuk_check_box :serious_misconduct, :none, exclusive: true, label: { text: "None of these" } %>
+        <% end %>
+      <%= f.govuk_submit %>
+      <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% content_for :page_title, "#{'Error: ' if @is_teacher_form.errors.any?}Who the allegation is about" %>
+<% content_for :back_link_url, previous_question_path %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @is_teacher_form, url: public_is_a_teacher_url, method: :post do |f| %>
+      <%= f.govuk_error_summary %>
+
+      <h1 class="govuk-heading-l">Who the allegation is about</h1>
+
+      <p class="govuk_body">You can only refer a teacher if they’ve been engaged in unsupervised teaching work, such as:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>planning and preparing lessons and courses for pupils</li>
+        <li>delivering lessons to pupils</li>
+        <li>assessing the development, progress and attainment of pupils</li>
+        <li>reporting on the development, progress and attainment of pupils</li>
+      </ul>
+      <p class="govuk_body">This can include teaching that happened in person or online.</p>
+
+      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { size: 'm', text: 'Is the allegation about a teacher?' } do %>
+        <%= f.hidden_field :is_teacher %>
+        <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" }, link_errors: true %>
+        <%= f.govuk_radio_button :is_teacher, "no", label: { text: "No" } %>
+        <%= f.govuk_radio_button :is_teacher, "not_sure", label: { text: "I’m not sure" } %>
+      <% end %>
+      <%= f.govuk_submit %>
+    <% end %>
+  </div>
+</div>

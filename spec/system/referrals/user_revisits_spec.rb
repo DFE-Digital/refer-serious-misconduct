@@ -24,6 +24,7 @@ RSpec.feature "User revisits", type: :system do
   private
 
   def then_i_see_the_do_you_have_an_account
-    expect(page).to have_content("Do you have an account?")
+    expect(page).to have_content("Have you used this service before?
+")
   end
 end

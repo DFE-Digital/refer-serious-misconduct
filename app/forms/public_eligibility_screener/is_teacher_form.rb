@@ -1,5 +1,5 @@
-module EligibilityScreener
-  class IsTeacherForm < EligibilityScreenerForm
+module PublicEligibilityScreener
+  class IsTeacherForm < PublicEligibilityScreenerForm
     attr_eligibility_check :is_teacher
 
     validates :is_teacher, inclusion: { in: %w[yes no not_sure] }
@@ -7,7 +7,7 @@ module EligibilityScreener
     def save
       return false unless valid?
 
-      eligibility_check.is_teacher = @is_teacher
+      eligibility_check.is_teacher = is_teacher
       eligibility_check.save
     end
   end

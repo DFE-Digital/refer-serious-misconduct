@@ -1,15 +1,15 @@
-<% content_for :page_title, "Do you have an account?" %>
+<% content_for :page_title, "Have you used this service before?" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @registration_exists_form, url: users_registrations_exists_path, method: :post do |f| %>
+    <%= form_with model: @registration_exists_form, url: used_service_before_path, method: :post do |f| %>
       <%= f.govuk_error_summary %>
 
       <%= f.govuk_collection_radio_buttons(:registration_exists,
         [OpenStruct.new(label: "Yes, sign in and continue making a referral", value: 'yes'), OpenStruct.new(label: "No", value: 'no')],
         :value,
         :label,
-        legend: { tag: 'h1', size: 'l', text: 'Do you have an account?' }
+        legend: { tag: 'h1', size: 'l', text: "Have you used this service before?" }
       ) %>
 
       <%= f.govuk_submit %>

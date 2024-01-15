@@ -66,7 +66,7 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_see_an_error_about_not_choosing_an_option
-    expect(page).to have_content "Select yes if you have an account"
+    expect(page).to have_content "Select yes if you've used this service before"
   end
 
   def and_choose_continue_referral

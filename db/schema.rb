@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_15_122821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
     t.string "is_teacher"
     t.boolean "complained"
     t.string "continue_with"
+    t.string "complaint_status"
   end
 
   create_table "feature_flags_features", force: :cascade do |t|
@@ -88,46 +89,46 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
   create_table "referrals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "email_known"
+    t.string "email_address", limit: 256
     t.string "first_name"
     t.string "last_name"
     t.string "previous_name"
     t.string "name_has_changed"
     t.date "date_of_birth"
-    t.string "has_qts"
-    t.string "email_address", limit: 256
     t.string "trn"
     t.boolean "trn_known"
-    t.boolean "email_known"
+    t.string "has_qts"
     t.boolean "address_known"
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "town_or_city"
     t.string "postcode", limit: 11
     t.string "country"
-    t.boolean "personal_details_complete"
     t.boolean "phone_known"
     t.string "phone_number"
-    t.boolean "age_known"
+    t.boolean "personal_details_complete"
     t.boolean "contact_details_complete"
     t.bigint "user_id", null: false
+    t.boolean "age_known"
+    t.boolean "role_start_date_known"
+    t.date "role_start_date"
     t.string "allegation_format"
     t.text "allegation_details"
     t.boolean "dbs_notified"
     t.boolean "allegation_details_complete"
     t.boolean "has_evidence"
     t.boolean "evidence_details_complete"
-    t.boolean "role_start_date_known"
-    t.date "role_start_date"
-    t.string "previous_misconduct_reported"
     t.string "employment_status"
     t.date "role_end_date"
     t.string "reason_leaving_role"
+    t.string "previous_misconduct_reported"
     t.string "job_title"
     t.boolean "same_organisation"
     t.string "duties_format"
     t.text "duties_details"
-    t.boolean "teacher_role_complete"
     t.text "previous_misconduct_details"
+    t.boolean "teacher_role_complete"
     t.datetime "submitted_at", precision: nil
     t.string "working_somewhere_else"
     t.bigint "eligibility_check_id"
@@ -145,10 +146,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
     t.string "organisation_postcode", limit: 11
     t.boolean "role_end_date_known"
     t.text "allegation_consideration_details"
-    t.string "previous_misconduct_format"
-    t.boolean "previous_misconduct_complete"
     t.string "ni_number"
     t.boolean "ni_number_known"
+    t.string "previous_misconduct_format"
+    t.boolean "previous_misconduct_complete"
     t.text "declaration"
     t.index ["eligibility_check_id"], name: "index_referrals_on_eligibility_check_id"
     t.index ["user_id"], name: "index_referrals_on_user_id"
@@ -194,9 +195,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_131752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "invitation_token"
-    t.datetime "invitation_created_at", precision: nil
-    t.datetime "invitation_sent_at", precision: nil
-    t.datetime "invitation_accepted_at", precision: nil
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
     t.bigint "invited_by_id"
