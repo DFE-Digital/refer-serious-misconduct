@@ -8,7 +8,7 @@ class PagesController < ApplicationController
 
     @previous_path =
       if eligibility_check.reporting_as_public?
-        complaint_or_referral_path
+        public_teaching_in_england_path
       else
         serious_misconduct_path
       end

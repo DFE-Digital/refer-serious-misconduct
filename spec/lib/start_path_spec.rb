@@ -12,7 +12,7 @@ RSpec.describe StartPath do
       context "when user is nil" do
         let(:user) { nil }
 
-        it { is_expected.to eq(users_registrations_exists_path) }
+        it { is_expected.to eq(used_service_before_path) }
       end
 
       context "when user is present" do

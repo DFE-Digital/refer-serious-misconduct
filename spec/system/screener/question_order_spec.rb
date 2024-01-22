@@ -77,7 +77,7 @@ RSpec.feature "Question order", type: :system do
   end
 
   def then_i_see_the_do_you_have_an_account_page
-    expect(page).to have_current_path("/users/registrations/exists")
+    expect(page).to have_current_path("/used-service-before")
   end
 
   def then_i_see_the_serious_misconduct_page

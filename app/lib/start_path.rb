@@ -17,7 +17,7 @@ class StartPath
     if FeatureFlags::FeatureFlag.active?(:referral_form)
       return path_when_user_present if user.present?
 
-      users_registrations_exists_path
+      used_service_before_path
     else
       referral_type_path
     end

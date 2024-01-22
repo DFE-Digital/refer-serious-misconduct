@@ -1,0 +1,23 @@
+<% content_for :page_title, "Consider if you should make a referral" %>
+<% content_for :back_link_url, what_allegation_involves_path %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">Consider if you should make a referral</h1>
+    <p class="govuk_body">
+      If you refer the teacher for something which is not serious misconduct, it will not be investigated.
+    </p>
+
+    <p class="govuk_body">
+      You should <a rel="external" href="https://www.gov.uk/complain-about-school">complain to the school</a> instead.
+    </p>
+
+    <p class="govuk_body">
+      If you complained to your school and believe your complaint was not dealt with correctly, you can
+      <a rel="external" href="https://www.gov.uk/complain-to-dfe">complain to the DfE</a>.
+    </p>
+    <p class="govuk_body">
+      <%= govuk_button_link_to 'I want to make a referral', public_is_a_teacher_path %>
+    </p>
+  </div>
+</div>
