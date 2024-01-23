@@ -9,3 +9,7 @@ draft_referral_reminder:
 fetch_malware_scan_results:
   cron: "*/30 * * * *"
   class: FetchMalwareScanResultsJob
+
+send_entity_table_checks_to_bigquery:
+  cron: "30 3 * * *" # Every day at 03:30
+  class: "DfE::Analytics::EntityTableCheckJob"
