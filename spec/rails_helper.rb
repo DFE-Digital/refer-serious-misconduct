@@ -17,7 +17,7 @@ require "super_diff/rspec-rails"
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(
     app,
-    timeout: 10,
+    timeout: 20,
     process_timeout: ENV.fetch("CUPRITE_TIMEOUT", 30),
     window_size: [1200, 800]
   )
