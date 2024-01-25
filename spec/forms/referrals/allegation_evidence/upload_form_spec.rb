@@ -71,7 +71,7 @@ RSpec.describe Referrals::AllegationEvidence::UploadForm, type: :model do
           fixture_file_upload("upload.txt")
         end
         expect(upload_form.save).to be false
-        expect(upload_form.errors[:evidence_uploads]).to eq(["You can only upload 20 files"])
+        expect(upload_form.errors[:evidence_uploads]).to eq(["You can only upload 40 files"])
       end
     end
   end

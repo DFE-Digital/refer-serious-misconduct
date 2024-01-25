@@ -360,7 +360,7 @@ RSpec.feature "Evidence", type: :system do
   def then_i_see_a_list_of_max_uploaded_files
     expect(page).to have_content("Uploaded evidence")
     within(".govuk-summary-list") do
-      expect(page).to have_link("upload1.pdf", count: 20, href: /active_storage/)
+      expect(page).to have_link("upload1.pdf", count: 40, href: /active_storage/)
     end
   end
 end
