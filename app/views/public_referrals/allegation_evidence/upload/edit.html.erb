@@ -2,7 +2,7 @@
 <% content_for :back_link_url, back_link_url %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds-from-desktop ">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
     <%= form_with model: form, url: form_path, method: :patch do |f| %>
       <%= f.govuk_error_summary %>
 
@@ -34,7 +34,7 @@
           :evidence_uploads,
           multiple: true,
           label: { text: "Upload files", size: "m" },
-          hint: { text: "You can upload up to 20 files. Each file must be smaller than #{max_allowed_file_size}. Larger files may take longer to upload. We will let you know when it is done." }
+          hint: { text: "You can upload up to #{FileUploadValidator::MAX_FILES} files. Each file must be smaller than #{max_allowed_file_size}. Larger files may take longer to upload. We will let you know when it is done." }
       ) %>
 
       <%= f.govuk_submit "Save and continue" %>
