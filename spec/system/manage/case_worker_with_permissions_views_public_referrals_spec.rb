@@ -4,6 +4,12 @@ require "rails_helper"
 RSpec.feature "Manage referrals" do
   include CommonSteps
 
+  around :each do |example|
+    freeze_time do
+      example.run
+    end
+  end
+
   scenario "Case worker with permissions views public referrals", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
