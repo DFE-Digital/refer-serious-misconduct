@@ -79,7 +79,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def when_i_fill_out_allegation_details
-    choose "Describe the allegation", visible: false
+    find("label", text: "Describe the allegation").click
     fill_in "Description of the allegation", with: "Something something something"
   end
 
@@ -149,7 +149,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def and_i_choose_upload
-    choose "Upload file", visible: false
+    find("label", text: "Upload file").click
   end
 
   def and_i_attach_an_allegation_file

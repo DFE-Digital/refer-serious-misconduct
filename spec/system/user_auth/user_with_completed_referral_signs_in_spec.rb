@@ -44,7 +44,7 @@ RSpec.feature "User accounts" do
   end
 
   def and_choose_continue_referral
-    choose "Yes, sign in and continue making a referral", visible: false
+    find("label", text: "Yes, sign in and continue making a referral").click
     click_on "Continue"
   end
 
@@ -84,11 +84,11 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_complete_the_screener
-    choose "I’m referring as an employer", visible: false
+    find("label", text: "I’m referring as an employer").click
     click_on "Continue"
 
     4.times do
-      choose "I’m not sure", visible: false
+      find("label", text: "I’m not sure").click
       click_on "Continue"
     end
 

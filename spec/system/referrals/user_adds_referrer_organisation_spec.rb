@@ -61,7 +61,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_i_see_the_address_prefilled
@@ -145,7 +145,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def when_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def when_i_click_change_your_organisation

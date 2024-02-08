@@ -42,12 +42,12 @@ module CommonSteps
   alias_method :when_i_visit_the_public_referral, :and_i_visit_the_public_referral
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
   alias_method :when_i_choose_complete, :and_i_choose_complete
 
   def and_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
   alias_method :when_i_choose_no_come_back_later, :and_i_choose_no_come_back_later
 

@@ -133,7 +133,7 @@ RSpec.feature "Personal details", type: :system do
   def when_i_fill_out_the_name_fields_and_save
     fill_in "First name", with: "Jane"
     fill_in "Last name", with: "Smith"
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
     fill_in "Other name", with: "Jane Jones"
   end
 
@@ -146,7 +146,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_fill_out_their_date_of_birth
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
     fill_in "Day", with: "17"
     fill_in "Month", with: "1"
     fill_in "Year", with: "1990"
@@ -162,7 +162,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_fill_out_their_trn
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
     fill_in "TRN", with: "9912345"
   end
 
@@ -175,7 +175,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_fill_out_their_qts
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def then_i_am_asked_to_confirm_their_personal_details
@@ -241,7 +241,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_fill_in_the_national_insurance_number

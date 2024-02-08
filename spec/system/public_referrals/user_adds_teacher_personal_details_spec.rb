@@ -70,7 +70,7 @@ RSpec.feature "Personal details", type: :system do
   def when_i_fill_out_the_name_fields_and_save
     fill_in "First name", with: "Jane"
     fill_in "Last name", with: "Smith"
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
     fill_in "Other name", with: "Jane Jones"
   end
 
@@ -93,7 +93,7 @@ RSpec.feature "Personal details", type: :system do
   end
 
   def when_i_confirm_their_personal_details
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def then_i_see_the_completed_section_in_the_referral_summary

@@ -65,11 +65,11 @@ RSpec.feature "Public Referral: About You", type: :system do
   private
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def and_i_see_my_name_in_the_form_field

@@ -382,34 +382,34 @@ RSpec.feature "Teacher role", type: :system do
   # Radios
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
   alias_method :and_i_choose_yes, :when_i_choose_yes
 
   def when_i_choose_no
-    choose "No", visible: false
+    find("label", text: "No").click
   end
   alias_method :and_i_choose_no, :when_i_choose_no
 
   def and_i_choose_employed
-    choose "They’re still employed but they’ve been suspended", visible: false
+    find("label", text: "They’re still employed but they’ve been suspended").click
   end
 
   def and_i_choose_left
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def when_i_choose_resigned
-    choose "Resigned", visible: false
+    find("label", text: "Resigned").click
   end
 
   def when_i_choose_upload
-    choose "Upload file", visible: false
+    find("label", text: "Upload file").click
   end
   alias_method :and_i_choose_upload, :when_i_choose_upload
 
   def when_i_choose_details
-    choose "Describe their main duties", visible: false
+    find("label", text: "Describe their main duties").click
   end
   alias_method :and_i_choose_details, :when_i_choose_details
 

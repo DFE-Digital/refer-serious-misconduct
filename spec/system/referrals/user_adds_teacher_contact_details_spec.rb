@@ -178,7 +178,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def when_i_select_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def then_i_see_a_missing_email_error
@@ -227,7 +227,7 @@ RSpec.feature "Contact details", type: :system do
   end
 
   def when_i_select_no
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def then_i_see_a_missing_address_fields_error

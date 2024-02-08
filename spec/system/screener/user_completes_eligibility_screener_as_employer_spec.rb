@@ -19,11 +19,11 @@ RSpec.feature "Eligibility screener", type: :system do
   private
 
   def then_i_can_complete_the_screener_as_an_employer
-    choose "I’m referring as an employer", visible: false
+    find("label", text: "I’m referring as an employer").click
     click_on "Continue"
 
     4.times do
-      choose "I’m not sure", visible: false
+      find("label", text: "I’m not sure").click
       click_on "Continue"
     end
 

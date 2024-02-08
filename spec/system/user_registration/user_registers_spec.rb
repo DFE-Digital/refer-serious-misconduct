@@ -44,16 +44,16 @@ RSpec.feature "User registration" do
   private
 
   def and_i_start_new_referral
-    choose "No", visible: false
+    find("label", text: "No").click
     click_on "Continue"
   end
 
   def and_i_complete_the_eligibility_screener
-    choose "I’m referring as an employer", visible: false
+    find("label", text: "I’m referring as an employer").click
     click_on "Continue"
 
     3.times do
-      choose "Yes", visible: false
+      find("label", text: "Yes").click
       click_on "Continue"
     end
 

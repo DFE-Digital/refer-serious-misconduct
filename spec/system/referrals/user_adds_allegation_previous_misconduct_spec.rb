@@ -87,7 +87,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   private
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: :all
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_i_see_no_previous_misconduct_is_prefilled
@@ -165,15 +165,15 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_choose_no
-    choose "No", visible: :all
+    find("label", text: "No").click
   end
 
   def when_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: :all
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def when_i_choose_yes
-    choose "Yes", visible: :all
+    find("label", text: "Yes").click
   end
 
   def when_i_click_change_details
@@ -189,7 +189,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_enter_details_as_text
-    choose "Describe the previous allegations", visible: :all
+    find("label", text: "Describe the previous allegations").click
     fill_in "Description of previous allegations", with: "Some details"
   end
 
@@ -198,7 +198,7 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   end
 
   def when_i_upload_a_file
-    choose "Upload file", visible: :all
+    find("label", text: "Upload file").click
     attach_file "Upload file", Rails.root.join("spec/support/upload.txt")
   end
 
