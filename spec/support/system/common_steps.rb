@@ -55,7 +55,7 @@ module CommonSteps
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[0]) do
         expect(find(".app-task-list__task-name a").text).to eq("Details of the allegation")
-        expect(find(".app-task-list__tag").text).to eq("INCOMPLETE")
+        expect(find(".app-task-list__tag").text).to eq("Incomplete")
       end
     end
   end
@@ -88,7 +88,7 @@ module CommonSteps
   def and_i_see_personal_details_flagged_as_incomplete
     within(".app-task-list__item", text: "Personal details") do
       status_tag = find(".app-task-list__tag")
-      expect(status_tag.text).to have_content("INCOMPLETE")
+      expect(status_tag.text).to have_content("Incomplete")
     end
   end
 
@@ -156,7 +156,7 @@ module CommonSteps
           :xpath,
           "./following-sibling::strong"
         )
-      ) { expect(page).to have_content("COMPLETED") }
+      ) { expect(page).to have_content("Completed") }
     end
   end
 

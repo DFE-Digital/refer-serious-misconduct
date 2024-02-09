@@ -101,14 +101,14 @@ RSpec.feature "Employer Referral: Previous Misconduct", type: :system do
   def and_i_see_previous_misconduct_flagged_as_complete
     within(".app-task-list__item", text: "Previous allegations") do
       status_tag = find(".app-task-list__tag")
-      expect(status_tag.text).to match(/^COMPLETE/)
+      expect(status_tag.text).to match(/^Complete/)
     end
   end
 
   def and_i_see_previous_misconduct_flagged_as_incomplete
     within(".app-task-list__item", text: "Previous allegations") do
       status_tag = find(".app-task-list__tag")
-      expect(status_tag.text).to match("INCOMPLETE")
+      expect(status_tag.text).to match("Incomplete")
     end
   end
 

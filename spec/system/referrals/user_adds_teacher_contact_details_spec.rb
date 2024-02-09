@@ -12,7 +12,7 @@ RSpec.feature "Contact details", type: :system do
     and_the_referral_form_feature_is_active
     and_i_have_an_existing_referral
     when_i_visit_the_referral
-    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    then_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
     and_i_click_on_contact_details
 
     # Do you know the personal email address
@@ -116,7 +116,7 @@ RSpec.feature "Contact details", type: :system do
     when_i_select_no
     and_i_click_save_and_continue
     then_i_get_redirected_to_the_referral_summary
-    then_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    then_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
 
     # Editing single answers
     when_i_visit_the_check_answers_page

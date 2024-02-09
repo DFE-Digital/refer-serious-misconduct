@@ -100,7 +100,7 @@ RSpec.feature "Personal details", type: :system do
     within(all(".app-task-list__section")[1]) do
       within(all(".app-task-list__item")[0]) do
         expect(find(".app-task-list__task-name a").text).to eq("Personal details")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end

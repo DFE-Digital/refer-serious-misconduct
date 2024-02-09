@@ -130,7 +130,7 @@ RSpec.feature "Details of the allegation", type: :system do
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[0]) do
         expect(find(".app-task-list__task-name a").text).to eq("Details of the allegation")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end

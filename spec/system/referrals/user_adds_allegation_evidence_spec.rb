@@ -317,7 +317,7 @@ RSpec.feature "Evidence", type: :system do
         expect(find(".app-task-list__task-name a").text).to eq(
           "Evidence and supporting information"
         )
-        expect(find(".app-task-list__tag").text).to eq(state.to_s.upcase)
+        expect(find(".app-task-list__tag").text).to eq(state.to_s.capitalize)
       end
     end
   end

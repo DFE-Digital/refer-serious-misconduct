@@ -76,7 +76,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def and_i_see_your_organisation_flagged_as_incomplete
     your_organisation_row = find(".app-task-list__item", text: "Your organisation")
-    expect(your_organisation_row).to have_content("INCOMPLETE")
+    expect(your_organisation_row).to have_content("Incomplete")
   end
 
   def and_i_see_your_organisation_flagged_as_complete
@@ -174,7 +174,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     within(all(".app-task-list__section")[0]) do
       within(all(".app-task-list__item")[1]) do
         expect(find(".app-task-list__task-name a").text).to eq("Your organisation")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end

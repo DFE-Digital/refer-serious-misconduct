@@ -13,7 +13,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_am_a_member_of_the_public_with_an_existing_referral
     and_i_visit_the_public_referral
     then_i_see_the_public_referral_summary
-    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    and_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
 
     when_i_edit_teacher_role_details
     then_i_see_the_job_title_page
@@ -102,7 +102,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_choose_no
     and_i_click_save_and_continue
     then_i_see_the_public_referral_summary
-    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    and_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
 
     when_i_visit_the_referral
     and_i_click_review_and_send
@@ -285,7 +285,7 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("upload2.pdf (5.11KB)")
   end
 
-  def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
+  def and_i_see_the_status_section_in_the_referral_summary(status: "Completed")
     expect_task_row(
       section: "About the teacher",
       item_position: 2,
@@ -302,7 +302,7 @@ RSpec.feature "Teacher role", type: :system do
     within(all(".app-task-list__section")[1]) do
       within(all(".app-task-list__item")[1]) do
         expect(find(".app-task-list__task-name a").text).to eq("About their role")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end
