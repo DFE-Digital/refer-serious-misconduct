@@ -293,7 +293,7 @@ GEM
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
     okcomputer (1.18.5)
-    optimist (3.0.1)
+    optimist (3.1.0)
     orm_adapter (0.5.0)
     os (1.1.4)
     pagy (6.4.3)
@@ -484,7 +484,7 @@ GEM
     solargraph-rails (1.1.0)
       activesupport
       solargraph
-    super_diff (0.10.0)
+    super_diff (0.11.0)
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
@@ -566,7 +566,7 @@ DEPENDENCIES
   sidekiq-cron
   simplecov
   solargraph-rails
-  super_diff (~> 0.10.0)
+  super_diff (~> 0.11.0)
   tzinfo-data
   uk_postcode
   web-console
