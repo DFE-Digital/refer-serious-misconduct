@@ -264,6 +264,7 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
       put "/authenticate", on: :member, to: "test_users#authenticate"
     end
     resources :validation_errors, only: %i[index] do
+      get :filter, on: :collection
       get :history, on: :collection
     end
 

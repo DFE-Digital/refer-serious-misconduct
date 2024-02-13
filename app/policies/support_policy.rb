@@ -38,4 +38,8 @@ class SupportPolicy < ApplicationPolicy
   def history?
     user.view_support?
   end
+
+  def filter?
+    user.view_support?
+  end
 end

@@ -23,4 +23,23 @@ class ValidationError < ApplicationRecord
       end
     end
   end
+
+  def self.extract_all_attributes_from_errors(errors)
+    errors.filter_map do |error|
+      attribute = error.details.keys.first
+      OpenStruct.new(
+        created_at: error.created_at,
+        messages: error.details.dig(attribute, "messages"),
+        value: error.details.dig(attribute, "value")
+      )
+    end
+  end
+
+  def self.filter_on_attributes(errors, attribute)
+    if attribute.empty?
+      extract_all_attributes_from_errors(errors)
+    else
+      extract_attribute_from_errors(errors, attribute)
+    end
+  end
 end
