@@ -1,18 +1,25 @@
 module SupportInterface
   class ValidationErrorsController < SupportInterfaceController
     def index
-      @grouped_counts = ValidationError.group(:form_object).order("count_all DESC").count
-      @grouped_column_error_counts = ValidationError.list_of_distinct_errors_with_count
+      @filter_form = FilterValidationForm.new
     end
 
     def history
       @form_object = params[:form_object]
       @attribute = params[:attribute]
-
-      @errors = ValidationError.where(form_object: @form_object).order(created_at: :desc)
+      @errors =
+      if @form_object.present?
+        ValidationError.where(form_object: @form_object).order(created_at: :desc)
+      else
+        ValidationError.all
+      end
 
       @errors_with_attribute_extracted =
-        ValidationError.extract_attribute_from_errors(@errors, @attribute)
+        ValidationError.filter_on_attributes(@errors, @attribute)
+    end
+
+    def filter_params
+      params.require(:filter_validation_form).permit(:form_object, :attribute)
     end
   end
 end
