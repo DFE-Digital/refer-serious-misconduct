@@ -35,8 +35,6 @@ module ReferSeriousMisconduct
 
     config.active_job.queue_adapter = :sidekiq
 
-    config.assets.paths << Rails.root.join("node_modules/govuk-frontend/dist/govuk/assets")
-
     config.exceptions_app = routes
 
     config.action_mailer.notify_settings = {
