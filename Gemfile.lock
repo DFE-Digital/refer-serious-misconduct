@@ -137,10 +137,10 @@ GEM
       devise (>= 4.6)
     diff-lcs (1.5.1)
     docile (1.4.0)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    dotenv (3.0.0)
+    dotenv-rails (3.0.0)
+      dotenv (= 3.0.0)
+      railties (>= 6.1)
     e2mmap (0.1.0)
     erubi (1.12.0)
     et-orbi (1.2.7)
@@ -271,7 +271,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.21.2)
+    minitest (5.22.2)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multipart-post (2.3.0)
@@ -287,7 +287,7 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0)
+    nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
@@ -515,7 +515,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.34)
-    zeitwerk (2.6.12)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   ruby
@@ -530,7 +530,7 @@ DEPENDENCIES
   devise
   devise_invitable
   dfe-analytics!
-  dotenv-rails (~> 2.8)
+  dotenv-rails (~> 3.0)
   factory_bot_rails
   govuk-components
   govuk_design_system_formbuilder
