@@ -38,7 +38,7 @@ gem "uk_postcode"
 gem "grover"
 
 group :development, :test do
-  gem "dotenv-rails", "~> 2.8"
+  gem "dotenv-rails", "~> 3.0"
   gem "factory_bot_rails"
   gem "launchy"
   gem "pry"
