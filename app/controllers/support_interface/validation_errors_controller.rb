@@ -4,11 +4,6 @@ module SupportInterface
       @filter_form = FilterValidationForm.new
     end
 
-    def filter
-      redirect_to history_support_interface_validation_errors_path(form_object: filter_params[:form_object], 
-attribute: filter_params[:attribute])
-    end
-
     def history
       @form_object = params[:form_object]
       @attribute = params[:attribute]

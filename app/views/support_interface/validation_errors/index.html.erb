@@ -2,7 +2,7 @@
 
 <h1 class="govuk-heading-l">Validation errors</h1>
 
-<%= form_with model: @filter_form, url: filter_support_interface_validation_errors_path, method: :get do |f| %>
+<%= form_with model: @filter_form, url: history_support_interface_validation_errors_path, method: :get, scope: "" do |f| %>
   <%= f.govuk_collection_select :form_object, @filter_form.form_objects_select, :id, :name, label: { text: "Filter by form" } %>
   <%= f.govuk_collection_select :attribute, @filter_form.attribute_select, :id, :name, label: { text: "Filter by attribute" } %>
   <%= f.govuk_submit %>
