@@ -44,9 +44,10 @@ module ValidationTracking
     value = public_send(field)
 
     if value.instance_of?(Array)
+      count = value.count {|file| file.size >= FileUploadValidator::MAX_FILE_SIZE }
       value = value.map do |upload|
         if upload.instance_of?(ActionDispatch::Http::UploadedFile)
-          UploadWrapper.new(upload:)
+          UploadWrapper.new(upload:, count:)
         else
           upload
         end
