@@ -25,13 +25,16 @@ module ApplicationHelper
   def navigation
     govuk_header(service_name:) do |header|
       case current_namespace
-      when "manage", "staff"
-        if current_staff # TODO: replace with case worker user type
-          header.with_navigation_item(
-            active: current_page?(main_app.manage_interface_referrals_path),
-            href: main_app.manage_interface_referrals_path,
-            text: "Referrals"
-          )
+      when "manage", "staff", "support", "developer"
+        if current_staff
+          if current_staff.manage_referrals?
+            header.with_navigation_item(
+              active: current_page?(main_app.manage_interface_referrals_path),
+              href: main_app.manage_interface_referrals_path,
+              text: "Referrals"
+            )
+          end
+
           if current_staff.view_support?
             header.with_navigation_item(
               active: current_page?(main_app.support_interface_validation_errors_path),
@@ -42,11 +45,6 @@ module ApplicationHelper
               active: current_page?(main_app.support_interface_eligibility_checks_path),
               href: main_app.support_interface_eligibility_checks_path,
               text: "Eligibility Checks"
-            )
-            header.with_navigation_item(
-              active: current_page?(main_app.support_interface_feature_flags_path),
-              href: main_app.support_interface_feature_flags_path,
-              text: "Features"
             )
             header.with_navigation_item(
               active: request.path.start_with?("/support/staff"),
@@ -61,45 +59,15 @@ module ApplicationHelper
               )
             end
           end
-          header.with_navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
-        end
-      when "support"
-        if current_staff.manage_referrals?
-          header.with_navigation_item(
-            active: current_page?(main_app.manage_interface_referrals_path),
-            href: main_app.manage_interface_referrals_path,
-            text: "Referrals"
-          )
-        end
-        header.with_navigation_item(
-          active: current_page?(main_app.support_interface_validation_errors_path),
-          href: main_app.support_interface_validation_errors_path,
-          text: "Validation Errors"
-        )
-        header.with_navigation_item(
-          active: current_page?(main_app.support_interface_eligibility_checks_path),
-          href: main_app.support_interface_eligibility_checks_path,
-          text: "Eligibility Checks"
-        )
-        header.with_navigation_item(
-          active: current_page?(main_app.support_interface_feature_flags_path),
-          href: main_app.support_interface_feature_flags_path,
-          text: "Features"
-        )
-        header.with_navigation_item(
-          active: request.path.start_with?("/support/staff"),
-          text: "Staff",
-          href: main_app.support_interface_staff_index_path
-        )
-        if HostingEnvironment.test_environment?
-          header.with_navigation_item(
-            active: request.path.start_with?(main_app.support_interface_test_users_path),
-            text: "Test Users",
-            href: main_app.support_interface_test_users_path
-          )
-        end
 
-        if current_staff
+          if current_staff.developer?
+            header.with_navigation_item(
+              active: current_page?(main_app.developer_interface_feature_flags_path),
+              href: main_app.developer_interface_feature_flags_path,
+              text: "Features"
+            )
+          end
+
           header.with_navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
         end
       else

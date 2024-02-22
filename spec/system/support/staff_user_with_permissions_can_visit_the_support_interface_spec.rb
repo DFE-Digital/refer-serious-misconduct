@@ -15,7 +15,7 @@ RSpec.describe "Support" do
     and_i_do_not_see_referrals_link
 
     when_i_visit_the_features_page
-    then_i_see_the_feature_page
+    then_i_dont_see_the_feature_page
   end
 
   private
@@ -38,11 +38,11 @@ RSpec.describe "Support" do
     expect(page).to have_content("Eligibility checks (1)")
   end
 
-  def then_i_see_the_feature_page
-    expect(page).to have_content("Features")
+  def then_i_dont_see_the_feature_page
+    expect(page).not_to have_content("Features")
   end
 
   def when_i_visit_the_features_page
-    visit support_interface_feature_flags_path
+    visit developer_interface_feature_flags_path
   end
 end
