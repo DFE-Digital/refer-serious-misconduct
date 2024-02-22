@@ -118,4 +118,60 @@ RSpec.describe EligibilityCheck, type: :model do
       expect(eligibility_check.unsupervised_teaching).to be_nil
     end
   end
+
+  describe "#format_complained" do
+    let(:formatted_complaint_field) do
+ described_class.new(complained:, complaint_status:, reporting_as:).format_complained end
+
+    context "when employer submitted has not complained" do
+      let(:reporting_as) { :employer }
+      let(:complained) { false }
+      let(:complaint_status) { nil }
+
+      it "correctly outputs the correct message" do
+        expect(formatted_complaint_field).to eql("no")
+      end
+    end
+
+    context "when employer submitted has complained" do
+      let(:reporting_as) { :employer }
+      let(:complained) { true }
+      let(:complaint_status) { nil }
+
+      it "correctly outputs the correct message" do
+        expect(formatted_complaint_field).to eql("yes")
+      end
+    end
+
+    context "when public submitted has not complained" do
+      let(:reporting_as) { :public }
+      let(:complained) { false }
+      let(:complaint_status) { "no" }
+
+      it "correctly outputs the correct message" do
+        expect(formatted_complaint_field).to eql("No complaint submitted")
+      end
+    end
+
+    context "when public submitted has complained with response" do
+      let(:reporting_as) { :public }
+      let(:complained) { true }
+      let(:complaint_status) { "received" }
+
+      it "correctly outputs the correct message" do
+        expect(formatted_complaint_field).to eql("Yes, complaint submitted")
+      end
+    end
+
+    context "when public submitted has complained, awaiting response" do
+      let(:reporting_as) { :public }
+      let(:complained) { true }
+      let(:complaint_status) { "awaiting" }
+
+      it "correctly outputs the correct message" do
+
+        expect(formatted_complaint_field).to eql("Yes, awaiting response")
+      end
+    end
+  end
 end

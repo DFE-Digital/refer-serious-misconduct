@@ -26,6 +26,17 @@ class EligibilityCheck < ApplicationRecord
     %w[yes not_sure].include?(unsupervised_teaching)
   end
 
+  def format_complained
+    states = {"received" => "Yes, complaint submitted",
+              "awaiting" => "Yes, awaiting response",
+              "no" => "No complaint submitted"}
+    if reporting_as == "public" && complaint_status.present?
+      states[complaint_status]
+    elsif reporting_as == "employer"
+      complained? ? "yes" : "no"
+    end
+  end
+
   def clear_answers!
     unless reporting_as.nil?
       update!(

@@ -35,7 +35,6 @@ module SupportInterface
             is_teacher
             teaching_in_england
             serious_misconduct
-            unsupervised_teaching
             eligibility_check_started
             eligibility_check_last_updated
             draft_referral_created
@@ -57,15 +56,14 @@ module SupportInterface
         [
           check.id,
           check.reporting_as,
-          (check.complained? ? "yes" : "no"),
+          check.format_complained,
           check.is_teacher,
           check.teaching_in_england,
           check.serious_misconduct,
-          check.unsupervised_teaching,
-          check.updated_at,
-          check.created_at,
-          check.referral&.created_at,
-          check.referral&.submitted_at
+          check.updated_at&.strftime("%d/%m/%Y"),
+          check.created_at&.strftime("%d/%m/%Y"),
+          check.referral&.created_at&.strftime("%d/%m/%Y"),
+          check.referral&.submitted_at&.strftime("%d/%m/%Y")
         ]
       )
     end
