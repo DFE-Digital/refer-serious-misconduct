@@ -14,8 +14,6 @@ RSpec.describe SupportInterface::EligibilityCheckComponent, type: :component do
     )
   end
 
-  before { render_inline(component) }
-
   context "with an employer referral" do
     it "renders the correct labels" do
       expect(row_labels).to eq(

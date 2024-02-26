@@ -267,6 +267,8 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
       get :history, on: :collection
     end
 
+    resources :feedback
+
     devise_scope :staff do
       authenticate :staff do
         # Mount engines that require staff authentication here

@@ -51,6 +51,11 @@ module ApplicationHelper
               text: "Staff",
               href: main_app.support_interface_staff_index_path
             )
+            header.with_navigation_item(
+              active: request.path.start_with?("/support/feedback"),
+              text: "Feedback",
+              href: main_app.support_interface_feedback_index_path
+            )
             if HostingEnvironment.test_environment?
               header.with_navigation_item(
                 active: request.path.start_with?(main_app.support_interface_test_users_path),
