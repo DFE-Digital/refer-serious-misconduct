@@ -267,8 +267,6 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
       get :history, on: :collection
     end
 
-    mount FeatureFlags::Engine => "/features"
-
     devise_scope :staff do
       authenticate :staff do
         # Mount engines that require staff authentication here
@@ -277,6 +275,10 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
     end
 
     get "/eligibility-checks", to: "eligibility_checks#index"
+  end
+
+  namespace :developer_interface, path: "/developer" do
+    mount FeatureFlags::Engine => "/features"
   end
 
   namespace :manage_interface, path: "/manage" do

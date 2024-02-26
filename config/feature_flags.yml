@@ -1,5 +1,5 @@
 layout: support_layout
-parent_controller: "SupportInterface::SupportInterfaceController"
+parent_controller: "DeveloperInterface::DeveloperInterfaceController"
 feature_flags:
   service_open:
     author: Felix Clack

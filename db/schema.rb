@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_122821) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_21_164638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -205,6 +205,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_122821) do
     t.boolean "view_support", default: false
     t.boolean "manage_referrals", default: false
     t.datetime "deleted_at", precision: nil
+    t.boolean "developer", default: false
     t.index ["confirmation_token"], name: "index_staff_on_confirmation_token", unique: true
     t.index ["email"], name: "index_staff_on_email", unique: true
     t.index ["invitation_token"], name: "index_staff_on_invitation_token", unique: true

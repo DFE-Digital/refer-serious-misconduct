@@ -29,6 +29,17 @@ module AuthorizationSteps
     click_on "Sign in"
   end
 
+  def when_i_login_as_staff_with_permissions(view_support: false, manage_referrals: false, developer: false)
+    create(:staff, :confirmed, view_support:, manage_referrals:, developer:)
+
+    visit manage_sign_in_path
+
+    fill_in "Email", with: "test@example.org"
+    fill_in "Password", with: "Example123!"
+
+    click_on "Sign in"
+  end
+
   def when_i_visit_staff_sign_in_page
     visit manage_sign_in_path
   end
