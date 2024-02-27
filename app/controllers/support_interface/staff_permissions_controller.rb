@@ -4,7 +4,8 @@ module SupportInterface
       @staff_permissions_form =
         StaffPermissionsForm.new(
           view_support: staff.view_support,
-          manage_referrals: staff.manage_referrals
+          manage_referrals: staff.manage_referrals,
+          feedback_notification: staff.feedback_notification,
         )
     end
 
@@ -22,10 +23,13 @@ module SupportInterface
     private
 
     def staff_params
-      params.require(:support_interface_staff_permissions_form).permit(
-        :manage_referrals,
-        :view_support
-      )
+      params
+        .fetch(:support_interface_staff_permissions_form, {})
+        .permit(
+          :manage_referrals,
+          :view_support,
+          :feedback_notification,
+        )
     end
 
     def staff

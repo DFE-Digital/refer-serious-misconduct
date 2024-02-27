@@ -48,8 +48,9 @@
     end
 
     permissions = []
-    permissions << "view support" if staff.view_support?
-    permissions << "manage referrals" if staff.manage_referrals?
+    permissions << "View support" if staff.view_support?
+    permissions << "Manage referrals" if staff.manage_referrals?
+    permissions << "Feedback notification" if staff.feedback_notification?
 
     summary_list.with_row do |row|
       row.with_key { "Permissions" }
