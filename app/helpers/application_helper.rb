@@ -61,14 +61,12 @@ module ApplicationHelper
             )
           end
 
-          if current_staff.view_support?
-            if HostingEnvironment.test_environment?
-              header.with_navigation_item(
-                active: request.path.start_with?(main_app.support_interface_test_users_path),
-                text: "Test Users",
-                href: main_app.support_interface_test_users_path
-              )
-            end
+          if current_staff.view_support? && HostingEnvironment.test_environment?
+            header.with_navigation_item(
+              active: request.path.start_with?(main_app.support_interface_test_users_path),
+              text: "Test Users",
+              href: main_app.support_interface_test_users_path
+            )
           end
 
           if current_staff.developer?

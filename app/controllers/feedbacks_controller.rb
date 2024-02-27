@@ -10,6 +10,7 @@ class FeedbacksController < ApplicationController
 
     if @feedback.save
       redirect_to :confirmation
+      StaffMailer.feedback_notification.deliver_later
     else
       render :new
     end

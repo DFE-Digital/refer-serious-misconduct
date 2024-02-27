@@ -253,7 +253,7 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
   end
 
   namespace :admin_interface, path: "/admin" do
-    resources :feedback
+    resources :feedback, only: [:index]
   end
 
   namespace :support_interface, path: "/support" do

@@ -8,6 +8,7 @@ RSpec.feature "Feedback", type: :system do
     given_the_service_is_open
     and_the_referral_form_feature_is_active
     and_the_eligibility_screener_feature_is_active
+    and_staff_subscribed_to_feedback_notification
     when_i_visit_the_service
     and_i_click_on_feedback
 
@@ -23,6 +24,7 @@ RSpec.feature "Feedback", type: :system do
     when_i_enter_an_email
     when_i_press_send_feedback
     then_i_see_the_feedback_sent_page
+    and_staff_receive_feedback_notification
   end
 
   private
@@ -65,5 +67,22 @@ RSpec.feature "Feedback", type: :system do
     expect(page).to have_current_path("/feedback/confirmation")
     expect(page).to have_title("Feedback sent")
     expect(page).to have_content("Next steps")
+  end
+
+  def and_staff_subscribed_to_feedback_notification
+    create(:staff, :feedback_notification)
+  end
+
+  def and_staff_receive_feedback_notification
+    relevant_jobs = ActiveJob::Base
+      .queue_adapter
+      .enqueued_jobs
+      .select { |j|
+        j[:job] == ActionMailer::MailDeliveryJob
+      }.count do |j|
+        j[:args][0] == "StaffMailer" && j[:args][1] == "feedback_notification"
+      end
+
+      expect(relevant_jobs).to be(1)
   end
 end
