@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module SupportInterface
-  class FeedbackController < SupportInterfaceController
+module AdminInterface
+  class FeedbackController < AdminInterfaceController
     def index
       @feedbacks = Feedback.all
     end

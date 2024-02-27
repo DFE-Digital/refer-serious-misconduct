@@ -252,6 +252,10 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
     end
   end
 
+  namespace :admin_interface, path: "/admin" do
+    resources :feedback
+  end
+
   namespace :support_interface, path: "/support" do
     root to: redirect("/support/eligibility-checks")
     get "/performance", to: "performance#index"
@@ -266,8 +270,6 @@ to: "public_eligibility_screener/consider_if_you_should_make_a_referral#create"
     resources :validation_errors, only: %i[index] do
       get :history, on: :collection
     end
-
-    resources :feedback
 
     devise_scope :staff do
       authenticate :staff do
