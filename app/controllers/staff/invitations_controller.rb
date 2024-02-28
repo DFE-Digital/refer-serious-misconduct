@@ -48,6 +48,6 @@ class Staff::InvitationsController < Devise::InvitationsController
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: %i[manage_referrals view_support])
+    devise_parameter_sanitizer.permit(:invite, keys: %i[manage_referrals view_support feedback_notification])
   end
 end
