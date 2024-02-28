@@ -11,3 +11,5 @@ Time::DATE_FORMATS[:day_month_and_year] = "%d %B %Y"
 Date::DATE_FORMATS[:day_month_and_year] = "%d %B %Y"
 
 Time::DATE_FORMATS[:day_month_year_time] = "%d %B %Y at %-l:%M %P"
+
+Time::DATE_FORMATS[:govuk_time_on_date] = "%-I:%M%P on %-d %B %Y"
