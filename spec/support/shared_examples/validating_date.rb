@@ -142,9 +142,9 @@ RSpec.shared_examples "form with a date of birth validator" do |field|
   context "with a date less than 16 years ago" do
     let(:date_params) do
       {
-        "#{field}(1i)" => 15.years.ago.year,
+        "#{field}(1i)" => 14.years.ago.year,
         "#{field}(2i)" => Time.zone.today.month,
-        "#{field}(3i)" => Time.zone.today.day
+        "#{field}(3i)" => [Time.zone.today.day, 28].min
       }
     end
 
