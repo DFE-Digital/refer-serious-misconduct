@@ -70,7 +70,7 @@ RSpec.feature "User accounts" do
   end
 
   def and_choose_continue_referral
-    choose "Yes, sign in and continue making a referral", visible: false
+    find("label", text: "Yes, sign in and continue making a referral").click
     click_on "Continue"
   end
   alias_method :when_i_choose_continue_referral, :and_choose_continue_referral

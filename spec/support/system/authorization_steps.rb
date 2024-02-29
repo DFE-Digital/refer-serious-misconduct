@@ -1,7 +1,7 @@
 module AuthorizationSteps
   def when_i_start_the_signin_flow
     visit root_path
-    choose "Yes, sign in and continue making a referral", visible: false
+    find("label", text: "Yes, sign in and continue making a referral").click
     click_on "Continue"
     fill_in "user-email-field", with: "test@example.com"
     click_on "Continue"

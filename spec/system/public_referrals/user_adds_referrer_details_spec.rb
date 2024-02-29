@@ -65,11 +65,11 @@ RSpec.feature "Public Referral: About You", type: :system do
   private
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def and_i_see_my_name_in_the_form_field
@@ -85,7 +85,7 @@ RSpec.feature "Public Referral: About You", type: :system do
   def and_i_see_your_details_flagged_as_incomplete
     within(".app-task-list__item", text: "Your details") do
       status_tag = find(".app-task-list__tag")
-      expect(status_tag.text).to have_content("INCOMPLETE")
+      expect(status_tag.text).to have_content("Incomplete")
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.feature "Public Referral: About You", type: :system do
   def then_i_see_your_details_flagged_as_complete
     within(".app-task-list__item", text: "Your details") do
       status_tag = find(".app-task-list__tag")
-      expect(status_tag.text).to match(/^COMPLETE/)
+      expect(status_tag.text).to match(/^Complete/)
     end
   end
 

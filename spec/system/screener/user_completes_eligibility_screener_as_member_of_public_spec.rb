@@ -222,35 +222,35 @@ RSpec.feature "Eligibility screener", type: :system do
   end
 
   def when_i_choose_no
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def when_i_choose_not_sure
-    choose "I’m not sure", visible: false
+    find("label", text: "I’m not sure").click
   end
 
   def when_i_choose_referring_as_public
-    choose "I’m referring as a member of the public", visible: false
+    find("label", text: "I’m referring as a member of the public").click
   end
 
   def when_i_choose_make_a_complaint
-    choose "Make a complaint", visible: false
+    find("label", text: "Make a complaint").click
   end
 
   def when_i_choose_refer_serious_misconduct
-    choose "Refer serious misconduct", visible: false
+    find("label", text: "Refer serious misconduct").click
   end
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_choose_awaiting_outcome
-    choose "Yes, and I'm waiting for an outcome", visible: false
+    find("label", text: "Yes, and I'm waiting for an outcome").click
   end
 
   def when_i_choose_received_outcome
-    choose "Yes, and I received an outcome", visible: false
+    find("label", text: "Yes, and I received an outcome").click
   end
 
   def when_i_go_back

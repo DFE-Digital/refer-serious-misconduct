@@ -46,7 +46,7 @@ RSpec.feature "Feedback", type: :system do
   end
 
   def when_i_choose_satisfied
-    choose "Satisfied", visible: false
+    find("label", text: "Satisfied").click
   end
 
   def when_i_fill_in_how_we_can_improve
@@ -54,7 +54,7 @@ RSpec.feature "Feedback", type: :system do
   end
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_enter_an_email

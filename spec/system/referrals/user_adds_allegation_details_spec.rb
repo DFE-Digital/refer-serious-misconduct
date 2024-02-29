@@ -85,7 +85,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_fill_out_allegation_details
-    choose "Describe the allegation", visible: false
+    find("label", text: "Describe the allegation").click
     fill_in "Description of the allegation", with: "Something something something"
   end
 
@@ -98,7 +98,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_choose_i_have_notified_dbs
-    choose "Yes, I’ve told DBS", visible: false
+    find("label", text: "Yes, I’ve told DBS").click
   end
 
   def then_i_am_asked_to_confirm_the_allegation_details
@@ -127,14 +127,14 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_choose_to_confirm
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_the_allegation_section_is_complete
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[0]) do
         expect(find(".app-task-list__task-name a").text).to eq("Details of the allegation")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end
@@ -148,7 +148,7 @@ RSpec.feature "Allegation", type: :system do
   end
 
   def when_i_choose_upload_the_allegation
-    choose "Upload file", visible: false
+    find("label", text: "Upload file").click
   end
 
   def then_i_am_asked_to_upload_an_allegation_file

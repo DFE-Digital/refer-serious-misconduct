@@ -79,7 +79,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def when_i_fill_out_allegation_details
-    choose "Describe the allegation", visible: false
+    find("label", text: "Describe the allegation").click
     fill_in "Description of the allegation", with: "Something something something"
   end
 
@@ -130,7 +130,7 @@ RSpec.feature "Details of the allegation", type: :system do
     within(all(".app-task-list__section")[2]) do
       within(all(".app-task-list__item")[0]) do
         expect(find(".app-task-list__task-name a").text).to eq("Details of the allegation")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end
@@ -149,7 +149,7 @@ RSpec.feature "Details of the allegation", type: :system do
   end
 
   def and_i_choose_upload
-    choose "Upload file", visible: false
+    find("label", text: "Upload file").click
   end
 
   def and_i_attach_an_allegation_file

@@ -61,7 +61,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def and_i_choose_complete
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def and_i_see_the_address_prefilled
@@ -76,7 +76,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
 
   def and_i_see_your_organisation_flagged_as_incomplete
     your_organisation_row = find(".app-task-list__item", text: "Your organisation")
-    expect(your_organisation_row).to have_content("INCOMPLETE")
+    expect(your_organisation_row).to have_content("Incomplete")
   end
 
   def and_i_see_your_organisation_flagged_as_complete
@@ -145,7 +145,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
   end
 
   def when_i_choose_no_come_back_later
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def when_i_click_change_your_organisation
@@ -174,7 +174,7 @@ RSpec.feature "Employer Referral: Organisation", type: :system do
     within(all(".app-task-list__section")[0]) do
       within(all(".app-task-list__item")[1]) do
         expect(find(".app-task-list__task-name a").text).to eq("Your organisation")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end

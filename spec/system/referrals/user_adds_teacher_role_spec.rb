@@ -13,7 +13,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_have_an_existing_referral
     and_i_visit_the_referral
     then_i_see_the_referral_summary
-    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    and_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
 
     when_i_edit_teacher_role_details
     then_i_see_the_job_title_page
@@ -210,7 +210,7 @@ RSpec.feature "Teacher role", type: :system do
     and_i_choose_no
     and_i_click_save_and_continue
     then_i_see_the_referral_summary
-    and_i_see_the_status_section_in_the_referral_summary(status: "INCOMPLETE")
+    and_i_see_the_status_section_in_the_referral_summary(status: "Incomplete")
 
     when_i_visit_the_referral
     and_i_click_review_and_send
@@ -382,34 +382,34 @@ RSpec.feature "Teacher role", type: :system do
   # Radios
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
   alias_method :and_i_choose_yes, :when_i_choose_yes
 
   def when_i_choose_no
-    choose "No", visible: false
+    find("label", text: "No").click
   end
   alias_method :and_i_choose_no, :when_i_choose_no
 
   def and_i_choose_employed
-    choose "They’re still employed but they’ve been suspended", visible: false
+    find("label", text: "They’re still employed but they’ve been suspended").click
   end
 
   def and_i_choose_left
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def when_i_choose_resigned
-    choose "Resigned", visible: false
+    find("label", text: "Resigned").click
   end
 
   def when_i_choose_upload
-    choose "Upload file", visible: false
+    find("label", text: "Upload file").click
   end
   alias_method :and_i_choose_upload, :when_i_choose_upload
 
   def when_i_choose_details
-    choose "Describe their main duties", visible: false
+    find("label", text: "Describe their main duties").click
   end
   alias_method :and_i_choose_details, :when_i_choose_details
 
@@ -541,7 +541,7 @@ RSpec.feature "Teacher role", type: :system do
     expect(page).to have_content("upload2.pdf (5.11KB)")
   end
 
-  def and_i_see_the_status_section_in_the_referral_summary(status: "COMPLETED")
+  def and_i_see_the_status_section_in_the_referral_summary(status: "Completed")
     expect_task_row(
       section: "About the teacher",
       item_position: 3,
@@ -554,7 +554,7 @@ RSpec.feature "Teacher role", type: :system do
     within(all(".app-task-list__section")[1]) do
       within(all(".app-task-list__item")[2]) do
         expect(find(".app-task-list__task-name a").text).to eq("About their role")
-        expect(find(".app-task-list__tag").text).to eq("COMPLETED")
+        expect(find(".app-task-list__tag").text).to eq("Completed")
       end
     end
   end

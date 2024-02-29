@@ -21,7 +21,7 @@
           <div class="app-list__item">
 
             <h2 class="govuk-heading-m">
-              <%= govuk_link_to(referral.name, users_referral_path(referral), { no_visited_state: true }) %>
+              <%= govuk_link_to(referral.name, users_referral_path(referral), no_visited_state: true) %>
             </h2>
 
             <%= govuk_summary_list(actions: false, classes: ["govuk-summary-list--no-border", "app-summary-list--compact"]) do |summary_list|

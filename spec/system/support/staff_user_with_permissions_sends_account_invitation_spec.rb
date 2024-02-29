@@ -90,7 +90,7 @@ RSpec.feature "Staff invitations" do
 
   def then_i_see_the_invited_staff_user
     expect(page).to have_content("test@example.com")
-    expect(page).to have_content("NOT ACCEPTED")
+    expect(page).to have_content("Not accepted")
   end
 
   def when_i_am_not_authorized_as_a_staff_user
@@ -122,7 +122,7 @@ RSpec.feature "Staff invitations" do
 
   def and_i_see_the_accepted_staff_user
     expect(page).to have_content("test@example.com")
-    expect(page).to have_content("ACCEPTED")
+    expect(page).to have_content("Accepted")
   end
 
   def then_i_see_the_error_messages

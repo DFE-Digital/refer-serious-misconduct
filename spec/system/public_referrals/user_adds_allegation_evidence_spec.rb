@@ -161,11 +161,11 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_choose_yes_to_uploading_evidence
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_choose_no_to_uploading_evidence
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def then_i_am_asked_to_upload_evidence_files
@@ -205,11 +205,11 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def when_i_have_more_evidence_to_upload
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_have_no_more_evidence_to_upload
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def when_i_upload_more_evidence_files
@@ -291,11 +291,11 @@ RSpec.feature "Evidence", type: :system do
   end
 
   def and_i_choose_to_confirm
-    choose "Yes, I’ve completed this section", visible: false
+    find("label", text: "Yes, I’ve completed this section").click
   end
 
   def when_i_choose_not_to_confirm
-    choose "No, I’ll come back to it later", visible: false
+    find("label", text: "No, I’ll come back to it later").click
   end
 
   def when_i_click_change_uploaded_evidence
@@ -308,7 +308,7 @@ RSpec.feature "Evidence", type: :system do
         expect(find(".app-task-list__task-name a").text).to eq(
           "Evidence and supporting information"
         )
-        expect(find(".app-task-list__tag").text).to eq(state.to_s.upcase)
+        expect(find(".app-task-list__tag").text).to eq(state.to_s.capitalize)
       end
     end
   end
@@ -316,12 +316,12 @@ RSpec.feature "Evidence", type: :system do
 
   def and_i_change_anything_to_upload_to_no
     click_on "Change if you have anything to upload"
-    choose "No", visible: false
+    find("label", text: "No").click
   end
 
   def and_i_change_anything_to_upload_to_yes
     click_on "Change"
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def and_i_visit_uploaded_files

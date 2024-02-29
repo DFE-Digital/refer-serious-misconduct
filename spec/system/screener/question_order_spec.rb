@@ -89,16 +89,16 @@ RSpec.feature "Question order", type: :system do
   end
 
   def when_i_start_new_referral
-    choose "No", visible: false
+    find("label", text: "No").click
     click_on "Continue"
   end
 
   def when_i_choose_employer
-    choose "I’m referring as an employer", visible: false
+    find("label", text: "I’m referring as an employer").click
   end
 
   def when_i_choose_yes
-    choose "Yes", visible: false
+    find("label", text: "Yes").click
   end
 
   def when_i_press_continue
