@@ -1,13 +1,10 @@
 require "rails_helper"
 
 RSpec.describe StaffMailer, type: :mailer do
-  before do
-    create(:staff, :feedback_notification, email: "yes@example.com")
-    create(:staff, email: "no@example.com")
-  end
+  let(:staff) { create(:staff, :feedback_notification, email: "yes@example.com") }
 
   describe "#feedback_notification" do
-    subject(:email) { described_class.feedback_notification }
+    subject(:email) { described_class.feedback_notification(staff:) }
 
     it "includes the required information" do
       expect(

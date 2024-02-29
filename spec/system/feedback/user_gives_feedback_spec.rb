@@ -70,7 +70,8 @@ RSpec.feature "Feedback", type: :system do
   end
 
   def and_staff_subscribed_to_feedback_notification
-    create(:staff, :feedback_notification)
+    create(:staff, :feedback_notification, email: "staff1@example.com")
+    create(:staff, :feedback_notification, email: "staff2@example.com")
   end
 
   def and_staff_receive_feedback_notification
@@ -83,6 +84,6 @@ RSpec.feature "Feedback", type: :system do
         j[:args][0] == "StaffMailer" && j[:args][1] == "feedback_notification"
       end
 
-      expect(relevant_jobs).to be(1)
+      expect(relevant_jobs).to be(2)
   end
 end
