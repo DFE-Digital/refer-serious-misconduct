@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module AdminInterface
   class AdminInterfaceController < ApplicationController
     include Pundit::Authorization
