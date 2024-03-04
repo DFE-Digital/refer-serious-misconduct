@@ -25,7 +25,7 @@ module ApplicationHelper
   def navigation
     govuk_header(service_name:) do |header|
       case current_namespace
-      when "manage", "staff", "support", "developer"
+      when "manage", "staff", "support", "developer", "admin"
         if current_staff
           if current_staff.manage_referrals?
             header.with_navigation_item(
@@ -51,18 +51,22 @@ module ApplicationHelper
               text: "Staff",
               href: main_app.support_interface_staff_index_path
             )
+          end
+
+          if policy(:admin).index?
             header.with_navigation_item(
-              active: request.path.start_with?("/support/feedback"),
+              active: request.path.start_with?("/admin/feedback"),
               text: "Feedback",
-              href: main_app.support_interface_feedback_index_path
+              href: main_app.admin_interface_feedback_index_path
             )
-            if HostingEnvironment.test_environment?
-              header.with_navigation_item(
-                active: request.path.start_with?(main_app.support_interface_test_users_path),
-                text: "Test Users",
-                href: main_app.support_interface_test_users_path
-              )
-            end
+          end
+
+          if current_staff.view_support? && HostingEnvironment.test_environment?
+            header.with_navigation_item(
+              active: request.path.start_with?(main_app.support_interface_test_users_path),
+              text: "Test Users",
+              href: main_app.support_interface_test_users_path
+            )
           end
 
           if current_staff.developer?

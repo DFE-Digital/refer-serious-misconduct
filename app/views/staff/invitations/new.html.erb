@@ -9,10 +9,13 @@
 
       <%= f.govuk_text_field :email, autocomplete: "email", label: { text: "Email address", size: "m" } %>
 
-      <%= f.govuk_check_boxes_fieldset :permissions, legend: { text: "Permissions", size: "m" } do %>
-        <%= f.govuk_check_box :view_support, 1, multiple: false,  label: { text: "view support" } %>
-        <%= f.govuk_check_box :manage_referrals, 1, multiple: false, label: { text: "manage referrals" } %>
-      <% end %>
+      <div class="govuk-form-group">
+        <%= f.govuk_fieldset legend: { text: "Permissions", size: "m" } do %>
+          <%= f.govuk_check_box :view_support, 1, multiple: false,  label: { text: "View support" } %>
+          <%= f.govuk_check_box :manage_referrals, 1, multiple: false, label: { text: "Manage referrals" } %>
+          <%= f.govuk_check_box :feedback_notification, 1, multiple: false, label: { text: "Feedback notification" }, hint: { text: "Receive an email notification when new service feedback is available" } %>
+        <% end %>
+      </div>
 
       <%= f.govuk_submit t("devise.invitations.new.submit_button") %>
     <% end %>

@@ -10,19 +10,19 @@ RSpec.feature "Staff actions" do
 
     when_i_login_as_a_case_worker_with_support_permissions_only
     then_i_see_the_staff_index
-    and_i_see_the_permissions("view support")
+    and_i_see_the_permissions("View support")
 
     when_i_click_on_edit_permissions
     and_i_uncheck_view_support
     and_i_save_permissions
     then_i_see_the_error_message
 
-    when_i_check_both_permissions
+    when_i_check_all_permissions
     and_i_save_permissions
 
     then_i_see_the_staff_index
     and_i_see_the_permissions_updated_message
-    and_i_see_the_permissions("view support\nmanage referrals")
+    and_i_see_the_permissions("View support\nManage referrals\nFeedback notification")
   end
 
   private
@@ -32,12 +32,13 @@ RSpec.feature "Staff actions" do
   end
 
   def and_i_uncheck_view_support
-    uncheck "view support", allow_label_click: true
+    uncheck "View support", allow_label_click: true
   end
 
-  def when_i_check_both_permissions
-    check "view support", allow_label_click: true
-    check "manage referrals", allow_label_click: true
+  def when_i_check_all_permissions
+    check "View support", allow_label_click: true
+    check "Manage referrals", allow_label_click: true
+    check "Feedback notification", allow_label_click: true
   end
 
   def and_i_save_permissions

@@ -3,14 +3,14 @@ module SupportInterface
   class StaffPermissionsForm
     include ActiveModel::Model
 
-    attr_accessor :staff, :view_support, :manage_referrals
+    attr_accessor :staff, :view_support, :manage_referrals, :feedback_notification
 
     validate :permissions_are_valid
 
     def save
       return false if invalid?
 
-      staff.update(view_support:, manage_referrals:)
+      staff.update(view_support:, manage_referrals:, feedback_notification:)
     end
 
     private

@@ -10,6 +10,7 @@ class FeedbacksController < ApplicationController
 
     if @feedback.save
       redirect_to :confirmation
+      Notifiers::Feedback.new.call
     else
       render :new
     end

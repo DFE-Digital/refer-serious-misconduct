@@ -16,7 +16,7 @@ RSpec.feature "Staff invitations" do
     then_i_see_the_error_messages
 
     when_i_fill_email_address
-    and_i_select_a_permission
+    and_i_select_permissions
     and_i_send_invitation
     then_i_see_an_invitation_email
     then_i_see_the_invited_staff_user
@@ -123,6 +123,7 @@ RSpec.feature "Staff invitations" do
   def and_i_see_the_accepted_staff_user
     expect(page).to have_content("test@example.com")
     expect(page).to have_content("Accepted")
+    expect(page).to have_content("Feedback notification")
   end
 
   def then_i_see_the_error_messages
@@ -130,7 +131,8 @@ RSpec.feature "Staff invitations" do
     expect(page).to have_content("Select permissions")
   end
 
-  def and_i_select_a_permission
-    check "manage referrals", allow_label_click: true
+  def and_i_select_permissions
+    check "Manage referrals", allow_label_click: true
+    check "Feedback notification", allow_label_click: true
   end
 end

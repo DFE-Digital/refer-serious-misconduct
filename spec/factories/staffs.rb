@@ -26,6 +26,10 @@ FactoryBot.define do
     developer { true }
   end
 
+  trait :feedback_notification do
+    feedback_notification { true }
+  end
+
   trait :random do
     email { "#{SecureRandom.hex(5)}@example.com" }
     password { "Example123!" }
