@@ -44,7 +44,7 @@
           :evidence_uploads,
           multiple: true,
           label: { text: "Upload files", size: "m" },
-          hint: { text: "You can upload up to #{FileUploadValidator::MAX_FILES} files. Each file must be smaller than #{max_allowed_file_size}. Larger files may take longer to upload. We will let you know when it is done." }
+          hint: { text: "You can upload up to #{FileUploadValidator::MAX_FILES} files. Each file must be smaller than #{max_allowed_file_size}. Larger files may take longer to upload. We will let you know when it is done. You cannot upload zip files." }
       ) %>
 
       <%= f.govuk_submit "Save and continue" %>
