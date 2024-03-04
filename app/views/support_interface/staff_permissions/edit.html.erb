@@ -11,7 +11,7 @@
         <%= f.govuk_fieldset legend: { text: "Permissions", size: "m" } do %>
           <%= f.govuk_check_box :view_support, 1, multiple: false, label: { text: "View support" } %>
           <%= f.govuk_check_box :manage_referrals, 1, multiple: false, label: { text: "Manage referrals" } %>
-          <%= f.govuk_check_box :feedback_notification, 1, multiple: false, label: { text: "Feedback notification" }, hint: { text: "Receive an email notification when new feedback is available" } %>
+          <%= f.govuk_check_box :feedback_notification, 1, multiple: false, label: { text: "Feedback notification" }, hint: { text: "Receive an email notification when new service feedback is available" } %>
         <% end %>
       </div>
 
