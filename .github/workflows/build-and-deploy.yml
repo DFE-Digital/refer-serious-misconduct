@@ -182,7 +182,7 @@ jobs:
           echo "JOB=${job}" >> $GITHUB_ENV
           echo "REVIEW=${review}" >> $GITHUB_ENV
 
-      - uses: Azure/login@v1
+      - uses: Azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
