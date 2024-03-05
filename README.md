@@ -143,6 +143,10 @@ FeatureFlags::Feature.create(name: :service_open, active: true)
 FeatureFlags::Feature.create(name: :eligibility_screener, active: true)
 ```
 
+Feature flags are made available via the gem https://github.com/DFE-Digital/govuk_feature_flags which is mounted as a rails engine.
+
+In order to access the back office web interface you need have the `developer` flag enabled on your `Staff` account.
+
 ### Notify
 
 If you want to test and simulate sending emails locally, you need to be added
