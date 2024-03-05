@@ -76,7 +76,7 @@ jobs:
           TFVARS: workspace_variables/review.tfvars.json
         working-directory: terraform
 
-      - uses: Azure/login@v1
+      - uses: Azure/login@v2
         with:
           creds: ${{ secrets.azure_credentials }}
 
