@@ -24,13 +24,13 @@
                 </p>
                 <%= f.govuk_file_field :allegation_upload_file,
                   label: { text: "Upload new file", size: "s" },
-                  hint: { text: "Must be smaller than #{max_allowed_file_size}" }
+                  hint: { text: "Must be smaller than #{max_allowed_file_size}. You cannot upload zip files." }
                 %>
               </div>
             <% else %>
               <%= f.govuk_file_field :allegation_upload_file,
                 label: { text: "Upload file", size: "s" },
-                hint: { text: "Must be smaller than #{max_allowed_file_size}" }
+                hint: { text: "Must be smaller than #{max_allowed_file_size}. You cannot upload zip files." }
               %>
             <% end %>
           <% end %>
