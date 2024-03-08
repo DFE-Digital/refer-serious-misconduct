@@ -145,7 +145,7 @@ runs:
         slot-name: ${{ env.web_app_slot_name }}
         startup-command: ${{ inputs.startup_command }}
 
-    - uses: azure/CLI@v1
+    - uses: azure/CLI@v2
       if: ${{ env.web_app_slot_name != 'production' }}
       with:
         inlineScript: |
