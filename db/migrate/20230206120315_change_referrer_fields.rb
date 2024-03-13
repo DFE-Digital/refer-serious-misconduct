@@ -2,13 +2,13 @@ class ChangeReferrerFields < ActiveRecord::Migration[7.0]
   change_table :referrers, bulk: true do |t|
     reversible do |dir|
       dir.up do
-        t.remove :completed_at, if_exists: true
-        t.boolean :complete, if_not_exists: true
+        t.remove :completed_at if t.column_exists?(:completed_at)
+        t.boolean :complete unless t.column_exists?(:complete)
       end
 
       dir.down do
-        t.datetime :completed_at, if_not_exists: true
-        t.remove :complete, if_exists: true
+        t.datetime :completed_at unless t.column_exists?(:completed_at)
+        t.remove :complete if t.column_exists?(:complete)
       end
     end
   end
