@@ -10,7 +10,7 @@ RSpec.describe PerformanceStats, type: :model do
       travel_to Time.zone.local(2022, 11, 22, 12, 0, 0)
       create(:eligibility_check, :serious_misconduct)
       create(:eligibility_check, :continue_with_referral)
-      create(:eligibility_check, :not_unsupervised)
+      create(:eligibility_check, is_teacher: "no")
       create(:eligibility_check)
       travel_to Time.zone.local(2022, 11, 29, 12, 0, 0)
     end
@@ -90,7 +90,7 @@ RSpec.describe PerformanceStats, type: :model do
     context "when there have been checks" do
       before do
         create(:eligibility_check, :complete)
-        create(:eligibility_check, :not_unsupervised)
+        create(:eligibility_check, is_teacher: "no")
         create(:eligibility_check)
         create(:eligibility_check, is_teacher: "yes")
       end
@@ -137,7 +137,7 @@ RSpec.describe PerformanceStats, type: :model do
     context "when there have been checks" do
       before do
         create(:eligibility_check, :complete)
-        create(:eligibility_check, :not_unsupervised)
+        create(:eligibility_check, is_teacher: "no")
         create(:eligibility_check)
       end
 

@@ -8,20 +8,49 @@
 
       <h1 class="govuk-heading-l">Who the allegation is about</h1>
 
-      <p class="govuk_body">You can only refer a teacher if they’ve been engaged in unsupervised teaching work, such as:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>planning and preparing lessons and courses for pupils</li>
-        <li>delivering lessons to pupils</li>
-        <li>assessing the development, progress and attainment of pupils</li>
-        <li>reporting on the development, progress and attainment of pupils</li>
-      </ul>
-      <p class="govuk_body">This can include teaching that happened in person or online.</p>
+      <p class="govuk-body">
+        You can only refer a teacher if their responsibilities include:
+      </p>
 
-      <%= f.govuk_radio_buttons_fieldset :is_teacher, legend: { size: 'm', text: 'Is the allegation about a teacher?' } do %>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>planning, preparing and delivering lessons to pupils</li>
+        <li>assessing and reporting on the development and progress of pupils</li>
+      </ul>
+
+      <p class="govuk-body">
+        You can only refer a teaching assistant if their responsibilities include those of a teacher listed above.
+      </p>
+
+      <p class="govuk-body">
+        You can refer a teacher:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>who has resigned or been dismissed</li>
+        <li>for serious misconduct outside of the school</li>
+      </ul>
+
+      <h2 class="govuk-heading-s">Who you cannot refer</h2>
+
+      <p class="govuk-body">
+        The TRA will not usually consider cases relating to school support staff, for example caretakers or administrators.
+      </p>
+
+      <p class="govuk-body">
+        You should <%= govuk_link_to "complain to the school", "https://www.gov.uk/complain-about-school" %> instead.
+      </p>
+
+      <%= f.govuk_radio_buttons_fieldset :is_teacher,
+        legend: {
+          size: 'm',
+          text: 'Is the allegation about a teacher?',
+        },
+        hint: {
+          text: "This includes teaching assistants who carry out the responsibilities of a teacher.",
+        } do %>
         <%= f.hidden_field :is_teacher %>
         <%= f.govuk_radio_button :is_teacher, "yes", label: { text: "Yes" }, link_errors: true %>
         <%= f.govuk_radio_button :is_teacher, "no", label: { text: "No" } %>
-        <%= f.govuk_radio_button :is_teacher, "not_sure", label: { text: "I’m not sure" } %>
       <% end %>
       <%= f.govuk_submit %>
     <% end %>

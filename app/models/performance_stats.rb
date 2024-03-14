@@ -88,13 +88,13 @@ class PerformanceStats
         "sum(case when serious_misconduct = 'no' or " \
           "continue_with = 'complaint' or " \
           "teaching_in_england = 'no' or " \
-          "unsupervised_teaching = 'no' " \
+          "is_teacher = 'no' " \
           "then 1 else 0 end) as screened_out_count"
       ),
       Arel.sql(
         "sum(case when (serious_misconduct is null and continue_with is null) and " \
           "(teaching_in_england is null or teaching_in_england <> 'no') and " \
-          "(unsupervised_teaching is null or unsupervised_teaching <> 'no') " \
+          "(is_teacher is null or is_teacher = 'yes') " \
           "then 1 else 0 end) as incomplete_count"
       ),
       Arel.sql("count(*) as total")

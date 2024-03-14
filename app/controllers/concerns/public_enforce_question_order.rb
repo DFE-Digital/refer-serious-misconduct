@@ -42,11 +42,6 @@ answered: is_allegation_none_of_the_options? },
 
       { path: public_is_a_teacher_path, needs_answer: true, answered: is_a_teacher_answered? },
       {
-        path: public_unsupervised_teaching_path,
-        needs_answer: !eligibility_check.is_teacher?,
-        answered: unsupervised_teaching_answered?
-      },
-      {
         path: public_teaching_in_england_path,
         needs_answer: true,
         answered: teaching_in_england_answered?
@@ -76,10 +71,6 @@ answered: is_allegation_none_of_the_options? },
 
   def referral_type_answered?
     !eligibility_check.reporting_as.nil?
-  end
-
-  def unsupervised_teaching_answered?
-    !eligibility_check.unsupervised_teaching.nil?
   end
 
   def is_allegation_none_of_the_options?

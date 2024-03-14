@@ -87,7 +87,10 @@ RSpec.feature "User accounts" do
     find("label", text: "I’m referring as an employer").click
     click_on "Continue"
 
-    4.times do
+    find("label", text: "Yes").click
+    click_on "Continue"
+
+    2.times do
       find("label", text: "I’m not sure").click
       click_on "Continue"
     end

@@ -112,10 +112,6 @@ en:
           attributes:
             teaching_in_england:
               inclusion: Select yes if they were employed in England at the time the alleged misconduct took place
-        "eligibility_screener/unsupervised_teaching_form":
-          attributes:
-            unsupervised_teaching:
-              inclusion: Select if this person carries out unsupervised teaching work
         "public_eligibility_screener/complained_to_school_form":
           attributes:
             complaint_status:
@@ -128,10 +124,6 @@ en:
           attributes:
             is_teacher:
               inclusion: Select yes if the allegation is about a teacher
-        "public_eligibility_screener/unsupervised_teaching_form":
-          attributes:
-            unsupervised_teaching:
-              inclusion: Select if this person carries out unsupervised teaching work
         "public_eligibility_screener/teaching_in_england_form":
           attributes:
             teaching_in_england:
