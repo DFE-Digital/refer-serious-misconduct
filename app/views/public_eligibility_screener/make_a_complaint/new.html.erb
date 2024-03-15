@@ -3,40 +3,24 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-l">Make a complaint</h1>
+    <h1 class="govuk-heading-l">You should make a complaint first</h1>
+
     <p class="govuk_body">
-      Every school in England must have a complaints policy. It’s usually
-      available on the school’s website or from the school office.
+      Find out <%= govuk_link_to "how to complain to the school or another organisation", "https://www.gov.uk/complain-about-school" %>.
+    </p>
+
+    <h2 class="govuk-heading-m">Refer a teacher without complaining to the school</h2>
+
+    <p class="govuk_body">
+      You should usually have completed the school’s complaints procedure before a referral is made.
     </p>
 
     <p class="govuk_body">
-      You may also be able to complain to your local council or organisations
-      such as the school inspectors Ofsted. This depends on the type of school
-      and what you’re complaining about.
+      You can still report serious misconduct without complaining to the school first.
     </p>
 
     <p class="govuk_body">
-      <%= govuk_link_to("Find out how to complain to the school or another organisation", "https://www.gov.uk/complain-about-school") %>.
-    </p>
-
-    <h2 class="govuk-heading-m">Complain to the Department for Education (DfE)</h2>
-
-    <p class="govuk_body">
-      You can make a complaint to the DfE about a school if any of the following
-      apply:
-    </p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li>you’ve completed the school’s complaints process</li>
-      <li>you’ve been stopped from completing the school’s complaints process</li>
-      <li>a child is not getting an education</li>
-      <li>a child has been exposed to harm</li>
-    </ul>
-
-    <%= govuk_button_link_to("Complain to the DfE", "https://www.gov.uk/complain-to-dfe") %>
-    <br>
-    <p class="govuk_body">
-        <%= govuk_link_to("I still want to refer serious misconduct by a teacher", what_allegation_involves_path)%>
+      <%= govuk_link_to("Continue making a referral", what_allegation_involves_path) %>
     </p>
   </div>
 </div>
