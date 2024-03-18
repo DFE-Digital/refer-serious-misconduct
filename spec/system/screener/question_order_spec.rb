@@ -13,9 +13,6 @@ RSpec.feature "Question order", type: :system do
     then_i_see_the_do_you_have_an_account_page
 
     # Visiting pages before completion
-    when_i_visit_the_unsupervised_teaching_page
-    then_i_see_the_do_you_have_an_account_page
-
     when_i_visit_the_teaching_in_england_page
     then_i_see_the_do_you_have_an_account_page
 
@@ -37,9 +34,6 @@ RSpec.feature "Question order", type: :system do
     # Visiting pages out of order before completion
     when_i_visit_the_is_a_teacher_page
     then_i_see_the_is_a_teacher_page
-
-    when_i_visit_the_unsupervised_teaching_page
-    then_i_see_the_do_you_have_an_account_page
 
     # Resume and complete screener
     when_i_visit_the_is_a_teacher_page
@@ -70,10 +64,6 @@ RSpec.feature "Question order", type: :system do
 
   def then_i_see_the_teaching_in_england_page
     expect(page).to have_current_path("/teaching-in-england")
-  end
-
-  def then_i_see_the_unsupervised_teaching_page
-    expect(page).to have_current_path("/unsupervised-teaching")
   end
 
   def then_i_see_the_do_you_have_an_account_page
@@ -117,20 +107,12 @@ RSpec.feature "Question order", type: :system do
     visit root_path
   end
 
-  def when_i_visit_the_unsupervised_teaching_page
-    visit unsupervised_teaching_path
-  end
-
   def when_i_visit_you_should_know_page
     visit you_should_know_path
   end
 
   def when_i_visit_the_teaching_in_england_page
     visit teaching_in_england_path
-  end
-
-  def when_i_visit_the_unsupervised_teaching_page
-    visit unsupervised_teaching_path
   end
 
   def when_i_visit_the_is_a_teacher_page

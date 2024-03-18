@@ -51,19 +51,6 @@ RSpec.feature "Eligibility screener", type: :system do
     then_i_see_a_validation_error
     when_i_choose_no
     when_i_press_continue
-    then_i_see_the_unsupervised_teaching_page
-
-    ## Tests that the back link works for the unsupervised teaching page
-    when_i_go_back
-    when_i_choose_not_sure
-    when_i_press_continue
-    then_i_see_the_unsupervised_teaching_page
-
-    when_i_press_continue
-    then_i_see_a_validation_error
-    when_i_choose_not_sure
-    when_i_choose_no
-    when_i_press_continue
     then_i_see_the_no_jurisdiction_unsupervised_page
 
     ## Tests that the back link works for the no jurisdiction unsupervised teaching page
@@ -200,14 +187,6 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_title(
                       "Have you complained to the school about the teacher?"
                     )
-  end
-
-  def then_i_see_the_unsupervised_teaching_page
-    expect(page).to have_current_path("/public-unsupervised-teaching")
-    expect(page).to have_title(
-      "You can refer someone who does unsupervised teaching work - " \
-        "Refer serious misconduct by a teacher in England"
-    )
   end
 
   def then_i_see_the_awaiting_outcome_page

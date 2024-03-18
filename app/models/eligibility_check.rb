@@ -22,10 +22,6 @@ class EligibilityCheck < ApplicationRecord
     %w[yes not_sure].include?(teaching_in_england)
   end
 
-  def unsupervised_teaching?
-    %w[yes not_sure].include?(unsupervised_teaching)
-  end
-
   def format_complained
     states = {"received" => "Yes, complaint submitted",
               "awaiting" => "Yes, awaiting response",
@@ -43,7 +39,6 @@ class EligibilityCheck < ApplicationRecord
         is_teacher: nil,
         serious_misconduct: nil,
         teaching_in_england: nil,
-        unsupervised_teaching: nil,
         continue_with: nil
       )
     end

@@ -9,7 +9,11 @@ module EligibilityScreener
         EligibilityScreener::IsTeacherForm.new(is_teacher_form_params.merge(eligibility_check:))
 
       if @is_teacher_form.save
-        redirect_to_next_question
+        if @is_teacher_form.teacher?
+          redirect_to_next_question
+        else
+          redirect_to no_jurisdiction_unsupervised_path
+        end
       else
         render :new
       end

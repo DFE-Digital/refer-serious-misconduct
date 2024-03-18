@@ -83,30 +83,8 @@ RSpec.describe EligibilityCheck, type: :model do
     end
   end
 
-  describe "#unsupervised_teaching" do
-    subject { described_class.new(unsupervised_teaching:).unsupervised_teaching? }
-
-    context "when the value is no" do
-      let(:unsupervised_teaching) { "no" }
-
-      it { is_expected.to be_falsey }
-    end
-
-    context "when the value is yes" do
-      let(:unsupervised_teaching) { "yes" }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when the value is not_sure" do
-      let(:unsupervised_teaching) { "not_sure" }
-
-      it { is_expected.to be_truthy }
-    end
-  end
-
   describe "#clear_answers!" do
-    let(:eligibility_check) { create(:eligibility_check, :complete, :not_unsupervised) }
+    let(:eligibility_check) { create(:eligibility_check, :complete) }
 
     before { eligibility_check.clear_answers! }
 
@@ -115,7 +93,6 @@ RSpec.describe EligibilityCheck, type: :model do
       expect(eligibility_check.is_teacher).to be_nil
       expect(eligibility_check.serious_misconduct).to be_nil
       expect(eligibility_check.teaching_in_england).to be_nil
-      expect(eligibility_check.unsupervised_teaching).to be_nil
     end
   end
 

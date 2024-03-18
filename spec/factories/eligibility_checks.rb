@@ -16,11 +16,6 @@ FactoryBot.define do
       continue_with { "referral" }
     end
 
-    trait :not_unsupervised do
-      is_teacher { "no" }
-      unsupervised_teaching { "no" }
-    end
-
     trait :public do
       reporting_as { "public" }
     end
