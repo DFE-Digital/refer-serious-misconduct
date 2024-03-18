@@ -149,7 +149,7 @@ RSpec.feature "Eligibility screener", type: :system do
     expect(page).to have_title(
       "Make a complaint - Refer serious misconduct by a teacher in England"
     )
-    expect(page).to have_content("Make a complaint")
+    expect(page).to have_content("You should make a complaint first")
   end
 
   def then_i_see_the_teaching_in_england_page
