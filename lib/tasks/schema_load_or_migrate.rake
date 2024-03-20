@@ -7,7 +7,7 @@ db_namespace =
         .configs_for(env_name: Rails.env)
         .each do |db_config|
           ActiveRecord::Base.establish_connection(db_config.configuration_hash)
-          if ActiveRecord::SchemaMigration.table_exists?
+          if ActiveRecord::SchemaMigration.new(ActiveRecord::Base.connection).table_exists?
             puts "Invoking db:migrate"
             db_namespace["migrate"].invoke
           else
