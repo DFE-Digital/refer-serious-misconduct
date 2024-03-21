@@ -14,7 +14,6 @@ gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
     git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
     tag: "v1.0.1"
-gem "govuk_markdown", "~> 2.0"
 gem "jsbundling-rails"
 gem "logstash-logger", "~> 0.26.1"
 gem "logstop"

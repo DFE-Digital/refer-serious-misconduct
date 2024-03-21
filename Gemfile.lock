@@ -237,9 +237,6 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 1)
-    govuk_markdown (2.0.1)
-      activesupport
-      redcarpet
     grover (1.1.7)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -390,7 +387,6 @@ GEM
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
-    redcarpet (3.6.0)
     redis (4.8.1)
     regexp_parser (2.9.0)
     reline (0.4.3)
@@ -568,7 +564,6 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   govuk_feature_flags!
-  govuk_markdown (~> 2.0)
   grover
   jsbundling-rails
   launchy
