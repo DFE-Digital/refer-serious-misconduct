@@ -15,7 +15,7 @@ runs:
   using: composite
 
   steps:
-    - uses: Azure/login@v1
+    - uses: Azure/login@v2
       with:
         creds: ${{ inputs.azure_credentials }}
 
@@ -36,7 +36,7 @@ runs:
         key: GOVUK_NOTIFY_API_KEY,SUPPORT_USERNAME,SUPPORT_PASSWORD
 
     # Run deployment smoke test
-    - uses: nick-fields/retry@v2.8.3
+    - uses: nick-fields/retry@v3
       with:
         max_attempts: 5
         timeout_minutes: 3
