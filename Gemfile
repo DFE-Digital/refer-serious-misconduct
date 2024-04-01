@@ -8,7 +8,7 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
 gem "devise_invitable"
-gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.11.6"
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.12.2"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
