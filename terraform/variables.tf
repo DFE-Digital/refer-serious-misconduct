@@ -149,7 +149,7 @@ variable "rsm_docker_image" {
 }
 
 variable "statuscake_ssl_contact_group" {
-  type        = string
+  type        = list(string)
   default     = null
   description = "ID of the StatusCake contact group. If empty, SSL check is not enabled"
 }
