@@ -25,7 +25,6 @@ resource "statuscake_ssl_check" "domain-alert" {
 
   count = length(var.statuscake_ssl_contact_group) > 0 ? 1 : 0
 
-
   check_interval   = 3600 # Check once per hour
   contact_groups   = var.statuscake_ssl_contact_group
   follow_redirects = true
