@@ -75,16 +75,6 @@ variable "redis_service_capacity" {
   default = 1
 }
 
-variable "application_insights_daily_data_cap_mb" {
-  type    = string
-  default = "0.033"
-}
-
-variable "application_insights_retention_days" {
-  type    = number
-  default = 30
-}
-
 variable "keyvault_logging_enabled" {
   type    = bool
   default = false
