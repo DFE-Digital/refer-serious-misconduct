@@ -51,7 +51,7 @@ class ReferralZipFile
   end
 
   def filename_for(upload:, index:)
-    base_filename = "#{referral.id}-#{index}-#{upload.filename}"
+    base_filename = "#{referral.id}-#{index}-#{upload.filename.truncate(200)}"
     return "#{base_filename}-file-removed-due-to-suspected-virus.txt" if upload.scan_result_suspect?
     return "#{base_filename}-file-being-checked-for-viruses.txt" if upload.scan_result_pending?
 
