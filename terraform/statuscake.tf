@@ -22,10 +22,11 @@ resource "statuscake_uptime_check" "alert" {
 }
 
 resource "statuscake_ssl_check" "domain-alert" {
-  count = var.statuscake_ssl_contact_group != null ? 1 : 0
+
+  count = length(var.statuscake_ssl_contact_group) > 0 ? 1 : 0
 
   check_interval   = 3600 # Check once per hour
-  contact_groups   = [var.statuscake_ssl_contact_group]
+  contact_groups   = var.statuscake_ssl_contact_group
   follow_redirects = true
 
   alert_config {

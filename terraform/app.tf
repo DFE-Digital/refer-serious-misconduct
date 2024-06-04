@@ -1,22 +1,21 @@
 locals {
   rsm_env_vars = merge(try(local.infrastructure_secrets, null),
     {
-      DOCKER_REGISTRY_SERVER_URL            = "https://ghcr.io",
-      ApplicationInsights__ConnectionString = azurerm_application_insights.insights.connection_string
-      DATABASE_URL                          = "postgres://postgres@${local.postgres_server_name}.postgres.database.azure.com:5432"
-      DATABASE_PASSWORD                     = local.infrastructure_secrets.POSTGRES_ADMIN_PASSWORD
-      HOSTING_DOMAIN                        = var.domain != null ? "https://${var.domain}" : "https://${local.rsm_web_app_name}.azurewebsites.net"
-      HOSTING_ENVIRONMENT_NAME              = local.hosting_environment
-      RAILS_SERVE_STATIC_FILES              = "true"
-      ConnectionStrings__Redis              = azurerm_redis_cache.redis.primary_connection_string
-      WEBSITE_SWAP_WARMUP_PING_PATH         = "/health/all"
-      WEBSITE_SWAP_WARMUP_PING_STATUSES     = "200"
-      AZURE_STORAGE_ACCOUNT_NAME            = azurerm_storage_account.allegations.name,
-      AZURE_STORAGE_ACCESS_KEY              = azurerm_storage_account.allegations.primary_access_key,
-      AZURE_STORAGE_CONTAINER               = azurerm_storage_container.uploads.name
-      REDIS_URL                             = "rediss://:${azurerm_redis_cache.redis.primary_access_key}@${azurerm_redis_cache.redis.hostname}:${azurerm_redis_cache.redis.ssl_port}/0"
-      GROVER_NO_SANDBOX                     = "true"
-      PUPPETEER_EXECUTABLE_PATH             = "/usr/bin/chromium-browser"
+      DOCKER_REGISTRY_SERVER_URL        = "https://ghcr.io",
+      DATABASE_URL                      = "postgres://postgres@${local.postgres_server_name}.postgres.database.azure.com:5432"
+      DATABASE_PASSWORD                 = local.infrastructure_secrets.POSTGRES_ADMIN_PASSWORD
+      HOSTING_DOMAIN                    = var.domain != null ? "https://${var.domain}" : "https://${local.rsm_web_app_name}.azurewebsites.net"
+      HOSTING_ENVIRONMENT_NAME          = local.hosting_environment
+      RAILS_SERVE_STATIC_FILES          = "true"
+      ConnectionStrings__Redis          = azurerm_redis_cache.redis.primary_connection_string
+      WEBSITE_SWAP_WARMUP_PING_PATH     = "/health/all"
+      WEBSITE_SWAP_WARMUP_PING_STATUSES = "200"
+      AZURE_STORAGE_ACCOUNT_NAME        = azurerm_storage_account.allegations.name,
+      AZURE_STORAGE_ACCESS_KEY          = azurerm_storage_account.allegations.primary_access_key,
+      AZURE_STORAGE_CONTAINER           = azurerm_storage_container.uploads.name
+      REDIS_URL                         = "rediss://:${azurerm_redis_cache.redis.primary_access_key}@${azurerm_redis_cache.redis.hostname}:${azurerm_redis_cache.redis.ssl_port}/0"
+      GROVER_NO_SANDBOX                 = "true"
+      PUPPETEER_EXECUTABLE_PATH         = "/usr/bin/chromium-browser"
     }
   )
 }
@@ -83,7 +82,7 @@ resource "azurerm_redis_cache" "redis" {
   minimum_tls_version = "1.2"
   redis_version       = var.redis_service_version
   redis_configuration {
-    maxmemory_policy    = "noeviction"
+    maxmemory_policy = "noeviction"
   }
 
   lifecycle {
@@ -107,20 +106,6 @@ resource "azurerm_log_analytics_workspace" "analytics" {
   }
 }
 
-resource "azurerm_application_insights" "insights" {
-  name                 = local.app_insights_name
-  location             = data.azurerm_resource_group.group.location
-  resource_group_name  = data.azurerm_resource_group.group.name
-  application_type     = "web"
-  daily_data_cap_in_gb = var.application_insights_daily_data_cap_mb
-  retention_in_days    = var.application_insights_retention_days
-
-  lifecycle {
-    ignore_changes = [
-      tags
-    ]
-  }
-}
 resource "azurerm_service_plan" "service-plan" {
   name                   = local.app_service_plan_name
   location               = data.azurerm_resource_group.group.location

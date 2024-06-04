@@ -75,16 +75,6 @@ variable "redis_service_capacity" {
   default = 1
 }
 
-variable "application_insights_daily_data_cap_mb" {
-  type    = string
-  default = "0.033"
-}
-
-variable "application_insights_retention_days" {
-  type    = number
-  default = 30
-}
-
 variable "keyvault_logging_enabled" {
   type    = bool
   default = false
@@ -149,8 +139,8 @@ variable "rsm_docker_image" {
 }
 
 variable "statuscake_ssl_contact_group" {
-  type        = string
-  default     = null
+  type        = list(string)
+  default     = []
   description = "ID of the StatusCake contact group. If empty, SSL check is not enabled"
 }
 
