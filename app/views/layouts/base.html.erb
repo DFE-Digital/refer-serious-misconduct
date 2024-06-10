@@ -72,7 +72,7 @@
         </div>
 
         <div class="govuk-footer__meta-item">
-          <%= footer.copyright %>
+          <%= link_to(footer.copyright_text, footer.copyright_url, class: "#{footer.brand}-footer__link #{footer.brand}-footer__copyright-logo") %>
         </div>
       <% end %>
     <% end %>

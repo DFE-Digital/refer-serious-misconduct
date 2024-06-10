@@ -9,7 +9,7 @@ gem "cssbundling-rails"
 gem "devise"
 gem "devise_invitable"
 gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.12.3"
-gem "govuk-components"
+gem "govuk-components", "~> 5.4"
 gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
     git: "https://github.com/DFE-Digital/govuk_feature_flags.git",
