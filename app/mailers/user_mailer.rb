@@ -20,6 +20,7 @@ class UserMailer < ApplicationMailer
 
   def referral_submitted(referral)
     @link = users_referral_url(referral)
+    @feedback_url = feedbacks_url
     @user = referral.user
     mailer_options = {
       to: @user.email,

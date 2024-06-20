@@ -68,6 +68,8 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     expect(message.subject).to eq("Your referral of serious misconduct has been sent")
     expect(message.to).to include(@referral.user.email)
     expect(message.body).to include(users_referral_path(@referral))
+    expect(message.body).not_to include("<a")
+    expect(message.body).to include("Tell us what you think of this service")
   end
 
   def and_event_tracking_is_working
