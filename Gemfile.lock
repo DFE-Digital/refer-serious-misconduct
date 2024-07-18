@@ -112,7 +112,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    builder (3.2.4)
+    builder (3.3.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -128,7 +128,7 @@ GEM
     combine_pdf (1.0.26)
       matrix
       ruby-rc4 (>= 0.1.5)
-    concurrent-ruby (1.3.1)
+    concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.4.0)
@@ -138,7 +138,7 @@ GEM
       ferrum (~> 0.14.0)
     date (3.3.4)
     declarative (0.0.20)
-    devise (4.9.3)
+    devise (4.9.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -155,7 +155,7 @@ GEM
       railties (>= 6.1)
     drb (2.2.1)
     e2mmap (0.1.0)
-    erubi (1.12.0)
+    erubi (1.13.0)
     et-orbi (1.2.7)
       tzinfo
     factory_bot (6.4.5)
@@ -246,8 +246,8 @@ GEM
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.14.0)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jaro_winkler (1.5.6)
     jsbundling-rails (1.3.0)
@@ -286,8 +286,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.7)
-    minitest (5.23.1)
+    minitest (5.24.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multipart-post (2.4.0)
@@ -304,8 +303,7 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.5)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.16.6-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
@@ -386,11 +384,11 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    rdoc (6.6.3.1)
+    rdoc (6.7.0)
       psych (>= 4.0.0)
     redis (4.8.1)
     regexp_parser (2.9.0)
-    reline (0.5.1)
+    reline (0.5.9)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -513,7 +511,7 @@ GEM
     solargraph-rails (1.1.0)
       activesupport
       solargraph
-    stringio (3.1.0)
+    stringio (3.1.1)
     super_diff (0.11.0)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -545,10 +543,10 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.34)
-    zeitwerk (2.6.13)
+    zeitwerk (2.6.16)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   azure-storage-blob
