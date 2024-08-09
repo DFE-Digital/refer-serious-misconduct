@@ -39,7 +39,7 @@ RSpec.describe Referrals::TeacherPersonalDetails::AgeForm, type: :model do
     end
 
     it "saves the age_known value" do
-      expect(referral.age_known).to eq(false)
+      expect(referral.age_known).to be(false)
     end
 
     context "when the date of birth was previously set" do
