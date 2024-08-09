@@ -51,7 +51,7 @@ RSpec.describe Referrals::TeacherRole::DutiesForm, type: :model do
       end
 
       it "updates details on the referral" do
-        expect(referral.duties_details).to be nil
+        expect(referral.duties_details).to be_nil
       end
     end
 

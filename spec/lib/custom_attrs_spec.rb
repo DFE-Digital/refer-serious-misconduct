@@ -19,8 +19,8 @@ RSpec.describe CustomAttrs do
 
     context "when the class doesn't have a referral object" do
       it "returns nil" do
-        expect(email_known).to eq(nil)
-        expect(email_address).to eq(nil)
+        expect(email_known).to be_nil
+        expect(email_address).to be_nil
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe CustomAttrs do
       before { test_class.referral = referral }
 
       it "returns the referral's values" do
-        expect(email_known).to eq(true)
+        expect(email_known).to be(true)
         expect(email_address).to eq("test@example.com")
       end
 
@@ -41,7 +41,7 @@ RSpec.describe CustomAttrs do
         end
 
         it "returns the referral's updated values" do
-          expect(email_known).to eq(false)
+          expect(email_known).to be(false)
           expect(email_address).to eq("example@test.com")
         end
       end
@@ -54,8 +54,8 @@ RSpec.describe CustomAttrs do
 
     context "when the class doesn't have an organisation object" do
       it "returns nil" do
-        expect(name).to eq(nil)
-        expect(street_1).to eq(nil)
+        expect(name).to be_nil
+        expect(street_1).to be_nil
       end
     end
 
@@ -90,8 +90,8 @@ RSpec.describe CustomAttrs do
 
     context "when the class doesn't have a referrer object" do
       it "returns nil" do
-        expect(first_name).to eq(nil)
-        expect(last_name).to eq(nil)
+        expect(first_name).to be_nil
+        expect(last_name).to be_nil
       end
     end
 
@@ -125,7 +125,7 @@ RSpec.describe CustomAttrs do
 
     context "when the class doesn't have an eligibility_check object" do
       it "returns nil" do
-        expect(serious_misconduct).to eq(nil)
+        expect(serious_misconduct).to be_nil
       end
     end
 

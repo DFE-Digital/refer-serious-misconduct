@@ -12,7 +12,7 @@ RSpec.describe Referrals::TeacherPersonalDetails::CheckAnswersForm, type: :model
     context "with a valid value" do
       it "saves the value on the referral" do
         save
-        expect(referral.personal_details_complete).to eq(false)
+        expect(referral.personal_details_complete).to be(false)
       end
     end
 

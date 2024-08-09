@@ -6,14 +6,14 @@ RSpec.describe Devise::Otp do
       secret_key = ROTP::Base32.random
       submitted_otp = ROTP::HOTP.new(secret_key).at(0)
 
-      expect(described_class.valid?(secret_key, submitted_otp)).to eq true
+      expect(described_class.valid?(secret_key, submitted_otp)).to be true
     end
 
     it "returns false if the OTPs don't match" do
       secret_key = ROTP::Base32.random
       submitted_otp = "bad_guess"
 
-      expect(described_class.valid?(secret_key, submitted_otp)).to eq false
+      expect(described_class.valid?(secret_key, submitted_otp)).to be false
     end
   end
 end

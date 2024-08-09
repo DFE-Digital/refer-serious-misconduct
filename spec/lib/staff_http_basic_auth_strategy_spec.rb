@@ -11,24 +11,24 @@ RSpec.describe StaffHttpBasicAuthStrategy do
     context "with staff users" do
       before { create(:staff) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context "when feature is active" do
       before { FeatureFlags::FeatureFlag.activate(:staff_http_basic_auth) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when there are no staff users" do
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 
   describe "#store?" do
     subject(:store?) { staff_http_basic_auth_strategy.store? }
 
-    it { is_expected.to eq(false) }
+    it { is_expected.to be(false) }
   end
 
   describe "#authenticate!" do

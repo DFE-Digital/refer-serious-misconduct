@@ -5,7 +5,7 @@ RSpec.describe FileSizeHelper, type: :helper do
     subject { file_size(attachment) }
 
     context "when called with an attachment" do
-      let(:attachment) { instance_double("ActiveStorage::Blob", byte_size: 33.6.kilobytes) }
+      let(:attachment) { instance_double(ActiveStorage::Blob, byte_size: 33.6.kilobytes) }
 
       it { is_expected.to eq "33.6KB" }
     end
