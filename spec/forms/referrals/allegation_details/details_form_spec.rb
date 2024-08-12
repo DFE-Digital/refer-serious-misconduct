@@ -63,7 +63,7 @@ RSpec.describe Referrals::AllegationDetails::DetailsForm, type: :model do
       end
 
       it "clears the allegation details" do
-        expect(referral.allegation_details).to be nil
+        expect(referral.allegation_details).to be_nil
       end
     end
 

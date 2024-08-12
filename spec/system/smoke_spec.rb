@@ -8,7 +8,7 @@ Capybara.always_include_port = false
 
 TEST_ENVIRONMENTS = "local dev test preprod review"
 
-RSpec.describe "Smoke test", type: :system, js: true, smoke_test: true do
+RSpec.describe "Smoke test", :js, :smoke_test, type: :system do
   it "works as expected" do
     when_i_visit_the_service
     then_it_loads_successfully

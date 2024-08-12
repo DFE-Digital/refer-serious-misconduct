@@ -12,7 +12,7 @@ RSpec.describe Referrals::AllegationEvidence::StartForm, type: :model do
     context "with a valid value" do
       it "saves the value on the referral" do
         save
-        expect(referral.has_evidence).to eq(false)
+        expect(referral.has_evidence).to be(false)
       end
     end
 

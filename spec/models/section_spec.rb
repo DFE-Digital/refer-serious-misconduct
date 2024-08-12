@@ -64,16 +64,17 @@ module Referrals
 
       context "when the section is not started" do
         it "returns the start path" do
-          allow(section).to receive(:started?).and_return(false)
-          allow(section).to receive(:start_path).and_return(:start_path)
+          allow(section).to receive_messages(started?: false, start_path: :start_path)
           expect(path).to eq :start_path
         end
       end
 
       context "when the section is started" do
         it "returns the check answers path" do
-          allow(section).to receive(:started?).and_return(true)
-          allow(section).to receive(:check_answers_path).and_return(:check_answers_path)
+          allow(section).to receive_messages(
+            started?: true,
+            check_answers_path: :check_answers_path
+          )
 
           expect(path).to eq :check_answers_path
         end

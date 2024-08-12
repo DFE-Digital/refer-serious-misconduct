@@ -12,7 +12,7 @@ RSpec.describe Referrals::AllegationDetails::CheckAnswersForm, type: :model do
     context "with a valid value" do
       it "saves the value on the referral" do
         save
-        expect(referral.allegation_details_complete).to eq(false)
+        expect(referral.allegation_details_complete).to be(false)
       end
     end
 

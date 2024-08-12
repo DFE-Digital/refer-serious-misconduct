@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Rack::Attack initializer", rack_attack: true do
+RSpec.describe "Rack::Attack initializer", :rack_attack do
   before { FeatureFlags::FeatureFlag.activate(:service_open) }
 
   describe "limit_otp_emails throttle" do

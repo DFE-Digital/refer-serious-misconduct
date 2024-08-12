@@ -23,9 +23,14 @@ Rails/LexicallyScopedActionFilter:
 Rails/SaveBang:
   Enabled: false
 
-RSpec/Capybara/FeatureMethods:
-  Exclude:
-    - spec/system/**/*
+RSpec/Dialect:
+  PreferredMethods:
+    background: :before
+    scenario: :it
+    xscenario: :xit
+    given: :let
+    given!: :let!
+    feature: :describe
 
 RSpec/InstanceVariable:
   Exclude:

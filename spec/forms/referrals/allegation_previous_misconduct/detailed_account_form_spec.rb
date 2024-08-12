@@ -93,7 +93,7 @@ RSpec.describe Referrals::AllegationPreviousMisconduct::DetailedAccountForm, typ
 
       it "updates details on the referral" do
         save
-        expect(referral.previous_misconduct_details).to be nil
+        expect(referral.previous_misconduct_details).to be_nil
       end
     end
 
