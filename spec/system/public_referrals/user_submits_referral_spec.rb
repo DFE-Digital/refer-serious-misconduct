@@ -11,7 +11,8 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     when_i_visit_the_public_referral
     and_i_click_review_and_send
     then_i_see_the_check_answers_page
-    and_event_tracking_is_working
+    and_create_event_tracking_is_working
+    and_update_event_tracking_is_working
 
     when_i_have_a_complete_referral
     and_i_visit_the_public_referral
@@ -20,7 +21,7 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     and_i_click_send_referral
     then_i_see_the_confirmation_page
     then_i_see_a_referral_submitted_email
-    and_event_tracking_is_working
+    and_create_event_tracking_is_working
   end
 
   private
@@ -72,7 +73,11 @@ RSpec.feature "A member of the public submits a referral", type: :system do
     expect(message.body).to include("Tell us what you think of this service")
   end
 
-  def and_event_tracking_is_working
-    expect(%i[create_entity update_entity]).to have_been_enqueued_as_analytics_events
+  def and_create_event_tracking_is_working
+    expect(%i[create_entity]).to have_been_enqueued_as_analytics_events
+  end
+
+  def and_update_event_tracking_is_working
+    expect(%i[update_entity]).to have_been_enqueued_as_analytics_events
   end
 end
