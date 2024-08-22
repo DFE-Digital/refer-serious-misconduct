@@ -20,7 +20,6 @@ tags
 .env.production.local
 
 .terraform/
-.terraform.lock.hcl
 fetch_config.rb
 
 app/assets/builds/*
