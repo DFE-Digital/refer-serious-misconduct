@@ -25,6 +25,8 @@ resource "azurerm_storage_encryption_scope" "allegations-encryption" {
   name               = "microsoftmanaged"
   storage_account_id = azurerm_storage_account.allegations.id
   source             = "Microsoft.Storage"
+
+  infrastructure_encryption_required = true
 }
 
 

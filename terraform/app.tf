@@ -137,6 +137,9 @@ resource "azurerm_linux_web_app" "rsm-app" {
     minimum_tls_version = "1.2"
     health_check_path   = "/health"
 
+    ip_restriction_default_action     = "Deny"
+    scm_ip_restriction_default_action = "Deny"
+
     dynamic "ip_restriction" {
       for_each = var.domain != null ? [1] : []
 
@@ -144,12 +147,12 @@ resource "azurerm_linux_web_app" "rsm-app" {
         name     = "FrontDoor"
         action   = "Allow"
         priority = 1
-        headers = {
+        headers = [{
           x_azure_fdid      = try([local.infrastructure_secrets.FRONTDOOR_ID], [])
           x_fd_health_probe = []
           x_forwarded_for   = []
           x_forwarded_host  = []
-        }
+        }]
         service_tag               = "AzureFrontDoor.Backend"
         ip_address                = null
         virtual_network_subnet_id = null
