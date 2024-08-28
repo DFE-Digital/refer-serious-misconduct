@@ -43,7 +43,7 @@ group :development, :test do
   gem "pry"
   gem "pry-nav"
   gem "rspec-rails"
-  gem "super_diff", "~> 0.11.0"
+  gem "super_diff", "~> 0.12.1"
 end
 
 group :development do
