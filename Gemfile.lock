@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/DFE-Digital/dfe-analytics.git
-  revision: 79378cc466a40c6a6cba317e232cbf48ec79ab7d
+  revision: 706595e52fed211cee53ad99ceaeaabb47a059cc
+  tag: v1.14.2
   specs:
-    dfe-analytics (1.14.1)
+    dfe-analytics (1.14.2)
       google-cloud-bigquery (~> 1.38)
       httparty (~> 0.21)
       multi_xml (~> 0.6.0)
@@ -200,7 +201,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-apis-bigquery_v2 (0.76.0)
+    google-apis-bigquery_v2 (0.78.0)
       google-apis-core (>= 0.15.0, < 2.a)
     google-apis-core (0.15.1)
       addressable (~> 2.5, >= 2.5.1)
@@ -221,7 +222,7 @@ GEM
     google-cloud-core (1.7.1)
       google-cloud-env (>= 1.0, < 3.a)
       google-cloud-errors (~> 1.0)
-    google-cloud-env (2.1.1)
+    google-cloud-env (2.2.0)
       faraday (>= 1.0, < 3.a)
     google-cloud-errors (1.4.0)
     googleauth (1.11.0)
@@ -312,6 +313,8 @@ GEM
       net-protocol
     nio4r (2.7.0)
     nokogiri (1.16.7-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
@@ -556,6 +559,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
