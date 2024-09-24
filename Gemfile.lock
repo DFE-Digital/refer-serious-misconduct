@@ -521,7 +521,7 @@ GEM
       solargraph
     stringio (3.1.1)
     strscan (3.1.0)
-    super_diff (0.11.0)
+    super_diff (0.13.0)
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
@@ -603,7 +603,7 @@ DEPENDENCIES
   sidekiq-cron
   simplecov
   solargraph-rails
-  super_diff (~> 0.11.0)
+  super_diff (~> 0.13.0)
   tzinfo-data
   uk_postcode
   web-console
