@@ -1,8 +1,3 @@
-variable "region_name" {
-  default = "west europe"
-  type    = string
-}
-
 variable "cluster" {
   description = "AKS cluster where this app is deployed. Either 'test' or 'production'"
 }
@@ -14,6 +9,9 @@ variable "environment" {
 }
 variable "azure_resource_prefix" {
   description = "Standard resource prefix. Usually s189t01 (test) or s189p01 (production)"
+}
+variable "config" {
+  description = "Long name of the environment configuration, e.g. review, development, production..."
 }
 variable "config_short" {
   description = "Short name of the environment configuration, e.g. dv, st, pd..."
@@ -55,22 +53,23 @@ variable "send_traffic_to_maintenance_page" {
   default     = false
   description = "During a maintenance operation, keep sending traffic to the maintenance page instead of resetting the ingress"
 }
-
-# configure it further.
+variable "account_replication_type" {
+  description = "Replication LRS (across AZs) or GRS (across regions)"
+  default     = "LRS"
+}
 variable "resource_group_name" {
   type = string
 }
-
 variable "allegations_storage_account_name" {
   default = null
 }
-
 variable "allegations_container_delete_retention_days" {
   default = 7
   type    = number
 }
 
 locals {
-  postgres_ssl_mode = var.enable_postgres_ssl ? "require" : "disable"
-
+  postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"
+  storage_account_environment      = var.config == var.environment ? var.config_short : replace(var.environment, "-", "")
+  allegations_storage_account_name = "${var.azure_resource_prefix}rsmalleg${local.storage_account_environment}sa"
 }

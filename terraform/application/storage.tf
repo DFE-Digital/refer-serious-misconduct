@@ -1,9 +1,8 @@
-
 resource "azurerm_storage_account" "allegations" {
-  name                              = var.allegations_storage_account_name
+  name                              = local.allegations_storage_account_name
   resource_group_name               = var.resource_group_name
-  location                          = var.region_name
-  account_replication_type          = var.environment # var.environment_name != "production" ? "LRS" : "GRS"
+  location                          = data.azurerm_resource_group.main.location
+  account_replication_type          = var.account_replication_type
   account_tier                      = "Standard"
   account_kind                      = "StorageV2"
   min_tls_version                   = "TLS1_2"
@@ -18,5 +17,21 @@ resource "azurerm_storage_account" "allegations" {
     }
   }
 
-  depends_on = [data.azurerm_resource_group.group]
+  lifecycle {
+    ignore_changes = [tags]
+  }
+}
+
+resource "azurerm_storage_encryption_scope" "allegations-encryption" {
+  name               = "microsoftmanaged"
+  storage_account_id = azurerm_storage_account.allegations.id
+  source             = "Microsoft.Storage"
+
+  infrastructure_encryption_required = true
+}
+
+resource "azurerm_storage_container" "uploads" {
+  name                  = "uploads"
+  storage_account_name  = azurerm_storage_account.allegations.name
+  container_access_type = "private"
 }
