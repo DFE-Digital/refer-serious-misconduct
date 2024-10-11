@@ -175,6 +175,16 @@ az-console: set-azure-account
 		--exec-command="bundle exec rails c ${CONSOLE_OPTIONS}-- --noautocomplete"
 
 # AKS make config
+.PHONY: aks-review
+aks-review: test-cluster
+	$(if ${PR_NUMBER},,$(error Missing PR_NUMBER))
+	$(eval ENVIRONMENT=pr-${PR_NUMBER})
+	$(eval include global_config/review.sh)
+
+bin/terrafile: ## Install terrafile to manage terraform modules
+	curl -sL https://github.com/coretech/terrafile/releases/download/v${TERRAFILE_VERSION}/terrafile_${TERRAFILE_VERSION}_$$(uname)_$$(uname -m).tar.gz \
+		| tar xz -C ./bin terrafile
+
 aks-set-azure-account:
 	[ "${SKIP_AZURE_LOGIN}" != "true" ] && az account set -s ${AZURE_SUBSCRIPTION} || true
 
@@ -184,15 +194,13 @@ composed-variables:
 	$(eval STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}${SERVICE_SHORT}${CONFIG_SHORT}tfsa)
 	$(eval LOG_ANALYTICS_WORKSPACE_NAME=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-log)
 
+get-cluster-credentials: set-azure-account
+	az aks get-credentials --overwrite-existing -g ${CLUSTER_RESOURCE_GROUP_NAME} -n ${CLUSTER_NAME}
+	kubelogin convert-kubeconfig -l $(if ${GITHUB_ACTIONS},spn,azurecli)
+
 test-cluster:
 	$(eval CLUSTER_RESOURCE_GROUP_NAME=s189t01-tsc-ts-rg)
 	$(eval CLUSTER_NAME=s189t01-tsc-test-aks)
-
-.PHONY: aks-review
-aks-review: test-cluster
-	$(if ${PR_NUMBER},,$(error Missing PR_NUMBER))
-	$(eval ENVIRONMENT=pr-${PR_NUMBER})
-	$(eval include global_config/review.sh)
 
 set-what-if:
 	$(eval WHAT_IF=--what-if)
@@ -213,3 +221,28 @@ arm-deployment: composed-variables aks-set-azure-account
 deploy-arm-resources: arm-deployment ## Validate ARM resource deployment. Usage: make domains validate-arm-resources
 
 validate-arm-resources: set-what-if arm-deployment ## Validate ARM resource deployment. Usage: make domains validate-arm-resources
+
+aks-terraform-init: composed-variables bin/terrafile aks-set-azure-account
+	$(if ${DOCKER_IMAGE_TAG}, , $(eval DOCKER_IMAGE_TAG=main))
+
+	./bin/terrafile -p terraform/application/vendor/modules -f terraform/application/config/$(CONFIG)_Terrafile
+	terraform -chdir=terraform/application init -upgrade -reconfigure \
+		-backend-config=resource_group_name=${RESOURCE_GROUP_NAME} \
+		-backend-config=storage_account_name=${STORAGE_ACCOUNT_NAME} \
+		-backend-config=key=${ENVIRONMENT}_kubernetes.tfstate
+
+	$(eval export TF_VAR_environment=${ENVIRONMENT})
+	$(eval export TF_VAR_azure_resource_prefix=${AZURE_RESOURCE_PREFIX})
+	$(eval export TF_VAR_config_short=${CONFIG_SHORT})
+	$(eval export TF_VAR_service_name=${SERVICE_NAME})
+	$(eval export TF_VAR_service_short=${SERVICE_SHORT})
+	$(eval export TF_VAR_docker_image=${DOCKER_REPOSITORY}:${DOCKER_IMAGE_TAG})
+
+aks-terraform-plan: aks-terraform-init
+	terraform -chdir=terraform/application plan -var-file "config/${CONFIG}.tfvars.json"
+
+aks-terraform-apply: aks-terraform-init
+	terraform -chdir=terraform/application apply -var-file "config/${CONFIG}.tfvars.json" ${AUTO_APPROVE}
+
+aks-terraform-destroy: aks-terraform-init
+	terraform -chdir=terraform/application destroy -var-file "config/${CONFIG}.tfvars.json" ${AUTO_APPROVE}
