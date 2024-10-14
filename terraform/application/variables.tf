@@ -68,6 +68,14 @@ variable "allegations_container_delete_retention_days" {
   type    = number
 }
 
+variable "worker_memory_max" {
+  default = "1Gi"
+}
+
+variable "worker_replicas" {
+  default = 1
+}
+
 locals {
   postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"
   storage_account_environment      = var.config == var.environment ? var.config_short : replace(var.environment, "-", "")
