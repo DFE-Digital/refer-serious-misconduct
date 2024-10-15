@@ -11,11 +11,6 @@ on:
         type: choice
         options:
           - aks-review
-      pr_number:
-        description: "Environment"
-        required: true
-        type: number
-        default
 
   pull_request:
     branches:
