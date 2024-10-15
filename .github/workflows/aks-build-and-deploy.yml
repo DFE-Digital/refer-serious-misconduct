@@ -1,0 +1,4 @@
+name: AKS Build and Deploy
+
+on:
+  push:
