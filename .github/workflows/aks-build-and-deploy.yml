@@ -1,4 +1,85 @@
 name: AKS Build and Deploy
 
 on:
-  push:
+  workflow_dispatch:
+    branches:
+      - aks-pipeline
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        type: choice
+        options:
+          - aks-review
+  pull_request:
+    branches:
+      - aks-pipeline
+    types:
+      - labeled
+      - synchronize
+      - reopened
+      - opened
+      - converted_to_draft
+
+jobs:
+  build_image:
+    name: Image build and push
+    runs-on: ubuntu-latest
+    outputs:
+      image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/build-image
+        id: build_image
+        with:
+          github_username: ${{ github.actor }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+  deploy_review_app:
+    name: Deploy to review environment
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
+    concurrency: deploy_review_${{ github.event.pull_request.number }}
+    needs: [build_image]
+    environment:
+      name: aks-review
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to AKS
+        uses: ./.github/actions/aks/deploy-environment
+        id: deploy
+        with:
+          environment: aks-review
+          image-tag: ${{ github.sha }}
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          pull-request-number: ${{ github.event.number }}
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set kubelogin environment
+        uses: DFE-Digital/github-actions/set-kubelogin-environment@master
+        with:
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Seed role codes
+        shell: bash
+        run: |
+          make ci aks-review get-cluster-credentials PR_NUMBER=123
+          kubectl exec -n tra-development deployment/refer-serious-misconduct-pr-${{ github.event.number }} -- /bin/sh -c "cd /app && bundle exec rake db:seed_role_codes"
+
+      - name: Post comment to Pull Request ${{ github.event.number }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: aks
+          message: |
+            ### Deployments
+
+            | App               | URL                                                                                                                                       |
+            | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------|
+            | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{ github.event.number }}.test.teacherservices.cloud>            |
