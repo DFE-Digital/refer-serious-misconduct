@@ -40,7 +40,7 @@ jobs:
   deploy_review_app:
     name: Deploy to review environment
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
+#    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     needs: [build_image]
     environment:
