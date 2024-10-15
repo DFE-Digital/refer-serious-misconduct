@@ -11,6 +11,12 @@ on:
         type: choice
         options:
           - aks-review
+      pr_number:
+        description: "Environment"
+        required: true
+        type: number
+        default
+
   pull_request:
     branches:
       - aks-pipeline
@@ -20,6 +26,11 @@ on:
       - reopened
       - opened
       - converted_to_draft
+
+env:
+  PR_NUMBER: 1208
+# PR_NUMBER: ${{ github.event.number }}
+
 
 jobs:
   build_image:
@@ -41,7 +52,7 @@ jobs:
     name: Deploy to review environment
     runs-on: ubuntu-latest
 #    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
-    concurrency: deploy_review_${{ github.event.pull_request.number }}
+#    concurrency: deploy_review_${{ github.event.pull_request.number }}
     needs: [build_image]
     environment:
       name: aks-review
@@ -56,7 +67,7 @@ jobs:
           environment: aks-review
           image-tag: ${{ github.sha }}
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          pull-request-number: ${{ github.event.number }}
+          pull-request-number: $${{ env.PR_NUMBER }}
 
       - uses: azure/login@v2
         with:
@@ -71,9 +82,9 @@ jobs:
         shell: bash
         run: |
           make ci aks-review get-cluster-credentials PR_NUMBER=123
-          kubectl exec -n tra-development deployment/refer-serious-misconduct-pr-${{ github.event.number }} -- /bin/sh -c "cd /app && bundle exec rake db:seed_role_codes"
+          kubectl exec -n tra-development deployment/refer-serious-misconduct-pr-${{ env.PR_NUMBER }} -- /bin/sh -c "cd /app && bundle exec rake db:seed_role_codes"
 
-      - name: Post comment to Pull Request ${{ github.event.number }}
+      - name: Post comment to Pull Request $${{ env.PR_NUMBER }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: aks
@@ -82,4 +93,4 @@ jobs:
 
             | App               | URL                                                                                                                                       |
             | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------|
-            | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{ github.event.number }}.test.teacherservices.cloud>            |
+            | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{env.PR_NUMBER }}.test.teacherservices.cloud>            |
