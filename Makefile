@@ -138,6 +138,7 @@ terraform-init:
 	terraform -chdir=terraform init -backend-config workspace_variables/${DEPLOY_ENV}.backend.tfvars $(backend_config) -upgrade -reconfigure
 
 terraform-plan: terraform-init
+	export TF_LOG=DEBUG
 	terraform -chdir=terraform plan -var-file workspace_variables/${DEPLOY_ENV}.tfvars.json
 
 terraform-apply: terraform-init
