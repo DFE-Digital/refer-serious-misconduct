@@ -21,6 +21,7 @@ tags
 
 .terraform/
 fetch_config.rb
+bin/terrafile
 
 app/assets/builds/*
 !app/assets/builds/.keep
