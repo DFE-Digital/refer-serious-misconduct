@@ -1,3 +1,5 @@
-output "url" {
-  value = module.web_application.url
+output "urls" {
+  value = [
+    module.web_application.url
+  ]
 }
