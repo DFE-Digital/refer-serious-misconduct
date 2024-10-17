@@ -75,6 +75,41 @@ jobs:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
 
+  deploy_review_app_aks:
+    name: Deploy to review environmentto AKS
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
+    concurrency: deploy_review_${{ github.event.pull_request.number }}
+    needs: [build_image]
+    environment:
+      name: review
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/aks/deploy-environment
+        id: deploy_aks
+        with:
+          environment_name: review
+          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
+          image_tag: ${{ github.sha }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          site_up_retries: 300
+          startup_command: "sh /app/bin/start-review-app.sh"
+
+      - name: Post URL to Pull Request comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            Review app deployed to <${{ steps.deploy.outputs.environment_url }}>
+
+      - uses: ./.github/actions/smoke-test
+        id: smoke-test
+        with:
+          environment: review
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          url: ${{ steps.deploy.outputs.environment_url }}
+
   set_matrix:
     name: Set deployment matrix
     runs-on: ubuntu-latest

@@ -1,0 +1,61 @@
+name: Deploy environment to AKS
+description: Deploys an application environment to AKS
+
+inputs:
+  environment:
+    description: The name of the environment
+    required: true
+  image-tag:
+    description: The image tag to deploy
+    required: true
+  azure-credentials:
+    description: JSON object containing a service principal that can read from Azure Key Vault
+    required: true
+  pull-request-number:
+    description: The pull request number which triggered this deploy.
+    required: false
+
+outputs:
+  environment_url:
+    description: The base URL for the deployed environment
+    value: ${{ steps.set_outputs.outputs.ACCESS_URL }}
+
+runs:
+  using: composite
+
+  steps:
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.4
+        terraform_wrapper: false
+
+    - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
+      with:
+        azure-credentials: ${{ inputs.azure-credentials }}
+
+    - name: Terraform Apply
+      shell: bash
+      run: |
+        make ci ${{ inputs.environment }} aks-terraform-apply
+      env:
+        DOCKER_IMAGE_TAG: ${{ inputs.image-tag }}
+        PR_NUMBER: ${{ inputs.pull-request-number }}
+
+    - name: Extract Terraform outputs
+      shell: bash
+      id: set_outputs
+      run: |
+        access_url=$(terraform -chdir=terraform/application output -json urls | jq -r '.[0]')
+        echo "ACCESS_URL=$access_url" >> $GITHUB_OUTPUT
+
+    - name: Run smoke tests
+      shell: bash
+      run: |
+        # Parse the JSON array of URLs into a Bash array
+        urls=$(echo "$HOSTNAMES" | jq -r '.[]')
+
+        # Loop over each URL and perform the curl check on the /health/all.json endpoint
+        for url in $urls; do
+          echo "Check health for $url/health/all.json..."
+          curl -sS --fail "$url/health/all.json" > /dev/null && echo "Health check passed for $url" || echo "Health check failed for $url"
+        done
