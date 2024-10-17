@@ -48,10 +48,7 @@ Rails.application.configure do
       expires: 1.year,
       subdomains: true
     },
-    redirect: {
-      status: 307,
-      port: 81
-    }
+    redirect: { exclude: -> (request) { request.path == '/health' } }
   }
 
   # Include generic and useful information about system operation, but avoid logging too much
