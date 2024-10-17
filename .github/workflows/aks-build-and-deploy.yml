@@ -76,7 +76,7 @@ jobs:
       - name: Seed role codes
         shell: bash
         run: |
-          make ci aks-review get-cluster-credentials PR_NUMBER=123
+          make ci aks-review get-cluster-credentials PR_NUMBER=${{ env.PR_NUMBER }}
           kubectl exec -n tra-development deployment/refer-serious-misconduct-pr-${{ env.PR_NUMBER }} -- /bin/sh -c "cd /app && bundle exec rake db:seed_role_codes"
 
       - name: Post comment to Pull Request $${{ env.PR_NUMBER }}
