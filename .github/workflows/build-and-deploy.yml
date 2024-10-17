@@ -76,13 +76,13 @@ jobs:
           url: ${{ steps.deploy.outputs.environment_url }}
 
   deploy_review_app_aks:
-    name: Deploy to review environmentto AKS
+    name: Deploy to review environment to AKS
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     needs: [build_image]
     environment:
-      name: review
+      name: aks-review
 
     steps:
       - uses: actions/checkout@v4
