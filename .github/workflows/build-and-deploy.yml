@@ -95,15 +95,6 @@ jobs:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           pull-request-number: ${{ github.event.pull_request.number }}
 
-      - uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Set kubelogin environment
-        uses: DFE-Digital/github-actions/set-kubelogin-environment@master
-        with:
-          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Post comment to Pull Request $${{ env.PR_NUMBER }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:

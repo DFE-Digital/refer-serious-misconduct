@@ -45,8 +45,8 @@ runs:
       shell: bash
       id: set_outputs
       run: |
-        access_url=$(terraform -chdir=terraform/application output -json urls | jq -r '.[0]')
-        echo "ACCESS_URL=$access_url" >> $GITHUB_OUTPUT
+        environment_url=$(terraform -chdir=terraform/application output -json urls | jq -r '.[0]')
+        echo "ENVIRONMENT_URL=$environment_url" >> $GITHUB_OUTPUT
 
     - name: Run smoke tests
       shell: bash
