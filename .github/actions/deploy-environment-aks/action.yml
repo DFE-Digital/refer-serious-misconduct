@@ -45,12 +45,12 @@ runs:
       shell: bash
       id: set_outputs
       run: |
-        source <(terraform -chdir=terraform/application output | sed -r 's/^([a-z_]+)\s+=\s+(.*)$/\U\1=\L\2/')
-        echo "ENVIRONMENT_URL=$URL" >> $GITHUB_OUTPUT
+        environment_url=$(terraform -chdir=terraform/application output -raw url)
+        echo "ENVIRONMENT_URL=$environment_url" >> $GITHUB_OUTPUT
 
     - name: Run smoke tests
       shell: bash
       run: |
-        source <(terraform -chdir=terraform/application output | sed -r 's/^([a-z_]+)\s+=\s+(.*)$/\U\1=\L\2/')
-        echo "Check health for $URL/health/all.json..."
-        curl -sS --fail "$URL/health/all.json" > /dev/null && echo "Health check passed for $URL" || echo "Health check failed for $URL"
+        environment_url=$(terraform -chdir=terraform/application output -raw url)
+        echo "Check health for $environment_url/health/all.json..."
+        curl -sS --fail "$environment_url/health/all.json" > /dev/null && echo "Health check passed for $environment_url" || echo "Health check failed for $environment_url"
