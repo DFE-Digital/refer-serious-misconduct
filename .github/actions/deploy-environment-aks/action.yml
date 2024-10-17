@@ -45,17 +45,12 @@ runs:
       shell: bash
       id: set_outputs
       run: |
-        environment_url=$(terraform -chdir=terraform/application output -json urls | jq -r '.[0]')
+        environment_url=$(terraform -chdir=terraform/application output -json url | jq -r '.[0]')
         echo "ENVIRONMENT_URL=$environment_url" >> $GITHUB_OUTPUT
 
     - name: Run smoke tests
       shell: bash
       run: |
-        # Parse the JSON array of URLs into a Bash array
-        urls=$(echo "$HOSTNAMES" | jq -r '.[]')
-
-        # Loop over each URL and perform the curl check on the /health/all.json endpoint
-        for url in $urls; do
-          echo "Check health for $url/health/all.json..."
-          curl -sS --fail "$url/health/all.json" > /dev/null && echo "Health check passed for $url" || echo "Health check failed for $url"
-        done
+        environment_url=$(terraform -chdir=terraform/application output -json url | jq -r '.[0]')
+        echo "Check health for $environment_url/health/all.json..."
+        curl -sS --fail "$environment_url/health/all.json" > /dev/null && echo "Health check passed for $url" || echo "Health check failed for $url"
