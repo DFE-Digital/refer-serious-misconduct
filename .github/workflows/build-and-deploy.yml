@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - aks-pipeline2
   pull_request:
     branches:
       - main
+      - aks-pipeline2
     types:
       - labeled
       - synchronize
@@ -90,7 +92,7 @@ jobs:
       - uses: ./.github/actions/aks/deploy-environment
         id: deploy_aks
         with:
-          environment_name: review
+          environment_name: aks-review
           image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
@@ -106,7 +108,7 @@ jobs:
       - uses: ./.github/actions/smoke-test
         id: smoke-test
         with:
-          environment: review
+          environment: aks-review
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
 
