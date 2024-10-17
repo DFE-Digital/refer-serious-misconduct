@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - aks-pipeline2
   pull_request:
     branches:
       - main
@@ -92,25 +91,30 @@ jobs:
       - uses: ./.github/actions/deploy-environment-aks
         id: deploy_aks
         with:
-          environment_name: aks-review
-          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
-          image_tag: ${{ github.sha }}
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          site_up_retries: 300
-          startup_command: "sh /app/bin/start-review-app.sh"
+          environment: aks-review
+          image-tag: ${{ github.sha }}
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          pull-request-number: ${{ github.event.pull_request.number }}
 
-      - name: Post URL to Pull Request comment
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set kubelogin environment
+        uses: DFE-Digital/github-actions/set-kubelogin-environment@master
+        with:
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Post comment to Pull Request $${{ env.PR_NUMBER }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          header: aks
           message: |
-            Review app deployed to <${{ steps.deploy.outputs.environment_url }}>
+            ### Deployments
 
-      - uses: ./.github/actions/smoke-test
-        id: smoke-test
-        with:
-          environment: aks-review
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          url: ${{ steps.deploy.outputs.environment_url }}
+            | App               | URL                                                                                                                                       |
+            | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------|
+            | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{env.PR_NUMBER }}.test.teacherservices.cloud>            |
 
   set_matrix:
     name: Set deployment matrix
