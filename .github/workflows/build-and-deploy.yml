@@ -28,7 +28,7 @@ on:
 jobs:
   build_image:
     name: Image build and push
-    if: contains(github.event.pull_request.labels.*.name, 'deploy') || github.event_name != 'pull_request'
+    if: contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'deploy-aks') || github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     outputs:
       image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
@@ -89,7 +89,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/aks/deploy-environment
+      - uses: ./.github/actions/deploy-environment-aks
         id: deploy_aks
         with:
           environment_name: aks-review
