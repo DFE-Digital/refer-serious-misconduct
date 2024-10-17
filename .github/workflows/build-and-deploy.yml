@@ -84,7 +84,7 @@ jobs:
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     needs: [build_image]
     environment:
-      name: review
+      name: aks-review
 
     steps:
       - uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
       - uses: ./.github/actions/deploy-environment-aks
         id: deploy_aks
         with:
-          environment_name: review
+          environment_name: aks-review
           image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
           image_tag: ${{ github.sha }}
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
@@ -108,7 +108,7 @@ jobs:
       - uses: ./.github/actions/smoke-test
         id: smoke-test
         with:
-          environment: review
+          environment: aks-review
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
 
