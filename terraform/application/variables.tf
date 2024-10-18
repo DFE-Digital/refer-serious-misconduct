@@ -73,6 +73,10 @@ variable "worker_memory_max" {
 variable "worker_replicas" {
   default = 1
 }
+variable "webapp_startup_command" {
+  default     = null
+  description = "Override Dockerfile startup command"
+}
 
 locals {
   postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"

@@ -26,7 +26,7 @@ on:
 jobs:
   build_image:
     name: Image build and push
-    if: contains(github.event.pull_request.labels.*.name, 'deploy') || github.event_name != 'pull_request'
+    if: contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'deploy-aks') || github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     outputs:
       image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
@@ -74,6 +74,37 @@ jobs:
           environment: review
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           url: ${{ steps.deploy.outputs.environment_url }}
+
+  deploy_review_app_aks:
+    name: Deploy to review environment to AKS
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks')
+    concurrency: deploy_review_${{ github.event.pull_request.number }}
+    needs: [build_image]
+    environment:
+      name: aks-review
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/deploy-environment-aks
+        id: deploy_aks
+        with:
+          environment: aks-review
+          image-tag: ${{ github.sha }}
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+
+      - name: Post comment to Pull Request ${{ github.event.pull_request.number }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: aks
+          message: |
+            ### Deployments
+
+            | App               | URL                                                                                                                                       |
+            | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------|
+            | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{ github.event.pull_request.number }}.test.teacherservices.cloud>            |
 
   set_matrix:
     name: Set deployment matrix
