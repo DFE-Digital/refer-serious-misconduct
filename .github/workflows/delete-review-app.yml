@@ -15,6 +15,7 @@ jobs:
     name: Delete Review App ${{ github.event.pull_request.number }}
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'deploy')
     environment: review
     steps:
       - uses: actions/checkout@v4
@@ -129,3 +130,46 @@ jobs:
           az storage blob delete -c ${{ env.tf_state_container }} --name ${{ env.TF_STATE_FILE }} \
           --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
           --account-name ${{ env.storage_account_name }}
+
+  delete-review-app-aks:
+    name: Delete Review App AKS ${{ github.event.pull_request.number }}
+    concurrency: deploy_review_${{ github.event.pull_request.number }}
+    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: aks-review
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: set PR_NUMBER
+        id: config
+        run: |
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+            PR_NUMBER=${{ github.event.inputs.pr_number }}
+          else
+            PR_NUMBER=${{ github.event.pull_request.number }}
+          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.4
+          terraform_wrapper: false
+
+      - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
+        with:
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Terraform Destroy
+        run: |
+          make ci aks-review aks-terraform-destroy PR_NUMBER=${{ env.PR_NUMBER }}
+        env:
+          PR_NUMBER: ${{ env.PR_NUMBER }}
+
+      - name: Post Pull Request Comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: aks
+          message: |
+            Review app refer serious misconduct deployed to <https://refer-serious-misconduct-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
