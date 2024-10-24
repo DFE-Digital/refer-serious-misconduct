@@ -181,6 +181,10 @@ aks-review: test-cluster
 	$(eval ENVIRONMENT=pr-${PR_NUMBER})
 	$(eval include global_config/review.sh)
 
+.PHONY: aks-test
+aks-test: test-cluster
+	$(eval include global_config/test.sh)
+
 bin/terrafile: ## Install terrafile to manage terraform modules
 	curl -sL https://github.com/coretech/terrafile/releases/download/v${TERRAFILE_VERSION}/terrafile_${TERRAFILE_VERSION}_$$(uname)_$$(uname -m).tar.gz \
 		| tar xz -C ./bin terrafile
