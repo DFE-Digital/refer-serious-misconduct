@@ -106,6 +106,31 @@ jobs:
             | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------|
             | Refer Serious Misconduct      | <https://refer-serious-misconduct-pr-${{ github.event.pull_request.number }}.test.teacherservices.cloud>            |
 
+  deploy_aks:
+    name: Deploy to ${{ matrix.environment }} environment for AKS
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    concurrency: deploy_${{ matrix.environment }}
+    needs: [build_image]
+    strategy:
+      max-parallel: 1
+      matrix:
+        environment: [aks-test]
+    environment:
+      name: ${{ matrix.environment }}
+      url: ${{ steps.deploy.outputs.environment_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to AKS
+        uses: ./.github/actions/deploy-environment-aks
+        id: deploy
+        with:
+          environment: ${{ matrix.environment }}
+          image-tag: ${{ github.sha }}
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
   set_matrix:
     name: Set deployment matrix
     runs-on: ubuntu-latest
