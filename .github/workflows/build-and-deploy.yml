@@ -109,7 +109,7 @@ jobs:
   deploy_aks:
     name: Deploy to ${{ matrix.environment }} environment for AKS
     runs-on: ubuntu-latest
-    if: github.event_name == 'main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     concurrency: deploy_${{ matrix.environment }}
     needs: [build_image]
     strategy:
