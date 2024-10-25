@@ -89,6 +89,7 @@ ci:	## Run in automation environment
 	$(eval DISABLE_PASSCODE=true)
 	$(eval AUTO_APPROVE=-auto-approve)
 	$(eval SP_AUTH=true)
+	$(eval SKIP_AZURE_LOGIN=true)
 
 set-azure-resource-group-tags: ##Tags that will be added to resource group on it's creation in ARM template
 	$(eval RG_TAGS=$(shell echo '{"Portfolio": "Early Years and Schools Group", "Parent Business":"Teacher Misconduct Unit", "Product" : "Refer Serious Misconduct", "Service Line": "Teaching Workforce", "Service": "Teacher Training and Qualifications", "Service Offering": "Refer Serious Misconduct", "Environment" : "$(ENV_TAG)"}' | jq . ))
