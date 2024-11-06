@@ -6,7 +6,7 @@
 # WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED 
 # Get the version `apk list chromium` in the running image and then update package.json https://pptr.dev/chromium-support#
 # This is used for rendering PDFs
-FROM ruby:3.3.0-alpine as builder
+FROM ruby:3.3.6-alpine as builder
 
 WORKDIR /app
 
@@ -59,7 +59,7 @@ RUN rm -rf log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:3.3.0-alpine as production
+FROM ruby:3.3.6-alpine as production
 
 ENV GOVUK_NOTIFY_API_KEY=TestKey \
     HOSTING_DOMAIN=https://required-but-not-used
