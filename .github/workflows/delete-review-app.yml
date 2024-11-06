@@ -54,6 +54,14 @@ jobs:
           message: |
             Review app refer serious misconduct deployed to <https://refer-serious-misconduct-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
 
+      - run: |
+          STORAGE_ACCOUNT_NAME="s189t01rsmrvtfsa"
+          TF_RESOURCE_GROUP_NAME="s189t01-rsm-rv-rg"
+          TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g $TF_RESOURCE_GROUP_NAME -n $STORAGE_ACCOUNT_NAME | jq -r '.[0].value')"
+          echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
+          echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
+        shell: bash
+
       - name: Set Environment variables
         run: |
           TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate
@@ -62,7 +70,7 @@ jobs:
           echo "STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
           pr_state_file=$(az storage blob list -c terraform-state \
             --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-name $STORAGE_ACCOUNT_NAME \
             --prefix $TF_STATE_FILE --query "[].name" -o tsv)
           if [ -n "$pr_state_file" ]; then
             echo "TF_STATE_EXISTS=true" >> $GITHUB_ENV
