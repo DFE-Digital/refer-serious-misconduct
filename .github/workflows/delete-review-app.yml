@@ -54,6 +54,10 @@ jobs:
           message: |
             Review app refer serious misconduct deployed to <https://refer-serious-misconduct-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
 
+      - uses: Azure/login@v2
+        with:
+          creds: ${{ secrets.azure_credentials }}
+
       - run: |
           STORAGE_ACCOUNT_NAME="s189t01rsmrvtfsa"
           TF_RESOURCE_GROUP_NAME="s189t01-rsm-rv-rg"
