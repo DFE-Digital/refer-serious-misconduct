@@ -11,126 +11,6 @@ on:
         required: true
         type: string
 jobs:
-  delete-review-app:
-    name: Delete Review App ${{ github.event.pull_request.number }}
-    concurrency: deploy_review_${{ github.event.pull_request.number }}
-    runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'deploy')
-    environment: review
-    steps:
-      - uses: actions/checkout@v4
-      - name: Extract configuration from tfvars
-        id: config
-        run: |
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            PR_NUMBER=${{ github.event.inputs.pr_number }}
-          else
-            PR_NUMBER=${{ github.event.pull_request.number }}
-          fi
-
-          if [ -z "$PR_NUMBER" ]; then
-            echo "::error ::Failed to extract PR_NUMBER"
-            exit 1
-          fi
-
-          RESOURCE_PREFIX=$(jq -r '.resource_prefix' $TFVARS)
-          APP_RESOURCE_GROUP_NAME=$RESOURCE_PREFIX-review-pr-$PR_NUMBER-rg
-          STORAGE_ACCOUNT_NAME=$(jq -r '.storage_account_name' $TFVARS)
-          TERRAFORM_VERSION=$(awk '/{/{f=/^terraform/;next}f' terraform.tf | grep -o [0-9\.]*)
-          DEV_TFVARS=workspace_variables/dev.tfvars.json
-          TF_RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' $DEV_TFVARS)
-          TF_STATE_CONTAINER=$(awk '/{/{f=/backend/;next}f' terraform.tf | grep -o "\"[a-z\-]*\"" | tr -d \")
-
-          if [ -z "$APP_RESOURCE_GROUP_NAME" ]; then
-            echo "::error ::Failed to extract app_resource_group_name from $TFVARS"
-            exit 1
-          fi
-
-          if [ -z "$STORAGE_ACCOUNT_NAME" ]; then
-            echo "::error ::Failed to extract storage_account_name from $TFVARS"
-            exit 1
-          fi
-
-          if [ -z "$TERRAFORM_VERSION" ]; then
-            echo "::error ::Failed to extract terraform_version from terraform.tf"
-            exit 1
-          fi
-
-          if [ -z "$TF_RESOURCE_GROUP_NAME" ]; then
-            echo "::error ::Failed to extract resource_group_name from $DEV_TFVARS"
-            exit 1
-          fi
-
-          if [ -z "$TF_STATE_CONTAINER" ]; then
-            echo "::error ::Failed to extract tf_state_container from terraform.tf"
-            exit 1
-          fi
-
-          echo "app_resource_group_name=$APP_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
-          echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
-          echo "storage_account_name=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
-          echo "terraform_version=$TERRAFORM_VERSION" >> $GITHUB_ENV
-          echo "tf_resource_group_name=$TF_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
-          echo "tf_state_container=$TF_STATE_CONTAINER" >> $GITHUB_ENV
-        shell: bash
-        env:
-          TFVARS: workspace_variables/review.tfvars.json
-        working-directory: terraform
-
-      - uses: Azure/login@v2
-        with:
-          creds: ${{ secrets.azure_credentials }}
-
-      - run: |
-          TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.tf_resource_group_name }} -n ${{ env.storage_account_name }} | jq -r '.[0].value')"
-          echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
-          echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
-        shell: bash
-
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ ENV.terraform_version }}
-          terraform_wrapper: false
-
-      - name: Check resource group exists
-        run: |
-          GROUP=$(az group exists --name ${{ env.app_resource_group_name }})
-          if [[ "$GROUP" =~ "true" ]]; then
-            echo "REVIEW_APP_EXISTS=true" >> $GITHUB_ENV
-          fi
-
-      - name: Set Environment variables
-        if: env.REVIEW_APP_EXISTS == 'true'
-        run: |
-          TF_STATE_FILE=review/review-pr-${{ env.pr_number }}.tfstate
-          echo "TF_STATE_FILE=$TF_STATE_FILE" >> $GITHUB_ENV
-
-          pr_state_file=$(az storage blob list -c ${{ env.tf_state_container }} \
-            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-            --account-name ${{ env.storage_account_name }} \
-            --prefix $TF_STATE_FILE --query "[].name" -o tsv)
-          if [ -n "$pr_state_file" ]; then
-            echo "TF_STATE_EXISTS=true" >> $GITHUB_ENV
-          fi
-
-      - name: Terraform
-        if: env.TF_STATE_EXISTS == 'true'
-        id: terraform
-        run: |
-          make ci review terraform-destroy pr_id=${{ env.pr_number }}
-        env:
-          ARM_ACCESS_KEY: ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }}
-          TF_VAR_azure_sp_credentials_json: ${{ secrets.AZURE_CREDENTIALS }}
-          TF_VAR_rsm_docker_image: ${{ github.sha }}
-        shell: bash
-
-      - name: Delete tf state file
-        if: env.TF_STATE_EXISTS == 'true'
-        run: |
-          az storage blob delete -c ${{ env.tf_state_container }} --name ${{ env.TF_STATE_FILE }} \
-          --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-          --account-name ${{ env.storage_account_name }}
-
   delete-review-app-aks:
     name: Delete Review App AKS ${{ github.event.pull_request.number }}
     concurrency: deploy_review_${{ github.event.pull_request.number }}
@@ -173,3 +53,25 @@ jobs:
           header: aks
           message: |
             Review app refer serious misconduct deployed to <https://refer-serious-misconduct-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
+
+      - name: Set Environment variables
+        run: |
+          TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate
+          echo "TF_STATE_FILE=$TF_STATE_FILE" >> $GITHUB_ENV
+          STORAGE_ACCOUNT_NAME="s189t01#SERVICE_SHORT#rvtfsa"
+          echo "STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
+          pr_state_file=$(az storage blob list -c terraform-state \
+            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --prefix $TF_STATE_FILE --query "[].name" -o tsv)
+          if [ -n "$pr_state_file" ]; then
+            echo "TF_STATE_EXISTS=true" >> $GITHUB_ENV
+          fi
+
+      - name: Delete tf state file
+        if: env.TF_STATE_EXISTS == 'true'
+        run: |
+          az storage blob delete -c terraform-state --name ${{ env.TF_STATE_FILE }} \
+          --delete-snapshots  include \
+          --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
+          --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
