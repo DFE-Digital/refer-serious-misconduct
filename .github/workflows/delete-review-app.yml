@@ -58,7 +58,7 @@ jobs:
         run: |
           TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate
           echo "TF_STATE_FILE=$TF_STATE_FILE" >> $GITHUB_ENV
-          STORAGE_ACCOUNT_NAME="s189t01#SERVICE_SHORT#rvtfsa"
+          STORAGE_ACCOUNT_NAME="s189t01rsmrvtfsa"
           echo "STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
           pr_state_file=$(az storage blob list -c terraform-state \
             --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
