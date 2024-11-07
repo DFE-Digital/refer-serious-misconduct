@@ -97,6 +97,6 @@ jobs:
           do
             echo "Deleting Storage $BLOB_NAME version $i"
             az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }} --version-id $i \
-            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-            --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
+              --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
+              --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
           done
