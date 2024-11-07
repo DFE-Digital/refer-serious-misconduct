@@ -190,6 +190,10 @@ aks-test: test-cluster
 aks-preprod: test-cluster
 	$(eval include global_config/preprod.sh)
 
+.PHONY: aks-production
+aks-production: production-cluster
+	$(eval include global_config/production.sh)
+
 bin/terrafile: ## Install terrafile to manage terraform modules
 	curl -sL https://github.com/coretech/terrafile/releases/download/v${TERRAFILE_VERSION}/terrafile_${TERRAFILE_VERSION}_$$(uname)_$$(uname -m).tar.gz \
 		| tar xz -C ./bin terrafile
@@ -210,6 +214,10 @@ get-cluster-credentials: set-azure-account
 test-cluster:
 	$(eval CLUSTER_RESOURCE_GROUP_NAME=s189t01-tsc-ts-rg)
 	$(eval CLUSTER_NAME=s189t01-tsc-test-aks)
+
+production-cluster: ## Set up the production cluster variables for AKS
+	$(eval CLUSTER_RESOURCE_GROUP_NAME=s189p01-tsc-pd-rg)
+	$(eval CLUSTER_NAME=s189p01-tsc-production-aks)
 
 set-what-if:
 	$(eval WHAT_IF=--what-if)

@@ -42,6 +42,8 @@ module "web_application" {
   kubernetes_secret_name     = module.application_configuration.kubernetes_secret_name
 
   docker_image = var.docker_image
+  replicas     = var.app_replicas
+  enable_logit = var.enable_logit
   command      = var.webapp_startup_command
 
   send_traffic_to_maintenance_page = var.send_traffic_to_maintenance_page
@@ -64,4 +66,5 @@ module "main_worker" {
   kubernetes_secret_name     = module.application_configuration.kubernetes_secret_name
   command                    = ["/bin/sh", "-c", "bundle exec sidekiq -C config/sidekiq.yml"]
   probe_command              = ["pgrep", "-f", "sidekiq"]
+  enable_logit               = var.enable_logit
 }

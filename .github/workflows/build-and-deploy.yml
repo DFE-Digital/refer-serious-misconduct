@@ -22,6 +22,7 @@ on:
           - dev
           - test
           - preprod
+          - prod
 
 jobs:
   build_image:
@@ -115,7 +116,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [aks-test, aks-preprod]
+        environment: [aks-test, aks-preprod, prod]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
