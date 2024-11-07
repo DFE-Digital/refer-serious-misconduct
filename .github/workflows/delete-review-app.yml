@@ -93,9 +93,12 @@ jobs:
           IFS=$'\n'      # Change IFS to newline char
           versions=($versions) # split the string into an array by the same name
           IFS=$SAVEIFS
+          az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }}
+            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
           for i in "${versions[@]}"
           do
-            echo "Deleting Storage $BLOB_NAME version $i"
+            echo "Deleting Storage ${{ env.TF_STATE_FILE }} version $i"
             az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }} --version-id $i \
               --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
               --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
