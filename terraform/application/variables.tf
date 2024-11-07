@@ -1,3 +1,8 @@
+variable "app_replicas" {
+  type        = number
+  description = "Number of replicas of the web app"
+  default     = 1
+}
 variable "cluster" {
   description = "AKS cluster where this app is deployed. Either 'test' or 'production'"
 }
@@ -9,6 +14,14 @@ variable "environment" {
 }
 variable "azure_resource_prefix" {
   description = "Standard resource prefix. Usually s189t01 (test) or s189p01 (production)"
+}
+variable "azure_maintenance_window" {
+  type = object({
+    day_of_week  = number
+    start_hour   = number
+    start_minute = number
+  })
+  default = null
 }
 variable "config" {
   description = "Long name of the environment configuration, e.g. review, development, production..."
@@ -30,6 +43,14 @@ variable "enable_postgres_ssl" {
   default     = true
   description = "Enforce SSL connection from the client side"
 }
+variable "postgres_flexible_server_sku" {
+  type    = string
+  default = "B_Standard_B1ms"
+}
+variable "postgres_enable_high_availability" {
+  type    = bool
+  default = false
+}
 variable "enable_postgres_backup_storage" {
   default     = false
   description = "Create a storage account to store database dumps"
@@ -44,6 +65,10 @@ variable "external_url" {
 variable "statuscake_contact_groups" {
   default     = []
   description = "ID of the contact group in statuscake web UI"
+}
+variable "enable_logit" {
+  type    = bool
+  default = false
 }
 variable "enable_monitoring" {
   default     = false
