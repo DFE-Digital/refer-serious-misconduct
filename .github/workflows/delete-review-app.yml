@@ -58,11 +58,16 @@ jobs:
         with:
           creds: ${{ secrets.azure_credentials }}
 
+      - name: Install Storage Blob Extension
+        run: az extension add --name storage-blob-preview
+
       - run: |
           STORAGE_ACCOUNT_NAME="s189t01rsmrvtfsa"
           echo "STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
           TF_RESOURCE_GROUP_NAME="s189t01-rsm-rv-rg"
           echo "TF_RESOURCE_GROUP_NAME=$TF_RESOURCE_GROUP_NAME" >> $GITHUB_ENV
+          CONTAINER_NAME="terraform-state"
+          echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
           TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g $TF_RESOURCE_GROUP_NAME -n $STORAGE_ACCOUNT_NAME | jq -r '.[0].value')"
           echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
           echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
@@ -72,7 +77,7 @@ jobs:
 
       - name: Test for tf state file
         run: |
-          pr_state_file=$(az storage blob list -c terraform-state \
+          pr_state_file=$(az storage blob list -c ${{ env.CONTAINER_NAME }} \
             --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
             --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
             --prefix $TF_STATE_FILE --query "[].name" -o tsv)
@@ -83,6 +88,15 @@ jobs:
       - name: Delete tf state file
         if: env.TF_STATE_EXISTS == 'true'
         run: |
-          az storage blob delete -c terraform-state --name ${{ env.TF_STATE_FILE }} \
-          --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-          --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
+          versions="$(az storage blob list --account-name ${{ env.STORAGE_ACCOUNT_NAME }} -c ${{ env.CONTAINER_NAME }} --prefix ${{ env.TF_STATE_FILE }} --include v --query '[].versionId' -o tsv)"
+          SAVEIFS=$IFS   # Save current IFS (Internal Field Separator)
+          IFS=$'\n'      # Change IFS to newline char
+          versions=($versions) # split the string into an array by the same name
+          IFS=$SAVEIFS
+          for i in "${versions[@]}"
+          do
+            echo "Deleting Storage $BLOB_NAME version $i"
+            az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }} --version-id $i \
+            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
+          done
