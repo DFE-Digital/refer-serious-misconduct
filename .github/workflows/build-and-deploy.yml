@@ -116,7 +116,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [aks-test, aks-preprod, prod]
+        environment: [aks-test, aks-preprod, aks-production]
     environment:
       name: ${{ matrix.environment }}
       url: ${{ steps.deploy.outputs.environment_url }}
