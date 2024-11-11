@@ -16,7 +16,7 @@ jobs:
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    environment: review
+    environment: aks-review
     permissions:
       contents: "read"
       id-token: "write"
