@@ -80,7 +80,7 @@ jobs:
           source global_config/review.sh
           echo "RESOURCE_GROUP_NAME=${AZURE_RESOURCE_PREFIX}-rsm-${CONFIG_SHORT}-rg" >> $GITHUB_ENV
           echo "STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}rsm${CONFIG_SHORT}tfsa" >> $GITHUB_ENV
-          echo "CONTAINER_NAME="terraform-state" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=terraform-state" >> $GITHUB_ENV
           echo "TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate" >> $GITHUB_ENV
         shell: bash
 
