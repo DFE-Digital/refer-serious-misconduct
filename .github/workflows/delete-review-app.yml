@@ -60,7 +60,7 @@ jobs:
 
       - name: Terraform Destroy
         run: |
-          make ci review terraform-destroy
+          make ci aks-review terraform-destroy
         env:
           PR_NUMBER: ${{ env.PR_NUMBER }}
 
