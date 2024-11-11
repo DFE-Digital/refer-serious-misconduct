@@ -84,12 +84,15 @@ jobs:
           echo "TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate" >> $GITHUB_ENV
         shell: bash
 
-      - name: Test for tf state file
+      - name: Set Container Access Key
         run: |
           TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.STORAGE_ACCOUNT_NAME }} | jq -r '.[0].value')"
           echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
           echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
-          pr_state_file="$(az storage blob list -c ${{ env.CONTAINER_NAME }} --account-key $TFSTATE_CONTAINER_ACCESS_KEY }} --account-name ${{ env.STORAGE_ACCOUNT_NAME }} --prefix ${{ env.TF_STATE_FILE }} --query '[].name' -o tsv)"
+
+      - name: Test for tf state file
+        run: |
+          pr_state_file="$(az storage blob list -c ${{ env.CONTAINER_NAME }} --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} --account-name ${{ env.STORAGE_ACCOUNT_NAME }} --prefix ${{ env.TF_STATE_FILE }} --query '[].name' -o tsv)"
           if [ -n "$pr_state_file" ]; then
             echo "TF_STATE_EXISTS=true" >> $GITHUB_ENV
           fi
