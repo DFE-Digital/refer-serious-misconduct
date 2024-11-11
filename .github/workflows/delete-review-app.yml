@@ -39,7 +39,7 @@ jobs:
           creds: ${{ secrets.azure_credentials }}
 
       - name: test if
-        if: "${{ vars.GCP_PROJECT_ID != '' }} && ${{ vars.GCP_WIP != '' }}"
+        if: "${{ vars.GCP_PROJECT_ID != '' && vars.GCP_WIP != '' }}"
         run: |
           echo "ran test"
 
