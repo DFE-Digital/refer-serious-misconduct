@@ -36,7 +36,7 @@ jobs:
           creds: ${{ secrets.azure_credentials }}
 
       - uses: google-github-actions/auth@v2
-        if: "${{ vars.GCP_PROJECT_ID != '' }} || ${{ vars.GCP_WIP != '' }}"
+  #      if: "${{ vars.GCP_PROJECT_ID != '' }} || ${{ vars.GCP_WIP != '' }}"
         with:
           project_id: ${{ vars.GCP_PROJECT_ID }}
           workload_identity_provider: ${{ vars.GCP_WIP }}
