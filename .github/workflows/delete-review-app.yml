@@ -39,12 +39,12 @@ jobs:
           creds: ${{ secrets.azure_credentials }}
 
       - name: test if
-        if: "${{ vars.GCP_PROJECT_ID != '' }} || ${{ vars.GCP_WIP != '' }}"
+        if: "${{ vars.GCP_PROJECT_ID != '' }} && ${{ vars.GCP_WIP != '' }}"
         run: |
           echo "ran test"
 
       - uses: google-github-actions/auth@v2
-        if: "${{ vars.GCP_PROJECT_ID != '' }} || ${{ vars.GCP_WIP != '' }}"
+        if: "${{ vars.GCP_PROJECT_ID != '' }} && ${{ vars.GCP_WIP != '' }}"
         with:
           #        token_format: "access_token"
           #        project_id: ${{ vars.GCP_PROJECT_ID }}
