@@ -38,8 +38,8 @@ jobs:
       - uses: google-github-actions/auth@v2
         if: "${{ vars.GCP_PROJECT_ID != '' }} || ${{ vars.GCP_WIP != '' }}"
         with:
-          token_format: "access_token"
-          project_id: ${{ vars.GCP_PROJECT_ID }}
+  #        token_format: "access_token"
+  #        project_id: ${{ vars.GCP_PROJECT_ID }}
           workload_identity_provider: ${{ vars.GCP_WIP }}
 
       - name: Set terraform version
