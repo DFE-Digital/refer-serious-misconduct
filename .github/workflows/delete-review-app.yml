@@ -40,7 +40,8 @@ jobs:
         with:
   #        token_format: "access_token"
   #        project_id: ${{ vars.GCP_PROJECT_ID }}
-          workload_identity_provider: ${{ vars.GCP_WIP }}
+  #        workload_identity_provider: ${{ vars.GCP_WIP }}
+           workload_identity_provider: "test"
 
       - name: Set terraform version
         run: |
