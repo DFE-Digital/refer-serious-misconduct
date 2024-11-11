@@ -78,6 +78,10 @@ jobs:
       - name: Set environment variables
         run: |
           source global_config/review.sh
+          echo "RESOURCE_GROUP_NAME=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-rg"
+          echo "STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}${SERVICE_SHORT}dbbkp${CONFIG_SHORT}sa"
+          echo "CONTAINER_NAME="terraform-state"
+          echo "TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate"
           echo "RESOURCE_GROUP_NAME=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-rg" >> $GITHUB_ENV
           echo "STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}${SERVICE_SHORT}dbbkp${CONFIG_SHORT}sa" >> $GITHUB_ENV
           echo "CONTAINER_NAME="terraform-state" >> $GITHUB_ENV
