@@ -73,7 +73,7 @@ jobs:
         run: az extension add --name storage-blob-preview
 
       - name: Set environment variables
-        - run: |
+        run: |
           source global_config/review.sh
           echo "RESOURCE_GROUP_NAME=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-rg" >> $GITHUB_ENV
           echo "STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}${SERVICE_SHORT}dbbkp${CONFIG_SHORT}sa" >> $GITHUB_ENV
