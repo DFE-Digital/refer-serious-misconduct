@@ -15,6 +15,7 @@ jobs:
   delete-review-app:
     name: Delete Review App ${{ github.event.pull_request.number }}
     concurrency: deploy_review_${{ github.event.pull_request.number }}
+    environment: aks-review
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
@@ -33,7 +34,6 @@ jobs:
 
       - name: Delete Review App
         id: delete-review-app
-        environment: aks-review
         uses: DFE-Digital/github-actions/delete-review-app@delete-review-app
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
