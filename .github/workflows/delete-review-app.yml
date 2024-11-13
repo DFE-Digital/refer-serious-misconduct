@@ -10,20 +10,17 @@ on:
         description: PR number of review app to delete
         required: true
         type: string
+
 jobs:
   delete-review-app:
     name: Delete Review App ${{ github.event.pull_request.number }}
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    environment: aks-review
     permissions:
       contents: "read"
       id-token: "write"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: set PR_NUMBER
         id: config
         run: |
@@ -34,84 +31,17 @@ jobs:
           fi
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
 
-      - uses: Azure/login@v2
-        with:
-          creds: ${{ secrets.azure_credentials }}
-
-      - uses: google-github-actions/auth@v2
-        if: "${{ vars.GCP_PROJECT_ID != '' && vars.GCP_WIP != '' }}"
-        with:
-          project_id: ${{ vars.GCP_PROJECT_ID }}
-          workload_identity_provider: ${{ vars.GCP_WIP }}
-
-      - name: Set terraform version
-        run: |
-          terraform_version=$(awk '/{/{f=/^terraform/;next}f' terraform/application/terraform.tf | grep -o [0-9.]*)
-          echo "TERRAFORM_VERSION=$terraform_version" >> $GITHUB_ENV
-
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-          terraform_wrapper: false
-
-      - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
+      - name: Delete Review App
+        id: delete-review-app
+        uses: DFE-Digital/github-actions/delete-review-app@delete-review-app
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Terraform Destroy
-        run: |
-          make ci aks-review aks-terraform-destroy
-        env:
-          PR_NUMBER: ${{ env.PR_NUMBER }}
-
-      - name: Post Pull Request Comment
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: aks
-          message: |
-            Review app Refer Serious Misconduct deployed to <https://refer-serious-misconduct-pr-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
-
-      - name: Install Storage Blob Extension
-        run: az extension add --name storage-blob-preview
-
-      - name: Set environment variables
-        run: |
-          source global_config/review.sh
-          echo "RESOURCE_GROUP_NAME=${AZURE_RESOURCE_PREFIX}-rsm-${CONFIG_SHORT}-rg" >> $GITHUB_ENV
-          echo "STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}rsm${CONFIG_SHORT}tfsa" >> $GITHUB_ENV
-          echo "CONTAINER_NAME=terraform-state" >> $GITHUB_ENV
-          echo "TF_STATE_FILE=pr-${{ env.PR_NUMBER }}_kubernetes.tfstate" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Set Container Access Key
-        run: |
-          TFSTATE_CONTAINER_ACCESS_KEY="$(az storage account keys list -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.STORAGE_ACCOUNT_NAME }} | jq -r '.[0].value')"
-          echo "::add-mask::$TFSTATE_CONTAINER_ACCESS_KEY"
-          echo "TFSTATE_CONTAINER_ACCESS_KEY=$TFSTATE_CONTAINER_ACCESS_KEY" >> $GITHUB_ENV
-
-      - name: Test for tf state file
-        run: |
-          pr_state_file="$(az storage blob list -c ${{ env.CONTAINER_NAME }} --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} --account-name ${{ env.STORAGE_ACCOUNT_NAME }} --prefix ${{ env.TF_STATE_FILE }} --query '[].name' -o tsv)"
-          if [ -n "$pr_state_file" ]; then
-            echo "TF_STATE_EXISTS=true" >> $GITHUB_ENV
-          fi
-
-      - name: Delete tf state file
-        if: env.TF_STATE_EXISTS == 'true'
-        run: |
-          versions="$(az storage blob list --account-name ${{ env.STORAGE_ACCOUNT_NAME }} -c ${{ env.CONTAINER_NAME }} --prefix ${{ env.TF_STATE_FILE }} --include v --query '[].versionId' -o tsv)"
-          SAVEIFS=$IFS   # Save current IFS (Internal Field Separator)
-          IFS=$'\n'      # Change IFS to newline char
-          versions=($versions) # split the string into an array by the same name
-          IFS=$SAVEIFS
-          az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }} \
-            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-            --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
-          for i in "${versions[@]}"
-          do
-            echo "Deleting Storage ${{ env.TF_STATE_FILE }} version $i"
-            az storage blob delete -c ${{ env.CONTAINER_NAME }} --name ${{ env.TF_STATE_FILE }} --version-id $i \
-            --account-key ${{ env.TFSTATE_CONTAINER_ACCESS_KEY }} \
-            --account-name ${{ env.STORAGE_ACCOUNT_NAME }}
-          done
+          gcp-wip: ${{ vars.GCP_WIP }}
+          gcp-project-id: ${{ vars.GCP_PROJECT_ID }}
+          environment: aks-review
+          global_config: review
+          pr-number: ${{ env.PR_NUMBER }}
+          service-name: refer-serious-misconduct
+          service-pretty: Refer Serious Misconduct
+          service-short: rsm
+          terraform-destroy-command: "aks-terraform-destroy"
