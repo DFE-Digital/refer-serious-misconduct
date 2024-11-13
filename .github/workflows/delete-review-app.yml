@@ -39,7 +39,8 @@ jobs:
           gcp-wip: ${{ vars.GCP_WIP }}
           gcp-project-id: ${{ vars.GCP_PROJECT_ID }}
           environment: aks-review
-          global_config: review
+          github_event_name: ${{ github.event_name }}
+          global-config: review
           pr-number: ${{ env.PR_NUMBER }}
           service-name: refer-serious-misconduct
           service-pretty: Refer Serious Misconduct
