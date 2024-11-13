@@ -33,13 +33,14 @@ jobs:
 
       - name: Delete Review App
         id: delete-review-app
+        environment: aks-review
         uses: DFE-Digital/github-actions/delete-review-app@delete-review-app
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           gcp-wip: ${{ vars.GCP_WIP }}
           gcp-project-id: ${{ vars.GCP_PROJECT_ID }}
           environment: aks-review
-          github_event_name: ${{ github.event_name }}
+          github-event-name: ${{ github.event_name }}
           global-config: review
           pr-number: ${{ env.PR_NUMBER }}
           service-name: refer-serious-misconduct
