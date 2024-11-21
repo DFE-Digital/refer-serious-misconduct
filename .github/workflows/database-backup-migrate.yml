@@ -31,11 +31,12 @@ jobs:
         shell: bash
         run: |
           tf_vars_file="terraform/workspace_variables/${{ inputs.environment }}.tfvars.json"
+          global_config_file="global_config/${{ inputs.environment }}.tfvars.json"
           echo "KEY_VAULT_NAME=$(jq -r '.key_vault_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "RESOURCE_PREFIX=$(jq -r '.resource_prefix' ${tf_vars_file})" >> $GITHUB_ENV
           echo "ENV=$(jq -r '.environment_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' ${tf_vars_file})" >> $GITHUB_ENV
-          echo "BACKUP_STORAGE_GROUP="s165p01rsmdbbackuppd"  >> $GITHUB_ENV
+          echo "BACKUP_STORAGE_GROUP=$(jq -r '.AZURE_RESOURCE_PREFIX' ${global_config_file})rsmdbbackup$(jq -r '.CONFIG_SHORT' ${global_config_file})"  >> $GITHUB_ENV
           echo "BACKUP_FILE_NAME=rsm-${{ inputs.environment }}-psql-$(date +'%F-%H')" >> $GITHUB_ENV
           echo "RUNNER_IP=$(curl ifconfig.me)" >> $GITHUB_ENV
 
