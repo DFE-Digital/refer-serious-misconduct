@@ -40,7 +40,7 @@ jobs:
           source global_config/${{ inputs.environment }}.sh
           resource_prefix=$(jq -r '.resource_prefix' ${tf_vars_file})
           resource_prefix="${resource_prefix//-/}"
-          echo "BACKUP_STORAGE_GROUP=${resource_prefix}rsmdbbackup${CONFIG_SHORT}"  >> $GITHUB_ENV
+          echo "BACKUP_STORAGE_GROUP=${resource_prefix}dbbackup${CONFIG_SHORT}"  >> $GITHUB_ENV
 
       - name: Set postgres environment variables
         shell: bash
