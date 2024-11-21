@@ -1,6 +1,7 @@
 name: Restore database from Azure storage
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       environment:
