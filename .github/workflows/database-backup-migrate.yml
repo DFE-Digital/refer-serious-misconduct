@@ -36,7 +36,7 @@ jobs:
           echo "ENV=$(jq -r '.environment_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "BACKUP_STORAGE_GROUP="s165p01rsmdbbackuppd"  >> $GITHUB_ENV
-          echo "BACKUP_FILE_NAME=rsm-${{ inputs.environment }}-psql-$(date +"%F-%H")" >> $GITHUB_ENV
+          echo "BACKUP_FILE_NAME=rsm-${{ inputs.environment }}-psql-$(date +""%F-%H"")" >> $GITHUB_ENV
           echo "RUNNER_IP=$(curl ifconfig.me)" >> $GITHUB_ENV
 
       - name: Set postgres environment variables
