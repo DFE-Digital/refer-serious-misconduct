@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "POSTGRES_SERVER_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql" >> $GITHUB_ENV
           echo "POSTGRES_SERVER_HOST_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql.postgres.database.azure.com" >> $GITHUB_ENV
-          echo "POSTGRES_DATABASE_NAME=refer_serious_misconduct_${{ inputs.environment }}" >> $GITHUB_ENV
+          echo "POSTGRES_DATABASE_NAME=refer_serious_misconduct_production" >> $GITHUB_ENV
 
       - name: Get BACKUP_STORAGE_CONNECTION_STRING
         run: |
