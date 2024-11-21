@@ -64,7 +64,7 @@ jobs:
         with:
           storage-account: ${{ env.STORAGE_ACCOUNT_NAME }}
           resource-group: ${{ env.RESOURCE_GROUP_NAME }}
-          app-name: ${{ env.SERVICE_NAME }}-${{ inputs.environment }}
+          app-name: refer_serious_misconduct_production
           cluster: ${{ env.CLUSTER }}
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           backup-file: ${{ env.BACKUP_FILE }}
