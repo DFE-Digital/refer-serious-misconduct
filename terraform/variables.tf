@@ -124,6 +124,15 @@ variable "allegations_storage_account_name" {
   default = null
 }
 
+variable "enable_postgres_backup_storage" {
+  default     = false
+  description = "Create a storage account to store database dumps"
+}
+
+variable "database_backup_storage_account_name" {
+  default = null
+}
+
 variable "region_name" {
   default = "west europe"
   type    = string
