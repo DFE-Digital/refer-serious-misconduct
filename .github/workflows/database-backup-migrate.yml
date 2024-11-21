@@ -1,6 +1,7 @@
 name: Backup Database for Migration
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       environment:
