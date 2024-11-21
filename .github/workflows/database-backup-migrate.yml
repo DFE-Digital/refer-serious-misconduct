@@ -1,4 +1,4 @@
-name: Backup Database to Azure Storage
+name: Backup Database for Migration
 
 on:
   workflow_dispatch:
