@@ -1,7 +1,6 @@
 name: Backup Database for Migration
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       environment:
@@ -37,7 +36,7 @@ jobs:
           echo "ENV=$(jq -r '.environment_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "RESOURCE_GROUP_NAME=$(jq -r '.resource_group_name' ${tf_vars_file})" >> $GITHUB_ENV
           echo "BACKUP_STORAGE_GROUP="s165p01rsmdbbackuppd"  >> $GITHUB_ENV
-          echo "BACKUP_FILE_NAME=rsm-{{ inputs.environment }}-psql-$(date +"%F-%H")" >> $GITHUB_ENV
+          echo "BACKUP_FILE_NAME=rsm-${{ inputs.environment }}-psql-$(date +"%F-%H")" >> $GITHUB_ENV
           echo "RUNNER_IP=$(curl ifconfig.me)" >> $GITHUB_ENV
 
       - name: Set postgres environment variables
@@ -45,7 +44,7 @@ jobs:
         run: |
           echo "POSTGRES_SERVER_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql" >> $GITHUB_ENV
           echo "POSTGRES_SERVER_HOST_NAME=${{ env.RESOURCE_PREFIX }}-${{ env.ENV }}-psql.postgres.database.azure.com" >> $GITHUB_ENV
-          echo "POSTGRES_DATABASE_NAME=refer_serious_misconduct_{{ inputs.environment }}" >> $GITHUB_ENV
+          echo "POSTGRES_DATABASE_NAME=refer_serious_misconduct_${{ inputs.environment }}" >> $GITHUB_ENV
 
       - name: Get BACKUP_STORAGE_CONNECTION_STRING
         run: |
