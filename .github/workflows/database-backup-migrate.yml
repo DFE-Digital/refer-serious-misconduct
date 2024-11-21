@@ -38,7 +38,7 @@ jobs:
           echo "BACKUP_FILE_NAME=rsm-${{ inputs.environment }}-psql-$(date +'%F-%H')" >> $GITHUB_ENV
           echo "RUNNER_IP=$(curl ifconfig.me)" >> $GITHUB_ENV
           source global_config/${{ inputs.environment }}.sh
-          echo "BACKUP_STORAGE_GROUP="${AZURE_RESOURCE_PREFIX}rsmdbbackup${CONFIG_SHORT}"  >> $GITHUB_ENV
+          echo "BACKUP_STORAGE_GROUP=${AZURE_RESOURCE_PREFIX}rsmdbbackup${CONFIG_SHORT}"  >> $GITHUB_ENV
 
       - name: Set postgres environment variables
         shell: bash
