@@ -91,16 +91,13 @@ jobs:
         shell: bash
         run: |
           export PGSSLMODE=require
-          pg_dump -Fc -v -E utf8 --clean --if-exists --no-owner --host=${{ env.POSTGRES_SERVER_HOST_NAME }} --port=5432 --username=${{ steps.get_infrastructure_secrets.outputs.POSTGRES_ADMIN_USERNAME }} --dbname=${{ env.POSTGRES_DATABASE_NAME }} > ${{ env.BACKUP_FILE_NAME }}.sql
-          zip -r ${{ env.BACKUP_FILE_NAME }}.sql.zip ${{ env.BACKUP_FILE_NAME }}.sql
-
-
-#      - name: Run PG Dump
-#        shell: bash
-#        run: |
-#          export PGSSLMODE=require
-#          pg_dump -Fc -v --host=${{ env.POSTGRES_SERVER_HOST_NAME }} --port=5432 --username=${{ steps.get_infrastructure_secrets.outputs.POSTGRES_ADMIN_USERNAME }} --dbname=${{ env.POSTGRES_DATABASE_NAME }} > ${{ env.BACKUP_FILE_NAME }}.sql
-#          zip -r ${{ env.BACKUP_FILE_NAME }}.sql.zip ${{ env.BACKUP_FILE_NAME }}.sql
+          pg_dump -Fc -v -E utf8 --clean  --compress=1 --if-exists --no-owner --host=${{ env.POSTGRES_SERVER_HOST_NAME }} --port=5432 --username=${{ steps.get_infrastructure_secrets.outputs.POSTGRES_ADMIN_USERNAME }} --dbname=${{ env.POSTGRES_DATABASE_NAME }} -f ${{ env.BACKUP_FILE_NAME }}.sql.gz
+      #      - name: Run PG Dump
+      #        shell: bash
+      #        run: |
+      #          export PGSSLMODE=require
+      #          pg_dump -Fc -v --host=${{ env.POSTGRES_SERVER_HOST_NAME }} --port=5432 --username=${{ steps.get_infrastructure_secrets.outputs.POSTGRES_ADMIN_USERNAME }} --dbname=${{ env.POSTGRES_DATABASE_NAME }} > ${{ env.BACKUP_FILE_NAME }}.sql
+      #          zip -r ${{ env.BACKUP_FILE_NAME }}.sql.zip ${{ env.BACKUP_FILE_NAME }}.sql
 
       - name: Delete firewall rule
         if: always()
@@ -113,6 +110,6 @@ jobs:
       - name: Upload Backup to Azure Storage
         run: |
           az storage blob upload --container-name rsm \
-          --file ${BACKUP_FILE_NAME}.sql.zip --name ${BACKUP_FILE_NAME}.sql.zip \
+          --file ${BACKUP_FILE_NAME}.sql.gz --name ${BACKUP_FILE_NAME}.sql.gz \
           --connection-string '${{ env.BACKUP_STORAGE_CONNECTION_STRING }}' \
           --overwrite true
