@@ -36,6 +36,7 @@
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <%= yield(:breadcrumbs) if content_for?(:breadcrumbs) %>
       <main class="govuk-main-wrapper" id="main-content" role="main">
+        <%= govuk_notification_banner title_text: "Planned downtime", text: "The service will be unavailable on Monday 25th November between 10am and 11am while we carry out essential maintenance" %>
         <%= render(FlashMessageComponent.new(flash: flash)) %>
         <%= yield :content %>
       </main>
