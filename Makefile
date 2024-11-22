@@ -85,6 +85,9 @@ domain:
 	$(eval ENV_SHORT=pd)
 	$(eval ENV_TAG=prod)
 
+domains:
+	$(eval include global_config/domains.sh)
+
 ci:	## Run in automation environment
 	$(eval DISABLE_PASSCODE=true)
 	$(eval AUTO_APPROVE=-auto-approve)
@@ -265,6 +268,12 @@ aks-terraform-apply: aks-terraform-init
 
 aks-terraform-destroy: aks-terraform-init
 	terraform -chdir=terraform/application destroy -var-file "config/${CONFIG}.tfvars.json" ${AUTO_APPROVE}
+
+aks-domain-azure-resources: set-azure-account set-azure-template-tag set-azure-resource-group-tags# make domain domain-azure-resources AUTO_APPROVE=1
+	$(if $(AUTO_APPROVE), , $(error can only run with AUTO_APPROVE))
+	az deployment sub create -l "West Europe" --template-uri "https://raw.githubusercontent.com/DFE-Digital/tra-shared-services/${ARM_TEMPLATE_TAG}/azure/resourcedeploy.json" \
+		--parameters "resourceGroupName=${RESOURCE_NAME_PREFIX}-rsmdomains-rg" 'tags=${RG_TAGS}' "environment=${DEPLOY_ENV}" \
+			"tfStorageAccountName=${RESOURCE_NAME_PREFIX}rsmdomainstf" "tfStorageContainerName=rsmdomains-tf"  "keyVaultName=${RESOURCE_NAME_PREFIX}-rsmdomains-kv"
 
 domains-infra-init: bin/terrafile domains composed-variables set-azure-account
 	./bin/terrafile -p terraform/domains/infrastructure/vendor/modules -f terraform/domains/infrastructure/config/zones_Terrafile
