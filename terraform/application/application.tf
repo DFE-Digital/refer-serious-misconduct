@@ -13,7 +13,7 @@ module "application_configuration" {
   config_variables = {
     ENVIRONMENT_NAME           = var.environment
     PGSSLMODE                  = local.postgres_ssl_mode
-    HOSTING_DOMAIN             = local.external_domain
+    HOSTING_DOMAIN             = "https://${local.external_domain}"
     HOSTING_ENVIRONMENT_NAME   = var.environment
     AZURE_STORAGE_ACCOUNT_NAME = azurerm_storage_account.allegations.name,
     AZURE_STORAGE_CONTAINER    = azurerm_storage_container.uploads.name
