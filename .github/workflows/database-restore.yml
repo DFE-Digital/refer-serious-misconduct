@@ -33,7 +33,6 @@ env:
 jobs:
   restore:
     name: Restore AKS Database
-    if: ${{ inputs.environment != 'production' || (inputs.environment == 'production' && github.event.inputs.confirm-production == 'true' )  }}
     runs-on: ubuntu-latest
     environment: aks-${{ inputs.environment }}
     concurrency: deploy_${{ inputs.environment }}
