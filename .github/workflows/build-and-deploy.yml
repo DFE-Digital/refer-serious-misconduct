@@ -89,31 +89,10 @@ jobs:
           image-tag: ${{ github.sha }}
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-  deploy_prod:
-    name: Deploy to production environment
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    concurrency: deploy_prod
-    needs: [build_image, deploy_aks]
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.environment_url }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/deploy-environment
-        id: deploy
-        with:
-          environment_name: production
-          image_name_tag: ${{ needs.build_image.outputs.image_name_tag }}
-          image_tag: ${{ github.sha }}
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
   notify_slack_of_failures:
     name: Notify Slack of failures
     runs-on: ubuntu-latest
-    needs: [build_image, deploy_review_app_aks, deploy_aks, deploy_prod]
+    needs: [build_image, deploy_review_app_aks, deploy_aks]
     environment: aks-test
     env:
       ENVIRONMENT_NAME: ${{ needs.deploy_aks.outputs.environment_name || 'dev'  }}
@@ -135,9 +114,6 @@ jobs:
           elif ${{ needs.deploy_aks.result == 'failure' }}
           then
             job=deploy_aks
-          elif ${{ needs.deploy_prod.result == 'failure' }}
-          then
-            job=deploy_prod
           fi
 
           echo "JOB=${job}" >> $GITHUB_ENV
