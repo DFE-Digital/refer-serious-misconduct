@@ -21,7 +21,6 @@ tags
 
 .terraform/
 fetch_config.rb
-bin/terrafile
 terraform/application/vendor
 terraform/domains/infrastructure/vendor
 terraform/domains/environment_domains/vendor
