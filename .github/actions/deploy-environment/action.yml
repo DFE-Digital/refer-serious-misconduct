@@ -109,6 +109,11 @@ runs:
         terraform_version: ${{ ENV.terraform_version }}
         terraform_wrapper: false
 
+    - uses: google-github-actions/auth@v2
+      with:
+        project_id: teaching-qualifications
+        workload_identity_provider: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
+
     - id: terraform
       run: |
         if [ ${{ inputs.environment_name }} == "review" ]; then

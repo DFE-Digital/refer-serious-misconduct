@@ -40,6 +40,11 @@ jobs:
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - uses: google-github-actions/auth@v2
+      with:
+        project_id: teaching-qualifications
+        workload_identity_provider: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
+
       - name: Terraform Destroy
         run: |
           make ci aks-review aks-terraform-destroy PR_NUMBER=${{ env.PR_NUMBER }}
