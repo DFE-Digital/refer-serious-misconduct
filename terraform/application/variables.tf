@@ -103,6 +103,11 @@ variable "webapp_startup_command" {
   description = "Override Dockerfile startup command"
 }
 
+variable "enable_dfe_analytics_federated_auth" {
+  description = "Create the resources in Google cloud for federated authentication and enable in application"
+  default     = false
+}
+
 locals {
   postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"
   storage_account_environment      = var.config == var.environment ? var.config_short : replace(var.environment, "-", "")
@@ -111,4 +116,8 @@ locals {
   environment_variables = yamldecode(file("${path.module}/config/${var.config}.yml"))
   ingress_domain  = "${var.service_name}-${var.environment}.${module.cluster_data.ingress_domain}"
   external_domain = try(local.environment_variables["EXTERNAL_DOMAIN"], local.ingress_domain)
+
+  federated_auth_secrets = var.enable_dfe_analytics_federated_auth ? {
+    GOOGLE_CLOUD_CREDENTIALS = module.dfe_analytics[0].google_cloud_credentials
+  } : {}
 }

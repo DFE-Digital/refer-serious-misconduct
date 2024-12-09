@@ -1,7 +1,10 @@
+require "hosting_environment"
+
 DfE::Analytics.configure do |config|
   config.queue = :analytics
   config.environment = HostingEnvironment.environment_name
   config.entity_table_checks_enabled = true
+  config.azure_federated_auth = ENV.include? "GOOGLE_CLOUD_CREDENTIALS"
 
   config.enable_analytics =
     proc do
