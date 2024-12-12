@@ -10,6 +10,7 @@ on:
         description: PR number of review app to delete
         required: true
         type: string
+
 jobs:
   delete-review-app-aks:
     name: Delete Review App AKS ${{ github.event.pull_request.number }}
@@ -17,6 +18,10 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: aks-review
+    permissions:
+      pull-requests: write
+      id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,6 +44,11 @@ jobs:
       - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
         with:
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: google-github-actions/auth@v2
+        with:
+          project_id: teaching-qualifications
+          workload_identity_provider: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
 
       - name: Terraform Destroy
         run: |

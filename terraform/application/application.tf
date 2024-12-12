@@ -19,12 +19,15 @@ module "application_configuration" {
     AZURE_STORAGE_CONTAINER    = azurerm_storage_container.uploads.name
     GROVER_NO_SANDBOX          = "true"
     PUPPETEER_EXECUTABLE_PATH  = "/usr/bin/chromium-browser"
+    BIGQUERY_DATASET           = var.dataset_name
+    BIGQUERY_PROJECT_ID        = "refer-serious-misconduct"
+    BIGQUERY_TABLE_NAME        = "events"
   }
-  secret_variables = {
+  secret_variables = merge({
     DATABASE_URL             = module.postgres.url
     REDIS_URL                = module.redis-cache.url
     AZURE_STORAGE_ACCESS_KEY = azurerm_storage_account.allegations.primary_access_key
-  }
+  }, local.federated_auth_secrets)
 }
 
 module "web_application" {
@@ -67,4 +70,5 @@ module "main_worker" {
   command                    = ["/bin/sh", "-c", "bundle exec sidekiq -C config/sidekiq.yml"]
   probe_command              = ["pgrep", "-f", "sidekiq"]
   enable_logit               = var.enable_logit
+  enable_gcp_wif             = true
 }
