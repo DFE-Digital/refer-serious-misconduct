@@ -36,6 +36,7 @@
       <%= govuk_back_link(href: yield(:back_link_url)) if content_for?(:back_link_url) %>
       <%= yield(:breadcrumbs) if content_for?(:breadcrumbs) %>
       <main class="govuk-main-wrapper" id="main-content" role="main">
+        <%= govuk_notification_banner title_text: "Important", text: "We will not reply to queries from 23 December 2024 to 3 January 2025 due to Christmas and New Year holidays." %>
         <%= render(FlashMessageComponent.new(flash: flash)) %>
         <%= yield :content %>
       </main>
