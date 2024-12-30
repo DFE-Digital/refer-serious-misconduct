@@ -47,7 +47,7 @@ jobs:
 
       - uses: google-github-actions/auth@v2
         with:
-          project_id: teaching-qualifications
+          project_id: refer-serious-misconduct
           workload_identity_provider: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
 
       - name: Terraform Destroy
