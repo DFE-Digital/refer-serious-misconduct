@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-# WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED 
+# WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED
 # Get the version `apk list chromium` in the running image and then update package.json https://pptr.dev/chromium-support#
 # This is used for rendering PDFs
 FROM ruby:3.3.0-alpine as builder
@@ -69,6 +69,10 @@ WORKDIR /app
 
 # Set Rails environment to production
 ENV RAILS_ENV=production
+
+# Configure Puppeteer for PDF generation
+ENV GROVER_NO_SANDBOX=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Add the commit sha to the env
 ARG GIT_SHA
