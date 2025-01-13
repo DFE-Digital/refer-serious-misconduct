@@ -1,0 +1,52 @@
+name: Build No Cache
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 12 * * 0"
+    # Will run once a week on Sunday afternoon
+
+jobs:
+  build-no-cache:
+    outputs:
+      docker-image-tag: ${{ steps.build-image.outputs.tag }}
+    runs-on: ubuntu-latest
+    environment:
+      name: aks-test
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+
+      - name: Build without cache and push docker image
+        id: build-image
+        uses: DFE-Digital/github-actions/build-docker-image@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          context: .
+          max-cache: true
+          reuse-cache: false
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
+
+      - uses: Azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Fetch secrets from key vault
+        uses: azure/CLI@v2
+        id: key-vault-secrets
+        with:
+          inlineScript: |
+            SLACK_WEBHOOK=$(az keyvault secret show --name "SLACK-WEBHOOK" --vault-name  s189t01-rsm-ts-inf-kv --query "value" -o tsv)
+            echo "::add-mask::$SLACK_WEBHOOK"
+            echo "SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $GITHUB_OUTPUT
+
+      - name: Notify slack on failure
+        uses: rtCamp/action-slack-notify@master
+        if: ${{ failure() }}
+        with:
+          SLACK_USERNAME: CI Deployment
+          SLACK_COLOR: failure
+          SLACK_ICON_EMOJI: ":github-logo:"
+          SLACK_TITLE: "Build failure"
+          SLACK_MESSAGE: ":alert: Rebuild docker cache failure :sadparrot:"
+          SLACK_WEBHOOK: ${{ steps.key-vault-secrets.outputs.SLACK_WEBHOOK }}
