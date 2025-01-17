@@ -238,33 +238,6 @@ You'll also need to configure your editor's `solargraph` plugin to
 +  "solargraph.useBundler": true,
 ```
 
-### Accessing the Rails console through the Azure CLI
-
-We have a helpful command you can run that will connect you to the right Azure resource.
-You will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli) installed and a [PIM (Privileged Identity Management) request](docs/privileged-identity-management-requests.md) for `production`, `preprod` and `test`.
-
-```bash
-make dev az-console
-make test az-console
-make preprod az-console
-make production az-console
-make review pr_id=<ID> az-console
-```
-
-The review app needs to be deployed first. You can do this manually by tagging a PR with the `deploy` label.
-
-### Updating keyvault secrets
-
-Make sure `jq` is [installed](#local-development-dependencies).
-
-```bash
-make dev edit-keyvault-secret
-make test edit-keyvault-secret
-make preprod edit-keyvault-secret
-make production edit-keyvault-secret
-make review pr_id=<ID> edit-keyvault-secret
-```
-
 ### PDF generation
 
 The service use Grover to generate PDF files. This uses the node module 'puppeteer' and headless Chrome on the server.
