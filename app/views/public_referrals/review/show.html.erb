@@ -1,4 +1,4 @@
-<% content_for :page_title, 'Check details and send referral' %>
+<% content_for :page_title, 'Check details and send report' %>
 <% content_for :back_link_url, polymorphic_path([:edit, current_referral.routing_scope, current_referral]) %>
 
 <div class="govuk-grid-row">
@@ -8,7 +8,7 @@
         <%= form_with model: @referral_form, url: [current_referral.routing_scope, current_referral, :review], method: :put do |f| %>
           <%= f.govuk_error_summary presenter: back_linked_error_presenter %>
 
-          <h1 class="govuk-heading-l govuk-!-margin-bottom-9">Check details and send referral</h1>
+          <h1 class="govuk-heading-l govuk-!-margin-bottom-9">Check details and send report</h1>
 
           <%= render "public_referrals/shared/review" %>
 
@@ -17,7 +17,7 @@
           <%= render partial: 'shared/declaration' %>
 
           <button class="govuk-button" data-module="govuk-button">
-            Agree and send referral
+            Agree and send report
           </button>
         <% end %>
       </div>

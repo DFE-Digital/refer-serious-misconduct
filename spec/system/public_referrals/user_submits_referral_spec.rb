@@ -28,8 +28,8 @@ RSpec.feature "A member of the public submits a referral", type: :system do
 
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path(public_referral_review_path(@referral))
-    expect(page).to have_title("Check details and send referral")
-    expect(page).to have_content("Check details and send referral")
+    expect(page).to have_title("Check details and send report")
+    expect(page).to have_content("Check details and send report")
   end
 
   def then_i_see_the_confirmation_page
@@ -49,7 +49,7 @@ RSpec.feature "A member of the public submits a referral", type: :system do
   end
 
   def when_i_click_send_referral
-    click_on "Agree and send referral"
+    click_on "Agree and send report"
   end
   alias_method :and_i_click_send_referral, :when_i_click_send_referral
 
