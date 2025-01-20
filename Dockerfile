@@ -3,10 +3,10 @@
 # production: runs the actual app
 
 # Build builder image
-# WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED 
+# WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED
 # Get the version `apk list chromium` in the running image and then update package.json https://pptr.dev/chromium-support#
 # This is used for rendering PDFs
-FROM ruby:3.3.0-alpine as builder
+FROM ruby:3.3.0-alpine AS builder
 
 WORKDIR /app
 
@@ -59,7 +59,7 @@ RUN rm -rf log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:3.3.0-alpine as production
+FROM ruby:3.3.0-alpine AS production
 
 ENV GOVUK_NOTIFY_API_KEY=TestKey \
     HOSTING_DOMAIN=https://required-but-not-used
@@ -69,11 +69,6 @@ WORKDIR /app
 
 # Set Rails environment to production
 ENV RAILS_ENV=production
-
-# Add the commit sha to the env
-ARG GIT_SHA
-ENV GIT_SHA=$GIT_SHA
-ENV SHA=$GIT_SHA
 
 # Add the timezone (prod image) as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
@@ -91,17 +86,10 @@ RUN apk add --no-cache chromium
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
-# SSH access specific to Azure
-# Install OpenSSH and set the password for root to "Docker!".
-RUN apk add --no-cache openssh && echo "root:Docker!" | chpasswd
+# Add the commit sha to the env
+ARG COMMIT_SHA
+ENV GIT_SHA=$COMMIT_SHA
+ENV SHA=$GIT_SHA
 
-# Copy the Azure specific sshd_config file to the /etc/ssh/ directory
-RUN ssh-keygen -A && mkdir -p /var/run/sshd
-COPY azure/.sshd_config /etc/ssh/sshd_config
-
-# Open port 2222 for Azure SSH access
-EXPOSE 2222
-
-CMD /usr/sbin/sshd && \
-    bundle exec rails db:migrate:ignore_concurrent_migration_exceptions && \
+CMD bundle exec rails db:migrate:ignore_concurrent_migration_exceptions && \
     bundle exec rails server -b 0.0.0.0

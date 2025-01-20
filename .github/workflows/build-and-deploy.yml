@@ -20,16 +20,19 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') || github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     outputs:
-      image_name_tag: ${{ steps.build_image.outputs.ghcr_image_name_tag }}
+      docker-image-tag: ${{ steps.build-image.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/build-image
-        id: build_image
+      - name: Build and push docker image
+        id: build-image
+        uses: DFE-Digital/github-actions/build-docker-image@master
         with:
-          github_username: ${{ github.actor }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          context: .
+          max-cache: true
+          reuse-cache: true
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
 
   deploy_review_app_aks:
     name: Deploy to review environment to AKS
@@ -50,7 +53,7 @@ jobs:
         id: deploy_aks
         with:
           environment: aks-review
-          image-tag: ${{ github.sha }}
+          image-tag: ${{ needs.build_image.outputs.docker-image-tag }}
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
           pull-request-number: ${{ github.event.pull_request.number }}
 
@@ -91,7 +94,7 @@ jobs:
         id: deploy
         with:
           environment: ${{ matrix.environment }}
-          image-tag: ${{ github.sha }}
+          image-tag: ${{ needs.build_image.outputs.docker-image-tag }}
           azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
   notify_slack_of_failures:
