@@ -8,7 +8,7 @@ on:
 jobs:
   rspec:
     name: Rspec
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     services:
       postgres:
@@ -44,6 +44,8 @@ jobs:
 
       - name: Run tests
         run: bin/rails spec
+        env:
+          GROVER_NO_SANDBOX: "true"
 
       - name: Test coverage report
         uses: aki77/simplecov-report-action@v1
