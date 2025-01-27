@@ -44,6 +44,8 @@ jobs:
 
       - name: Run tests
         run: bin/rails spec
+        env:
+          GROVER_NO_SANDBOX: "true"
 
       - name: Test coverage report
         uses: aki77/simplecov-report-action@v1
