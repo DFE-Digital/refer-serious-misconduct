@@ -25,6 +25,7 @@ class PagesController < ApplicationController
       else
         complete_path
       end
+    @public = eligibility_check.reporting_as_public?
   end
 
   def complete

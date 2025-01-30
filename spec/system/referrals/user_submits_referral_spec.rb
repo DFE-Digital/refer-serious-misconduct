@@ -30,8 +30,8 @@ RSpec.feature "User submits a referral", type: :system do
 
   def then_i_see_the_check_answers_page
     expect(page).to have_current_path("/referrals/#{@referral.id}/review")
-    expect(page).to have_title("Check details and send referral")
-    expect(page).to have_content("Check details and send referral")
+    expect(page).to have_title("Check details and send report")
+    expect(page).to have_content("Check details and send report")
   end
 
   def then_i_see_the_confirmation_page
