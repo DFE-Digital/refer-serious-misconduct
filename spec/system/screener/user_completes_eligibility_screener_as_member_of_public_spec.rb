@@ -163,11 +163,11 @@ RSpec.feature "Eligibility screener", type: :system do
   def then_i_see_the_you_should_know_page
     expect(page).to have_current_path("/you-should-know")
     expect(page).to have_title(
-      "What will happen after you report the teacher for serious misconduct - " \
+      "What will happen after you refer the teacher for serious misconduct - " \
         "Refer serious misconduct by a teacher in England"
     )
     expect(page).to have_content(
-      "What will happen after you report the teacher for serious misconduct"
+      "What will happen after you refer the teacher for serious misconduct"
     )
   end
 
