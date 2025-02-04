@@ -1,27 +1,35 @@
-<% content_for :page_title, @public ? "What will happen after you report the teacher for serious misconduct" : "What will happen after you refer the teacher for serious misconduct" %>
+<% content_for :page_title, @public ? "What will happen after you refer the teacher for serious misconduct" : "What will happen after you refer the teacher for serious misconduct" %>
 <% content_for :back_link_url, @previous_path %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <% if @public %>
         <h1 class="govuk-heading-l">
-          What will happen after you report the teacher for serious misconduct
+          What will happen after you refer the teacher for serious misconduct
         </h1>
 
         <p class="govuk_body">
-          The Teaching Regulation Agency (TRA) will usually contact you within 3 working days of receiving your report.
+          The TRA will check your referral to see if it falls within the TRA’s responsibilities.
         </p>
 
         <p class="govuk_body">
-          If they decide to investigate, your name and details of the report will be shared with the teacher and their employer. You may need to give evidence at a hearing.
+          To make this decision, they may require further information from you. They will write to you if they need this.
         </p>
 
         <p class="govuk_body">
-          It could take several months for the outcome to be decided. The TRA will tell you the outcome of their decision.
+          If your referral falls within their responsibilities, they will assess it to determine if an investigation is required.
         </p>
 
         <p class="govuk_body">
-          If your case is not investigated, your report may still be shared with the teacher. Your name and contact details will not be shared.
+          If your referral is investigated, your name and allegation will not be shared with the teacher and their employer. Your contact details will not be shared.
+        </p>
+
+        <p class="govuk_body">
+          You might need to give evidence at a hearing.
+        </p>
+
+        <p class="govuk_body">
+          Your referral may be kept on file for up to 50 years.
         </p>
   <% else %>
       <h1 class="govuk-heading-l">
