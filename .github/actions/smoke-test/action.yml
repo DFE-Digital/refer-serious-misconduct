@@ -4,8 +4,14 @@ inputs:
   environment:
     description: The name of the environment
     required: true
-  azure_credentials:
-    description: JSON object containing a service principal that can read from Azure Key Vault
+  azure-client-id:
+    description: Managed identity client ID
+    required: true
+  azure-subscription-id:
+    description: Azure subscription ID
+    required: true
+  azure-tenant-id:
+    description: Azure tenant ID
     required: true
   url:
     description: Sets the HOSTING_DOMAIN environment variable
@@ -17,7 +23,9 @@ runs:
   steps:
     - uses: Azure/login@v1
       with:
-        creds: ${{ inputs.azure_credentials }}
+        tenant-id: ${{ inputs.azure-tenant-id }}
+        subscription-id: ${{ inputs.azure-subscription-id }}
+        client-id: ${{ inputs.azure-client-id }}
 
     - uses: ./.github/actions/prepare-app-env
 
