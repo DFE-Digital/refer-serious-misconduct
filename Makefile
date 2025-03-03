@@ -23,25 +23,25 @@ ci:	## Run in automation environment
 	$(eval SP_AUTH=true)
 	$(eval SKIP_AZURE_LOGIN=true)
 
-.PHONY: aks-review
-aks-review: test-cluster
+.PHONY: review
+review: test-cluster
 	$(if ${PR_NUMBER},,$(error Missing PR_NUMBER))
 	$(eval ENVIRONMENT=pr-${PR_NUMBER})
 	$(eval include global_config/review.sh)
 
-.PHONY: aks-test
-aks-test: test-cluster
+.PHONY: test
+test: test-cluster
 	$(eval include global_config/test.sh)
 
-.PHONY: aks-preprod
-aks-preprod: test-cluster
+.PHONY: preprod
+preprod: test-cluster
 	$(eval include global_config/preprod.sh)
 
-.PHONY: aks-production
-aks-production: production-cluster
+.PHONY: production
+production: production-cluster
 	$(eval include global_config/production.sh)
 
-aks-set-azure-account:
+set-azure-account:
 	[ "${SKIP_AZURE_LOGIN}" != "true" ] && az account set -s ${AZURE_SUBSCRIPTION} || true
 
 composed-variables:
@@ -65,7 +65,7 @@ production-cluster: ## Set up the production cluster variables for AKS
 set-what-if:
 	$(eval WHAT_IF=--what-if)
 
-arm-deployment: composed-variables aks-set-azure-account
+arm-deployment: composed-variables set-azure-account
 	$(if ${DISABLE_KEYVAULTS},, $(eval KV_ARG=keyVaultNames=${KEYVAULT_NAMES}))
 	$(if ${ENABLE_KV_DIAGNOSTICS}, $(eval KV_DIAG_ARG=enableDiagnostics=${ENABLE_KV_DIAGNOSTICS} logAnalyticsWorkspaceName=${LOG_ANALYTICS_WORKSPACE_NAME}),)
 
@@ -92,7 +92,7 @@ vendor-modules:
 	rm -rf terraform/application/vendor/modules
 	git -c advice.detachedHead=false clone --depth=1 --single-branch --branch ${TERRAFORM_MODULES_TAG} https://github.com/DFE-Digital/terraform-modules.git terraform/application/vendor/modules/aks
 
-aks-terraform-init: composed-variables vendor-modules aks-set-azure-account
+terraform-init: composed-variables vendor-modules set-azure-account
 	$(if ${DOCKER_IMAGE_TAG}, , $(eval DOCKER_IMAGE_TAG=main))
 
 	terraform -chdir=terraform/application init -upgrade -reconfigure \
@@ -109,13 +109,13 @@ aks-terraform-init: composed-variables vendor-modules aks-set-azure-account
 	$(eval export TF_VAR_service_short=${SERVICE_SHORT})
 	$(eval export TF_VAR_docker_image=${DOCKER_REPOSITORY}:${DOCKER_IMAGE_TAG})
 
-aks-terraform-plan: aks-terraform-init
+terraform-plan: terraform-init
 	terraform -chdir=terraform/application plan -var-file "config/${CONFIG}.tfvars.json"
 
-aks-terraform-apply: aks-terraform-init
+terraform-apply: terraform-init
 	terraform -chdir=terraform/application apply -var-file "config/${CONFIG}.tfvars.json" ${AUTO_APPROVE}
 
-aks-terraform-destroy: aks-terraform-init
+terraform-destroy: terraform-init
 	terraform -chdir=terraform/application destroy -var-file "config/${CONFIG}.tfvars.json" ${AUTO_APPROVE}
 
 aks-domain-azure-resources: set-azure-account set-azure-template-tag set-azure-resource-group-tags# make domain domain-azure-resources AUTO_APPROVE=1

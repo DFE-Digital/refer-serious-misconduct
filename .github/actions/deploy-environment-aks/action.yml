@@ -8,8 +8,14 @@ inputs:
   image-tag:
     description: The image tag to deploy
     required: true
-  azure-credentials:
-    description: JSON object containing a service principal that can read from Azure Key Vault
+  azure-client-id:
+    description: Managed identity client ID
+    required: true
+  azure-subscription-id:
+    description: Azure subscription ID
+    required: true
+  azure-tenant-id:
+    description: Azure tenant ID
     required: true
   pull-request-number:
     description: The pull request number which triggered this deploy.
@@ -31,7 +37,9 @@ runs:
 
     - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
       with:
-        azure-credentials: ${{ inputs.azure-credentials }}
+        azure-tenant-id: ${{ inputs.azure-tenant-id }}
+        azure-subscription-id: ${{ inputs.azure-subscription-id}}
+        azure-client-id: ${{ inputs.azure-client-id }}
 
     - uses: google-github-actions/auth@v2
       with:
@@ -41,7 +49,7 @@ runs:
     - name: Terraform Apply
       shell: bash
       run: |
-        make ci ${{ inputs.environment }} aks-terraform-apply
+        make ci ${{ inputs.environment }} terraform-apply
       env:
         DOCKER_IMAGE_TAG: ${{ inputs.image-tag }}
         PR_NUMBER: ${{ inputs.pull-request-number }}

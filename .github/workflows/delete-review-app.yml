@@ -17,7 +17,7 @@ jobs:
     concurrency: deploy_review_${{ github.event.pull_request.number }}
     if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    environment: aks-review
+    environment: review
     permissions:
       pull-requests: write
       id-token: write
@@ -43,7 +43,9 @@ jobs:
 
       - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
         with:
-          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
 
       - uses: google-github-actions/auth@v2
         with:
@@ -52,7 +54,7 @@ jobs:
 
       - name: Terraform Destroy
         run: |
-          make ci aks-review aks-terraform-destroy PR_NUMBER=${{ env.PR_NUMBER }}
+          make ci review terraform-destroy PR_NUMBER=${{ env.PR_NUMBER }}
         env:
           PR_NUMBER: ${{ env.PR_NUMBER }}
 
