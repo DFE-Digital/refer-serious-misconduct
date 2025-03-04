@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - test_prod
   pull_request:
     branches:
       - main
@@ -79,7 +79,7 @@ jobs:
   deploy_aks:
     name: Deploy to ${{ matrix.environment }} environment for AKS
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/test_prod' && github.event_name == 'push'
     concurrency: deploy_${{ matrix.environment }}
     needs: [build_image]
     strategy:
