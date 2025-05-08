@@ -2,8 +2,7 @@ name: Delete Review App
 
 on:
   pull_request:
-    types: [closed]
-    branches: [main]
+    types: [closed, unlabeled]
   workflow_dispatch:
     inputs:
       pr_number:
@@ -12,56 +11,37 @@ on:
         type: string
 
 jobs:
-  delete-review-app-aks:
-    name: Delete Review App AKS ${{ github.event.pull_request.number }}
-    concurrency: deploy_review_${{ github.event.pull_request.number }}
-    if: contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||  ${{ github.event_name }} == 'workflow_dispatch'
+  delete-review-app:
+    name: Delete review app ${{ github.event.pull_request.number }}
+    concurrency: deploy_review_${{ github.event.pull_request.number || github.event.inputs.pr_number }}
     runs-on: ubuntu-latest
-    environment: review
+    if: >
+      github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'deploy-aks') ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'deploy-aks') || (github.event_name == 'workflow_dispatch')
     permissions:
       pull-requests: write
       id-token: write
+      contents: read
+    environment: review
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: set PR_NUMBER
-        id: config
+      - name: Set PR_NUMBER
+        id: pr_number
         run: |
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            PR_NUMBER=${{ github.event.inputs.pr_number }}
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "PR_NUMBER=${{ github.event.inputs.pr_number }}" >> $GITHUB_ENV
           else
-            PR_NUMBER=${{ github.event.pull_request.number }}
+            echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           fi
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
 
-      - uses: hashicorp/setup-terraform@v3
+      - uses: DFE-Digital/github-actions/delete-review-app@master
         with:
-          terraform_version: 1.6.4
-          terraform_wrapper: false
-
-      - uses: DFE-Digital/github-actions/set-kubelogin-environment@master
-        with:
+          pr-number: ${{ env.PR_NUMBER }}
           azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           azure-subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-
-      - uses: google-github-actions/auth@v2
-        with:
-          project_id: refer-serious-misconduct
-          workload_identity_provider: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
-
-      - name: Terraform Destroy
-        run: |
-          make ci review terraform-destroy PR_NUMBER=${{ env.PR_NUMBER }}
-        env:
-          PR_NUMBER: ${{ env.PR_NUMBER }}
-
-      - name: Post Pull Request Comment
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: aks
-          message: |
-            Review app refer serious misconduct deployed to <https://refer-serious-misconduct-${{ env.PR_NUMBER }}.test.teacherservices.cloud> was deleted
+          resource-group-name: s189t01-rsm-rv-rg
+          storage-account-name: s189t01rsmrvsa
+          tf-state-file: rsm-${{ env.PR_NUMBER }}_kubernetes.tfstate
+          gcp-wip: projects/737868692824/locations/global/workloadIdentityPools/refer-serious-misconduct/providers/refer-serious-misconduct
+          gcp-project-id: refer-serious-misconduct
