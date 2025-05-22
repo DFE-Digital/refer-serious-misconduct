@@ -9,4 +9,5 @@ module "domains" {
   environment         = each.value.environment_short
   host_name           = each.value.origin_hostname
   redirect_rules      = try(each.value.redirect_rules, [])
+  rate_limit          = try(var.rate_limit, null)
 }
