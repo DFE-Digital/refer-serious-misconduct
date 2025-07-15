@@ -1,0 +1,41 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        required: true
+        type: choice
+        default: test
+        options:
+          - test
+          - preprod
+          - production
+      image_tag:
+        description: Image tag to deployed
+        required: true
+
+permissions:
+  id-token: write
+
+jobs:
+  deploy:
+    name: ${{ github.event.inputs.environment }} deployment
+    runs-on: ubuntu-latest
+    concurrency: ${{ github.event.inputs.environment }}
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy App to ${{ github.event.inputs.environment }}
+        id: deploy_app
+        uses: ./.github/actions/deploy-environment-aks/
+        with:
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          environment: ${{ github.event.inputs.environment }}
+          image-tag: ${{ github.event.inputs.image_tag }}
