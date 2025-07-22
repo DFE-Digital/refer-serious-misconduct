@@ -58,6 +58,7 @@ en:
         work_location: Name and address of the organisation where they’re employed
       allegation_details:
         details: How do you want to give details about the allegation?
+        hint: Please provide as much detail as possible about the allegation. The TRA will make a decision on whether or not to begin an investigation based on the details of the allegations about the teacher provided below.
         considerations: How this complaint has been considered
         dbs: Telling DBS about this case
       allegation_previous_misconduct:
