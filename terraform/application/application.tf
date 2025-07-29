@@ -40,6 +40,10 @@ module "web_application" {
   service_name = var.service_name
   probe_path   = "/health"
 
+  run_as_user     = "10001"
+  run_as_group    = "20001"
+  run_as_non_root = true
+
   cluster_configuration_map  = module.cluster_data.configuration_map
   kubernetes_config_map_name = module.application_configuration.kubernetes_config_map_name
   kubernetes_secret_name     = module.application_configuration.kubernetes_secret_name
