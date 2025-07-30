@@ -90,7 +90,7 @@ COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
 # Change ownership only for directories that need write access
-RUN chown -R appuser:appgroup /app/tmp
+RUN chown -R appuser:appgroup /app/tmp /app/jobs
 
 # Add the commit sha to the env
 ARG COMMIT_SHA

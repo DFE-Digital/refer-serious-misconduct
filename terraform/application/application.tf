@@ -40,8 +40,6 @@ module "web_application" {
   service_name = var.service_name
   probe_path   = "/health"
 
-  run_as_user     = "10001"
-  run_as_group    = "20001"
   run_as_non_root = true
 
   cluster_configuration_map  = module.cluster_data.configuration_map
@@ -59,6 +57,8 @@ module "web_application" {
 module "main_worker" {
   source     = "./vendor/modules/aks//aks/application"
   depends_on = [module.web_application]
+
+  run_as_non_root = true
 
   namespace                  = var.namespace
   environment                = var.environment
