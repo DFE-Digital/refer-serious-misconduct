@@ -40,6 +40,8 @@ module "web_application" {
   service_name = var.service_name
   probe_path   = "/health"
 
+  run_as_non_root = true
+
   cluster_configuration_map  = module.cluster_data.configuration_map
   kubernetes_config_map_name = module.application_configuration.kubernetes_config_map_name
   kubernetes_secret_name     = module.application_configuration.kubernetes_secret_name
@@ -55,6 +57,8 @@ module "web_application" {
 module "main_worker" {
   source     = "./vendor/modules/aks//aks/application"
   depends_on = [module.web_application]
+
+  run_as_non_root = true
 
   namespace                  = var.namespace
   environment                = var.environment
