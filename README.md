@@ -247,6 +247,20 @@ The Chromium version available inside Alpine needs to be kept in sync with the p
 [Alpine lastest chromium versions](https://pkgs.alpinelinux.org/packages?name=chromium&branch=edge&repo=&arch=&maintainer=)
 [Puppeteer releases](https://github.com/puppeteer/puppeteer/releases)
 
+### Accessing the Rails console through the Azure CLI
+
+We have a helpful command you can run that will connect you to the right Azure resource.
+You will need the [Azure CLI](https://docs.microsoft.com/en-gb/cli) installed and a [PIM (Privileged Identity Management) request](docs/privileged-identity-management-requests.md) for `production`, `preprod` and `test`.
+
+```bash
+make test railsc
+make preprod railsc
+make production railsc
+make review railsc PR_NUMBER=<PR_NUMBER>
+```
+
+The review app needs to be deployed first. You can do this manually by tagging a PR with the `deploy` label.
+
 ## Licence
 
 [MIT Licence](LICENCE).

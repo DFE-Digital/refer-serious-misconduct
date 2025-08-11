@@ -174,3 +174,14 @@ domains-plan: domains-init  ## Terraform plan for DNS environment domains. Usage
 
 domains-apply: domains-init ## Terraform apply for DNS environment domains. Usage: make development domains-apply
 	terraform -chdir=terraform/domains/environment_domains apply -var-file config/${CONFIG}.tfvars.json ${AUTO_APPROVE}
+
+# make qa railsc
+.PHONY: railsc
+railsc: get-cluster-credentials
+	$(eval CONFIG_FILE=terraform/application/config/$(CONFIG).tfvars.json)
+	$(if $(wildcard $(CONFIG_FILE)),,$(error Config file $(CONFIG_FILE) not found))
+	$(eval NAMESPACE=$(shell jq -r '.namespace // empty' $(CONFIG_FILE)))
+	$(if $(NAMESPACE),,$(error Namespace not found in $(CONFIG_FILE)))
+	@echo "Using namespace: $(NAMESPACE)"
+	@echo "Environment: $(CONFIG)"
+	kubectl -n $(NAMESPACE) exec -ti deployment/refer-serious-misconduct-$(ENVIRONMENT) -- rails c
