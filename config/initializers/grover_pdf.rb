@@ -6,6 +6,7 @@ Grover.configure do |config|
       bottom: "2cm",
       left: "1cm",
       right: "1cm"
-    }
+    },
+    launch_args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"]
   }
 end
