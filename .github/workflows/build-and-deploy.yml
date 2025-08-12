@@ -28,7 +28,7 @@ jobs:
     outputs:
       docker-image-tag: ${{ steps.build-image.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build and push docker image
         id: build-image
@@ -53,7 +53,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: ./.github/actions/deploy-environment-aks
         id: deploy_aks
@@ -95,7 +95,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Deploy to AKS
         uses: ./.github/actions/deploy-environment-aks
@@ -116,7 +116,7 @@ jobs:
       ENVIRONMENT_NAME: ${{ needs.deploy_aks.outputs.environment_name || 'dev'  }}
     if: failure()
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set Environment variables
         shell: bash
