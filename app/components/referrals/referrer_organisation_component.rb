@@ -1,5 +1,5 @@
 module Referrals
-  class ReferrerOrganisationComponent < ReferralFormBaseComponent
+  class ReferrerOrganisationComponent < Referrals::SummaryComponent
     def all_rows
       summary_rows [organisation_row]
     end

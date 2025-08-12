@@ -1,5 +1,5 @@
 module Referrals
-  class ReferrerDetailsComponent < ReferralFormBaseComponent
+  class ReferrerDetailsComponent < Referrals::SummaryComponent
     def rows
       complete_rows.tap { |rows| rows.insert(complete_rows.any? ? 1 : 0, summary_row(**email_row)) }
     end

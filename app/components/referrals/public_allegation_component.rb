@@ -1,5 +1,5 @@
 module Referrals
-  class PublicAllegationComponent < ReferralFormBaseComponent
+  class PublicAllegationComponent < Referrals::SummaryComponent
     def rows
       summary_rows [
                      allegation_details_format_row,

@@ -1,5 +1,5 @@
 module Referrals
-  class AllegationEvidenceComponent < ReferralFormBaseComponent
+  class AllegationEvidenceComponent < Referrals::SummaryComponent
     def all_rows
       summary_rows [anything_to_upload_row, evidence_row].compact
     end

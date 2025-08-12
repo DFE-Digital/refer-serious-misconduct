@@ -1,5 +1,5 @@
 module Referrals
-  class TeacherRoleComponent < ReferralFormBaseComponent
+  class TeacherRoleComponent < Referrals::SummaryComponent
     def all_rows
       summary_rows(
         [

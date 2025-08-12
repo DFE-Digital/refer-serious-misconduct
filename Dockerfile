@@ -6,7 +6,7 @@
 # WHEN WE UPDATE THIS WE HAVE TO KEEP PUPPETEER IN SYNC WITH THE VERSION OF CHROMIUM THAT GETS INSTALLED
 # Get the version `apk list chromium` in the running image and then update package.json https://pptr.dev/chromium-support#
 # This is used for rendering PDFs
-FROM ruby:3.3.0-alpine AS builder
+FROM ruby:3.4.4-alpine3.20 AS builder
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN apk add --update --no-cache tzdata && \
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
 # git: dependencies for bundle
-RUN apk add --no-cache build-base yarn postgresql14-dev git
+RUN apk add --no-cache build-base yarn postgresql15-dev git yaml-dev
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -59,7 +59,7 @@ RUN rm -rf log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
 # Build runtime image
-FROM ruby:3.3.0-alpine AS production
+FROM ruby:3.4.4-alpine3.20 AS production
 
 ENV GOVUK_NOTIFY_API_KEY=TestKey \
     HOSTING_DOMAIN=https://required-but-not-used
@@ -76,11 +76,16 @@ RUN apk add --update --no-cache tzdata && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-RUN apk add --no-cache libpq
-
-# install chromium and node for the PDF generation
-RUN apk add --no-cache nodejs
-RUN apk add --no-cache chromium
+RUN apk add --no-cache \
+    libpq \
+    nodejs \
+    chromium \
+    nodejs \
+    yarn \
+    udev \
+    dumb-init \
+    curl \
+    chromium=131.0.6778.108-r0
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
