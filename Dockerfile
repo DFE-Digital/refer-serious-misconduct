@@ -21,6 +21,9 @@ RUN apk add --update --no-cache tzdata && \
 # git: dependencies for bundle
 RUN apk add --no-cache build-base yarn postgresql15-dev git yaml-dev
 
+# Create non-root user and group with specific UIDs/GIDs (to match production stage)
+RUN addgroup -S appgroup -g 20001 && adduser -S appuser -G appgroup -u 10001
+
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
 
@@ -86,6 +89,9 @@ RUN apk add --no-cache \
     dumb-init \
     curl \
     chromium=131.0.6778.108-r0
+
+# Create non-root user and group with specific UIDs/GIDs
+RUN addgroup -S appgroup -g 20001 && adduser -S appuser -G appgroup -u 10001
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
