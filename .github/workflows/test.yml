@@ -48,7 +48,7 @@ jobs:
           GROVER_NO_SANDBOX: "true"
 
       - name: Test coverage report
-        uses: aki77/simplecov-report-action@v1
+        uses: aki77/simplecov-report-action@7fd5fa551dd583dd437a11c640b2a1cf23d6cdaa # Pinned to v1.5.2
         with:
           failedThreshold: 90
           token: ${{ secrets.GITHUB_TOKEN }}
