@@ -119,8 +119,8 @@ locals {
   allegations_storage_account_name = "${var.azure_resource_prefix}rsmalleg${local.storage_account_environment}sa"
 
   environment_variables = yamldecode(file("${path.module}/config/${var.config}.yml"))
-  ingress_domain  = "${var.service_name}-${var.environment}.${module.cluster_data.ingress_domain}"
-  external_domain = try(local.environment_variables["EXTERNAL_DOMAIN"], local.ingress_domain)
+  ingress_domain        = "${var.service_name}-${var.environment}.${module.cluster_data.ingress_domain}"
+  external_domain       = try(local.environment_variables["EXTERNAL_DOMAIN"], local.ingress_domain)
 
   federated_auth_secrets = var.enable_dfe_analytics_federated_auth ? {
     GOOGLE_CLOUD_CREDENTIALS = module.dfe_analytics[0].google_cloud_credentials
