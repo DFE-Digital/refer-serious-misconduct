@@ -1,4 +1,4 @@
-class ReferralFormBaseComponent < ViewComponent::Base
+class ReferralFormBaseComponent < ApplicationComponent
   include ActiveModel::Model
   include ApplicationHelper
   include AddressHelper

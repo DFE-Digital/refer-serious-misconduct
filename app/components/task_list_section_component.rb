@@ -1,10 +1,10 @@
-class TaskListSectionComponent < ViewComponent::Base
+class TaskListSectionComponent < ApplicationComponent
   attr_reader :number, :section
 
   delegate :label, :items, :path, to: :section
 
   def initialize(number:, section:)
-    super
+    super()
     @number = number
     @section = section
   end

@@ -1,8 +1,8 @@
-class TaskListComponent < ViewComponent::Base
+class TaskListComponent < ApplicationComponent
   attr_reader :sections
 
   def initialize(sections:)
-    super
+    super()
     @sections = sections
   end
 end

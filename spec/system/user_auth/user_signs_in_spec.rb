@@ -128,7 +128,7 @@ RSpec.feature "User accounts" do
   end
 
   def then_i_am_signed_in
-    within(".govuk-header") { expect(page).to have_content "Sign out" }
+    within(".govuk-service-navigation__container") { expect(page).to have_content "Sign out" }
   end
 
   def and_i_am_not_prompted_to_sign_in_again
@@ -142,12 +142,12 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_sign_out
-    within(".govuk-header") { click_on "Sign out" }
+    within(".govuk-service-navigation__container") { click_on "Sign out" }
   end
   alias_method :when_i_am_signed_out, :and_i_sign_out
 
   def when_i_sign_back_in
-    within(".govuk-header") { click_on "Sign in" }
+    within(".govuk-service-navigation__container") { click_on "Sign in" }
     and_i_submit_my_email
     when_i_provide_the_expected_otp
   end

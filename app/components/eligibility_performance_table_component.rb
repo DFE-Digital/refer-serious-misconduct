@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class EligibilityPerformanceTableComponent < ViewComponent::Base
+class EligibilityPerformanceTableComponent < ApplicationComponent
   include PerformanceTableHelpers
   include ActiveModel::Model
 

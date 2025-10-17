@@ -68,7 +68,7 @@ RSpec.feature "User accounts" do
   alias_method :and_i_provide_the_expected_otp, :when_i_provide_the_expected_otp
 
   def then_i_am_signed_in
-    within(".govuk-header") { expect(page).to have_content "Sign out" }
+    within(".govuk-service-navigation__container") { expect(page).to have_content "Sign out" }
   end
 
   def then_i_see_the_referrals_page
@@ -99,11 +99,11 @@ RSpec.feature "User accounts" do
   end
 
   def and_i_sign_out
-    within(".govuk-header") { click_on "Sign out" }
+    within(".govuk-service-navigation__container") { click_on "Sign out" }
   end
 
   def and_i_sign_back_in
-    within(".govuk-header") { click_on "Sign in" }
+    within(".govuk-service-navigation__container") { click_on "Sign in" }
     and_i_submit_my_email
     and_i_provide_the_expected_otp
   end

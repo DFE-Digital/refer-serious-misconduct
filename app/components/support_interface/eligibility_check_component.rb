@@ -1,5 +1,5 @@
 module SupportInterface
-  class EligibilityCheckComponent < ViewComponent::Base
+  class EligibilityCheckComponent < ApplicationComponent
     include ActiveModel::Model
     include ReferralHelper
 

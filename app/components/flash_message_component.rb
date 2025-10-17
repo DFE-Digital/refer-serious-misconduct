@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-class FlashMessageComponent < ViewComponent::Base
+class FlashMessageComponent < ApplicationComponent
   ALLOWED_PRIMARY_KEYS = %i[warning success].freeze
   DEVISE_PRIMARY_KEYS = { alert: :warning, notice: :success }.freeze
 
   def initialize(flash:)
-    super
+    super()
     @flash = flash.to_hash.symbolize_keys!
   end
 

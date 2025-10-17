@@ -1,5 +1,5 @@
 module ManageInterface
-  class ReferrerOrganisationComponent < ViewComponent::Base
+  class ReferrerOrganisationComponent < ApplicationComponent
     include ActiveModel::Model
     include ReferralHelper
     include AddressHelper
