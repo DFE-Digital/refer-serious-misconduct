@@ -23,69 +23,76 @@ module ApplicationHelper
   end
 
   def navigation
-    govuk_header(service_name:) do |header|
+    govuk_service_navigation(
+      service_name:,
+      navigation_items:
+    )
+  end
+
+  def navigation_items
+    [].tap do |navigation_items_array|
       case current_namespace
       when "manage", "staff", "support", "developer", "admin"
         if current_staff
           if current_staff.manage_referrals?
-            header.with_navigation_item(
-              active: current_page?(main_app.manage_interface_referrals_path),
+            navigation_items_array << {
+              current: current_page?(main_app.manage_interface_referrals_path),
               href: main_app.manage_interface_referrals_path,
               text: "Referrals"
-            )
+            }
           end
 
           if current_staff.view_support?
-            header.with_navigation_item(
-              active: current_page?(main_app.support_interface_validation_errors_path),
+            navigation_items_array << {
+              current: current_page?(main_app.support_interface_validation_errors_path),
               href: main_app.support_interface_validation_errors_path,
               text: "Validation Errors"
-            )
-            header.with_navigation_item(
-              active: current_page?(main_app.support_interface_eligibility_checks_path),
+            }
+            navigation_items_array << {
+              current: current_page?(main_app.support_interface_eligibility_checks_path),
               href: main_app.support_interface_eligibility_checks_path,
               text: "Eligibility Checks"
-            )
-            header.with_navigation_item(
-              active: request.path.start_with?("/support/staff"),
+            }
+            navigation_items_array << {
+              current: request.path.start_with?("/support/staff"),
               text: "Staff",
               href: main_app.support_interface_staff_index_path
-            )
+            }
           end
 
           if policy(:admin).index?
-            header.with_navigation_item(
-              active: request.path.start_with?("/admin/feedback"),
+            navigation_items_array << {
+              current: request.path.start_with?("/admin/feedback"),
               text: "Feedback",
               href: main_app.admin_interface_feedback_index_path
-            )
+            }
           end
 
           if current_staff.view_support? && HostingEnvironment.test_environment?
-            header.with_navigation_item(
-              active: request.path.start_with?(main_app.support_interface_test_users_path),
+            navigation_items_array << {
+              current: request.path.start_with?(main_app.support_interface_test_users_path),
               text: "Test Users",
               href: main_app.support_interface_test_users_path
-            )
+            }
           end
 
           if current_staff.developer?
-            header.with_navigation_item(
-              active: current_page?(main_app.developer_interface_feature_flags_path),
+            navigation_items_array << {
+              current: current_page?(main_app.developer_interface_feature_flags_path),
               href: main_app.developer_interface_feature_flags_path,
               text: "Features"
-            )
+            }
           end
 
-          header.with_navigation_item(href: main_app.manage_sign_out_path, text: "Sign out")
+          navigation_items_array << { href: main_app.manage_sign_out_path, text: "Sign out" }
         end
       else
         if FeatureFlags::FeatureFlag.active?(:referral_form)
-          if current_user
-            header.with_navigation_item(href: main_app.users_sign_out_path, text: "Sign out")
-          else
-            header.with_navigation_item(href: main_app.new_user_session_path, text: "Sign in")
-          end
+          navigation_items_array << if current_user
+                                      { href: main_app.users_sign_out_path, text: "Sign out" }
+                                    else
+                                      { href: main_app.new_user_session_path, text: "Sign in" }
+                                    end
         end
       end
     end

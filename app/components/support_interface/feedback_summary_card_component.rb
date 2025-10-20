@@ -1,5 +1,5 @@
 module SupportInterface
-  class FeedbackSummaryCardComponent < ViewComponent::Base
+  class FeedbackSummaryCardComponent < ApplicationComponent
     include ActiveModel::Model
 
     attr_accessor :feedback

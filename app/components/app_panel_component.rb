@@ -1,4 +1,4 @@
-class AppPanelComponent < ViewComponent::Base
+class AppPanelComponent < ApplicationComponent
   include ActiveModel::Model
 
   attr_accessor :referral, :rows, :title

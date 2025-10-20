@@ -51,6 +51,6 @@ RSpec.feature "Manage referrals and staff" do
   end
 
   def when_i_sign_out
-    within(".govuk-header") { click_on "Sign out" }
+    within(".govuk-service-navigation__container") { click_on "Sign out" }
   end
 end
