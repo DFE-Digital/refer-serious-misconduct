@@ -50,6 +50,8 @@ module "web_application" {
   command      = var.webapp_startup_command
 
   send_traffic_to_maintenance_page = var.send_traffic_to_maintenance_page
+
+  run_as_non_root = true
 }
 
 module "main_worker" {
@@ -71,4 +73,6 @@ module "main_worker" {
   probe_command              = ["pgrep", "-f", "sidekiq"]
   enable_logit               = var.enable_logit
   enable_gcp_wif             = true
+
+  run_as_non_root = true
 }
