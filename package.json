@@ -2,7 +2,7 @@
   "name": "app",
   "private": "true",
   "dependencies": {
-    "esbuild": "^0.25.11",
+    "esbuild": "^0.27.3",
     "govuk-frontend": "5.13.0",
     "sass": "^1.93.2",
     "puppeteer": "23.10.4"
