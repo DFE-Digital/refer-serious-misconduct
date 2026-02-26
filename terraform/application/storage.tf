@@ -32,6 +32,6 @@ resource "azurerm_storage_encryption_scope" "allegations-encryption" {
 
 resource "azurerm_storage_container" "uploads" {
   name                  = "uploads"
-  storage_account_name  = azurerm_storage_account.allegations.name
+  storage_account_id  = azurerm_storage_account.allegations.id
   container_access_type = "private"
 }
