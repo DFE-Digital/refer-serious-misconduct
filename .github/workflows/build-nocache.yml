@@ -37,7 +37,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
 
       - name: Fetch secrets from key vault
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         id: key-vault-secrets
         with:
           inlineScript: |
