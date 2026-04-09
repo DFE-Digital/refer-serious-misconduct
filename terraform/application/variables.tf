@@ -68,7 +68,7 @@ variable "statuscake_contact_groups" {
 }
 variable "enable_logit" {
   type    = bool
-  default = false
+  default = true
 }
 variable "enable_monitoring" {
   default     = false
