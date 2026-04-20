@@ -64,7 +64,6 @@ jobs:
             BACKUP_FILE=${BACKUP_FILE}
           fi
           echo "BACKUP_FILE=${BACKUP_FILE}" >> $GITHUB_ENV
-          echo "KEYVAULT_NAME=${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-inf-kv" >> $GITHUB_ENV
 
       - name: Backup AKS ${{ env.DEPLOY_ENV }} postgres
         uses: DFE-Digital/github-actions/backup-postgres@master
