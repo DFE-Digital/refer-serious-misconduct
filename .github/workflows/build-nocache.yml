@@ -30,28 +30,12 @@ jobs:
           reuse-cache: false
           snyk-token: ${{ secrets.SNYK_TOKEN }}
 
-      - uses: Azure/login@v2
-        with:
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-
-      - name: Fetch secrets from key vault
-        uses: azure/CLI@v2
-        id: key-vault-secrets
-        with:
-          inlineScript: |
-            SLACK_WEBHOOK=$(az keyvault secret show --name "SLACK-WEBHOOK" --vault-name  s189t01-rsm-ts-inf-kv --query "value" -o tsv)
-            echo "::add-mask::$SLACK_WEBHOOK"
-            echo "SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $GITHUB_OUTPUT
-
-      - name: Notify slack on failure
-        uses: rtCamp/action-slack-notify@master
+      - name: Notify teams channel failure
         if: ${{ failure() }}
+        uses: DFE-Digital/github-actions/send-to-teams-channel@master
         with:
-          SLACK_USERNAME: CI Deployment
-          SLACK_COLOR: failure
-          SLACK_ICON_EMOJI: ":github-logo:"
-          SLACK_TITLE: "Build failure"
-          SLACK_MESSAGE: ":alert: Rebuild docker cache failure :sadparrot:"
-          SLACK_WEBHOOK: ${{ steps.key-vault-secrets.outputs.SLACK_WEBHOOK }}
+          teams-webhook-url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          title: Build failure
+          service: ${{ vars.TEAMS_MSG_SERVICE_NAME }}
+          message: |
+            Rebuild docker cache failure
