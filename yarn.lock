@@ -652,10 +652,10 @@ get-uri@^6.0.1:
     debug "^4.3.4"
     fs-extra "^8.1.0"
 
-govuk-frontend@5.13.0:
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.13.0.tgz#11126d32a9ef0db17b19276253746da1ade4338b"
-  integrity sha512-6N3pHelWN7wftdM6e4YEzZAfattapa1gnd+Al6d5PUbfTr9D+T2dnphpNpjX75CTEhihlQqlL0RDQ3WIfZ3PSg==
+govuk-frontend@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-6.2.0.tgz#51ce06aa0e6d2c214749621fd12cedd77d4b1e33"
+  integrity sha512-PCRyQT+7kiV2dUz0Ku6Co+Nx4anOwJ7mAduXYbTQHK2krppBSynv9dBXtOYha/8j+LIzK7FqesTbJl9HD6ekHg==
 
 graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   version "4.2.11"
