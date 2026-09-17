@@ -10,4 +10,6 @@ module "domains" {
   host_name           = each.value.origin_hostname
   redirect_rules      = try(each.value.redirect_rules, [])
   rate_limit          = try(var.rate_limit, null)
+  allow_aks           = var.allow_aks
+  block_ip            = var.block_ip
 }
