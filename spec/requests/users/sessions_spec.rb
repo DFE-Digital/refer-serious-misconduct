@@ -57,5 +57,30 @@ RSpec.describe "User sign in" do
         end
       end
     end
+
+    context "when the email is blank" do
+      let!(:user) { create(:user) }
+      let(:email) { " " }
+
+      it "asks for an email instead of sending a code" do
+        expect { sign_in }.not_to have_enqueued_mail(UserMailer, :otp)
+
+        expect(response.body).to include("Enter your email")
+        expect(user.reload.secret_key).to be_nil
+      end
+    end
+
+    context "when the email is missing" do
+      let!(:user) { create(:user) }
+
+      it "asks for an email instead of sending a code" do
+        expect {
+          post "/users/session", params: { user: { unknown: "x" } }
+        }.not_to have_enqueued_mail(UserMailer, :otp)
+
+        expect(response.body).to include("Enter your email")
+        expect(user.reload.secret_key).to be_nil
+      end
+    end
   end
 end
