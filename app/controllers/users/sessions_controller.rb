@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   def create
-    self.resource = resource_class.find_or_initialize_by(sign_in_params)
+    self.resource =
+      resource_class.find_for_authentication(sign_in_params) || resource_class.new(sign_in_params)
 
     if resource.save
       resource.create_otp
