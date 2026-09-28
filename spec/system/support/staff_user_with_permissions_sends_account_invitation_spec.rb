@@ -69,15 +69,20 @@ RSpec.feature "Staff invitations" do
     fill_in "Email address", with: "test@example.com"
   end
 
+  def when_i_send_invitation
+    click_button "Send invitation", visible: false
+  end
+
   def and_i_send_invitation
     click_button "Send invitation", visible: false
+    expect(page).to have_content("An invitation email has been sent to test@example.com")
     perform_enqueued_jobs
   end
-  alias_method :when_i_send_invitation, :and_i_send_invitation
 
   def when_i_resend_invitation
     click_link "Resend invitation"
     click_button "Resend invitation"
+    expect(page).to have_content("Invitation sent")
     perform_enqueued_jobs
   end
 
