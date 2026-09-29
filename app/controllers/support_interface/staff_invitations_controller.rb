@@ -1,11 +1,11 @@
 module SupportInterface
   class StaffInvitationsController < SupportInterfaceController
     def edit
-      @staff = Staff.find(params[:id])
+      @staff = Staff.active.find(params[:id])
     end
 
     def update
-      @staff = Staff.find(params[:id])
+      @staff = Staff.active.find(params[:id])
 
       if @staff.invite!(current_staff)
         flash[:success] = "Invitation sent"
