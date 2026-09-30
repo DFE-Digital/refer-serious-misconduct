@@ -45,3 +45,5 @@
   :feedbacks:
     - email
     - improvement_suggestion
+  :uploads:
+    - filename
