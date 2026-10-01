@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   def create
-    self.resource = resource_class.find_or_initialize_by(sign_in_params)
+    self.resource = find_or_initialize_user
 
     if resource.save
       resource.create_otp
@@ -13,6 +13,14 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   private
+
+  # Without an email the lookup has no conditions and would match the first
+  # user, so a blank email builds a record that fails validation instead.
+  def find_or_initialize_user
+    return resource_class.new(sign_in_params) if sign_in_params[:email].blank?
+
+    resource_class.find_for_authentication(sign_in_params) || resource_class.new(sign_in_params)
+  end
 
   def sign_in_params
     resource_params.permit(:email)
