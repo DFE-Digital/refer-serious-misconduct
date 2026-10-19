@@ -113,6 +113,10 @@ variable "dataset_name" {
   default     = null
 }
 
+variable "postgres_version" {
+  default = 16
+}
+
 locals {
   postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"
   storage_account_environment      = var.config == var.environment ? var.config_short : replace(var.environment, "-", "")
