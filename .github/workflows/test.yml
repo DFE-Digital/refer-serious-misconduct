@@ -8,7 +8,7 @@ on:
 jobs:
   rspec:
     name: Rspec
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # ubuntu-26.04 has no Ruby build for our .ruby-version patch
 
     services:
       postgres:

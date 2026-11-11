@@ -9,7 +9,7 @@ on:
 jobs:
   prettier:
     name: Prettier
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # ubuntu-26.04 has no Ruby build for our .ruby-version patch
 
     steps:
       - name: Checkout code
@@ -23,7 +23,7 @@ jobs:
 
   rubocop:
     name: Rubocop
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # ubuntu-26.04 has no Ruby build for our .ruby-version patch
 
     steps:
       - name: Checkout code
