@@ -16,6 +16,7 @@ module "postgres" {
   azure_enable_high_availability = var.postgres_enable_high_availability
   azure_maintenance_window       = var.azure_maintenance_window
   server_version                 = var.postgres_version
+  use_airbyte                    = var.pg_airbyte_enabled
 }
 
 module "redis-cache" {
