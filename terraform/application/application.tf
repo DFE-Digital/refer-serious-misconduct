@@ -10,7 +10,7 @@ module "application_configuration" {
 
   is_rails_application = true
 
-  config_variables = {
+  config_variables = merge(local.airbyte_variables, {
     ENVIRONMENT_NAME           = var.environment
     PGSSLMODE                  = local.postgres_ssl_mode
     HOSTING_DOMAIN             = "https://${local.external_domain}"
@@ -22,12 +22,12 @@ module "application_configuration" {
     BIGQUERY_DATASET           = var.dataset_name
     BIGQUERY_PROJECT_ID        = "refer-serious-misconduct"
     BIGQUERY_TABLE_NAME        = "events"
-  }
+  })
   secret_variables = merge({
     DATABASE_URL             = module.postgres.url
     REDIS_URL                = module.redis-cache.url
     AZURE_STORAGE_ACCESS_KEY = azurerm_storage_account.allegations.primary_access_key
-  }, local.federated_auth_secrets)
+  }, local.federated_auth_secrets, local.airbyte_secrets)
 }
 
 module "web_application" {
