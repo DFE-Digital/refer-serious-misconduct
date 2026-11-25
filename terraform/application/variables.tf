@@ -117,6 +117,11 @@ variable "postgres_version" {
   default = 16
 }
 
+variable "pg_airbyte_enabled" {
+  description = "Enable logical replication on Postgres for Airbyte. Restarts the database server"
+  default     = false
+}
+
 locals {
   postgres_ssl_mode                = var.enable_postgres_ssl ? "require" : "disable"
   storage_account_environment      = var.config == var.environment ? var.config_short : replace(var.environment, "-", "")
