@@ -11,7 +11,7 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
 gem "devise_invitable"
-gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.14.2"
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.16.4"
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "govuk_feature_flags",
@@ -21,6 +21,9 @@ gem "jsbundling-rails"
 gem "logstash-logger", "~> 0.26.1"
 gem "logstop"
 gem "mail-notify"
+# representable (via dfe-analytics' BigQuery client) requires multi_json without
+# declaring it, and googleauth no longer pulls it in
+gem "multi_json"
 gem "okcomputer", "~> 1.18"
 gem "pagy"
 gem "pg", "~> 1.5"

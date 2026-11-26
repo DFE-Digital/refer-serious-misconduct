@@ -9,4 +9,8 @@ DfE::Analytics.configure do |config|
       ENV.fetch("BIGQUERY_DISABLE", disabled_by_default.to_s) != "true"
     end
   config.azure_federated_auth = ENV.include? "GOOGLE_CLOUD_CREDENTIALS"
+
+  # Perform airbyte checks on startup and allow airbyte config generation.
+  # Terraform only sets the dataset where Airbyte is enabled
+  config.airbyte_enabled = ENV["BIGQUERY_AIRBYTE_DATASET"].present?
 end
